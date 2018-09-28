@@ -1,0 +1,52 @@
+{
+"@context": {
+    "iata": "http://www.onerecordcargo.org/schema/"
+},
+    "iata:shipLetInItemLineID": {
+        "type": "N",
+        "description": "incremental record id",
+        "XML field code": "SLI901x"
+    },
+    "iata:shipLetInItemInvoiceLineNumber": {
+        "type": "N",
+        "description": "refers to the above invoice line as the first parent record",
+        "XML field code": "PKD601x"
+    },
+    "iata:shipLetInItemPackageLineID": {
+        "type": "N",
+        "description": "refers to the above package line as the second parent record",
+        "XML field code": "PKD134x"
+    },
+    "iata:shipLetInItemSerialNumber": {
+        "type": "T",
+        "description": "If applicable, individual product serial number for each product of the current line",
+        "XML field code": ""
+    },
+    "iata:shipLetInItemOtherReference": [{
+        "iata:shipLetInItemOtherReferenceType": {
+            "type": "T",
+            "description": "",
+            "XML field code": ""
+        },
+        "iata:shipLetInItemOtherReferenceValue": {
+            "type": "T",
+            "description": "",
+            "XML field code": ""
+        }
+        }],
+    "iata:shipLetInItemQuantity": {
+        "type": "N",
+        "description": "The quantity of items that share the same data within this record",
+        "XML field code": ""
+    },
+    "iata:shipLetInItemDestinationCountryCode": {
+        "type": "T",
+        "description": "",
+        "XML field code": "GDD001x"
+    },
+    "iata:shipLetInItemDestinationCountryName": {
+        "type": "T",
+        "description": "The name of the country of destination of the goods.",
+        "XML field code": ""
+    }
+}

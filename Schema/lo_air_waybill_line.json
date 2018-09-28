@@ -1,0 +1,164 @@
+{
+"@context": {
+    "iata": "http://www.onerecordcargo.org/schema/"
+},
+    "iata:awbLineID": {
+        "type": "N",
+        "description": "Identifies uniquely each line-item contained in the document",
+        "XML field code": "RTD001x"
+    },
+    "iata:awbLineQuantity": {
+        "type": "N",
+        "description": "Indicates the number of Loose Items and/or ULD's as accepted for carriage",
+        "XML field code": "RTD042x"
+    },
+    "iata:awbLineSLAC": {
+        "type": "N",
+        "description": "Shipper's Load and Count",
+        "XML field code": "RTD041x"
+    },
+    "iata:awbLineGrossWeight": {
+        "type": "N",
+        "description": "Indicates the gross weight. Element values limited to range 0.1-10000001",
+        "XML field code": "RTD022x"
+    },
+    "iata:awbLineRateClassCode": {
+        "type": "T",
+        "description": "Code representing a specific rate category",
+        "XML field code": "RTD701x"
+    },
+    "iata:awbLineHarmonizedCommodityCodeIssuer": {
+        "type": "T",
+        "description": "Number identifying goods for Customs or statistical purposes",
+        "XML field code": "RTD011x"
+    },
+    "iata:awbLineHarmonizedCommodityCodeValue": {
+        "type": "T",
+        "description": "Number identifying goods for Customs or statistical purposes",
+        "XML field code": "RTD012x"
+    },
+    "iata:awbLineCommodityCode": [{
+        "iata:awbLineCommodityCodeIssuer": {
+            "type": "T",
+            "description": "Reference identifying the type of standard code to be used for the Commodity Classification (Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade Classification)",
+            "XML field code": "PRD201x"
+        },
+        "iata:awbLineCommodityCodeValue": {
+            "type": "T",
+            "description": "Commodity Code used by Customs for tax and duties calculation",
+            "XML field code": "PRD202x"
+        },
+    "iata:awbLineCommodityItemNumber": {
+        "type": "T",
+        "description": "Indicates the specific commodity on which the rate class code is applied",
+        "XML field code": "RTD702x"
+    },
+    "iata:awbLineChargeable Weight": {
+        "type": "N",
+        "description": "Consignment net weight. Element values limited to range 0.1-10000001",
+        "XML field code": "RTD712x"
+    },
+    "iata:awbLineRateChargeDiscountAmount": {
+        "type": "N",
+        "description": "Indicates the amount of the rate, charge or discount. Element values limited to range 0.0001-99999999",
+        "XML field code": "RTD723x"
+    },
+    "iata:awbLineItemTotal Charge": {
+        "type": "N",
+        "description": "Indicates the total charge of an item",
+        "XML field code": "RTD732x"
+    },
+    "iata:awbLineRCP": {
+        "type": "T",
+        "description": "Indicates the point over which sector rates are combined (RCP). Must be a city code.",
+        "XML field code": "RTD801x"
+    },
+    "iata:awbLineULD": "O",
+    "iata:awbLineULDRateClassType": {
+        "type": "T",
+        "description": "Coded description of a Unit Load Device rate class",
+        "XML field code": "RTD901x"
+    },
+    "iata:awbLineRateClassCodeBasis": {
+        "type": "T",
+        "description": "Basis on which the Rate Class Code is applicable",
+        "XML field code": "RTD902x"
+    },
+    "iata:awbLineClassRatingPercentage": {
+        "type": "N",
+        "description": "",
+        "XML field code": "RTD903x"
+    },
+    "iata:awbLineRateReferenceCode": {
+        "type": "T",
+        "description": "A unique code to indicate the applicable rate",
+        "XML field code": "RTD904x"
+    },
+    "iata:awbLineRateReferenceType": {
+        "type": "T",
+        "description": "Indicate the type of rate reference e.g. contract, adhoc etc",
+        "XML field code": "RTD905x"
+    },
+    "iata:awbLineRatingTypeIndicator": {
+        "type": "T",
+        "description": "F for Face, P for Published, or A for Actual Rating detail. Face Rate refers to the freight rate mentioned on the Air Waybill. Actual Rate refers to the actual freight rate applied to the Shipmentl. Published Rate refers to the freight rate that is public information (e.g. TACT) and therefore largely indisputable. Note: There is possibility that Face rate is the same as Published rate. Note: FWB v 17 supports only the Face value rating. Default Rating Type Indicator value is F i.e. Face",
+        "XML field code": "RTH001x"
+    },
+    "iata:awbLineTotalChargeDiscountAmount": {
+        "type": "N",
+        "description": "Indicates the total amount of the charge or discount. Element values limited to range 0.000-999999999999",
+        "XML field code": "RTH012x"
+    },
+    "iata:awbLineGoodsDescription": {
+        "type": "T",
+        "description": "Contains a Text description of an consignment item level (e.g. Description for Dangerous Goods)",
+        "XML field code": "RTD101x"
+    },
+    "iata:awbLineOriginCountry": {
+        "type": "T",
+        "description": "Contains the ISO Country Codes ISO 3166-1/1998. UNECE Recommendation N. 3 - Code for the Representation of Names of Countries",
+        "XML field code": "RTD201x"
+    },
+    "iata:awbLineNoDimensionAvailable": {
+        "type": "T",
+        "description": "This field should be completed with NDA (No Dimension Available)",
+        "XML field code": "RTD044x"
+    },
+    "iata:awbLinePackageWidth": {
+        "type": "N",
+        "description": "",
+        "XML field code": "RTD612x"
+    },
+    "iata:awbLinePackageLength": {
+        "type": "N",
+        "description": "",
+        "XML field code": "RTD622x"
+    },
+    "iata:awbLinePackageHeight": {
+        "type": "N",
+        "description": "",
+        "XML field code": "RTD632x"
+    },
+    "iata:awbLineVolumeAmount": {
+        "type": "N",
+        "description": "Cubic measure of a consignment. Element values limited to range 0.01-1000000001",
+        "XML field code": "RTD032x"
+    },
+    "iata:awbLineCustomsOriginCode": {
+        "type": "T",
+        "description": "Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) List to be provided by local customs authorities",
+        "XML field code": "COR001x"
+    },
+    "iata:awbLineChargeCode": {
+        "type": "T",
+        "description": "",
+        "XML field code": "LSC001x"
+    },
+    "iata:awbLineServiceCode": {
+        "type": "T",
+        "description": "Code to identify cargo products",
+        "XML field code": "LSC002x"
+    },
+    "iata:awbLineReferenceDocument": "O",
+    "iata:awbLinePackageDetail": "O"
+}
