@@ -1,2 +1,2 @@
 These are the logistics objects schemas. 
-(there may be a couple of invalid JSON formats but most are OK)
+A new release on 27 October. There are now full schemas for documents and data objects.
