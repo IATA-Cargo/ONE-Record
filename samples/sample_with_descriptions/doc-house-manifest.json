@@ -1,0 +1,221 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/doc-house-manifest/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "house-manifest-head":
+      {
+      "HouseManifestID": "House Manifest unique identifier",
+      "Date": "House Manifest date"
+   },
+    "house-manifest-master-waybill":
+      {
+      "WaybillNumber": "Air Waybill number",
+      "TotalGrossWeight": "Total gross weight",
+      "TotalPieceCount": "Total piece count",
+      "OriginLocation": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+         "Code": "Location code of airport, freight terminal, seaport, rail station…",
+         "Name": "Location name",
+         "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+         "OriginAddress": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note"
+         }
+      },
+      "DestinationLocation": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+         "Code": "Location code of airport, freight terminal, seaport, rail station…",
+         "Name": "Location name",
+         "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+         "DestinationAddress": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note"
+         }
+      }
+   },
+    "house-manifest-other-customs-info":
+      [{
+      "CountryCode": "Country ISO code",
+      "CustomsSubjectCode": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
+      "CustomsContentCode": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
+      "SupplementaryCustomsInformation": "Supplementary party or location information for customs reporting"
+   }],
+    "house-manifest-line":
+      [{
+      "LineID": "Unique line identifier",
+      "HouseWaybillHead": {
+         "HouseWaybillNumber": "House Waybill number",
+         "Date": "House Waybill date",
+         "WeightUnitCode": "Weight unit code for the invoice",
+         "DimensionsUnitCode": "Dimensions unit code for the invoice",
+         "VolumeUnitCode": "Volume unit code for the invoice",
+         "HeadNote": "Head free text note",
+         "ShipmentTypeCode": "Total, part or split consignment indicator",
+         "LoadTypeCode": "Bulk or containerized (BLK or ULD) indicator",
+         "DeckPosition": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+         "ConsolDirectLCflag": "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit",
+         "GoodsDescription": "Description of goods",
+         "ProductID": "Carrier product / service code",
+         "DensityGroup": "Density group of goods",
+         "CustomsOriginCode": "Customs transit status / information / reference / code",
+         "FreightRateTypeCode": "Freight Rate Type Code",
+         "RatingTypeIndicator": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
+         "PrepaidCollectFlag": {
+            "WeightValuationCharges": "Weight Valuation payment code - e.g. at origin (prepaid) or at destination (collect)",
+            "OtherCharges": "Other Charges payment code - e.g. at origin (prepaid) or at destination (collect)"
+         },
+         "OriginLocation": {
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "OriginAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         },
+         "DestinationLocation": {
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "DestinationAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      },
+      "HouseWaybillTotals": {
+         "ProductLine": {
+            "TotalLineCount": "Total number of product lines"
+         },
+         "Piece": {
+            "TotalPieceCount": "Total number of pieces",
+            "TotalSLAC": "Total Shipper's Load and Count",
+            "TotalULDCount": "Total count of Piece lines with ULD description",
+            "TotalNetWeight": "Total goods net weight (sum of pieces net weight)",
+            "TotalTareWeight": "Total tare weight (sum of pieces tare weight) ",
+            "TotalGrossWeight": "Total goods gross weight (sum of pieces gross weight) ",
+            "TotalVolume": "Total goods volume (sum of pieces volume)"
+         },
+         "WaybillLine": {
+            "TotalLineCount": "Total number of lines",
+            "TotalPieceCount": "Total number of pieces",
+            "TotalSLAC": "Total Shipper's Load and Count",
+            "TotalGrossWeight": "Total gross weight",
+            "TotalVolume": "Total volume",
+            "TotalChargeableWeight": "Total chargeable weight"
+         }
+      },
+      "HouseWaybillHandling": {
+         "SpecialHandlingCode": [{
+            "Code": "Special handling code following IATA standards",
+            "Description": "Special handling description following IATA standards"
+         }],
+         "SpecialServiceRequest": [{
+            "Code": "Special service request code",
+            "Description": "Special service request description"
+         }],
+         "OtherServiceInfo": [{
+            "Code": "Other service code",
+            "Description": "Other service description"
+         }]
+      },
+      "HouseWaybillReferenceDocs": [{
+         "DocumentType": "Type of the referenced document",
+         "DocumentName": "Name of the referenced document - must correspond to DocumentType",
+         "DocumentID": "Unique document identifier",
+         "DocumentIDAdditional": "Additional document identifier",
+         "DocumentDate": "Document date",
+         "DocumentLineID": "Document's line number ",
+         "Note": "Free text note"
+      }],
+      "HouseWaybillCustomsInfo": [{
+         "CountryCode": "Country ISO code",
+         "CustomsSubjectCode": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
+         "CustomsContentCode": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
+         "SupplementaryCustomsInformation": "Supplementary party or location information for customs reporting"
+      }]
+   }],
+    "house-manifest-totals":
+      {
+      "TotalLineCount": "Total Number of Lines",
+      "TotalPieceCount": "Total number of pieces",
+      "TotalSLAC": "Total Shipper's Load and Count",
+      "TotalGrossWeight": "Total Gross Weight"
+   }
+
+}

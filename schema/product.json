@@ -1,0 +1,156 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/product/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "product":
+      {
+      "IDseller": {
+         "description": "none",
+         "type": "text"
+      },
+      "IDsellerAdditional": {
+         "description": "none",
+         "type": "text"
+      },
+      "BarCode": {
+         "description": "none",
+         "type": "text"
+      },
+      "IDbuyer": {
+         "description": "none",
+         "type": "text"
+      },
+      "IDbuyerAdditional": {
+         "description": "none",
+         "type": "text"
+      },
+      "IDother": {
+         "Issuer": {
+            "description": "none",
+            "type": "text"
+         },
+         "Value": {
+            "description": "none",
+            "type": "text"
+         },
+         "ValueAdditional": {
+            "description": "none",
+            "type": "text"
+         }
+      },
+      "UNDGcode": {
+         "description": "none",
+         "type": "text"
+      },
+      "CommodityCode": {
+         "Issuer": {
+            "description": "none",
+            "type": "text"
+         },
+         "Value": {
+            "description": "none",
+            "type": "text"
+         }
+      },
+      "ProductDescription": {
+         "description": "none",
+         "type": "text"
+      },
+      "Manufacturer": {
+         "description": "none",
+         "type": "data object or group"
+      },
+      "OriginCountry": {
+         "Code": {
+            "description": "none",
+            "type": "text"
+         },
+         "Name": {
+            "description": "none",
+            "type": "text"
+         }
+      },
+      "Characteristic": {
+         "Code": {
+            "description": "none",
+            "type": "text"
+         },
+         "Description": {
+            "description": "none",
+            "type": "text"
+         },
+         "Value": {
+            "description": "none",
+            "type": "text"
+         }
+      },
+      "Weight": {
+         "NetWeight": {
+            "description": "none",
+            "type": "numeric"
+         },
+         "GrossWeight": {
+            "description": "none",
+            "type": "numeric"
+         }
+      },
+      "Dimensions": {
+         "Width": {
+            "description": "none",
+            "type": "numeric"
+         },
+         "Length": {
+            "description": "none",
+            "type": "numeric"
+         },
+         "Height": {
+            "description": "none",
+            "type": "numeric"
+         },
+         "Volume": {
+            "description": "none",
+            "type": "numeric"
+         }
+      },
+      "Price": {
+         "UnitPrice": {
+            "description": "none",
+            "type": "numeric"
+         },
+         "UnitCode": {
+            "description": "none",
+            "type": "text"
+         },
+         "QuantityForUnitPrice": {
+            "description": "none",
+            "type": "numeric"
+         }
+      }
+   }
+}

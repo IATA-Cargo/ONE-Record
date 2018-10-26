@@ -1,0 +1,54 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/insurance/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "insurance":
+      {
+      "PayingParty": {
+         "description": "none",
+         "type": "text"
+      },
+      "insuranceCompany": {
+         "description": "none",
+         "type": "data object or group"
+      },
+      "PolicyNumber": {
+         "description": "none",
+         "type": "text"
+      },
+      "InsuredAmount": {
+         "description": "none",
+         "type": "numeric"
+      },
+      "Charge": {
+         "description": "none",
+         "type": "numeric"
+      }
+   }
+}

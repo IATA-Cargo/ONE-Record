@@ -1,0 +1,1225 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/booking/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "booking-head":
+      {
+      "BookingRequestNumber": "Booking unique identifier",
+      "Date": "Booking date",
+      "WeightUnitCode": "Weight unit code for the invoice",
+      "DimensionsUnitCode": "Dimensions unit code for the invoice",
+      "VolumeUnitCode": "Volume unit code for the invoice",
+      "SenderReference": "Booking sender reference",
+      "NoteQualifier": "Booking head note type indicator",
+      "HeadNote": "Booking head free text note",
+      "WaybillNumber": "Air Waybill number",
+      "ShipmentTypeCode": "Total, part or split consignment indicator",
+      "LoadTypeCode": "Bulk or containerized (BLK or ULD) indicator",
+      "DeckPosition": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+      "ConsolDirectLCflag": "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit",
+      "GoodsDescription": "Description of goods",
+      "ProductID": "Carrier product / service code",
+      "DensityGroup": "Density group of goods",
+      "CustomsOriginCode": "Customs transit status / information / reference / code",
+      "RatingTypeIndicator": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
+      "PrepaidCollectFlag": {
+         "WeightValuationCharges": "Weight Valuation payment code - e.g. at origin (prepaid) or at destination (collect)",
+         "OtherCharges": "Other Charges payment code - e.g. at origin (prepaid) or at destination (collect)"
+      },
+      "OriginLocation": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+         "Code": "Location code of airport, freight terminal, seaport, rail station…",
+         "Name": "Location name",
+         "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+         "OriginAddress": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note",
+            "GeoLocation": {
+               "LatitudeDecimal": "Location latitude in decimals",
+               "LongitudeDecimal": "Location longitude in decimals",
+               "AltitudeMetric": "Altittude from sea level",
+               "DockElevationMetric": "Dock elevation in meters from building's ground level",
+               "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+               "DockFloor": "Floor number of building where dock is located",
+               "DockID": "Dock identification for landing",
+               "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+               "Note": "Free text note"
+            }
+         }
+      },
+      "DestinationLocation": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+         "Code": "Location code of airport, freight terminal, seaport, rail station…",
+         "Name": "Location name",
+         "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+         "DestinationAddress": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note",
+            "GeoLocation": {
+               "LatitudeDecimal": "Location latitude in decimals",
+               "LongitudeDecimal": "Location longitude in decimals",
+               "AltitudeMetric": "Altittude from sea level",
+               "DockElevationMetric": "Dock elevation in meters from building's ground level",
+               "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+               "DockFloor": "Floor number of building where dock is located",
+               "DockID": "Dock identification for landing",
+               "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+               "Note": "Free text note"
+            }
+         }
+      }
+   },
+    "booking-shipment-reference":
+      [{
+      "DocumentID": "Reference number allocated to a consignment as per shipper / agent / issuing carrier agreement",
+      "DocumentIDAdditional": "Additional shipment information that supplements the reference number",
+      "FreightForwarderReferenceNumber": "Freight Forwarder reference used to identify a specific booking or file",
+      "OtherPartyReferenceNumber": "Other party reference used to identify a specific booking or file",
+      "CustomsReferenceNumber": "Unique identification number assigned by the Customs to the related invoice - e.g. UCR"
+   }],
+    "booking-reference-document":
+      [{
+      "DocumentType": "Type of the referenced document",
+      "DocumentName": "Name of the referenced document - must correspond to DocumentType",
+      "DocumentID": "Unique document identifier",
+      "DocumentIDAdditional": "Additional document identifier",
+      "DocumentDate": "Document date",
+      "DocumentLineID": "Document's line number ",
+      "Note": "Free text note"
+   }],
+    "booking-currency":
+      {
+      "BaseCurrency": "Base or origin currency - ISO alpha 3 code",
+      "TargetCurrency": "Target or destination currency - ISO alpha 3 code",
+      "ExchangeRateFor1BaseUnit": "Amount of target currency for 1 unit of base currency - e.g. [amount in base currency] x [exchange rate] = [amount in target currency]",
+      "ExchangeRateDate": "Exchange rate date"
+   },
+    "booking-shipper":
+      {
+      "Name": "Name of company or organization",
+      "ID": "Company's unique identifier",
+      "AccountNumber": "Company's account number",
+      "LegalRegistrationNumber": "Company's legal registration number at the specified address",
+      "TaxID": "Company's tax ID at the specified address  ",
+      "Note": "Free text note",
+      "IDother": [{
+         "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+         "Value": "Unique company identifier ",
+         "Note": "Free text note"
+      }],
+      "Address": {
+         "LocationName": "Full name of the location / facility",
+         "StreetName": "Street name",
+         "StreetNumber": "Street address number",
+         "BuildingID": "Building number / code",
+         "AppartmentID": "Appartment number / code",
+         "PObox": "Post Office box number / code",
+         "PostalCode": "Postal / ZIP code",
+         "CityCode": "UN/LOCODE city code ",
+         "CityName": "Full name of the city ",
+         "RegionCode": "UN/LOCODE region code ",
+         "CountryCode": "ISO country code",
+         "CountryName": "Country name",
+         "Note": "Free text note"
+      },
+      "Person": [{
+         "FullName": "Person full name",
+         "Salutation": "Salutation ",
+         "FirstName": "First name / given name",
+         "MiddleName": "Middle name",
+         "LastName": "Last name / family name / surname",
+         "JobTitle": "Job title / position",
+         "Department": "Department / Division / Unit",
+         "Note": "Free text note",
+         "Contact": [{
+            "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+            "PhoneNumber": "Phone number",
+            "FaxNumber": "Fax number",
+            "EmailAddress": "Email address",
+            "Note": "Free text note"
+         }],
+         "ContactOther": [{
+            "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+            "Value": "Unique contact identifier",
+            "Note": "Free text note"
+         }]
+      }]
+   },
+    "booking-consignee":
+      {
+      "Name": "Name of company or organization",
+      "ID": "Company's unique identifier",
+      "AccountNumber": "Company's account number",
+      "LegalRegistrationNumber": "Company's legal registration number at the specified address",
+      "TaxID": "Company's tax ID at the specified address  ",
+      "Note": "Free text note",
+      "IDother": [{
+         "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+         "Value": "Unique company identifier ",
+         "Note": "Free text note"
+      }],
+      "Address": {
+         "LocationName": "Full name of the location / facility",
+         "StreetName": "Street name",
+         "StreetNumber": "Street address number",
+         "BuildingID": "Building number / code",
+         "AppartmentID": "Appartment number / code",
+         "PObox": "Post Office box number / code",
+         "PostalCode": "Postal / ZIP code",
+         "CityCode": "UN/LOCODE city code ",
+         "CityName": "Full name of the city ",
+         "RegionCode": "UN/LOCODE region code ",
+         "CountryCode": "ISO country code",
+         "CountryName": "Country name",
+         "Note": "Free text note"
+      },
+      "Person": [{
+         "FullName": "Person full name",
+         "Salutation": "Salutation ",
+         "FirstName": "First name / given name",
+         "MiddleName": "Middle name",
+         "LastName": "Last name / family name / surname",
+         "JobTitle": "Job title / position",
+         "Department": "Department / Division / Unit",
+         "Note": "Free text note",
+         "Contact": [{
+            "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+            "PhoneNumber": "Phone number",
+            "FaxNumber": "Fax number",
+            "EmailAddress": "Email address",
+            "Note": "Free text note"
+         }],
+         "ContactOther": [{
+            "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+            "Value": "Unique contact identifier",
+            "Note": "Free text note"
+         }]
+      }]
+   },
+    "booking-freight-forwarder":
+      {
+      "Name": "Name of company or organization",
+      "ID": "Company's unique identifier",
+      "AccountNumber": "Company's account number",
+      "LegalRegistrationNumber": "Company's legal registration number at the specified address",
+      "TaxID": "Company's tax ID at the specified address  ",
+      "IATAcargoAccreditationNumber": "IATA accredited cargo agent number or identifier",
+      "IATAcargoCASSnumber": "IATA CASS cargo agent branch number or identifier",
+      "PIMAid": "Participant Identification and Message Addressing - air cargo industry EDI messaging address",
+      "Note": "Free text note",
+      "IDother": [{
+         "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+         "Value": "Unique company identifier ",
+         "Note": "Free text note"
+      }],
+      "Address": {
+         "LocationName": "Full name of the location / facility",
+         "StreetName": "Street name",
+         "StreetNumber": "Street address number",
+         "BuildingID": "Building number / code",
+         "AppartmentID": "Appartment number / code",
+         "PObox": "Post Office box number / code",
+         "PostalCode": "Postal / ZIP code",
+         "CityCode": "UN/LOCODE city code ",
+         "CityName": "Full name of the city ",
+         "RegionCode": "UN/LOCODE region code ",
+         "CountryCode": "ISO country code",
+         "CountryName": "Country name",
+         "Note": "Free text note"
+      },
+      "Person": [{
+         "FullName": "Person full name",
+         "Salutation": "Salutation ",
+         "FirstName": "First name / given name",
+         "MiddleName": "Middle name",
+         "LastName": "Last name / family name / surname",
+         "JobTitle": "Job title / position",
+         "Department": "Department / Division / Unit",
+         "Note": "Free text note",
+         "Contact": [{
+            "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+            "PhoneNumber": "Phone number",
+            "FaxNumber": "Fax number",
+            "EmailAddress": "Email address",
+            "Note": "Free text note"
+         }],
+         "ContactOther": [{
+            "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+            "Value": "Unique contact identifier",
+            "Note": "Free text note"
+         }]
+      }]
+   },
+    "booking-other-party":
+      [{
+      "Role": "Other party's role - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+      "Company": {
+         "Name": "Name of company or organization",
+         "ID": "Company's unique identifier",
+         "AccountNumber": "Company's account number",
+         "LegalRegistrationNumber": "Company's legal registration number at the specified address",
+         "TaxID": "Company's tax ID at the specified address  ",
+         "Note": "Free text note",
+         "IDother": [{
+            "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+            "Value": "Unique company identifier ",
+            "Note": "Free text note"
+         }],
+         "Address": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note"
+         },
+         "Person": [{
+            "FullName": "Person full name",
+            "Salutation": "Salutation ",
+            "FirstName": "First name / given name",
+            "MiddleName": "Middle name",
+            "LastName": "Last name / family name / surname",
+            "JobTitle": "Job title / position",
+            "Department": "Department / Division / Unit",
+            "Note": "Free text note",
+            "Contact": [{
+               "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+               "PhoneNumber": "Phone number",
+               "FaxNumber": "Fax number",
+               "EmailAddress": "Email address",
+               "Note": "Free text note"
+            }],
+            "ContactOther": [{
+               "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+               "Value": "Unique contact identifier",
+               "Note": "Free text note"
+            }]
+         }]
+      }
+   }],
+    "booking-accounting":
+      [{
+      "Item": "Accounting information item identifier",
+      "ItemValue": "Accounting information Item value - e.g PAYMENT BY CERTIFIED CHEQUE… "
+   }],
+    "booking-handling":
+      {
+      "SpecialHandlingCode": [{
+         "Code": "Special handling code following IATA standards",
+         "Description": "Special handling description following IATA standards"
+      }],
+      "SpecialServiceRequest": [{
+         "Code": "Special service request code",
+         "Description": "Special service request description"
+      }],
+      "OtherServiceInfo": [{
+         "Code": "Other service code",
+         "Description": "Other service description"
+      }]
+   },
+    "booking-piece":
+      [{
+      "LineID": "Unique line identifier",
+      "PieceID": {
+         "UPIDIssuer": "Issuer of the UPID identifier - e.g. GS1…",
+         "UPID": "Unique Piece Identifier for the piece / package - e.g. GS1 SSCC-18 code ",
+         "ShippingMarks": "Free text the marks and / or numbers shown on a piece / package / pallet / ULD",
+         "Seal": "Seal identifier "
+      },
+      "ReferenceDocument": [{
+         "DocumentType": "Type of the referenced document",
+         "DocumentName": "Name of the referenced document - must correspond to DocumentType",
+         "DocumentID": "Unique document identifier",
+         "DocumentIDAdditional": "Additional document identifier",
+         "DocumentDate": "Document date",
+         "DocumentLineID": "Document's line number ",
+         "Note": "Free text note"
+      }],
+      "Goods": {
+         "ContentDescription": "General description of the piece contents (not a detailed description of products / items / articles contained within)",
+         "CustomsOriginCode": "Customs transit status / information / reference / code"
+      },
+      "PackageType": {
+         "Code": "Packaging type identifier as per UN.ECE Rec 20 Annex II",
+         "Description": "Packaging type description as per UN.ECE Rec 20 Annex II"
+      },
+      "ULD": {
+         "Type": "Standard Unit Load Device type code",
+         "ATAdesignator": "US / ATA Unit Load Device type code",
+         "LoadingIndicator": "ULD height or loading limitation code",
+         "SerialNumber": "ULD serial number",
+         "OwnerCodeIssuer": "Issuer of the ULD owner code ",
+         "OwnerCode": "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company",
+         "OwnerCompany": {
+            "Name": "Name of company or organization",
+            "Note": "Free text note",
+            "IDother": [{
+               "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+               "Value": "Unique company identifier ",
+               "Note": "Free text note"
+            }],
+            "Address": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note"
+            },
+            "Person": [{
+               "FullName": "Person full name",
+               "Salutation": "Salutation ",
+               "FirstName": "First name / given name",
+               "MiddleName": "Middle name",
+               "LastName": "Last name / family name / surname",
+               "JobTitle": "Job title / position",
+               "Department": "Department / Division / Unit",
+               "Note": "Free text note",
+               "Contact": [{
+                  "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+                  "PhoneNumber": "Phone number",
+                  "FaxNumber": "Fax number",
+                  "EmailAddress": "Email address",
+                  "Note": "Free text note"
+               }],
+               "ContactOther": [{
+                  "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+                  "Value": "Unique contact identifier",
+                  "Note": "Free text note"
+               }]
+            }]
+         }
+      },
+      "SLAC": "Shipper's Load And Count - number of individual pieces provided by the shipper (loose, palletized or in the ULD)",
+      "Weight": {
+         "NetWeight": "Net weight of the contents of the piece / package",
+         "TareWeight": "Weight of empty packaging, pallet or ULD for the piece",
+         "GrossWeight": "Total weight of piece / package / pallet / ULD"
+      },
+      "Dimensions": {
+         "Width": "Width",
+         "Length": "Lenght",
+         "Height": "Height",
+         "Volume": "Volume"
+      },
+      "LinkedItem": [{
+         "ItemURI": "Link to item details"
+      }],
+      "LinkedMovement": [{
+         "SequenceNumber": "Sequence number of the movement for this piece",
+         "MovementURI": "Link to movement details",
+         "SpaceAllocationDetails": "Space allocation request / action / confirmation code or details",
+         "AllotmentDetails": "Guaranteed Capacity reference details",
+         "ExceptionHandlingDetails": "Exception handling code or details"
+      }],
+      "ContainedPiece": [{
+      }]
+   }],
+    "booking-waybill-line":
+      [{
+      "LineID": "Unique line identifer",
+      "ReferenceDocument": {
+         "DocumentType": "Type of the referenced document",
+         "DocumentName": "Name of the referenced document - must correspond to DocumentType",
+         "DocumentID": "Unique document identifier",
+         "DocumentIDAdditional": "Additional document identifier",
+         "DocumentDate": "Document date",
+         "DocumentLineID": "Document's line number ",
+         "Note": "Free text note"
+      },
+      "Quantity": {
+         "TotalPieceCount": "Number of pieces / packages / ULDs",
+         "SLAC": "Shipper's Load and Count"
+      },
+      "Dimensions": {
+         "NoDimensionAvailable": "NDA (No Dimensions Available) indicator",
+         "Width": "Width of piece / package / ULD",
+         "Length": "Length of piece / package / ULD",
+         "Height": "Height of piece / package / ULD",
+         "Volume": "Volume of piece / package / ULD"
+      },
+      "Weight": {
+         "GrossWeight": "Gross weight of piece / package / ULD",
+         "VolumeToWeightConversionFactor": "Volume to weight conversion factor",
+         "ChargeableWeight": "Chargeable weight"
+      },
+      "Goods": {
+         "Description": "Generic text description of the goods ",
+         "OriginCountryCode": "Origin country ISO code of the goods",
+         "HarmonizedCommodityCode": {
+            "Issuer": "Issuer of Harmonized Commodity codes - e.g. WCO…",
+            "Value": "Harmonized Commodity code"
+         },
+         "CommodityCode": [{
+            "Issuer": "Issuer of commodity classification codes - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard...International Trade Classification",
+            "Value": "Commodity code"
+         }]
+      },
+      "Rating": {
+         "RatingTypeIndicator": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
+         "RateClassCode": "Commodity identifier on which the rate class code is applied",
+         "CommodityItemNumber": "Rate category code",
+         "RateChargeDiscountAmount": "Rate, charge or discount amount",
+         "RCP": "City code of Rate Combination Point (RCP), the point over which sector rates are combined",
+         "ULDRateClassType": "Unit Load Device rate class type",
+         "RateClassCodeBasis": "Basis on which the Rate Class Code is applicable",
+         "ClassRatingPercentage": "Rating class percentage",
+         "RateReferenceCode": "A unique code to indicate the applicable rate",
+         "RateReferenceType": "Type of rate - e.g. contract, adhoc, etc.",
+         "ItemTotalCharge": "Total charge of for this line item"
+      },
+      "PieceDetail": [{
+      }]
+   }],
+    "booking-product-line":
+      [{
+      "LineID": "Unique line identifier",
+      "Note": "Free text note",
+      "ReferenceDocument": {
+         "DocumentType": "Type of the referenced document",
+         "DocumentName": "Name of the referenced document - must correspond to DocumentType",
+         "DocumentID": "Unique document identifier",
+         "DocumentIDAdditional": "Additional document identifier",
+         "DocumentDate": "Document date",
+         "DocumentLineID": "Document's line number ",
+         "Note": "Free text note"
+      },
+      "Product": {
+         "IDseller": "Seller's unique product identifier",
+         "IDsellerAdditional": "Seller's additional product identifier",
+         "BarCode": "Product bar code",
+         "IDbuyer": "Buyer's unique product identifier",
+         "IDbuyerAdditional": "Buyer's additional product identifier",
+         "IDother": [{
+            "Issuer": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
+            "Value": "Unique product identifier",
+            "ValueAdditional": "Additional product identification "
+         }],
+         "UNDGcode": "UN Dangerous Goods serial number ",
+         "CommodityCode": [{
+            "Issuer": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
+            "Value": "Unique Commodity Code "
+         }],
+         "ProductDescription": "Product description",
+         "Manufacturer": {
+            "Name": "Name of company or organization",
+            "ID": "Company's unique identifier",
+            "Note": "Free text note",
+            "IDother": [{
+               "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+               "Value": "Unique company identifier ",
+               "Note": "Free text note"
+            }],
+            "Address": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note"
+            },
+            "Person": [{
+               "FullName": "Person full name",
+               "Salutation": "Salutation ",
+               "FirstName": "First name / given name",
+               "MiddleName": "Middle name",
+               "LastName": "Last name / family name / surname",
+               "JobTitle": "Job title / position",
+               "Department": "Department / Division / Unit",
+               "Note": "Free text note",
+               "Contact": [{
+                  "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+                  "PhoneNumber": "Phone number",
+                  "FaxNumber": "Fax number",
+                  "EmailAddress": "Email address",
+                  "Note": "Free text note"
+               }],
+               "ContactOther": [{
+                  "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+                  "Value": "Unique contact identifier",
+                  "Note": "Free text note"
+               }]
+            }]
+         },
+         "OriginCountry": {
+            "Code": "Origin country ISO code",
+            "Name": "Origin country name"
+         },
+         "Characteristic": [{
+            "Code": "Product characteristic code - e.g. CLR…",
+            "Description": "Product characteristic description - e.g. Color…",
+            "Value": "Product characteristic value / attribute - e.g. Blue…"
+         }],
+         "Weight": {
+            "NetWeight": "Product net weight",
+            "GrossWeight": "Product gross weight"
+         },
+         "Dimensions": {
+            "Width": "Product width",
+            "Length": "Product length",
+            "Height": "Product height",
+            "Volume": "Product volume"
+         },
+         "Price": {
+            "UnitPrice": "Product price per unit in the base currency",
+            "UnitCode": "Unit code for item - e.g. piece, unit, kg, pack, hour, minute…",
+            "QuantityForUnitPrice": "Product quantity for unit price - e.g. 12 (eggs for one USD 1)"
+         }
+      },
+      "Quantity": "Product quantity",
+      "SubTotalAmount": "Product subtotal before discount and tax - CALCULATED: Quantity x UnitPrice / QuantityForUnitPrice",
+      "TotalDiscountAmount": "Total discount amount - CALCULATED: Amount + OtherAmount",
+      "TotalTaxAmount": "Tax amount - CALCULATED: BaseAmount x Percent",
+      "TotalAmount": "Total line amount after discount and tax - CALCULATED: SubTotalAmount - TotalDiscountAmount + TotalTaxAmount",
+      "Item": [{
+         "LineID": "Unique line identifier",
+         "PieceURI": "Link to piece details",
+         "ItemQuantity": "Item quantity - e.g. 1 for items with precise serial numbers (e.g. smartphones) or more for bulk items with quantity units in weight instead of items (e.g. tomatoes…)",
+         "ItemID": {
+            "SerialNumber": "If applicable, individual product serial number for each product of the current line",
+            "OtherID": [{
+               "Type": "Identifier type or description - e.g. wifi mac address, bluetooth address…",
+               "Value": "Other product identifier"
+            }]
+         },
+         "Production": {
+            "BatchNumber": "Production batch number / reference",
+            "LotNumber": "Production lot number / reference",
+            "Date": "Production date",
+            "ProductExpiryDate": "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence"
+         },
+         "DestinationCountry": {
+            "DestinationCountryCode": "Country ISO code",
+            "DestinationCountryName": "Country name"
+         }
+      }]
+   }],
+    "booking-movement":
+      [{
+      "LineID": "Unique line identifier",
+      "Note": "Free text note",
+      "Type": "Movement type - e.g. Pre-Carriage, Main-Carriage or On-Carriage. Always defaults to Main-Carriage.",
+      "ModeCode": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
+      "CarrierName": "Name of carrier (business name)",
+      "CarrierCompany": {
+         "Name": "Name of company / organization",
+         "IATAairlineCode": "IATA code assigned to airline",
+         "IATAairlinePrefix": "IATA prefix number assigned to airline",
+         "Note": "Free text note",
+         "IDother": [{
+            "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+            "Value": "Unique company identifier ",
+            "Note": "Free text note"
+         }],
+         "Address": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note"
+         },
+         "Person": [{
+            "FullName": "Person full name",
+            "Salutation": "Salutation ",
+            "FirstName": "First name / given name",
+            "MiddleName": "Middle name",
+            "LastName": "Last name / family name / surname",
+            "JobTitle": "Job title / position",
+            "Department": "Department / Division / Unit",
+            "Note": "Free text note",
+            "Contact": [{
+               "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+               "PhoneNumber": "Phone number",
+               "FaxNumber": "Fax number",
+               "EmailAddress": "Email address",
+               "Note": "Free text note"
+            }],
+            "ContactOther": [{
+               "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+               "Value": "Unique contact identifier",
+               "Note": "Free text note"
+            }]
+         }]
+      },
+      "FlightNumberLineID": "Airline flight number or rail/truck/maritime line id",
+      "TransportEquipment": {
+         "RegistrationID": "Vehicle identification - e.g. vehicle registration number",
+         "Type": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
+         "Size": "Size of the vehicle - free text",
+         "Seal": "Seal identifier",
+         "OtherDetails": [{
+            "Description": "Data element description - e.g. Color",
+            "Value": "Data element value - e.g. Black"
+         }]
+      },
+      "Loading": {
+         "DateTime": "Date and time at which the goods are loaded onto the vehicle",
+         "LoadingCompany": {
+            "Name": "Name of company / organization",
+            "ID": "Company's unique identifier",
+            "IATAcargoAccreditationNumber": "IATA accredited cargo agent number or identifier",
+            "IATAcargoCASSnumber": "IATA CASS cargo agent branch number or identifier",
+            "IATAairlineCode": "IATA code assigned to airline",
+            "IATAairlinePrefix": "IATA prefix number assigned to airline",
+            "Note": "Free text note",
+            "IDother": [{
+               "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+               "Value": "Unique company identifier ",
+               "Note": "Free text note"
+            }],
+            "Address": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note"
+            },
+            "Person": [{
+               "FullName": "Person full name",
+               "Salutation": "Salutation ",
+               "FirstName": "First name / given name",
+               "MiddleName": "Middle name",
+               "LastName": "Last name / family name / surname",
+               "JobTitle": "Job title / position",
+               "Department": "Department / Division / Unit",
+               "Note": "Free text note",
+               "Contact": [{
+                  "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+                  "PhoneNumber": "Phone number",
+                  "FaxNumber": "Fax number",
+                  "EmailAddress": "Email address",
+                  "Note": "Free text note"
+               }],
+               "ContactOther": [{
+                  "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+                  "Value": "Unique contact identifier",
+                  "Note": "Free text note"
+               }]
+            }]
+         },
+         "LoadingLocation": {
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "LoadingAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      },
+      "Departure": {
+         "DateTime": "Date and time at which the vehicule carrying the goods is departing",
+         "DepartureLocation": {
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "DepartureAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      },
+      "Arrival": {
+         "DateTime": "Date and time at which the vehicle carrying the goods is arriving",
+         "ArrivalLocation": {
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "ArrivalAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      },
+      "Unloading": {
+         "DateTime": "Date and time at which the goods are offloaded from the vehicle",
+         "UnloadingCompany": {
+            "Name": "Name of company / organization",
+            "ID": "Company's unique identifier",
+            "IATAcargoAccreditationNumber": "IATA accredited cargo agent number or identifier",
+            "IATAcargoCASSnumber": "IATA CASS cargo agent branch number or identifier",
+            "IATAairlineCode": "IATA code assigned to airline",
+            "IATAairlinePrefix": "IATA prefix number assigned to airline",
+            "Note": "Free text note",
+            "IDother": [{
+               "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+               "Value": "Unique company identifier ",
+               "Note": "Free text note"
+            }],
+            "Address": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note"
+            },
+            "Person": [{
+               "FullName": "Person full name",
+               "Salutation": "Salutation ",
+               "FirstName": "First name / given name",
+               "MiddleName": "Middle name",
+               "LastName": "Last name / family name / surname",
+               "JobTitle": "Job title / position",
+               "Department": "Department / Division / Unit",
+               "Note": "Free text note",
+               "Contact": [{
+                  "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+                  "PhoneNumber": "Phone number",
+                  "FaxNumber": "Fax number",
+                  "EmailAddress": "Email address",
+                  "Note": "Free text note"
+               }],
+               "ContactOther": [{
+                  "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+                  "Value": "Unique contact identifier",
+                  "Note": "Free text note"
+               }]
+            }]
+         },
+         "UnloadingLocation": {
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "UnloadingAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      },
+      "OtherEvent": [{
+         "DateTime": "Date and time at which this event is taking place",
+         "EventDescription": "Event description - e.g. security scan / check, customs inspection, consolidation / deconsolidation, animal feeding, etc.",
+         "OtherCompany": {
+            "Name": "Name of company / organization",
+            "ID": "Company's unique identifier",
+            "IATAcargoAccreditationNumber": "IATA accredited cargo agent number or identifier",
+            "IATAcargoCASSnumber": "IATA CASS cargo agent branch number or identifier",
+            "IATAairlineCode": "IATA code assigned to airline",
+            "IATAairlinePrefix": "IATA prefix number assigned to airline",
+            "Note": "Free text note",
+            "IDother": [{
+               "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+               "Value": "Unique company identifier ",
+               "Note": "Free text note"
+            }],
+            "Address": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note"
+            },
+            "Person": [{
+               "FullName": "Person full name",
+               "Salutation": "Salutation ",
+               "FirstName": "First name / given name",
+               "MiddleName": "Middle name",
+               "LastName": "Last name / family name / surname",
+               "JobTitle": "Job title / position",
+               "Department": "Department / Division / Unit",
+               "Note": "Free text note",
+               "Contact": [{
+                  "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+                  "PhoneNumber": "Phone number",
+                  "FaxNumber": "Fax number",
+                  "EmailAddress": "Email address",
+                  "Note": "Free text note"
+               }],
+               "ContactOther": [{
+                  "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+                  "Value": "Unique contact identifier",
+                  "Note": "Free text note"
+               }]
+            }]
+         },
+         "OtherLocation": {
+            "Type": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
+            "CodeIssuer": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
+            "Code": "Location code of airport, freight terminal, seaport, rail station…",
+            "Name": "Location name",
+            "OtherAddress": {
+               "LocationName": "Full name of the location / facility",
+               "StreetName": "Street name",
+               "StreetNumber": "Street address number",
+               "BuildingID": "Building number / code",
+               "AppartmentID": "Appartment number / code",
+               "PObox": "Post Office box number / code",
+               "PostalCode": "Postal / ZIP code",
+               "CityCode": "UN/LOCODE city code ",
+               "CityName": "Full name of the city ",
+               "RegionCode": "UN/LOCODE region code ",
+               "CountryCode": "ISO country code",
+               "CountryName": "Country name",
+               "Note": "Free text note",
+               "GeoLocation": {
+                  "LatitudeDecimal": "Location latitude in decimals",
+                  "LongitudeDecimal": "Location longitude in decimals",
+                  "AltitudeMetric": "Altittude from sea level",
+                  "DockElevationMetric": "Dock elevation in meters from building's ground level",
+                  "DockApproachInfo": "Dock approach information / direction for approach - e.g. entry from SouthWest",
+                  "DockFloor": "Floor number of building where dock is located",
+                  "DockID": "Dock identification for landing",
+                  "DockOtherInfo": "Other dock information - e.g. access times, security id…",
+                  "Note": "Free text note"
+               }
+            }
+         }
+      }],
+      "LinkedPiece": "Piece details",
+      "PieceURI": "Link to piece details"
+   }],
+    "booking-other-customs-info":
+      [{
+      "CountryCode": "Country ISO code",
+      "CustomsSubjectCode": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
+      "CustomsContentCode": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
+      "SupplementaryCustomsInformation": "Supplementary party or location information for customs reporting"
+   }],
+    "booking-insurance":
+      {
+      "PayingParty": "Party covering the insurance - e.g. Consignor, Consignee, Freight Forwarder…",
+      "InsuranceCompany": {
+         "Name": "Name of company / organization",
+         "ID": "Company's unique identifier at insurance company",
+         "AccountNumber": "Company's account number at insurance company",
+         "LegalRegistrationNumber": "Insurance company's legal registration number at the specified address",
+         "TaxID": "Insurance company's tax ID at the specified address",
+         "Note": "Free text note",
+         "IDother": [{
+            "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+            "Value": "Unique company identifier ",
+            "Note": "Free text note"
+         }],
+         "Address": {
+            "LocationName": "Full name of the location / facility",
+            "StreetName": "Street name",
+            "StreetNumber": "Street address number",
+            "BuildingID": "Building number / code",
+            "AppartmentID": "Appartment number / code",
+            "PObox": "Post Office box number / code",
+            "PostalCode": "Postal / ZIP code",
+            "CityCode": "UN/LOCODE city code ",
+            "CityName": "Full name of the city ",
+            "RegionCode": "UN/LOCODE region code ",
+            "CountryCode": "ISO country code",
+            "CountryName": "Country name",
+            "Note": "Free text note"
+         },
+         "Person": [{
+            "FullName": "Person full name",
+            "Salutation": "Salutation ",
+            "FirstName": "First name / given name",
+            "MiddleName": "Middle name",
+            "LastName": "Last name / family name / surname",
+            "JobTitle": "Job title / position",
+            "Department": "Department / Division / Unit",
+            "Note": "Free text note",
+            "Contact": [{
+               "Description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+               "PhoneNumber": "Phone number",
+               "FaxNumber": "Fax number",
+               "EmailAddress": "Email address",
+               "Note": "Free text note"
+            }],
+            "ContactOther": [{
+               "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
+               "Value": "Unique contact identifier",
+               "Note": "Free text note"
+            }]
+         }]
+      },
+      "PolicyNumber": "Insurance policy unique number / reference",
+      "InsuredAmount": "Insured amount - amount covered by the insurance policy",
+      "Charge": "Insurance charge - e.g. amount billed by the insurance company for the insurance policy"
+   },
+    "booking-logistics-service-charge":
+      {
+      "ChargeCode": "Charge payment method code ",
+      "ServiceCode": "Cargo product / service identifier"
+   },
+    "booking-other-charge":
+      [{
+      "ChargeDescription": {
+         "Code": "Other charge code",
+         "SubCode": "Other charge subcode",
+         "ReasonDescription": "Charge description",
+         "LocationIndicator": "Other Charge Location indicator - e.g. Origin (O) or Transit (T) or Destination(D)"
+      },
+      "SpecialService": {
+         "Description": "Special service description",
+         "DateTime": "Special service scheduled date and time"
+      },
+      "ChargePayment": {
+         "ByTime": "Amount of time for which the charge is applied",
+         "ByItemQuantity": "Number of items for which the charge is applied",
+         "Amount": "Payment amount",
+         "DueParty": "Due party - e.g. Carrier, Agent…",
+         "PrepaidCollectIndicator": "Other Charges payment indicator - e.g. at origin (prepaid) or at destination (collect)"
+      }
+   }],
+    "booking-charge-declaration":
+      {
+      "Carriage": {
+         "NoCarriageValue": "NVD (No Value Declared) indicator when no value is declared for carriage",
+         "Amount": "Goods value declaration for carriage"
+      },
+      "Customs": {
+         "NoCustomsValue": "NCV (No Customs Value) indicator when no value is declared for customs",
+         "Amount": "Goods value declaration for customs"
+      },
+      "Insurance": {
+         "NoInsuranceValue": "XXX indicator when no value is declared for insurance",
+         "Amount": "Goods value declaration for insurance"
+      }
+   },
+    "booking-charge-summary":
+      {
+      "Prepaid": {
+         "TotalWeightCharges": "Weight / volume charge amount",
+         "TotalValuationCharges": "Valuation charge amount",
+         "TotalTaxes": "Tax amount",
+         "TotalOtherChargesDueAgent": "Total charges due Agent / Forwarder amount",
+         "TotalOtherChargesDueCarrier": "Total charges due Carrier amount",
+         "TotalCharges": "Total charge amount "
+      },
+      "Collect": {
+         "TotalWeightCharges": "Weight / volume charge amount",
+         "TotalValuationCharges": "Valuation charge amount",
+         "TotalTaxes": "Tax amount",
+         "TotalOtherChargesDueAgent": "Total charges due Agent / Forwarder amount",
+         "TotalOtherChargesDueCarrier": "Total charges due Carrier amount",
+         "TotalCharges": "Total charge amount ",
+         "InDestinationCurrency": {
+            "TotalCharges": "CALCULATED: Total Charges converted to destination currency as per CURRENCY conversion rate",
+            "CollectionCharge": "Currency collection charges",
+            "GrandTotalCollectCharges": "CALCULATED: TotalCharges + CollectionCharge"
+         }
+      }
+   },
+    "booking-shipper-signature":
+      {
+      "SignatoryName": "Name of person",
+      "SignatoryCompany": "Name of company",
+      "Date": "Date of signature",
+      "Signature": "Signature (free text)",
+      "Location": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, ICAO…",
+         "Code": "Location code - e.g. city, seaport, airport, freight terminal, rail station or other place ",
+         "Name": "Location full name",
+         "CountryCode": "Country ISO code",
+         "CountryName": "Country name"
+      }
+   },
+    "booking-carrier-signature":
+      {
+      "SignatoryName": "Name of person",
+      "SignatoryCompany": "Name of company",
+      "Date": "Date of signature",
+      "Signature": "Signature (free text)",
+      "Location": {
+         "CodeIssuer": "Issuer of location code - e.g. IATA, ICAO…",
+         "Code": "Location code - e.g. city, seaport, airport, freight terminal, rail station or other place ",
+         "Name": "Location full name",
+         "CountryCode": "Country ISO code",
+         "CountryName": "Country name"
+      }
+   },
+    "booking-totals":
+      {
+      "ProductLine": {
+         "TotalLineCount": "Total number of product lines"
+      },
+      "Piece": {
+         "TotalPieceCount": "Total number of pieces",
+         "TotalSLAC": "Total Shipper's Load and Count",
+         "TotalULDCount": "Total count of Piece lines with ULD description",
+         "TotalNetWeight": "Total goods net weight (sum of pieces net weight)",
+         "TotalTareWeight": "Total tare weight (sum of pieces tare weight) ",
+         "TotalGrossWeight": "Total goods gross weight (sum of pieces gross weight) ",
+         "TotalVolume": "Total goods volume (sum of pieces volume)"
+      },
+      "WaybillLine": {
+         "TotalLineCount": "Total number of lines",
+         "TotalPieceCount": "Total number of pieces",
+         "TotalSLAC": "Total Shipper's Load and Count",
+         "TotalGrossWeight": "Total gross weight",
+         "TotalVolume": "Total volume",
+         "TotalChargeableWeight": "Total chargeable weight"
+      }
+   }
+
+}
