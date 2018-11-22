@@ -1,0 +1,40 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/movement/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "movement":
+      {
+      "LineID": "Unique line identifier",
+      "FlagScheduledActual": "Flag to indicate whether this line is scheduled or actual (=performed)",
+      "DateTime": "Date and time at which the goods are loaded onto the vehicle",
+      "SequenceNumber": "Sequence number of the movement for this piece",
+      "MovementType": "Type of movement - e.g. Loading, Departure, Arrival, Unloading",
+      "CarriageSequence": "Carriage sequence - e.g. Pre-Carriage, Main-Carriage, On-Carriage. Always defaults to Main-Carriage",
+      "ModeCode": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
+      "Company": "Carrier company details and contacts",
+      "Location": "Location details",
+      "TransportMeans": {
+         "FlightNumberLineID": "Airline flight number or rail / truck / maritime line id",
+         "RegistrationID": "Vehicle identification - e.g. vehicle registration number",
+         "Type": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
+         "Size": "Size of the vehicle - free text",
+         "Seal": "Seal identifier",
+         "OtherDetails": [{
+            "Description": "Data element description - e.g. Color",
+            "Value": "Data element value - e.g. Black"
+         }]
+      },
+      "SpaceAllocationDetails": "Space allocation request / action / confirmation code or details",
+      "AllotmentDetails": "Guaranteed Capacity reference details",
+      "ExceptionHandlingDetails": "Exception handling code or details",
+      "TransferManifestNumber": "Identification number of transfer manifest or substitute flight manifest ",
+      "Note": "Free text note"
+   }
+}

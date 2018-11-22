@@ -1,0 +1,76 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/shipper-signature/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "shipper-signature":
+      {
+      "SignatoryName": {
+         "description": "Name of person",
+         "required": true,
+         "type": "text"
+      },
+      "SignatoryCompany": {
+         "description": "Name of company",
+         "required": true,
+         "type": "text"
+      },
+      "Date": {
+         "description": "Date of signature",
+         "required": true,
+         "type": "datatime"
+      },
+      "Signature": {
+         "description": "Signature (free text)",
+         "required": true,
+         "type": "text"
+      },
+      "Location": {
+         "CodeIssuer": {
+            "description": "Issuer of location code - e.g. IATA, ICAO?",
+            "type": "text"
+         },
+         "Code": {
+            "description": "Location code - e.g. city, seaport, airport, freight terminal, rail station or other place ",
+            "type": "text"
+         },
+         "Name": {
+            "description": "Location full name",
+            "type": "text"
+         },
+         "CountryCode": {
+            "description": "Country ISO code",
+            "type": "text"
+         },
+         "CountryName": {
+            "description": "Country name",
+            "type": "text"
+         }
+      }
+   }
+}

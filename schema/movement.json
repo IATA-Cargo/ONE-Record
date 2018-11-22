@@ -1,0 +1,129 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/movement/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "movement":
+      {
+      "LineID": {
+         "description": "Unique line identifier",
+         "required": true,
+         "type": "numeric"
+      },
+      "FlagScheduledActual": {
+         "description": "Flag to indicate whether this line is scheduled or actual (=performed)",
+         "required": true,
+         "type": "text"
+      },
+      "DateTime": {
+         "description": "Date and time at which the goods are loaded onto the vehicle",
+         "required": true,
+         "type": "datatime"
+      },
+      "SequenceNumber": {
+         "description": "Sequence number of the movement for this piece",
+         "required": true,
+         "type": "numeric"
+      },
+      "MovementType": {
+         "description": "Type of movement - e.g. Loading, Departure, Arrival, Unloading",
+         "required": true,
+         "type": "text"
+      },
+      "CarriageSequence": {
+         "description": "Carriage sequence - e.g. Pre-Carriage, Main-Carriage, On-Carriage. Always defaults to Main-Carriage",
+         "type": "text"
+      },
+      "ModeCode": {
+         "description": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
+         "type": "text"
+      },
+      "Company": {
+         "description": "Carrier company details and contacts",
+         "required": true,
+         "type": "undefined"
+      },
+      "Location": {
+         "description": "Location details",
+         "required": true,
+         "type": "undefined"
+      },
+      "TransportMeans": {
+         "FlightNumberLineID": {
+            "description": "Airline flight number or rail / truck / maritime line id",
+            "type": "text"
+         },
+         "RegistrationID": {
+            "description": "Vehicle identification - e.g. vehicle registration number",
+            "type": "text"
+         },
+         "Type": {
+            "description": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
+            "type": "text"
+         },
+         "Size": {
+            "description": "Size of the vehicle - free text",
+            "type": "text"
+         },
+         "Seal": {
+            "description": "Seal identifier",
+            "type": "text"
+         },
+         "OtherDetails": [{
+            "Description": {
+               "description": "Data element description - e.g. Color",
+               "type": "text"
+            },
+            "Value": {
+               "description": "Data element value - e.g. Black",
+               "type": "text"
+            }
+         }]
+      },
+      "SpaceAllocationDetails": {
+         "description": "Space allocation request / action / confirmation code or details",
+         "type": "text"
+      },
+      "AllotmentDetails": {
+         "description": "Guaranteed Capacity reference details",
+         "type": "text"
+      },
+      "ExceptionHandlingDetails": {
+         "description": "Exception handling code or details",
+         "type": "text"
+      },
+      "TransferManifestNumber": {
+         "description": "Identification number of transfer manifest or substitute flight manifest ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      }
+   }
+}

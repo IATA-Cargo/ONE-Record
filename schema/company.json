@@ -30,25 +30,20 @@
     },
     "company":
       {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
       "Name": {
          "description": "Name of company or organization",
-         "required": true,
-         "type": "text"
-      },
-      "ID": {
-         "description": "Company's unique identifier",
-         "type": "text"
-      },
-      "AccountNumber": {
-         "description": "Company's account number",
-         "type": "text"
-      },
-      "LegalRegistrationNumber": {
-         "description": "Company's legal registration number at the specified address",
-         "type": "text"
-      },
-      "TaxID": {
-         "description": "Company's tax ID at the specified address  ",
          "type": "text"
       },
       "IATAcargoAccreditationNumber": {
@@ -60,35 +55,27 @@
          "type": "text"
       },
       "IATAairlineCode": {
-         "description": "IATA code assigned to airline",
+         "description": "IATA two-character airline code ",
          "type": "text"
       },
       "IATAairlinePrefix": {
-         "description": "IATA prefix number assigned to airline",
-         "type": "text"
-      },
-      "PIMAid": {
-         "description": "Participant Identification and Message Addressing - air cargo industry EDI messaging address",
-         "type": "text"
-      },
-      "BankIdentiferCode": {
-         "description": "Bank identifier code",
-         "type": "text"
-      },
-      "BankSortCode": {
-         "description": "Bank sort code",
+         "description": "IATA three numeric airline prefix number ",
          "type": "text"
       },
       "Note": {
          "description": "Free text note",
          "type": "text"
       },
-      "IDother": {
-         "Issuer": {
-            "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
             "type": "text"
          },
-         "Value": {
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
             "description": "Unique company identifier ",
             "type": "text"
          },
@@ -96,14 +83,14 @@
             "description": "Free text note",
             "type": "text"
          }
-      },
+      }],
       "Address": {
          "description": "Address details",
-         "type": "data object or group"
+         "type": "undefined"
       },
       "Person": {
          "description": "Person details",
-         "type": "data object or group"
+         "type": "undefined"
       }
    }
 }

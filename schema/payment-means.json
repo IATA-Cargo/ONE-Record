@@ -30,48 +30,54 @@
     },
     "payment-means":
       {
-      "IDissuer": {
-         "description": "Issuer of the payment means codes - e.g. EDIFACT list 4461",
+      "PaymentMeansIDIssuer": {
+         "description": "Issuer of the payment means codes - e.g. EDIFACT",
          "type": "text"
       },
-      "ID": {
-         "description": "Payment means code",
+      "PaymentMeansID": {
+         "description": "Payment means code - e.g. EDIFACT list 4461",
          "type": "text"
       },
       "InstructionNote": {
          "description": "Payment instructions free text note",
          "type": "text"
       },
-      "paymentTermIDissuer": {
-         "description": "Indicates the Payment Terms issuer. Ex. UNECE Recommendation 17 Code List.",
+      "PaymentTermIDIssuer": {
+         "description": "Indicates the Payment Terms issuer - e.g. UNECE",
          "type": "text"
       },
-      "paymentTermID": {
-         "description": "Indicates the Payment Terms code, e.g. from the UNECE Recommendation 17 Code List",
+      "PaymentTermID": {
+         "description": "Indicates the Payment Terms code - e.g. UNECE Recommendation 17 Code List",
          "type": "text"
       },
       "BankAccount": {
-         "BankAccountNumber": {
+         "BankIdentiferCode": {
             "description": "Bank Identifier Code (BIC) or SWIFT code",
             "type": "text"
          },
-         "BankAccountName": {
+         "BankSortCode": {
             "description": "Bank Sort Number assigned to the branch of the bank",
             "type": "text"
          },
-         "IBAN": {
+         "BankAccountNumber": {
             "description": "Bank account number",
             "type": "text"
          },
-         "Beneficiary": {
+         "BankAccountName": {
             "description": "Bank account name",
-            "required": true,
-            "type": "data object or group"
+            "type": "text"
+         },
+         "IBAN": {
+            "description": "International Bank Account Number (IBAN)",
+            "type": "text"
+         },
+         "Beneficiary": {
+            "description": "Beneficiary details ",
+            "type": "undefined"
          },
          "Bank": {
-            "description": "International Bank Account Number (IBAN)",
-            "required": true,
-            "type": "data object or group"
+            "description": "Bank details",
+            "type": "undefined"
          }
       }
    }

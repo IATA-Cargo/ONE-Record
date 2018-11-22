@@ -1,0 +1,39 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/product-line-totals/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "product-line-totals":
+      {
+      "Currency": "Currency details",
+      "TotalLineCount": "Count of product lines",
+      "TotalBeforeDiscountAmount": "Sum of BeforeDiscountAmount",
+      "TotalDiscountAmount": "Sum of DiscountSubTotalAmount",
+      "TotalBeforeTaxAmount": "Sum of BeforeTaxAmount",
+      "TotalTaxAmount": "Sum of SubTotalTaxAmount",
+      "TotalLineAmount": "Sum of SubTotalLineAmount",
+      "TotalLineAmountInText": "TotalLineAmount in text",
+      "BreakdownByLineType": {
+         "TotalLineAmountItem": "Sum of SubTotalLineAmount where ChargeType=ITM",
+         "TotalLineAmountPacking": "Sum of SubTotalLineAmount where ChargeType=PCK",
+         "TotalLineAmountFreight": "Sum of SubTotalLineAmount where ChargeType=FRT",
+         "TotalLineAmountInsurance": "Sum of SubTotalLineAmount where ChargeType=INS"
+      },
+      "BreakdownByTaxRate": [{
+         "TotalBeforeTaxAmountByRate": "Total of product line BaseAmount for this tax rate",
+         "Type": "Tax type - e.g. VAT-ValueAddedTax, GST-GoodsAndServicesTax…",
+         "Category": "Tax category - e.g. StandardRate, Exempt from Tax (and by implication, the rate that applies, the actual percentage is dependent on the tax jurisdiction)",
+         "ExemptReasonCode": "Tax exemption code ",
+         "FunctionCode": "Tax function / purpose code ",
+         "FunctionDescription": "Tax function / purpose description ",
+         "Percent": "Tax percent ",
+         "TotalTaxAmount": "Total of product line TaxAmount for this tax rate "
+      }]
+   }
+}

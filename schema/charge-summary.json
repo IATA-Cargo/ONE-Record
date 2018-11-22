@@ -30,78 +30,83 @@
     },
     "charge-summary":
       {
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
       "Prepaid": {
          "TotalWeightCharges": {
-            "description": "Weight / volume charge amount",
+            "description": "Sum of WAYBILL_LINE SubTotalLineAmount (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalValuationCharges": {
-            "description": "Valuation charge amount",
+            "description": "Valuation charge amount (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalTaxes": {
-            "description": "Tax amount",
+            "description": "Tax amount (prepaid)",
             "type": "numeric"
          },
          "TotalOtherChargesDueAgent": {
-            "description": "Total charges due Agent / Forwarder amount",
+            "description": "Sum of OTHER_CHARGE Amount due Agent / Forwarder (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalOtherChargesDueCarrier": {
-            "description": "Total charges due Carrier amount",
+            "description": "Sum of OTHER_CHARGE Amount due Carrier (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalCharges": {
-            "description": "Total charge amount ",
+            "description": "Sum of Prepaid amounts",
             "required": true,
             "type": "numeric"
          }
       },
       "Collect": {
          "TotalWeightCharges": {
-            "description": "Weight / volume charge amount",
+            "description": "Sum of WAYBILL_LINE SubTotalLineAmount (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalValuationCharges": {
-            "description": "Valuation charge amount",
+            "description": "Valuation charge amount (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalTaxes": {
-            "description": "Tax amount",
+            "description": "Tax amount (collect)",
             "type": "numeric"
          },
          "TotalOtherChargesDueAgent": {
-            "description": "Total charges due Agent / Forwarder amount",
+            "description": "Sum of OTHER_CHARGE Amount due Agent / Forwarder (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalOtherChargesDueCarrier": {
-            "description": "Total charges due Carrier amount",
+            "description": "Sum of OTHER_CHARGE Amount due Carrier (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalCharges": {
-            "description": "Total charge amount ",
+            "description": "Sum of Collect amounts",
             "required": true,
             "type": "numeric"
          },
          "InDestinationCurrency": {
             "TotalCharges": {
-               "description": "CALCULATED: Total Charges converted to destination currency as per CURRENCY conversion rate",
+               "description": "Total Charges converted to destination currency as per CURRENCY conversion rate",
                "type": "numeric"
             },
             "CollectionCharge": {
-               "description": "Currency collection charges",
+               "description": "Collection charges in destination currency - e.g. additional amount charged for the service",
                "type": "numeric"
             },
             "GrandTotalCollectCharges": {
-               "description": "CALCULATED: TotalCharges + CollectionCharge",
+               "description": "Sum of TotalCharges and CollectionCharge",
                "type": "numeric"
             }
          }

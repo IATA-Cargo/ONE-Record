@@ -1,0 +1,213 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/freight-forwarder/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "freight-forwarder":
+      {
+      "Name": {
+         "description": "Name of company or organization",
+         "required": true,
+         "type": "text"
+      },
+      "ID": {
+         "description": "Company's unique identifier",
+         "type": "text"
+      },
+      "AccountNumber": {
+         "description": "Company's account number",
+         "type": "text"
+      },
+      "LegalRegistrationNumber": {
+         "description": "Company's legal registration number at the specified address",
+         "type": "text"
+      },
+      "TaxID": {
+         "description": "Company's tax ID at the specified address  ",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "PIMAid": {
+         "description": "Participant Identification and Message Addressing - air cargo industry EDI messaging address",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+            "type": "text"
+         },
+         "Value": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "LocationName": {
+            "description": "Full name of the location / facility",
+            "type": "text"
+         },
+         "StreetName": {
+            "description": "Street name",
+            "type": "text"
+         },
+         "StreetNumber": {
+            "description": "Street address number",
+            "type": "text"
+         },
+         "BuildingID": {
+            "description": "Building number / code",
+            "type": "text"
+         },
+         "AppartmentID": {
+            "description": "Appartment number / code",
+            "type": "text"
+         },
+         "PObox": {
+            "description": "Post Office box number / code",
+            "type": "text"
+         },
+         "PostalCode": {
+            "description": "Postal / ZIP code",
+            "type": "text"
+         },
+         "CityCode": {
+            "description": "UN/LOCODE city code ",
+            "type": "text"
+         },
+         "CityName": {
+            "description": "Full name of the city ",
+            "type": "text"
+         },
+         "StateCode": {
+            "description": "State / Department ISO code ",
+            "type": "text"
+         },
+         "StateName": {
+            "description": "State / Department name",
+            "type": "text"
+         },
+         "CountryCode": {
+            "description": "ISO country code",
+            "type": "text"
+         },
+         "CountryName": {
+            "description": "Country name",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      },
+      "Person": [{
+         "FullName": {
+            "description": "Person full name",
+            "type": "text"
+         },
+         "Salutation": {
+            "description": "Salutation ",
+            "type": "text"
+         },
+         "FirstName": {
+            "description": "First name / given name",
+            "type": "text"
+         },
+         "MiddleName": {
+            "description": "Middle name",
+            "type": "text"
+         },
+         "LastName": {
+            "description": "Last name / family name / surname",
+            "type": "text"
+         },
+         "JobTitle": {
+            "description": "Job title / position",
+            "type": "text"
+         },
+         "Department": {
+            "description": "Department / Division / Unit",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         },
+         "Contact": [{
+            "Description": {
+               "description": "Contact description -  e.g. work, home, mobile phone, sales dept?",
+               "type": "text"
+            },
+            "PhoneNumber": {
+               "description": "Phone number",
+               "type": "text"
+            },
+            "FaxNumber": {
+               "description": "Fax number",
+               "type": "text"
+            },
+            "EmailAddress": {
+               "description": "Email address",
+               "type": "text"
+            },
+            "Note": {
+               "description": "Free text note",
+               "type": "text"
+            }
+         }],
+         "ContactOther": [{
+            "Issuer": {
+               "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook?",
+               "type": "text"
+            },
+            "Value": {
+               "description": "Unique contact identifier",
+               "type": "text"
+            },
+            "Note": {
+               "description": "Free text note",
+               "type": "text"
+            }
+         }]
+      }]
+   }
+}

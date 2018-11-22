@@ -1,0 +1,44 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/product-line/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "product-line":
+      {
+      "Currency": "Currency details",
+      "LineID": "Unique line identifier",
+      "LineType": "Line type - e.g. ITM for Item, PCK for Packing, FRT for Freight charge, INS for Insurance charge for invoice charges breakdown",
+      "Note": "Free text note",
+      "ReferenceDocument": "Reference documents details",
+      "Product": "Product details",
+      "Quantity": "Product quantity ",
+      "SubTotalAmount": "Product subtotal before discount and tax - CALCULATED: Quantity x UnitPrice / QuantityForUnitPrice",
+      "Discount": {
+         "BeforeDiscountAmount": "Amount on which the discount is calculated - CALCULATED:  = SubTotalAmount",
+         "Percent": "Discount percentage",
+         "Amount": "Discount amount - CALCULATED: BeforeDiscountAmount x Percent",
+         "Code": "Discount reason code - e.g. XMSLS",
+         "Description": "Discount reason description - e.g. Christmas Sale",
+         "OtherAmount": "Other discretionary discount amount",
+         "SubTotalDiscountAmount": "Total discount amount for this line - CALCULATED: Discount Amount + Discount OtherAmount"
+      },
+      "Tax": {
+         "BeforeTaxAmount": "Amount on which tax is applied - CALCULATED: SubTotalAmount - SubTotalDiscountAmount",
+         "Type": "Tax type - e.g. VAT-ValueAddedTax, GST-GoodsAndServicesTax…",
+         "Category": "Tax category - e.g. StandardRate, Exempt from Tax (and by implication, the rate that applies, the actual percentage is dependent on the tax jurisdiction)",
+         "ExemptReasonCode": "Tax exemption code ",
+         "FunctionCode": "Tax function / purpose code ",
+         "FunctionDescription": "Tax function / purpose description ",
+         "Percent": "Tax percentage - e.g. 150%",
+         "SubTotalTaxAmount": "Tax amount - CALCULATED: BeforeTaxAmount x Tax Percent"
+      },
+      "SubTotalLineAmount": "Total line amount after discount and tax - CALCULATED: SubTotalAmount - SubTotalDiscountAmount + SubTotalTaxAmount",
+      "Item": "Item details"
+   }
+}

@@ -33,819 +33,135 @@
       "BookingRequestNumber": {
          "description": "Booking unique identifier",
          "required": true,
-         "cxmlPath": "<BusinessHeaderDocument><ID>",
          "type": "text"
       },
       "Date": {
          "description": "Booking date",
          "required": true,
-         "cxmlPath": "<BusinessHeaderDocument><ID>",
          "type": "datatime"
-      },
-      "WeightUnitCode": {
-         "description": "Weight unit code for the invoice",
-         "required": true,
-         "cxmlPath": "<BusinessHeaderDocument><ID>",
-         "type": "text"
-      },
-      "DimensionsUnitCode": {
-         "description": "Dimensions unit code for the invoice",
-         "required": true,
-         "type": "text"
-      },
-      "VolumeUnitCode": {
-         "description": "Volume unit code for the invoice",
-         "required": true,
-         "type": "text"
       },
       "SenderReference": {
          "description": "Booking sender reference",
-         "cxmlPath": "<BusinessHeaderDocument><SenderAssignedID>",
          "type": "text"
       },
       "NoteQualifier": {
          "description": "Booking head note type indicator",
-         "cxmlPath": "<BusinessHeaderDocument><IncludedHeaderNote><ContentCode>",
          "type": "text"
       },
       "HeadNote": {
          "description": "Booking head free text note",
-         "cxmlPath": "<BusinessHeaderDocument><IncludedHeaderNote><Content>",
          "type": "text"
       },
       "WaybillNumber": {
          "description": "Air Waybill number",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><TransportContractDocument><ID>",
          "type": "text"
       },
       "ShipmentTypeCode": {
          "description": "Total, part or split consignment indicator",
-         "cxmlPath": "<MasterConsignment><ShipmentTypeCode>",
          "type": "text"
       },
       "LoadTypeCode": {
          "description": "Bulk or containerized (BLK or ULD) indicator",
-         "cxmlPath": "<MasterConsignment><LoadTypeCode>",
          "type": "text"
       },
       "DeckPosition": {
          "description": "Position of the shipment in the aircraft - e.g. lower or main deck ",
-         "cxmlPath": "<MasterConsignment><PositionTypeCode>",
          "type": "text"
       },
-      "ConsolDirectLCflag": {
+      "FlagConsolDirectLC": {
          "description": "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit",
-         "cxmlPath": "<MasterConsignment><PositionTypeCode>",
          "type": "text"
       },
       "GoodsDescription": {
          "description": "Description of goods",
-         "cxmlPath": "<MasterConsignment><SummaryDescription>",
-         "type": "text"
-      },
-      "ProductID": {
-         "description": "Carrier product / service code",
-         "cxmlPath": "<MasterConsignment><ProductID>",
          "type": "text"
       },
       "DensityGroup": {
          "description": "Density group of goods",
-         "cxmlPath": "<MasterConsignment><DensityGroupCode>",
          "type": "text"
       },
-      "CustomsOriginCode": {
-         "description": "Customs transit status / information / reference / code",
-         "cxmlPath": "<MasterConsignment><AssociatedConsignmentCustomsProcedure><GoodsStatusCode>",
-         "type": "text"
-      },
-      "RatingTypeIndicator": {
-         "description": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
-         "required": true,
-         "type": "text"
-      },
-      "PrepaidCollectFlag": {
-         "WeightValuationCharges": {
-            "description": "Weight Valuation payment code - e.g. at origin (prepaid) or at destination (collect)",
-            "type": "text"
+      "Origin": {
+         "DepartureDate": {
+            "description": "Departure date",
+            "type": "datatime"
          },
-         "OtherCharges": {
-            "description": "Other Charges payment code - e.g. at origin (prepaid) or at destination (collect)",
-            "type": "text"
+         "Location": {
+            "description": "Origin location details",
+            "required": true,
+            "type": "undefined"
          }
       },
-      "OriginLocation": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-            "type": "text"
+      "Destination": {
+         "ArrivalDate": {
+            "description": "Arrival date",
+            "type": "datatime"
          },
-         "Code": {
-            "description": "Location code of airport, freight terminal, seaport, rail station…",
-            "cxmlPath": "<MasterConsignment><OriginLocation><ID>",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location name",
-            "cxmlPath": "<MasterConsignment><OriginLocation><Name>",
-            "type": "text"
-         },
-         "Type": {
-            "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-            "cxmlPath": "<MasterConsignment><OriginLocation><Name>",
-            "type": "text"
-         },
-         "OriginAddress": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "GeoLocation": {
-               "LatitudeDecimal": {
-                  "description": "Location latitude in decimals",
-                  "type": "numeric"
-               },
-               "LongitudeDecimal": {
-                  "description": "Location longitude in decimals",
-                  "type": "numeric"
-               },
-               "AltitudeMetric": {
-                  "description": "Altittude from sea level",
-                  "type": "numeric"
-               },
-               "DockElevationMetric": {
-                  "description": "Dock elevation in meters from building's ground level",
-                  "type": "numeric"
-               },
-               "DockApproachInfo": {
-                  "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                  "type": "text"
-               },
-               "DockFloor": {
-                  "description": "Floor number of building where dock is located",
-                  "type": "text"
-               },
-               "DockID": {
-                  "description": "Dock identification for landing",
-                  "type": "text"
-               },
-               "DockOtherInfo": {
-                  "description": "Other dock information - e.g. access times, security id…",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }
-         }
-      },
-      "DestinationLocation": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-            "type": "text"
-         },
-         "Code": {
-            "description": "Location code of airport, freight terminal, seaport, rail station…",
-            "cxmlPath": "<MasterConsignment><FinalDestinationLocation><ID>",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location name",
-            "cxmlPath": "<MasterConsignment><FinalDestinationLocation><Name>",
-            "type": "text"
-         },
-         "Type": {
-            "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-            "cxmlPath": "<MasterConsignment><FinalDestinationLocation><Name>",
-            "type": "text"
-         },
-         "DestinationAddress": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "GeoLocation": {
-               "LatitudeDecimal": {
-                  "description": "Location latitude in decimals",
-                  "type": "numeric"
-               },
-               "LongitudeDecimal": {
-                  "description": "Location longitude in decimals",
-                  "type": "numeric"
-               },
-               "AltitudeMetric": {
-                  "description": "Altittude from sea level",
-                  "type": "numeric"
-               },
-               "DockElevationMetric": {
-                  "description": "Dock elevation in meters from building's ground level",
-                  "type": "numeric"
-               },
-               "DockApproachInfo": {
-                  "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                  "type": "text"
-               },
-               "DockFloor": {
-                  "description": "Floor number of building where dock is located",
-                  "type": "text"
-               },
-               "DockID": {
-                  "description": "Dock identification for landing",
-                  "type": "text"
-               },
-               "DockOtherInfo": {
-                  "description": "Other dock information - e.g. access times, security id…",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }
+         "Location": {
+            "description": "Destination location details",
+            "required": true,
+            "type": "undefined"
          }
       }
    },
-    "booking-shipment-reference":
-      [{
-      "DocumentID": {
-         "description": "Reference number allocated to a consignment as per shipper / agent / issuing carrier agreement",
-         "cxmlPath": "<MasterConsignment><ID>",
-         "type": "text"
-      },
-      "DocumentIDAdditional": {
-         "description": "Additional shipment information that supplements the reference number",
-         "cxmlPath": "<MasterConsignment><AdditionalID>",
-         "type": "text"
-      },
-      "FreightForwarderReferenceNumber": {
-         "description": "Freight Forwarder reference used to identify a specific booking or file",
-         "type": "text"
-      },
-      "OtherPartyReferenceNumber": {
-         "description": "Other party reference used to identify a specific booking or file",
-         "type": "text"
-      },
-      "CustomsReferenceNumber": {
-         "description": "Unique identification number assigned by the Customs to the related invoice - e.g. UCR",
-         "type": "text"
-      }
-   }],
-    "booking-reference-document":
+    "reference-document":
       [{
       "DocumentType": {
          "description": "Type of the referenced document",
-         "cxmlPath": "<MasterConsignment><AssociatedReferenceDocument><TypeCode>",
          "type": "text"
       },
       "DocumentName": {
-         "description": "Name of the referenced document - must correspond to DocumentType",
-         "cxmlPath": "<MasterConsignment><AssociatedReferenceDocument><Name>",
+         "description": "If no DocumentType provided, name of the referenced document ",
          "type": "text"
+      },
+      "DocumentOriginator": {
+         "description": "Insurance company details and contacts",
+         "type": "undefined"
       },
       "DocumentID": {
          "description": "Unique document identifier",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><AssociatedReferenceDocument><ID>",
          "type": "text"
       },
       "DocumentIDAdditional": {
          "description": "Additional document identifier",
-         "cxmlPath": "<MasterConsignment><AssociatedReferenceDocument><ID>",
          "type": "text"
       },
       "DocumentDate": {
          "description": "Document date",
-         "cxmlPath": "<MasterConsignment><AssociatedReferenceDocument><IssueDateTime>",
+         "type": "datatime"
+      },
+      "DocumentVersion": {
+         "description": "Document version number",
          "type": "datatime"
       },
       "DocumentLineID": {
          "description": "Document's line number ",
          "type": "numeric"
       },
+      "DocumentURI": {
+         "description": "URI of document",
+         "type": "undefined"
+      },
       "Note": {
          "description": "Free text note",
          "type": "text"
       }
    }],
-    "booking-currency":
+    "company":
       {
-      "BaseCurrency": {
-         "description": "Base or origin currency - ISO alpha 3 code",
-         "required": true,
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
          "type": "text"
       },
-      "TargetCurrency": {
-         "description": "Target or destination currency - ISO alpha 3 code",
-         "required": true,
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
          "type": "text"
       },
-      "ExchangeRateFor1BaseUnit": {
-         "description": "Amount of target currency for 1 unit of base currency - e.g. [amount in base currency] x [exchange rate] = [amount in target currency]",
-         "required": true,
-         "type": "numeric"
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
       },
-      "ExchangeRateDate": {
-         "description": "Exchange rate date",
-         "type": "datatime"
-      }
-   },
-    "booking-shipper":
-      {
       "Name": {
          "description": "Name of company or organization",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><ConsignorParty><Name>",
-         "type": "text"
-      },
-      "ID": {
-         "description": "Company's unique identifier",
-         "cxmlPath": "<MasterConsignment><ConsignorParty><PrimaryID, value>",
-         "type": "text"
-      },
-      "AccountNumber": {
-         "description": "Company's account number",
-         "cxmlPath": "<MasterConsignment><ConsignorParty><AccountID>",
-         "type": "text"
-      },
-      "LegalRegistrationNumber": {
-         "description": "Company's legal registration number at the specified address",
-         "type": "text"
-      },
-      "TaxID": {
-         "description": "Company's tax ID at the specified address  ",
-         "type": "text"
-      },
-      "Note": {
-         "description": "Free text note",
-         "type": "text"
-      },
-      "IDother": [{
-         "Issuer": {
-            "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-            "type": "text"
-         },
-         "Value": {
-            "description": "Unique company identifier ",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
-      }],
-      "Address": {
-         "LocationName": {
-            "description": "Full name of the location / facility",
-            "type": "text"
-         },
-         "StreetName": {
-            "description": "Street name",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><StreetName>",
-            "type": "text"
-         },
-         "StreetNumber": {
-            "description": "Street address number",
-            "type": "text"
-         },
-         "BuildingID": {
-            "description": "Building number / code",
-            "type": "text"
-         },
-         "AppartmentID": {
-            "description": "Appartment number / code",
-            "type": "text"
-         },
-         "PObox": {
-            "description": "Post Office box number / code",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><PostOfficeBox>",
-            "type": "text"
-         },
-         "PostalCode": {
-            "description": "Postal / ZIP code",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><PostcodeCode>",
-            "type": "text"
-         },
-         "CityCode": {
-            "description": "UN/LOCODE city code ",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CityID>",
-            "type": "text"
-         },
-         "CityName": {
-            "description": "Full name of the city ",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CityName>",
-            "type": "text"
-         },
-         "RegionCode": {
-            "description": "UN/LOCODE region code ",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CountrySubDivisionID>",
-            "type": "text"
-         },
-         "CountryCode": {
-            "description": "ISO country code",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CountryID>",
-            "type": "text"
-         },
-         "CountryName": {
-            "description": "Country name",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CountryName>",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><PostalStructuredAddress><CountryName>",
-            "type": "text"
-         }
-      },
-      "Person": [{
-         "FullName": {
-            "description": "Person full name",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "Salutation": {
-            "description": "Salutation ",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "FirstName": {
-            "description": "First name / given name",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "MiddleName": {
-            "description": "Middle name",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "LastName": {
-            "description": "Last name / family name / surname",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "JobTitle": {
-            "description": "Job title / position",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "Department": {
-            "description": "Department / Division / Unit",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><DepartmentName>",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><DepartmentName>",
-            "type": "text"
-         },
-         "Contact": [{
-            "Description": {
-               "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-               "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "PhoneNumber": {
-               "description": "Phone number",
-               "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "FaxNumber": {
-               "description": "Fax number",
-               "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><URIEmailCommunication><URIID>",
-               "type": "text"
-            },
-            "EmailAddress": {
-               "description": "Email address",
-               "cxmlPath": "<MasterConsignment><ConsignorParty><DefinedTradeContact><TelexCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "ContactOther": [{
-            "Issuer": {
-               "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique contact identifier",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }]
-      }]
-   },
-    "booking-consignee":
-      {
-      "Name": {
-         "description": "Name of company or organization",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><ConsigneeParty><Name>",
-         "type": "text"
-      },
-      "ID": {
-         "description": "Company's unique identifier",
-         "cxmlPath": "<MasterConsignment><ConsigneeParty><PrimaryID, value>",
-         "type": "text"
-      },
-      "AccountNumber": {
-         "description": "Company's account number",
-         "cxmlPath": "<MasterConsignment><ConsigneeParty><AccountID>",
-         "type": "text"
-      },
-      "LegalRegistrationNumber": {
-         "description": "Company's legal registration number at the specified address",
-         "type": "text"
-      },
-      "TaxID": {
-         "description": "Company's tax ID at the specified address  ",
-         "type": "text"
-      },
-      "Note": {
-         "description": "Free text note",
-         "type": "text"
-      },
-      "IDother": [{
-         "Issuer": {
-            "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-            "type": "text"
-         },
-         "Value": {
-            "description": "Unique company identifier ",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
-      }],
-      "Address": {
-         "LocationName": {
-            "description": "Full name of the location / facility",
-            "type": "text"
-         },
-         "StreetName": {
-            "description": "Street name",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><StreetName>",
-            "type": "text"
-         },
-         "StreetNumber": {
-            "description": "Street address number",
-            "type": "text"
-         },
-         "BuildingID": {
-            "description": "Building number / code",
-            "type": "text"
-         },
-         "AppartmentID": {
-            "description": "Appartment number / code",
-            "type": "text"
-         },
-         "PObox": {
-            "description": "Post Office box number / code",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><PostOfficeBox>",
-            "type": "text"
-         },
-         "PostalCode": {
-            "description": "Postal / ZIP code",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><PostcodeCode>",
-            "type": "text"
-         },
-         "CityCode": {
-            "description": "UN/LOCODE city code ",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CityID>",
-            "type": "text"
-         },
-         "CityName": {
-            "description": "Full name of the city ",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CityName>",
-            "type": "text"
-         },
-         "RegionCode": {
-            "description": "UN/LOCODE region code ",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CountrySubDivisionID>",
-            "type": "text"
-         },
-         "CountryCode": {
-            "description": "ISO country code",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CountryID>",
-            "type": "text"
-         },
-         "CountryName": {
-            "description": "Country name",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CountryName>",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><PostalStructuredAddress><CountryName>",
-            "type": "text"
-         }
-      },
-      "Person": [{
-         "FullName": {
-            "description": "Person full name",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "Salutation": {
-            "description": "Salutation ",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "FirstName": {
-            "description": "First name / given name",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "MiddleName": {
-            "description": "Middle name",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "LastName": {
-            "description": "Last name / family name / surname",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "JobTitle": {
-            "description": "Job title / position",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><PersonName>",
-            "type": "text"
-         },
-         "Department": {
-            "description": "Department / Division / Unit",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><DepartmentName>",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><DepartmentName>",
-            "type": "text"
-         },
-         "Contact": [{
-            "Description": {
-               "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-               "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "PhoneNumber": {
-               "description": "Phone number",
-               "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "FaxNumber": {
-               "description": "Fax number",
-               "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><URIEmailCommunication><URIID>",
-               "type": "text"
-            },
-            "EmailAddress": {
-               "description": "Email address",
-               "cxmlPath": "<MasterConsignment><ConsigneeParty><DefinedTradeContact><TelexCommunication><CompleteNumber>",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "ContactOther": [{
-            "Issuer": {
-               "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique contact identifier",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }]
-      }]
-   },
-    "booking-freight-forwarder":
-      {
-      "Name": {
-         "description": "Name of company or organization",
-         "required": true,
-         "type": "text"
-      },
-      "ID": {
-         "description": "Company's unique identifier",
-         "type": "text"
-      },
-      "AccountNumber": {
-         "description": "Company's account number",
-         "type": "text"
-      },
-      "LegalRegistrationNumber": {
-         "description": "Company's legal registration number at the specified address",
-         "type": "text"
-      },
-      "TaxID": {
-         "description": "Company's tax ID at the specified address  ",
          "type": "text"
       },
       "IATAcargoAccreditationNumber": {
@@ -856,8 +172,12 @@
          "description": "IATA CASS cargo agent branch number or identifier",
          "type": "text"
       },
-      "PIMAid": {
-         "description": "Participant Identification and Message Addressing - air cargo industry EDI messaging address",
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
          "type": "text"
       },
       "Note": {
@@ -865,11 +185,15 @@
          "type": "text"
       },
       "IDother": [{
-         "Issuer": {
-            "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
             "type": "text"
          },
-         "Value": {
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
             "description": "Unique company identifier ",
             "type": "text"
          },
@@ -879,769 +203,613 @@
          }
       }],
       "Address": {
-         "LocationName": {
-            "description": "Full name of the location / facility",
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
             "type": "text"
          },
-         "StreetName": {
-            "description": "Street name",
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
             "type": "text"
          },
-         "StreetNumber": {
-            "description": "Street address number",
-            "type": "text"
-         },
-         "BuildingID": {
-            "description": "Building number / code",
-            "type": "text"
-         },
-         "AppartmentID": {
-            "description": "Appartment number / code",
-            "type": "text"
-         },
-         "PObox": {
-            "description": "Post Office box number / code",
-            "type": "text"
-         },
-         "PostalCode": {
-            "description": "Postal / ZIP code",
-            "type": "text"
-         },
-         "CityCode": {
-            "description": "UN/LOCODE city code ",
-            "type": "text"
-         },
-         "CityName": {
-            "description": "Full name of the city ",
-            "type": "text"
-         },
-         "RegionCode": {
-            "description": "UN/LOCODE region code ",
-            "type": "text"
-         },
-         "CountryCode": {
-            "description": "ISO country code",
-            "type": "text"
-         },
-         "CountryName": {
-            "description": "Country name",
+         "Identifier": {
+            "description": "Unique company identifier ",
             "type": "text"
          },
          "Note": {
             "description": "Free text note",
             "type": "text"
          }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
       },
-      "Person": [{
-         "FullName": {
-            "description": "Person full name",
-            "type": "text"
-         },
-         "Salutation": {
-            "description": "Salutation ",
-            "type": "text"
-         },
-         "FirstName": {
-            "description": "First name / given name",
-            "type": "text"
-         },
-         "MiddleName": {
-            "description": "Middle name",
-            "type": "text"
-         },
-         "LastName": {
-            "description": "Last name / family name / surname",
-            "type": "text"
-         },
-         "JobTitle": {
-            "description": "Job title / position",
-            "type": "text"
-         },
-         "Department": {
-            "description": "Department / Division / Unit",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         },
-         "Contact": [{
-            "Description": {
-               "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-               "type": "text"
-            },
-            "PhoneNumber": {
-               "description": "Phone number",
-               "type": "text"
-            },
-            "FaxNumber": {
-               "description": "Fax number",
-               "type": "text"
-            },
-            "EmailAddress": {
-               "description": "Email address",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "ContactOther": [{
-            "Issuer": {
-               "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique contact identifier",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }]
-      }]
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
    },
-    "booking-other-party":
-      [{
-      "Role": {
-         "description": "Other party's role - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><AssociatedParty><RoleCode>",
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
          "type": "text"
       },
-      "Company": {
-         "Name": {
-            "description": "Name of company or organization",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><AssociatedParty><Name>",
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
             "type": "text"
          },
-         "ID": {
-            "description": "Company's unique identifier",
-            "cxmlPath": "<MasterConsignment><AssociatedParty><PrimaryID, value>",
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
             "type": "text"
          },
-         "AccountNumber": {
-            "description": "Company's account number",
-            "type": "text"
-         },
-         "LegalRegistrationNumber": {
-            "description": "Company's legal registration number at the specified address",
-            "type": "text"
-         },
-         "TaxID": {
-            "description": "Company's tax ID at the specified address  ",
+         "Identifier": {
+            "description": "Unique company identifier ",
             "type": "text"
          },
          "Note": {
             "description": "Free text note",
             "type": "text"
-         },
-         "IDother": [{
-            "Issuer": {
-               "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique company identifier ",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "Address": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><StreetName>",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><PostOfficeBox>",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><PostcodeCode>",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CityID>",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CityName>",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CountrySubDivisionID>",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CountryID>",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CountryName>",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><PostalStructuredAddress><CountryName>",
-               "type": "text"
-            }
-         },
-         "Person": [{
-            "FullName": {
-               "description": "Person full name",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "Salutation": {
-               "description": "Salutation ",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "FirstName": {
-               "description": "First name / given name",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "MiddleName": {
-               "description": "Middle name",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "LastName": {
-               "description": "Last name / family name / surname",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "JobTitle": {
-               "description": "Job title / position",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><PersonName>",
-               "type": "text"
-            },
-            "Department": {
-               "description": "Department / Division / Unit",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><DepartmentName>",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><DepartmentName>",
-               "type": "text"
-            },
-            "Contact": [{
-               "Description": {
-                  "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                  "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-                  "type": "text"
-               },
-               "PhoneNumber": {
-                  "description": "Phone number",
-                  "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><FaxCommunication><CompleteNumber>",
-                  "type": "text"
-               },
-               "FaxNumber": {
-                  "description": "Fax number",
-                  "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><URIEmailCommunication><URIID>",
-                  "type": "text"
-               },
-               "EmailAddress": {
-                  "description": "Email address",
-                  "cxmlPath": "<MasterConsignment><AssociatedParty><DefinedTradeContact><TelexCommunication><CompleteNumber>",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "ContactOther": [{
-               "Issuer": {
-                  "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique contact identifier",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }]
-         }]
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
       }
-   }],
-    "booking-accounting":
-      [{
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
+            "type": "text"
+         },
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
+            "type": "text"
+         },
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
+            "type": "text"
+         },
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
+            "type": "text"
+         },
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "company":
+      {
+      "RoleCode": {
+         "description": "Company's role code - e.g. AA, AB... ",
+         "type": "text"
+      },
+      "RoleName": {
+         "description": "If no RoleCode provided, role name - e.g. Consignor, Exporter, Manufacturer, Carrier, FreightForwarder, Consignee, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom, Shipper",
+         "type": "text"
+      },
+      "SecurityClassification": {
+         "description": "Security status - e.g. RA - Regulated Agent, KC - Known Consignor or AO - Aircraft Operator",
+         "type": "text"
+      },
+      "Name": {
+         "description": "Name of company or organization",
+         "type": "text"
+      },
+      "IATAcargoAccreditationNumber": {
+         "description": "IATA accredited cargo agent number or identifier",
+         "type": "text"
+      },
+      "IATAcargoCASSnumber": {
+         "description": "IATA CASS cargo agent branch number or identifier",
+         "type": "text"
+      },
+      "IATAairlineCode": {
+         "description": "IATA two-character airline code ",
+         "type": "text"
+      },
+      "IATAairlinePrefix": {
+         "description": "IATA three numeric airline prefix number ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "IDother": [{
+         "Description": {
+            "description": "Description of ID - e.g. PIMA address, Account number, VAT/Tax id, Legal Registration id…",
+            "type": "text"
+         },
+         "Issuer": {
+            "description": "Issuer of the company identifier - e.g. DUNS, ICAO, IRS, FR VAT, DE VAT, CCS…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Unique company identifier ",
+            "type": "text"
+         },
+         "Note": {
+            "description": "Free text note",
+            "type": "text"
+         }
+      }],
+      "Address": {
+         "description": "Address details",
+         "type": "undefined"
+      },
+      "Person": {
+         "description": "Person details",
+         "type": "undefined"
+      }
+   },
+    "accounting":
+      {
       "Item": {
          "description": "Accounting information item identifier",
          "required": true,
          "type": "text"
       },
       "ItemValue": {
-         "description": "Accounting information Item value - e.g PAYMENT BY CERTIFIED CHEQUE… ",
-         "required": true,
+         "description": "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… ",
          "type": "text"
       }
-   }],
-    "booking-handling":
+   },
+    "handling":
       {
-      "SpecialHandlingCode": [{
+      "SpecialHandling": [{
          "Code": {
             "description": "Special handling code following IATA standards",
-            "cxmlPath": "<MasterConsignment><HandlingSPHInstructions><DescriptionCode>",
             "type": "text"
          },
          "Description": {
-            "description": "Special handling description following IATA standards",
-            "cxmlPath": "<MasterConsignment><HandlingSPHInstructions><Description>",
+            "description": "If no Code provided, special handling description ",
             "type": "text"
          }
       }],
-      "SpecialServiceRequest": [{
+      "SpecialService": [{
          "Code": {
-            "description": "Special service request code",
-            "cxmlPath": "<MasterConsignment><HandlingSSRInstructions><DescriptionCode>",
+            "description": "Special service code",
             "type": "text"
          },
          "Description": {
-            "description": "Special service request description",
-            "cxmlPath": "<MasterConsignment><HandlingSSRInstructions><Description>",
+            "description": "Special service description",
             "type": "text"
          }
       }],
       "OtherServiceInfo": [{
          "Code": {
             "description": "Other service code",
-            "cxmlPath": "<MasterConsignment><HandlingOSIInstructions><DescriptionCode>",
             "type": "text"
          },
          "Description": {
             "description": "Other service description",
-            "cxmlPath": "<MasterConsignment><HandlingOSIInstructions><Description>",
             "type": "text"
          }
       }]
    },
-    "booking-piece":
-      [{
-      "LineID": {
-         "description": "Unique line identifier",
-         "required": true,
-         "type": "numeric"
-      },
-      "PieceID": {
-         "UPIDIssuer": {
-            "description": "Issuer of the UPID identifier - e.g. GS1…",
-            "type": "text"
-         },
-         "UPID": {
-            "description": "Unique Piece Identifier for the piece / package - e.g. GS1 SSCC-18 code ",
-            "type": "text"
-         },
-         "ShippingMarks": {
-            "description": "Free text the marks and / or numbers shown on a piece / package / pallet / ULD",
-            "type": "text"
-         },
-         "Seal": {
-            "description": "Seal identifier ",
-            "type": "text"
-         }
-      },
-      "ReferenceDocument": [{
-         "DocumentType": {
-            "description": "Type of the referenced document",
-            "type": "text"
-         },
-         "DocumentName": {
-            "description": "Name of the referenced document - must correspond to DocumentType",
-            "type": "text"
-         },
-         "DocumentID": {
-            "description": "Unique document identifier",
-            "required": true,
-            "type": "text"
-         },
-         "DocumentIDAdditional": {
-            "description": "Additional document identifier",
-            "type": "text"
-         },
-         "DocumentDate": {
-            "description": "Document date",
-            "type": "datatime"
-         },
-         "DocumentLineID": {
-            "description": "Document's line number ",
-            "type": "numeric"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
-      }],
-      "Goods": {
-         "ContentDescription": {
-            "description": "General description of the piece contents (not a detailed description of products / items / articles contained within)",
-            "type": "text"
-         },
-         "CustomsOriginCode": {
-            "description": "Customs transit status / information / reference / code",
-            "cxmlPath": "<MasterConsignment><AssociatedConsignmentCustomsProcedure><GoodsStatusCode>",
-            "type": "text"
-         }
-      },
-      "PackageType": {
-         "Code": {
-            "description": "Packaging type identifier as per UN.ECE Rec 20 Annex II",
-            "type": "text"
-         },
-         "Description": {
-            "description": "Packaging type description as per UN.ECE Rec 20 Annex II",
-            "type": "text"
-         }
-      },
-      "ULD": {
-         "Type": {
-            "description": "Standard Unit Load Device type code",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><CharacteristicCode>",
-            "type": "text"
-         },
-         "ATAdesignator": {
-            "description": "US / ATA Unit Load Device type code",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><DesignatorCharacteristicCode>",
-            "type": "text"
-         },
-         "LoadingIndicator": {
-            "description": "ULD height or loading limitation code",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><LoadingInstructions><DescriptionCode>",
-            "type": "text"
-         },
-         "SerialNumber": {
-            "description": "ULD serial number",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><ID>",
-            "type": "text"
-         },
-         "OwnerCodeIssuer": {
-            "description": "Issuer of the ULD owner code ",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><OperatingParty><PrimaryID, schemeAgencyID>",
-            "type": "text"
-         },
-         "OwnerCode": {
-            "description": "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><OperatingParty><PrimaryID, value>",
-            "type": "text"
-         },
-         "OwnerCompany": {
-            "Name": {
-               "description": "Name of company or organization",
-               "required": true,
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "IDother": [{
-               "Issuer": {
-                  "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique company identifier ",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "Address": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            },
-            "Person": [{
-               "FullName": {
-                  "description": "Person full name",
-                  "type": "text"
-               },
-               "Salutation": {
-                  "description": "Salutation ",
-                  "type": "text"
-               },
-               "FirstName": {
-                  "description": "First name / given name",
-                  "type": "text"
-               },
-               "MiddleName": {
-                  "description": "Middle name",
-                  "type": "text"
-               },
-               "LastName": {
-                  "description": "Last name / family name / surname",
-                  "type": "text"
-               },
-               "JobTitle": {
-                  "description": "Job title / position",
-                  "type": "text"
-               },
-               "Department": {
-                  "description": "Department / Division / Unit",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "Contact": [{
-                  "Description": {
-                     "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                     "type": "text"
-                  },
-                  "PhoneNumber": {
-                     "description": "Phone number",
-                     "type": "text"
-                  },
-                  "FaxNumber": {
-                     "description": "Fax number",
-                     "type": "text"
-                  },
-                  "EmailAddress": {
-                     "description": "Email address",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }],
-               "ContactOther": [{
-                  "Issuer": {
-                     "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                     "type": "text"
-                  },
-                  "Value": {
-                     "description": "Unique contact identifier",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }]
-            }]
-         }
-      },
-      "SLAC": {
-         "description": "Shipper's Load And Count - number of individual pieces provided by the shipper (loose, palletized or in the ULD)",
-         "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><TareWeightMeasure, value>",
-         "type": "numeric"
-      },
-      "Weight": {
-         "NetWeight": {
-            "description": "Net weight of the contents of the piece / package",
-            "type": "numeric"
-         },
-         "TareWeight": {
-            "description": "Weight of empty packaging, pallet or ULD for the piece",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><AssociatedUnitLoadTransportEquipment><TareWeightMeasure, value>",
-            "type": "numeric"
-         },
-         "GrossWeight": {
-            "description": "Total weight of piece / package / pallet / ULD",
-            "required": true,
-            "type": "numeric"
-         }
-      },
-      "Dimensions": {
-         "Width": {
-            "description": "Width",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TransportLogisticsPackage><LinearSpatialDimension><WidthMeasure, value>",
-            "type": "numeric"
-         },
-         "Length": {
-            "description": "Lenght",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TransportLogisticsPackage><LinearSpatialDimension><LengthMeasure, value>",
-            "type": "numeric"
-         },
-         "Height": {
-            "description": "Height",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TransportLogisticsPackage><LinearSpatialDimension><HeightMeasure, value>",
-            "type": "numeric"
-         },
-         "Volume": {
-            "description": "Volume",
-            "type": "numeric"
-         }
-      },
-      "LinkedItem": [{
-         "ItemURI": {
-            "description": "Link to item details",
-            "type": "undefined"
-         }
-      }],
-      "LinkedMovement": [{
-         "SequenceNumber": {
-            "description": "Sequence number of the movement for this piece",
-            "required": true,
-            "type": "numeric"
-         },
-         "MovementURI": {
-            "description": "Link to movement details",
-            "type": "undefined"
-         },
-         "SpaceAllocationDetails": {
-            "description": "Space allocation request / action / confirmation code or details",
-            "type": "text"
-         },
-         "AllotmentDetails": {
-            "description": "Guaranteed Capacity reference details",
-            "type": "text"
-         },
-         "ExceptionHandlingDetails": {
-            "description": "Exception handling code or details",
-            "type": "text"
-         }
-      }],
-      "ContainedPiece": [{
-      }]
-   }],
-    "booking-waybill-line":
-      [{
+    "waybill-line":
+      {
       "LineID": {
          "description": "Unique line identifer",
          "required": true,
          "type": "numeric"
       },
+      "Units": {
+         "description": "Units of measure",
+         "required": true,
+         "type": "undefined"
+      },
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
+      "Seller": {
+         "description": "Seller company details  - e.g. the party issuing the invoice",
+         "type": "undefined"
+      },
+      "Shipper": {
+         "description": "Shipper company details - e.g. the party shipping the items ",
+         "type": "undefined"
+      },
+      "Buyer": {
+         "description": "Buyer company details - e.g. the party paying the invoice",
+         "type": "undefined"
+      },
+      "Consignee": {
+         "description": "Consignee company details - e.g. the party receiving the items",
+         "type": "undefined"
+      },
+      "Freight Forwarder": {
+         "description": "Freight Forwarder company details ",
+         "type": "undefined"
+      },
+      "Consolidator": {
+         "description": "Consolidator company details - e.g. the party consolidating multiple pieces",
+         "type": "undefined"
+      },
+      "OtherParty": {
+         "description": "Other party company details - e.g. the party to be notified",
+         "type": "undefined"
+      },
       "ReferenceDocument": {
-         "DocumentType": {
-            "description": "Type of the referenced document",
-            "type": "text"
-         },
-         "DocumentName": {
-            "description": "Name of the referenced document - must correspond to DocumentType",
-            "type": "text"
-         },
-         "DocumentID": {
-            "description": "Unique document identifier",
-            "required": true,
-            "type": "text"
-         },
-         "DocumentIDAdditional": {
-            "description": "Additional document identifier",
-            "type": "text"
-         },
-         "DocumentDate": {
-            "description": "Document date",
-            "type": "datatime"
-         },
-         "DocumentLineID": {
-            "description": "Document's line number ",
-            "type": "numeric"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
+         "description": "Reference documents details ",
+         "type": "undefined"
+      },
+      "Incoterms": {
+         "description": "Incoterms details ",
+         "type": "undefined"
+      },
+      "Insurance": {
+         "description": "Insurance details",
+         "type": "undefined"
+      },
+      "HandlingDetails": {
+         "description": "Handling details ",
+         "type": "undefined"
+      },
+      "CustomsDetails": {
+         "description": "Customs details ",
+         "type": "undefined"
+      },
+      "SecurityDetails": {
+         "description": "Security details ",
+         "type": "undefined"
+      },
+      "FreightTerms": {
+         "description": "Freight terms details",
+         "type": "undefined"
+      },
+      "ChargeDeclaration": {
+         "description": "Charge declaratrion details ",
+         "type": "undefined"
+      },
+      "LogisticsServiceCharge": {
+         "description": "Logistics Service Charge details ",
+         "type": "undefined"
+      },
+      "OtherCharges": {
+         "description": "Other Charge details ",
+         "type": "undefined"
       },
       "Quantity": {
-         "TotalPieceCount": {
+         "PieceCount": {
             "description": "Number of pieces / packages / ULDs",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TransportLogisticsPackage><ItemQuantity>",
             "type": "numeric"
          },
          "SLAC": {
-            "description": "Shipper's Load and Count",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TransportLogisticsPackage><ItemQuantity>",
+            "description": "Shipper's Load and Count - e.g. count of Items",
             "type": "numeric"
          }
       },
-      "Dimensions": {
+      "DimensionsPerPiece": {
          "NoDimensionAvailable": {
             "description": "NDA (No Dimensions Available) indicator",
-            "type": "numeric"
+            "type": "text"
          },
          "Width": {
             "description": "Width of piece / package / ULD",
@@ -1662,51 +830,46 @@
       },
       "Weight": {
          "GrossWeight": {
-            "description": "Gross weight of piece / package / ULD",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><GrossWeightMeasure, value>",
+            "description": "Gross weight of piece / package / ULD - total for the waybill line",
             "type": "numeric"
          },
-         "VolumeToWeightConversionFactor": {
+         "VolumeWeightConversionFactor": {
             "description": "Volume to weight conversion factor",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><GrossWeightMeasure, value>",
             "type": "numeric"
          },
          "ChargeableWeight": {
-            "description": "Chargeable weight",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><GrossWeightMeasure, value>",
+            "description": "Chargeable weight - total for the waybill line",
             "type": "numeric"
          }
       },
+      "DensityGroup": {
+         "description": "Density group for the goods",
+         "type": "text"
+      },
+      "DeckPosition": {
+         "description": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+         "type": "text"
+      },
       "Goods": {
-         "Description": {
+         "GoodsDescription": {
             "description": "Generic text description of the goods ",
-            "cxmlPath": "<MasterConsignment><SummaryDescription>",
             "type": "text"
          },
          "OriginCountryCode": {
             "description": "Origin country ISO code of the goods",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><OriginCountry><ID>",
             "type": "text"
-         },
-         "HarmonizedCommodityCode": {
-            "Issuer": {
-               "description": "Issuer of Harmonized Commodity codes - e.g. WCO…",
-               "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TypeCode, listAgencyID>",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Harmonized Commodity code",
-               "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><TypeCode, value>",
-               "type": "text"
-            }
          },
          "CommodityCode": [{
             "Issuer": {
                "description": "Issuer of commodity classification codes - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard...International Trade Classification",
                "type": "text"
             },
-            "Value": {
+            "Code": {
                "description": "Commodity code",
+               "type": "text"
+            },
+            "Name": {
+               "description": "If no CommodityCode provided, name of commodity",
                "type": "text"
             }
          }]
@@ -1716,2008 +879,272 @@
             "description": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
             "type": "text"
          },
-         "RateClassCode": {
+         "CommodityItemNumber": {
             "description": "Commodity identifier on which the rate class code is applied",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CategoryCode>",
             "type": "text"
          },
-         "CommodityItemNumber": {
+         "RateClassCode": {
             "description": "Rate category code",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
          "RateChargeDiscountAmount": {
             "description": "Rate, charge or discount amount",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "numeric"
          },
          "RCP": {
             "description": "City code of Rate Combination Point (RCP), the point over which sector rates are combined",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
          "ULDRateClassType": {
             "description": "Unit Load Device rate class type",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
          "RateClassCodeBasis": {
             "description": "Basis on which the Rate Class Code is applicable",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
          "ClassRatingPercentage": {
             "description": "Rating class percentage",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "numeric"
          },
          "RateReferenceCode": {
             "description": "A unique code to indicate the applicable rate",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
          "RateReferenceType": {
             "description": "Type of rate - e.g. contract, adhoc, etc.",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
             "type": "text"
          },
-         "ItemTotalCharge": {
-            "description": "Total charge of for this line item",
-            "cxmlPath": "<MasterConsignment><IncludedMasterConsignmentItem><ApplicableFreightRateServiceCharge><CommodityItemID>",
+         "SubTotalLineAmount": {
+            "description": "Total charge for this line item",
             "type": "numeric"
          }
       },
       "PieceDetail": [{
       }]
-   }],
-    "booking-product-line":
+   },
+    "invoice-line":
       [{
       "LineID": {
          "description": "Unique line identifier",
          "required": true,
          "type": "numeric"
       },
-      "Note": {
-         "description": "Free text note",
+      "LineType": {
+         "description": "Line type - e.g. ITM for Item, PCK for Packing, FRT for Freight charge, INS for Insurance charge for invoice charges breakdown",
+         "required": true,
          "type": "text"
       },
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
       "ReferenceDocument": {
-         "DocumentType": {
-            "description": "Type of the referenced document",
-            "type": "text"
-         },
-         "DocumentName": {
-            "description": "Name of the referenced document - must correspond to DocumentType",
-            "type": "text"
-         },
-         "DocumentID": {
-            "description": "Unique document identifier",
-            "required": true,
-            "type": "text"
-         },
-         "DocumentIDAdditional": {
-            "description": "Additional document identifier",
-            "type": "text"
-         },
-         "DocumentDate": {
-            "description": "Document date",
-            "type": "datatime"
-         },
-         "DocumentLineID": {
-            "description": "Document's line number ",
-            "type": "numeric"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
+         "description": "Reference documents details",
+         "type": "undefined"
       },
       "Product": {
-         "IDseller": {
-            "description": "Seller's unique product identifier",
-            "required": true,
-            "type": "text"
-         },
-         "IDsellerAdditional": {
-            "description": "Seller's additional product identifier",
-            "type": "text"
-         },
-         "BarCode": {
-            "description": "Product bar code",
-            "type": "text"
-         },
-         "IDbuyer": {
-            "description": "Buyer's unique product identifier",
-            "type": "text"
-         },
-         "IDbuyerAdditional": {
-            "description": "Buyer's additional product identifier",
-            "type": "text"
-         },
-         "IDother": [{
-            "Issuer": {
-               "description": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique product identifier",
-               "type": "text"
-            },
-            "ValueAdditional": {
-               "description": "Additional product identification ",
-               "type": "text"
-            }
-         }],
-         "UNDGcode": {
-            "description": "UN Dangerous Goods serial number ",
-            "type": "text"
-         },
-         "CommodityCode": [{
-            "Issuer": {
-               "description": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique Commodity Code ",
-               "type": "text"
-            }
-         }],
-         "ProductDescription": {
-            "description": "Product description",
-            "required": true,
-            "type": "text"
-         },
-         "Manufacturer": {
-            "Name": {
-               "description": "Name of company or organization",
-               "required": true,
-               "type": "text"
-            },
-            "ID": {
-               "description": "Company's unique identifier",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "IDother": [{
-               "Issuer": {
-                  "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique company identifier ",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "Address": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            },
-            "Person": [{
-               "FullName": {
-                  "description": "Person full name",
-                  "type": "text"
-               },
-               "Salutation": {
-                  "description": "Salutation ",
-                  "type": "text"
-               },
-               "FirstName": {
-                  "description": "First name / given name",
-                  "type": "text"
-               },
-               "MiddleName": {
-                  "description": "Middle name",
-                  "type": "text"
-               },
-               "LastName": {
-                  "description": "Last name / family name / surname",
-                  "type": "text"
-               },
-               "JobTitle": {
-                  "description": "Job title / position",
-                  "type": "text"
-               },
-               "Department": {
-                  "description": "Department / Division / Unit",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "Contact": [{
-                  "Description": {
-                     "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                     "type": "text"
-                  },
-                  "PhoneNumber": {
-                     "description": "Phone number",
-                     "type": "text"
-                  },
-                  "FaxNumber": {
-                     "description": "Fax number",
-                     "type": "text"
-                  },
-                  "EmailAddress": {
-                     "description": "Email address",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }],
-               "ContactOther": [{
-                  "Issuer": {
-                     "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                     "type": "text"
-                  },
-                  "Value": {
-                     "description": "Unique contact identifier",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }]
-            }]
-         },
-         "OriginCountry": {
-            "Code": {
-               "description": "Origin country ISO code",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Origin country name",
-               "type": "text"
-            }
-         },
-         "Characteristic": [{
-            "Code": {
-               "description": "Product characteristic code - e.g. CLR…",
-               "type": "text"
-            },
-            "Description": {
-               "description": "Product characteristic description - e.g. Color…",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Product characteristic value / attribute - e.g. Blue…",
-               "type": "text"
-            }
-         }],
-         "Weight": {
-            "NetWeight": {
-               "description": "Product net weight",
-               "type": "numeric"
-            },
-            "GrossWeight": {
-               "description": "Product gross weight",
-               "type": "numeric"
-            }
-         },
-         "Dimensions": {
-            "Width": {
-               "description": "Product width",
-               "type": "numeric"
-            },
-            "Length": {
-               "description": "Product length",
-               "type": "numeric"
-            },
-            "Height": {
-               "description": "Product height",
-               "type": "numeric"
-            },
-            "Volume": {
-               "description": "Product volume",
-               "type": "numeric"
-            }
-         },
-         "Price": {
-            "UnitPrice": {
-               "description": "Product price per unit in the base currency",
-               "required": true,
-               "type": "numeric"
-            },
-            "UnitCode": {
-               "description": "Unit code for item - e.g. piece, unit, kg, pack, hour, minute…",
-               "required": true,
-               "type": "text"
-            },
-            "QuantityForUnitPrice": {
-               "description": "Product quantity for unit price - e.g. 12 (eggs for one USD 1)",
-               "required": true,
-               "type": "numeric"
-            }
-         }
+         "description": "Product details",
+         "required": true,
+         "type": "undefined"
       },
       "Quantity": {
-         "description": "Product quantity",
+         "description": "Product quantity ",
          "required": true,
          "type": "numeric"
       },
       "SubTotalAmount": {
          "description": "Product subtotal before discount and tax - CALCULATED: Quantity x UnitPrice / QuantityForUnitPrice",
-         "required": true,
          "type": "numeric"
       },
-      "TotalDiscountAmount": {
-         "description": "Total discount amount - CALCULATED: Amount + OtherAmount",
-         "required": true,
-         "type": "numeric"
-      },
-      "TotalTaxAmount": {
-         "description": "Tax amount - CALCULATED: BaseAmount x Percent",
-         "required": true,
-         "type": "numeric"
-      },
-      "TotalAmount": {
-         "description": "Total line amount after discount and tax - CALCULATED: SubTotalAmount - TotalDiscountAmount + TotalTaxAmount",
-         "required": true,
-         "type": "numeric"
-      },
-      "Item": [{
-         "LineID": {
-            "description": "Unique line identifier",
-            "required": true,
+      "Discount": {
+         "BeforeDiscountAmount": {
+            "description": "Amount on which the discount is calculated - CALCULATED:  = SubTotalAmount",
             "type": "numeric"
          },
-         "PieceURI": {
-            "description": "Link to piece details",
-            "type": "undefined"
-         },
-         "ItemQuantity": {
-            "description": "Item quantity - e.g. 1 for items with precise serial numbers (e.g. smartphones) or more for bulk items with quantity units in weight instead of items (e.g. tomatoes…)",
-            "required": true,
+         "Percent": {
+            "description": "Discount percentage",
             "type": "numeric"
          },
-         "ItemID": {
-            "SerialNumber": {
-               "description": "If applicable, individual product serial number for each product of the current line",
-               "type": "text"
-            },
-            "OtherID": [{
-               "Type": {
-                  "description": "Identifier type or description - e.g. wifi mac address, bluetooth address…",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Other product identifier",
-                  "type": "text"
-               }
-            }]
+         "Amount": {
+            "description": "Discount amount - CALCULATED: BeforeDiscountAmount x Percent",
+            "type": "numeric"
          },
-         "Production": {
-            "BatchNumber": {
-               "description": "Production batch number / reference",
-               "type": "text"
-            },
-            "LotNumber": {
-               "description": "Production lot number / reference",
-               "type": "text"
-            },
-            "Date": {
-               "description": "Production date",
-               "type": "datatime"
-            },
-            "ProductExpiryDate": {
-               "description": "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence",
-               "type": "datatime"
-            }
+         "Code": {
+            "description": "Discount reason code - e.g. XMSLS",
+            "type": "text"
          },
-         "DestinationCountry": {
-            "DestinationCountryCode": {
-               "description": "Country ISO code",
-               "type": "text"
-            },
-            "DestinationCountryName": {
-               "description": "Country name",
-               "type": "text"
-            }
+         "Description": {
+            "description": "Discount reason description - e.g. Christmas Sale",
+            "type": "text"
+         },
+         "OtherAmount": {
+            "description": "Other discretionary discount amount",
+            "type": "numeric"
+         },
+         "SubTotalDiscountAmount": {
+            "description": "Total discount amount for this line - CALCULATED: Discount Amount + Discount OtherAmount",
+            "type": "numeric"
          }
-      }]
-   }],
-    "booking-movement":
-      [{
-      "LineID": {
-         "description": "Unique line identifier",
-         "required": true,
+      },
+      "Tax": {
+         "BeforeTaxAmount": {
+            "description": "Amount on which tax is applied - CALCULATED: SubTotalAmount - SubTotalDiscountAmount",
+            "type": "numeric"
+         },
+         "Type": {
+            "description": "Tax type - e.g. VAT-ValueAddedTax, GST-GoodsAndServicesTax…",
+            "type": "text"
+         },
+         "Category": {
+            "description": "Tax category - e.g. StandardRate, Exempt from Tax (and by implication, the rate that applies, the actual percentage is dependent on the tax jurisdiction)",
+            "type": "text"
+         },
+         "ExemptReasonCode": {
+            "description": "Tax exemption code ",
+            "type": "text"
+         },
+         "FunctionCode": {
+            "description": "Tax function / purpose code ",
+            "type": "text"
+         },
+         "FunctionDescription": {
+            "description": "Tax function / purpose description ",
+            "type": "text"
+         },
+         "Percent": {
+            "description": "Tax percentage - e.g. 150%",
+            "type": "numeric"
+         },
+         "SubTotalTaxAmount": {
+            "description": "Tax amount - CALCULATED: BeforeTaxAmount x Tax Percent",
+            "type": "numeric"
+         }
+      },
+      "SubTotalLineAmount": {
+         "description": "Total line amount after discount and tax - CALCULATED: SubTotalAmount - SubTotalDiscountAmount + SubTotalTaxAmount",
          "type": "numeric"
       },
       "Note": {
          "description": "Free text note",
          "type": "text"
       },
-      "Type": {
-         "description": "Movement type - e.g. Pre-Carriage, Main-Carriage or On-Carriage. Always defaults to Main-Carriage.",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><StageCode>",
-         "type": "text"
-      },
-      "ModeCode": {
-         "description": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ModeCode>",
-         "type": "text"
-      },
-      "CarrierName": {
-         "description": "Name of carrier (business name)",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><UsedLogisticsTransportMeans><Name>",
-         "type": "text"
-      },
-      "CarrierCompany": {
-         "Name": {
-            "description": "Name of company / organization",
-            "type": "text"
-         },
-         "IATAairlineCode": {
-            "description": "IATA code assigned to airline",
-            "type": "text"
-         },
-         "IATAairlinePrefix": {
-            "description": "IATA prefix number assigned to airline",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         },
-         "IDother": [{
-            "Issuer": {
-               "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique company identifier ",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "Address": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         },
-         "Person": [{
-            "FullName": {
-               "description": "Person full name",
-               "type": "text"
-            },
-            "Salutation": {
-               "description": "Salutation ",
-               "type": "text"
-            },
-            "FirstName": {
-               "description": "First name / given name",
-               "type": "text"
-            },
-            "MiddleName": {
-               "description": "Middle name",
-               "type": "text"
-            },
-            "LastName": {
-               "description": "Last name / family name / surname",
-               "type": "text"
-            },
-            "JobTitle": {
-               "description": "Job title / position",
-               "type": "text"
-            },
-            "Department": {
-               "description": "Department / Division / Unit",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "Contact": [{
-               "Description": {
-                  "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                  "type": "text"
-               },
-               "PhoneNumber": {
-                  "description": "Phone number",
-                  "type": "text"
-               },
-               "FaxNumber": {
-                  "description": "Fax number",
-                  "type": "text"
-               },
-               "EmailAddress": {
-                  "description": "Email address",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "ContactOther": [{
-               "Issuer": {
-                  "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique contact identifier",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }]
-         }]
-      },
-      "FlightNumberLineID": {
-         "description": "Airline flight number or rail/truck/maritime line id",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ID>",
-         "type": "text"
-      },
-      "TransportEquipment": {
-         "RegistrationID": {
-            "description": "Vehicle identification - e.g. vehicle registration number",
-            "type": "text"
-         },
-         "Type": {
-            "description": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
-            "type": "text"
-         },
-         "Size": {
-            "description": "Size of the vehicle - free text",
-            "type": "text"
-         },
-         "Seal": {
-            "description": "Seal identifier",
-            "type": "text"
-         },
-         "OtherDetails": [{
-            "Description": {
-               "description": "Data element description - e.g. Color",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ID>",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Data element value - e.g. Black",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ID>",
-               "type": "text"
-            }
-         }]
-      },
-      "Loading": {
-         "DateTime": {
-            "description": "Date and time at which the goods are loaded onto the vehicle",
-            "required": true,
-            "type": "datatime"
-         },
-         "LoadingCompany": {
-            "Name": {
-               "description": "Name of company / organization",
-               "type": "text"
-            },
-            "ID": {
-               "description": "Company's unique identifier",
-               "type": "text"
-            },
-            "IATAcargoAccreditationNumber": {
-               "description": "IATA accredited cargo agent number or identifier",
-               "type": "text"
-            },
-            "IATAcargoCASSnumber": {
-               "description": "IATA CASS cargo agent branch number or identifier",
-               "type": "text"
-            },
-            "IATAairlineCode": {
-               "description": "IATA code assigned to airline",
-               "type": "text"
-            },
-            "IATAairlinePrefix": {
-               "description": "IATA prefix number assigned to airline",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "IDother": [{
-               "Issuer": {
-                  "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique company identifier ",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "Address": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            },
-            "Person": [{
-               "FullName": {
-                  "description": "Person full name",
-                  "type": "text"
-               },
-               "Salutation": {
-                  "description": "Salutation ",
-                  "type": "text"
-               },
-               "FirstName": {
-                  "description": "First name / given name",
-                  "type": "text"
-               },
-               "MiddleName": {
-                  "description": "Middle name",
-                  "type": "text"
-               },
-               "LastName": {
-                  "description": "Last name / family name / surname",
-                  "type": "text"
-               },
-               "JobTitle": {
-                  "description": "Job title / position",
-                  "type": "text"
-               },
-               "Department": {
-                  "description": "Department / Division / Unit",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "Contact": [{
-                  "Description": {
-                     "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                     "type": "text"
-                  },
-                  "PhoneNumber": {
-                     "description": "Phone number",
-                     "type": "text"
-                  },
-                  "FaxNumber": {
-                     "description": "Fax number",
-                     "type": "text"
-                  },
-                  "EmailAddress": {
-                     "description": "Email address",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }],
-               "ContactOther": [{
-                  "Issuer": {
-                     "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                     "type": "text"
-                  },
-                  "Value": {
-                     "description": "Unique contact identifier",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }]
-            }]
-         },
-         "LoadingLocation": {
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "type": "text"
-            },
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "type": "text"
-            },
-            "LoadingAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      },
-      "Departure": {
-         "DateTime": {
-            "description": "Date and time at which the vehicule carrying the goods is departing",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><DepartureEvent><ScheduledOccurrenceDateTime>",
-            "type": "datatime"
-         },
-         "DepartureLocation": {
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><DepartureEvent><OccurrenceDepartureLocation><TypeCode>",
-               "type": "text"
-            },
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><DepartureEvent><OccurrenceDepartureLocation><TypeCode>",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><DepartureEvent><OccurrenceDepartureLocation><Name>",
-               "type": "text"
-            },
-            "DepartureAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      },
-      "Arrival": {
-         "DateTime": {
-            "description": "Date and time at which the vehicle carrying the goods is arriving",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ArrivalEvent><ScheduledOccurrenceDateTime>",
-            "type": "datatime"
-         },
-         "ArrivalLocation": {
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ArrivalEvent><OccurrenceArrivalLocation><TypeCode>",
-               "type": "text"
-            },
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ArrivalEvent><OccurrenceArrivalLocation><TypeCode>",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ArrivalEvent><OccurrenceArrivalLocation><Name>",
-               "type": "text"
-            },
-            "ArrivalAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      },
-      "Unloading": {
-         "DateTime": {
-            "description": "Date and time at which the goods are offloaded from the vehicle",
-            "required": true,
-            "type": "datatime"
-         },
-         "UnloadingCompany": {
-            "Name": {
-               "description": "Name of company / organization",
-               "type": "text"
-            },
-            "ID": {
-               "description": "Company's unique identifier",
-               "type": "text"
-            },
-            "IATAcargoAccreditationNumber": {
-               "description": "IATA accredited cargo agent number or identifier",
-               "type": "text"
-            },
-            "IATAcargoCASSnumber": {
-               "description": "IATA CASS cargo agent branch number or identifier",
-               "type": "text"
-            },
-            "IATAairlineCode": {
-               "description": "IATA code assigned to airline",
-               "type": "text"
-            },
-            "IATAairlinePrefix": {
-               "description": "IATA prefix number assigned to airline",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "IDother": [{
-               "Issuer": {
-                  "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique company identifier ",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "Address": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            },
-            "Person": [{
-               "FullName": {
-                  "description": "Person full name",
-                  "type": "text"
-               },
-               "Salutation": {
-                  "description": "Salutation ",
-                  "type": "text"
-               },
-               "FirstName": {
-                  "description": "First name / given name",
-                  "type": "text"
-               },
-               "MiddleName": {
-                  "description": "Middle name",
-                  "type": "text"
-               },
-               "LastName": {
-                  "description": "Last name / family name / surname",
-                  "type": "text"
-               },
-               "JobTitle": {
-                  "description": "Job title / position",
-                  "type": "text"
-               },
-               "Department": {
-                  "description": "Department / Division / Unit",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "Contact": [{
-                  "Description": {
-                     "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                     "type": "text"
-                  },
-                  "PhoneNumber": {
-                     "description": "Phone number",
-                     "type": "text"
-                  },
-                  "FaxNumber": {
-                     "description": "Fax number",
-                     "type": "text"
-                  },
-                  "EmailAddress": {
-                     "description": "Email address",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }],
-               "ContactOther": [{
-                  "Issuer": {
-                     "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                     "type": "text"
-                  },
-                  "Value": {
-                     "description": "Unique contact identifier",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }]
-            }]
-         },
-         "UnloadingLocation": {
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "type": "text"
-            },
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "type": "text"
-            },
-            "UnloadingAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      },
-      "OtherEvent": [{
-         "DateTime": {
-            "description": "Date and time at which this event is taking place",
-            "required": true,
-            "type": "datatime"
-         },
-         "EventDescription": {
-            "description": "Event description - e.g. security scan / check, customs inspection, consolidation / deconsolidation, animal feeding, etc.",
-            "required": true,
-            "type": "text"
-         },
-         "OtherCompany": {
-            "Name": {
-               "description": "Name of company / organization",
-               "type": "text"
-            },
-            "ID": {
-               "description": "Company's unique identifier",
-               "type": "text"
-            },
-            "IATAcargoAccreditationNumber": {
-               "description": "IATA accredited cargo agent number or identifier",
-               "type": "text"
-            },
-            "IATAcargoCASSnumber": {
-               "description": "IATA CASS cargo agent branch number or identifier",
-               "type": "text"
-            },
-            "IATAairlineCode": {
-               "description": "IATA code assigned to airline",
-               "type": "text"
-            },
-            "IATAairlinePrefix": {
-               "description": "IATA prefix number assigned to airline",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "IDother": [{
-               "Issuer": {
-                  "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique company identifier ",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "Address": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            },
-            "Person": [{
-               "FullName": {
-                  "description": "Person full name",
-                  "type": "text"
-               },
-               "Salutation": {
-                  "description": "Salutation ",
-                  "type": "text"
-               },
-               "FirstName": {
-                  "description": "First name / given name",
-                  "type": "text"
-               },
-               "MiddleName": {
-                  "description": "Middle name",
-                  "type": "text"
-               },
-               "LastName": {
-                  "description": "Last name / family name / surname",
-                  "type": "text"
-               },
-               "JobTitle": {
-                  "description": "Job title / position",
-                  "type": "text"
-               },
-               "Department": {
-                  "description": "Department / Division / Unit",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "Contact": [{
-                  "Description": {
-                     "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                     "type": "text"
-                  },
-                  "PhoneNumber": {
-                     "description": "Phone number",
-                     "type": "text"
-                  },
-                  "FaxNumber": {
-                     "description": "Fax number",
-                     "type": "text"
-                  },
-                  "EmailAddress": {
-                     "description": "Email address",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }],
-               "ContactOther": [{
-                  "Issuer": {
-                     "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                     "type": "text"
-                  },
-                  "Value": {
-                     "description": "Unique contact identifier",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }]
-            }]
-         },
-         "OtherLocation": {
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "type": "text"
-            },
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "type": "text"
-            },
-            "OtherAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      }],
-      "LinkedPiece": {
-         "description": "Piece details",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ID>",
-         "type": "data object or group"
-      },
-      "PieceURI": {
-         "description": "Link to piece details",
-         "cxmlPath": "<MasterConsignment><SpecifiedLogisticsTransportMovement><ID>",
+      "Item": {
+         "description": "Item details",
          "type": "undefined"
       }
    }],
-    "booking-other-customs-info":
-      [{
-      "CountryCode": {
-         "description": "Country ISO code",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><CountryID>",
+    "customs-info":
+      {
+      "CustomsTransitStatus": {
+         "description": "Customs transit status / information / reference / code / SCI code",
          "type": "text"
       },
-      "CustomsSubjectCode": {
-         "description": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><SubjectCode>",
-         "type": "text"
-      },
-      "CustomsContentCode": {
-         "description": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><ContentCode>",
-         "type": "text"
-      },
-      "SupplementaryCustomsInformation": {
-         "description": "Supplementary party or location information for customs reporting",
+      "OtherCustomsInformation": [{
+         "CountryCode": {
+            "description": "Country ISO code",
+            "type": "text"
+         },
+         "CustomsSubjectCode": {
+            "description": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
+            "type": "text"
+         },
+         "CustomsContentCode": {
+            "description": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
+            "type": "text"
+         },
+         "CustomsInformation": {
+            "description": "Information for customs submission",
+            "required": true,
+            "type": "text"
+         }
+      }]
+   },
+    "security-info":
+      {
+      "SecurityStatus": {
+         "description": "Security status indicator - e.g. SPX",
          "required": true,
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><Content>",
+         "type": "text"
+      },
+      "SecurityStatusDate": {
+         "description": "Date and time when the Security Status was issued",
+         "required": true,
+         "type": "datatime"
+      },
+      "RegulatedEntity": {
+         "description": "Company and person details issuing the security status - e.g. with COMPANY SecurityClassifcication as RA - Regulated Agent, KC - Known Consignor or AO - Authorized Operator / Account Consignor",
+         "required": true,
+         "type": "undefined"
+      },
+      "ReasonsForSecurityStatus": {
+         "ReceivedFrom": {
+            "description": "Known Consignor or Account Consignor reference",
+            "type": "text"
+         },
+         "ScreeningMethod": {
+            "description": "Screening methods which have been used to secure the cargo - e.g. VCK",
+            "type": "text"
+         },
+         "GroundsForExemption": {
+            "description": "Exemption details - e.g. NUCL",
+            "type": "text"
+         },
+         "OtherScreeningMethods": {
+            "description": "Other methods used to secure the cargo",
+            "type": "text"
+         }
+      },
+      "AdditionalSecurityInformation": {
+         "description": "Ad hoc security statement required by state regulators ",
+         "type": "text"
+      },
+      "ReferenceDocument": {
+         "description": "Reference document",
+         "type": "undefined"
+      },
+      "Note": {
+         "description": "Free text note",
          "type": "text"
       }
-   }],
-    "booking-insurance":
+   },
+    "insurance":
       {
+      "Currency": {
+         "description": "Currency details",
+         "type": "undefined"
+      },
       "PayingParty": {
          "description": "Party covering the insurance - e.g. Consignor, Consignee, Freight Forwarder…",
-         "required": true,
          "type": "text"
       },
+      "InsurancePolicyHolder": {
+         "description": "Insurance policy holder details and contacts",
+         "type": "undefined"
+      },
       "InsuranceCompany": {
-         "Name": {
-            "description": "Name of company / organization",
-            "type": "text"
-         },
-         "ID": {
-            "description": "Company's unique identifier at insurance company",
-            "type": "text"
-         },
-         "AccountNumber": {
-            "description": "Company's account number at insurance company",
-            "type": "text"
-         },
-         "LegalRegistrationNumber": {
-            "description": "Insurance company's legal registration number at the specified address",
-            "type": "text"
-         },
-         "TaxID": {
-            "description": "Insurance company's tax ID at the specified address",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         },
-         "IDother": [{
-            "Issuer": {
-               "description": "Issuer of the company identifier - e.g. DUNS, ICAO...",
-               "type": "text"
-            },
-            "Value": {
-               "description": "Unique company identifier ",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }],
-         "Address": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         },
-         "Person": [{
-            "FullName": {
-               "description": "Person full name",
-               "type": "text"
-            },
-            "Salutation": {
-               "description": "Salutation ",
-               "type": "text"
-            },
-            "FirstName": {
-               "description": "First name / given name",
-               "type": "text"
-            },
-            "MiddleName": {
-               "description": "Middle name",
-               "type": "text"
-            },
-            "LastName": {
-               "description": "Last name / family name / surname",
-               "type": "text"
-            },
-            "JobTitle": {
-               "description": "Job title / position",
-               "type": "text"
-            },
-            "Department": {
-               "description": "Department / Division / Unit",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            },
-            "Contact": [{
-               "Description": {
-                  "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
-                  "type": "text"
-               },
-               "PhoneNumber": {
-                  "description": "Phone number",
-                  "type": "text"
-               },
-               "FaxNumber": {
-                  "description": "Fax number",
-                  "type": "text"
-               },
-               "EmailAddress": {
-                  "description": "Email address",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }],
-            "ContactOther": [{
-               "Issuer": {
-                  "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-                  "type": "text"
-               },
-               "Value": {
-                  "description": "Unique contact identifier",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               }
-            }]
-         }]
+         "description": "Insurance company details and contacts",
+         "type": "undefined"
       },
       "PolicyNumber": {
          "description": "Insurance policy unique number / reference",
-         "required": true,
          "type": "text"
       },
       "InsuredAmount": {
          "description": "Insured amount - amount covered by the insurance policy",
-         "required": true,
          "type": "numeric"
       },
       "Charge": {
          "description": "Insurance charge - e.g. amount billed by the insurance company for the insurance policy",
-         "required": true,
          "type": "numeric"
+      },
+      "Notes": {
+         "description": "Free text note",
+         "type": "text"
       }
    },
-    "booking-logistics-service-charge":
+    "logistics-service-charge":
       {
       "ChargeCode": {
          "description": "Charge payment method code ",
@@ -3725,12 +1152,32 @@
       },
       "ServiceCode": {
          "description": "Cargo product / service identifier",
-         "cxmlPath": "<MasterConsignment><ApplicableLogisticsServiceCharge><ServiceTypeCode>",
+         "type": "text"
+      },
+      "ProductID": {
+         "description": "Carrier or Freight Forwarder logistics product / service code",
+         "type": "text"
+      },
+      "ProductName": {
+         "description": "If no ProductID provided, Carrier or Freight Forwarder logistics product / service name",
+         "type": "text"
+      },
+      "FreightRateTypeCode": {
+         "description": "Freight Rate Type Code",
+         "type": "text"
+      },
+      "RatingTypeIndicator": {
+         "description": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
          "type": "text"
       }
    },
-    "booking-other-charge":
-      [{
+    "other-charge":
+      {
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
       "ChargeDescription": {
          "Code": {
             "description": "Other charge code",
@@ -3785,9 +1232,13 @@
             "type": "text"
          }
       }
-   }],
-    "booking-charge-declaration":
+   },
+    "charge-declaration":
       {
+      "Currency": {
+         "description": "Currency details",
+         "type": "undefined"
+      },
       "Carriage": {
          "NoCarriageValue": {
             "description": "NVD (No Value Declared) indicator when no value is declared for carriage",
@@ -3819,241 +1270,323 @@
          }
       }
    },
-    "booking-charge-summary":
+    "charge-summary":
       {
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
       "Prepaid": {
          "TotalWeightCharges": {
-            "description": "Weight / volume charge amount",
+            "description": "Sum of WAYBILL_LINE SubTotalLineAmount (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalValuationCharges": {
-            "description": "Valuation charge amount",
+            "description": "Valuation charge amount (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalTaxes": {
-            "description": "Tax amount",
+            "description": "Tax amount (prepaid)",
             "type": "numeric"
          },
          "TotalOtherChargesDueAgent": {
-            "description": "Total charges due Agent / Forwarder amount",
+            "description": "Sum of OTHER_CHARGE Amount due Agent / Forwarder (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalOtherChargesDueCarrier": {
-            "description": "Total charges due Carrier amount",
+            "description": "Sum of OTHER_CHARGE Amount due Carrier (prepaid)",
             "required": true,
             "type": "numeric"
          },
          "TotalCharges": {
-            "description": "Total charge amount ",
+            "description": "Sum of Prepaid amounts",
             "required": true,
             "type": "numeric"
          }
       },
       "Collect": {
          "TotalWeightCharges": {
-            "description": "Weight / volume charge amount",
+            "description": "Sum of WAYBILL_LINE SubTotalLineAmount (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalValuationCharges": {
-            "description": "Valuation charge amount",
+            "description": "Valuation charge amount (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalTaxes": {
-            "description": "Tax amount",
+            "description": "Tax amount (collect)",
             "type": "numeric"
          },
          "TotalOtherChargesDueAgent": {
-            "description": "Total charges due Agent / Forwarder amount",
+            "description": "Sum of OTHER_CHARGE Amount due Agent / Forwarder (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalOtherChargesDueCarrier": {
-            "description": "Total charges due Carrier amount",
+            "description": "Sum of OTHER_CHARGE Amount due Carrier (collect)",
             "required": true,
             "type": "numeric"
          },
          "TotalCharges": {
-            "description": "Total charge amount ",
+            "description": "Sum of Collect amounts",
             "required": true,
             "type": "numeric"
          },
          "InDestinationCurrency": {
             "TotalCharges": {
-               "description": "CALCULATED: Total Charges converted to destination currency as per CURRENCY conversion rate",
+               "description": "Total Charges converted to destination currency as per CURRENCY conversion rate",
                "type": "numeric"
             },
             "CollectionCharge": {
-               "description": "Currency collection charges",
+               "description": "Collection charges in destination currency - e.g. additional amount charged for the service",
                "type": "numeric"
             },
             "GrandTotalCollectCharges": {
-               "description": "CALCULATED: TotalCharges + CollectionCharge",
+               "description": "Sum of TotalCharges and CollectionCharge",
                "type": "numeric"
             }
          }
       }
    },
-    "booking-shipper-signature":
-      {
-      "SignatoryName": {
-         "description": "Name of person",
-         "required": true,
-         "type": "text"
-      },
-      "SignatoryCompany": {
-         "description": "Name of company",
-         "required": true,
-         "type": "text"
-      },
-      "Date": {
-         "description": "Date of signature",
-         "required": true,
-         "type": "datatime"
-      },
-      "Signature": {
-         "description": "Signature (free text)",
-         "required": true,
-         "type": "text"
-      },
-      "Location": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, ICAO…",
-            "type": "text"
-         },
-         "Code": {
-            "description": "Location code - e.g. city, seaport, airport, freight terminal, rail station or other place ",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location full name",
-            "type": "text"
-         },
-         "CountryCode": {
-            "description": "Country ISO code",
-            "type": "text"
-         },
-         "CountryName": {
-            "description": "Country name",
-            "type": "text"
-         }
-      }
-   },
-    "booking-carrier-signature":
-      {
-      "SignatoryName": {
-         "description": "Name of person",
-         "required": true,
-         "type": "text"
-      },
-      "SignatoryCompany": {
-         "description": "Name of company",
-         "required": true,
-         "type": "text"
-      },
-      "Date": {
-         "description": "Date of signature",
-         "required": true,
-         "type": "datatime"
-      },
-      "Signature": {
-         "description": "Signature (free text)",
-         "required": true,
-         "type": "text"
-      },
-      "Location": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, ICAO…",
-            "type": "text"
-         },
-         "Code": {
-            "description": "Location code - e.g. city, seaport, airport, freight terminal, rail station or other place ",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location full name",
-            "type": "text"
-         },
-         "CountryCode": {
-            "description": "Country ISO code",
-            "type": "text"
-         },
-         "CountryName": {
-            "description": "Country name",
-            "type": "text"
-         }
-      }
-   },
     "booking-totals":
       {
-      "ProductLine": {
-         "TotalLineCount": {
-            "description": "Total number of product lines",
-            "required": true,
-            "type": "numeric"
-         }
+      "InvoiceLineTotals": {
+         "description": "Invoice Lines totals",
+         "required": true,
+         "type": "undefined"
       },
-      "Piece": {
-         "TotalPieceCount": {
-            "description": "Total number of pieces",
-            "type": "numeric"
-         },
-         "TotalSLAC": {
-            "description": "Total Shipper's Load and Count",
-            "type": "numeric"
-         },
-         "TotalULDCount": {
-            "description": "Total count of Piece lines with ULD description",
-            "type": "numeric"
-         },
-         "TotalNetWeight": {
-            "description": "Total goods net weight (sum of pieces net weight)",
-            "type": "numeric"
-         },
-         "TotalTareWeight": {
-            "description": "Total tare weight (sum of pieces tare weight) ",
-            "type": "numeric"
-         },
-         "TotalGrossWeight": {
-            "description": "Total goods gross weight (sum of pieces gross weight) ",
-            "type": "numeric"
-         },
-         "TotalVolume": {
-            "description": "Total goods volume (sum of pieces volume)",
-            "type": "numeric"
-         }
+      "PieceTotals": {
+         "description": "Piece totals",
+         "required": true,
+         "type": "undefined"
       },
-      "WaybillLine": {
-         "TotalLineCount": {
-            "description": "Total number of lines",
-            "type": "numeric"
-         },
-         "TotalPieceCount": {
-            "description": "Total number of pieces",
-            "type": "numeric"
-         },
-         "TotalSLAC": {
-            "description": "Total Shipper's Load and Count",
-            "type": "numeric"
-         },
-         "TotalGrossWeight": {
-            "description": "Total gross weight",
-            "cxmlPath": "<MasterConsignment><IncludedTareGrossWeightMeasure, value>",
-            "type": "numeric"
-         },
-         "TotalVolume": {
-            "description": "Total volume",
-            "type": "numeric"
-         },
-         "TotalChargeableWeight": {
-            "description": "Total chargeable weight",
-            "type": "numeric"
-         }
+      "WaybillLineTotals": {
+         "description": "Waybill Line totals",
+         "required": true,
+         "type": "undefined"
       }
-   }
+   },
+    "event":
+      [{
+      "LineID": {
+         "description": "Unique line identifier",
+         "required": true,
+         "type": "numeric"
+      },
+      "FlagScheduledEstimatedActual": {
+         "description": "Flag to indicate whether this line is scheduled, estimated or actual (=performed)",
+         "required": true,
+         "type": "text"
+      },
+      "DateTime": {
+         "description": "Date and time of the event",
+         "required": true,
+         "type": "datatime"
+      },
+      "SequenceNumber": {
+         "description": "Sequence number of the event / movement for this piece",
+         "type": "numeric"
+      },
+      "Company": {
+         "description": "Company performing the event / movement",
+         "type": "undefined"
+      },
+      "Location": {
+         "description": "Location details",
+         "type": "undefined"
+      },
+      "EventCode": {
+         "description": "Event or status code - e.g. DEP, ARR, RCS…",
+         "type": "text"
+      },
+      "EventName": {
+         "description": "If no EventCode provided, event name - e.g. Loading, Unloading…",
+         "type": "text"
+      },
+      "DiscrepancyCode": {
+         "description": "Code indicating a specific discrepancy ",
+         "type": "text"
+      },
+      "ServiceCode": {
+         "description": "Code to identify cargo products / service invoiced by carrier / freight forwarder",
+         "type": "text"
+      },
+      "CarriageStage": {
+         "description": "Carriage stage - e.g. Pre-Carriage, Main-Carriage, On-Carriage. Always defaults to Main-Carriage",
+         "type": "text"
+      },
+      "ModeCode": {
+         "description": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "DataValidation": {
+         "DataAcceptanceStatus": {
+            "description": "Status of data - e.g. Received, Processed, Accepted, Rejected ",
+            "type": "text"
+         },
+         "DataValidationStatus": {
+            "description": "Validation status of data - e.g. Acknowledged (data OK), Warning (error detected and corrected), Error (error detected) ",
+            "type": "text"
+         },
+         "DataErrorCode": {
+            "description": "MIP (Message Improvement Program) Error / Warning code",
+            "type": "text"
+         },
+         "DataErrorDescription": {
+            "description": "If no ErrorCode provided, Error / Warning description",
+            "type": "text"
+         },
+         "ErrorType": {
+            "description": "Type of error - e.g from the Message Improvement Program (MIP)",
+            "type": "text"
+         },
+         "FieldID": {
+            "description": "Field identifier (if available)",
+            "type": "text"
+         },
+         "FieldName": {
+            "description": "Field name - e.g. Description",
+            "type": "text"
+         },
+         "FieldPath": {
+            "description": "Field path from the root of the message / document  - e.g. EVENT.TransportDetails.OtherDetails",
+            "type": "text"
+         },
+         "ErroneousValue": {
+            "description": "Erroneous / previous / original data value",
+            "type": "text"
+         },
+         "CorrectValue": {
+            "description": "Correct / new data value",
+            "type": "text"
+         }
+      },
+      "TransportDetails": {
+         "TransportID": {
+            "description": "Airline flight number or rail / truck / maritime line id",
+            "type": "text"
+         },
+         "RegistrationID": {
+            "description": "Vehicle identification - e.g. vehicle registration number",
+            "type": "text"
+         },
+         "Type": {
+            "description": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
+            "type": "text"
+         },
+         "Size": {
+            "description": "Size of the vehicle - free text",
+            "type": "text"
+         },
+         "Seal": {
+            "description": "Seal identifier",
+            "type": "text"
+         },
+         "SpaceAllocationDetails": {
+            "description": "Space allocation request / action / confirmation code or details",
+            "type": "text"
+         },
+         "AllotmentDetails": {
+            "description": "Guaranteed Capacity reference details",
+            "type": "text"
+         },
+         "ExceptionHandlingDetails": {
+            "description": "Exception handling code or details",
+            "type": "text"
+         },
+         "DeckPosition": {
+            "description": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+            "type": "text"
+         },
+         "OtherDetails": [{
+            "Code": {
+               "description": "Data element code - e.g. CLR",
+               "type": "text"
+            },
+            "Description": {
+               "description": "Data element name - e.g. Color",
+               "type": "text"
+            },
+            "Value": {
+               "description": "Data element value - e.g. Black",
+               "type": "text"
+            }
+         }]
+      },
+      "DataLogger": [{
+         "DeviceUniqueID": {
+            "description": "Data logger's unique identification",
+            "type": "text"
+         },
+         "DeviceName": {
+            "description": "Data logger's name - e.g. data logger manufacturer's brand and model",
+            "type": "text"
+         },
+         "MeasurementParameter": {
+            "description": "Parameter that is being measured - e.g. temperature, humidity, location…",
+            "type": "text"
+         },
+         "MeasurementUnit": {
+            "description": "Unit of measure - e.g. CEL…",
+            "type": "text"
+         },
+         "ThresholdMinValue": {
+            "description": "Minimum alert threshold to trigger warning if measurement falls below this level",
+            "type": "numeric"
+         },
+         "ThresholdMaxValue": {
+            "description": "Maximum alert threshold to trigger warning if measurement exceeds this level",
+            "type": "numeric"
+         },
+         "ThresholdMinAction": {
+            "description": "Free text - action to trigger if measured value falls below the ThresholdMinValue",
+            "type": "text"
+         },
+         "ThresholdMaxAction": {
+            "description": "Free text - action to trigger if measured value exceeds the ThresholdMaxValue",
+            "type": "text"
+         },
+         "ThresholdNotification": {
+            "description": "Company or person contact details for notification in case of value excursion",
+            "type": "text"
+         },
+         "Measurement": [{
+            "DateTime": {
+               "description": "Date and time of measurement",
+               "type": "datatime"
+            },
+            "MeasurementValue": {
+               "description": "Value measured ",
+               "type": "numeric"
+            },
+            "Geolocation": {
+               "description": "Location details - e.g. geographic coordinates from GPS ",
+               "type": "undefined"
+            }
+         }]
+      }],
+      "ReferenceDocument": {
+         "description": "Reference document details",
+         "type": "undefined"
+      },
+      "HandlingDetails": {
+         "description": "Handling details scheduled or performed",
+         "type": "undefined"
+      },
+      "CustomsDetails": {
+         "description": "Customs Information details",
+         "type": "undefined"
+      }
+   }]
 
 }

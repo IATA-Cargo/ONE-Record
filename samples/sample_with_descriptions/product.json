@@ -11,32 +11,31 @@
     "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
     "product":
       {
-      "IDseller": "Seller's unique product identifier",
-      "IDsellerAdditional": "Seller's additional product identifier",
-      "BarCode": "Product bar code",
-      "IDbuyer": "Buyer's unique product identifier",
-      "IDbuyerAdditional": "Buyer's additional product identifier",
-      "IDother": {
-         "Issuer": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
-         "Value": "Unique product identifier",
-         "ValueAdditional": "Additional product identification "
-      },
-      "UNDGcode": "UN Dangerous Goods serial number ",
-      "CommodityCode": {
-         "Issuer": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
-         "Value": "Unique Commodity Code "
-      },
-      "ProductDescription": "Product description",
+      "Units": "Units of measure",
+      "Currency": "Currency details",
       "Manufacturer": "Manufacturing company details and contacts",
+      "ProductDescription": "Product description",
+      "ProductID": "Manufacturer's unique product identifier",
+      "BarCode": "Product's bar code",
+      "IDother": [{
+         "Issuer": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
+         "Identifier": "Product identifier"
+      }],
+      "UNDGcode": "UN Dangerous Goods serial number ",
+      "CommodityCode": [{
+         "Issuer": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
+         "Code": "Unique Commodity Code ",
+         "Name": "If no Code provided, name of commodity"
+      }],
       "OriginCountry": {
-         "Code": "Origin country ISO code",
-         "Name": "Origin country name"
+         "CountryCode": "Origin country ISO code",
+         "CountryName": "If no CountryCode provided, origin country name"
       },
-      "Characteristic": {
+      "Characteristic": [{
          "Code": "Product characteristic code - e.g. CLR…",
          "Description": "Product characteristic description - e.g. Color…",
          "Value": "Product characteristic value / attribute - e.g. Blue…"
-      },
+      }],
       "Weight": {
          "NetWeight": "Product net weight",
          "GrossWeight": "Product gross weight"

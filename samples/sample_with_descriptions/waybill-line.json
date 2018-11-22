@@ -1,0 +1,77 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/waybill-line/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "waybill-line":
+      {
+      "LineID": "Unique line identifer",
+      "Units": "Units of measure",
+      "Currency": "Currency details",
+      "Seller": "Seller company details  - e.g. the party issuing the invoice",
+      "Shipper": "Shipper company details - e.g. the party shipping the items ",
+      "Buyer": "Buyer company details - e.g. the party paying the invoice",
+      "Consignee": "Consignee company details - e.g. the party receiving the items",
+      "Freight Forwarder": "Freight Forwarder company details ",
+      "Consolidator": "Consolidator company details - e.g. the party consolidating multiple pieces",
+      "OtherParty": "Other party company details - e.g. the party to be notified",
+      "ReferenceDocument": "Reference documents details ",
+      "Incoterms": "Incoterms details ",
+      "Insurance": "Insurance details",
+      "HandlingDetails": "Handling details ",
+      "CustomsDetails": "Customs details ",
+      "SecurityDetails": "Security details ",
+      "FreightTerms": "Freight terms details",
+      "ChargeDeclaration": "Charge declaratrion details ",
+      "LogisticsServiceCharge": "Logistics Service Charge details ",
+      "OtherCharges": "Other Charge details ",
+      "Quantity": {
+         "PieceCount": "Number of pieces / packages / ULDs",
+         "SLAC": "Shipper's Load and Count - e.g. count of Items"
+      },
+      "DimensionsPerPiece": {
+         "NoDimensionAvailable": "NDA (No Dimensions Available) indicator",
+         "Width": "Width of piece / package / ULD",
+         "Length": "Length of piece / package / ULD",
+         "Height": "Height of piece / package / ULD",
+         "Volume": "Volume of piece / package / ULD"
+      },
+      "Weight": {
+         "GrossWeight": "Gross weight of piece / package / ULD - total for the waybill line",
+         "VolumeWeightConversionFactor": "Volume to weight conversion factor",
+         "ChargeableWeight": "Chargeable weight - total for the waybill line"
+      },
+      "DensityGroup": "Density group for the goods",
+      "DeckPosition": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+      "Goods": {
+         "GoodsDescription": "Generic text description of the goods ",
+         "OriginCountryCode": "Origin country ISO code of the goods",
+         "CommodityCode": [{
+            "Issuer": "Issuer of commodity classification codes - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard...International Trade Classification",
+            "Code": "Commodity code",
+            "Name": "If no CommodityCode provided, name of commodity"
+         }]
+      },
+      "Rating": {
+         "RatingTypeIndicator": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
+         "CommodityItemNumber": "Commodity identifier on which the rate class code is applied",
+         "RateClassCode": "Rate category code",
+         "RateChargeDiscountAmount": "Rate, charge or discount amount",
+         "RCP": "City code of Rate Combination Point (RCP), the point over which sector rates are combined",
+         "ULDRateClassType": "Unit Load Device rate class type",
+         "RateClassCodeBasis": "Basis on which the Rate Class Code is applicable",
+         "ClassRatingPercentage": "Rating class percentage",
+         "RateReferenceCode": "A unique code to indicate the applicable rate",
+         "RateReferenceType": "Type of rate - e.g. contract, adhoc, etc.",
+         "SubTotalLineAmount": "Total charge for this line item"
+      },
+      "PieceDetail": [{
+      }]
+   }
+}

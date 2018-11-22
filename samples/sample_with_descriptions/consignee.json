@@ -1,0 +1,64 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/consignee/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "consignee":
+      {
+      "Name": "Name of company or organization",
+      "ID": "Company's unique identifier",
+      "AccountNumber": "Company's account number",
+      "LegalRegistrationNumber": "Company's legal registration number at the specified address",
+      "TaxID": "Company's tax ID at the specified address  ",
+      "Note": "Free text note",
+      "IDother": [{
+         "Issuer": "Issuer of the company identifier - e.g. DUNS, ICAO...",
+         "Value": "Unique company identifier ",
+         "Note": "Free text note"
+      }],
+      "Address": {
+         "LocationName": "Full name of the location / facility",
+         "StreetName": "Street name",
+         "StreetNumber": "Street address number",
+         "BuildingID": "Building number / code",
+         "AppartmentID": "Appartment number / code",
+         "PObox": "Post Office box number / code",
+         "PostalCode": "Postal / ZIP code",
+         "CityCode": "UN/LOCODE city code ",
+         "CityName": "Full name of the city ",
+         "StateCode": "State / Department ISO code ",
+         "StateName": "State / Department name",
+         "CountryCode": "ISO country code",
+         "CountryName": "Country name",
+         "Note": "Free text note"
+      },
+      "Person": [{
+         "FullName": "Person full name",
+         "Salutation": "Salutation ",
+         "FirstName": "First name / given name",
+         "MiddleName": "Middle name",
+         "LastName": "Last name / family name / surname",
+         "JobTitle": "Job title / position",
+         "Department": "Department / Division / Unit",
+         "Note": "Free text note",
+         "Contact": [{
+            "Description": "Contact description -  e.g. work, home, mobile phone, sales dept?",
+            "PhoneNumber": "Phone number",
+            "FaxNumber": "Fax number",
+            "EmailAddress": "Email address",
+            "Note": "Free text note"
+         }],
+         "ContactOther": [{
+            "Issuer": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook?",
+            "Value": "Unique contact identifier",
+            "Note": "Free text note"
+         }]
+      }]
+   }
+}

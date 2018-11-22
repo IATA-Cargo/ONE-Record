@@ -30,35 +30,39 @@
     },
     "payment-terms":
       {
-      "IDissuer": {
-         "description": "Payment terms details",
+      "Currency": {
+         "description": "Currency details",
          "required": true,
+         "type": "undefined"
+      },
+      "IDIssuer": {
+         "description": "Issuer of payment terms codes - e.g. UNECE ",
          "type": "text"
       },
       "ID": {
-         "description": "Issuer of payment terms codes - UNECE Recommendation 17 Code List",
+         "description": "Payment Terms code - e.g. UNECE Recommendation 17 Code List",
          "type": "text"
       },
       "DueDate": {
-         "description": "Payment Terms code - e.g. UNECE Recommendation 17 Code List",
+         "description": "Invoice payment due date",
+         "required": true,
          "type": "datatime"
       },
       "AmountPayable": {
-         "description": "Invoice payment due date",
+         "description": "Invoice payable amount at the due date",
          "required": true,
          "type": "numeric"
       },
       "DiscountDueDate": {
-         "description": "Invoice payable amount at the due date",
-         "required": true,
+         "description": "Invoice payment earlier due date to qualify for the payment discount",
          "type": "datatime"
       },
       "DiscountPercent": {
-         "description": "Invoice payment earlier due date to qualify for the payment discount",
+         "description": "Invoice payment discount % if paid at the discount due date or earlier",
          "type": "numeric"
       },
       "DiscountAmount": {
-         "description": "Invoice payment discount % if paid at the discount due date or earlier",
+         "description": "Invoice payment discount amount if paid at the discount due date or earlier",
          "type": "numeric"
       }
    }

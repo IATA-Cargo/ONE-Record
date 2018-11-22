@@ -1,0 +1,73 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/piece/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "piece":
+      {
+      "LineID": "Unique line identifier",
+      "Units": "Units of measure",
+      "FlagPieceTracking": "Flag indicating if the piece-level tracking is requested ",
+      "PieceID": {
+         "UPIDIssuer": "Mandatory if FlagPieceTracking=Tracked, indicates issuer of the UPID identifier - e.g. GS1, shipper, handler, carrier…",
+         "UPID": "Mandatory if FlagPieceTracking=Tracked, indicates Unique Piece Identifier (UPID) of the piece - e.g. GS1 SSCC-18 code ",
+         "ShippingMarks": "Free text the marks and / or numbers shown on a piece / package / pallet / ULD",
+         "Seal": "Seal identifier "
+      },
+      "ContentDescription": "General description of the piece contents (not a detailed description of products / items / articles contained within)",
+      "SLAC": "Shipper's Load And Count -  total contained piece count provided by shipper",
+      "ContainedPieceCount": "Number of contained pieces ",
+      "Seller": "Seller company details - e.g. the party issuing the invoice",
+      "Shipper": "Shipper company details - e.g. the party shipping the items ",
+      "Buyer": "Buyer company details - e.g. the party paying the invoice",
+      "Consignee": "Consignee company details - e.g. the party receiving the items",
+      "Freight Forwarder": "Freight Forwarder company details  ",
+      "Consolidator": "Consolidator company details - e.g. the party consolidating multiple pieces",
+      "OtherParty": "Other party company details - e.g. the party to be notified",
+      "ReferenceDocument": "Reference documents details ",
+      "Incoterms": "Incoterms details ",
+      "Insurance": "Insurance details ",
+      "HandlingDetails": "Handling details  ",
+      "CustomsDetails": "Customs details  ",
+      "SecurityDetails": "Security details  ",
+      "FreightTerms": "Freight terms details  ",
+      "ChargeDeclaration": "Charge declaratrion details  ",
+      "LogisticsServiceCharge": "Logistics Service Charge details  ",
+      "OtherCharges": "Other Charge details  ",
+      "PackagingType": {
+         "Code": "Packaging type identifier as per UNECE Rec 21 Annex V and VI",
+         "Description": "If no Code provided, packaging type description "
+      },
+      "ULD": {
+         "Type": "Standard Unit Load Device type code",
+         "ATAdesignator": "US / ATA Unit Load Device type code",
+         "LoadingIndicator": "ULD height or loading limitation code",
+         "SerialNumber": "ULD serial number",
+         "OwnerCodeIssuer": "Issuer of the ULD owner code ",
+         "OwnerCode": "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company",
+         "OwnerCompany": "Owner company details and contacts for the ULD"
+      },
+      "Weight": {
+         "NetWeight": "Net weight of the contents of the piece / package",
+         "TareWeight": "Weight of empty packaging, pallet or ULD for the piece",
+         "GrossWeight": "Total weight of piece / package / pallet / ULD"
+      },
+      "Dimensions": {
+         "Width": "Width",
+         "Length": "Lenght",
+         "Height": "Height",
+         "Volume": "Volume"
+      },
+      "DensityGroup": "Density group of the piece",
+      "DeckPosition": "Position of the shipment in the aircraft - e.g. lower or main deck ",
+      "Event": "Movement details for this piece",
+      "ContainedItem": "Individual items contained within this piece",
+      "ContainedPiece": "Pieces contained within this piece"
+   }
+}

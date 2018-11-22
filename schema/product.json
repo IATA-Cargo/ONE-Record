@@ -30,73 +30,69 @@
     },
     "product":
       {
-      "IDseller": {
-         "description": "Seller's unique product identifier",
-         "type": "text"
+      "Units": {
+         "description": "Units of measure",
+         "type": "undefined"
       },
-      "IDsellerAdditional": {
-         "description": "Seller's additional product identifier",
-         "type": "text"
+      "Currency": {
+         "description": "Currency details",
+         "type": "undefined"
       },
-      "BarCode": {
-         "description": "Product bar code",
-         "type": "text"
-      },
-      "IDbuyer": {
-         "description": "Buyer's unique product identifier",
-         "type": "text"
-      },
-      "IDbuyerAdditional": {
-         "description": "Buyer's additional product identifier",
-         "type": "text"
-      },
-      "IDother": {
-         "Issuer": {
-            "description": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
-            "type": "text"
-         },
-         "Value": {
-            "description": "Unique product identifier",
-            "type": "text"
-         },
-         "ValueAdditional": {
-            "description": "Additional product identification ",
-            "type": "text"
-         }
-      },
-      "UNDGcode": {
-         "description": "UN Dangerous Goods serial number ",
-         "type": "text"
-      },
-      "CommodityCode": {
-         "Issuer": {
-            "description": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
-            "type": "text"
-         },
-         "Value": {
-            "description": "Unique Commodity Code ",
-            "type": "text"
-         }
+      "Manufacturer": {
+         "description": "Manufacturing company details and contacts",
+         "type": "undefined"
       },
       "ProductDescription": {
          "description": "Product description",
          "type": "text"
       },
-      "Manufacturer": {
-         "description": "Manufacturing company details and contacts",
-         "type": "data object or group"
+      "ProductID": {
+         "description": "Manufacturer's unique product identifier",
+         "type": "text"
       },
-      "OriginCountry": {
+      "BarCode": {
+         "description": "Product's bar code",
+         "type": "text"
+      },
+      "IDother": [{
+         "Issuer": {
+            "description": "Issuer of the product identifer - e.g. UPC, EAN, Amazon…",
+            "type": "text"
+         },
+         "Identifier": {
+            "description": "Product identifier",
+            "type": "text"
+         }
+      }],
+      "UNDGcode": {
+         "description": "UN Dangerous Goods serial number ",
+         "type": "text"
+      },
+      "CommodityCode": [{
+         "Issuer": {
+            "description": "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…",
+            "type": "text"
+         },
          "Code": {
-            "description": "Origin country ISO code",
+            "description": "Unique Commodity Code ",
             "type": "text"
          },
          "Name": {
-            "description": "Origin country name",
+            "description": "If no Code provided, name of commodity",
+            "type": "text"
+         }
+      }],
+      "OriginCountry": {
+         "CountryCode": {
+            "description": "Origin country ISO code",
+            "type": "text"
+         },
+         "CountryName": {
+            "description": "If no CountryCode provided, origin country name",
             "type": "text"
          }
       },
-      "Characteristic": {
+      "Characteristic": [{
          "Code": {
             "description": "Product characteristic code - e.g. CLR…",
             "type": "text"
@@ -109,7 +105,7 @@
             "description": "Product characteristic value / attribute - e.g. Blue…",
             "type": "text"
          }
-      },
+      }],
       "Weight": {
          "NetWeight": {
             "description": "Product net weight",

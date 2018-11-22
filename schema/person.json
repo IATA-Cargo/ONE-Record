@@ -30,9 +30,8 @@
     },
     "person":
       {
-      "FullName": {
-         "description": "Person full name",
-         "required": true,
+      "ContactType": {
+         "description": "Contact type - e.g. Emergency contact, Customs contact, Customer contact…",
          "type": "text"
       },
       "Salutation": {
@@ -63,45 +62,23 @@
          "description": "Free text note",
          "type": "text"
       },
-      "Contact": {
+      "Contact": [{
          "Description": {
-            "description": "Contact description -  e.g. work, home, mobile phone, sales dept…",
+            "description": "Contact description free text -  e.g. main, work, home, mobile phone, sales dept…",
             "type": "text"
          },
-         "PhoneNumber": {
-            "description": "Phone number",
+         "Method": {
+            "description": "Issuer of contact identifier - e.g. Phone, Email, Fax, Skype, Whatsapp, Viber…",
             "type": "text"
          },
-         "FaxNumber": {
-            "description": "Fax number",
-            "type": "text"
-         },
-         "EmailAddress": {
-            "description": "Email address",
-            "type": "text"
-         },
-         "TelexNumber": {
-            "description": "Telex number",
+         "ContactPoint": {
+            "description": "Contact coordinates - e.g. phone number, email address, etc.",
             "type": "text"
          },
          "Note": {
             "description": "Free text note",
             "type": "text"
          }
-      },
-      "ContactOther": {
-         "Issuer": {
-            "description": "Issuer of contact identifier - e.g. Skype, Whatsapp, Viber, Facebook…",
-            "type": "text"
-         },
-         "Value": {
-            "description": "Unique contact identifier",
-            "type": "text"
-         },
-         "Note": {
-            "description": "Free text note",
-            "type": "text"
-         }
-      }
+      }]
    }
 }

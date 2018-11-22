@@ -1,0 +1,35 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/item/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": "URI of this logitsics object",
+    "type": "Type of losgistics object, e.g. air waybill, booking, etc",
+    "typeCode": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+    "issuedBy": "Internet of logistics code of issuing party.",
+    "key": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+    "item":
+      {
+      "LineID": "Unique line identifier",
+      "ContainedQuantity": "Item contained quantity - e.g. 1 for items with precise serial numbers (e.g. smartphones) or more for bulk items with quantity units in weight instead of items (e.g. tomatoes…)",
+      "ProductID": "Product identifier",
+      "ItemID": {
+         "SerialNumber": "If applicable, individual product serial number for each product of the current line",
+         "IDOther": [{
+            "Type": "Identifier type or description - e.g. wifi mac address, bluetooth address…",
+            "Identifier": "Other product identifier"
+         }]
+      },
+      "Production": {
+         "BatchNumber": "Production batch number / reference",
+         "LotNumber": "Production lot number / reference",
+         "Date": "Production date",
+         "ProductExpiryDate": "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence"
+      },
+      "DestinationCountry": {
+         "CountryCode": "Country ISO code",
+         "CountryName": "If CountryCode not provided, destination country name"
+      }
+   }
+}

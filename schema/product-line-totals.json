@@ -1,0 +1,129 @@
+{
+	"@context": {
+    	"@vocab": "https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/schema/product-line-totals/",
+    	"type": "@type",
+    	"id": "@id"
+    },
+    "id": {
+        "description": "URI of this logistics object",
+         "required": true,
+         "type": "text"
+    },
+    "type":  {
+        "description": "Type of losgistics object, e.g. air waybill, booking, etc",
+         "required": true,
+         "type": "text"
+    },
+    "typeCode":  {
+        "description": "Commonly useed codes for document type, e.g. jfwb, jfhl etc. Leave nlank if unknown",
+        "type": "text"
+    },
+    "issuedBy":  {
+        "description": "Internet of logistics identity code of issuing party.",
+        "required": true,
+        "type": "text"
+    },
+    "key":  {
+        "description": "JSON field name of code that identifies this logistics object, e.g. 'waybill number', 'UPID' etc.",
+        "required": true,
+        "type": "text"
+    },
+    "product-line-totals":
+      {
+      "Currency": {
+         "description": "Currency details",
+         "required": true,
+         "type": "undefined"
+      },
+      "TotalLineCount": {
+         "description": "Count of product lines",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalBeforeDiscountAmount": {
+         "description": "Sum of BeforeDiscountAmount",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalDiscountAmount": {
+         "description": "Sum of DiscountSubTotalAmount",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalBeforeTaxAmount": {
+         "description": "Sum of BeforeTaxAmount",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalTaxAmount": {
+         "description": "Sum of SubTotalTaxAmount",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalLineAmount": {
+         "description": "Sum of SubTotalLineAmount",
+         "required": true,
+         "type": "numeric"
+      },
+      "TotalLineAmountInText": {
+         "description": "TotalLineAmount in text",
+         "type": "text"
+      },
+      "BreakdownByLineType": {
+         "TotalLineAmountItem": {
+            "description": "Sum of SubTotalLineAmount where ChargeType=ITM",
+            "required": true,
+            "type": "numeric"
+         },
+         "TotalLineAmountPacking": {
+            "description": "Sum of SubTotalLineAmount where ChargeType=PCK",
+            "required": true,
+            "type": "numeric"
+         },
+         "TotalLineAmountFreight": {
+            "description": "Sum of SubTotalLineAmount where ChargeType=FRT",
+            "required": true,
+            "type": "numeric"
+         },
+         "TotalLineAmountInsurance": {
+            "description": "Sum of SubTotalLineAmount where ChargeType=INS",
+            "required": true,
+            "type": "numeric"
+         }
+      },
+      "BreakdownByTaxRate": [{
+         "TotalBeforeTaxAmountByRate": {
+            "description": "Total of product line BaseAmount for this tax rate",
+            "type": "numeric"
+         },
+         "Type": {
+            "description": "Tax type - e.g. VAT-ValueAddedTax, GST-GoodsAndServicesTax…",
+            "type": "text"
+         },
+         "Category": {
+            "description": "Tax category - e.g. StandardRate, Exempt from Tax (and by implication, the rate that applies, the actual percentage is dependent on the tax jurisdiction)",
+            "type": "text"
+         },
+         "ExemptReasonCode": {
+            "description": "Tax exemption code ",
+            "type": "text"
+         },
+         "FunctionCode": {
+            "description": "Tax function / purpose code ",
+            "type": "text"
+         },
+         "FunctionDescription": {
+            "description": "Tax function / purpose description ",
+            "type": "text"
+         },
+         "Percent": {
+            "description": "Tax percent ",
+            "type": "numeric"
+         },
+         "TotalTaxAmount": {
+            "description": "Total of product line TaxAmount for this tax rate ",
+            "type": "numeric"
+         }
+      }]
+   }
+}

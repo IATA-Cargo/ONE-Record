@@ -33,700 +33,320 @@
       "HouseManifestID": {
          "description": "House Manifest unique identifier",
          "required": true,
-         "cxmlPath": "<BusinessHeaderDocument><ID>",
          "type": "text"
       },
       "Date": {
          "description": "House Manifest date",
          "required": true,
-         "cxmlPath": "<BusinessHeaderDocument><ID>",
          "type": "datatime"
       }
    },
-    "house-manifest-master-waybill":
+    "customs-info":
       {
-      "WaybillNumber": {
-         "description": "Air Waybill number",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><TransportContractDocument><ID>",
+      "CustomsTransitStatus": {
+         "description": "Customs transit status / information / reference / code / SCI code",
          "type": "text"
       },
-      "TotalGrossWeight": {
-         "description": "Total gross weight",
-         "cxmlPath": "<MasterConsignment><IncludedTareGrossWeightMeasure, value>",
+      "OtherCustomsInformation": [{
+         "CountryCode": {
+            "description": "Country ISO code",
+            "type": "text"
+         },
+         "CustomsSubjectCode": {
+            "description": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
+            "type": "text"
+         },
+         "CustomsContentCode": {
+            "description": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
+            "type": "text"
+         },
+         "CustomsInformation": {
+            "description": "Information for customs submission",
+            "required": true,
+            "type": "text"
+         }
+      }]
+   },
+    "house-manifest-line":
+      {
+      "LineID": {
+         "description": "Unique line identifier",
+         "required": true,
+         "type": "numeric"
+      },
+      "HouseWaybillHead": {
+         "description": "House Waybill head details",
+         "required": true,
+         "type": "undefined"
+      },
+      "HouseWaybillLine": {
+         "description": "House Waybill line details",
+         "type": "undefined"
+      },
+      "HouseWaybillTotals": {
+         "description": "House Waybill Totals",
+         "required": true,
+         "type": "undefined"
+      },
+      "HouseWaybillHandling": {
+         "description": "Handling details",
+         "type": "undefined"
+      },
+      "HouseWaybillReferenceDocs": {
+         "description": "Reference documents details",
+         "type": "undefined"
+      },
+      "HouseWaybillCustomsInformation": {
+         "description": "Customs information details",
+         "type": "undefined"
+      },
+      "HouseWaybillSecurityInformation": {
+         "description": "Customs information details",
+         "type": "undefined"
+      }
+   },
+    "house-manifest-totals":
+      {
+      "Units": {
+         "description": "Units of measure",
+         "required": true,
+         "type": "undefined"
+      },
+      "TotalLineCount": {
+         "description": "Count of House Manifest lines",
          "type": "numeric"
       },
       "TotalPieceCount": {
-         "description": "Total piece count",
+         "description": "Sum of PieceCount",
+         "required": true,
          "type": "numeric"
       },
-      "OriginLocation": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-            "type": "text"
-         },
-         "Code": {
-            "description": "Location code of airport, freight terminal, seaport, rail station…",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location name",
-            "type": "text"
-         },
-         "Type": {
-            "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-            "type": "text"
-         },
-         "OriginAddress": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }
+      "TotalSLAC": {
+         "description": "Sum of SLAC",
+         "required": true,
+         "type": "numeric"
       },
-      "DestinationLocation": {
-         "CodeIssuer": {
-            "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-            "type": "text"
-         },
-         "Code": {
-            "description": "Location code of airport, freight terminal, seaport, rail station…",
-            "type": "text"
-         },
-         "Name": {
-            "description": "Location name",
-            "type": "text"
-         },
-         "Type": {
-            "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-            "type": "text"
-         },
-         "DestinationAddress": {
-            "LocationName": {
-               "description": "Full name of the location / facility",
-               "type": "text"
-            },
-            "StreetName": {
-               "description": "Street name",
-               "type": "text"
-            },
-            "StreetNumber": {
-               "description": "Street address number",
-               "type": "text"
-            },
-            "BuildingID": {
-               "description": "Building number / code",
-               "type": "text"
-            },
-            "AppartmentID": {
-               "description": "Appartment number / code",
-               "type": "text"
-            },
-            "PObox": {
-               "description": "Post Office box number / code",
-               "type": "text"
-            },
-            "PostalCode": {
-               "description": "Postal / ZIP code",
-               "type": "text"
-            },
-            "CityCode": {
-               "description": "UN/LOCODE city code ",
-               "type": "text"
-            },
-            "CityName": {
-               "description": "Full name of the city ",
-               "type": "text"
-            },
-            "RegionCode": {
-               "description": "UN/LOCODE region code ",
-               "type": "text"
-            },
-            "CountryCode": {
-               "description": "ISO country code",
-               "type": "text"
-            },
-            "CountryName": {
-               "description": "Country name",
-               "type": "text"
-            },
-            "Note": {
-               "description": "Free text note",
-               "type": "text"
-            }
-         }
+      "TotalGrossWeight": {
+         "description": "Sum of GrossWeight",
+         "required": true,
+         "type": "numeric"
       }
    },
-    "house-manifest-other-customs-info":
-      [{
-      "CountryCode": {
-         "description": "Country ISO code",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><CountryID>",
-         "type": "text"
-      },
-      "CustomsSubjectCode": {
-         "description": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><SubjectCode>",
-         "type": "text"
-      },
-      "CustomsContentCode": {
-         "description": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><ContentCode>",
-         "type": "text"
-      },
-      "SupplementaryCustomsInformation": {
-         "description": "Supplementary party or location information for customs reporting",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><IncludedCustomsNote><Content>",
-         "type": "text"
-      }
-   }],
-    "house-manifest-line":
+    "event":
       [{
       "LineID": {
          "description": "Unique line identifier",
          "required": true,
-         "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><SequenceNumeric>",
          "type": "numeric"
       },
-      "HouseWaybillHead": {
-         "HouseWaybillNumber": {
-            "description": "House Waybill number",
-            "required": true,
+      "FlagScheduledEstimatedActual": {
+         "description": "Flag to indicate whether this line is scheduled, estimated or actual (=performed)",
+         "required": true,
+         "type": "text"
+      },
+      "DateTime": {
+         "description": "Date and time of the event",
+         "required": true,
+         "type": "datatime"
+      },
+      "SequenceNumber": {
+         "description": "Sequence number of the event / movement for this piece",
+         "type": "numeric"
+      },
+      "Company": {
+         "description": "Company performing the event / movement",
+         "type": "undefined"
+      },
+      "Location": {
+         "description": "Location details",
+         "type": "undefined"
+      },
+      "EventCode": {
+         "description": "Event or status code - e.g. DEP, ARR, RCS…",
+         "type": "text"
+      },
+      "EventName": {
+         "description": "If no EventCode provided, event name - e.g. Loading, Unloading…",
+         "type": "text"
+      },
+      "DiscrepancyCode": {
+         "description": "Code indicating a specific discrepancy ",
+         "type": "text"
+      },
+      "ServiceCode": {
+         "description": "Code to identify cargo products / service invoiced by carrier / freight forwarder",
+         "type": "text"
+      },
+      "CarriageStage": {
+         "description": "Carriage stage - e.g. Pre-Carriage, Main-Carriage, On-Carriage. Always defaults to Main-Carriage",
+         "type": "text"
+      },
+      "ModeCode": {
+         "description": "Mode of transport code following UNECE Recommendation N. 19 - Code for Modes of Transport ",
+         "type": "text"
+      },
+      "Note": {
+         "description": "Free text note",
+         "type": "text"
+      },
+      "DataValidation": {
+         "DataAcceptanceStatus": {
+            "description": "Status of data - e.g. Received, Processed, Accepted, Rejected ",
             "type": "text"
          },
-         "Date": {
-            "description": "House Waybill date",
-            "type": "datatime"
-         },
-         "WeightUnitCode": {
-            "description": "Weight unit code for the invoice",
-            "required": true,
+         "DataValidationStatus": {
+            "description": "Validation status of data - e.g. Acknowledged (data OK), Warning (error detected and corrected), Error (error detected) ",
             "type": "text"
          },
-         "DimensionsUnitCode": {
-            "description": "Dimensions unit code for the invoice",
-            "required": true,
+         "DataErrorCode": {
+            "description": "MIP (Message Improvement Program) Error / Warning code",
             "type": "text"
          },
-         "VolumeUnitCode": {
-            "description": "Volume unit code for the invoice",
-            "required": true,
+         "DataErrorDescription": {
+            "description": "If no ErrorCode provided, Error / Warning description",
             "type": "text"
          },
-         "HeadNote": {
-            "description": "Head free text note",
+         "ErrorType": {
+            "description": "Type of error - e.g from the Message Improvement Program (MIP)",
             "type": "text"
          },
-         "ShipmentTypeCode": {
-            "description": "Total, part or split consignment indicator",
+         "FieldID": {
+            "description": "Field identifier (if available)",
             "type": "text"
          },
-         "LoadTypeCode": {
-            "description": "Bulk or containerized (BLK or ULD) indicator",
+         "FieldName": {
+            "description": "Field name - e.g. Description",
+            "type": "text"
+         },
+         "FieldPath": {
+            "description": "Field path from the root of the message / document  - e.g. EVENT.TransportDetails.OtherDetails",
+            "type": "text"
+         },
+         "ErroneousValue": {
+            "description": "Erroneous / previous / original data value",
+            "type": "text"
+         },
+         "CorrectValue": {
+            "description": "Correct / new data value",
+            "type": "text"
+         }
+      },
+      "TransportDetails": {
+         "TransportID": {
+            "description": "Airline flight number or rail / truck / maritime line id",
+            "type": "text"
+         },
+         "RegistrationID": {
+            "description": "Vehicle identification - e.g. vehicle registration number",
+            "type": "text"
+         },
+         "Type": {
+            "description": "Vehicle or container type following United Nations Directories for Electronic Data Interchange Code List",
+            "type": "text"
+         },
+         "Size": {
+            "description": "Size of the vehicle - free text",
+            "type": "text"
+         },
+         "Seal": {
+            "description": "Seal identifier",
+            "type": "text"
+         },
+         "SpaceAllocationDetails": {
+            "description": "Space allocation request / action / confirmation code or details",
+            "type": "text"
+         },
+         "AllotmentDetails": {
+            "description": "Guaranteed Capacity reference details",
+            "type": "text"
+         },
+         "ExceptionHandlingDetails": {
+            "description": "Exception handling code or details",
             "type": "text"
          },
          "DeckPosition": {
             "description": "Position of the shipment in the aircraft - e.g. lower or main deck ",
             "type": "text"
          },
-         "ConsolDirectLCflag": {
-            "description": "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit",
-            "type": "text"
-         },
-         "GoodsDescription": {
-            "description": "Description of goods",
-            "type": "text"
-         },
-         "ProductID": {
-            "description": "Carrier product / service code",
-            "type": "text"
-         },
-         "DensityGroup": {
-            "description": "Density group of goods",
-            "type": "text"
-         },
-         "CustomsOriginCode": {
-            "description": "Customs transit status / information / reference / code",
-            "type": "undefined"
-         },
-         "FreightRateTypeCode": {
-            "description": "Freight Rate Type Code",
-            "type": "text"
-         },
-         "RatingTypeIndicator": {
-            "description": "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail",
-            "required": true,
-            "type": "text"
-         },
-         "PrepaidCollectFlag": {
-            "WeightValuationCharges": {
-               "description": "Weight Valuation payment code - e.g. at origin (prepaid) or at destination (collect)",
-               "type": "text"
-            },
-            "OtherCharges": {
-               "description": "Other Charges payment code - e.g. at origin (prepaid) or at destination (collect)",
-               "type": "text"
-            }
-         },
-         "OriginLocation": {
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "type": "text"
-            },
+         "OtherDetails": [{
             "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "type": "text"
-            },
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "type": "text"
-            },
-            "OriginAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         },
-         "DestinationLocation": {
-            "CodeIssuer": {
-               "description": "Issuer of location code - e.g. IATA, UN/LOCODE, ICAO…",
-               "type": "text"
-            },
-            "Code": {
-               "description": "Location code of airport, freight terminal, seaport, rail station…",
-               "type": "text"
-            },
-            "Name": {
-               "description": "Location name",
-               "type": "text"
-            },
-            "Type": {
-               "description": "Location type - e.g. Airport, FreightTerminal, RailStation, Other, Seaport…",
-               "type": "text"
-            },
-            "DestinationAddress": {
-               "LocationName": {
-                  "description": "Full name of the location / facility",
-                  "type": "text"
-               },
-               "StreetName": {
-                  "description": "Street name",
-                  "type": "text"
-               },
-               "StreetNumber": {
-                  "description": "Street address number",
-                  "type": "text"
-               },
-               "BuildingID": {
-                  "description": "Building number / code",
-                  "type": "text"
-               },
-               "AppartmentID": {
-                  "description": "Appartment number / code",
-                  "type": "text"
-               },
-               "PObox": {
-                  "description": "Post Office box number / code",
-                  "type": "text"
-               },
-               "PostalCode": {
-                  "description": "Postal / ZIP code",
-                  "type": "text"
-               },
-               "CityCode": {
-                  "description": "UN/LOCODE city code ",
-                  "type": "text"
-               },
-               "CityName": {
-                  "description": "Full name of the city ",
-                  "type": "text"
-               },
-               "RegionCode": {
-                  "description": "UN/LOCODE region code ",
-                  "type": "text"
-               },
-               "CountryCode": {
-                  "description": "ISO country code",
-                  "type": "text"
-               },
-               "CountryName": {
-                  "description": "Country name",
-                  "type": "text"
-               },
-               "Note": {
-                  "description": "Free text note",
-                  "type": "text"
-               },
-               "GeoLocation": {
-                  "LatitudeDecimal": {
-                     "description": "Location latitude in decimals",
-                     "type": "numeric"
-                  },
-                  "LongitudeDecimal": {
-                     "description": "Location longitude in decimals",
-                     "type": "numeric"
-                  },
-                  "AltitudeMetric": {
-                     "description": "Altittude from sea level",
-                     "type": "numeric"
-                  },
-                  "DockElevationMetric": {
-                     "description": "Dock elevation in meters from building's ground level",
-                     "type": "numeric"
-                  },
-                  "DockApproachInfo": {
-                     "description": "Dock approach information / direction for approach - e.g. entry from SouthWest",
-                     "type": "text"
-                  },
-                  "DockFloor": {
-                     "description": "Floor number of building where dock is located",
-                     "type": "text"
-                  },
-                  "DockID": {
-                     "description": "Dock identification for landing",
-                     "type": "text"
-                  },
-                  "DockOtherInfo": {
-                     "description": "Other dock information - e.g. access times, security id…",
-                     "type": "text"
-                  },
-                  "Note": {
-                     "description": "Free text note",
-                     "type": "text"
-                  }
-               }
-            }
-         }
-      },
-      "HouseWaybillTotals": {
-         "ProductLine": {
-            "TotalLineCount": {
-               "description": "Total number of product lines",
-               "required": true,
-               "type": "numeric"
-            }
-         },
-         "Piece": {
-            "TotalPieceCount": {
-               "description": "Total number of pieces",
-               "type": "numeric"
-            },
-            "TotalSLAC": {
-               "description": "Total Shipper's Load and Count",
-               "type": "numeric"
-            },
-            "TotalULDCount": {
-               "description": "Total count of Piece lines with ULD description",
-               "type": "numeric"
-            },
-            "TotalNetWeight": {
-               "description": "Total goods net weight (sum of pieces net weight)",
-               "type": "numeric"
-            },
-            "TotalTareWeight": {
-               "description": "Total tare weight (sum of pieces tare weight) ",
-               "type": "numeric"
-            },
-            "TotalGrossWeight": {
-               "description": "Total goods gross weight (sum of pieces gross weight) ",
-               "type": "numeric"
-            },
-            "TotalVolume": {
-               "description": "Total goods volume (sum of pieces volume)",
-               "type": "numeric"
-            }
-         },
-         "WaybillLine": {
-            "TotalLineCount": {
-               "description": "Total number of lines",
-               "type": "numeric"
-            },
-            "TotalPieceCount": {
-               "description": "Total number of pieces",
-               "type": "numeric"
-            },
-            "TotalSLAC": {
-               "description": "Total Shipper's Load and Count",
-               "type": "numeric"
-            },
-            "TotalGrossWeight": {
-               "description": "Total gross weight",
-               "cxmlPath": "<MasterConsignment><IncludedTareGrossWeightMeasure, value>",
-               "type": "numeric"
-            },
-            "TotalVolume": {
-               "description": "Total volume",
-               "type": "numeric"
-            },
-            "TotalChargeableWeight": {
-               "description": "Total chargeable weight",
-               "type": "numeric"
-            }
-         }
-      },
-      "HouseWaybillHandling": {
-         "SpecialHandlingCode": [{
-            "Code": {
-               "description": "Special handling code following IATA standards",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingSPHInstructions><DescriptionCode>",
+               "description": "Data element code - e.g. CLR",
                "type": "text"
             },
             "Description": {
-               "description": "Special handling description following IATA standards",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingSPHInstructions><Description>",
-               "type": "text"
-            }
-         }],
-         "SpecialServiceRequest": [{
-            "Code": {
-               "description": "Special service request code",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingSSRInstructions><DescriptionCode>",
+               "description": "Data element name - e.g. Color",
                "type": "text"
             },
-            "Description": {
-               "description": "Special service request description",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingSSRInstructions><Description>",
-               "type": "text"
-            }
-         }],
-         "OtherServiceInfo": [{
-            "Code": {
-               "description": "Other service code",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingOSIInstructions><DescriptionCode>",
-               "type": "text"
-            },
-            "Description": {
-               "description": "Other service description",
-               "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><HandlingOSIInstructions><Description>",
+            "Value": {
+               "description": "Data element value - e.g. Black",
                "type": "text"
             }
          }]
       },
-      "HouseWaybillReferenceDocs": [{
-         "DocumentType": {
-            "description": "Type of the referenced document",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><AssociatedReferenceDocument><TypeCode>",
+      "DataLogger": [{
+         "DeviceUniqueID": {
+            "description": "Data logger's unique identification",
             "type": "text"
          },
-         "DocumentName": {
-            "description": "Name of the referenced document - must correspond to DocumentType",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><AssociatedReferenceDocument><Name>",
+         "DeviceName": {
+            "description": "Data logger's name - e.g. data logger manufacturer's brand and model",
             "type": "text"
          },
-         "DocumentID": {
-            "description": "Unique document identifier",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><AssociatedReferenceDocument><ID>",
+         "MeasurementParameter": {
+            "description": "Parameter that is being measured - e.g. temperature, humidity, location…",
             "type": "text"
          },
-         "DocumentIDAdditional": {
-            "description": "Additional document identifier",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><AssociatedReferenceDocument><ID>",
+         "MeasurementUnit": {
+            "description": "Unit of measure - e.g. CEL…",
             "type": "text"
          },
-         "DocumentDate": {
-            "description": "Document date",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><AssociatedReferenceDocument><IssueDateTime>",
-            "type": "datatime"
-         },
-         "DocumentLineID": {
-            "description": "Document's line number ",
+         "ThresholdMinValue": {
+            "description": "Minimum alert threshold to trigger warning if measurement falls below this level",
             "type": "numeric"
          },
-         "Note": {
-            "description": "Free text note",
+         "ThresholdMaxValue": {
+            "description": "Maximum alert threshold to trigger warning if measurement exceeds this level",
+            "type": "numeric"
+         },
+         "ThresholdMinAction": {
+            "description": "Free text - action to trigger if measured value falls below the ThresholdMinValue",
             "type": "text"
-         }
+         },
+         "ThresholdMaxAction": {
+            "description": "Free text - action to trigger if measured value exceeds the ThresholdMaxValue",
+            "type": "text"
+         },
+         "ThresholdNotification": {
+            "description": "Company or person contact details for notification in case of value excursion",
+            "type": "text"
+         },
+         "Measurement": [{
+            "DateTime": {
+               "description": "Date and time of measurement",
+               "type": "datatime"
+            },
+            "MeasurementValue": {
+               "description": "Value measured ",
+               "type": "numeric"
+            },
+            "Geolocation": {
+               "description": "Location details - e.g. geographic coordinates from GPS ",
+               "type": "undefined"
+            }
+         }]
       }],
-      "HouseWaybillCustomsInfo": [{
-         "CountryCode": {
-            "description": "Country ISO code",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><IncludedCustomsNote><CountryID>",
-            "type": "text"
-         },
-         "CustomsSubjectCode": {
-            "description": "Customs subject code - e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><IncludedCustomsNote><SubjectCode>",
-            "type": "text"
-         },
-         "CustomsContentCode": {
-            "description": "Customs content code - e.g. Item Number I, Exemption Legend L, System Downtime Reference S, Unique Consignment Reference Number U, Movement Reference Number M",
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><IncludedCustomsNote><ContentCode>",
-            "type": "text"
-         },
-         "SupplementaryCustomsInformation": {
-            "description": "Supplementary party or location information for customs reporting",
-            "required": true,
-            "cxmlPath": "<MasterConsignment><IncludedHouseConsignment><IncludedCustomsNote><Content>",
-            "type": "text"
-         }
-      }]
-   }],
-    "house-manifest-totals":
-      {
-      "TotalLineCount": {
-         "description": "Total Number of Lines",
-         "cxmlPath": "<MasterConsignment><ConsignmentItemQuantity>",
-         "type": "numeric"
+      "ReferenceDocument": {
+         "description": "Reference document details",
+         "type": "undefined"
       },
-      "TotalPieceCount": {
-         "description": "Total number of pieces",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><TotalPieceQuantity>",
-         "type": "numeric"
+      "HandlingDetails": {
+         "description": "Handling details scheduled or performed",
+         "type": "undefined"
       },
-      "TotalSLAC": {
-         "description": "Total Shipper's Load and Count",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><PackageQuantity>",
-         "type": "numeric"
-      },
-      "TotalGrossWeight": {
-         "description": "Total Gross Weight",
-         "required": true,
-         "cxmlPath": "<MasterConsignment><IncludedTareGrossWeightMeasure, value>",
-         "type": "numeric"
+      "CustomsDetails": {
+         "description": "Customs Information details",
+         "type": "undefined"
       }
-   }
+   }]
 
 }
