@@ -1,13 +1,12 @@
 # ONE-Record
-This repository contains the draft data model for the ONE Record specification
+This repository contains the specificaiton of ONE Record
 
-Please note:
-- These drafts are under evaluation. Please contact IATA if you have questions.
-- The final specifications may be published elsewhere
+PLEASE REFER TO THE WORKING DRAFT FOR THE LATEST SPECIFICATIONS
 
-Structure of the draft data model
-- data-model: master document
+
+Structure of the specification
+- API: API specification 
+- data-model: model in excel
 - ontology: turtle formatted schema
-- json schema: json files with schema decsriptions, types and constraints (cardinality and mandatory vs optional)
+- json schema: json files with schema descriptions, types and constraints (cardinality and mandatory vs optional)
 - json blank values: json files wih blanked values "xxxxxxxx"
-- API: API overview 
