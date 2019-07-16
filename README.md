@@ -1,8 +1,10 @@
 # ONE-Record
 This repository contains the specification of ONE Record
 
+>Please refer to the working_draft folder for the latest version
+
 Structure of the specification
-- API: API specification (Please refer to the working draft for the latest version)
+- API: API specification
 - data-model: model in excel
 - ontology: turtle formatted schema
 - json schema: json files with schema descriptions, types and constraints (cardinality and mandatory vs optional)
