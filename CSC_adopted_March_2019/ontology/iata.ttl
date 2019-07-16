@@ -335,24 +335,6 @@
 :RatingDetails a rdfs:Class ;
    rdfs:subClassOf :Rating.
 
-:TotalNetWeight a rdfs:Class ;
-   rdfs:subClassOf :Weight.
-
-:TotalTareWeight a rdfs:Class ;
-   rdfs:subClassOf :Weight.
-
-:TotalGrossWeight a rdfs:Class ;
-   rdfs:subClassOf :Weight.
-
-:TotalChargeableWeight a rdfs:Class ;
-   rdfs:subClassOf :Weight.
-
-:TotalVolume a rdfs:Class ;
-   rdfs:subClassOf :Value.
-
-:TotalChargeAmount a rdfs:Class ;
-   rdfs:subClassOf :Value.
-
 :SpecialHandling a rdfs:Class .
 
 :RequestedBy a rdfs:Class ;
@@ -397,9 +379,6 @@
 
 :WaybillLine a rdfs:Class ;
    rdfs:subClassOf :PieceGrouping.
-
-:WaybillLineTotals a rdfs:Class ;
-   rdfs:subClassOf :PieceGroupingTotals.
 
 :Handling a rdfs:Class .
 
@@ -467,6 +446,24 @@
 :ShipperSignature a rdfs:Class .
 
 :CarrierSignature a rdfs:Class .
+
+:TotalNetWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalTareWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalGrossWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalChargeableWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalVolume a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalChargeAmount a rdfs:Class ;
+   rdfs:subClassOf :Value.
 
 :HouseWaybillLine a rdfs:Class ;
    rdfs:subClassOf :PieceGrouping.
@@ -1155,51 +1152,6 @@
    rdfs:domain :PieceGrouping ;
    rdfs:range iata:PieceGrouping .
 
-<totalPieceCount> a rdfs:Property ;
-   rdfs:label "Total piece count of all piece groups "@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range xsd:decimal .
-
-<totalSLAC> a rdfs:Property ;
-   rdfs:label "Total SLAC of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range xsd:decimal .
-
-<totalULDCount> a rdfs:Property ;
-   rdfs:label "Total ULD count of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:decimal .
-
-<totalNetWeight> a rdfs:Property ;
-   rdfs:label "Total net weight of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TotalNetWeight .
-
-<totalTareWeight> a rdfs:Property ;
-   rdfs:label "Total tare weight of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TotalTareWeight .
-
-<totalGrossWeight> a rdfs:Property ;
-   rdfs:label "Total gross weight of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range :TotalGrossWeight .
-
-<totalChargeableWeight> a rdfs:Property ;
-   rdfs:label "Total chargeable weight of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TotalChargeableWeight .
-
-<totalVolume> a rdfs:Property ;
-   rdfs:label "Total volume of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TotalVolume .
-
-<totalChargeAmount> a rdfs:Property ;
-   rdfs:label "Total charge amount of all piece groups"@en ;
-   rdfs:domain :PieceGroupingTotals,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TotalChargeAmount .
-
 <specialHandling> a rdfs:Property ;
    rdfs:label "Special handling details"@en ;
    rdfs:domain :Handling ;
@@ -1480,11 +1432,6 @@
    rdfs:domain :AirWaybill ;
    rdfs:range iata:AirWaybill .
 
-<waybillLineTotals> a rdfs:Property ;
-   rdfs:label "Waybill line totals"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range iata:AirWaybill .
-
 <handling> a rdfs:Property ;
    rdfs:label "Handling details"@en ;
    rdfs:domain :AirWaybill,:HouseWaybill ;
@@ -1684,6 +1631,51 @@
    rdfs:label "Carrier signature details"@en ;
    rdfs:domain :AirWaybill ;
    rdfs:range iata:AirWaybill .
+
+<totalPieceCount> a rdfs:Property ;
+   rdfs:label "Total piece count of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range xsd:decimal .
+
+<totalSLAC> a rdfs:Property ;
+   rdfs:label "Total SLAC of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range xsd:decimal .
+
+<totalULDCount> a rdfs:Property ;
+   rdfs:label "Total ULD count of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:decimal .
+
+<totalNetWeight> a rdfs:Property ;
+   rdfs:label "Total net weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalNetWeight .
+
+<totalTareWeight> a rdfs:Property ;
+   rdfs:label "Total tare weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalTareWeight .
+
+<totalGrossWeight> a rdfs:Property ;
+   rdfs:label "Total gross weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range :TotalGrossWeight .
+
+<totalChargeableWeight> a rdfs:Property ;
+   rdfs:label "Total chargeable weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalChargeableWeight .
+
+<totalVolume> a rdfs:Property ;
+   rdfs:label "Total volume of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalVolume .
+
+<totalChargeAmount> a rdfs:Property ;
+   rdfs:label "Total charge amount of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalChargeAmount .
 
 <houseWaybillNumber> a rdfs:Property ;
    rdfs:label "House Waybill unique identifier"@en ;
