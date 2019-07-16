@@ -1,0 +1,1748 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix iata: <http://cargo.iata.org#> .
+@prefix schema: <http://www.schema.org3#> .
+
+#####################################################################################
+# schema of the main sections of the air freight documents                          #
+#####################################################################################
+
+###### class definitions ######
+
+:AirWaybill a rdfs:Class .
+
+:Booking a rdfs:Class .
+
+:HouseWaybill a rdfs:Class .
+
+:HouseManifest a rdfs:Class .
+
+:TransportStatus a rdfs:Class .
+
+:Value a rdfs:Class .
+
+:Weight a rdfs:Class .
+
+:VolumetricWeight a rdfs:Class .
+
+:Dimensions a rdfs:Class .
+
+:Address a rdfs:Class .
+
+:Geolocation a rdfs:Class .
+
+:Location a rdfs:Class .
+
+:Person a rdfs:Class .
+
+:Company a rdfs:Class .
+
+:OtherParty a rdfs:Class .
+
+:Insurance a rdfs:Class .
+
+:ExternalReference a rdfs:Class .
+
+:Product a rdfs:Class .
+
+:Item a rdfs:Class .
+
+:TransportSegment a rdfs:Class .
+
+:Event a rdfs:Class .
+
+:LogisticsComponent a rdfs:Class .
+
+:Piece a rdfs:Class .
+
+:PieceGrouping a rdfs:Class .
+
+:Handling a rdfs:Class .
+
+:CustomsInfo a rdfs:Class .
+
+:SecurityInfo a rdfs:Class .
+
+:Rating a rdfs:Class .
+
+###### property definitions ######
+
+:airWaybill a rdfs:Property ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range :AirWaybill .
+
+:booking a rdfs:Property ;
+   rdfs:domain :Booking ;
+   rdfs:range :Booking .
+
+:houseWaybill a rdfs:Property ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range :HouseWaybill .
+
+:houseManifest a rdfs:Property ;
+   rdfs:domain :HouseManifest ;
+   rdfs:range :HouseManifest .
+
+:transportStatus a rdfs:Property ;
+   rdfs:domain :TransportStatus ;
+   rdfs:range :TransportStatus .
+
+:value a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Value .
+
+:weight a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Weight .
+
+:volumetricWeight a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :VolumetricWeight .
+
+:dimensions a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Dimensions .
+
+:address a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Address .
+
+:geolocation a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Geolocation .
+
+:location a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Location .
+
+:person a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Person .
+
+:company a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Company .
+
+:otherParty a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :OtherParty .
+
+:insurance a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Insurance .
+
+:externalReference a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :ExternalReference .
+
+:product a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Product .
+
+:item a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Item .
+
+:transportSegment a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :TransportSegment .
+
+:event a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Event .
+
+:logisticsComponent a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :LogisticsComponent .
+
+:piece a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Piece .
+
+:pieceGrouping a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :PieceGrouping .
+
+:handling a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Handling .
+
+:customsInfo a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :CustomsInfo .
+
+:securityInfo a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :SecurityInfo .
+
+:rating a rdfs:Property ;
+   rdfs:domain :CommonObjects ;
+   rdfs:range :Rating .
+
+
+#####################################################################################
+# schema of the objects within the main sections of the air freight documents       #
+#####################################################################################
+
+###### class definitions ######
+
+:NetWeight a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TareWeight a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:GrossWeight a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:ConversionFactor a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:ChargeableWeight a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Width a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Length a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Height a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Volume a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Latitude a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Longitude a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Elevation a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:GeoLocation a rdfs:Class .
+
+:Address a rdfs:Class .
+
+:ContactDetails a rdfs:Class .
+
+:Other a rdfs:Class .
+
+:Branch a rdfs:Class .
+
+:OtherIdentifier a rdfs:Class .
+
+:Location a rdfs:Class .
+
+:ContactPerson a rdfs:Class ;
+   rdfs:subClassOf :Person.
+
+:CompanyDetails a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:CoveringParty a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:InsuranceAmount a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:DocumentOriginator a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:Manufacturer a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:Commodity a rdfs:Class .
+
+:Characteristic a rdfs:Class .
+
+:Weight a rdfs:Class .
+
+:Dimensions a rdfs:Class .
+
+:Price a rdfs:Class .
+
+:UnitPrice a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Production a rdfs:Class .
+
+:ProductionCountry a rdfs:Class .
+
+:Product a rdfs:Class .
+
+:TargetCountry a rdfs:Class .
+
+:VolumetricWeight a rdfs:Class ;
+   rdfs:subClassOf :VolumetricWeight.
+
+:PackagingType a rdfs:Class .
+
+:ULD a rdfs:Class .
+
+:OwnerCompany a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:OriginDestination a rdfs:Class ;
+   rdfs:subClassOf :TransportSegment.
+
+:TransportSegment a rdfs:Class ;
+   rdfs:subClassOf :TransportSegment.
+
+:Event a rdfs:Class .
+
+:Shipper a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:Consignee a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:OtherParty a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:ExternalReference a rdfs:Class ;
+   rdfs:subClassOf :ExternalReference.
+
+:Insurance a rdfs:Class .
+
+:HandlingDetails a rdfs:Class ;
+   rdfs:subClassOf :Handling.
+
+:CustomsDetails a rdfs:Class ;
+   rdfs:subClassOf :CustomsInfo.
+
+:SecurityDetails a rdfs:Class ;
+   rdfs:subClassOf :SecurityInfo.
+
+:ContainedItem a rdfs:Class ;
+   rdfs:subClassOf :Item.
+
+:ContainedPiece a rdfs:Class ;
+   rdfs:subClassOf :Piece.
+
+:PieceDetails a rdfs:Class ;
+   rdfs:subClassOf :LogisticsComponent.
+
+:RateChargeAmount a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:SubTotalAmount a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:RatingDetails a rdfs:Class ;
+   rdfs:subClassOf :Rating.
+
+:SpecialHandling a rdfs:Class .
+
+:RequestedBy a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:ServiceRequest a rdfs:Class .
+
+:OtherCustomsInformation a rdfs:Class .
+
+:SecurityStatus a rdfs:Class .
+
+:IssuedBy a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:ReasonsForSecurityStatus a rdfs:Class .
+
+:RegulatedEntityIdentifier a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:DepartureLocation a rdfs:Class ;
+   rdfs:subClassOf :Location.
+
+:ArrivalLocation a rdfs:Class ;
+   rdfs:subClassOf :Location.
+
+:BookingStatus a rdfs:Class .
+
+:TransportCompany a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:PerformedBy a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:FreightForwarder a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:Carrier a rdfs:Class ;
+   rdfs:subClassOf :Company.
+
+:Routing a rdfs:Class ;
+   rdfs:subClassOf :Booking.
+
+:WaybillLine a rdfs:Class ;
+   rdfs:subClassOf :PieceGrouping.
+
+:Handling a rdfs:Class .
+
+:CustomsInformation a rdfs:Class ;
+   rdfs:subClassOf :CustomsInfo.
+
+:SecurityInformation a rdfs:Class ;
+   rdfs:subClassOf :SecurityInfo.
+
+:ChargeDeclaration a rdfs:Class .
+
+:Carriage a rdfs:Class .
+
+:Amount a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Customs a rdfs:Class .
+
+:OtherCharge a rdfs:Class .
+
+:ChargeDescription a rdfs:Class .
+
+:SpecialService a rdfs:Class .
+
+:ChargePayment a rdfs:Class .
+
+:ChargeSummary a rdfs:Class .
+
+:Prepaid a rdfs:Class .
+
+:TotalWeightCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalValuationCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalTaxes a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalOtherChargesDueAgent a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalOtherChargesDueCarrier a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalPrepaidCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:Collect a rdfs:Class .
+
+:TotalCollectCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:InDestinationCurrency a rdfs:Class .
+
+:TotalCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:CollectionCharge a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:GrandTotalCollectCharges a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:ShipperSignature a rdfs:Class .
+
+:CarrierSignature a rdfs:Class .
+
+:TotalNetWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalTareWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalGrossWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalChargeableWeight a rdfs:Class ;
+   rdfs:subClassOf :Weight.
+
+:TotalVolume a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:TotalChargeAmount a rdfs:Class ;
+   rdfs:subClassOf :Value.
+
+:HouseWaybillLine a rdfs:Class ;
+   rdfs:subClassOf :PieceGrouping.
+
+:HouseWaybillLineTotals a rdfs:Class ;
+   rdfs:subClassOf :PieceGroupingTotals.
+
+:FreightForwarderSignature a rdfs:Class .
+
+:MasterAWBDetails a rdfs:Class ;
+   rdfs:subClassOf :AirWaybill.
+
+:HouseWaybillDetails a rdfs:Class ;
+   rdfs:subClassOf :HouseWaybill.
+
+:SegmentDetail a rdfs:Class ;
+   rdfs:subClassOf :TransportSegment.
+
+:SegmentStatus a rdfs:Class ;
+   rdfs:subClassOf :LogisticsComponent.
+
+###### property definitions ######
+
+<unit> a rdfs:Property ;
+   rdfs:label "Unit of measurement/ unit of account e.g. CMT - Centimetre,  LTR - Litre (1 DM3), KGM - Kilogram, CHF - Swiss Franc"@en ;
+   rdfs:domain :Value ;
+   rdfs:range xsd:string .
+
+<netWeight> a rdfs:Property ;
+   rdfs:label "Net weight"@en ;
+   rdfs:domain :Weight ;
+   rdfs:range iata:Weight .
+
+<tareWeight> a rdfs:Property ;
+   rdfs:label "Weight of empty packaging, pallet or ULD"@en ;
+   rdfs:domain :Weight ;
+   rdfs:range iata:Weight .
+
+<grossWeight> a rdfs:Property ;
+   rdfs:label "Total weight"@en ;
+   rdfs:domain :Weight ;
+   rdfs:range iata:Weight .
+
+<conversionFactor> a rdfs:Property ;
+   rdfs:label "Volume to weight conversion factor"@en ;
+   rdfs:domain :VolumetricWeight ;
+   rdfs:range iata:VolumetricWeight .
+
+<chargeableWeight> a rdfs:Property ;
+   rdfs:label "Chargeable weight"@en ;
+   rdfs:domain :VolumetricWeight ;
+   rdfs:range iata:VolumetricWeight .
+
+<width> a rdfs:Property ;
+   rdfs:label "Width"@en ;
+   rdfs:domain :Dimensions ;
+   rdfs:range iata:Dimensions .
+
+<length> a rdfs:Property ;
+   rdfs:label "Lenght"@en ;
+   rdfs:domain :Dimensions ;
+   rdfs:range iata:Dimensions .
+
+<height> a rdfs:Property ;
+   rdfs:label "Height"@en ;
+   rdfs:domain :Dimensions ;
+   rdfs:range iata:Dimensions .
+
+<volume> a rdfs:Property ;
+   rdfs:label "Volume"@en ;
+   rdfs:domain :Dimensions ;
+   rdfs:range iata:Dimensions .
+
+<latitude> a rdfs:Property ;
+   rdfs:label "Location latitude "@en ;
+   rdfs:domain :Geolocation ;
+   rdfs:range iata:Geolocation .
+
+<longitude> a rdfs:Property ;
+   rdfs:label "Location longitude "@en ;
+   rdfs:domain :Geolocation ;
+   rdfs:range iata:Geolocation .
+
+<elevation> a rdfs:Property ;
+   rdfs:label "Elevation from sea level"@en ;
+   rdfs:domain :Geolocation ;
+   rdfs:range iata:Geolocation .
+
+<street> a rdfs:Property ;
+   rdfs:label "Street address including street name, street number, building number, apartment etc"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<pOBox> a rdfs:Property ;
+   rdfs:label "Post Office box number / code"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<postalCode> a rdfs:Property ;
+   rdfs:label "Postal / ZIP code"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<cityCode> a rdfs:Property ;
+   rdfs:label "UN/LOCODE city code (5 letter) or IATA city code (3 letter)"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<cityName> a rdfs:Property ;
+   rdfs:label "If no CityCode provided, full name of the city "@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<regionCode> a rdfs:Property ;
+   rdfs:label "Region/ State / Department. Refer ISO 3166-2  "@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<regionName> a rdfs:Property ;
+   rdfs:label "If no StateCode provided, full name of the region / state / province / canton"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<countryCode> a rdfs:Property ;
+   rdfs:label "Country ISO code. Refer ISO 3166-2"@en ;
+   rdfs:domain :Address,:ProductionCountry,:TargetCountry,:OtherCustomsInformation ;
+   rdfs:range xsd:string .
+
+<countryName> a rdfs:Property ;
+   rdfs:label "If no CountryCode provided, full country name"@en ;
+   rdfs:domain :Address,:ProductionCountry,:TargetCountry ;
+   rdfs:range xsd:string .
+
+<addressCodeType> a rdfs:Property ;
+   rdfs:label "Type of address code e.g. US CBP FIRMS"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<addressCode> a rdfs:Property ;
+   rdfs:label "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+   rdfs:domain :Address ;
+   rdfs:range xsd:string .
+
+<type> a rdfs:Property ;
+   rdfs:label "Location type - e.g. Airport, Freight terminal, Rail station, Seaport, etc"@en ;
+   rdfs:domain :Location,:Contact,:OtherIdentifier,:Commodity,:Characteristic,:Uld ;
+   rdfs:range xsd:string .
+
+<code> a rdfs:Property ;
+   rdfs:label "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
+   rdfs:domain :Location,:Commodity,:PackagingType,:SpecialHandling,:ServiceRequest,:BookingStatus,:ChargeDescription ;
+   rdfs:range xsd:string .
+
+<name> a rdfs:Property ;
+   rdfs:label "Full name of the location"@en ;
+   rdfs:domain :Location,:Company,:Commodity ;
+   rdfs:range xsd:string .
+
+<geoLocation> a rdfs:Property ;
+   rdfs:label "Geolocation details"@en ;
+   rdfs:domain :Location ;
+   rdfs:range iata:Location .
+
+<address> a rdfs:Property ;
+   rdfs:label "Address details"@en ;
+   rdfs:domain :Location ;
+   rdfs:range iata:Location .
+
+<contactType> a rdfs:Property ;
+   rdfs:label "Contact type - e.g. Emergency contact, Customs contact, Customer contact"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<salutation> a rdfs:Property ;
+   rdfs:label "Salutation "@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<firstName> a rdfs:Property ;
+   rdfs:label "First name / given name"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<middleName> a rdfs:Property ;
+   rdfs:label "Middle name/ other name"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<lastName> a rdfs:Property ;
+   rdfs:label "Last name / family name / surname"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<jobTitle> a rdfs:Property ;
+   rdfs:label "Job title / position"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<department> a rdfs:Property ;
+   rdfs:label "Department / Division / Unit"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<employeeID> a rdfs:Property ;
+   rdfs:label "Employee ID"@en ;
+   rdfs:domain :Person ;
+   rdfs:range xsd:string .
+
+<contactDetails> a rdfs:Property ;
+   rdfs:label "Contact details"@en ;
+   rdfs:domain :Person ;
+   rdfs:range iata:Person .
+
+<phoneNumber> a rdfs:Property ;
+   rdfs:label "Phone number"@en ;
+   rdfs:domain :Contact ;
+   rdfs:range xsd:string .
+
+<emailAddress> a rdfs:Property ;
+   rdfs:label "E-mail address"@en ;
+   rdfs:domain :Contact ;
+   rdfs:range xsd:string .
+
+<other> a rdfs:Property ;
+   rdfs:label "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
+   rdfs:domain :Contact ;
+   rdfs:range iata:Contact .
+
+<detail> a rdfs:Property ;
+   rdfs:label "Contact details e.g. Skype ID "@en ;
+   rdfs:domain :Contact ;
+   rdfs:range xsd:string .
+
+<iATACargoAgentCode> a rdfs:Property ;
+   rdfs:label "IATA accredited cargo agent 7 digit number"@en ;
+   rdfs:domain :Company ;
+   rdfs:range xsd:decimal .
+
+<branch> a rdfs:Property ;
+   rdfs:label "Company branches"@en ;
+   rdfs:domain :Company ;
+   rdfs:range iata:Company .
+
+<branchName> a rdfs:Property ;
+   rdfs:label "Company branch name"@en ;
+   rdfs:domain :Branch ;
+   rdfs:range xsd:string .
+
+<iATACargoAgentLocationIdentifier> a rdfs:Property ;
+   rdfs:label "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
+   rdfs:domain :Branch ;
+   rdfs:range xsd:decimal .
+
+<otherIdentifier> a rdfs:Property ;
+   rdfs:label "Other identifiers"@en ;
+   rdfs:domain :Branch,:Product,:ItemID,:Piece ;
+   rdfs:range :OtherIdentifier .
+
+<identifierName> a rdfs:Property ;
+   rdfs:label "Name of ID - e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc"@en ;
+   rdfs:domain :OtherIdentifier ;
+   rdfs:range xsd:string .
+
+<identifer> a rdfs:Property ;
+   rdfs:label "Unique company identifier "@en ;
+   rdfs:domain :OtherIdentifier ;
+   rdfs:range xsd:string .
+
+<location> a rdfs:Property ;
+   rdfs:label "Location and address details"@en ;
+   rdfs:domain :Branch,:Event,:ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
+   rdfs:range :Location .
+
+<contactPerson> a rdfs:Property ;
+   rdfs:label "Contact person details"@en ;
+   rdfs:domain :Branch ;
+   rdfs:range iata:Branch .
+
+<airlineCode> a rdfs:Property ;
+   rdfs:label "IATA two-character airline code "@en ;
+   rdfs:domain :Company ;
+   rdfs:range xsd:string .
+
+<airlinePrefix> a rdfs:Property ;
+   rdfs:label "IATA three-numeric airline prefix number "@en ;
+   rdfs:domain :Company ;
+   rdfs:range xsd:string .
+
+<roleName> a rdfs:Property ;
+   rdfs:label "Role of other party - e.g. Notify party, Nominated agent, Customs broker, Manufacturer, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom "@en ;
+   rdfs:domain :OtherParty ;
+   rdfs:range xsd:string .
+
+<companyDetails> a rdfs:Property ;
+   rdfs:label "Company details"@en ;
+   rdfs:domain :OtherParty ;
+   rdfs:range iata:OtherParty .
+
+<coveringParty> a rdfs:Property ;
+   rdfs:label "Party covering the insurance "@en ;
+   rdfs:domain :Insurance ;
+   rdfs:range iata:Insurance .
+
+<insuranceAmount> a rdfs:Property ;
+   rdfs:label "Insured amount - amount covered by the insurance policy"@en ;
+   rdfs:domain :Insurance ;
+   rdfs:range iata:Insurance .
+
+<documentType> a rdfs:Property ;
+   rdfs:label "Type of the referenced document . Refer UNEDIFACT 1001  e.g. 740 - Air Waybill"@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range xsd:string .
+
+<documentName> a rdfs:Property ;
+   rdfs:label "If no DocumentType provided, name of the referenced document "@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range xsd:string .
+
+<documentOriginator> a rdfs:Property ;
+   rdfs:label "Document originator details and contacts"@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range iata:ExternalReference .
+
+<documentID> a rdfs:Property ;
+   rdfs:label "Unique document identifier"@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range xsd:string .
+
+<documentVersion> a rdfs:Property ;
+   rdfs:label "Document version number"@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range xsd:string .
+
+<uRI> a rdfs:Property ;
+   rdfs:label "URI of document or logistics object"@en ;
+   rdfs:domain :ExternalReference ;
+   rdfs:range schema:url .
+
+<manufacturer> a rdfs:Property ;
+   rdfs:label "Manufacturing company details and contacts"@en ;
+   rdfs:domain :Product ;
+   rdfs:range iata:Product .
+
+<productDescription> a rdfs:Property ;
+   rdfs:label "Product description"@en ;
+   rdfs:domain :Product ;
+   rdfs:range xsd:string .
+
+<productIdentifier> a rdfs:Property ;
+   rdfs:label "Manufacturer's unique product identifier"@en ;
+   rdfs:domain :Product ;
+   rdfs:range xsd:string .
+
+<identifier> a rdfs:Property ;
+   rdfs:label "Product identifier"@en ;
+   rdfs:domain :OtherIdentifier ;
+   rdfs:range xsd:string .
+
+<uNNumber> a rdfs:Property ;
+   rdfs:label "Reference identifying the United Nations Dangerous Goods serial number assigned within the UN to substances and articles contained in a list of the dangerous goods most commonly carried. e.g. 1189 - Ethylene glycol monomethyl ether acetate"@en ;
+   rdfs:domain :Product ;
+   rdfs:range xsd:string .
+
+<commodity> a rdfs:Property ;
+   rdfs:label "Commodity details"@en ;
+   rdfs:domain :Product,:LogisticsComponent ;
+   rdfs:range :Commodity .
+
+<characteristic> a rdfs:Property ;
+   rdfs:label "Product additional details"@en ;
+   rdfs:domain :Product ;
+   rdfs:range iata:Product .
+
+<value> a rdfs:Property ;
+   rdfs:label "Product characteristic value / attribute - e.g. Blue…"@en ;
+   rdfs:domain :Characteristic ;
+   rdfs:range xsd:string .
+
+<weight> a rdfs:Property ;
+   rdfs:label "Product weight details"@en ;
+   rdfs:domain :Product,:LogisticsComponent ;
+   rdfs:range :Weight .
+
+<dimensions> a rdfs:Property ;
+   rdfs:label "Product dimensions details"@en ;
+   rdfs:domain :Product,:LogisticsComponent ;
+   rdfs:range :Dimensions .
+
+<price> a rdfs:Property ;
+   rdfs:label "Product price details"@en ;
+   rdfs:domain :Product ;
+   rdfs:range iata:Product .
+
+<unitPrice> a rdfs:Property ;
+   rdfs:label "Product price per unit in the base currency"@en ;
+   rdfs:domain :Price ;
+   rdfs:range iata:Price .
+
+<unitCode> a rdfs:Property ;
+   rdfs:label "Unit code for item - e.g. piece, unit, kg, pack, hour, minute…"@en ;
+   rdfs:domain :Price ;
+   rdfs:range xsd:string .
+
+<quantityForUnitPrice> a rdfs:Property ;
+   rdfs:label "Product quantity for unit price - e.g. 12 (eggs for one USD 1)"@en ;
+   rdfs:domain :Price ;
+   rdfs:range xsd:decimal .
+
+<itemIdentifier> a rdfs:Property ;
+   rdfs:label "Item serial number or unique item identifier"@en ;
+   rdfs:domain :Item ;
+   rdfs:range xsd:string .
+
+<production> a rdfs:Property ;
+   rdfs:label "Production batch and lot details"@en ;
+   rdfs:domain :Item ;
+   rdfs:range iata:Item .
+
+<batchNumber> a rdfs:Property ;
+   rdfs:label "Production batch number / reference"@en ;
+   rdfs:domain :Production ;
+   rdfs:range xsd:string .
+
+<lotNumber> a rdfs:Property ;
+   rdfs:label "Production lot number / reference"@en ;
+   rdfs:domain :Production ;
+   rdfs:range xsd:string .
+
+<date> a rdfs:Property ;
+   rdfs:label "Production date"@en ;
+   rdfs:domain :Production,:AirWaybill,:ShipperSignature,:CarrierSignature,:HouseWaybill,:FreightForwarderSignature,:HouseManifest,:Booking ;
+   rdfs:range xsd:dateTime .
+
+<productExpiryDate> a rdfs:Property ;
+   rdfs:label "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence"@en ;
+   rdfs:domain :Production ;
+   rdfs:range xsd:dateTime .
+
+<productionCountry> a rdfs:Property ;
+   rdfs:label "Production country details"@en ;
+   rdfs:domain :Item ;
+   rdfs:range iata:Item .
+
+<product> a rdfs:Property ;
+   rdfs:label "Product details"@en ;
+   rdfs:domain :Item ;
+   rdfs:range iata:Item .
+
+<targetCountry> a rdfs:Property ;
+   rdfs:label "Item target country"@en ;
+   rdfs:domain :Item ;
+   rdfs:range iata:Item .
+
+<goodsDescription> a rdfs:Property ;
+   rdfs:label "General goods description"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:string .
+
+<originCountryCode> a rdfs:Property ;
+   rdfs:label "Goods origin country ISO code. Refer ISO 3166-2"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:string .
+
+<issuer> a rdfs:Property ;
+   rdfs:label "Issuer of commodity classification codes - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard...International Trade Classification"@en ;
+   rdfs:domain :Commodity ;
+   rdfs:range xsd:string .
+
+<volumetricWeight> a rdfs:Property ;
+   rdfs:label "Volumetric weight details "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<noDimensionAvailable> a rdfs:Property ;
+   rdfs:label "NDA (No Dimensions Available) indicator"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:string .
+
+<containedPieceCount> a rdfs:Property ;
+   rdfs:label "Number of contained pieces "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:decimal .
+
+<sLAC> a rdfs:Property ;
+   rdfs:label "Shipper's Load And Count  ( total contained piece count as provided by shipper)"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:decimal .
+
+<densityGroup> a rdfs:Property ;
+   rdfs:label "Density group of the piece. Refer  CXML Code List 2, e.g. 1 - 300 kg per mc or 18.6 lbs per cf"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range xsd:string .
+
+<deckPosition> a rdfs:Property ;
+   rdfs:label "Position of the shipment in the aircraft - e.g. lower or main deck "@en ;
+   rdfs:domain :LogisticsComponent,:TransportSegment ;
+   rdfs:range xsd:string .
+
+<loadTypeCode> a rdfs:Property ;
+   rdfs:label "Bulk or containerized (BLK or ULD) indicator"@en ;
+   rdfs:domain :LogisticsComponent,:Rating,:AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<packagingType> a rdfs:Property ;
+   rdfs:label "Packaging details "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<description> a rdfs:Property ;
+   rdfs:label "If no Code provided, packaging type description "@en ;
+   rdfs:domain :PackagingType,:SpecialHandling,:ServiceRequest,:BookingStatus,:ChargeDescription,:SpecialService ;
+   rdfs:range xsd:string .
+
+<uLD> a rdfs:Property ;
+   rdfs:label "Unit Load Device details"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<aTAdesignator> a rdfs:Property ;
+   rdfs:label "US / ATA Unit Load Device type code e.g. M2"@en ;
+   rdfs:domain :Uld ;
+   rdfs:range xsd:string .
+
+<loadingIndicator> a rdfs:Property ;
+   rdfs:label "ULD height or loading limitation code. Refer CXML Code List 1.47,  e.g. R - ULD Height above 244 centimetres"@en ;
+   rdfs:domain :Uld ;
+   rdfs:range xsd:string .
+
+<serialNumber> a rdfs:Property ;
+   rdfs:label "ULD serial number"@en ;
+   rdfs:domain :Uld ;
+   rdfs:range xsd:string .
+
+<ownerCodeIssuer> a rdfs:Property ;
+   rdfs:label "Issuer of the ULD owner code "@en ;
+   rdfs:domain :Uld ;
+   rdfs:range xsd:string .
+
+<ownerCode> a rdfs:Property ;
+   rdfs:label "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company"@en ;
+   rdfs:domain :Uld ;
+   rdfs:range xsd:string .
+
+<ownerCompany> a rdfs:Property ;
+   rdfs:label "Owner company details and contacts for the ULD"@en ;
+   rdfs:domain :Uld ;
+   rdfs:range iata:Uld .
+
+<originDestination> a rdfs:Property ;
+   rdfs:label "Origin and destination details"@en ;
+   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
+   rdfs:range :OriginDestination .
+
+<transportSegment> a rdfs:Property ;
+   rdfs:label "Segment related to the transport status"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<event> a rdfs:Property ;
+   rdfs:label "Event details e.g. DEP, ARR, FOH, RCS, security screening, etc"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<shipper> a rdfs:Property ;
+   rdfs:label "Shipper company details - e.g. the party shipping the piece "@en ;
+   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
+   rdfs:range :Shipper .
+
+<consignee> a rdfs:Property ;
+   rdfs:label "Consignee company details - e.g. the party receiving the piece"@en ;
+   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
+   rdfs:range :Consignee .
+
+<otherParty> a rdfs:Property ;
+   rdfs:label "Other party company details - e.g. the party to be notified"@en ;
+   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
+   rdfs:range :OtherParty .
+
+<externalReference> a rdfs:Property ;
+   rdfs:label "Reference documents details "@en ;
+   rdfs:domain :LogisticsComponent,:SecurityInfo,:TransportSegment,:AirWaybill,:HouseWaybill ;
+   rdfs:range :ExternalReference .
+
+<insurance> a rdfs:Property ;
+   rdfs:label "Insurance details "@en ;
+   rdfs:domain :LogisticsComponent,:AirWaybill,:ChargeDeclaration,:HouseWaybill ;
+   rdfs:range :Insurance .
+
+<handlingDetails> a rdfs:Property ;
+   rdfs:label "Handling details  "@en ;
+   rdfs:domain :LogisticsComponent,:Event ;
+   rdfs:range :HandlingDetails .
+
+<customsDetails> a rdfs:Property ;
+   rdfs:label "Customs details  "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<securityDetails> a rdfs:Property ;
+   rdfs:label "Security details  "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<containedItem> a rdfs:Property ;
+   rdfs:label "Details of contained item(s) "@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<containedPiece> a rdfs:Property ;
+   rdfs:label "Details of contained piece(s)"@en ;
+   rdfs:domain :LogisticsComponent ;
+   rdfs:range iata:LogisticsComponent .
+
+<flagPieceLevelTracking> a rdfs:Property ;
+   rdfs:label "Flag indicating if the piece-level tracking is requested e.g. Tracked, Not Tracked"@en ;
+   rdfs:domain :Piece ;
+   rdfs:range xsd:string .
+
+<uPID> a rdfs:Property ;
+   rdfs:label "Unique Piece Identifier (UPID) of the piece. Refer IATA Recommended Practice 1689"@en ;
+   rdfs:domain :Piece ;
+   rdfs:range xsd:string .
+
+<pieceDetails> a rdfs:Property ;
+   rdfs:label "Details of the piece"@en ;
+   rdfs:domain :Piece,:PieceGrouping ;
+   rdfs:range :PieceDetails .
+
+<rateClassCode> a rdfs:Property ;
+   rdfs:label "Rate category code. Refer  CXML Code List 1.4,  e.g. Q - Quantity Rate"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<commodityItemNumber> a rdfs:Property ;
+   rdfs:label "Commodity identifier on which the rate class code is applied"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<ratingTypeIndicator> a rdfs:Property ;
+   rdfs:label "Transportation rating type - e.g. F for Face, P for Published, or A for Actual Rating detail"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<rCP> a rdfs:Property ;
+   rdfs:label "City code of Rate Combination Point (RCP), the point over which sector rates are combined"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<uLDRateClassType> a rdfs:Property ;
+   rdfs:label "Unit Load Device rate class type e.g. 1P"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<rateClassBasis> a rdfs:Property ;
+   rdfs:label "Basis on which the Rate Class Code is applicable"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<ratingClassPercentage> a rdfs:Property ;
+   rdfs:label "Rating class percentage"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:decimal .
+
+<rateReferenceCode> a rdfs:Property ;
+   rdfs:label "Code to indicate the applicable rate"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<rateReferenceType> a rdfs:Property ;
+   rdfs:label "Type of rate - e.g. contract, adhoc, etc."@en ;
+   rdfs:domain :Rating ;
+   rdfs:range xsd:string .
+
+<rateChargeAmount> a rdfs:Property ;
+   rdfs:label "Rate, charge, or discount amount"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range iata:Rating .
+
+<subTotalAmount> a rdfs:Property ;
+   rdfs:label "Subtotal of weight and valuation charges for the piece group"@en ;
+   rdfs:domain :Rating ;
+   rdfs:range iata:Rating .
+
+<ratingDetails> a rdfs:Property ;
+   rdfs:label "Rating details"@en ;
+   rdfs:domain :PieceGrouping ;
+   rdfs:range iata:PieceGrouping .
+
+<specialHandling> a rdfs:Property ;
+   rdfs:label "Special handling details"@en ;
+   rdfs:domain :Handling ;
+   rdfs:range iata:Handling .
+
+<requestedBy> a rdfs:Property ;
+   rdfs:label "Party requesting the special handling"@en ;
+   rdfs:domain :SpecialHandling,:ServiceRequest ;
+   rdfs:range :RequestedBy .
+
+<serviceRequest> a rdfs:Property ;
+   rdfs:label "Service request details"@en ;
+   rdfs:domain :Handling ;
+   rdfs:range iata:Handling .
+
+<statementType> a rdfs:Property ;
+   rdfs:label "Service request statement type - e.g. Dangerous Goods, Lithium Ion Battery, Live Animal Certificate"@en ;
+   rdfs:domain :ServiceRequest ;
+   rdfs:range xsd:string .
+
+<statementText> a rdfs:Property ;
+   rdfs:label "Service request statement text"@en ;
+   rdfs:domain :ServiceRequest ;
+   rdfs:range xsd:string .
+
+<customsTransitCode> a rdfs:Property ;
+   rdfs:label "Customs transit status / code/ information / reference. Refer EUCTSC, e.g. T1 - Europe Union Customs 1"@en ;
+   rdfs:domain :CustomsInfo ;
+   rdfs:range xsd:string .
+
+<otherCustomsInformation> a rdfs:Property ;
+   rdfs:label "Other customs information details"@en ;
+   rdfs:domain :CustomsInfo ;
+   rdfs:range iata:CustomsInfo .
+
+<customsSubjectCode> a rdfs:Property ;
+   rdfs:label "Customs subject code. Refer CXML Code List 1.19, e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for a Consignment etc.   At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
+   rdfs:domain :OtherCustomsInformation ;
+   rdfs:range xsd:string .
+
+<customsContentCode> a rdfs:Property ;
+   rdfs:label "Customs content code. Refer CXML Code List 1.100, e.g. IST - Security Textual StatementNumber, M - Movement Reference Number"@en ;
+   rdfs:domain :OtherCustomsInformation ;
+   rdfs:range xsd:string .
+
+<customsInformation> a rdfs:Property ;
+   rdfs:label "Information for customs submission"@en ;
+   rdfs:domain :OtherCustomsInformation,:AirWaybill,:HouseWaybill ;
+   rdfs:range :CustomsInformation .
+
+<customsNote> a rdfs:Property ;
+   rdfs:label "Free text f or customs remarks"@en ;
+   rdfs:domain :OtherCustomsInformation ;
+   rdfs:range xsd:string .
+
+<securityStatus> a rdfs:Property ;
+   rdfs:label "Security status details"@en ;
+   rdfs:domain :SecurityInfo ;
+   rdfs:range iata:SecurityInfo .
+
+<statusCode> a rdfs:Property ;
+   rdfs:label "Security status indicator - e.g. SPX- Cargo Secure for Passenger and All-Cargo Aircraft "@en ;
+   rdfs:domain :SecurityStatus ;
+   rdfs:range xsd:string .
+
+<issuedOn> a rdfs:Property ;
+   rdfs:label "Date and time when the security status was issued"@en ;
+   rdfs:domain :SecurityStatus ;
+   rdfs:range xsd:string .
+
+<issuedBy> a rdfs:Property ;
+   rdfs:label "Name of person (or employee ID) and Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
+   rdfs:domain :SecurityStatus,:BookingStatus ;
+   rdfs:range :IssuedBy .
+
+<regulatedPartyType> a rdfs:Property ;
+   rdfs:label "Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier"@en ;
+   rdfs:domain :SecurityStatus,:ReceivedFrom ;
+   rdfs:range xsd:string .
+
+<regulatingAuthority> a rdfs:Property ;
+   rdfs:label "Country ISO code. Refer ISO 3166-2"@en ;
+   rdfs:domain :SecurityInfo ;
+   rdfs:range xsd:string .
+
+<reasonsForSecurityStatus> a rdfs:Property ;
+   rdfs:label "Security status details"@en ;
+   rdfs:domain :SecurityInfo ;
+   rdfs:range iata:SecurityInfo .
+
+<receivedFrom> a rdfs:Property ;
+   rdfs:label "Known Consignor or Regulated Agent reference"@en ;
+   rdfs:domain :ReasonsForSecurityStatus ;
+   rdfs:range xsd:string .
+
+<regulatedEntityIdentifier> a rdfs:Property ;
+   rdfs:label "Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
+   rdfs:domain :ReceivedFrom ;
+   rdfs:range iata:ReceivedFrom .
+
+<screeningMethod> a rdfs:Property ;
+   rdfs:label "Screening methods which have been used to secure the cargo - e.g. EDS- Explosive Detection System "@en ;
+   rdfs:domain :ReasonsForSecurityStatus ;
+   rdfs:range xsd:string .
+
+<groundsForExemption> a rdfs:Property ;
+   rdfs:label "Exemption code - e.g. BIOM- Bio-Medical Samples "@en ;
+   rdfs:domain :ReasonsForSecurityStatus ;
+   rdfs:range xsd:string .
+
+<otherScreeningMethods> a rdfs:Property ;
+   rdfs:label "Other methods used to secure the cargo"@en ;
+   rdfs:domain :ReasonsForSecurityStatus ;
+   rdfs:range xsd:string .
+
+<additionalSecurityInformation> a rdfs:Property ;
+   rdfs:label "Ad hoc security statement required by state regulators "@en ;
+   rdfs:domain :SecurityInfo ;
+   rdfs:range xsd:string .
+
+<departureLocation> a rdfs:Property ;
+   rdfs:label "Departure details including time and date"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range iata:TransportSegment .
+
+<arrivalLocation> a rdfs:Property ;
+   rdfs:label "Arrival details including time and date"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range iata:TransportSegment .
+
+<bookingStatus> a rdfs:Property ;
+   rdfs:label "Booking status details"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range iata:TransportSegment .
+
+<dateTime> a rdfs:Property ;
+   rdfs:label "Date and time when the booking status is issued"@en ;
+   rdfs:domain :BookingStatus,:Event,:SpecialService ;
+   rdfs:range xsd:dateTime .
+
+<carriageStage> a rdfs:Property ;
+   rdfs:label "Carriage stage - e.g. Pre-Carriage, Main-Carriage, On-Carriage "@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<modeCode> a rdfs:Property ;
+   rdfs:label "Mode of transport code. Refer UNECE Recommendation N. 19 - Code for Modes of Transport,  e.g. 4 - Air transport"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<transportCompany> a rdfs:Property ;
+   rdfs:label "Transport company details"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range iata:TransportSegment .
+
+<transportIdentifier> a rdfs:Property ;
+   rdfs:label "Airline flight number, or rail /  truck / maritime line id"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<transportDate> a rdfs:Property ;
+   rdfs:label "Date associated with TransportIdentifier to uniquely identify the transport line "@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<vehicleRegistration> a rdfs:Property ;
+   rdfs:label "Vehicle identification - e.g. aircraft registration number"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<vehicleType> a rdfs:Property ;
+   rdfs:label "Vehicle or container type. Refer UNECE28, e.g. 4.00.0 - Aircraft, type unknown"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<vehicleSize> a rdfs:Property ;
+   rdfs:label "Size of the vehicle - free text"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<seal> a rdfs:Property ;
+   rdfs:label "Seal identifier"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<spaceAllocationDetails> a rdfs:Property ;
+   rdfs:label "Space allocation request / action / confirmation code or details"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<allotmentDetails> a rdfs:Property ;
+   rdfs:label "Guaranteed capacity reference details"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<exceptionHandlingDetails> a rdfs:Property ;
+   rdfs:label "Exception handling code or details"@en ;
+   rdfs:domain :TransportSegment ;
+   rdfs:range xsd:string .
+
+<eventTypeIndicator> a rdfs:Property ;
+   rdfs:label "Indicates type of event e.g.  Scheduled, Estimated, Actual"@en ;
+   rdfs:domain :Event ;
+   rdfs:range xsd:string .
+
+<eventCode> a rdfs:Property ;
+   rdfs:label "Movement or milestone code. Refer CXML Code List 1.18, e.g. DEP, ARR, FOH, RCS"@en ;
+   rdfs:domain :Event ;
+   rdfs:range xsd:string .
+
+<eventName> a rdfs:Property ;
+   rdfs:label "If no EventCode provided, event name - e.g. Security clearance"@en ;
+   rdfs:domain :Event ;
+   rdfs:range xsd:string .
+
+<performedBy> a rdfs:Property ;
+   rdfs:label "Party performing the event"@en ;
+   rdfs:domain :Event ;
+   rdfs:range iata:Event .
+
+<airWaybillNumber> a rdfs:Property ;
+   rdfs:label "Air Waybill unique identifier"@en ;
+   rdfs:domain :AirWaybill,:Booking,:TransportStatus ;
+   rdfs:range xsd:string .
+
+<flagConsolDirectLC> a rdfs:Property ;
+   rdfs:label "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<accountInformationCode> a rdfs:Property ;
+   rdfs:label "Accounting information item identifier. Refer CXML Code List 1.30, STL - Mode of Settlement"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<accountInformationDescription> a rdfs:Property ;
+   rdfs:label "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<paymentMethodCode> a rdfs:Property ;
+   rdfs:label "Charge payment method code. Refer CXML Code List 1.1, e.g.  PP - All Charges Prepaid Cash"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<serviceCode> a rdfs:Property ;
+   rdfs:label "Cargo product / service identifier. Refer CXML Code List 1.38, e.g.  A - Airport-to-Airport"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:string .
+
+<airlineProductIdentifier> a rdfs:Property ;
+   rdfs:label "Airline logistics product / service code"@en ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range xsd:string .
+
+<airlineProductName> a rdfs:Property ;
+   rdfs:label "If no ProductIdentifier provided, Airline logistics product / service name"@en ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range xsd:string .
+
+<freightForwarder> a rdfs:Property ;
+   rdfs:label "Freight Forwarder details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :FreightForwarder .
+
+<carrier> a rdfs:Property ;
+   rdfs:label "Issuing Carrier details"@en ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range iata:AirWaybill .
+
+<routing> a rdfs:Property ;
+   rdfs:label "Routing of shipment as defined in booking"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :Routing .
+
+<waybillLine> a rdfs:Property ;
+   rdfs:label "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range iata:AirWaybill .
+
+<handling> a rdfs:Property ;
+   rdfs:label "Handling details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :Handling .
+
+<securityInformation> a rdfs:Property ;
+   rdfs:label "Security information details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :SecurityInformation .
+
+<chargeDeclaration> a rdfs:Property ;
+   rdfs:label "Goods value declaration details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :ChargeDeclaration .
+
+<weightValuationChargePaymen> a rdfs:Property ;
+   rdfs:label "Weight charges payment indicator e.g. Prepaid, Collect"@en ;
+   rdfs:domain :ChargeDeclaration ;
+   rdfs:range xsd:string .
+
+<otherChargesPayment> a rdfs:Property ;
+   rdfs:label "Other Charges payment indicator e.g. Prepaid, Collect"@en ;
+   rdfs:domain :ChargeDeclaration ;
+   rdfs:range xsd:string .
+
+<carriage> a rdfs:Property ;
+   rdfs:label "Carriage value declaration"@en ;
+   rdfs:domain :ChargeDeclaration ;
+   rdfs:range :Carriage .
+
+<noCarriageValue> a rdfs:Property ;
+   rdfs:label "NVD (No Value Declared) indicator when no value is declared for carriage"@en ;
+   rdfs:domain :Carriage ;
+   rdfs:range xsd:string .
+
+<amount> a rdfs:Property ;
+   rdfs:label "Goods value declaration for carriage"@en ;
+   rdfs:domain :Carriage,:Customs,:Insurance,:ChargePayment ;
+   rdfs:range :Amount .
+
+<customs> a rdfs:Property ;
+   rdfs:label "Customs value declaration"@en ;
+   rdfs:domain :ChargeDeclaration ;
+   rdfs:range :Customs .
+
+<noCustomsValue> a rdfs:Property ;
+   rdfs:label "NCV (No Customs Value) indicator when no value is declared for customs"@en ;
+   rdfs:domain :Customs ;
+   rdfs:range xsd:string .
+
+<noInsuranceValue> a rdfs:Property ;
+   rdfs:label "XXX indicator when no value is declared for insurance"@en ;
+   rdfs:domain :Insurance ;
+   rdfs:range xsd:string .
+
+<otherCharge> a rdfs:Property ;
+   rdfs:label "Other charge details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :OtherCharge .
+
+<chargeDescription> a rdfs:Property ;
+   rdfs:label "Other charge description details"@en ;
+   rdfs:domain :OtherCharge ;
+   rdfs:range :ChargeDescription .
+
+<subCode> a rdfs:Property ;
+   rdfs:label "Other charge subcode"@en ;
+   rdfs:domain :ChargeDescription ;
+   rdfs:range xsd:string .
+
+<locationIndicator> a rdfs:Property ;
+   rdfs:label "Other Charge Location indicator - e.g. Origin (O) or Transit (T) or Destination(D)"@en ;
+   rdfs:domain :ChargeDescription ;
+   rdfs:range xsd:string .
+
+<specialService> a rdfs:Property ;
+   rdfs:label "Special service details"@en ;
+   rdfs:domain :OtherCharge ;
+   rdfs:range :SpecialService .
+
+<chargePayment> a rdfs:Property ;
+   rdfs:label "Charge payment details"@en ;
+   rdfs:domain :OtherCharge ;
+   rdfs:range :ChargePayment .
+
+<byTime> a rdfs:Property ;
+   rdfs:label "Amount of time for which the charge is applied"@en ;
+   rdfs:domain :ChargePayment ;
+   rdfs:range xsd:decimal .
+
+<byItemQuantity> a rdfs:Property ;
+   rdfs:label "Number of items for which the charge is applied"@en ;
+   rdfs:domain :ChargePayment ;
+   rdfs:range xsd:decimal .
+
+<dueParty> a rdfs:Property ;
+   rdfs:label "Due party - e.g. Carrier, Agent"@en ;
+   rdfs:domain :ChargePayment ;
+   rdfs:range xsd:string .
+
+<prepaidCollectIndicator> a rdfs:Property ;
+   rdfs:label "Other Charges payment indicator - e.g. at origin (prepaid) or at destination (collect)"@en ;
+   rdfs:domain :ChargePayment ;
+   rdfs:range xsd:string .
+
+<chargeSummary> a rdfs:Property ;
+   rdfs:label "Charge summary details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :ChargeSummary .
+
+<prepaid> a rdfs:Property ;
+   rdfs:label "Prepaid totals in base / origin currency"@en ;
+   rdfs:domain :ChargeSummary ;
+   rdfs:range :Prepaid .
+
+<totalWeightCharges> a rdfs:Property ;
+   rdfs:label "Total weight charge amount (prepaid)"@en ;
+   rdfs:domain :Prepaid,:Collect ;
+   rdfs:range :TotalWeightCharges .
+
+<totalValuationCharges> a rdfs:Property ;
+   rdfs:label "Total valuation charge amount (prepaid)"@en ;
+   rdfs:domain :Prepaid,:Collect ;
+   rdfs:range :TotalValuationCharges .
+
+<totalTaxes> a rdfs:Property ;
+   rdfs:label "Total Tax amount (prepaid)"@en ;
+   rdfs:domain :Prepaid,:Collect ;
+   rdfs:range :TotalTaxes .
+
+<totalOtherChargesDueAgent> a rdfs:Property ;
+   rdfs:label "Total other charges due agent amount (prepaid)"@en ;
+   rdfs:domain :Prepaid,:Collect ;
+   rdfs:range :TotalOtherChargesDueAgent .
+
+<totalOtherChargesDueCarrier> a rdfs:Property ;
+   rdfs:label "Total other charges due carrier amount (prepaid)"@en ;
+   rdfs:domain :Prepaid,:Collect ;
+   rdfs:range :TotalOtherChargesDueCarrier .
+
+<totalPrepaidCharges> a rdfs:Property ;
+   rdfs:label "Total prepaid charges amount"@en ;
+   rdfs:domain :Prepaid ;
+   rdfs:range :TotalPrepaidCharges .
+
+<collect> a rdfs:Property ;
+   rdfs:label "Collect totals in base / origin currency"@en ;
+   rdfs:domain :ChargeSummary ;
+   rdfs:range :Collect .
+
+<totalCollectCharges> a rdfs:Property ;
+   rdfs:label "Total collect charges amount"@en ;
+   rdfs:domain :Collect ;
+   rdfs:range :TotalCollectCharges .
+
+<inDestinationCurrency> a rdfs:Property ;
+   rdfs:label "Collect totals in target / destination currency"@en ;
+   rdfs:domain :Collect ;
+   rdfs:range :InDestinationCurrency .
+
+<totalCharges> a rdfs:Property ;
+   rdfs:label "Total Charges converted to destination currency as per CURRENCY conversion rate"@en ;
+   rdfs:domain :InDestinationCurrency ;
+   rdfs:range :TotalCharges .
+
+<collectionCharge> a rdfs:Property ;
+   rdfs:label "Collection charges in destination currency - e.g. additional amount charged for the service"@en ;
+   rdfs:domain :InDestinationCurrency ;
+   rdfs:range :CollectionCharge .
+
+<grandTotalCollectCharges> a rdfs:Property ;
+   rdfs:label "Sum of TotalCharges and CollectionCharge"@en ;
+   rdfs:domain :InDestinationCurrency ;
+   rdfs:range :GrandTotalCollectCharges .
+
+<shipperSignature> a rdfs:Property ;
+   rdfs:label "Shipper signature details"@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :ShipperSignature .
+
+<signatoryName> a rdfs:Property ;
+   rdfs:label "Name of person"@en ;
+   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
+   rdfs:range xsd:string .
+
+<signatoryCompany> a rdfs:Property ;
+   rdfs:label "Name of company"@en ;
+   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
+   rdfs:range xsd:string .
+
+<signature> a rdfs:Property ;
+   rdfs:label "Signature (free text)"@en ;
+   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
+   rdfs:range xsd:string .
+
+<carrierSignature> a rdfs:Property ;
+   rdfs:label "Carrier signature details"@en ;
+   rdfs:domain :AirWaybill ;
+   rdfs:range iata:AirWaybill .
+
+<totalPieceCount> a rdfs:Property ;
+   rdfs:label "Total piece count of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range xsd:decimal .
+
+<totalSLAC> a rdfs:Property ;
+   rdfs:label "Total SLAC of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range xsd:decimal .
+
+<totalULDCount> a rdfs:Property ;
+   rdfs:label "Total ULD count of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range xsd:decimal .
+
+<totalNetWeight> a rdfs:Property ;
+   rdfs:label "Total net weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalNetWeight .
+
+<totalTareWeight> a rdfs:Property ;
+   rdfs:label "Total tare weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalTareWeight .
+
+<totalGrossWeight> a rdfs:Property ;
+   rdfs:label "Total gross weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
+   rdfs:range :TotalGrossWeight .
+
+<totalChargeableWeight> a rdfs:Property ;
+   rdfs:label "Total chargeable weight of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalChargeableWeight .
+
+<totalVolume> a rdfs:Property ;
+   rdfs:label "Total volume of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalVolume .
+
+<totalChargeAmount> a rdfs:Property ;
+   rdfs:label "Total charge amount of all piece groups "@en ;
+   rdfs:domain :AirWaybill,:HouseWaybill ;
+   rdfs:range :TotalChargeAmount .
+
+<houseWaybillNumber> a rdfs:Property ;
+   rdfs:label "House Waybill unique identifier"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range xsd:string .
+
+<freightForwarderProductIdentifier> a rdfs:Property ;
+   rdfs:label "Freight forwarder logistics product / service code"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range xsd:string .
+
+<freightForwarderProductName> a rdfs:Property ;
+   rdfs:label "If no ProductIdentifier provided, Freight forwarder  logistics product / service name"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range xsd:string .
+
+<houseWaybillLine> a rdfs:Property ;
+   rdfs:label "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range iata:HouseWaybill .
+
+<houseWaybillLineTotals> a rdfs:Property ;
+   rdfs:label "House waybill line totals"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range iata:HouseWaybill .
+
+<freightForwarderSignature> a rdfs:Property ;
+   rdfs:label "Freight forwarder signature details"@en ;
+   rdfs:domain :HouseWaybill ;
+   rdfs:range iata:HouseWaybill .
+
+<houseManifestID> a rdfs:Property ;
+   rdfs:label "House Manifest unique identifier"@en ;
+   rdfs:domain :HouseManifest ;
+   rdfs:range xsd:string .
+
+<masterAWBDetails> a rdfs:Property ;
+   rdfs:label "Master Air Waybill details including Air Waybill number, Freight Forwarder, Origin, Flight number, Destination and Airline"@en ;
+   rdfs:domain :HouseManifest ;
+   rdfs:range iata:HouseManifest .
+
+<houseWaybillDetails> a rdfs:Property ;
+   rdfs:label "House Waybill details including House Waybill number, number of pieces, SLAC, gross weight, shipper, consignee, nature of goods"@en ;
+   rdfs:domain :HouseManifest ;
+   rdfs:range iata:HouseManifest .
+
+<bookingRequestNumber> a rdfs:Property ;
+   rdfs:label "Booking unique identifier"@en ;
+   rdfs:domain :Booking ;
+   rdfs:range xsd:string .
+
+<airWaybillReference> a rdfs:Property ;
+   rdfs:label "Air Waybill URI"@en ;
+   rdfs:domain :Booking,:TransportStatus ;
+   rdfs:range schema:url .
+
+<bookingType> a rdfs:Property ;
+   rdfs:label "Type of booking - e.g: Freesale, Allocation, BlockSpace Agreement"@en ;
+   rdfs:domain :Booking ;
+   rdfs:range xsd:string .
+
+<segmentDetail> a rdfs:Property ;
+   rdfs:label "Details of individual transport segments"@en ;
+   rdfs:domain :Booking ;
+   rdfs:range iata:Booking .
+
+<segmentStatus> a rdfs:Property ;
+   rdfs:label "Status of a group of pieces moved on a segment "@en ;
+   rdfs:domain :TransportStatus ;
+   rdfs:range iata:TransportStatus .
