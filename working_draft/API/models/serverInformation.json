@@ -1,0 +1,82 @@
+{
+  "@context": {
+    "@vocab" : "https://tcfplayground.org"
+  },
+  "@id": "https://myonerecordserver.org/my_license_plate",
+  "@type": "ServerInformation",
+  "company": {
+     "@type": "Company",
+     "name": "text",
+     "IATACargoAgentCode": "numeric",
+     "branch": [{
+        "branchName": "text",
+        "IATACargoAgentLocationIdentifier": "numeric",
+        "otherIdentifier": [{
+           "identifierName": "text",
+           "identifer": "text"
+        }],
+        "location": {
+           "@type": "Location",
+           "type": "text",
+           "code": "text",
+           "name": "text",
+           "geoLocation": {
+             "@type": "GeoLocation",
+             "latitude": {
+               "@type": "Value",
+               "value": "text",
+               "unit": "text"
+             },
+             "longitude": {
+               "@type": "Value",
+               "value": "text",
+               "unit": "text"
+             },
+             "elevation": {
+               "@type": "Value",
+               "value": "text",
+               "unit": "text"
+             }
+           },
+           "address": {
+             "@type": "Address",
+             "street": "text",
+             "POBox": "text",
+             "postalCode": "text",
+             "cityCode": "text",
+             "cityName": "text",
+             "regionCode": "text",
+             "regionName": "text",
+             "countryCode": "text",
+             "countryName": "text",
+             "addressCodeType": "text",
+             "addressCode": "text"
+           }
+        },
+        "contactPerson": {
+           "@type": "Person",
+           "contactType": "text",
+           "salutation": "text",
+           "firstName": "text",
+           "middleName": "text",
+           "lastName": "text",
+           "jobTitle": "text",
+           "department": "text",
+           "employeeID": "text",
+           "contactDetails": [{
+              "phoneNumber": "text",
+              "emailAddress": "text",
+              "other": {
+                 "type": "text",
+                 "detail": "text"
+              }
+           }]
+        }
+     }],
+     "airlineCode": "text",
+     "airlinePrefix": "text"
+   },
+  "supportedLogisticsObjects": ["https://tcfplayground.org/HouseManifest", "https://tcfplayground.org/AirWaybill"],
+  "supportedContentTypes": ["application/ld+json", "application/x-turtle", "text/turtle"],
+  "serverEndpoint": "https://myonerecordserver.org"
+}
