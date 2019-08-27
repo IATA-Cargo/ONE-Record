@@ -14,22 +14,20 @@ The following fields are mandatory for the DOC_TYPE "AWB" and must be provided b
 ## Data Owner: Forwarder (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\DEPARTURELOCATION\CODE"
 * "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\ARRIVALLOCATION\CODE"
-* "AIR_WAYBILL\Handling"
-* "AIR_WAYBILL\SecurityInformation" 
-* "AIR_WAYBILL\ShipperSignature"
+* "AIR_WAYBILL\HANDLING"
+* "AIR_WAYBILL\SECURITYINFORMATION" 
+* "AIR_WAYBILL\SHIPPERSSIGNATURE"
 * "AIR_WAYBILL\CUSTOMS_INFORMATION" _maybe go a little bit deeper in this LOs to sort out what´s really needed_
 * "AIR_WAYBILL\BOOKING\TotalGrossWeight"
 * "AIR_WAYBILL\BOOKING\TotalPieceCount"
-* "AIR_WAYBILL\BOOKING\TotalGrossWeight"
+* "AIR_WAYBILL\BOOKING\TotalVolume"
 
 _not clear yet: Accounting and Insurance Data fields_
 
 ## Data Owner: Carrier (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\AirWaybillNumber"
 * "AIR_WAYBILL\BOOKING\TotalChargeAmount"
-* "AIR_WAYBILL\CarrierSignature\SignatoryName"
-* "AIR_WAYBILL\CarrierSignature\Signature"
-* "AIR_WAYBILL\CarrierSignature\Location\Name"
+* "AIR_WAYBILL\CarrierSignature"
 
 _Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier_
 * "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in c2k-Milestones here_
