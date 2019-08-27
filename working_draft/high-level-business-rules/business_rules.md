@@ -17,9 +17,12 @@ The following fields are mandatory for the DOC_TYPE "AWB" and must be provided b
 * "AIR_WAYBILL\Handling"
 * "AIR_WAYBILL\SecurityInformation" 
 * "AIR_WAYBILL\ShipperSignature"
+* "AIR_WAYBILL\CUSTOMS_INFORMATION" _maybe go a little bit deeper in this LOs to sort out what´s really needed_
 * "AIR_WAYBILL\BOOKING\TotalGrossWeight"
 * "AIR_WAYBILL\BOOKING\TotalPieceCount"
 * "AIR_WAYBILL\BOOKING\TotalGrossWeight"
+
+_not clear yet: Accounting and Insurance Data fields_
 
 ## Data Owner: Carrier (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\AirWaybillNumber"
@@ -29,7 +32,7 @@ The following fields are mandatory for the DOC_TYPE "AWB" and must be provided b
 * "AIR_WAYBILL\CarrierSignature\Location\Name"
 
 _Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier_
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in c2k-Milestones here
+* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in c2k-Milestones here_
 
 
 ## The following rules are not clear if needed or not
