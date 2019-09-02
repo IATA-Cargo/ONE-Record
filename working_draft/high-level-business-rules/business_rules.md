@@ -2,7 +2,7 @@
 * This file describes the business rules that can be applied to data fields in ONE Record
 
 ## Precondititions
-* Business rules are applied and documented in a revision-safe audit trail ^related to effected data field (see audit trail definition) 
+* Business rules are applied and documented in a revision-safe audit trail related to effected data field (see audit trail definition) 
 * The business rules depend on a model of roles of stakeholders in the transportation process (see definition of roles and responsibilities)
   * Each stakeholder can have several roles
   * but ech stakeholder can perform a transaction applying only one role
@@ -30,10 +30,9 @@ _not clear yet: Accounting and Insurance Data fields_
 * "AIR_WAYBILL\CarrierSignature"
 
 _Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier_
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in c2k-Milestones here_
+* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in cIQ-Milestones here_
 
-
-## The following rules are not clear if needed or not
+## Mandatory AWB Information to be covered by the ONE Record Audit Trail / Authentication
 In the transaction "DOC_GENERATION" with the DOC_TYPE "AWB", the following rules apply:
 *  the content of the LO "AIR_WAYBILL\DATE" must be written into the Audit trail as the date of performing the DOC_GENERATION transaction
 * the content of the LO "AIR_WAYBILL\SHIPPER" must be covered by the ONE Record authentication
