@@ -5,7 +5,7 @@
 * Business rules are applied and documented in a revision-safe audit trail related to effected data field (see audit trail definition) 
 * The business rules depend on a model of roles of stakeholders in the transportation process (see definition of roles and responsibilities)
   * Each stakeholder can have several roles
-  * but ech stakeholder can perform a transaction applying only one role
+  * but each stakeholder can perform a transaction applying only one role
 
 # AWB
 The transaction "DOC_GENERATION" with the DOC_TYPE "AWB" can only be performed by the role "FORWARDER" 
@@ -26,11 +26,11 @@ _not clear yet: Accounting and Insurance Data fields_
 
 ## Data Owner: Carrier (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\AirWaybillNumber"
-* "AIR_WAYBILL\BOOKING\TotalChargeAmount"
+* "AIR_WAYBILL\BOOKING\TotalChargeAmount" _only in terms of really applied total transportation charge by Carrier, not including other charges during transportation_
 * "AIR_WAYBILL\CarrierSignature"
 
-_Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier_
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in cIQ-Milestones here_
+_Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier as it is provided by Carrier_
+* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in cIQ-transportation plan here_
 
 ## Mandatory AWB Information to be covered by the ONE Record Audit Trail / Authentication
 In the transaction "DOC_GENERATION" with the DOC_TYPE "AWB", the following rules apply:
