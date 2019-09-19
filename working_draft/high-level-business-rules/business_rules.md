@@ -12,12 +12,13 @@ The transaction "DOC_GENERATION" with the DOC_TYPE "AWB" can only be performed b
 The following fields are mandatory for the DOC_TYPE "AWB" and must be provided by its data owner:  
 
 ## Data Owner: Forwarder (all mandatory fields below the named LO)
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\DEPARTURELOCATION\CODE"
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\ARRIVALLOCATION\CODE"
+* "AIR_WAYBILL\CONSIGNEE"
 * "AIR_WAYBILL\HANDLING"
-* "AIR_WAYBILL\SECURITYINFORMATION" 
-* "AIR_WAYBILL\SHIPPERSSIGNATURE"
-* "AIR_WAYBILL\CUSTOMS_INFORMATION" _maybe go a little bit deeper in this LOs to sort out what´s really needed_
+* "AIR_WAYBILL\BOOKING\DEPARTURELOCATION\CODE"
+* "AIR_WAYBILL\BOOKING\ARRIVALLOCATION\CODE"
+* "AIR_WAYBILL\SECURITYINFORMATION"  _requirements on single field level to be defined asap_
+* "AIR_WAYBILL\SHIPPERSSIGNATURE" _requirements on single field level to be defined asap_
+* "AIR_WAYBILL\CUSTOMSINFORMATION" _requirements on single field level to be defined asap_
 * "AIR_WAYBILL\BOOKING\TotalGrossWeight"
 * "AIR_WAYBILL\BOOKING\TotalPieceCount"
 * "AIR_WAYBILL\BOOKING\TotalVolume"
@@ -26,11 +27,13 @@ _not clear yet: Accounting and Insurance Data fields_
 
 ## Data Owner: Carrier (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\AirWaybillNumber"
-* "AIR_WAYBILL\BOOKING\TotalChargeAmount" _only in terms of really applied total transportation charge by Carrier, not including other charges during transportation_
 * "AIR_WAYBILL\CarrierSignature"
 
 _Routing must be provided due to Warsaw Convention / Montreal Agreement, but must be owned by Carrier as it is provided by Carrier_
-* "AIR_WAYBILL\BOOKING\SEGMENTDETAIL\(tbd)" _A concept is required to bring in cIQ-transportation plan here_
+* "AIR_WAYBILL\EVENT\(tbd)" _Not decided yet how to bring in cIQ-transportation plan here_
+
+## Data Owner: Shipper (all mandatory fields below the named LO)
+* "AIR_WAYBILL\SHIPPER"
 
 ## Mandatory AWB Information to be covered by the ONE Record Audit Trail / Authentication
 In the transaction "DOC_GENERATION" with the DOC_TYPE "AWB", the following rules apply:
