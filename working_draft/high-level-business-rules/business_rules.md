@@ -12,18 +12,22 @@ The transaction "DOC_GENERATION" with the DOC_TYPE "AWB" can only be performed b
 The following fields are mandatory for the DOC_TYPE "AWB" and must be provided by its data owner:  
 
 ## Data Owner: Forwarder (all mandatory fields below the named LO)
-* "AIR_WAYBILL\CONSIGNEE"
-* "AIR_WAYBILL\HANDLING"
+* "AIR_WAYBILL\Handling\SpecialHandling\Code"
+* "AIR_WAYBILL\Handling\SpecialHandling\Description"
+* "AIR_WAYBILL\Handling\ServiceRequest\Code"
+* "AIR_WAYBILL\Handling\ServiceRequest\Description"
+* "AIR_WAYBILL\Handling\ServiceRequest\StatementType"
+* "AIR_WAYBILL\Handling\ServiceRequest\StatementText"
 * "AIR_WAYBILL\BOOKING\DEPARTURELOCATION\CODE"
 * "AIR_WAYBILL\BOOKING\ARRIVALLOCATION\CODE"
-* "AIR_WAYBILL\SECURITYINFORMATION"  _requirements on single field level to be defined asap_
-* "AIR_WAYBILL\SHIPPERSSIGNATURE" _requirements on single field level to be defined asap_
-* "AIR_WAYBILL\CUSTOMSINFORMATION" _requirements on single field level to be defined asap_
 * "AIR_WAYBILL\BOOKING\TotalGrossWeight"
 * "AIR_WAYBILL\BOOKING\TotalPieceCount"
 * "AIR_WAYBILL\BOOKING\TotalVolume"
+* "AIR_WAYBILL\ShipperSignature\Signature"
+* "AIR_WAYBILL\ShipperSignature\Location\Name"
 
-_not clear yet: Accounting and Insurance Data fields_
+* "AIR_WAYBILL\SECURITYINFORMATION"  _requirements on single field level to be defined asap_
+* "AIR_WAYBILL\CUSTOMSINFORMATION" _requirements on single field level to be defined asap_
 
 ## Data Owner: Carrier (all mandatory fields below the named LO)
 * "AIR_WAYBILL\BOOKING\AirWaybillNumber"
