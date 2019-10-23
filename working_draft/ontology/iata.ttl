@@ -38,95 +38,122 @@
    rdfs:label "TransportStatus"@en ;
    rdfs:comment "Transport status details"@en .
 
+:CommonObjects rdf:type rdfs:Class ;
+   rdfs:label "CommonObjects"@en ;
+   rdfs:comment "Common objects to logistics objects"@en .
+
 :Value rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Value"@en ;
    rdfs:comment "Unit of measurement details"@en .
 
 :Weight rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Weight"@en ;
    rdfs:comment "Weight details"@en .
 
 :VolumetricWeight rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "VolumetricWeight"@en ;
    rdfs:comment "Volumetric weight details"@en .
 
 :Dimensions rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Dimensions"@en ;
    rdfs:comment "Dimension details"@en .
 
 :Address rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Address"@en ;
    rdfs:comment "Address details"@en .
 
 :Geolocation rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Geolocation"@en ;
    rdfs:comment "Geolocation details - e.g. for drones, automated vehicles…"@en .
 
 :Location rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Location"@en ;
    rdfs:comment "Loading location details"@en .
 
 :Person rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Person"@en ;
    rdfs:comment "Person details"@en .
 
 :Company rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Company"@en ;
    rdfs:comment "Company details"@en .
 
 :OtherParty rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "OtherParty"@en ;
    rdfs:comment "Company details"@en .
 
 :Insurance rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Insurance"@en ;
    rdfs:comment "Insurance details"@en .
 
 :ExternalReference rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "ExternalReference"@en ;
    rdfs:comment "Reference documents details"@en .
 
 :Product rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Product"@en ;
    rdfs:comment "Product details"@en .
 
 :Item rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Item"@en ;
    rdfs:comment "Item details"@en .
 
 :TransportSegment rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "TransportSegment"@en ;
    rdfs:comment "Transport segment details"@en .
 
 :Event rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Event"@en ;
    rdfs:comment "Event details"@en .
 
 :LogisticsComponent rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "LogisticsComponent"@en ;
    rdfs:comment "Logistics component details"@en .
 
 :Piece rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Piece"@en ;
    rdfs:comment "Individual piece / package / pallet / ULD details"@en .
 
 :PieceGrouping rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "PieceGrouping"@en ;
    rdfs:comment "Grouping of individual pieces or logistics components"@en .
 
 :Handling rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Handling"@en ;
    rdfs:comment "Handling details"@en .
 
 :CustomsInfo rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "CustomsInfo"@en ;
    rdfs:comment "Customs information details"@en .
 
 :SecurityInfo rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "SecurityInfo"@en ;
    rdfs:comment "Security information details"@en .
 
 :Rating rdf:type rdfs:Class ;
+   rdfs:subClassOf :CommonObjects ;
    rdfs:label "Rating"@en ;
    rdfs:comment "Rating details"@en .
 
@@ -161,144 +188,6 @@
   rdfs:comment "Transport status details"@en ;
   rdfs:domain :TransportStatus ;
   rdfs:range :TransportStatus .
-
-:value rdf:type rdf:Property ;
-  rdfs:label "value"@en ;
-  rdfs:comment "Unit of measurement details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Value .
-
-:weight rdf:type rdf:Property ;
-  rdfs:label "weight"@en ;
-  rdfs:comment "Weight details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Weight .
-
-:volumetricWeight rdf:type rdf:Property ;
-  rdfs:label "volumetricWeight"@en ;
-  rdfs:comment "Volumetric weight details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :VolumetricWeight .
-
-:dimensions rdf:type rdf:Property ;
-  rdfs:label "dimensions"@en ;
-  rdfs:comment "Dimension details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Dimensions .
-
-:address rdf:type rdf:Property ;
-  rdfs:label "address"@en ;
-  rdfs:comment "Address details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Address .
-
-:geolocation rdf:type rdf:Property ;
-  rdfs:label "geolocation"@en ;
-  rdfs:comment "Geolocation details - e.g. for drones, automated vehicles…"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Geolocation .
-
-:location rdf:type rdf:Property ;
-  rdfs:label "location"@en ;
-  rdfs:comment "Loading location details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Location .
-
-:person rdf:type rdf:Property ;
-  rdfs:label "person"@en ;
-  rdfs:comment "Person details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Person .
-
-:company rdf:type rdf:Property ;
-  rdfs:label "company"@en ;
-  rdfs:comment "Company details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Company .
-
-:otherParty rdf:type rdf:Property ;
-  rdfs:label "otherParty"@en ;
-  rdfs:comment "Company details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :OtherParty .
-
-:insurance rdf:type rdf:Property ;
-  rdfs:label "insurance"@en ;
-  rdfs:comment "Insurance details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Insurance .
-
-:externalReference rdf:type rdf:Property ;
-  rdfs:label "externalReference"@en ;
-  rdfs:comment "Reference documents details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :ExternalReference .
-
-:product rdf:type rdf:Property ;
-  rdfs:label "product"@en ;
-  rdfs:comment "Product details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Product .
-
-:item rdf:type rdf:Property ;
-  rdfs:label "item"@en ;
-  rdfs:comment "Item details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Item .
-
-:transportSegment rdf:type rdf:Property ;
-  rdfs:label "transportSegment"@en ;
-  rdfs:comment "Transport segment details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :TransportSegment .
-
-:event rdf:type rdf:Property ;
-  rdfs:label "event"@en ;
-  rdfs:comment "Event details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Event .
-
-:logisticsComponent rdf:type rdf:Property ;
-  rdfs:label "logisticsComponent"@en ;
-  rdfs:comment "Logistics component details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :LogisticsComponent .
-
-:piece rdf:type rdf:Property ;
-  rdfs:label "piece"@en ;
-  rdfs:comment "Individual piece / package / pallet / ULD details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Piece .
-
-:pieceGrouping rdf:type rdf:Property ;
-  rdfs:label "pieceGrouping"@en ;
-  rdfs:comment "Grouping of individual pieces or logistics components"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :PieceGrouping .
-
-:handling rdf:type rdf:Property ;
-  rdfs:label "handling"@en ;
-  rdfs:comment "Handling details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Handling .
-
-:customsInfo rdf:type rdf:Property ;
-  rdfs:label "customsInfo"@en ;
-  rdfs:comment "Customs information details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :CustomsInfo .
-
-:securityInfo rdf:type rdf:Property ;
-  rdfs:label "securityInfo"@en ;
-  rdfs:comment "Security information details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :SecurityInfo .
-
-:rating rdf:type rdf:Property ;
-  rdfs:label "rating"@en ;
-  rdfs:comment "Rating details"@en ;
-  rdfs:domain :CommonObjects ;
-  rdfs:range :Rating .
 
 #####################################################################################
 # schema of the objects within the main sections of the air freight documents       #
@@ -869,7 +758,7 @@
 :weight rdf:type rdf:Property ;
    rdfs:label "weight"@en ;
    rdfs:comment "Product weight details"@en ;
-   rdfs:domain :Product,:LogisticsComponent ;
+   rdfs:domain :Product,:LogisticsComponent,:Piece ;
    rdfs:range :Weight .
 
 :dimensions rdf:type rdf:Property ;
