@@ -305,8 +305,8 @@
 
 ###### class definitions ######
 
-:ContactDetails rdf:type rdfs:Class ;
-   rdfs:label "ContactDetails"@en ;
+:Contact rdf:type rdfs:Class ;
+   rdfs:label "Contact"@en ;
    rdfs:comment "Contact details"@en .
 
 :Other rdf:type rdfs:Class ;
@@ -586,7 +586,7 @@
 :type rdf:type rdf:Property ;
    rdfs:label "type"@en ;
    rdfs:comment "Location type - e.g. Airport, Freight terminal, Rail station, Seaport, etc"@en ;
-   rdfs:domain :Location,:Contact,:OtherIdentifier,:Commodity,:Characteristic,:Uld ;
+   rdfs:domain :Location,:Contact,:OtherIdentifier,:Commodity,:Characteristic,:ULD ;
    rdfs:range xsd:string .
 
 :code rdf:type rdf:Property ;
@@ -661,11 +661,11 @@
    rdfs:domain :Person ;
    rdfs:range xsd:string .
 
-:contactDetails rdf:type rdf:Property ;
-   rdfs:label "contactDetails"@en ;
+:contact rdf:type rdf:Property ;
+   rdfs:label "contact"@en ;
    rdfs:comment "Contact details"@en ;
    rdfs:domain :Person ;
-   rdfs:range :ContactDetails .
+   rdfs:range :Contact .
 
 :phoneNumber rdf:type rdf:Property ;
    rdfs:label "phoneNumber"@en ;
@@ -1036,37 +1036,37 @@
 :aTAdesignator rdf:type rdf:Property ;
    rdfs:label "aTAdesignator"@en ;
    rdfs:comment "US / ATA Unit Load Device type code e.g. M2"@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range xsd:string .
 
 :loadingIndicator rdf:type rdf:Property ;
    rdfs:label "loadingIndicator"@en ;
    rdfs:comment "ULD height or loading limitation code. Refer CXML Code List 1.47,  e.g. R - ULD Height above 244 centimetres"@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range xsd:string .
 
 :serialNumber rdf:type rdf:Property ;
    rdfs:label "serialNumber"@en ;
    rdfs:comment "ULD serial number"@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range xsd:string .
 
 :ownerCodeIssuer rdf:type rdf:Property ;
    rdfs:label "ownerCodeIssuer"@en ;
    rdfs:comment "Issuer of the ULD owner code "@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range xsd:string .
 
 :ownerCode rdf:type rdf:Property ;
    rdfs:label "ownerCode"@en ;
    rdfs:comment "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company"@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range xsd:string .
 
 :ownerCompany rdf:type rdf:Property ;
    rdfs:label "ownerCompany"@en ;
    rdfs:comment "Owner company details and contacts for the ULD"@en ;
-   rdfs:domain :Uld ;
+   rdfs:domain :ULD ;
    rdfs:range :Company .
 
 :originDestination rdf:type rdf:Property ;
