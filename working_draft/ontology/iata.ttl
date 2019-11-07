@@ -1,1802 +1,2604 @@
 @prefix : <http://cargo.iata.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix dc: 		<http://purl.org/dc/elements/1.1/> .
+@prefix uld: <http://cargo.iata.org/Uld#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix item: <http://cargo.iata.org/Item#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix event: <http://cargo.iata.org/Event#> .
+@prefix other: <http://cargo.iata.org/Other#> .
+@prefix piece: <http://cargo.iata.org/Piece#> .
+@prefix price: <http://cargo.iata.org/Price#> .
+@prefix value: <http://cargo.iata.org/Value#> .
+@prefix branch: <http://cargo.iata.org/Branch#> .
+@prefix person: <http://cargo.iata.org/Person#> .
+@prefix rating: <http://cargo.iata.org/Rating#> .
+@prefix address: <http://cargo.iata.org/Address#> .
+@prefix booking: <http://cargo.iata.org/Booking#> .
+@prefix collect: <http://cargo.iata.org/Collect#> .
+@prefix company: <http://cargo.iata.org/Company#> .
+@prefix contact: <http://cargo.iata.org/Contact#> .
+@prefix country: <http://cargo.iata.org/Country#> .
+@prefix prepaid: <http://cargo.iata.org/Prepaid#> .
+@prefix product: <http://cargo.iata.org/Product#> .
+@prefix handling: <http://cargo.iata.org/Handling#> .
+@prefix location: <http://cargo.iata.org/Location#> .
+@prefix shipment: <http://cargo.iata.org/Shipment#> .
+@prefix commodity: <http://cargo.iata.org/Commodity#> .
+@prefix insurance: <http://cargo.iata.org/Insurance#> .
+@prefix airWaybill: <http://cargo.iata.org/AirWaybill#> .
+@prefix houseWaybill: <http://cargo.iata.org/HouseWaybill#> .
+@prefix dimensions: <http://cargo.iata.org/Dimension#> .
+@prefix otherParty: <http://cargo.iata.org/OtherParty#> .
+@prefix production: <http://cargo.iata.org/Production#> .
+@prefix customsInfo: <http://cargo.iata.org/CustomsInfo#> .
+@prefix geolocation: <http://cargo.iata.org/Geolocation#> .
+@prefix otherCharge: <http://cargo.iata.org/OtherCharge#> .
+@prefix receivedFrom: <http://cargo.iata.org/ReceivedFrom#> .
+@prefix securityInfo: <http://cargo.iata.org/SecurityInfo#> .
+@prefix bookingStatus: <http://cargo.iata.org/BookingStatus#> .
+@prefix chargePayment: <http://cargo.iata.org/ChargePayment#> .
+@prefix chargeSummary: <http://cargo.iata.org/ChargeSummary#> .
+@prefix packagingType: <http://cargo.iata.org/PackagingType#> .
+@prefix pieceGrouping: <http://cargo.iata.org/PieceGrouping#> .
+@prefix characteristic: <http://cargo.iata.org/Characteristic#> .
+@prefix securityStatus: <http://cargo.iata.org/SecurityStatus#> .
+@prefix serviceRequest: <http://cargo.iata.org/ServiceRequest#> .
+@prefix specialService: <http://cargo.iata.org/SpecialService#> .
+@prefix otherIdentifier: <http://cargo.iata.org/OtherIdentifier#> .
+@prefix specialHandling: <http://cargo.iata.org/SpecialHandling#> .
+@prefix transportSegment: <http://cargo.iata.org/TransportSegment#> .
+@prefix volumetricWeight: <http://cargo.iata.org/VolumetricWeight#> .
+@prefix chargeDeclaration: <http://cargo.iata.org/ChargeDeclaration#> .
+@prefix chargeDescription: <http://cargo.iata.org/ChargeDescription#> .
+@prefix externalReference: <http://cargo.iata.org/ExternalReference#> .
+@prefix inDestinationCurrency: <http://cargo.iata.org/InDestinationCurrency#> .
+@prefix otherCustomsInformation: <http://cargo.iata.org/OtherCustomsInformation#> .
+@prefix reasonsForSecurityStatus: <http://cargo.iata.org/ReasonsForSecurityStatus#> .
+@base <http://cargo.iata.org/> .
 
 <http://cargo.iata.org/> rdf:type owl:Ontology ;
-                         dc:title "IATA ONE Record vocabulary"@en;
-                         dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
-                         owl:versionInfo "12.9" .
-
-#####################################################################################
-# schema of the main sections of the air freight documents                          #
-#####################################################################################
-
-###### class definitions ######
-
-:AirWaybill rdf:type rdfs:Class ;
-   rdfs:label "AirWaybill"@en ;
-   rdfs:comment "Air Waybill details"@en .
-
-:Booking rdf:type rdfs:Class ;
-   rdfs:label "Booking"@en ;
-   rdfs:comment "Booking details"@en .
-
-:HouseWaybill rdf:type rdfs:Class ;
-   rdfs:label "HouseWaybill"@en ;
-   rdfs:comment "House Waybill details"@en .
-
-:HouseManifest rdf:type rdfs:Class ;
-   rdfs:label "HouseManifest"@en ;
-   rdfs:comment "House Manifest details"@en .
-
-:TransportStatus rdf:type rdfs:Class ;
-   rdfs:label "TransportStatus"@en ;
-   rdfs:comment "Transport status details"@en .
-
-:CommonObjects rdf:type rdfs:Class ;
-   rdfs:label "CommonObjects"@en ;
-   rdfs:comment "Common objects to logistics objects"@en .
-
-:Value rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Value"@en ;
-   rdfs:comment "Unit of measurement details"@en .
-
-:Weight rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Weight"@en ;
-   rdfs:comment "Weight details"@en .
-
-:VolumetricWeight rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "VolumetricWeight"@en ;
-   rdfs:comment "Volumetric weight details"@en .
-
-:Dimensions rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Dimensions"@en ;
-   rdfs:comment "Dimension details"@en .
-
-:Address rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Address"@en ;
-   rdfs:comment "Address details"@en .
-
-:Geolocation rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Geolocation"@en ;
-   rdfs:comment "Geolocation details - e.g. for drones, automated vehicles…"@en .
-
-:Location rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Location"@en ;
-   rdfs:comment "Loading location details"@en .
-
-:Person rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Person"@en ;
-   rdfs:comment "Person details"@en .
-
-:Company rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Company"@en ;
-   rdfs:comment "Company details"@en .
-
-:OtherParty rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "OtherParty"@en ;
-   rdfs:comment "Company details"@en .
-
-:Insurance rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Insurance"@en ;
-   rdfs:comment "Insurance details"@en .
-
-:ExternalReference rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "ExternalReference"@en ;
-   rdfs:comment "Reference documents details"@en .
-
-:Product rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Product"@en ;
-   rdfs:comment "Product details"@en .
-
-:Item rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Item"@en ;
-   rdfs:comment "Item details"@en .
-
-:TransportSegment rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "TransportSegment"@en ;
-   rdfs:comment "Transport segment details"@en .
-
-:Event rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Event"@en ;
-   rdfs:comment "Event details"@en .
-
-:LogisticsComponent rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "LogisticsComponent"@en ;
-   rdfs:comment "Logistics component details"@en .
-
-:Piece rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Piece"@en ;
-   rdfs:comment "Individual piece / package / pallet / ULD details"@en .
-
-:PieceGrouping rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "PieceGrouping"@en ;
-   rdfs:comment "Grouping of individual pieces or logistics components"@en .
-
-:Handling rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Handling"@en ;
-   rdfs:comment "Handling details"@en .
-
-:CustomsInfo rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "CustomsInfo"@en ;
-   rdfs:comment "Customs information details"@en .
-
-:SecurityInfo rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "SecurityInfo"@en ;
-   rdfs:comment "Security information details"@en .
-
-:Rating rdf:type rdfs:Class ;
-   rdfs:subClassOf :CommonObjects ;
-   rdfs:label "Rating"@en ;
-   rdfs:comment "Rating details"@en .
-
-#####################################################################################
-# schema of the objects within the main sections of the air freight documents       #
-#####################################################################################
-
-###### class definitions ######
-
-:Contact rdf:type rdfs:Class ;
-   rdfs:label "Contact"@en ;
-   rdfs:comment "Contact details"@en .
-
-:Other rdf:type rdfs:Class ;
-   rdfs:label "Other"@en ;
-   rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en .
-
-:Branch rdf:type rdfs:Class ;
-   rdfs:label "Branch"@en ;
-   rdfs:comment "Company branches"@en .
-
-:OtherIdentifier rdf:type rdfs:Class ;
-   rdfs:label "OtherIdentifier"@en ;
-   rdfs:comment "Other identifiers"@en .
-
-:Commodity rdf:type rdfs:Class ;
-   rdfs:label "Commodity"@en ;
-   rdfs:comment "Commodity details"@en .
-
-:Characteristic rdf:type rdfs:Class ;
-   rdfs:label "Characteristic"@en ;
-   rdfs:comment "Product additional details"@en .
-
-:Price rdf:type rdfs:Class ;
-   rdfs:label "Price"@en ;
-   rdfs:comment "Product price details"@en .
-
-:Production rdf:type rdfs:Class ;
-   rdfs:label "Production"@en ;
-   rdfs:comment "Production batch and lot details"@en .
-
-:ProductionCountry rdf:type rdfs:Class ;
-   rdfs:label "ProductionCountry"@en ;
-   rdfs:comment "Production country details"@en .
-
-:TargetCountry rdf:type rdfs:Class ;
-   rdfs:label "TargetCountry"@en ;
-   rdfs:comment "Item target country"@en .
-
-:PackagingType rdf:type rdfs:Class ;
-   rdfs:label "PackagingType"@en ;
-   rdfs:comment "Packaging details "@en .
-
-:ULD rdf:type rdfs:Class ;
-   rdfs:label "ULD"@en ;
-   rdfs:comment "Unit Load Device details"@en .
-
-:SpecialHandling rdf:type rdfs:Class ;
-   rdfs:label "SpecialHandling"@en ;
-   rdfs:comment "Special handling details"@en .
-
-:ServiceRequest rdf:type rdfs:Class ;
-   rdfs:label "ServiceRequest"@en ;
-   rdfs:comment "Service request details"@en .
-
-:OtherCustomsInformation rdf:type rdfs:Class ;
-   rdfs:label "OtherCustomsInformation"@en ;
-   rdfs:comment "Other customs information details"@en .
-
-:SecurityStatus rdf:type rdfs:Class ;
-   rdfs:label "SecurityStatus"@en ;
-   rdfs:comment "Security status details"@en .
-
-:ReasonsForSecurityStatus rdf:type rdfs:Class ;
-   rdfs:label "ReasonsForSecurityStatus"@en ;
-   rdfs:comment "Security status details"@en .
-
-:BookingStatus rdf:type rdfs:Class ;
-   rdfs:label "BookingStatus"@en ;
-   rdfs:comment "Booking status details"@en .
-
-:ChargeDeclaration rdf:type rdfs:Class ;
-   rdfs:label "ChargeDeclaration"@en ;
-   rdfs:comment "Goods value declaration details"@en .
-
-:Carriage rdf:type rdfs:Class ;
-   rdfs:label "Carriage"@en ;
-   rdfs:comment "Carriage value declaration"@en .
-
-:Customs rdf:type rdfs:Class ;
-   rdfs:label "Customs"@en ;
-   rdfs:comment "Customs value declaration"@en .
-
-:Insurance rdf:type rdfs:Class ;
-   rdfs:label "Insurance"@en ;
-   rdfs:comment "Insurance value declaration"@en .
-
-:OtherCharge rdf:type rdfs:Class ;
-   rdfs:label "OtherCharge"@en ;
-   rdfs:comment "Other charge details"@en .
-
-:ChargeDescription rdf:type rdfs:Class ;
-   rdfs:label "ChargeDescription"@en ;
-   rdfs:comment "Other charge description details"@en .
-
-:SpecialService rdf:type rdfs:Class ;
-   rdfs:label "SpecialService"@en ;
-   rdfs:comment "Special service details"@en .
-
-:ChargePayment rdf:type rdfs:Class ;
-   rdfs:label "ChargePayment"@en ;
-   rdfs:comment "Charge payment details"@en .
-
-:ChargeSummary rdf:type rdfs:Class ;
-   rdfs:label "ChargeSummary"@en ;
-   rdfs:comment "Charge summary details"@en .
-
-:Prepaid rdf:type rdfs:Class ;
-   rdfs:label "Prepaid"@en ;
-   rdfs:comment "Prepaid totals in base / origin currency"@en .
-
-:Collect rdf:type rdfs:Class ;
-   rdfs:label "Collect"@en ;
-   rdfs:comment "Collect totals in base / origin currency"@en .
-
-:InDestinationCurrency rdf:type rdfs:Class ;
-   rdfs:label "InDestinationCurrency"@en ;
-   rdfs:comment "Collect totals in target / destination currency"@en .
-
-:ShipperSignature rdf:type rdfs:Class ;
-   rdfs:label "ShipperSignature"@en ;
-   rdfs:comment "Shipper signature details"@en .
-
-:CarrierSignature rdf:type rdfs:Class ;
-   rdfs:label "CarrierSignature"@en ;
-   rdfs:comment "Carrier signature details"@en .
-
-:FreightForwarderSignature rdf:type rdfs:Class ;
-   rdfs:label "FreightForwarderSignature"@en ;
-   rdfs:comment "Freight forwarder signature details"@en .
-
-###### property definitions ######
-
-:unit rdf:type rdf:Property ;
-   rdfs:label "unit"@en ;
-   rdfs:comment "Unit of measurement/ unit of account e.g. CMT - Centimetre,  LTR - Litre (1 DM3), KGM - Kilogram, CHF - Swiss Franc"@en ;
-   rdfs:domain :Value ;
-   rdfs:range xsd:string .
-
-:netWeight rdf:type rdf:Property ;
-   rdfs:label "netWeight"@en ;
-   rdfs:comment "Net weight"@en ;
-   rdfs:domain :Weight ;
-   rdfs:range :Value .
-
-:tareWeight rdf:type rdf:Property ;
-   rdfs:label "tareWeight"@en ;
-   rdfs:comment "Weight of empty packaging, pallet or ULD"@en ;
-   rdfs:domain :Weight ;
-   rdfs:range :Value .
-
-:grossWeight rdf:type rdf:Property ;
-   rdfs:label "grossWeight"@en ;
-   rdfs:comment "Total weight"@en ;
-   rdfs:domain :Weight ;
-   rdfs:range :Value .
-
-:conversionFactor rdf:type rdf:Property ;
-   rdfs:label "conversionFactor"@en ;
-   rdfs:comment "Volume to weight conversion factor"@en ;
-   rdfs:domain :VolumetricWeight ;
-   rdfs:range :Value .
-
-:chargeableWeight rdf:type rdf:Property ;
-   rdfs:label "chargeableWeight"@en ;
-   rdfs:comment "Chargeable weight"@en ;
-   rdfs:domain :VolumetricWeight ;
-   rdfs:range :Value .
-
-:width rdf:type rdf:Property ;
-   rdfs:label "width"@en ;
-   rdfs:comment "Width"@en ;
-   rdfs:domain :Dimensions ;
-   rdfs:range :Value .
-
-:length rdf:type rdf:Property ;
-   rdfs:label "length"@en ;
-   rdfs:comment "Lenght"@en ;
-   rdfs:domain :Dimensions ;
-   rdfs:range :Value .
-
-:height rdf:type rdf:Property ;
-   rdfs:label "height"@en ;
-   rdfs:comment "Height"@en ;
-   rdfs:domain :Dimensions ;
-   rdfs:range :Value .
-
-:volume rdf:type rdf:Property ;
-   rdfs:label "volume"@en ;
-   rdfs:comment "Volume"@en ;
-   rdfs:domain :Dimensions ;
-   rdfs:range :Value .
-
-:latitude rdf:type rdf:Property ;
-   rdfs:label "latitude"@en ;
-   rdfs:comment "Location latitude "@en ;
-   rdfs:domain :Geolocation ;
-   rdfs:range :Value .
-
-:longitude rdf:type rdf:Property ;
-   rdfs:label "longitude"@en ;
-   rdfs:comment "Location longitude "@en ;
-   rdfs:domain :Geolocation ;
-   rdfs:range :Value .
-
-:elevation rdf:type rdf:Property ;
-   rdfs:label "elevation"@en ;
-   rdfs:comment "Elevation from sea level"@en ;
-   rdfs:domain :Geolocation ;
-   rdfs:range :Value .
-
-:street rdf:type rdf:Property ;
-   rdfs:label "street"@en ;
-   rdfs:comment "Street address including street name, street number, building number, apartment etc"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:pOBox rdf:type rdf:Property ;
-   rdfs:label "pOBox"@en ;
-   rdfs:comment "Post Office box number / code"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:postalCode rdf:type rdf:Property ;
-   rdfs:label "postalCode"@en ;
-   rdfs:comment "Postal / ZIP code"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:cityCode rdf:type rdf:Property ;
-   rdfs:label "cityCode"@en ;
-   rdfs:comment "UN/LOCODE city code (5 letter) or IATA city code (3 letter)"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:cityName rdf:type rdf:Property ;
-   rdfs:label "cityName"@en ;
-   rdfs:comment "If no CityCode provided, full name of the city "@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:regionCode rdf:type rdf:Property ;
-   rdfs:label "regionCode"@en ;
-   rdfs:comment "Region/ State / Department. Refer ISO 3166-2  "@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:regionName rdf:type rdf:Property ;
-   rdfs:label "regionName"@en ;
-   rdfs:comment "If no StateCode provided, full name of the region / state / province / canton"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:countryCode rdf:type rdf:Property ;
-   rdfs:label "countryCode"@en ;
-   rdfs:comment "Country ISO code. Refer ISO 3166-2"@en ;
-   rdfs:domain :Address,:ProductionCountry,:TargetCountry,:OtherCustomsInformation ;
-   rdfs:range xsd:string .
-
-:countryName rdf:type rdf:Property ;
-   rdfs:label "countryName"@en ;
-   rdfs:comment "If no CountryCode provided, full country name"@en ;
-   rdfs:domain :Address,:ProductionCountry,:TargetCountry ;
-   rdfs:range xsd:string .
-
-:addressCodeType rdf:type rdf:Property ;
-   rdfs:label "addressCodeType"@en ;
-   rdfs:comment "Type of address code e.g. US CBP FIRMS"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:addressCode rdf:type rdf:Property ;
-   rdfs:label "addressCode"@en ;
-   rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
-   rdfs:domain :Address ;
-   rdfs:range xsd:string .
-
-:type rdf:type rdf:Property ;
-   rdfs:label "type"@en ;
-   rdfs:comment "Location type - e.g. Airport, Freight terminal, Rail station, Seaport, etc"@en ;
-   rdfs:domain :Location,:Contact,:OtherIdentifier,:Commodity,:Characteristic,:ULD ;
-   rdfs:range xsd:string .
-
-:code rdf:type rdf:Property ;
-   rdfs:label "code"@en ;
-   rdfs:comment "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
-   rdfs:domain :Location,:Commodity,:PackagingType,:SpecialHandling,:ServiceRequest,:BookingStatus,:ChargeDescription ;
-   rdfs:range xsd:string .
-
-:name rdf:type rdf:Property ;
-   rdfs:label "name"@en ;
-   rdfs:comment "Full name of the location"@en ;
-   rdfs:domain :Location,:Company,:Commodity ;
-   rdfs:range xsd:string .
-
-:geoLocation rdf:type rdf:Property ;
-   rdfs:label "geoLocation"@en ;
-   rdfs:comment "Geolocation details"@en ;
-   rdfs:domain :Location ;
-   rdfs:range :Geolocation .
-
-:address rdf:type rdf:Property ;
-   rdfs:label "address"@en ;
-   rdfs:comment "Address details"@en ;
-   rdfs:domain :Location ;
-   rdfs:range :Address .
-
-:contactType rdf:type rdf:Property ;
-   rdfs:label "contactType"@en ;
-   rdfs:comment "Contact type - e.g. Emergency contact, Customs contact, Customer contact"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:salutation rdf:type rdf:Property ;
-   rdfs:label "salutation"@en ;
-   rdfs:comment "Salutation "@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:firstName rdf:type rdf:Property ;
-   rdfs:label "firstName"@en ;
-   rdfs:comment "First name / given name"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:middleName rdf:type rdf:Property ;
-   rdfs:label "middleName"@en ;
-   rdfs:comment "Middle name/ other name"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:lastName rdf:type rdf:Property ;
-   rdfs:label "lastName"@en ;
-   rdfs:comment "Last name / family name / surname"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:jobTitle rdf:type rdf:Property ;
-   rdfs:label "jobTitle"@en ;
-   rdfs:comment "Job title / position"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:department rdf:type rdf:Property ;
-   rdfs:label "department"@en ;
-   rdfs:comment "Department / Division / Unit"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:employeeID rdf:type rdf:Property ;
-   rdfs:label "employeeID"@en ;
-   rdfs:comment "Employee ID"@en ;
-   rdfs:domain :Person ;
-   rdfs:range xsd:string .
-
-:contact rdf:type rdf:Property ;
-   rdfs:label "contact"@en ;
-   rdfs:comment "Contact details"@en ;
-   rdfs:domain :Person ;
-   rdfs:range :Contact .
-
-:phoneNumber rdf:type rdf:Property ;
-   rdfs:label "phoneNumber"@en ;
-   rdfs:comment "Phone number"@en ;
-   rdfs:domain :Contact ;
-   rdfs:range xsd:string .
-
-:emailAddress rdf:type rdf:Property ;
-   rdfs:label "emailAddress"@en ;
-   rdfs:comment "E-mail address"@en ;
-   rdfs:domain :Contact ;
-   rdfs:range xsd:string .
-
-:other rdf:type rdf:Property ;
-   rdfs:label "other"@en ;
-   rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
-   rdfs:domain :Contact ;
-   rdfs:range :Other .
-
-:detail rdf:type rdf:Property ;
-   rdfs:label "detail"@en ;
-   rdfs:comment "Contact details e.g. Skype ID "@en ;
-   rdfs:domain :Other ;
-   rdfs:range xsd:string .
-
-:iATACargoAgentCode rdf:type rdf:Property ;
-   rdfs:label "iATACargoAgentCode"@en ;
-   rdfs:comment "IATA accredited cargo agent 7 digit number"@en ;
-   rdfs:domain :Company ;
-   rdfs:range xsd:decimal .
-
-:branch rdf:type rdf:Property ;
-   rdfs:label "branch"@en ;
-   rdfs:comment "Company branches"@en ;
-   rdfs:domain :Company ;
-   rdfs:range :Branch .
-
-:branchName rdf:type rdf:Property ;
-   rdfs:label "branchName"@en ;
-   rdfs:comment "Company branch name"@en ;
-   rdfs:domain :Branch ;
-   rdfs:range xsd:string .
-
-:iATACargoAgentLocationIdentifier rdf:type rdf:Property ;
-   rdfs:label "iATACargoAgentLocationIdentifier"@en ;
-   rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
-   rdfs:domain :Branch ;
-   rdfs:range xsd:decimal .
-
-:otherIdentifier rdf:type rdf:Property ;
-   rdfs:label "otherIdentifier"@en ;
-   rdfs:comment "Other identifiers"@en ;
-   rdfs:domain :Branch,:Product,:Item,:Piece ;
-   rdfs:range :OtherIdentifier .
-
-:identifierName rdf:type rdf:Property ;
-   rdfs:label "identifierName"@en ;
-   rdfs:comment "Name of ID - e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc"@en ;
-   rdfs:domain :OtherIdentifier ;
-   rdfs:range xsd:string .
-
-:identifer rdf:type rdf:Property ;
-   rdfs:label "identifer"@en ;
-   rdfs:comment "Unique company identifier "@en ;
-   rdfs:domain :OtherIdentifier ;
-   rdfs:range xsd:string .
-
-:location rdf:type rdf:Property ;
-   rdfs:label "location"@en ;
-   rdfs:comment "Location and address details"@en ;
-   rdfs:domain :Branch,:Event,:ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
-   rdfs:range :Location .
-
-:contactPerson rdf:type rdf:Property ;
-   rdfs:label "contactPerson"@en ;
-   rdfs:comment "Contact person details"@en ;
-   rdfs:domain :Branch ;
-   rdfs:range :Person .
-
-:airlineCode rdf:type rdf:Property ;
-   rdfs:label "airlineCode"@en ;
-   rdfs:comment "IATA two-character airline code "@en ;
-   rdfs:domain :Company ;
-   rdfs:range xsd:string .
-
-:airlinePrefix rdf:type rdf:Property ;
-   rdfs:label "airlinePrefix"@en ;
-   rdfs:comment "IATA three-numeric airline prefix number "@en ;
-   rdfs:domain :Company ;
-   rdfs:range xsd:string .
-
-:roleName rdf:type rdf:Property ;
-   rdfs:label "roleName"@en ;
-   rdfs:comment "Role of other party - e.g. Notify party, Nominated agent, Customs broker, Manufacturer, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom "@en ;
-   rdfs:domain :OtherParty ;
-   rdfs:range xsd:string .
-
-:companyDetails rdf:type rdf:Property ;
-   rdfs:label "companyDetails"@en ;
-   rdfs:comment "Company details"@en ;
-   rdfs:domain :OtherParty ;
-   rdfs:range :Company .
-
-:coveringParty rdf:type rdf:Property ;
-   rdfs:label "coveringParty"@en ;
-   rdfs:comment "Party covering the insurance "@en ;
-   rdfs:domain :Insurance ;
-   rdfs:range :Company .
-
-:insuranceAmount rdf:type rdf:Property ;
-   rdfs:label "insuranceAmount"@en ;
-   rdfs:comment "Insured amount - amount covered by the insurance policy"@en ;
-   rdfs:domain :Insurance ;
-   rdfs:range :Value .
-
-:documentType rdf:type rdf:Property ;
-   rdfs:label "documentType"@en ;
-   rdfs:comment "Type of the referenced document . Refer UNEDIFACT 1001  e.g. 740 - Air Waybill"@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range xsd:string .
-
-:documentName rdf:type rdf:Property ;
-   rdfs:label "documentName"@en ;
-   rdfs:comment "If no DocumentType provided, name of the referenced document "@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range xsd:string .
-
-:documentOriginator rdf:type rdf:Property ;
-   rdfs:label "documentOriginator"@en ;
-   rdfs:comment "Document originator details and contacts"@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range :Company .
-
-:documentID rdf:type rdf:Property ;
-   rdfs:label "documentID"@en ;
-   rdfs:comment "Unique document identifier"@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range xsd:string .
-
-:documentVersion rdf:type rdf:Property ;
-   rdfs:label "documentVersion"@en ;
-   rdfs:comment "Document version number"@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range xsd:string .
-
-:uRI rdf:type rdf:Property ;
-   rdfs:label "uRI"@en ;
-   rdfs:comment "URI of document or logistics object"@en ;
-   rdfs:domain :ExternalReference ;
-   rdfs:range xsd:anyURI .
-
-:manufacturer rdf:type rdf:Property ;
-   rdfs:label "manufacturer"@en ;
-   rdfs:comment "Manufacturing company details and contacts"@en ;
-   rdfs:domain :Product ;
-   rdfs:range :Company .
-
-:productDescription rdf:type rdf:Property ;
-   rdfs:label "productDescription"@en ;
-   rdfs:comment "Product description"@en ;
-   rdfs:domain :Product ;
-   rdfs:range xsd:string .
-
-:productIdentifier rdf:type rdf:Property ;
-   rdfs:label "productIdentifier"@en ;
-   rdfs:comment "Manufacturer's unique product identifier"@en ;
-   rdfs:domain :Product ;
-   rdfs:range xsd:string .
-
-:identifier rdf:type rdf:Property ;
-   rdfs:label "identifier"@en ;
-   rdfs:comment "Product identifier"@en ;
-   rdfs:domain :OtherIdentifier ;
-   rdfs:range xsd:string .
-
-:uNNumber rdf:type rdf:Property ;
-   rdfs:label "uNNumber"@en ;
-   rdfs:comment "Reference identifying the United Nations Dangerous Goods serial number assigned within the UN to substances and articles contained in rdf:type list of the dangerous goods most commonly carried. e.g. 1189 - Ethylene glycol monomethyl ether acetate"@en ;
-   rdfs:domain :Product ;
-   rdfs:range xsd:string .
-
-:commodity rdf:type rdf:Property ;
-   rdfs:label "commodity"@en ;
-   rdfs:comment "Commodity details"@en ;
-   rdfs:domain :Product,:LogisticsComponent ;
-   rdfs:range :Commodity .
-
-:characteristic rdf:type rdf:Property ;
-   rdfs:label "characteristic"@en ;
-   rdfs:comment "Product additional details"@en ;
-   rdfs:domain :Product ;
-   rdfs:range :Characteristic .
-
-:value rdf:type rdf:Property ;
-   rdfs:label "value"@en ;
-   rdfs:comment "Product characteristic value / attribute - e.g. Blue…"@en ;
-   rdfs:domain :Characteristic ;
-   rdfs:range xsd:string .
-
-:weight rdf:type rdf:Property ;
-   rdfs:label "weight"@en ;
-   rdfs:comment "Product weight details"@en ;
-   rdfs:domain :Product,:LogisticsComponent,:Piece ;
-   rdfs:range :Weight .
-
-:dimensions rdf:type rdf:Property ;
-   rdfs:label "dimensions"@en ;
-   rdfs:comment "Product dimensions details"@en ;
-   rdfs:domain :Product,:LogisticsComponent ;
-   rdfs:range :Dimensions .
-
-:price rdf:type rdf:Property ;
-   rdfs:label "price"@en ;
-   rdfs:comment "Product price details"@en ;
-   rdfs:domain :Product ;
-   rdfs:range :Price .
-
-:unitPrice rdf:type rdf:Property ;
-   rdfs:label "unitPrice"@en ;
-   rdfs:comment "Product price per unit in the base currency"@en ;
-   rdfs:domain :Price ;
-   rdfs:range :Value .
-
-:unitCode rdf:type rdf:Property ;
-   rdfs:label "unitCode"@en ;
-   rdfs:comment "Unit code for item - e.g. piece, unit, kg, pack, hour, minute…"@en ;
-   rdfs:domain :Price ;
-   rdfs:range xsd:string .
-
-:quantityForUnitPrice rdf:type rdf:Property ;
-   rdfs:label "quantityForUnitPrice"@en ;
-   rdfs:comment "Product quantity for unit price - e.g. 12 (eggs for one USD 1)"@en ;
-   rdfs:domain :Price ;
-   rdfs:range xsd:decimal .
-
-:itemIdentifier rdf:type rdf:Property ;
-   rdfs:label "itemIdentifier"@en ;
-   rdfs:comment "Item serial number or unique item identifier"@en ;
-   rdfs:domain :Item ;
-   rdfs:range xsd:string .
-
-:production rdf:type rdf:Property ;
-   rdfs:label "production"@en ;
-   rdfs:comment "Production batch and lot details"@en ;
-   rdfs:domain :Item ;
-   rdfs:range :Production .
-
-:batchNumber rdf:type rdf:Property ;
-   rdfs:label "batchNumber"@en ;
-   rdfs:comment "Production batch number / reference"@en ;
-   rdfs:domain :Production ;
-   rdfs:range xsd:string .
-
-:lotNumber rdf:type rdf:Property ;
-   rdfs:label "lotNumber"@en ;
-   rdfs:comment "Production lot number / reference"@en ;
-   rdfs:domain :Production ;
-   rdfs:range xsd:string .
-
-:date rdf:type rdf:Property ;
-   rdfs:label "date"@en ;
-   rdfs:comment "Production date"@en ;
-   rdfs:domain :Production,:AirWaybill,:ShipperSignature,:CarrierSignature,:HouseWaybill,:FreightForwarderSignature,:HouseManifest,:Booking ;
-   rdfs:range xsd:dateTime .
-
-:productExpiryDate rdf:type rdf:Property ;
-   rdfs:label "productExpiryDate"@en ;
-   rdfs:comment "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence"@en ;
-   rdfs:domain :Production ;
-   rdfs:range xsd:dateTime .
-
-:productionCountry rdf:type rdf:Property ;
-   rdfs:label "productionCountry"@en ;
-   rdfs:comment "Production country details"@en ;
-   rdfs:domain :Item ;
-   rdfs:range :ProductionCountry .
-
-:product rdf:type rdf:Property ;
-   rdfs:label "product"@en ;
-   rdfs:comment "Product details"@en ;
-   rdfs:domain :Item ;
-   rdfs:range :Product .
-
-:targetCountry rdf:type rdf:Property ;
-   rdfs:label "targetCountry"@en ;
-   rdfs:comment "Item target country"@en ;
-   rdfs:domain :Item ;
-   rdfs:range :TargetCountry .
-
-:goodsDescription rdf:type rdf:Property ;
-   rdfs:label "goodsDescription"@en ;
-   rdfs:comment "General goods description"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:string .
-
-:originCountryCode rdf:type rdf:Property ;
-   rdfs:label "originCountryCode"@en ;
-   rdfs:comment "Goods origin country ISO code. Refer ISO 3166-2"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:string .
-
-:issuer rdf:type rdf:Property ;
-   rdfs:label "issuer"@en ;
-   rdfs:comment "Issuer of commodity classification codes - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard...International Trade Classification"@en ;
-   rdfs:domain :Commodity ;
-   rdfs:range xsd:string .
-
-:volumetricWeight rdf:type rdf:Property ;
-   rdfs:label "volumetricWeight"@en ;
-   rdfs:comment "Volumetric weight details "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :VolumetricWeight .
-
-:noDimensionAvailable rdf:type rdf:Property ;
-   rdfs:label "noDimensionAvailable"@en ;
-   rdfs:comment "NDA (No Dimensions Available) indicator"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:string .
-
-:containedPieceCount rdf:type rdf:Property ;
-   rdfs:label "containedPieceCount"@en ;
-   rdfs:comment "Number of contained pieces "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:decimal .
-
-:sLAC rdf:type rdf:Property ;
-   rdfs:label "sLAC"@en ;
-   rdfs:comment "Shipper's Load And Count  ( total contained piece count as provided by shipper)"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:decimal .
-
-:densityGroup rdf:type rdf:Property ;
-   rdfs:label "densityGroup"@en ;
-   rdfs:comment "Density group of the piece. Refer  CXML Code List 2, e.g. 1 - 300 kg per mc or 18.6 lbs per cf"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range xsd:string .
-
-:deckPosition rdf:type rdf:Property ;
-   rdfs:label "deckPosition"@en ;
-   rdfs:comment "Position of the shipment in the aircraft - e.g. lower or main deck "@en ;
-   rdfs:domain :LogisticsComponent,:TransportSegment ;
-   rdfs:range xsd:string .
-
-:loadTypeCode rdf:type rdf:Property ;
-   rdfs:label "loadTypeCode"@en ;
-   rdfs:comment "Bulk or containerized (BLK or ULD) indicator"@en ;
-   rdfs:domain :LogisticsComponent,:Rating,:AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:packagingType rdf:type rdf:Property ;
-   rdfs:label "packagingType"@en ;
-   rdfs:comment "Packaging details "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :PackagingType .
-
-:description rdf:type rdf:Property ;
-   rdfs:label "description"@en ;
-   rdfs:comment "If no Code provided, packaging type description "@en ;
-   rdfs:domain :PackagingType,:SpecialHandling,:ServiceRequest,:BookingStatus,:ChargeDescription,:SpecialService ;
-   rdfs:range xsd:string .
-
-:uLD rdf:type rdf:Property ;
-   rdfs:label "uLD"@en ;
-   rdfs:comment "Unit Load Device details"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :ULD .
-
-:aTAdesignator rdf:type rdf:Property ;
-   rdfs:label "aTAdesignator"@en ;
-   rdfs:comment "US / ATA Unit Load Device type code e.g. M2"@en ;
-   rdfs:domain :ULD ;
-   rdfs:range xsd:string .
-
-:loadingIndicator rdf:type rdf:Property ;
-   rdfs:label "loadingIndicator"@en ;
-   rdfs:comment "ULD height or loading limitation code. Refer CXML Code List 1.47,  e.g. R - ULD Height above 244 centimetres"@en ;
-   rdfs:domain :ULD ;
-   rdfs:range xsd:string .
-
-:serialNumber rdf:type rdf:Property ;
-   rdfs:label "serialNumber"@en ;
-   rdfs:comment "ULD serial number"@en ;
-   rdfs:domain :ULD ;
-   rdfs:range xsd:string .
-
-:ownerCodeIssuer rdf:type rdf:Property ;
-   rdfs:label "ownerCodeIssuer"@en ;
-   rdfs:comment "Issuer of the ULD owner code "@en ;
-   rdfs:domain :ULD ;
-   rdfs:range xsd:string .
-
-:ownerCode rdf:type rdf:Property ;
-   rdfs:label "ownerCode"@en ;
-   rdfs:comment "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company"@en ;
-   rdfs:domain :ULD ;
-   rdfs:range xsd:string .
-
-:ownerCompany rdf:type rdf:Property ;
-   rdfs:label "ownerCompany"@en ;
-   rdfs:comment "Owner company details and contacts for the ULD"@en ;
-   rdfs:domain :ULD ;
-   rdfs:range :Company .
-
-:originDestination rdf:type rdf:Property ;
-   rdfs:label "originDestination"@en ;
-   rdfs:comment "Origin and destination details"@en ;
-   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
-   rdfs:range :TransportSegment .
-
-:transportSegment rdf:type rdf:Property ;
-   rdfs:label "transportSegment"@en ;
-   rdfs:comment "Segment related to the transport status"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :TransportSegment .
-
-:event rdf:type rdf:Property ;
-   rdfs:label "event"@en ;
-   rdfs:comment "Event details e.g. DEP, ARR, FOH, RCS, security screening, etc"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :Event .
-
-:shipper rdf:type rdf:Property ;
-   rdfs:label "shipper"@en ;
-   rdfs:comment "Shipper company details - e.g. the party shipping the piece "@en ;
-   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
-   rdfs:range :Company .
-
-:consignee rdf:type rdf:Property ;
-   rdfs:label "consignee"@en ;
-   rdfs:comment "Consignee company details - e.g. the party receiving the piece"@en ;
-   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
-   rdfs:range :Company .
-
-:otherParty rdf:type rdf:Property ;
-   rdfs:label "otherParty"@en ;
-   rdfs:comment "Other party company details - e.g. the party to be notified"@en ;
-   rdfs:domain :LogisticsComponent,:AirWaybill,:HouseWaybill ;
-   rdfs:range :OtherParty .
-
-:externalReference rdf:type rdf:Property ;
-   rdfs:label "externalReference"@en ;
-   rdfs:comment "Reference documents details "@en ;
-   rdfs:domain :LogisticsComponent,:SecurityInfo,:TransportSegment,:AirWaybill,:HouseWaybill ;
-   rdfs:range :ExternalReference .
-
-:insurance rdf:type rdf:Property ;
-   rdfs:label "insurance"@en ;
-   rdfs:comment "Insurance details "@en ;
-   rdfs:domain :LogisticsComponent,:AirWaybill,:ChargeDeclaration,:HouseWaybill ;
-   rdfs:range :Insurance .
-
-:handlingDetails rdf:type rdf:Property ;
-   rdfs:label "handlingDetails"@en ;
-   rdfs:comment "Handling details  "@en ;
-   rdfs:domain :LogisticsComponent,:Event ;
-   rdfs:range :Handling .
-
-:customsDetails rdf:type rdf:Property ;
-   rdfs:label "customsDetails"@en ;
-   rdfs:comment "Customs details  "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :CustomsInfo .
-
-:securityDetails rdf:type rdf:Property ;
-   rdfs:label "securityDetails"@en ;
-   rdfs:comment "Security details  "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :SecurityInfo .
-
-:containedItem rdf:type rdf:Property ;
-   rdfs:label "containedItem"@en ;
-   rdfs:comment "Details of contained item(s) "@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :Item .
-
-:containedPiece rdf:type rdf:Property ;
-   rdfs:label "containedPiece"@en ;
-   rdfs:comment "Details of contained piece(s)"@en ;
-   rdfs:domain :LogisticsComponent ;
-   rdfs:range :Piece .
-
-:flagPieceLevelTracking rdf:type rdf:Property ;
-   rdfs:label "flagPieceLevelTracking"@en ;
-   rdfs:comment "Flag indicating if the piece-level tracking is requested e.g. Tracked, Not Tracked"@en ;
-   rdfs:domain :Piece ;
-   rdfs:range xsd:string .
-
-:uPID rdf:type rdf:Property ;
-   rdfs:label "uPID"@en ;
-   rdfs:comment "Unique Piece Identifier (UPID) of the piece. Refer IATA Recommended Practice 1689"@en ;
-   rdfs:domain :Piece ;
-   rdfs:range xsd:string .
-
-:pieceDetails rdf:type rdf:Property ;
-   rdfs:label "pieceDetails"@en ;
-   rdfs:comment "Details of the piece"@en ;
-   rdfs:domain :Piece,:PieceGrouping ;
-   rdfs:range :LogisticsComponent .
-
-:rateClassCode rdf:type rdf:Property ;
-   rdfs:label "rateClassCode"@en ;
-   rdfs:comment "Rate category code. Refer  CXML Code List 1.4,  e.g. Q - Quantity Rate"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:commodityItemNumber rdf:type rdf:Property ;
-   rdfs:label "commodityItemNumber"@en ;
-   rdfs:comment "Commodity identifier on which the rate class code is applied"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:ratingTypeIndicator rdf:type rdf:Property ;
-   rdfs:label "ratingTypeIndicator"@en ;
-   rdfs:comment "Transportation rating type - e.g. F for Face, P for Published, or rdf:type for Actual Rating detail"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:rCP rdf:type rdf:Property ;
-   rdfs:label "rCP"@en ;
-   rdfs:comment "City code of Rate Combination Point (RCP), the point over which sector rates are combined"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:uLDRateClassType rdf:type rdf:Property ;
-   rdfs:label "uLDRateClassType"@en ;
-   rdfs:comment "Unit Load Device rate class type e.g. 1P"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:rateClassBasis rdf:type rdf:Property ;
-   rdfs:label "rateClassBasis"@en ;
-   rdfs:comment "Basis on which the Rate Class Code is applicable"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:ratingClassPercentage rdf:type rdf:Property ;
-   rdfs:label "ratingClassPercentage"@en ;
-   rdfs:comment "Rating class percentage"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:decimal .
-
-:rateReferenceCode rdf:type rdf:Property ;
-   rdfs:label "rateReferenceCode"@en ;
-   rdfs:comment "Code to indicate the applicable rate"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:rateReferenceType rdf:type rdf:Property ;
-   rdfs:label "rateReferenceType"@en ;
-   rdfs:comment "Type of rate - e.g. contract, adhoc, etc."@en ;
-   rdfs:domain :Rating ;
-   rdfs:range xsd:string .
-
-:rateChargeAmount rdf:type rdf:Property ;
-   rdfs:label "rateChargeAmount"@en ;
-   rdfs:comment "Rate, charge, or discount amount"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range :Value .
-
-:subTotalAmount rdf:type rdf:Property ;
-   rdfs:label "subTotalAmount"@en ;
-   rdfs:comment "Subtotal of weight and valuation charges for the piece group"@en ;
-   rdfs:domain :Rating ;
-   rdfs:range :Value .
-
-:ratingDetails rdf:type rdf:Property ;
-   rdfs:label "ratingDetails"@en ;
-   rdfs:comment "Rating details"@en ;
-   rdfs:domain :PieceGrouping ;
-   rdfs:range :Rating .
-
-:specialHandling rdf:type rdf:Property ;
-   rdfs:label "specialHandling"@en ;
-   rdfs:comment "Special handling details"@en ;
-   rdfs:domain :Handling ;
-   rdfs:range :SpecialHandling .
-
-:requestedBy rdf:type rdf:Property ;
-   rdfs:label "requestedBy"@en ;
-   rdfs:comment "Party requesting the special handling"@en ;
-   rdfs:domain :SpecialHandling,:ServiceRequest ;
-   rdfs:range :Company .
-
-:serviceRequest rdf:type rdf:Property ;
-   rdfs:label "serviceRequest"@en ;
-   rdfs:comment "Service request details"@en ;
-   rdfs:domain :Handling ;
-   rdfs:range :ServiceRequest .
-
-:statementType rdf:type rdf:Property ;
-   rdfs:label "statementType"@en ;
-   rdfs:comment "Service request statement type - e.g. Dangerous Goods, Lithium Ion Battery, Live Animal Certificate"@en ;
-   rdfs:domain :ServiceRequest ;
-   rdfs:range xsd:string .
-
-:statementText rdf:type rdf:Property ;
-   rdfs:label "statementText"@en ;
-   rdfs:comment "Service request statement text"@en ;
-   rdfs:domain :ServiceRequest ;
-   rdfs:range xsd:string .
-
-:customsTransitCode rdf:type rdf:Property ;
-   rdfs:label "customsTransitCode"@en ;
-   rdfs:comment "Customs transit status / code/ information / reference. Refer EUCTSC, e.g. T1 - Europe Union Customs 1"@en ;
-   rdfs:domain :CustomsInfo ;
-   rdfs:range xsd:string .
-
-:otherCustomsInformation rdf:type rdf:Property ;
-   rdfs:label "otherCustomsInformation"@en ;
-   rdfs:comment "Other customs information details"@en ;
-   rdfs:domain :CustomsInfo ;
-   rdfs:range :OtherCustomsInformation .
-
-:customsSubjectCode rdf:type rdf:Property ;
-   rdfs:label "customsSubjectCode"@en ;
-   rdfs:comment "Customs subject code. Refer CXML Code List 1.19, e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for rdf:type Consignment etc.   At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
-   rdfs:domain :OtherCustomsInformation ;
-   rdfs:range xsd:string .
-
-:customsContentCode rdf:type rdf:Property ;
-   rdfs:label "customsContentCode"@en ;
-   rdfs:comment "Customs content code. Refer CXML Code List 1.100, e.g. IST - Security Textual StatementNumber, M - Movement Reference Number"@en ;
-   rdfs:domain :OtherCustomsInformation ;
-   rdfs:range xsd:string .
-
-:customsInformation rdf:type rdf:Property ;
-   rdfs:label "customsInformation"@en ;
-   rdfs:comment "Information for customs submission"@en ;
-   rdfs:domain :OtherCustomsInformation,:AirWaybill,:HouseWaybill ;
-   rdfs:range :CustomsInfo .
-
-:customsNote rdf:type rdf:Property ;
-   rdfs:label "customsNote"@en ;
-   rdfs:comment "Free text f or customs remarks"@en ;
-   rdfs:domain :OtherCustomsInformation ;
-   rdfs:range xsd:string .
-
-:securityStatus rdf:type rdf:Property ;
-   rdfs:label "securityStatus"@en ;
-   rdfs:comment "Security status details"@en ;
-   rdfs:domain :SecurityInfo ;
-   rdfs:range :SecurityStatus .
-
-:statusCode rdf:type rdf:Property ;
-   rdfs:label "statusCode"@en ;
-   rdfs:comment "Security status indicator - e.g. SPX- Cargo Secure for Passenger and All-Cargo Aircraft "@en ;
-   rdfs:domain :SecurityStatus ;
-   rdfs:range xsd:string .
-
-:issuedOn rdf:type rdf:Property ;
-   rdfs:label "issuedOn"@en ;
-   rdfs:comment "Date and time when the security status was issued"@en ;
-   rdfs:domain :SecurityStatus ;
-   rdfs:range xsd:string .
-
-:issuedBy rdf:type rdf:Property ;
-   rdfs:label "issuedBy"@en ;
-   rdfs:comment "Name of person (or employee ID) and Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
-   rdfs:domain :SecurityStatus,:BookingStatus ;
-   rdfs:range :Company .
-
-:regulatedPartyType rdf:type rdf:Property ;
-   rdfs:label "regulatedPartyType"@en ;
-   rdfs:comment "Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier"@en ;
-   rdfs:domain :SecurityStatus,:ReceivedFrom ;
-   rdfs:range xsd:string .
-
-:regulatingAuthority rdf:type rdf:Property ;
-   rdfs:label "regulatingAuthority"@en ;
-   rdfs:comment "Country ISO code. Refer ISO 3166-2"@en ;
-   rdfs:domain :SecurityInfo ;
-   rdfs:range xsd:string .
-
-:reasonsForSecurityStatus rdf:type rdf:Property ;
-   rdfs:label "reasonsForSecurityStatus"@en ;
-   rdfs:comment "Security status details"@en ;
-   rdfs:domain :SecurityInfo ;
-   rdfs:range :ReasonsForSecurityStatus .
-
-:receivedFrom rdf:type rdf:Property ;
-   rdfs:label "receivedFrom"@en ;
-   rdfs:comment "Known Consignor or Regulated Agent reference"@en ;
-   rdfs:domain :ReasonsForSecurityStatus ;
-   rdfs:range :ReceivedFrom .
-
-:regulatedEntityIdentifier rdf:type rdf:Property ;
-   rdfs:label "regulatedEntityIdentifier"@en ;
-   rdfs:comment "Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
-   rdfs:domain :ReceivedFrom ;
-   rdfs:range :Company .
-
-:screeningMethod rdf:type rdf:Property ;
-   rdfs:label "screeningMethod"@en ;
-   rdfs:comment "Screening methods which have been used to secure the cargo - e.g. EDS- Explosive Detection System "@en ;
-   rdfs:domain :ReasonsForSecurityStatus ;
-   rdfs:range xsd:string .
-
-:groundsForExemption rdf:type rdf:Property ;
-   rdfs:label "groundsForExemption"@en ;
-   rdfs:comment "Exemption code - e.g. BIOM- Bio-Medical Samples "@en ;
-   rdfs:domain :ReasonsForSecurityStatus ;
-   rdfs:range xsd:string .
-
-:otherScreeningMethods rdf:type rdf:Property ;
-   rdfs:label "otherScreeningMethods"@en ;
-   rdfs:comment "Other methods used to secure the cargo"@en ;
-   rdfs:domain :ReasonsForSecurityStatus ;
-   rdfs:range xsd:string .
-
-:additionalSecurityInformation rdf:type rdf:Property ;
-   rdfs:label "additionalSecurityInformation"@en ;
-   rdfs:comment "Ad hoc security statement required by state regulators "@en ;
-   rdfs:domain :SecurityInfo ;
-   rdfs:range xsd:string .
-
-:departureLocation rdf:type rdf:Property ;
-   rdfs:label "departureLocation"@en ;
-   rdfs:comment "Departure details including time and date"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range :Location .
-
-:arrivalLocation rdf:type rdf:Property ;
-   rdfs:label "arrivalLocation"@en ;
-   rdfs:comment "Arrival details including time and date"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range :Location .
-
-:bookingStatus rdf:type rdf:Property ;
-   rdfs:label "bookingStatus"@en ;
-   rdfs:comment "Booking status details"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range :BookingStatus .
-
-:dateTime rdf:type rdf:Property ;
-   rdfs:label "dateTime"@en ;
-   rdfs:comment "Date and time when the booking status is issued"@en ;
-   rdfs:domain :BookingStatus,:Event,:SpecialService ;
-   rdfs:range xsd:dateTime .
-
-:carriageStage rdf:type rdf:Property ;
-   rdfs:label "carriageStage"@en ;
-   rdfs:comment "Carriage stage - e.g. Pre-Carriage, Main-Carriage, On-Carriage "@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:modeCode rdf:type rdf:Property ;
-   rdfs:label "modeCode"@en ;
-   rdfs:comment "Mode of transport code. Refer UNECE Recommendation N. 19 - Code for Modes of Transport,  e.g. 4 - Air transport"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:transportCompany rdf:type rdf:Property ;
-   rdfs:label "transportCompany"@en ;
-   rdfs:comment "Transport company details"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range :Company .
-
-:transportIdentifier rdf:type rdf:Property ;
-   rdfs:label "transportIdentifier"@en ;
-   rdfs:comment "Airline flight number, or rail /  truck / maritime line id"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:transportDate rdf:type rdf:Property ;
-   rdfs:label "transportDate"@en ;
-   rdfs:comment "Date associated with TransportIdentifier to uniquely identify the transport line "@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:vehicleRegistration rdf:type rdf:Property ;
-   rdfs:label "vehicleRegistration"@en ;
-   rdfs:comment "Vehicle identification - e.g. aircraft registration number"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:vehicleType rdf:type rdf:Property ;
-   rdfs:label "vehicleType"@en ;
-   rdfs:comment "Vehicle or container type. Refer UNECE28, e.g. 4.00.0 - Aircraft, type unknown"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:vehicleSize rdf:type rdf:Property ;
-   rdfs:label "vehicleSize"@en ;
-   rdfs:comment "Size of the vehicle - free text"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:seal rdf:type rdf:Property ;
-   rdfs:label "seal"@en ;
-   rdfs:comment "Seal identifier"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:spaceAllocationDetails rdf:type rdf:Property ;
-   rdfs:label "spaceAllocationDetails"@en ;
-   rdfs:comment "Space allocation request / action / confirmation code or details"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:allotmentDetails rdf:type rdf:Property ;
-   rdfs:label "allotmentDetails"@en ;
-   rdfs:comment "Guaranteed capacity reference details"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:exceptionHandlingDetails rdf:type rdf:Property ;
-   rdfs:label "exceptionHandlingDetails"@en ;
-   rdfs:comment "Exception handling code or details"@en ;
-   rdfs:domain :TransportSegment ;
-   rdfs:range xsd:string .
-
-:eventTypeIndicator rdf:type rdf:Property ;
-   rdfs:label "eventTypeIndicator"@en ;
-   rdfs:comment "Indicates type of event e.g.  Scheduled, Estimated, Actual"@en ;
-   rdfs:domain :Event ;
-   rdfs:range xsd:string .
-
-:eventCode rdf:type rdf:Property ;
-   rdfs:label "eventCode"@en ;
-   rdfs:comment "Movement or milestone code. Refer CXML Code List 1.18, e.g. DEP, ARR, FOH, RCS"@en ;
-   rdfs:domain :Event ;
-   rdfs:range xsd:string .
-
-:eventName rdf:type rdf:Property ;
-   rdfs:label "eventName"@en ;
-   rdfs:comment "If no EventCode provided, event name - e.g. Security clearance"@en ;
-   rdfs:domain :Event ;
-   rdfs:range xsd:string .
-
-:performedBy rdf:type rdf:Property ;
-   rdfs:label "performedBy"@en ;
-   rdfs:comment "Party performing the event"@en ;
-   rdfs:domain :Event ;
-   rdfs:range :Company .
-
-:airWaybillNumber rdf:type rdf:Property ;
-   rdfs:label "airWaybillNumber"@en ;
-   rdfs:comment "Air Waybill unique identifier"@en ;
-   rdfs:domain :AirWaybill,:Booking,:TransportStatus ;
-   rdfs:range xsd:string .
-
-:flagConsolDirectLC rdf:type rdf:Property ;
-   rdfs:label "flagConsolDirectLC"@en ;
-   rdfs:comment "Shipment type indicator - e.g. D for Direct, C for Consolidation or L for Letter of Credit"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:accountInformationCode rdf:type rdf:Property ;
-   rdfs:label "accountInformationCode"@en ;
-   rdfs:comment "Accounting information item identifier. Refer CXML Code List 1.30, STL - Mode of Settlement"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:accountInformationDescription rdf:type rdf:Property ;
-   rdfs:label "accountInformationDescription"@en ;
-   rdfs:comment "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:paymentMethodCode rdf:type rdf:Property ;
-   rdfs:label "paymentMethodCode"@en ;
-   rdfs:comment "Charge payment method code. Refer CXML Code List 1.1, e.g.  PP - All Charges Prepaid Cash"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:serviceCode rdf:type rdf:Property ;
-   rdfs:label "serviceCode"@en ;
-   rdfs:comment "Cargo product / service identifier. Refer CXML Code List 1.38, e.g.  rdf:type - Airport-to-Airport"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:string .
-
-:airlineProductIdentifier rdf:type rdf:Property ;
-   rdfs:label "airlineProductIdentifier"@en ;
-   rdfs:comment "Airline logistics product / service code"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range xsd:string .
-
-:airlineProductName rdf:type rdf:Property ;
-   rdfs:label "airlineProductName"@en ;
-   rdfs:comment "If no ProductIdentifier provided, Airline logistics product / service name"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range xsd:string .
-
-:freightForwarder rdf:type rdf:Property ;
-   rdfs:label "freightForwarder"@en ;
-   rdfs:comment "Freight Forwarder details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Company .
-
-:carrier rdf:type rdf:Property ;
-   rdfs:label "carrier"@en ;
-   rdfs:comment "Issuing Carrier details"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range :Company .
-
-:routing rdf:type rdf:Property ;
-   rdfs:label "routing"@en ;
-   rdfs:comment "Routing of shipment as defined in booking"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Booking .
-
-:waybillLine rdf:type rdf:Property ;
-   rdfs:label "waybillLine"@en ;
-   rdfs:comment "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range :PieceGrouping .
-
-:handling rdf:type rdf:Property ;
-   rdfs:label "handling"@en ;
-   rdfs:comment "Handling details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Handling .
-
-:securityInformation rdf:type rdf:Property ;
-   rdfs:label "securityInformation"@en ;
-   rdfs:comment "Security information details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :SecurityInfo .
-
-:chargeDeclaration rdf:type rdf:Property ;
-   rdfs:label "chargeDeclaration"@en ;
-   rdfs:comment "Goods value declaration details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :ChargeDeclaration .
-
-:weightValuationChargePayment rdf:type rdf:Property ;
-   rdfs:label "weightValuationChargePayment"@en ;
-   rdfs:comment "Weight charges payment indicator e.g. Prepaid, Collect"@en ;
-   rdfs:domain :ChargeDeclaration ;
-   rdfs:range xsd:string .
-
-:otherChargesPayment rdf:type rdf:Property ;
-   rdfs:label "otherChargesPayment"@en ;
-   rdfs:comment "Other Charges payment indicator e.g. Prepaid, Collect"@en ;
-   rdfs:domain :ChargeDeclaration ;
-   rdfs:range xsd:string .
-
-:carriage rdf:type rdf:Property ;
-   rdfs:label "carriage"@en ;
-   rdfs:comment "Carriage value declaration"@en ;
-   rdfs:domain :ChargeDeclaration ;
-   rdfs:range :Carriage .
-
-:noCarriageValue rdf:type rdf:Property ;
-   rdfs:label "noCarriageValue"@en ;
-   rdfs:comment "NVD (No Value Declared) indicator when no value is declared for carriage"@en ;
-   rdfs:domain :Carriage ;
-   rdfs:range xsd:string .
-
-:amount rdf:type rdf:Property ;
-   rdfs:label "amount"@en ;
-   rdfs:comment "Goods value declaration for carriage"@en ;
-   rdfs:domain :Carriage,:Customs,:Insurance,:ChargePayment ;
-   rdfs:range :Value .
-
-:customs rdf:type rdf:Property ;
-   rdfs:label "customs"@en ;
-   rdfs:comment "Customs value declaration"@en ;
-   rdfs:domain :ChargeDeclaration ;
-   rdfs:range :Customs .
-
-:noCustomsValue rdf:type rdf:Property ;
-   rdfs:label "noCustomsValue"@en ;
-   rdfs:comment "NCV (No Customs Value) indicator when no value is declared for customs"@en ;
-   rdfs:domain :Customs ;
-   rdfs:range xsd:string .
-
-:noInsuranceValue rdf:type rdf:Property ;
-   rdfs:label "noInsuranceValue"@en ;
-   rdfs:comment "XXX indicator when no value is declared for insurance"@en ;
-   rdfs:domain :Insurance ;
-   rdfs:range xsd:string .
-
-:otherCharge rdf:type rdf:Property ;
-   rdfs:label "otherCharge"@en ;
-   rdfs:comment "Other charge details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :OtherCharge .
-
-:chargeDescription rdf:type rdf:Property ;
-   rdfs:label "chargeDescription"@en ;
-   rdfs:comment "Other charge description details"@en ;
-   rdfs:domain :OtherCharge ;
-   rdfs:range :ChargeDescription .
-
-:subCode rdf:type rdf:Property ;
-   rdfs:label "subCode"@en ;
-   rdfs:comment "Other charge subcode"@en ;
-   rdfs:domain :ChargeDescription ;
-   rdfs:range xsd:string .
-
-:locationIndicator rdf:type rdf:Property ;
-   rdfs:label "locationIndicator"@en ;
-   rdfs:comment "Other Charge Location indicator - e.g. Origin (O) or Transit (T) or Destination(D)"@en ;
-   rdfs:domain :ChargeDescription ;
-   rdfs:range xsd:string .
-
-:specialService rdf:type rdf:Property ;
-   rdfs:label "specialService"@en ;
-   rdfs:comment "Special service details"@en ;
-   rdfs:domain :OtherCharge ;
-   rdfs:range :SpecialService .
-
-:chargePayment rdf:type rdf:Property ;
-   rdfs:label "chargePayment"@en ;
-   rdfs:comment "Charge payment details"@en ;
-   rdfs:domain :OtherCharge ;
-   rdfs:range :ChargePayment .
-
-:byTime rdf:type rdf:Property ;
-   rdfs:label "byTime"@en ;
-   rdfs:comment "Amount of time for which the charge is applied"@en ;
-   rdfs:domain :ChargePayment ;
-   rdfs:range xsd:decimal .
-
-:byItemQuantity rdf:type rdf:Property ;
-   rdfs:label "byItemQuantity"@en ;
-   rdfs:comment "Number of items for which the charge is applied"@en ;
-   rdfs:domain :ChargePayment ;
-   rdfs:range xsd:decimal .
-
-:dueParty rdf:type rdf:Property ;
-   rdfs:label "dueParty"@en ;
-   rdfs:comment "Due party - e.g. Carrier, Agent"@en ;
-   rdfs:domain :ChargePayment ;
-   rdfs:range xsd:string .
-
-:prepaidCollectIndicator rdf:type rdf:Property ;
-   rdfs:label "prepaidCollectIndicator"@en ;
-   rdfs:comment "Other Charges payment indicator - e.g. at origin (prepaid) or at destination (collect)"@en ;
-   rdfs:domain :ChargePayment ;
-   rdfs:range xsd:string .
-
-:chargeSummary rdf:type rdf:Property ;
-   rdfs:label "chargeSummary"@en ;
-   rdfs:comment "Charge summary details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :ChargeSummary .
-
-:prepaid rdf:type rdf:Property ;
-   rdfs:label "prepaid"@en ;
-   rdfs:comment "Prepaid totals in base / origin currency"@en ;
-   rdfs:domain :ChargeSummary ;
-   rdfs:range :Prepaid .
-
-:totalWeightCharges rdf:type rdf:Property ;
-   rdfs:label "totalWeightCharges"@en ;
-   rdfs:comment "Total weight charge amount (prepaid)"@en ;
-   rdfs:domain :Prepaid,:Collect ;
-   rdfs:range :Value .
-
-:totalValuationCharges rdf:type rdf:Property ;
-   rdfs:label "totalValuationCharges"@en ;
-   rdfs:comment "Total valuation charge amount (prepaid)"@en ;
-   rdfs:domain :Prepaid,:Collect ;
-   rdfs:range :Value .
-
-:totalTaxes rdf:type rdf:Property ;
-   rdfs:label "totalTaxes"@en ;
-   rdfs:comment "Total Tax amount (prepaid)"@en ;
-   rdfs:domain :Prepaid,:Collect ;
-   rdfs:range :Value .
-
-:totalOtherChargesDueAgent rdf:type rdf:Property ;
-   rdfs:label "totalOtherChargesDueAgent"@en ;
-   rdfs:comment "Total other charges due agent amount (prepaid)"@en ;
-   rdfs:domain :Prepaid,:Collect ;
-   rdfs:range :Value .
-
-:totalOtherChargesDueCarrier rdf:type rdf:Property ;
-   rdfs:label "totalOtherChargesDueCarrier"@en ;
-   rdfs:comment "Total other charges due carrier amount (prepaid)"@en ;
-   rdfs:domain :Prepaid,:Collect ;
-   rdfs:range :Value .
-
-:totalPrepaidCharges rdf:type rdf:Property ;
-   rdfs:label "totalPrepaidCharges"@en ;
-   rdfs:comment "Total prepaid charges amount"@en ;
-   rdfs:domain :Prepaid ;
-   rdfs:range :Value .
-
-:collect rdf:type rdf:Property ;
-   rdfs:label "collect"@en ;
-   rdfs:comment "Collect totals in base / origin currency"@en ;
-   rdfs:domain :ChargeSummary ;
-   rdfs:range :Collect .
-
-:totalCollectCharges rdf:type rdf:Property ;
-   rdfs:label "totalCollectCharges"@en ;
-   rdfs:comment "Total collect charges amount"@en ;
-   rdfs:domain :Collect ;
-   rdfs:range :Value .
-
-:inDestinationCurrency rdf:type rdf:Property ;
-   rdfs:label "inDestinationCurrency"@en ;
-   rdfs:comment "Collect totals in target / destination currency"@en ;
-   rdfs:domain :Collect ;
-   rdfs:range :InDestinationCurrency .
-
-:totalCharges rdf:type rdf:Property ;
-   rdfs:label "totalCharges"@en ;
-   rdfs:comment "Total Charges converted to destination currency as per CURRENCY conversion rate"@en ;
-   rdfs:domain :InDestinationCurrency ;
-   rdfs:range :Value .
-
-:collectionCharge rdf:type rdf:Property ;
-   rdfs:label "collectionCharge"@en ;
-   rdfs:comment "Collection charges in destination currency - e.g. additional amount charged for the service"@en ;
-   rdfs:domain :InDestinationCurrency ;
-   rdfs:range :Value .
-
-:grandTotalCollectCharges rdf:type rdf:Property ;
-   rdfs:label "grandTotalCollectCharges"@en ;
-   rdfs:comment "Sum of TotalCharges and CollectionCharge"@en ;
-   rdfs:domain :InDestinationCurrency ;
-   rdfs:range :Value .
-
-:shipperSignature rdf:type rdf:Property ;
-   rdfs:label "shipperSignature"@en ;
-   rdfs:comment "Shipper signature details"@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :ShipperSignature .
-
-:signatoryName rdf:type rdf:Property ;
-   rdfs:label "signatoryName"@en ;
-   rdfs:comment "Name of person"@en ;
-   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
-   rdfs:range xsd:string .
-
-:signatoryCompany rdf:type rdf:Property ;
-   rdfs:label "signatoryCompany"@en ;
-   rdfs:comment "Name of company"@en ;
-   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
-   rdfs:range xsd:string .
-
-:signature rdf:type rdf:Property ;
-   rdfs:label "signature"@en ;
-   rdfs:comment "Signature (free text)"@en ;
-   rdfs:domain :ShipperSignature,:CarrierSignature,:FreightForwarderSignature ;
-   rdfs:range xsd:string .
-
-:carrierSignature rdf:type rdf:Property ;
-   rdfs:label "carrierSignature"@en ;
-   rdfs:comment "Carrier signature details"@en ;
-   rdfs:domain :AirWaybill ;
-   rdfs:range :CarrierSignature .
-
-:totalPieceCount rdf:type rdf:Property ;
-   rdfs:label "totalPieceCount"@en ;
-   rdfs:comment "Total piece count of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range xsd:decimal .
-
-:totalSLAC rdf:type rdf:Property ;
-   rdfs:label "totalSLAC"@en ;
-   rdfs:comment "Total SLAC of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range xsd:decimal .
-
-:totalULDCount rdf:type rdf:Property ;
-   rdfs:label "totalULDCount"@en ;
-   rdfs:comment "Total ULD count of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range xsd:decimal .
-
-:totalNetWeight rdf:type rdf:Property ;
-   rdfs:label "totalNetWeight"@en ;
-   rdfs:comment "Total net weight of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Weight .
-
-:totalTareWeight rdf:type rdf:Property ;
-   rdfs:label "totalTareWeight"@en ;
-   rdfs:comment "Total tare weight of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Weight .
-
-:totalGrossWeight rdf:type rdf:Property ;
-   rdfs:label "totalGrossWeight"@en ;
-   rdfs:comment "Total gross weight of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill,:HouseManifest ;
-   rdfs:range :Weight .
-
-:totalChargeableWeight rdf:type rdf:Property ;
-   rdfs:label "totalChargeableWeight"@en ;
-   rdfs:comment "Total chargeable weight of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Weight .
-
-:totalVolume rdf:type rdf:Property ;
-   rdfs:label "totalVolume"@en ;
-   rdfs:comment "Total volume of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Value .
-
-:totalChargeAmount rdf:type rdf:Property ;
-   rdfs:label "totalChargeAmount"@en ;
-   rdfs:comment "Total charge amount of all piece groups "@en ;
-   rdfs:domain :AirWaybill,:HouseWaybill ;
-   rdfs:range :Value .
-
-:houseWaybillNumber rdf:type rdf:Property ;
-   rdfs:label "houseWaybillNumber"@en ;
-   rdfs:comment "House Waybill unique identifier"@en ;
-   rdfs:domain :HouseWaybill ;
-   rdfs:range xsd:string .
-
-:freightForwarderProductIdentifier rdf:type rdf:Property ;
-   rdfs:label "freightForwarderProductIdentifier"@en ;
-   rdfs:comment "Freight forwarder logistics product / service code"@en ;
-   rdfs:domain :HouseWaybill ;
-   rdfs:range xsd:string .
-
-:freightForwarderProductName rdf:type rdf:Property ;
-   rdfs:label "freightForwarderProductName"@en ;
-   rdfs:comment "If no ProductIdentifier provided, Freight forwarder  logistics product / service name"@en ;
-   rdfs:domain :HouseWaybill ;
-   rdfs:range xsd:string .
-
-:houseWaybillLine rdf:type rdf:Property ;
-   rdfs:label "houseWaybillLine"@en ;
-   rdfs:comment "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
-   rdfs:domain :HouseWaybill ;
-   rdfs:range :PieceGrouping .
-
-:freightForwarderSignature rdf:type rdf:Property ;
-   rdfs:label "freightForwarderSignature"@en ;
-   rdfs:comment "Freight forwarder signature details"@en ;
-   rdfs:domain :HouseWaybill ;
-   rdfs:range :FreightForwarderSignature .
-
-:houseManifestID rdf:type rdf:Property ;
-   rdfs:label "houseManifestID"@en ;
-   rdfs:comment "House Manifest unique identifier"@en ;
-   rdfs:domain :HouseManifest ;
-   rdfs:range xsd:string .
-
-:masterAWBDetails rdf:type rdf:Property ;
-   rdfs:label "masterAWBDetails"@en ;
-   rdfs:comment "Master Air Waybill details including Air Waybill number, Freight Forwarder, Origin, Flight number, Destination and Airline"@en ;
-   rdfs:domain :HouseManifest ;
-   rdfs:range :AirWaybill .
-
-:houseWaybillDetails rdf:type rdf:Property ;
-   rdfs:label "houseWaybillDetails"@en ;
-   rdfs:comment "House Waybill details including House Waybill number, number of pieces, SLAC, gross weight, shipper, consignee, nature of goods"@en ;
-   rdfs:domain :HouseManifest ;
-   rdfs:range :HouseWaybill .
-
-:bookingRequestNumber rdf:type rdf:Property ;
-   rdfs:label "bookingRequestNumber"@en ;
-   rdfs:comment "Booking unique identifier"@en ;
-   rdfs:domain :Booking ;
-   rdfs:range xsd:string .
-
-:airWaybillReference rdf:type rdf:Property ;
-   rdfs:label "airWaybillReference"@en ;
-   rdfs:comment "Air Waybill URI"@en ;
-   rdfs:domain :Booking,:TransportStatus ;
-   rdfs:range xsd:anyURI .
-
-:bookingType rdf:type rdf:Property ;
-   rdfs:label "bookingType"@en ;
-   rdfs:comment "Type of booking - e.g: Freesale, Allocation, BlockSpace Agreement"@en ;
-   rdfs:domain :Booking ;
-   rdfs:range xsd:string .
-
-:segmentDetail rdf:type rdf:Property ;
-   rdfs:label "segmentDetail"@en ;
-   rdfs:comment "Details of individual transport segments"@en ;
-   rdfs:domain :Booking ;
-   rdfs:range :TransportSegment .
-
-:segmentStatus rdf:type rdf:Property ;
-   rdfs:label "segmentStatus"@en ;
-   rdfs:comment "Status of rdf:type group of pieces moved on rdf:type segment "@en ;
-   rdfs:domain :TransportStatus ;
-   rdfs:range :LogisticsComponent .
+                          dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
+                          dc:title "IATA ONE Record vocabulary"@en ;
+                          owl:versionInfo "15.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://cargo.iata.org/Address#country
+address:country rdf:type owl:ObjectProperty ;
+                rdfs:domain :Address ;
+                rdfs:range :Country ;
+                rdfs:comment "Country details"@en ;
+                rdfs:label "address:country"@en .
+
+
+###  http://cargo.iata.org/Booking#chargeDeclaration
+booking:chargeDeclaration rdf:type owl:ObjectProperty ;
+                          rdfs:domain :Booking ;
+                          rdfs:range :ChargeDeclaration ;
+                          rdfs:comment "Goods value declaration details"@en ;
+                          rdfs:label "booking:chargeDeclaration"@en .
+
+
+###  http://cargo.iata.org/Booking#chargeSummary
+booking:chargeSummary rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Booking ;
+                      rdfs:range :ChargeSummary ;
+                      rdfs:comment "Charge summary details"@en ;
+                      rdfs:label "booking:chargeSummary"@en .
+
+
+###  http://cargo.iata.org/Booking#chargeableWeight
+booking:chargeableWeight rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Booking ;
+                         rdfs:range :VolumetricWeight ;
+                         rdfs:comment "Weight taken into account to calculate the charge"@en ;
+                         rdfs:label "booking:chargeableWeight"@en .
+
+
+###  http://cargo.iata.org/Booking#otherCharge
+booking:otherCharge rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Booking ;
+                    rdfs:range :Value ;
+                    rdfs:comment "Other charge"@en ;
+                    rdfs:label "booking:otherCharge"@en .
+
+
+###  http://cargo.iata.org/Booking#segmentDetail
+booking:segmentDetail rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Booking ;
+                      rdfs:range :TransportSegment ;
+                      rdfs:comment "Details of individual transport segments"@en ;
+                      rdfs:label "booking:segmentDetail"@en .
+
+
+###  http://cargo.iata.org/BookingStatus#issuedBy
+bookingStatus:issuedBy rdf:type owl:ObjectProperty ;
+                       rdfs:domain :BookingStatus ;
+                       rdfs:range :Company ;
+                       rdfs:comment "Airline issuing the booking status"@en ;
+                       rdfs:label "bookingStatus:issuedBy"@en .
+
+
+###  http://cargo.iata.org/Branch#contactPerson
+branch:contactPerson rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Branch ;
+                     rdfs:range :Person ;
+                     rdfs:comment "Contact person details"@en ;
+                     rdfs:label "branch:contactPerson"@en .
+
+
+###  http://cargo.iata.org/Branch#location
+branch:location rdf:type owl:ObjectProperty ;
+                rdfs:domain :Branch ;
+                rdfs:range :Location ;
+                rdfs:comment "Location and address details"@en ;
+                rdfs:label "branch:location"@en .
+
+
+###  http://cargo.iata.org/Branch#otherIdentifier
+branch:otherIdentifier rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Branch ;
+                       rdfs:range :OtherIdentifier ;
+                       rdfs:comment "Other identifiers (e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc)"@en ;
+                       rdfs:label "branch:otherIdentifier"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration#carriageAmount
+chargeDeclaration:carriageAmount rdf:type owl:ObjectProperty ;
+                                 rdfs:domain :ChargeDeclaration ;
+                                 rdfs:range :Value ;
+                                 rdfs:comment "Carriage value declaration"@en ;
+                                 rdfs:label "chargeDeclaration:carriageAmount"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration#customsAmount
+chargeDeclaration:customsAmount rdf:type owl:ObjectProperty ;
+                                rdfs:domain :ChargeDeclaration ;
+                                rdfs:range :Value ;
+                                rdfs:comment "Customs value declaration"@en ;
+                                rdfs:label "chargeDeclaration:customsAmount"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration#insuranceAmount
+chargeDeclaration:insuranceAmount rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :ChargeDeclaration ;
+                                  rdfs:range :Value ;
+                                  rdfs:comment "Insurance value declaration"@en ;
+                                  rdfs:label "chargeDeclaration:insuranceAmount"@en .
+
+
+###  http://cargo.iata.org/ChargePayment#amount
+chargePayment:amount rdf:type owl:ObjectProperty ;
+                     rdfs:domain :ChargePayment ;
+                     rdfs:range :Value ;
+                     rdfs:comment "Payment amount"@en ;
+                     rdfs:label "chargePayment:amount"@en .
+
+
+###  http://cargo.iata.org/ChargeSummary#collect
+chargeSummary:collect rdf:type owl:ObjectProperty ;
+                      rdfs:domain :ChargeSummary ;
+                      rdfs:range :Collect ;
+                      rdfs:comment "Collect totals in base / origin currency"@en ;
+                      rdfs:label "chargeSummary:collect"@en .
+
+
+###  http://cargo.iata.org/ChargeSummary#prepaid
+chargeSummary:prepaid rdf:type owl:ObjectProperty ;
+                      rdfs:domain :ChargeSummary ;
+                      rdfs:range :Prepaid ;
+                      rdfs:comment "Prepaid totals in base / origin currency"@en ;
+                      rdfs:label "chargeSummary:prepaid"@en .
+
+
+###  http://cargo.iata.org/Collect#inDestinationCurrency
+collect:inDestinationCurrency rdf:type owl:ObjectProperty ;
+                              rdfs:domain :Collect ;
+                              rdfs:range :InDestinationCurrency ;
+                              rdfs:comment "Collect totals in target / destination currency"@en ;
+                              rdfs:label "collect:inDestinationCurrency"@en .
+
+
+###  http://cargo.iata.org/Collect#totalOtherChargesDueAgent
+collect:totalOtherChargesDueAgent rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :Collect ;
+                                  rdfs:range :Value ;
+                                  rdfs:comment "Total other charges due agent amount (collect)"@en ;
+                                  rdfs:label "collect:totalOtherChargesDueAgent"@en .
+
+
+###  http://cargo.iata.org/Collect#totalOtherChargesDueCarrier
+collect:totalOtherChargesDueCarrier rdf:type owl:ObjectProperty ;
+                                    rdfs:domain :Collect ;
+                                    rdfs:range :Value ;
+                                    rdfs:comment "Total other charges due carrier amount (collect)"@en ;
+                                    rdfs:label "collect:totalOtherChargesDueCarrier"@en .
+
+
+###  http://cargo.iata.org/Collect#totalPrepaidCharges
+collect:totalPrepaidCharges rdf:type owl:ObjectProperty ;
+                            rdfs:domain :Collect ;
+                            rdfs:range :Value ;
+                            rdfs:comment "Total collect charges amount"@en ;
+                            rdfs:label "collect:totalPrepaidCharges"@en .
+
+
+###  http://cargo.iata.org/Collect#totalTaxes
+collect:totalTaxes rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Collect ;
+                   rdfs:range :Value ;
+                   rdfs:comment "Total Tax amount (collect)"@en ;
+                   rdfs:label "collect:totalTaxes"@en .
+
+
+###  http://cargo.iata.org/Collect#totalValuationCharges
+collect:totalValuationCharges rdf:type owl:ObjectProperty ;
+                              rdfs:domain :Collect ;
+                              rdfs:range :Value ;
+                              rdfs:comment "Total valuation charge amount (collect)"@en ;
+                              rdfs:label "collect:totalValuationCharges"@en .
+
+
+###  http://cargo.iata.org/Collect#totalWeightCharges
+collect:totalWeightCharges rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Collect ;
+                           rdfs:range :Value ;
+                           rdfs:comment "Total weight charge amount (collect)"@en ;
+                           rdfs:label "collect:totalWeightCharges"@en .
+
+
+###  http://cargo.iata.org/Contact#other
+contact:other rdf:type owl:ObjectProperty ;
+              rdfs:domain :Contact ;
+              rdfs:range :Other ;
+              rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
+              rdfs:label "contact:other"@en .
+
+
+###  http://cargo.iata.org/CustomsInfo#otherCustomsInformation
+customsInfo:otherCustomsInformation rdf:type owl:ObjectProperty ;
+                                    rdfs:domain :CustomsInfo ;
+                                    rdfs:range :OtherCustomsInformation ;
+                                    rdfs:comment "Other customs information details"@en ;
+                                    rdfs:label "customsInfo:otherCustomsInformation"@en .
+
+
+###  http://cargo.iata.org/Dimension#height
+dimensions:height rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Dimensions ;
+                  rdfs:range :Value ;
+                  rdfs:comment "Height"@en ;
+                  rdfs:label "dimensions:height"@en .
+
+
+###  http://cargo.iata.org/Dimension#length
+dimensions:length rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Dimensions ;
+                  rdfs:range :Value ;
+                  rdfs:comment "Length"@en ;
+                  rdfs:label "dimensions:length"@en .
+
+
+###  http://cargo.iata.org/Dimension#volume
+dimensions:volume rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Dimensions ;
+                  rdfs:range :Value ;
+                  rdfs:comment "Volume"@en ;
+                  rdfs:label "dimensions:volume"@en .
+
+
+###  http://cargo.iata.org/Dimension#width
+dimensions:width rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Dimensions ;
+                 rdfs:range :Value ;
+                 rdfs:comment "Width"@en ;
+                 rdfs:label "dimensions:width"@en .
+
+
+###  http://cargo.iata.org/Event#handlingDetails
+event:handlingDetails rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Event ;
+                      rdfs:range :Handling ;
+                      rdfs:comment "Handling details  "@en ;
+                      rdfs:label "event:handlingDetails"@en .
+
+
+###  http://cargo.iata.org/Event#location
+event:location rdf:type owl:ObjectProperty ;
+               rdfs:domain :Event ;
+               rdfs:range :Location ;
+               rdfs:comment "Location of event"@en ;
+               rdfs:label "event:location"@en .
+
+
+###  http://cargo.iata.org/Event#performedBy
+event:performedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Event ;
+                  rdfs:range :Company ;
+                  rdfs:comment "Party performing the event"@en ;
+                  rdfs:label "event:performedBy"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#documentOriginator
+externalReference:documentOriginator rdf:type owl:ObjectProperty ;
+                                     rdfs:domain :ExternalReference ;
+                                     rdfs:range :Company ;
+                                     rdfs:comment "Document originator details and contacts"@en ;
+                                     rdfs:label "externalReference:documentOriginator"@en .
+
+
+###  http://cargo.iata.org/Geolocation#elevation
+geolocation:elevation rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Geolocation ;
+                      rdfs:range :Value ;
+                      rdfs:comment "Elevation from sea level"@en ;
+                      rdfs:label "geolocation:elevation"@en .
+
+
+###  http://cargo.iata.org/Geolocation#latitude
+geolocation:latitude rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Geolocation ;
+                     rdfs:range :Value ;
+                     rdfs:comment "Location latitude "@en ;
+                     rdfs:label "geolocation:latitude"@en .
+
+
+###  http://cargo.iata.org/Geolocation#longitude
+geolocation:longitude rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Geolocation ;
+                      rdfs:range :Value ;
+                      rdfs:comment "Location longitude "@en ;
+                      rdfs:label "geolocation:longitude"@en .
+
+
+###  http://cargo.iata.org/Handling#serviceRequest
+handling:serviceRequest rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Handling ;
+                        rdfs:range :ServiceRequest ;
+                        rdfs:comment "Service request details"@en ;
+                        rdfs:label "handling:serviceRequest"@en .
+
+
+###  http://cargo.iata.org/Handling#specialHandling
+handling:specialHandling rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Handling ;
+                         rdfs:range :SpecialHandling ;
+                         rdfs:comment "Special handling details"@en ;
+                         rdfs:label "handling:specialHandling"@en .
+
+
+###  http://cargo.iata.org/InDestinationCurrency#collectionCharge
+inDestinationCurrency:collectionCharge rdf:type owl:ObjectProperty ;
+                                       rdfs:domain :InDestinationCurrency ;
+                                       rdfs:range :Value ;
+                                       rdfs:comment "Collection charges in destination currency - e.g. additional amount charged for the service"@en ;
+                                       rdfs:label "inDestinationCurrency:collectionCharge"@en .
+
+
+###  http://cargo.iata.org/InDestinationCurrency#grandTotalCollectCharges
+inDestinationCurrency:grandTotalCollectCharges rdf:type owl:ObjectProperty ;
+                                               rdfs:domain :InDestinationCurrency ;
+                                               rdfs:range :Value ;
+                                               rdfs:comment "Sum of TotalCharges and CollectionCharge"@en ;
+                                               rdfs:label "inDestinationCurrency:grandTotalCollectCharges"@en .
+
+
+###  http://cargo.iata.org/InDestinationCurrency#totalCharges
+inDestinationCurrency:totalCharges rdf:type owl:ObjectProperty ;
+                                   rdfs:domain :InDestinationCurrency ;
+                                   rdfs:range :Value ;
+                                   rdfs:comment "Total Charges converted to destination currency as per CURRENCY conversion rate"@en ;
+                                   rdfs:label "inDestinationCurrency:totalCharges"@en .
+
+
+###  http://cargo.iata.org/Insurance#coveringParty
+insurance:coveringParty rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Insurance ;
+                        rdfs:range :Company ;
+                        rdfs:comment "Party covering the insurance "@en ;
+                        rdfs:label "insurance:coveringParty"@en .
+
+
+###  http://cargo.iata.org/Insurance#insuranceAmount
+insurance:insuranceAmount rdf:type owl:ObjectProperty ;
+                          rdfs:domain :Insurance ;
+                          rdfs:range :Value ;
+                          rdfs:comment "Insured amount - amount covered by the insurance policy"@en ;
+                          rdfs:label "insurance:insuranceAmount"@en .
+
+
+###  http://cargo.iata.org/Item#event
+item:event rdf:type owl:ObjectProperty ;
+           rdfs:domain :Item ;
+           rdfs:range :Event ;
+           rdfs:comment "Event details e.g. DEP, ARR, FOH, RCS, security screening, etc"@en ;
+           rdfs:label "item:event"@en .
+
+
+###  http://cargo.iata.org/Item#otherIdentifier
+item:otherIdentifier rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Item ;
+                     rdfs:range :OtherIdentifier ;
+                     rdfs:comment "Other identifier details"@en ;
+                     rdfs:label "item:otherIdentifier"@en .
+
+
+###  http://cargo.iata.org/Item#production
+item:production rdf:type owl:ObjectProperty ;
+                rdfs:domain :Item ;
+                rdfs:range :Production ;
+                rdfs:comment "Production batch and lot details"@en ;
+                rdfs:label "item:production"@en .
+
+
+###  http://cargo.iata.org/Item#productionCountry
+item:productionCountry rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Item ;
+                       rdfs:range :Country ;
+                       rdfs:comment "Production country details"@en ;
+                       rdfs:label "item:productionCountry"@en .
+
+
+###  http://cargo.iata.org/Item#targetCountry
+item:targetCountry rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Item ;
+                   rdfs:range :Country ;
+                   rdfs:comment "Item target country"@en ;
+                   rdfs:label "item:targetCountry"@en .
+
+
+###  http://cargo.iata.org/Location#address
+location:address rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Location ;
+                 rdfs:range :Address ;
+                 rdfs:comment "Address details"@en ;
+                 rdfs:label "location:address"@en .
+
+
+###  http://cargo.iata.org/Location#geoLocation
+location:geoLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Location ;
+                     rdfs:range :Geolocation ;
+                     rdfs:comment "Geolocation details"@en ;
+                     rdfs:label "location:geoLocation"@en .
+
+
+###  http://cargo.iata.org/OtherCharge#chargeDescription
+otherCharge:chargeDescription rdf:type owl:ObjectProperty ;
+                              rdfs:domain :OtherCharge ;
+                              rdfs:range :ChargeDescription ;
+                              rdfs:comment "Other charge description details"@en ;
+                              rdfs:label "otherCharge:chargeDescription"@en .
+
+
+###  http://cargo.iata.org/OtherCharge#chargePayment
+otherCharge:chargePayment rdf:type owl:ObjectProperty ;
+                          rdfs:domain :OtherCharge ;
+                          rdfs:range :ChargePayment ;
+                          rdfs:comment "Charge payment details"@en ;
+                          rdfs:label "otherCharge:chargePayment"@en .
+
+
+###  http://cargo.iata.org/OtherCharge#specialService
+otherCharge:specialService rdf:type owl:ObjectProperty ;
+                           rdfs:domain :OtherCharge ;
+                           rdfs:range :SpecialService ;
+                           rdfs:comment "Special service details"@en ;
+                           rdfs:label "otherCharge:specialService"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#commodity
+otherCustomsInformation:commodity rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :OtherCustomsInformation ;
+                                  rdfs:range :Commodity ;
+                                  rdfs:comment "Commodity details"@en ;
+                                  rdfs:label "otherCustomsInformation:commodity"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#country
+otherCustomsInformation:country rdf:type owl:ObjectProperty ;
+                                rdfs:domain :OtherCustomsInformation ;
+                                rdfs:range :Country ;
+                                rdfs:comment "Country details"@en ;
+                                rdfs:label "otherCustomsInformation:country"@en .
+
+
+###  http://cargo.iata.org/OtherParty#companyDetails
+otherParty:companyDetails rdf:type owl:ObjectProperty ;
+                          rdfs:domain :OtherParty ;
+                          rdfs:range :Company ;
+                          rdfs:comment "Company details"@en ;
+                          rdfs:label "otherParty:companyDetails"@en .
+
+
+###  http://cargo.iata.org/Person#contact
+person:contact rdf:type owl:ObjectProperty ;
+               rdfs:domain :Person ;
+               rdfs:range :Contact ;
+               rdfs:comment "Contact details"@en ;
+               rdfs:label "person:contact"@en .
+
+
+###  http://cargo.iata.org/Piece#consignee
+piece:consignee rdf:type owl:ObjectProperty ;
+                rdfs:domain :Piece ;
+                rdfs:range :Company ;
+                rdfs:comment "Consignee company details - e.g. the party receiving the piece"@en ;
+                rdfs:label "piece:consignee"@en .
+
+
+###  http://cargo.iata.org/Piece#containedItem
+piece:containedItem rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Piece ;
+                    rdfs:range :Item ;
+                    rdfs:comment "Details of contained item(s) "@en ;
+                    rdfs:label "piece:containedItem"@en .
+
+
+###  http://cargo.iata.org/Piece#containedPiece
+piece:containedPiece rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Piece ;
+                     rdfs:range :Piece ;
+                     rdfs:comment "Details of contained piece(s)"@en ;
+                     rdfs:label "piece:containedPiece"@en .
+
+
+###  http://cargo.iata.org/Piece#customsDetails
+piece:customsDetails rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Piece ;
+                     rdfs:range :CustomsInfo ;
+                     rdfs:comment "Customs details  "@en ;
+                     rdfs:label "piece:customsDetails"@en .
+
+
+###  http://cargo.iata.org/Piece#dimensions
+piece:dimensions rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Piece ;
+                 rdfs:range :Dimensions ;
+                 rdfs:comment "Dimensions details"@en ;
+                 rdfs:label "piece:dimensions"@en .
+
+
+###  http://cargo.iata.org/Piece#event
+piece:event rdf:type owl:ObjectProperty ;
+            rdfs:domain :Piece ;
+            rdfs:range :Event ;
+            rdfs:comment "Event details e.g. DEP, ARR, FOH, RCS, security screening, etc"@en ;
+            rdfs:label "piece:event"@en .
+
+
+###  http://cargo.iata.org/Piece#externalReference
+piece:externalReference rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Piece ;
+                        rdfs:range :ExternalReference ;
+                        rdfs:comment "Reference documents details"@en ;
+                        rdfs:label "piece:externalReference"@en .
+
+
+###  http://cargo.iata.org/Piece#grossWeight
+piece:grossWeight rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Piece ;
+                  rdfs:range :Value ;
+                  rdfs:comment "Weight details"@en ;
+                  rdfs:label "piece:grossWeight"@en .
+
+
+###  http://cargo.iata.org/Piece#handlingDetails
+piece:handlingDetails rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Piece ;
+                      rdfs:range :Handling ;
+                      rdfs:comment "Handling details  "@en ;
+                      rdfs:label "piece:handlingDetails"@en .
+
+
+###  http://cargo.iata.org/Piece#originCountry
+piece:originCountry rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Piece ;
+                    rdfs:range :Country ;
+                    rdfs:comment "Goods origin country"@en ;
+                    rdfs:label "piece:originCountry"@en .
+
+
+###  http://cargo.iata.org/Piece#originDestination
+piece:originDestination rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Piece ;
+                        rdfs:range :TransportSegment ;
+                        rdfs:comment "Origin and destination details"@en ;
+                        rdfs:label "piece:originDestination"@en .
+
+
+###  http://cargo.iata.org/Piece#otherIdentifier
+piece:otherIdentifier rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Piece ;
+                      rdfs:range :OtherIdentifier ;
+                      rdfs:comment "Other piece identification ( e.g. Shipping Marks, Seal)"@en ;
+                      rdfs:label "piece:otherIdentifier"@en .
+
+
+###  http://cargo.iata.org/Piece#otherParty
+piece:otherParty rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Piece ;
+                 rdfs:range :Company ;
+                 rdfs:comment "Other party company details - e.g. the party to be notified"@en ;
+                 rdfs:label "piece:otherParty"@en .
+
+
+###  http://cargo.iata.org/Piece#packagingType
+piece:packagingType rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Piece ;
+                    rdfs:range :PackagingType ;
+                    rdfs:comment "Packaging details "@en ;
+                    rdfs:label "piece:packagingType"@en .
+
+
+###  http://cargo.iata.org/Piece#securityDetails
+piece:securityDetails rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Piece ;
+                      rdfs:range :SecurityInfo ;
+                      rdfs:comment "Security details  "@en ;
+                      rdfs:label "piece:securityDetails"@en .
+
+
+###  http://cargo.iata.org/Piece#shipper
+piece:shipper rdf:type owl:ObjectProperty ;
+              rdfs:domain :Piece ;
+              rdfs:range :Company ;
+              rdfs:comment "Shipper company details - e.g. the party shipping the piece"@en ;
+              rdfs:label "piece:shipper"@en .
+
+
+###  http://cargo.iata.org/Piece#transportSegment
+piece:transportSegment rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Piece ;
+                       rdfs:range :TransportSegment ;
+                       rdfs:comment "Segment related to the transport status"@en ;
+                       rdfs:label "piece:transportSegment"@en .
+
+
+###  http://cargo.iata.org/Piece#uLD
+piece:uLD rdf:type owl:ObjectProperty ;
+          rdfs:domain :Piece ;
+          rdfs:range :Uld ;
+          rdfs:comment "Unit Load Device details"@en ;
+          rdfs:label "piece:uLD"@en .
+
+
+###  http://cargo.iata.org/Piece#volumetricWeight
+piece:volumetricWeight rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Piece ;
+                       rdfs:range :VolumetricWeight ;
+                       rdfs:comment "Volumetric weight details"@en ;
+                       rdfs:label "piece:volumetricWeight"@en .
+
+
+###  http://cargo.iata.org/PieceGrouping#pieceDetails
+pieceGrouping:pieceDetails rdf:type owl:ObjectProperty ;
+                           rdfs:domain :PieceGrouping ;
+                           rdfs:range :Piece ;
+                           rdfs:comment "Details of the piece"@en ;
+                           rdfs:label "pieceGrouping:pieceDetails"@en .
+
+
+###  http://cargo.iata.org/PieceGrouping#ratingDetails
+pieceGrouping:ratingDetails rdf:type owl:ObjectProperty ;
+                            rdfs:domain :PieceGrouping ;
+                            rdfs:range :Rating ;
+                            rdfs:comment "Rating details"@en ;
+                            rdfs:label "pieceGrouping:ratingDetails"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalOtherChargesDueAgent
+prepaid:totalOtherChargesDueAgent rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :Prepaid ;
+                                  rdfs:range :Value ;
+                                  rdfs:comment "Total other charges due agent amount (prepaid)"@en ;
+                                  rdfs:label "prepaid:totalOtherChargesDueAgent"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalOtherChargesDueCarrier
+prepaid:totalOtherChargesDueCarrier rdf:type owl:ObjectProperty ;
+                                    rdfs:domain :Prepaid ;
+                                    rdfs:range :Value ;
+                                    rdfs:comment "Total other charges due carrier amount (prepaid)"@en ;
+                                    rdfs:label "prepaid:totalOtherChargesDueCarrier"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalPrepaidCharges
+prepaid:totalPrepaidCharges rdf:type owl:ObjectProperty ;
+                            rdfs:domain :Prepaid ;
+                            rdfs:range :Value ;
+                            rdfs:comment "Total prepaid charges amount"@en ;
+                            rdfs:label "prepaid:totalPrepaidCharges"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalTaxes
+prepaid:totalTaxes rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Prepaid ;
+                   rdfs:range :Value ;
+                   rdfs:comment "Total Tax amount (prepaid)"@en ;
+                   rdfs:label "prepaid:totalTaxes"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalValuationCharges
+prepaid:totalValuationCharges rdf:type owl:ObjectProperty ;
+                              rdfs:domain :Prepaid ;
+                              rdfs:range :Value ;
+                              rdfs:comment "Total valuation charge amount (prepaid)"@en ;
+                              rdfs:label "prepaid:totalValuationCharges"@en .
+
+
+###  http://cargo.iata.org/Prepaid#totalWeightCharges
+prepaid:totalWeightCharges rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Prepaid ;
+                           rdfs:range :Value ;
+                           rdfs:comment "Total weight charge amount (prepaid)"@en ;
+                           rdfs:label "prepaid:totalWeightCharges"@en .
+
+
+###  http://cargo.iata.org/Price#unitPrice
+price:unitPrice rdf:type owl:ObjectProperty ;
+                rdfs:domain :Price ;
+                rdfs:range :Value ;
+                rdfs:comment "Product price per unit in the base currency"@en ;
+                rdfs:label "price:unitPrice"@en .
+
+
+###  http://cargo.iata.org/Product#characteristic
+product:characteristic rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Product ;
+                       rdfs:range :Characteristic ;
+                       rdfs:comment "Product additional details"@en ;
+                       rdfs:label "product:characteristic"@en .
+
+
+###  http://cargo.iata.org/Product#commodity
+product:commodity rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Product ;
+                  rdfs:range :Commodity ;
+                  rdfs:comment "Commodity details"@en ;
+                  rdfs:label "product:commodity"@en .
+
+
+###  http://cargo.iata.org/Product#dimensions
+product:dimensions rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Product ;
+                   rdfs:range :Dimensions ;
+                   rdfs:comment "Product dimensions details"@en ;
+                   rdfs:label "product:dimensions"@en .
+
+
+###  http://cargo.iata.org/Product#manufacturer
+product:manufacturer rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Product ;
+                     rdfs:range :Company ;
+                     rdfs:comment "Manufacturing company details and contacts"@en ;
+                     rdfs:label "product:manufacturer"@en .
+
+
+###  http://cargo.iata.org/Product#otherIdentifier
+product:otherIdentifier rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Product ;
+                        rdfs:range :OtherIdentifier ;
+                        rdfs:comment "Other product identifier (e.g. Bar code, UPC, EAN, Amazon…)"@en ;
+                        rdfs:label "product:otherIdentifier"@en .
+
+
+###  http://cargo.iata.org/Product#price
+product:price rdf:type owl:ObjectProperty ;
+              rdfs:domain :Product ;
+              rdfs:range :Price ;
+              rdfs:comment "Product price details"@en ;
+              rdfs:label "product:price"@en .
+
+
+###  http://cargo.iata.org/Product#weight
+product:weight rdf:type owl:ObjectProperty ;
+               rdfs:domain :Product ;
+               rdfs:range :Value ;
+               rdfs:comment "Product weight details"@en ;
+               rdfs:label "product:weight"@en .
+
+
+###  http://cargo.iata.org/Rating#rateChargeAmount
+rating:rateChargeAmount rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Rating ;
+                        rdfs:range :Value ;
+                        rdfs:comment "Rate, charge, or discount amount"@en ;
+                        rdfs:label "rating:rateChargeAmount"@en .
+
+
+###  http://cargo.iata.org/Rating#subTotalAmount
+rating:subTotalAmount rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Rating ;
+                      rdfs:range :Value ;
+                      rdfs:comment "Subtotal of weight and valuation charges for the piece group"@en ;
+                      rdfs:label "rating:subTotalAmount"@en .
+
+
+###  http://cargo.iata.org/ReasonsForSecurityStatus#receivedFrom
+reasonsForSecurityStatus:receivedFrom rdf:type owl:ObjectProperty ;
+                                      rdfs:domain :ReasonsForSecurityStatus ;
+                                      rdfs:range :ReceivedFrom ;
+                                      rdfs:comment "Known Consignor or Regulated Agent reference"@en ;
+                                      rdfs:label "reasonsForSecurityStatus:receivedFrom"@en .
+
+
+###  http://cargo.iata.org/ReceivedFrom#regulatedEntityIdentifier
+receivedFrom:regulatedEntityIdentifier rdf:type owl:ObjectProperty ;
+                                       rdfs:domain :ReceivedFrom ;
+                                       rdfs:range :Company ;
+                                       rdfs:comment "Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
+                                       rdfs:label "receivedFrom:regulatedEntityIdentifier"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo#externalReference
+securityInfo:externalReference rdf:type owl:ObjectProperty ;
+                               rdfs:domain :SecurityInfo ;
+                               rdfs:range :ExternalReference ;
+                               rdfs:comment "Reference document"@en ;
+                               rdfs:label "securityInfo:externalReference"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo#reasonsForSecurityStatus
+securityInfo:reasonsForSecurityStatus rdf:type owl:ObjectProperty ;
+                                      rdfs:domain :SecurityInfo ;
+                                      rdfs:range :ReasonsForSecurityStatus ;
+                                      rdfs:comment "Security status details"@en ;
+                                      rdfs:label "securityInfo:reasonsForSecurityStatus"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo#securityStatus
+securityInfo:securityStatus rdf:type owl:ObjectProperty ;
+                            rdfs:domain :SecurityInfo ;
+                            rdfs:range :SecurityStatus ;
+                            rdfs:comment "Security status details"@en ;
+                            rdfs:label "securityInfo:securityStatus"@en .
+
+
+###  http://cargo.iata.org/SecurityStatus#issuedBy
+securityStatus:issuedBy rdf:type owl:ObjectProperty ;
+                        rdfs:domain :SecurityStatus ;
+                        rdfs:range :Company ;
+                        rdfs:comment "Name of person (or employee ID) and Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
+                        rdfs:label "securityStatus:issuedBy"@en .
+
+
+###  http://cargo.iata.org/Shipment#dimensions
+shipment:dimensions rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Shipment ;
+                    rdfs:range :Dimensions ;
+                    rdfs:comment "Dimensions details"@en ;
+                    rdfs:label "shipment:dimensions"@en .
+
+
+###  http://cargo.iata.org/Shipment#externalReference
+shipment:externalReference rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Shipment ;
+                           rdfs:range :ExternalReference ;
+                           rdfs:comment "Reference documents details"@en ;
+                           rdfs:label "shipment:externalReference"@en .
+
+
+###  http://cargo.iata.org/Shipment#grossWeight
+shipment:grossWeight rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Shipment ;
+                     rdfs:range :Value ;
+                     rdfs:comment "Weight details"@en ;
+                     rdfs:label "shipment:grossWeight"@en .
+
+
+###  http://cargo.iata.org/Shipment#shipmentDetails
+shipment:shipmentDetails rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Shipment ;
+                         rdfs:range :Piece ;
+                         rdfs:comment "Details of the shipment"@en ;
+                         rdfs:label "shipment:shipmentDetails"@en .
+
+
+###  http://cargo.iata.org/Shipment#totalPieceAndULDCount
+shipment:totalPieceAndULDCount rdf:type owl:ObjectProperty ;
+                               rdfs:domain :Shipment ;
+                               rdfs:range :Piece ;
+                               rdfs:comment "Total piece count of pieces and ULD (at top level)"@en ;
+                               rdfs:label "shipment:totalPieceAndULDCount"@en .
+
+
+###  http://cargo.iata.org/Shipment#totalSLAC
+shipment:totalSLAC rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Shipment ;
+                   rdfs:range :Piece ;
+                   rdfs:comment "Total SLAC of all piece groups"@en ;
+                   rdfs:label "shipment:totalSLAC"@en .
+
+
+###  http://cargo.iata.org/Shipment#volumetricWeight
+shipment:volumetricWeight rdf:type owl:ObjectProperty ;
+                          rdfs:domain :Shipment ;
+                          rdfs:range :VolumetricWeight ;
+                          rdfs:comment "Volumetric weight details"@en ;
+                          rdfs:label "shipment:volumetricWeight"@en .
+
+
+###  http://cargo.iata.org/Shipment#waybillNumber
+shipment:waybillNumber rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Shipment ;
+                       rdfs:range [
+                        rdf:type owl:DatatypeProperty ;
+                          owl:unionOf (
+                            airWaybill:airWaybillNumber
+                            houseWaybill:airWaybillNumber
+                          ) ;
+                       ] ;
+                       rdfs:range :AirWaybill ;
+                       rdfs:comment "Waybill unique identifier (AWB or HWB)"@en ;
+                       rdfs:label "shipment:waybillNumber"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#arrivalLocation
+transportSegment:arrivalLocation rdf:type owl:ObjectProperty ;
+                                 rdfs:domain :TransportSegment ;
+                                 rdfs:range :Location ;
+                                 rdfs:comment "Arrival details including time and date"@en ;
+                                 rdfs:label "transportSegment:arrivalLocation"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#bookingStatus
+transportSegment:bookingStatus rdf:type owl:ObjectProperty ;
+                               rdfs:domain :TransportSegment ;
+                               rdfs:range :BookingStatus ;
+                               rdfs:comment "Booking status details"@en ;
+                               rdfs:label "transportSegment:bookingStatus"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#departureLocation
+transportSegment:departureLocation rdf:type owl:ObjectProperty ;
+                                   rdfs:domain :TransportSegment ;
+                                   rdfs:range :Location ;
+                                   rdfs:comment "Departure details including time and date"@en ;
+                                   rdfs:label "transportSegment:departureLocation"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#externalReference
+transportSegment:externalReference rdf:type owl:ObjectProperty ;
+                                   rdfs:domain :TransportSegment ;
+                                   rdfs:range :ExternalReference ;
+                                   rdfs:comment "Reference to document or logistics object (URI)"@en ;
+                                   rdfs:label "transportSegment:externalReference"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#transportCompany
+transportSegment:transportCompany rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :TransportSegment ;
+                                  rdfs:range :Company ;
+                                  rdfs:comment "Transport company details"@en ;
+                                  rdfs:label "transportSegment:transportCompany"@en .
+
+
+###  http://cargo.iata.org/Uld#containedPiece
+uld:containedPiece rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Uld ;
+                   rdfs:range :Piece ;
+                   rdfs:comment "Details of contained (virtual) piece(s)"@en ;
+                   rdfs:label "uld:containedPiece"@en .
+
+
+###  http://cargo.iata.org/Uld#event
+uld:event rdf:type owl:ObjectProperty ;
+          rdfs:domain :Uld ;
+          rdfs:range :Event ;
+          rdfs:comment "Event details e.g. DEP, ARR, FOH, RCS, security screening, etc"@en ;
+          rdfs:label "uld:event"@en .
+
+
+###  http://cargo.iata.org/Uld#externalReference
+uld:externalReference rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Uld ;
+                      rdfs:range :ExternalReference ;
+                      rdfs:comment "Reference documents details"@en ;
+                      rdfs:label "uld:externalReference"@en .
+
+
+###  http://cargo.iata.org/Uld#handlingDetails
+uld:handlingDetails rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Uld ;
+                    rdfs:range :Handling ;
+                    rdfs:comment "Handling details  "@en ;
+                    rdfs:label "uld:handlingDetails"@en .
+
+
+###  http://cargo.iata.org/Uld#originDestination
+uld:originDestination rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Uld ;
+                      rdfs:range :TransportSegment ;
+                      rdfs:comment "Origin and destination details"@en ;
+                      rdfs:label "uld:originDestination"@en .
+
+
+###  http://cargo.iata.org/Uld#ownerCompany
+uld:ownerCompany rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Uld ;
+                 rdfs:range :Company ;
+                 rdfs:comment "Owner company details and contacts for the ULD"@en ;
+                 rdfs:label "uld:ownerCompany"@en .
+
+
+###  http://cargo.iata.org/Uld#tareWeight
+uld:tareWeight rdf:type owl:ObjectProperty ;
+               rdfs:domain :Uld ;
+               rdfs:range :Value ;
+               rdfs:comment "Tare weight of the empty ULD"@en ;
+               rdfs:label "uld:tareWeight"@en .
+
+
+###  http://cargo.iata.org/Uld#transportSegment
+uld:transportSegment rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Uld ;
+                     rdfs:range :TransportSegment ;
+                     rdfs:comment "Segment related to the transport status"@en ;
+                     rdfs:label "uld:transportSegment"@en .
+
+
+###  http://cargo.iata.org/VolumetricWeight#chargeableWeight
+volumetricWeight:chargeableWeight rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :VolumetricWeight ;
+                                  rdfs:range :Value ;
+                                  rdfs:comment "Chargeable weight"@en ;
+                                  rdfs:label "volumetricWeight:chargeableWeight"@en .
+
+
+###  http://cargo.iata.org/VolumetricWeight#conversionFactor
+volumetricWeight:conversionFactor rdf:type owl:ObjectProperty ;
+                                  rdfs:domain :VolumetricWeight ;
+                                  rdfs:range :Value ;
+                                  rdfs:comment "Volume to weight conversion factor"@en ;
+                                  rdfs:label "volumetricWeight:conversionFactor"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://cargo.iata.org/Address#addressCode
+address:addressCode rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Address ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "address:addressCode"@en .
+
+
+###  http://cargo.iata.org/Address#addressCodeType
+address:addressCodeType rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :Address ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "Type of address code e.g. US CBP FIRMS"@en ;
+                        rdfs:label "address:addressCodeType"@en .
+
+
+###  http://cargo.iata.org/Address#cityCode
+address:cityCode rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Address ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "UN/LOCODE city code (5 letter) or IATA city code (3 letter)"@en ;
+                 rdfs:label "address:cityCode"@en .
+
+
+###  http://cargo.iata.org/Address#cityName
+address:cityName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Address ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "If no CityCode provided, full name of the city "@en ;
+                 rdfs:label "address:cityName"@en .
+
+
+###  http://cargo.iata.org/Address#pOBox
+address:pOBox rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Address ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Post Office box number / code"@en ;
+              rdfs:label "address:pOBox"@en .
+
+
+###  http://cargo.iata.org/Address#postalCode
+address:postalCode rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Address ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Postal / ZIP code"@en ;
+                   rdfs:label "address:postalCode"@en .
+
+
+###  http://cargo.iata.org/Address#regionCode
+address:regionCode rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Address ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Region/ State / Department. Refer ISO 3166-2  "@en ;
+                   rdfs:label "address:regionCode"@en .
+
+
+###  http://cargo.iata.org/Address#regionName
+address:regionName rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Address ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "If no StateCode provided, full name of the region / state / province / canton"@en ;
+                   rdfs:label "address:regionName"@en .
+
+
+###  http://cargo.iata.org/Address#street
+address:street rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Address ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Street address including street name, street number, building number, apartment etc"@en ;
+               rdfs:label "address:street"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#accountInformationCode
+airWaybill:accountInformationCode rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain :AirWaybill ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:comment "Accounting information item identifier. Refer CXML Code List 1.30, STL - Mode of Settlement"@en ;
+                                  rdfs:label "airWaybill:accountInformationCode"@en .
+
+###  http://cargo.iata.org/AirWaybill#accountInformationDescription
+airWaybill:accountInformationDescription rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain :AirWaybill ;
+                                         rdfs:range xsd:string ;
+                                         rdfs:comment "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… "@en ;
+                                         rdfs:label "airWaybill:accountInformationDescription"@en .
+
+###  http://cargo.iata.org/AirWaybill#airWaybillNumber
+airWaybill:airWaybillNumber rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :AirWaybill ;
+                            rdfs:range booking:airWaybillNumber ;
+                            rdfs:comment "Air Waybill unique identifier"@en ;
+                            rdfs:label "airWaybill:airWaybillNumber"@en .
+
+###  http://cargo.iata.org/AirWaybill#date
+airWaybill:date rdf:type owl:DatatypeProperty ;
+                rdfs:domain :AirWaybill ;
+                rdfs:range xsd:dateTime ;
+                rdfs:comment "Air Waybill date"@en ;
+                rdfs:label "airWaybill:date"@en .
+
+
+###  http://cargo.iata.org/Booking#airWaybillNumber
+booking:airWaybillNumber rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Booking ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Air Waybill number"@en ;
+                         rdfs:label "booking:airWaybillNumber"@en .
+
+###  http://cargo.iata.org/Booking#bookingRequestNumber
+booking:bookingRequestNumber rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :Booking ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Booking unique identifier"@en ;
+                             rdfs:label "booking:bookingRequestNumber"@en .
+
+###  http://cargo.iata.org/Booking#bookingType
+booking:bookingType rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Booking ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Type of booking - e.g: Freesale, Allocation, BlockSpace Agreement"@en ;
+                    rdfs:label "booking:bookingType"@en .
+
+
+###  http://cargo.iata.org/Booking#date
+booking:date rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Booking ;
+             rdfs:range xsd:dateTime ;
+             rdfs:comment "Booking date"@en ;
+             rdfs:label "booking:date"@en .
+
+
+###  http://cargo.iata.org/BookingStatus#code
+bookingStatus:code rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :BookingStatus ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Status of booking - e.g. Received, Processed, Accepted, Rejected, Requested, Confirmed, Cancelled"@en ;
+                   rdfs:label "bookingStatus:code"@en .
+
+
+###  http://cargo.iata.org/BookingStatus#dateTime
+bookingStatus:dateTime rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :BookingStatus ;
+                       rdfs:range xsd:dateTime ;
+                       rdfs:comment "Date and time when the booking status is issued"@en ;
+                       rdfs:label "bookingStatus:dateTime"@en .
+
+
+###  http://cargo.iata.org/BookingStatus#description
+bookingStatus:description rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :BookingStatus ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "If no Code provided, status name"@en ;
+                          rdfs:label "bookingStatus:description"@en .
+
+
+###  http://cargo.iata.org/Branch#branchName
+branch:branchName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Branch ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Company branch name"@en ;
+                  rdfs:label "branch:branchName"@en .
+
+
+###  http://cargo.iata.org/Branch#iATACargoAgentLocationIdentifier
+branch:iATACargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Branch ;
+                                        rdfs:range xsd:decimal ;
+                                        rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
+                                        rdfs:label "branch:iATACargoAgentLocationIdentifier"@en .
+
+
+###  http://cargo.iata.org/Characteristic#type
+characteristic:type rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Characteristic ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Product characteristic code - e.g. CLR - Color"@en ;
+                    rdfs:label "characteristic:type"@en .
+
+
+###  http://cargo.iata.org/Characteristic#value
+characteristic:value rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Characteristic ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Product characteristic value / attribute - e.g. Blue…"@en ;
+                     rdfs:label "characteristic:value"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration#otherChargesPayment
+chargeDeclaration:otherChargesPayment rdf:type owl:DatatypeProperty ;
+                                      rdfs:domain :ChargeDeclaration ;
+                                      rdfs:range xsd:string ;
+                                      rdfs:comment "Other Charges payment indicator e.g. Prepaid, Collect"@en ;
+                                      rdfs:label "chargeDeclaration:otherChargesPayment"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration#weightValuationChargePayment
+chargeDeclaration:weightValuationChargePayment rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain :ChargeDeclaration ;
+                                               rdfs:range xsd:string ;
+                                               rdfs:comment "Weight charges payment indicator e.g. Prepaid, Collect"@en ;
+                                               rdfs:label "chargeDeclaration:weightValuationChargePayment"@en .
+
+
+###  http://cargo.iata.org/ChargeDescription#code
+chargeDescription:code rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :ChargeDescription ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "Other charge code. Refer CXML Code List 1.2, e.g. FC - Charges Collect Fee"@en ;
+                       rdfs:label "chargeDescription:code"@en .
+
+
+###  http://cargo.iata.org/ChargeDescription#description
+chargeDescription:description rdf:type owl:DatatypeProperty ;
+                              rdfs:domain :ChargeDescription ;
+                              rdfs:range xsd:string ;
+                              rdfs:comment "Charge description"@en ;
+                              rdfs:label "chargeDescription:description"@en .
+
+
+###  http://cargo.iata.org/ChargeDescription#locationIndicator
+chargeDescription:locationIndicator rdf:type owl:DatatypeProperty ;
+                                    rdfs:domain :ChargeDescription ;
+                                    rdfs:range xsd:string ;
+                                    rdfs:comment "Other Charge Location indicator - e.g. Origin (O) or Transit (T) or Destination(D)"@en ;
+                                    rdfs:label "chargeDescription:locationIndicator"@en .
+
+
+###  http://cargo.iata.org/ChargeDescription#subCode
+chargeDescription:subCode rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :ChargeDescription ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "Other charge subcode"@en ;
+                          rdfs:label "chargeDescription:subCode"@en .
+
+
+###  http://cargo.iata.org/ChargePayment#byItemQuantity
+chargePayment:byItemQuantity rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :ChargePayment ;
+                             rdfs:range xsd:decimal ;
+                             rdfs:comment "Number of items for which the charge is applied"@en ;
+                             rdfs:label "chargePayment:byItemQuantity"@en .
+
+
+###  http://cargo.iata.org/ChargePayment#byTime
+chargePayment:byTime rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ChargePayment ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:comment "Amount of time for which the charge is applied"@en ;
+                     rdfs:label "chargePayment:byTime"@en .
+
+
+###  http://cargo.iata.org/ChargePayment#dueParty
+chargePayment:dueParty rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :ChargePayment ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "Due party - e.g. Carrier, Agent"@en ;
+                       rdfs:label "chargePayment:dueParty"@en .
+
+
+###  http://cargo.iata.org/ChargePayment#prepaidCollectIndicator
+chargePayment:prepaidCollectIndicator rdf:type owl:DatatypeProperty ;
+                                      rdfs:domain :ChargePayment ;
+                                      rdfs:range xsd:string ;
+                                      rdfs:comment "Other Charges payment indicator - e.g. at origin (prepaid) or at destination (collect)"@en ;
+                                      rdfs:label "chargePayment:prepaidCollectIndicator"@en .
+
+
+###  http://cargo.iata.org/Commodity#code
+commodity:code rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Commodity ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Unique Commodity Code e.g. 391721 - Tubes, Pipes And Hoses, Rigid, Of Polymers Of Ethylene"@en ;
+               rdfs:label "commodity:code"@en .
+
+
+###  http://cargo.iata.org/Commodity#name
+commodity:name rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Commodity ;
+               rdfs:range xsd:string ;
+               rdfs:comment "If no Code provided, name of commodity"@en ;
+               rdfs:label "commodity:name"@en .
+
+
+###  http://cargo.iata.org/Commodity#type
+commodity:type rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Commodity ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…"@en ;
+               rdfs:label "commodity:type"@en .
+
+
+###  http://cargo.iata.org/Company#airlineCode
+company:airlineCode rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Company ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "IATA two-character airline code "@en ;
+                    rdfs:label "company:airlineCode"@en .
+
+
+###  http://cargo.iata.org/Company#airlinePrefix
+company:airlinePrefix rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Company ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "IATA three-numeric airline prefix number "@en ;
+                      rdfs:label "company:airlinePrefix"@en .
+
+
+###  http://cargo.iata.org/Company#iATACargoAgentCode
+company:iATACargoAgentCode rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :Company ;
+                           rdfs:range xsd:decimal ;
+                           rdfs:comment "IATA accredited cargo agent 7 digit number"@en ;
+                           rdfs:label "company:iATACargoAgentCode"@en .
+
+
+###  http://cargo.iata.org/Company#name
+company:name rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Company ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Name of company or organization"@en ;
+             rdfs:label "company:name"@en .
+
+
+###  http://cargo.iata.org/Contact#emailAddress
+contact:emailAddress rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Contact ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "E-mail address"@en ;
+                     rdfs:label "contact:emailAddress"@en .
+
+
+###  http://cargo.iata.org/Contact#phoneNumber
+contact:phoneNumber rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Contact ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Phone number"@en ;
+                    rdfs:label "contact:phoneNumber"@en .
+
+
+###  http://cargo.iata.org/Country#countryCode
+country:countryCode rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Country ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Country ISO code. Refer ISO 3166-2"@en ;
+                    rdfs:label "country:countryCode"@en .
+
+
+###  http://cargo.iata.org/Country#countryName
+country:countryName rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Country ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Full country name"@en ;
+                    rdfs:label "country:countryName"@en .
+
+
+###  http://cargo.iata.org/CustomsInfo#customsStatusCode
+customsInfo:customsStatusCode rdf:type owl:DatatypeProperty ;
+                              rdfs:domain :CustomsInfo ;
+                              rdfs:range xsd:string ;
+                              rdfs:comment "Customs transit status / code/ information / reference. Refer EUCTSC, e.g. T1 - Europe Union Customs 1"@en ;
+                              rdfs:label "customsInfo:customsStatusCode"@en .
+
+
+###  http://cargo.iata.org/Event#dateTime
+event:dateTime rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Event ;
+               rdfs:range xsd:dateTime ;
+               rdfs:comment "Date and time of the event"@en ;
+               rdfs:label "event:dateTime"@en .
+
+
+###  http://cargo.iata.org/Event#eventCode
+event:eventCode rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Event ;
+                rdfs:range xsd:string ;
+                rdfs:comment "Movement or milestone code. Refer CXML Code List 1.18, e.g. DEP, ARR, FOH, RCS"@en ;
+                rdfs:label "event:eventCode"@en .
+
+
+###  http://cargo.iata.org/Event#eventName
+event:eventName rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Event ;
+                rdfs:range xsd:string ;
+                rdfs:comment "If no EventCode provided, event name - e.g. Security clearance"@en ;
+                rdfs:label "event:eventName"@en .
+
+
+###  http://cargo.iata.org/Event#eventTypeIndicator
+event:eventTypeIndicator rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Event ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Indicates type of event e.g.  Scheduled, Estimated, Actual"@en ;
+                         rdfs:label "event:eventTypeIndicator"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#documentID
+externalReference:documentID rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :ExternalReference ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Unique document identifier"@en ;
+                             rdfs:label "externalReference:documentID"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#documentName
+externalReference:documentName rdf:type owl:DatatypeProperty ;
+                               rdfs:domain :ExternalReference ;
+                               rdfs:range xsd:string ;
+                               rdfs:comment "If no DocumentType provided, name of the referenced document "@en ;
+                               rdfs:label "externalReference:documentName"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#documentType
+externalReference:documentType rdf:type owl:DatatypeProperty ;
+                               rdfs:domain :ExternalReference ;
+                               rdfs:range xsd:string ;
+                               rdfs:comment "Type of the referenced document . Refer UNEDIFACT 1001  e.g. 740 - Air Waybill"@en ;
+                               rdfs:label "externalReference:documentType"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#documentVersion
+externalReference:documentVersion rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain :ExternalReference ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:comment "Document version number"@en ;
+                                  rdfs:label "externalReference:documentVersion"@en .
+
+
+###  http://cargo.iata.org/ExternalReference#uri
+externalReference:uri rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :ExternalReference ;
+                      rdfs:range xsd:anyURI ;
+                      rdfs:comment "URI of document or logistics object"@en ;
+                      rdfs:label "externalReference:uri"@en .
+
+
+###  http://cargo.iata.org/Handling#deckPosition
+handling:deckPosition rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Handling ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Position of the shipment in the aircraft - e.g. lower or main deck "@en ;
+                      rdfs:label "handling:deckPosition"@en .
+
+
+###  http://cargo.iata.org/Handling#loadTypeCode
+handling:loadTypeCode rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Handling ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Bulk or containerized (BLK or ULD) indicator"@en ;
+                      rdfs:label "handling:loadTypeCode"@en .
+
+
+###  http://cargo.iata.org/Item#itemIdentifier
+item:itemIdentifier rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Item ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Item serial number or unique item identifier"@en ;
+                    rdfs:label "item:itemIdentifier"@en .
+
+
+###  http://cargo.iata.org/Location#code
+location:code rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
+              rdfs:label "location:code"@en .
+
+
+###  http://cargo.iata.org/Location#name
+location:name rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Full name of the location"@en ;
+              rdfs:label "location:name"@en .
+
+
+###  http://cargo.iata.org/Location#type
+location:type rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Location type - e.g. Airport, Freight terminal, Rail station, Seaport, etc"@en ;
+              rdfs:label "location:type"@en .
+
+
+###  http://cargo.iata.org/Other#detail
+other:detail rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Other ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Contact details e.g. Skype ID "@en ;
+             rdfs:label "other:detail"@en .
+
+
+###  http://cargo.iata.org/Other#type
+other:type rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Other ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Contact type - e.g. Skype"@en ;
+           rdfs:label "other:type"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#customsContentCode
+otherCustomsInformation:customsContentCode rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain :OtherCustomsInformation ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "Customs content code. Refer CXML Code List 1.100, e.g. IST - Security Textual StatementNumber, M - Movement Reference Number"@en ;
+                                           rdfs:label "otherCustomsInformation:customsContentCode"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#customsInformation
+otherCustomsInformation:customsInformation rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain :OtherCustomsInformation ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "Information for customs submission"@en ;
+                                           rdfs:label "otherCustomsInformation:customsInformation"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#customsNote
+otherCustomsInformation:customsNote rdf:type owl:DatatypeProperty ;
+                                    rdfs:domain :OtherCustomsInformation ;
+                                    rdfs:range xsd:string ;
+                                    rdfs:comment "Free text f or customs remarks"@en ;
+                                    rdfs:label "otherCustomsInformation:customsNote"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation#customsSubjectCode
+otherCustomsInformation:customsSubjectCode rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain :OtherCustomsInformation ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "Customs subject code. Refer CXML Code List 1.19, e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for rdf:type Consignment etc.   At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
+                                           rdfs:label "otherCustomsInformation:customsSubjectCode"@en .
+
+
+###  http://cargo.iata.org/OtherIdentifier#identifier
+otherIdentifier:identifier rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :OtherIdentifier ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Item identifier"@en ;
+                           rdfs:label "otherIdentifier:identifier"@en .
+
+
+###  http://cargo.iata.org/OtherIdentifier#type
+otherIdentifier:type rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :OtherIdentifier ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Identifier type or description"@en ;
+                     rdfs:label "otherIdentifier:type"@en .
+
+
+###  http://cargo.iata.org/OtherParty#roleName
+otherParty:roleName rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :OtherParty ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Role of other party - e.g. Notify party, Nominated agent, Customs broker, Manufacturer, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom "@en ;
+                    rdfs:label "otherParty:roleName"@en .
+
+
+###  http://cargo.iata.org/PackagingType#code
+packagingType:code rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :PackagingType ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Packaging type identifier as per UNECE Rec 21 Annex V and VI e.g. 1A - Drum, steel"@en ;
+                   rdfs:label "packagingType:code"@en .
+
+
+###  http://cargo.iata.org/PackagingType#description
+packagingType:description rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :PackagingType ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "If no Code provided, packaging type description"@en ;
+                          rdfs:label "packagingType:description"@en .
+
+
+###  http://cargo.iata.org/Person#contactType
+person:contactType rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Person ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Contact type - e.g. Emergency contact, Customs contact, Customer contact"@en ;
+                   rdfs:label "person:contactType"@en .
+
+
+###  http://cargo.iata.org/Person#department
+person:department rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Person ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Department / Division / Unit"@en ;
+                  rdfs:label "person:department"@en .
+
+
+###  http://cargo.iata.org/Person#employeeId
+person:employeeId rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Person ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Employee ID"@en ;
+                  rdfs:label "person:employeeId"@en .
+
+
+###  http://cargo.iata.org/Person#firstName
+person:firstName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Person ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "First name / given name"@en ;
+                 rdfs:label "person:firstName"@en .
+
+
+###  http://cargo.iata.org/Person#jobTitle
+person:jobTitle rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Person ;
+                rdfs:range xsd:string ;
+                rdfs:comment "Job title / position"@en ;
+                rdfs:label "person:jobTitle"@en .
+
+
+###  http://cargo.iata.org/Person#lastName
+person:lastName rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Person ;
+                rdfs:range xsd:string ;
+                rdfs:comment "Last name / family name / surname"@en ;
+                rdfs:label "person:lastName"@en .
+
+
+###  http://cargo.iata.org/Person#middleName
+person:middleName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Person ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Middle name/ other name"@en ;
+                  rdfs:label "person:middleName"@en .
+
+
+###  http://cargo.iata.org/Person#salutation
+person:salutation rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Person ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Salutation "@en ;
+                  rdfs:label "person:salutation"@en .
+
+
+###  http://cargo.iata.org/Piece#containedPieceCount
+piece:containedPieceCount rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :Piece ;
+                          rdfs:range xsd:decimal ;
+                          rdfs:comment "Number of contained pieces "@en ;
+                          rdfs:label "piece:containedPieceCount"@en .
+
+
+###  http://cargo.iata.org/Piece#goodsDescription
+piece:goodsDescription rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Piece ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "General goods description"@en ;
+                       rdfs:label "piece:goodsDescription"@en .
+
+
+###  http://cargo.iata.org/Piece#sLAC
+piece:sLAC rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Piece ;
+           rdfs:range xsd:decimal ;
+           rdfs:comment "Shipper's Load And Count  ( total contained piece count as provided by shipper)"@en ;
+           rdfs:label "piece:sLAC"@en .
+
+
+###  http://cargo.iata.org/Piece#uPID
+piece:uPID rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Piece ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Unique Piece Identifier (UPID) of the piece. Refer IATA Recommended Practice 1689"@en ;
+           rdfs:label "piece:uPID"@en .
+
+
+###  http://cargo.iata.org/Price#quantityForUnitPrice
+price:quantityForUnitPrice rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :Price ;
+                           rdfs:range xsd:decimal ;
+                           rdfs:comment "Product quantity for unit price - e.g. 12 (eggs for one USD 1)"@en ;
+                           rdfs:label "price:quantityForUnitPrice"@en .
+
+
+###  http://cargo.iata.org/Product#productDescription
+product:productDescription rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :Product ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Product description"@en ;
+                           rdfs:label "product:productDescription"@en .
+
+
+###  http://cargo.iata.org/Product#productIdentifier
+product:productIdentifier rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :Product ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "Manufacturer's unique product identifier"@en ;
+                          rdfs:label "product:productIdentifier"@en .
+
+
+###  http://cargo.iata.org/Product#uNNumber
+product:uNNumber rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Product ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Reference identifying the United Nations Dangerous Goods serial number assigned within the UN to substances and articles contained in type list of the dangerous goods most commonly carried. e.g. 1189 - Ethylene glycol monomethyl ether acetate"@en ;
+                 rdfs:label "product:uNNumber"@en .
+
+
+###  http://cargo.iata.org/Production#batchNumber
+production:batchNumber rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Production ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "Production batch number / reference"@en ;
+                       rdfs:label "production:batchNumber"@en .
+
+
+###  http://cargo.iata.org/Production#lotNumber
+production:lotNumber rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Production ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Production lot number / reference"@en ;
+                     rdfs:label "production:lotNumber"@en .
+
+
+###  http://cargo.iata.org/Production#productExpiryDate
+production:productExpiryDate rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :Production ;
+                             rdfs:range xsd:date ;
+                             rdfs:comment "Product expiry date - e.g. for perishables goods or goods with programmed obsolescence"@en ;
+                             rdfs:label "production:productExpiryDate"@en .
+
+
+###  http://cargo.iata.org/Production#productionDate
+production:productionDate rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :Production ;
+                          rdfs:range xsd:dateTime ;
+                          rdfs:comment "Production date"@en ;
+                          rdfs:label "production:productionDate"@en .
+
+
+###  http://cargo.iata.org/Rating#commodityItemNumber
+rating:commodityItemNumber rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :Rating ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Commodity identifier on which the rate class code is applied"@en ;
+                           rdfs:label "rating:commodityItemNumber"@en .
+
+
+###  http://cargo.iata.org/Rating#loadTypeCode
+rating:loadTypeCode rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Rating ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Bulk or containerized (BLK or ULD) indicator"@en ;
+                    rdfs:label "rating:loadTypeCode"@en .
+
+
+###  http://cargo.iata.org/Rating#rateClassBasis
+rating:rateClassBasis rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Rating ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Basis on which the Rate Class Code is applicable"@en ;
+                      rdfs:label "rating:rateClassBasis"@en .
+
+
+###  http://cargo.iata.org/Rating#rateClassCode
+rating:rateClassCode rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Rating ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Rate category code. Refer  CXML Code List 1.4,  e.g. Q - Quantity Rate"@en ;
+                     rdfs:label "rating:rateClassCode"@en .
+
+
+###  http://cargo.iata.org/Rating#rateReferenceCode
+rating:rateReferenceCode rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Rating ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Code to indicate the applicable rate"@en ;
+                         rdfs:label "rating:rateReferenceCode"@en .
+
+
+###  http://cargo.iata.org/Rating#rateReferenceType
+rating:rateReferenceType rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Rating ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Type of rate - e.g. contract, adhoc, etc."@en ;
+                         rdfs:label "rating:rateReferenceType"@en .
+
+
+###  http://cargo.iata.org/Rating#ratingClassPercentage
+rating:ratingClassPercentage rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :Rating ;
+                             rdfs:range xsd:decimal ;
+                             rdfs:comment "Rating class percentage"@en ;
+                             rdfs:label "rating:ratingClassPercentage"@en .
+
+
+###  http://cargo.iata.org/Rating#ratingTypeIndicator
+rating:ratingTypeIndicator rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :Rating ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Transportation rating type - e.g. F for Face, P for Published, or rdf:type for Actual Rating detail"@en ;
+                           rdfs:label "rating:ratingTypeIndicator"@en .
+
+
+###  http://cargo.iata.org/Rating#rcp
+rating:rcp rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Rating ;
+           rdfs:range xsd:string ;
+           rdfs:comment "City code of Rate Combination Point (RCP), the point over which sector rates are combined"@en ;
+           rdfs:label "rating:rcp"@en .
+
+
+###  http://cargo.iata.org/Rating#uldRateClassType
+rating:uldRateClassType rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :Rating ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "Unit Load Device rate class type e.g. 1P"@en ;
+                        rdfs:label "rating:uldRateClassType"@en .
+
+
+###  http://cargo.iata.org/ReasonsForSecurityStatus#groundsForExemption
+reasonsForSecurityStatus:groundsForExemption rdf:type owl:DatatypeProperty ;
+                                             rdfs:domain :ReasonsForSecurityStatus ;
+                                             rdfs:range xsd:string ;
+                                             rdfs:comment "Exemption code - e.g. BIOM- Bio-Medical Samples "@en ;
+                                             rdfs:label "reasonsForSecurityStatus:groundsForExemption"@en .
+
+
+###  http://cargo.iata.org/ReasonsForSecurityStatus#otherScreeningMethods
+reasonsForSecurityStatus:otherScreeningMethods rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain :ReasonsForSecurityStatus ;
+                                               rdfs:range xsd:string ;
+                                               rdfs:comment "Other methods used to secure the cargo"@en ;
+                                               rdfs:label "reasonsForSecurityStatus:otherScreeningMethods"@en .
+
+
+###  http://cargo.iata.org/ReasonsForSecurityStatus#screeningMethod
+reasonsForSecurityStatus:screeningMethod rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain :ReasonsForSecurityStatus ;
+                                         rdfs:range xsd:string ;
+                                         rdfs:comment "Screening methods which have been used to secure the cargo - e.g. EDS- Explosive Detection System "@en ;
+                                         rdfs:label "reasonsForSecurityStatus:screeningMethod"@en .
+
+
+###  http://cargo.iata.org/ReceivedFrom#expiryDate
+receivedFrom:expiryDate rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :ReceivedFrom ;
+                        rdfs:range xsd:string ;
+                        rdfs:comment "Expiry date 4 digits month/year"@en ;
+                        rdfs:label "receivedFrom:expiryDate"@en .
+
+
+###  http://cargo.iata.org/ReceivedFrom#regulatedPartyType
+receivedFrom:regulatedPartyType rdf:type owl:DatatypeProperty ;
+                                rdfs:domain :ReceivedFrom ;
+                                rdfs:range xsd:string ;
+                                rdfs:comment "Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier"@en ;
+                                rdfs:label "receivedFrom:regulatedPartyType"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo#additionalSecurityInformation
+securityInfo:additionalSecurityInformation rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain :SecurityInfo ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "Ad hoc security statement required by state regulators "@en ;
+                                           rdfs:label "securityInfo:additionalSecurityInformation"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo#regulatingAuthority
+securityInfo:regulatingAuthority rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain :SecurityInfo ;
+                                 rdfs:range xsd:string ;
+                                 rdfs:comment "Country ISO code. Refer ISO 3166-2"@en ;
+                                 rdfs:label "securityInfo:regulatingAuthority"@en .
+
+
+###  http://cargo.iata.org/SecurityStatus#issuedOn
+securityStatus:issuedOn rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :SecurityStatus ;
+                        rdfs:range xsd:dateTime ;
+                        rdfs:comment "Date and time when the security status was issued"@en ;
+                        rdfs:label "securityStatus:issuedOn"@en .
+
+
+###  http://cargo.iata.org/SecurityStatus#regulatedPartyType
+securityStatus:regulatedPartyType rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain :SecurityStatus ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:comment "Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier"@en ;
+                                  rdfs:label "securityStatus:regulatedPartyType"@en .
+
+
+###  http://cargo.iata.org/SecurityStatus#statusCode
+securityStatus:statusCode rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :SecurityStatus ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "Security status indicator - e.g. SPX- Cargo Secure for Passenger and All-Cargo Aircraft "@en ;
+                          rdfs:label "securityStatus:statusCode"@en .
+
+
+###  http://cargo.iata.org/ServiceRequest#code
+serviceRequest:code rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :ServiceRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Service request code"@en ;
+                    rdfs:label "serviceRequest:code"@en .
+
+
+###  http://cargo.iata.org/ServiceRequest#description
+serviceRequest:description rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :ServiceRequest ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Service request description"@en ;
+                           rdfs:label "serviceRequest:description"@en .
+
+
+###  http://cargo.iata.org/ServiceRequest#statementText
+serviceRequest:statementText rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :ServiceRequest ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Service request statement text"@en ;
+                             rdfs:label "serviceRequest:statementText"@en .
+
+
+###  http://cargo.iata.org/ServiceRequest#statementType
+serviceRequest:statementType rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :ServiceRequest ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Service request statement type - e.g. Dangerous Goods, Lithium Ion Battery, Live Animal Certificate"@en ;
+                             rdfs:label "serviceRequest:statementType"@en .
+
+
+###  http://cargo.iata.org/SpecialHandling#code
+specialHandling:code rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :SpecialHandling ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "Special handling code following IATA standards. Refer CXML1.16,  e.g. PEP - Fruits and Vegetables"@en ;
+                     rdfs:label "specialHandling:code"@en .
+
+
+###  http://cargo.iata.org/SpecialHandling#description
+specialHandling:description rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :SpecialHandling ;
+                            rdfs:range xsd:string ;
+                            rdfs:comment "If no Code provided, special handling description. Refer CXML1.16,  e.g. Cargo Aircraft Only"@en ;
+                            rdfs:label "specialHandling:description"@en .
+
+
+###  http://cargo.iata.org/SpecialService#dateTime
+specialService:dateTime rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :SpecialService ;
+                        rdfs:range xsd:dateTime ;
+                        rdfs:comment "Special service scheduled date and time"@en ;
+                        rdfs:label "specialService:dateTime"@en .
+
+
+###  http://cargo.iata.org/SpecialService#description
+specialService:description rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :SpecialService ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Special service description"@en ;
+                           rdfs:label "specialService:description"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#allotmentDetails
+transportSegment:allotmentDetails rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain :TransportSegment ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:comment "Guaranteed capacity reference details"@en ;
+                                  rdfs:label "transportSegment:allotmentDetails"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#carriageStage
+transportSegment:carriageStage rdf:type owl:DatatypeProperty ;
+                               rdfs:domain :TransportSegment ;
+                               rdfs:range xsd:string ;
+                               rdfs:comment "Carriage stage - e.g. Pre-Carriage, Main-Carriage, On-Carriage "@en ;
+                               rdfs:label "transportSegment:carriageStage"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#deckPosition
+transportSegment:deckPosition rdf:type owl:DatatypeProperty ;
+                              rdfs:domain :TransportSegment ;
+                              rdfs:range xsd:string ;
+                              rdfs:comment "Position of the shipment in the aircraft - e.g. lower or main deck "@en ;
+                              rdfs:label "transportSegment:deckPosition"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#exceptionHandlingDetails
+transportSegment:exceptionHandlingDetails rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain :TransportSegment ;
+                                          rdfs:range xsd:string ;
+                                          rdfs:comment "Exception handling code or details"@en ;
+                                          rdfs:label "transportSegment:exceptionHandlingDetails"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#modeCode
+transportSegment:modeCode rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :TransportSegment ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "Mode of transport code. Refer UNECE Recommendation N. 19 - Code for Modes of Transport,  e.g. 4 - Air transport"@en ;
+                          rdfs:label "transportSegment:modeCode"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#seal
+transportSegment:seal rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :TransportSegment ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "Seal identifier"@en ;
+                      rdfs:label "transportSegment:seal"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#spaceAllocationDetails
+transportSegment:spaceAllocationDetails rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :TransportSegment ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Space allocation request / action / confirmation code or details"@en ;
+                                        rdfs:label "transportSegment:spaceAllocationDetails"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#transportDate
+transportSegment:transportDate rdf:type owl:DatatypeProperty ;
+                               rdfs:domain :TransportSegment ;
+                               rdfs:range xsd:dateTime ;
+                               rdfs:comment "Date associated with TransportIdentifier to uniquely identify the transport line "@en ;
+                               rdfs:label "transportSegment:transportDate"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#transportIdentifier
+transportSegment:transportIdentifier rdf:type owl:DatatypeProperty ;
+                                     rdfs:domain :TransportSegment ;
+                                     rdfs:range xsd:string ;
+                                     rdfs:comment "Airline flight number, or rail /  truck / maritime line id"@en ;
+                                     rdfs:label "transportSegment:transportIdentifier"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#vehicleRegistration
+transportSegment:vehicleRegistration rdf:type owl:DatatypeProperty ;
+                                     rdfs:domain :TransportSegment ;
+                                     rdfs:range xsd:string ;
+                                     rdfs:comment "Vehicle identification - e.g. aircraft registration number"@en ;
+                                     rdfs:label "transportSegment:vehicleRegistration"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#vehicleSize
+transportSegment:vehicleSize rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :TransportSegment ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Size of the vehicle - free text"@en ;
+                             rdfs:label "transportSegment:vehicleSize"@en .
+
+
+###  http://cargo.iata.org/TransportSegment#vehicleType
+transportSegment:vehicleType rdf:type owl:DatatypeProperty ;
+                             rdfs:domain :TransportSegment ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "Vehicle or container type. Refer UNECE28, e.g. 4.00.0 - Aircraft, type unknown"@en ;
+                             rdfs:label "transportSegment:vehicleType"@en .
+
+
+###  http://cargo.iata.org/Uld#aTAdesignator
+uld:aTAdesignator rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Uld ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "US / ATA Unit Load Device type code e.g. M2"@en ;
+                  rdfs:label "uld:aTAdesignator"@en .
+
+
+###  http://cargo.iata.org/Uld#containedPieceCount
+uld:containedPieceCount rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :Uld ;
+                        rdfs:range xsd:decimal ;
+                        rdfs:comment "Number of contained pieces "@en ;
+                        rdfs:label "uld:containedPieceCount"@en .
+
+
+###  http://cargo.iata.org/Uld#loadingIndicator
+uld:loadingIndicator rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Uld ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "ULD height or loading limitation code. Refer CXML Code List 1.47,  e.g. R - ULD Height above 244 centimetres"@en ;
+                     rdfs:label "uld:loadingIndicator"@en .
+
+
+###  http://cargo.iata.org/Uld#ownerCode
+uld:ownerCode rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Uld ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company"@en ;
+              rdfs:label "uld:ownerCode"@en .
+
+
+###  http://cargo.iata.org/Uld#ownerCodeIssuer
+uld:ownerCodeIssuer rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Uld ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Issuer of the ULD owner code"@en ;
+                    rdfs:label "uld:ownerCodeIssuer"@en .
+
+
+###  http://cargo.iata.org/Uld#sLAC
+uld:sLAC rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Uld ;
+         rdfs:range xsd:decimal ;
+         rdfs:comment "Shipper's Load And Count  ( total contained piece count as provided by shipper)"@en ;
+         rdfs:label "uld:sLAC"@en .
+
+
+###  http://cargo.iata.org/Uld#serialNumber
+uld:serialNumber rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Uld ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "ULD serial number"@en ;
+                 rdfs:label "uld:serialNumber"@en .
+
+
+###  http://cargo.iata.org/Uld#type
+uld:type rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Uld ;
+         rdfs:range xsd:string ;
+         rdfs:comment "Standard Unit Load Device type code e.g. AKE - Certified Container - Contoured"@en ;
+         rdfs:label "uld:type"@en .
+
+
+###  http://cargo.iata.org/Value#unit
+value:unit rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Value ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Unit of measurement/ unit of account e.g. CMT - Centimetre,  LTR - Litre (1 DM3), KGM - Kilogram, CHF - Swiss Franc"@en ;
+           rdfs:label "value:unit"@en .
+
+
+###  http://cargo.iata.org/Value#value
+value:value rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Value ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Value"@en ;
+            rdfs:label "value:value"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://cargo.iata.org/Address
+:Address rdf:type owl:Class ;
+         rdfs:comment "Address details"@en ;
+         rdfs:label "Address"@en .
+
+
+###  http://cargo.iata.org/AirWaybill
+:AirWaybill rdf:type owl:Class ;
+            rdfs:comment "Air Waybill details"@en ;
+            rdfs:label "AirWaybill"@en .
+
+
+###  http://cargo.iata.org/Booking
+:Booking rdf:type owl:Class ;
+         rdfs:comment "Booking details"@en ;
+         rdfs:label "Booking"@en .
+
+
+###  http://cargo.iata.org/BookingStatus
+:BookingStatus rdf:type owl:Class ;
+               rdfs:comment "Booking status details"@en ;
+               rdfs:label "BookingStatus"@en .
+
+
+###  http://cargo.iata.org/Branch
+:Branch rdf:type owl:Class ;
+        rdfs:comment "Company branches"@en ;
+        rdfs:label "Branch"@en .
+
+
+###  http://cargo.iata.org/Carriage
+:Carriage rdf:type owl:Class ;
+          rdfs:comment "Carriage value declaration"@en ;
+          rdfs:label "Carriage"@en .
+
+
+###  http://cargo.iata.org/CarrierSignature
+:CarrierSignature rdf:type owl:Class ;
+                  rdfs:comment "Carrier signature details"@en ;
+                  rdfs:label "CarrierSignature"@en .
+
+
+###  http://cargo.iata.org/Characteristic
+:Characteristic rdf:type owl:Class ;
+                rdfs:comment "Product additional details"@en ;
+                rdfs:label "Characteristic"@en .
+
+
+###  http://cargo.iata.org/ChargeDeclaration
+:ChargeDeclaration rdf:type owl:Class ;
+                   rdfs:comment "Goods value declaration details"@en ;
+                   rdfs:label "ChargeDeclaration"@en .
+
+
+###  http://cargo.iata.org/ChargeDescription
+:ChargeDescription rdf:type owl:Class ;
+                   rdfs:comment "Other charge description details"@en ;
+                   rdfs:label "ChargeDescription"@en .
+
+
+###  http://cargo.iata.org/ChargePayment
+:ChargePayment rdf:type owl:Class ;
+               rdfs:comment "Charge payment details"@en ;
+               rdfs:label "ChargePayment"@en .
+
+
+###  http://cargo.iata.org/ChargeSummary
+:ChargeSummary rdf:type owl:Class ;
+               rdfs:comment "Charge summary details"@en ;
+               rdfs:label "ChargeSummary"@en .
+
+
+###  http://cargo.iata.org/Collect
+:Collect rdf:type owl:Class ;
+         rdfs:comment "Collect totals in base / origin currency"@en ;
+         rdfs:label "Collect"@en .
+
+
+###  http://cargo.iata.org/Commodity
+:Commodity rdf:type owl:Class ;
+           rdfs:comment "Commodity details"@en ;
+           rdfs:label "Commodity"@en .
+
+
+###  http://cargo.iata.org/Company
+:Company rdf:type owl:Class ;
+         rdfs:comment "Company details"@en ;
+         rdfs:label "Company"@en .
+
+
+###  http://cargo.iata.org/Contact
+:Contact rdf:type owl:Class ;
+         rdfs:comment "Contact details"@en ;
+         rdfs:label "Contact"@en .
+
+
+###  http://cargo.iata.org/Country
+:Country rdf:type owl:Class ;
+         rdfs:comment "Country details"@en ;
+         rdfs:label "Country"@en .
+
+
+###  http://cargo.iata.org/Customs
+:Customs rdf:type owl:Class ;
+         rdfs:comment "Customs value declaration"@en ;
+         rdfs:label "Customs"@en .
+
+
+###  http://cargo.iata.org/CustomsInfo
+:CustomsInfo rdf:type owl:Class ;
+             rdfs:comment "Customs information details"@en ;
+             rdfs:label "CustomsInfo"@en .
+
+
+###  http://cargo.iata.org/Dimensions
+:Dimensions rdf:type owl:Class ;
+            rdfs:comment "Dimension details"@en ;
+            rdfs:label "Dimensions"@en .
+
+
+###  http://cargo.iata.org/Event
+:Event rdf:type owl:Class ;
+       rdfs:comment "Event details"@en ;
+       rdfs:label "Event"@en .
+
+
+###  http://cargo.iata.org/ExternalReference
+:ExternalReference rdf:type owl:Class ;
+                   rdfs:comment "Reference documents details"@en ;
+                   rdfs:label "ExternalReference"@en .
+
+
+###  http://cargo.iata.org/FreightForwarderSignature
+:FreightForwarderSignature rdf:type owl:Class ;
+                           rdfs:comment "Freight forwarder signature details"@en ;
+                           rdfs:label "FreightForwarderSignature"@en .
+
+
+###  http://cargo.iata.org/Geolocation
+:Geolocation rdf:type owl:Class ;
+             rdfs:comment "Geolocation details - e.g. for drones, automated vehicles…"@en ;
+             rdfs:label "Geolocation"@en .
+
+
+###  http://cargo.iata.org/Handling
+:Handling rdf:type owl:Class ;
+          rdfs:comment "Handling details"@en ;
+          rdfs:label "Handling"@en .
+
+
+###  http://cargo.iata.org/HouseManifest
+:HouseManifest rdf:type owl:Class ;
+               rdfs:comment "House Manifest details"@en ;
+               rdfs:label "HouseManifest"@en .
+
+
+###  http://cargo.iata.org/HouseWaybill
+:HouseWaybill rdf:type owl:Class ;
+              rdfs:comment "House Waybill details"@en ;
+              rdfs:label "HouseWaybill"@en .
+
+
+###  http://cargo.iata.org/InDestinationCurrency
+:InDestinationCurrency rdf:type owl:Class ;
+                       rdfs:comment "Collect totals in target / destination currency"@en ;
+                       rdfs:label "InDestinationCurrency"@en .
+
+
+###  http://cargo.iata.org/Insurance
+:Insurance rdf:type owl:Class ;
+           rdfs:comment "Insurance details"@en ;
+           rdfs:label "Insurance"@en .
+
+
+###  http://cargo.iata.org/Item
+:Item rdf:type owl:Class ;
+      rdfs:subClassOf :Product ;
+      rdfs:comment "Item details"@en ;
+      rdfs:label "Item"@en .
+
+
+###  http://cargo.iata.org/Location
+:Location rdf:type owl:Class ;
+          rdfs:comment "Loading location details"@en ;
+          rdfs:label "Location"@en .
+
+
+###  http://cargo.iata.org/Other
+:Other rdf:type owl:Class ;
+       rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
+       rdfs:label "Other"@en .
+
+
+###  http://cargo.iata.org/OtherCharge
+:OtherCharge rdf:type owl:Class ;
+             rdfs:comment "Other charge details"@en ;
+             rdfs:label "OtherCharge"@en .
+
+
+###  http://cargo.iata.org/OtherCustomsInformation
+:OtherCustomsInformation rdf:type owl:Class ;
+                         rdfs:comment "Other customs information details"@en ;
+                         rdfs:label "OtherCustomsInformation"@en .
+
+
+###  http://cargo.iata.org/OtherIdentifier
+:OtherIdentifier rdf:type owl:Class ;
+                 rdfs:comment "Other identifiers"@en ;
+                 rdfs:label "OtherIdentifier"@en .
+
+
+###  http://cargo.iata.org/OtherParty
+:OtherParty rdf:type owl:Class ;
+            rdfs:comment "Company details"@en ;
+            rdfs:label "OtherParty"@en .
+
+
+###  http://cargo.iata.org/PackagingType
+:PackagingType rdf:type owl:Class ;
+               rdfs:comment "Packaging details "@en ;
+               rdfs:label "PackagingType"@en .
+
+
+###  http://cargo.iata.org/Person
+:Person rdf:type owl:Class ;
+        rdfs:comment "Person details"@en ;
+        rdfs:label "Person"@en .
+
+
+###  http://cargo.iata.org/Piece
+:Piece rdf:type owl:Class ;
+       rdfs:comment "Individual piece / package / pallet / ULD details"@en ;
+       rdfs:label "Piece"@en .
+
+
+###  http://cargo.iata.org/PieceGrouping
+:PieceGrouping rdf:type owl:Class ;
+               rdfs:comment "Grouping of individual pieces or logistics components"@en ;
+               rdfs:label "PieceGrouping"@en .
+
+
+###  http://cargo.iata.org/Prepaid
+:Prepaid rdf:type owl:Class ;
+         rdfs:comment "Prepaid totals in base / origin currency"@en ;
+         rdfs:label "Prepaid"@en .
+
+
+###  http://cargo.iata.org/Price
+:Price rdf:type owl:Class ;
+       rdfs:comment "Product price details"@en ;
+       rdfs:label "Price"@en .
+
+
+###  http://cargo.iata.org/Product
+:Product rdf:type owl:Class ;
+         rdfs:comment "Product details"@en ;
+         rdfs:label "Product"@en .
+
+
+###  http://cargo.iata.org/Production
+:Production rdf:type owl:Class ;
+            rdfs:comment "Production batch and lot details"@en ;
+            rdfs:label "Production"@en .
+
+
+###  http://cargo.iata.org/Rating
+:Rating rdf:type owl:Class ;
+        rdfs:comment "Rating details"@en ;
+        rdfs:label "Rating"@en .
+
+
+###  http://cargo.iata.org/ReasonsForSecurityStatus
+:ReasonsForSecurityStatus rdf:type owl:Class ;
+                          rdfs:comment "Security status details"@en ;
+                          rdfs:label "ReasonsForSecurityStatus"@en .
+
+
+###  http://cargo.iata.org/ReceivedFrom
+:ReceivedFrom rdf:type owl:Class ;
+              rdfs:comment "Known Consignor or Regulated Agent reference"@en ;
+              rdfs:label "ReceivedFrom"@en .
+
+
+###  http://cargo.iata.org/SecurityInfo
+:SecurityInfo rdf:type owl:Class ;
+              rdfs:comment "Security information details"@en ;
+              rdfs:label "SecurityInfo"@en .
+
+
+###  http://cargo.iata.org/SecurityStatus
+:SecurityStatus rdf:type owl:Class ;
+                rdfs:comment "Security status details"@en ;
+                rdfs:label "SecurityStatus"@en .
+
+
+###  http://cargo.iata.org/ServiceRequest
+:ServiceRequest rdf:type owl:Class ;
+                rdfs:comment "Service request details"@en ;
+                rdfs:label "ServiceRequest"@en .
+
+
+###  http://cargo.iata.org/Shipment
+:Shipment rdf:type owl:Class ;
+          rdfs:comment "Shipment details"@en ;
+          rdfs:label "Shipment"@en .
+
+
+###  http://cargo.iata.org/ShipperSignature
+:ShipperSignature rdf:type owl:Class ;
+                  rdfs:comment "Shipper signature details"@en ;
+                  rdfs:label "ShipperSignature"@en .
+
+
+###  http://cargo.iata.org/SpecialHandling
+:SpecialHandling rdf:type owl:Class ;
+                 rdfs:comment "Special handling details"@en ;
+                 rdfs:label "SpecialHandling"@en .
+
+
+###  http://cargo.iata.org/SpecialService
+:SpecialService rdf:type owl:Class ;
+                rdfs:comment "Special service details"@en ;
+                rdfs:label "SpecialService"@en .
+
+
+###  http://cargo.iata.org/TransportSegment
+:TransportSegment rdf:type owl:Class ;
+                  rdfs:comment "Transport segment details"@en ;
+                  rdfs:label "TransportSegment"@en .
+
+
+###  http://cargo.iata.org/TransportStatus
+:TransportStatus rdf:type owl:Class ;
+                 rdfs:comment "Transport status details"@en ;
+                 rdfs:label "TransportStatus"@en .
+
+
+###  http://cargo.iata.org/Uld
+:Uld rdf:type owl:Class ;
+     rdfs:comment "Unit Load Device details"@en ;
+     rdfs:label "Uld"@en .
+
+
+###  http://cargo.iata.org/Value
+:Value rdf:type owl:Class ;
+       rdfs:comment "Volumetric weight details"@en ;
+       rdfs:label "Value"@en .
+
+
+###  http://cargo.iata.org/VolumetricWeight
+:VolumetricWeight rdf:type owl:Class ;
+                  rdfs:comment "Unit of measurement details"@en ;
+                  rdfs:label "VolumetricWeight"@en .
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Address
+                :AirWaybill
+                :Booking
+                :Commodity
+                :Company
+                :Country
+                :CustomsInfo
+                :Dimensions
+                :Event
+                :ExternalReference
+                :Geolocation
+                :Handling
+                :HouseManifest
+                :HouseWaybill
+                :Insurance
+                :Location
+                :OtherIdentifier
+                :OtherParty
+                :Person
+                :Piece
+                :PieceGrouping
+                :Product
+                :Rating
+                :SecurityInfo
+                :Shipment
+                :TransportSegment
+                :Uld
+                :Value
+                :VolumetricWeight
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
