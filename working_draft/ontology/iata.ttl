@@ -2212,8 +2212,17 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Address
 :Address rdf:type owl:Class ;
          rdfs:comment "Address details"@en ;
-         rdfs:label "Address"@en .
-
+         rdfs:label "Address"@en ;
+         rdfs:subClassOf
+          [ rdf:type owl:Restriction ;
+            owl:onProperty address:street ;
+            owl:minCardinality "0"
+          ] ;
+        rdfs:subClassOf
+         [ rdf:type owl:Restriction ;
+           owl:onProperty address:addressCode ;
+           owl:minCardinality "0"
+         ] .
 
 ###  http://cargo.iata.org/AirWaybill
 :AirWaybill rdf:type owl:Class ;
@@ -2224,13 +2233,28 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Booking
 :Booking rdf:type owl:Class ;
          rdfs:comment "Booking details"@en ;
-         rdfs:label "Booking"@en .
+         rdfs:label "Booking"@en ;
+         rdfs:subClassOf
+          [ rdf:type owl:Restriction ;
+            owl:onProperty booking:bookingRequestNumber ;
+            owl:minCardinality "1"
+          ] ;
+        rdfs:subClassOf
+         [ rdf:type owl:Restriction ;
+           owl:onProperty booking:date ;
+           owl:minCardinality "1"
+         ] .
 
 
 ###  http://cargo.iata.org/BookingStatus
 :BookingStatus rdf:type owl:Class ;
                rdfs:comment "Booking status details"@en ;
-               rdfs:label "BookingStatus"@en .
+               rdfs:label "BookingStatus"@en ;
+               rdfs:subClassOf
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty bookingStatus:dateTime ;
+                  owl:minCardinality "1"
+                ] .
 
 
 ###  http://cargo.iata.org/Branch
@@ -2284,7 +2308,12 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Collect
 :Collect rdf:type owl:Class ;
          rdfs:comment "Collect totals in base / origin currency"@en ;
-         rdfs:label "Collect"@en .
+         rdfs:label "Collect"@en ;
+         rdfs:subClassOf
+          [ rdf:type owl:Restriction ;
+            owl:onProperty collect:totalPrepaidCharges ;
+            owl:minCardinality "1"
+          ] .
 
 
 ###  http://cargo.iata.org/Commodity
@@ -2332,7 +2361,17 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Event
 :Event rdf:type owl:Class ;
        rdfs:comment "Event details"@en ;
-       rdfs:label "Event"@en .
+       rdfs:label "Event"@en ;
+       rdfs:subClassOf
+        [ rdf:type owl:Restriction ;
+          owl:onProperty event:eventTypeIndicator ;
+          owl:minCardinality "1"
+        ] ;
+        rdfs:subClassOf
+         [ rdf:type owl:Restriction ;
+           owl:onProperty event:dateTime ;
+           owl:minCardinality "1"
+         ] .
 
 
 ###  http://cargo.iata.org/ExternalReference
@@ -2447,13 +2486,23 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/PieceGrouping
 :PieceGrouping rdf:type owl:Class ;
                rdfs:comment "Grouping of individual pieces or logistics components"@en ;
-               rdfs:label "PieceGrouping"@en .
+               rdfs:label "PieceGrouping"@en ;
+               rdfs:subClassOf
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty pieceGrouping:pieceDetails ;
+                  owl:minCardinality "1"
+                ] .
 
 
 ###  http://cargo.iata.org/Prepaid
 :Prepaid rdf:type owl:Class ;
          rdfs:comment "Prepaid totals in base / origin currency"@en ;
-         rdfs:label "Prepaid"@en .
+         rdfs:label "Prepaid"@en ;
+         rdfs:subClassOf
+          [ rdf:type owl:Restriction ;
+            owl:onProperty prepaid:totalPrepaidCharges ;
+            owl:minCardinality "1"
+          ] .
 
 
 ###  http://cargo.iata.org/Price
@@ -2495,13 +2544,43 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/SecurityInfo
 :SecurityInfo rdf:type owl:Class ;
               rdfs:comment "Security information details"@en ;
-              rdfs:label "SecurityInfo"@en .
+              rdfs:label "SecurityInfo"@en ;
+              rdfs:subClassOf
+               [ rdf:type owl:Restriction ;
+                 owl:onProperty securityInfo:securityStatus ;
+                 owl:minCardinality "1"
+               ] ;
+             rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty securityInfo:reasonsForSecurityStatus ;
+                owl:minCardinality "1"
+              ] .
 
 
 ###  http://cargo.iata.org/SecurityStatus
 :SecurityStatus rdf:type owl:Class ;
                 rdfs:comment "Security status details"@en ;
-                rdfs:label "SecurityStatus"@en .
+                rdfs:label "SecurityStatus"@en ;
+                rdfs:subClassOf
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty securityStatus:statusCode ;
+                   owl:minCardinality "1"
+                 ] ;
+                 rdfs:subClassOf
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty securityStatus:issuedOn ;
+                    owl:minCardinality "1"
+                  ] ;
+                rdfs:subClassOf
+                 [ rdf:type owl:Restriction ;
+                   owl:onProperty securityStatus:issuedBy ;
+                   owl:minCardinality "1"
+                 ] ;
+               rdfs:subClassOf
+                [ rdf:type owl:Restriction ;
+                  owl:onProperty securityStatus:regulatedPartyType ;
+                  owl:minCardinality "1"
+                ] .
 
 
 ###  http://cargo.iata.org/ServiceRequest
@@ -2513,7 +2592,12 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Shipment
 :Shipment rdf:type owl:Class ;
           rdfs:comment "Shipment details"@en ;
-          rdfs:label "Shipment"@en .
+          rdfs:label "Shipment"@en ;
+          rdfs:subClassOf
+           [ rdf:type owl:Restriction ;
+             owl:onProperty shipment:waybillNumber ;
+             owl:minCardinality "1"
+           ] .
 
 
 ###  http://cargo.iata.org/ShipperSignature
