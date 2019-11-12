@@ -2213,16 +2213,16 @@ value:value rdf:type owl:DatatypeProperty ;
 :Address rdf:type owl:Class ;
          rdfs:comment "Address details"@en ;
          rdfs:label "Address"@en ;
-         rdfs:subClassOf
-          [ rdf:type owl:Restriction ;
-            owl:onProperty address:street ;
-            owl:minCardinality "0"
-          ] ;
-        rdfs:subClassOf
-         [ rdf:type owl:Restriction ;
-           owl:onProperty address:addressCode ;
-           owl:minCardinality "0"
-         ] .
+          rdfs:subClassOf
+           [ rdf:type owl:Restriction ;
+             owl:onProperty address:pOBox ;
+             owl:minCardinality "0"
+             ] ;
+             rdfs:subClassOf
+              [ rdf:type owl:Restriction ;
+                owl:onProperty address:pOBox ;
+                owl:maxCardinality "1"
+              ] .
 
 ###  http://cargo.iata.org/AirWaybill
 :AirWaybill rdf:type owl:Class ;
@@ -2480,7 +2480,22 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Piece
 :Piece rdf:type owl:Class ;
        rdfs:comment "Individual piece / package / pallet / ULD details"@en ;
-       rdfs:label "Piece"@en .
+       rdfs:label "Piece"@en ;
+       rdfs:subClassOf
+        [ rdf:type owl:Restriction ;
+          owl:onProperty piece:containedItem ;
+          owl:minCardinality "1"
+        ] ;
+        rdfs:subClassOf
+         [ rdf:type owl:Restriction ;
+           owl:onProperty piece:containedPiece ;
+           owl:minCardinality "1"
+         ] ;
+         rdfs:subClassOf
+          [ rdf:type owl:Restriction ;
+            owl:onProperty piece:uLD ;
+            owl:maxCardinality "1"
+          ] .
 
 
 ###  http://cargo.iata.org/PieceGrouping
@@ -2633,7 +2648,12 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Uld
 :Uld rdf:type owl:Class ;
      rdfs:comment "Unit Load Device details"@en ;
-     rdfs:label "Uld"@en .
+     rdfs:label "Uld"@en ;
+     rdfs:subClassOf
+      [ rdf:type owl:Restriction ;
+        owl:onProperty uld:containedPiece ;
+        owl:minCardinality "1"
+      ] .
 
 
 ###  http://cargo.iata.org/Value
