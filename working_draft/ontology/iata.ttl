@@ -29,13 +29,13 @@
 @prefix commodity: <http://cargo.iata.org/Commodity#> .
 @prefix insurance: <http://cargo.iata.org/Insurance#> .
 @prefix airWaybill: <http://cargo.iata.org/AirWaybill#> .
-@prefix houseWaybill: <http://cargo.iata.org/HouseWaybill#> .
 @prefix dimensions: <http://cargo.iata.org/Dimension#> .
 @prefix otherParty: <http://cargo.iata.org/OtherParty#> .
 @prefix production: <http://cargo.iata.org/Production#> .
 @prefix customsInfo: <http://cargo.iata.org/CustomsInfo#> .
 @prefix geolocation: <http://cargo.iata.org/Geolocation#> .
 @prefix otherCharge: <http://cargo.iata.org/OtherCharge#> .
+@prefix houseWaybill: <http://cargo.iata.org/HouseWaybill#> .
 @prefix receivedFrom: <http://cargo.iata.org/ReceivedFrom#> .
 @prefix securityInfo: <http://cargo.iata.org/SecurityInfo#> .
 @prefix bookingStatus: <http://cargo.iata.org/BookingStatus#> .
@@ -57,8 +57,6 @@
 @prefix inDestinationCurrency: <http://cargo.iata.org/InDestinationCurrency#> .
 @prefix otherCustomsInformation: <http://cargo.iata.org/OtherCustomsInformation#> .
 @prefix reasonsForSecurityStatus: <http://cargo.iata.org/ReasonsForSecurityStatus#> .
-@prefix shipperSignature: <http://cargo.iata.org/ShipperSignature#> .
-@prefix carrierSignature: <http://cargo.iata.org/CarrierSignature#> .
 @base <http://cargo.iata.org/> .
 
 <http://cargo.iata.org/> rdf:type owl:Ontology ;
@@ -77,6 +75,15 @@ dc:description rdf:type owl:AnnotationProperty .
 ###  http://purl.org/dc/elements/1.1/title
 dc:title rdf:type owl:AnnotationProperty .
 
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
 #################################################################
 #    Object Properties
 #################################################################
@@ -88,6 +95,7 @@ address:country rdf:type owl:ObjectProperty ;
                 rdfs:comment "Country details"@en ;
                 rdfs:label "address:country"@en .
 
+
 ###  http://cargo.iata.org/AirWaybill#airWaybillNumber
 airWaybill:airWaybillNumber rdf:type owl:ObjectProperty ;
                             rdfs:domain :AirWaybill ;
@@ -95,26 +103,54 @@ airWaybill:airWaybillNumber rdf:type owl:ObjectProperty ;
                             rdfs:comment "Air Waybill unique identifier"@en ;
                             rdfs:label "airWaybill:airWaybillNumber"@en .
 
-###  http://cargo.iata.org/AirWaybill#originDestination
-airWaybill:originDestination rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Booking ;
-                            rdfs:comment "Origin and Destination location"@en ;
-                            rdfs:label "airWaybill:originDestination"@en .
 
-###  http://cargo.iata.org/AirWaybill#shipper
-airWaybill:shipper rdf:type owl:ObjectProperty ;
+###  http://cargo.iata.org/AirWaybill#carrier
+airWaybill:carrier rdf:type owl:ObjectProperty ;
+                   rdfs:domain :AirWaybill ;
+                   rdfs:range :Company ;
+                   rdfs:comment "Issuing Carrier details"@en ;
+                   rdfs:label "airWaybill:carrier"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#carrierSignature
+airWaybill:carrierSignature rdf:type owl:ObjectProperty ;
                             rdfs:domain :AirWaybill ;
-                            rdfs:range :Company ;
-                            rdfs:comment "Shipper details"@en ;
-                            rdfs:label "airWaybill:shipper"@en .
+                            rdfs:range :CarrierSignature ;
+                            rdfs:comment "Carrier signature details"@en ;
+                            rdfs:label "airWaybill:carrierSignature"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#chargeDeclaration
+airWaybill:chargeDeclaration rdf:type owl:ObjectProperty ;
+                             rdfs:domain :AirWaybill ;
+                             rdfs:range :Booking ;
+                             rdfs:comment "Goods value declaration details"@en ;
+                             rdfs:label "airWaybill:chargeDeclaration"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#chargeSummary
+airWaybill:chargeSummary rdf:type owl:ObjectProperty ;
+                         rdfs:domain :AirWaybill ;
+                         rdfs:range :Booking ;
+                         rdfs:comment "Charge summary details"@en ;
+                         rdfs:label "airWaybill:chargeSummary"@en .
+
 
 ###  http://cargo.iata.org/AirWaybill#consignee
 airWaybill:consignee rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Company ;
-                            rdfs:comment "Consignee details"@en ;
-                            rdfs:label "airWaybill:consignee"@en .
+                     rdfs:domain :AirWaybill ;
+                     rdfs:range :Company ;
+                     rdfs:comment "Consignee details"@en ;
+                     rdfs:label "airWaybill:consignee"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#customsInformation
+airWaybill:customsInformation rdf:type owl:ObjectProperty ;
+                              rdfs:domain :AirWaybill ;
+                              rdfs:range :CustomsInfo ;
+                              rdfs:comment "Customs information details"@en ;
+                              rdfs:label "airWaybill:customsInformation"@en .
+
 
 ###  http://cargo.iata.org/AirWaybill#freightForwarder
 airWaybill:freightForwarder rdf:type owl:ObjectProperty ;
@@ -123,19 +159,54 @@ airWaybill:freightForwarder rdf:type owl:ObjectProperty ;
                             rdfs:comment "Freight Forwarder details"@en ;
                             rdfs:label "airWaybill:freightForwarder"@en .
 
+
+###  http://cargo.iata.org/AirWaybill#handling
+airWaybill:handling rdf:type owl:ObjectProperty ;
+                    rdfs:domain :AirWaybill ;
+                    rdfs:range :Handling ;
+                    rdfs:comment "Handling details"@en ;
+                    rdfs:label "airWaybill:handling"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#insurance
+airWaybill:insurance rdf:type owl:ObjectProperty ;
+                     rdfs:domain :AirWaybill ;
+                     rdfs:range :Insurance ;
+                     rdfs:comment "Insurance details"@en ;
+                     rdfs:label "airWaybill:insurance"@en .
+
+
 ###  http://cargo.iata.org/AirWaybill#notifyParty
 airWaybill:notifyParty rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Company ;
-                            rdfs:comment "Party to be notifed (e.g. Letter of credit)"@en ;
-                            rdfs:label "airWaybill:notifyParty"@en .
+                       rdfs:domain :AirWaybill ;
+                       rdfs:range :Company ;
+                       rdfs:comment "Party to be notifed (e.g. Letter of credit)"@en ;
+                       rdfs:label "airWaybill:notifyParty"@en .
 
-###  http://cargo.iata.org/AirWaybill#carrier
-airWaybill:carrier rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Company ;
-                            rdfs:comment "Issuing Carrier details"@en ;
-                            rdfs:label "airWaybill:carrier"@en .
+
+###  http://cargo.iata.org/AirWaybill#originDestination
+airWaybill:originDestination rdf:type owl:ObjectProperty ;
+                             rdfs:domain :AirWaybill ;
+                             rdfs:range :Booking ;
+                             rdfs:comment "Origin and Destination location"@en ;
+                             rdfs:label "airWaybill:originDestination"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#otherCharge
+airWaybill:otherCharge rdf:type owl:ObjectProperty ;
+                       rdfs:domain :AirWaybill ;
+                       rdfs:range :Booking ;
+                       rdfs:comment "Other charge details"@en ;
+                       rdfs:label "airWaybill:otherCharge"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#paymentMethodCode
+airWaybill:paymentMethodCode rdf:type owl:ObjectProperty ;
+                             rdfs:domain :AirWaybill ;
+                             rdfs:range :Booking ;
+                             rdfs:comment "Charge payment method code. Refer CXML Code List 1.1, e.g.  PP - All Charges Prepaid Cash"@en ;
+                             rdfs:label "airWaybill:paymentMethodCode"@en .
+
 
 ###  http://cargo.iata.org/AirWaybill#requestedRouting
 airWaybill:requestedRouting rdf:type owl:ObjectProperty ;
@@ -144,110 +215,22 @@ airWaybill:requestedRouting rdf:type owl:ObjectProperty ;
                             rdfs:comment "Routing of shipment as requested in booking by the forwarder"@en ;
                             rdfs:label "airWaybill:requestedRouting"@en .
 
-###  http://cargo.iata.org/AirWaybill#totalPieceAndULDCount
-airWaybill:totalPieceAndULDCount rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Shipment ;
-                            rdfs:comment "Total piece count of pieces and ULD (at top level)"@en ;
-                            rdfs:label "airWaybill:totalPieceAndULDCount"@en .
-
-###  http://cargo.iata.org/AirWaybill#totalSLAC
-airWaybill:totalSLAC rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Shipment ;
-                            rdfs:comment "Total SLAC of all piece groups"@en ;
-                            rdfs:label "airWaybill:totalSLAC"@en .
-
-###  http://cargo.iata.org/AirWaybill#totalGrossWeight
-airWaybill:totalGrossWeight rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Shipment ;
-                            rdfs:comment "Total gross weight of all piece groups "@en ;
-                            rdfs:label "airWaybill:totalGrossWeight"@en .
-
-###  http://cargo.iata.org/AirWaybill#totalChargeableWeight
-airWaybill:totalChargeableWeight rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Booking ;
-                            rdfs:comment "Total chargeable weight of all piece groups"@en ;
-                            rdfs:label "airWaybill:totalChargeableWeight"@en .
-
-###  http://cargo.iata.org/AirWaybill#totalVolume
-airWaybill:totalVolume rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Value ;
-                            rdfs:comment "Total volume of all piece groups"@en ;
-                            rdfs:label "airWaybill:totalVolume"@en .
-
-###  http://cargo.iata.org/AirWaybill#handling
-airWaybill:handling rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Handling ;
-                            rdfs:comment "Handling details"@en ;
-                            rdfs:label "airWaybill:handling"@en .
-
-###  http://cargo.iata.org/AirWaybill#customsInformation
-airWaybill:customsInformation rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :CustomsInfo ;
-                            rdfs:comment "Customs information details"@en ;
-                            rdfs:label "airWaybill:customsInformation"@en .
 
 ###  http://cargo.iata.org/AirWaybill#securityInformation
 airWaybill:securityInformation rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :SecurityInfo ;
-                            rdfs:comment "Security information details"@en ;
-                            rdfs:label "airWaybill:securityInformation"@en .
+                               rdfs:domain :AirWaybill ;
+                               rdfs:range :SecurityInfo ;
+                               rdfs:comment "Security information details"@en ;
+                               rdfs:label "airWaybill:securityInformation"@en .
 
-###  http://cargo.iata.org/AirWaybill#insurance
-airWaybill:insurance rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Insurance ;
-                            rdfs:comment "Insurance details"@en ;
-                            rdfs:label "airWaybill:insurance"@en .
 
-###  http://cargo.iata.org/AirWaybill#waybillLine
-airWaybill:waybillLine rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :PieceGrouping ;
-                            rdfs:comment "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
-                            rdfs:label "airWaybill:waybillLine"@en .
+###  http://cargo.iata.org/AirWaybill#shipper
+airWaybill:shipper rdf:type owl:ObjectProperty ;
+                   rdfs:domain :AirWaybill ;
+                   rdfs:range :Company ;
+                   rdfs:comment "Shipper details"@en ;
+                   rdfs:label "airWaybill:shipper"@en .
 
-###  http://cargo.iata.org/AirWaybill#chargeDeclaration
-airWaybill:chargeDeclaration rdf:type owl:ObjectProperty ;
-                          rdfs:domain :AirWaybill ;
-                          rdfs:range :Booking ;
-                          rdfs:comment "Goods value declaration details"@en ;
-                          rdfs:label "airWaybill:chargeDeclaration"@en .
-
-###  http://cargo.iata.org/AirWaybill#otherCharge
-airWaybill:otherCharge rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Booking ;
-                            rdfs:comment "Other charge details"@en ;
-                            rdfs:label "airWaybill:otherCharge"@en .
-
-###  http://cargo.iata.org/AirWaybill#chargeSummary
-airWaybill:chargeSummary rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Booking ;
-                            rdfs:comment "Charge summary details"@en ;
-                            rdfs:label "airWaybill:chargeSummary"@en .
-
-###  http://cargo.iata.org/AirWaybill#totalChargeAmount
-airWaybill:totalChargeAmount rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Value ;
-                            rdfs:comment "Total charge amount of all piece groups "@en ;
-                            rdfs:label "airWaybill:totalChargeAmount"@en .
-
-###  http://cargo.iata.org/AirWaybill#paymentMethodCode
-airWaybill:paymentMethodCode rdf:type owl:ObjectProperty ;
-                            rdfs:domain :AirWaybill ;
-                            rdfs:range :Booking ;
-                            rdfs:comment "Charge payment method code. Refer CXML Code List 1.1, e.g.  PP - All Charges Prepaid Cash"@en ;
-                            rdfs:label "airWaybill:paymentMethodCode"@en .
 
 ###  http://cargo.iata.org/AirWaybill#shipperSignature
 airWaybill:shipperSignature rdf:type owl:ObjectProperty ;
@@ -256,12 +239,62 @@ airWaybill:shipperSignature rdf:type owl:ObjectProperty ;
                             rdfs:comment "Shipper signature details"@en ;
                             rdfs:label "airWaybill:shipperSignature"@en .
 
-###  http://cargo.iata.org/AirWaybill#carrierSignature
-airWaybill:carrierSignature rdf:type owl:ObjectProperty ;
+
+###  http://cargo.iata.org/AirWaybill#totalChargeAmount
+airWaybill:totalChargeAmount rdf:type owl:ObjectProperty ;
+                             rdfs:domain :AirWaybill ;
+                             rdfs:range :Value ;
+                             rdfs:comment "Total charge amount of all piece groups "@en ;
+                             rdfs:label "airWaybill:totalChargeAmount"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#totalChargeableWeight
+airWaybill:totalChargeableWeight rdf:type owl:ObjectProperty ;
+                                 rdfs:domain :AirWaybill ;
+                                 rdfs:range :Booking ;
+                                 rdfs:comment "Total chargeable weight of all piece groups"@en ;
+                                 rdfs:label "airWaybill:totalChargeableWeight"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#totalGrossWeight
+airWaybill:totalGrossWeight rdf:type owl:ObjectProperty ;
                             rdfs:domain :AirWaybill ;
-                            rdfs:range :CarrierSignature ;
-                            rdfs:comment "Carrier signature details"@en ;
-                            rdfs:label "airWaybill:carrierSignature"@en .
+                            rdfs:range :Shipment ;
+                            rdfs:comment "Total gross weight of all piece groups "@en ;
+                            rdfs:label "airWaybill:totalGrossWeight"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#totalPieceAndULDCount
+airWaybill:totalPieceAndULDCount rdf:type owl:ObjectProperty ;
+                                 rdfs:domain :AirWaybill ;
+                                 rdfs:range :Shipment ;
+                                 rdfs:comment "Total piece count of pieces and ULD (at top level)"@en ;
+                                 rdfs:label "airWaybill:totalPieceAndULDCount"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#totalSLAC
+airWaybill:totalSLAC rdf:type owl:ObjectProperty ;
+                     rdfs:domain :AirWaybill ;
+                     rdfs:range :Shipment ;
+                     rdfs:comment "Total SLAC of all piece groups"@en ;
+                     rdfs:label "airWaybill:totalSLAC"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#totalVolume
+airWaybill:totalVolume rdf:type owl:ObjectProperty ;
+                       rdfs:domain :AirWaybill ;
+                       rdfs:range :Value ;
+                       rdfs:comment "Total volume of all piece groups"@en ;
+                       rdfs:label "airWaybill:totalVolume"@en .
+
+
+###  http://cargo.iata.org/AirWaybill#waybillLine
+airWaybill:waybillLine rdf:type owl:ObjectProperty ;
+                       rdfs:domain :AirWaybill ;
+                       rdfs:range :PieceGrouping ;
+                       rdfs:comment "Waybill line details - e.g. as shown on Air or House Waybill"@en ;
+                       rdfs:label "airWaybill:waybillLine"@en .
+
 
 ###  http://cargo.iata.org/Booking#chargeDeclaration
 booking:chargeDeclaration rdf:type owl:ObjectProperty ;
@@ -334,19 +367,22 @@ branch:otherIdentifier rdf:type owl:ObjectProperty ;
                        rdfs:comment "Other identifiers (e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc)"@en ;
                        rdfs:label "branch:otherIdentifier"@en .
 
-###  http://cargo.iata.org/CarrierSignature#signatoryCompany
-carrierSignature:signatoryCompany rdf:type owl:ObjectProperty ;
-                  rdfs:domain :CarrierSignature ;
-                  rdfs:range :Company ;
-                  rdfs:comment "Signature of Issuing Carrier of its agent"@en ;
-                  rdfs:label "carrierSignature:signatoryCompany"@en .
 
 ###  http://cargo.iata.org/CarrierSignature#location
-carrierSignature:location rdf:type owl:ObjectProperty ;
-                  rdfs:domain :CarrierSignature ;
-                  rdfs:range :Location ;
-                  rdfs:comment "at (place)"@en ;
-                  rdfs:label "carrierSignature:location"@en .
+<http://cargo.iata.org/CarrierSignature#location> rdf:type owl:ObjectProperty ;
+                                                  rdfs:domain :CarrierSignature ;
+                                                  rdfs:range :Location ;
+                                                  rdfs:comment "at (place)"@en ;
+                                                  rdfs:label "carrierSignature:location"@en .
+
+
+###  http://cargo.iata.org/CarrierSignature#signatoryCompany
+<http://cargo.iata.org/CarrierSignature#signatoryCompany> rdf:type owl:ObjectProperty ;
+                                                          rdfs:domain :CarrierSignature ;
+                                                          rdfs:range :Company ;
+                                                          rdfs:comment "Signature of Issuing Carrier of its agent"@en ;
+                                                          rdfs:label "carrierSignature:signatoryCompany"@en .
+
 
 ###  http://cargo.iata.org/ChargeDeclaration#carriageAmount
 chargeDeclaration:carriageAmount rdf:type owl:ObjectProperty ;
@@ -1067,13 +1103,6 @@ securityStatus:issuedBy rdf:type owl:ObjectProperty ;
                         rdfs:comment "Name of person (or employee ID) and Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
                         rdfs:label "securityStatus:issuedBy"@en .
 
-###  http://cargo.iata.org/ShipperSignature#signatoryCompany
-shipperSignature:signatoryCompany rdf:type owl:ObjectProperty ;
-                   rdfs:domain :ShipperSignature ;
-                   rdfs:range :Company ;
-                   rdfs:comment "Signature of the Shipper or his Agent"@en ;
-                   rdfs:label "shipperSignature:signatoryCompany"@en .
-
 
 ###  http://cargo.iata.org/Shipment#dimensions
 shipment:dimensions rdf:type owl:ObjectProperty ;
@@ -1137,6 +1166,14 @@ shipment:waybillNumber rdf:type owl:ObjectProperty ;
                        rdfs:range :AirWaybill ;
                        rdfs:comment "Waybill unique identifier (AWB or HWB)"@en ;
                        rdfs:label "shipment:waybillNumber"@en .
+
+
+###  http://cargo.iata.org/ShipperSignature#signatoryCompany
+<http://cargo.iata.org/ShipperSignature#signatoryCompany> rdf:type owl:ObjectProperty ;
+                                                          rdfs:domain :ShipperSignature ;
+                                                          rdfs:range :Company ;
+                                                          rdfs:comment "Signature of the Shipper or his Agent"@en ;
+                                                          rdfs:label "shipperSignature:signatoryCompany"@en .
 
 
 ###  http://cargo.iata.org/TransportSegment#arrivalLocation
@@ -1236,7 +1273,8 @@ uld:tareWeight rdf:type owl:ObjectProperty ;
 
 
 ###  http://cargo.iata.org/Uld#transportSegment
-uld:transportSegment rdf:type owl:ObjectProperty ;
+uld:transportSegment rdf:type owl:ObjectProperty ,
+                              owl:TransitiveProperty ;
                      rdfs:domain :Uld ;
                      rdfs:range :TransportSegment ;
                      rdfs:comment "Segment related to the transport status"@en ;
@@ -1342,12 +1380,14 @@ airWaybill:accountInformationCode rdf:type owl:DatatypeProperty ;
                                   rdfs:comment "Accounting information item identifier. Refer CXML Code List 1.30, STL - Mode of Settlement"@en ;
                                   rdfs:label "airWaybill:accountInformationCode"@en .
 
+
 ###  http://cargo.iata.org/AirWaybill#accountInformationDescription
 airWaybill:accountInformationDescription rdf:type owl:DatatypeProperty ;
                                          rdfs:domain :AirWaybill ;
                                          rdfs:range xsd:string ;
                                          rdfs:comment "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… "@en ;
                                          rdfs:label "airWaybill:accountInformationDescription"@en .
+
 
 ###  http://cargo.iata.org/AirWaybill#date
 airWaybill:date rdf:type owl:DatatypeProperty ;
@@ -1364,12 +1404,14 @@ booking:airWaybillNumber rdf:type owl:DatatypeProperty ;
                          rdfs:comment "Air Waybill number"@en ;
                          rdfs:label "booking:airWaybillNumber"@en .
 
+
 ###  http://cargo.iata.org/Booking#bookingRequestNumber
 booking:bookingRequestNumber rdf:type owl:DatatypeProperty ;
                              rdfs:domain :Booking ;
                              rdfs:range xsd:string ;
                              rdfs:comment "Booking unique identifier"@en ;
                              rdfs:label "booking:bookingRequestNumber"@en .
+
 
 ###  http://cargo.iata.org/Booking#bookingType
 booking:bookingType rdf:type owl:DatatypeProperty ;
@@ -1426,12 +1468,14 @@ branch:iATACargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
                                         rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
                                         rdfs:label "branch:iATACargoAgentLocationIdentifier"@en .
 
+
 ###  http://cargo.iata.org/CarrierSignature#date
-carrierSignature:date rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :CarrierSignature ;
-                  rdfs:range xsd:dateTime ;
-                  rdfs:comment "Executed on (date)"@en ;
-                  rdfs:label "carrierSignature:date"@en .
+<http://cargo.iata.org/CarrierSignature#date> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain :CarrierSignature ;
+                                              rdfs:range xsd:dateTime ;
+                                              rdfs:comment "Executed on (date)"@en ;
+                                              rdfs:label "carrierSignature:date"@en .
+
 
 ###  http://cargo.iata.org/Characteristic#type
 characteristic:type rdf:type owl:DatatypeProperty ;
@@ -2184,6 +2228,7 @@ serviceRequest:statementType rdf:type owl:DatatypeProperty ;
                              rdfs:comment "Service request statement type - e.g. Dangerous Goods, Lithium Ion Battery, Live Animal Certificate"@en ;
                              rdfs:label "serviceRequest:statementType"@en .
 
+
 ###  http://cargo.iata.org/SpecialHandling#code
 specialHandling:code rdf:type owl:DatatypeProperty ;
                      rdfs:domain :SpecialHandling ;
@@ -2398,85 +2443,74 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Address
 :Address rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty address:pOBox ;
+                           owl:minCardinality "0"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:pOBox ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
          rdfs:comment "Address details"@en ;
-         rdfs:label "Address"@en ;
-          rdfs:subClassOf
-           [ rdf:type owl:Restriction ;
-             owl:onProperty address:pOBox ;
-             owl:minCardinality "0"
-             ] ;
-             rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:onProperty address:pOBox ;
-                owl:maxCardinality "1"
-              ] .
+         rdfs:label "Address"@en .
+
 
 ###  http://cargo.iata.org/AirWaybill
 :AirWaybill rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:airWaybillNumber ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:carrier ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:chargeSummary ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:consignee ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:originDestination ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:shipper ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty airWaybill:waybillLine ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ;
             rdfs:comment "Air Waybill details"@en ;
-            rdfs:label "AirWaybill"@en ;
-            rdfs:subClassOf
-             [ rdf:type owl:Restriction ;
-               owl:onProperty airWaybill:airWaybillNumber ;
-               owl:minCardinality "1"
-             ] ;
-             rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:onProperty airWaybill:originDestination ;
-                owl:minCardinality "1"
-              ] ;
-              rdfs:subClassOf
-               [ rdf:type owl:Restriction ;
-                 owl:onProperty airWaybill:shipper ;
-                 owl:minCardinality "1"
-               ] ;
-               rdfs:subClassOf
-                [ rdf:type owl:Restriction ;
-                  owl:onProperty airWaybill:consignee ;
-                  owl:minCardinality "1"
-                ] ;
-                rdfs:subClassOf
-                 [ rdf:type owl:Restriction ;
-                   owl:onProperty airWaybill:carrier ;
-                   owl:minCardinality "1"
-                 ] ;
-                 rdfs:subClassOf
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty airWaybill:waybillLine ;
-                    owl:minCardinality "1"
-                  ] ;
-                  rdfs:subClassOf
-                   [ rdf:type owl:Restriction ;
-                     owl:onProperty airWaybill:chargeSummary ;
-                     owl:minCardinality "1"
-                   ] .
+            rdfs:label "AirWaybill"@en .
 
 
 ###  http://cargo.iata.org/Booking
 :Booking rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:bookingRequestNumber ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:date ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
          rdfs:comment "Booking details"@en ;
-         rdfs:label "Booking"@en ;
-         rdfs:subClassOf
-          [ rdf:type owl:Restriction ;
-            owl:onProperty booking:bookingRequestNumber ;
-            owl:minCardinality "1"
-          ] ;
-        rdfs:subClassOf
-         [ rdf:type owl:Restriction ;
-           owl:onProperty booking:date ;
-           owl:minCardinality "1"
-         ] .
+         rdfs:label "Booking"@en .
 
 
 ###  http://cargo.iata.org/BookingStatus
 :BookingStatus rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty bookingStatus:dateTime ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
                rdfs:comment "Booking status details"@en ;
-               rdfs:label "BookingStatus"@en ;
-               rdfs:subClassOf
-                [ rdf:type owl:Restriction ;
-                  owl:onProperty bookingStatus:dateTime ;
-                  owl:minCardinality "1"
-                ] .
+               rdfs:label "BookingStatus"@en .
 
 
 ###  http://cargo.iata.org/Branch
@@ -2529,13 +2563,12 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Collect
 :Collect rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalPrepaidCharges ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
          rdfs:comment "Collect totals in base / origin currency"@en ;
-         rdfs:label "Collect"@en ;
-         rdfs:subClassOf
-          [ rdf:type owl:Restriction ;
-            owl:onProperty collect:totalPrepaidCharges ;
-            owl:minCardinality "1"
-          ] .
+         rdfs:label "Collect"@en .
 
 
 ###  http://cargo.iata.org/Commodity
@@ -2582,18 +2615,16 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Event
 :Event rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty event:dateTime ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty event:eventTypeIndicator ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ;
        rdfs:comment "Event details"@en ;
-       rdfs:label "Event"@en ;
-       rdfs:subClassOf
-        [ rdf:type owl:Restriction ;
-          owl:onProperty event:eventTypeIndicator ;
-          owl:minCardinality "1"
-        ] ;
-        rdfs:subClassOf
-         [ rdf:type owl:Restriction ;
-           owl:onProperty event:dateTime ;
-           owl:minCardinality "1"
-         ] .
+       rdfs:label "Event"@en .
 
 
 ###  http://cargo.iata.org/ExternalReference
@@ -2701,45 +2732,40 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Piece
 :Piece rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:containedItem ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:containedPiece ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:uLD ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ;
        rdfs:comment "Individual piece / package / pallet / ULD details"@en ;
-       rdfs:label "Piece"@en ;
-       rdfs:subClassOf
-        [ rdf:type owl:Restriction ;
-          owl:onProperty piece:containedItem ;
-          owl:minCardinality "1"
-        ] ;
-        rdfs:subClassOf
-         [ rdf:type owl:Restriction ;
-           owl:onProperty piece:containedPiece ;
-           owl:minCardinality "1"
-         ] ;
-         rdfs:subClassOf
-          [ rdf:type owl:Restriction ;
-            owl:onProperty piece:uLD ;
-            owl:maxCardinality "1"
-          ] .
+       rdfs:label "Piece"@en .
 
 
 ###  http://cargo.iata.org/PieceGrouping
 :PieceGrouping rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty pieceGrouping:pieceDetails ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
                rdfs:comment "Grouping of individual pieces or logistics components"@en ;
-               rdfs:label "PieceGrouping"@en ;
-               rdfs:subClassOf
-                [ rdf:type owl:Restriction ;
-                  owl:onProperty pieceGrouping:pieceDetails ;
-                  owl:minCardinality "1"
-                ] .
+               rdfs:label "PieceGrouping"@en .
 
 
 ###  http://cargo.iata.org/Prepaid
 :Prepaid rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalPrepaidCharges ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
          rdfs:comment "Prepaid totals in base / origin currency"@en ;
-         rdfs:label "Prepaid"@en ;
-         rdfs:subClassOf
-          [ rdf:type owl:Restriction ;
-            owl:onProperty prepaid:totalPrepaidCharges ;
-            owl:minCardinality "1"
-          ] .
+         rdfs:label "Prepaid"@en .
 
 
 ###  http://cargo.iata.org/Price
@@ -2780,44 +2806,38 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/SecurityInfo
 :SecurityInfo rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:reasonsForSecurityStatus ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:securityStatus ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
               rdfs:comment "Security information details"@en ;
-              rdfs:label "SecurityInfo"@en ;
-              rdfs:subClassOf
-               [ rdf:type owl:Restriction ;
-                 owl:onProperty securityInfo:securityStatus ;
-                 owl:minCardinality "1"
-               ] ;
-             rdfs:subClassOf
-              [ rdf:type owl:Restriction ;
-                owl:onProperty securityInfo:reasonsForSecurityStatus ;
-                owl:minCardinality "1"
-              ] .
+              rdfs:label "SecurityInfo"@en .
 
 
 ###  http://cargo.iata.org/SecurityStatus
 :SecurityStatus rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty securityStatus:issuedBy ;
+                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty securityStatus:issuedOn ;
+                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty securityStatus:regulatedPartyType ;
+                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty securityStatus:statusCode ;
+                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                ] ;
                 rdfs:comment "Security status details"@en ;
-                rdfs:label "SecurityStatus"@en ;
-                rdfs:subClassOf
-                 [ rdf:type owl:Restriction ;
-                   owl:onProperty securityStatus:statusCode ;
-                   owl:minCardinality "1"
-                 ] ;
-                 rdfs:subClassOf
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty securityStatus:issuedOn ;
-                    owl:minCardinality "1"
-                  ] ;
-                rdfs:subClassOf
-                 [ rdf:type owl:Restriction ;
-                   owl:onProperty securityStatus:issuedBy ;
-                   owl:minCardinality "1"
-                 ] ;
-               rdfs:subClassOf
-                [ rdf:type owl:Restriction ;
-                  owl:onProperty securityStatus:regulatedPartyType ;
-                  owl:minCardinality "1"
-                ] .
+                rdfs:label "SecurityStatus"@en .
 
 
 ###  http://cargo.iata.org/ServiceRequest
@@ -2828,13 +2848,12 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Shipment
 :Shipment rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:waybillNumber ;
+                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          ] ;
           rdfs:comment "Shipment details"@en ;
-          rdfs:label "Shipment"@en ;
-          rdfs:subClassOf
-           [ rdf:type owl:Restriction ;
-             owl:onProperty shipment:waybillNumber ;
-             owl:minCardinality "1"
-           ] .
+          rdfs:label "Shipment"@en .
 
 
 ###  http://cargo.iata.org/ShipperSignature
@@ -2869,13 +2888,12 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Uld
 :Uld rdf:type owl:Class ;
+     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                       owl:onProperty uld:containedPiece ;
+                       owl:minCardinality "1"^^xsd:nonNegativeInteger
+                     ] ;
      rdfs:comment "Unit Load Device details"@en ;
-     rdfs:label "Uld"@en ;
-     rdfs:subClassOf
-      [ rdf:type owl:Restriction ;
-        owl:onProperty uld:containedPiece ;
-        owl:minCardinality "1"
-      ] .
+     rdfs:label "Uld"@en .
 
 
 ###  http://cargo.iata.org/Value
@@ -2888,6 +2906,7 @@ value:value rdf:type owl:DatatypeProperty ;
 :VolumetricWeight rdf:type owl:Class ;
                   rdfs:comment "Unit of measurement details"@en ;
                   rdfs:label "VolumetricWeight"@en .
+
 
 #################################################################
 #    General axioms
