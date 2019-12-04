@@ -1131,7 +1131,7 @@ shipment:grossWeight rdf:type owl:ObjectProperty ;
 ###  http://cargo.iata.org/Shipment#shipmentDetails
 shipment:shipmentDetails rdf:type owl:ObjectProperty ;
                          rdfs:domain :Shipment ;
-                         rdfs:range :Piece ;
+                         rdfs:range [ a owl:Class; owl:intersectionOf (:Piece :Uld) ];
                          rdfs:comment "Details of the shipment"@en ;
                          rdfs:label "shipment:shipmentDetails"@en .
 
@@ -1139,7 +1139,7 @@ shipment:shipmentDetails rdf:type owl:ObjectProperty ;
 ###  http://cargo.iata.org/Shipment#totalPieceAndULDCount
 shipment:totalPieceAndULDCount rdf:type owl:ObjectProperty ;
                                rdfs:domain :Shipment ;
-                               rdfs:range :Piece ;
+                               rdfs:range [ a owl:Class; owl:intersectionOf (:Piece :Uld) ];
                                rdfs:comment "Total piece count of pieces and ULD (at top level)"@en ;
                                rdfs:label "shipment:totalPieceAndULDCount"@en .
 
@@ -1147,7 +1147,7 @@ shipment:totalPieceAndULDCount rdf:type owl:ObjectProperty ;
 ###  http://cargo.iata.org/Shipment#totalSLAC
 shipment:totalSLAC rdf:type owl:ObjectProperty ;
                    rdfs:domain :Shipment ;
-                   rdfs:range :Piece ;
+                   rdfs:range [ a owl:Class; owl:intersectionOf (:Piece :Uld) ];
                    rdfs:comment "Total SLAC of all piece groups"@en ;
                    rdfs:label "shipment:totalSLAC"@en .
 
@@ -1163,7 +1163,7 @@ shipment:volumetricWeight rdf:type owl:ObjectProperty ;
 ###  http://cargo.iata.org/Shipment#waybillNumber
 shipment:waybillNumber rdf:type owl:ObjectProperty ;
                        rdfs:domain :Shipment ;
-                       rdfs:range :AirWaybill ;
+                       rdfs:range [ a owl:Class; owl:unionOf (:AirWaybill :HouseWaybill) ];
                        rdfs:comment "Waybill unique identifier (AWB or HWB)"@en ;
                        rdfs:label "shipment:waybillNumber"@en .
 
