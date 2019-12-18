@@ -57,6 +57,10 @@
 @prefix inDestinationCurrency: <http://cargo.iata.org/InDestinationCurrency#> .
 @prefix otherCustomsInformation: <http://cargo.iata.org/OtherCustomsInformation#> .
 @prefix reasonsForSecurityStatus: <http://cargo.iata.org/ReasonsForSecurityStatus#> .
+@prefix carrierSignature: <http://cargo.iata.org/CarrierSignature#> .
+@prefix carriage: <http://cargo.iata.org/Carriage#> .
+@prefix customs: <http://cargo.iata.org/Customs#> .
+@prefix shipperSignature: <http://cargo.iata.org/ShipperSignature#> .
 @base <http://cargo.iata.org/> .
 
 <http://cargo.iata.org/> rdf:type owl:Ontology ;
@@ -367,9 +371,16 @@ branch:otherIdentifier rdf:type owl:ObjectProperty ;
                        rdfs:comment "Other identifiers (e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc)"@en ;
                        rdfs:label "branch:otherIdentifier"@en .
 
+###  http://cargo.iata.org/Carriage#amount
+carriage:amount rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Carriage ;
+                       rdfs:range :Value ;
+                       rdfs:comment "Goods value declaration for carriage"@en ;
+                       rdfs:label "carriage:amount"@en .
+
 
 ###  http://cargo.iata.org/CarrierSignature#location
-<http://cargo.iata.org/CarrierSignature#location> rdf:type owl:ObjectProperty ;
+carrierSignature:location rdf:type owl:ObjectProperty ;
                                                   rdfs:domain :CarrierSignature ;
                                                   rdfs:range :Location ;
                                                   rdfs:comment "at (place)"@en ;
@@ -377,7 +388,7 @@ branch:otherIdentifier rdf:type owl:ObjectProperty ;
 
 
 ###  http://cargo.iata.org/CarrierSignature#signatoryCompany
-<http://cargo.iata.org/CarrierSignature#signatoryCompany> rdf:type owl:ObjectProperty ;
+carrierSignature:signatoryCompany rdf:type owl:ObjectProperty ;
                                                           rdfs:domain :CarrierSignature ;
                                                           rdfs:range :Company ;
                                                           rdfs:comment "Signature of Issuing Carrier of its agent"@en ;
@@ -487,6 +498,12 @@ collect:totalWeightCharges rdf:type owl:ObjectProperty ;
                            rdfs:comment "Total weight charge amount (collect)"@en ;
                            rdfs:label "collect:totalWeightCharges"@en .
 
+###  http://cargo.iata.org/Company#branch
+company:branch rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Company ;
+                           rdfs:range :Branch ;
+                           rdfs:comment "Company branches"@en ;
+                           rdfs:label "company:branch"@en .
 
 ###  http://cargo.iata.org/Contact#other
 contact:other rdf:type owl:ObjectProperty ;
@@ -495,6 +512,12 @@ contact:other rdf:type owl:ObjectProperty ;
               rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
               rdfs:label "contact:other"@en .
 
+###  http://cargo.iata.org/Customs#amount
+customs:amount rdf:type owl:ObjectProperty ;
+                                    rdfs:domain :Customs ;
+                                    rdfs:range :Value ;
+                                    rdfs:comment "Goods value declaration for customs"@en ;
+                                    rdfs:label "customs:amount"@en .
 
 ###  http://cargo.iata.org/CustomsInfo#otherCustomsInformation
 customsInfo:otherCustomsInformation rdf:type owl:ObjectProperty ;
@@ -1020,7 +1043,7 @@ product:manufacturer rdf:type owl:ObjectProperty ;
 product:otherIdentifier rdf:type owl:ObjectProperty ;
                         rdfs:domain :Product ;
                         rdfs:range :OtherIdentifier ;
-                        rdfs:comment "Other product identifier (e.g. Bar code, UPC, EAN, Amazon…)"@en ;
+                        rdfs:comment "Other product identifier (e.g. Bar code, UPC, EAN, Amazon)"@en ;
                         rdfs:label "product:otherIdentifier"@en .
 
 
@@ -1169,7 +1192,7 @@ shipment:waybillNumber rdf:type owl:ObjectProperty ;
 
 
 ###  http://cargo.iata.org/ShipperSignature#signatoryCompany
-<http://cargo.iata.org/ShipperSignature#signatoryCompany> rdf:type owl:ObjectProperty ;
+shipperSignature:signatoryCompany rdf:type owl:ObjectProperty ;
                                                           rdfs:domain :ShipperSignature ;
                                                           rdfs:range :Company ;
                                                           rdfs:comment "Signature of the Shipper or his Agent"@en ;
@@ -1385,7 +1408,7 @@ airWaybill:accountInformationCode rdf:type owl:DatatypeProperty ;
 airWaybill:accountInformationDescription rdf:type owl:DatatypeProperty ;
                                          rdfs:domain :AirWaybill ;
                                          rdfs:range xsd:string ;
-                                         rdfs:comment "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE… "@en ;
+                                         rdfs:comment "If no Item code provided, description of accounting item - e.g PAYMENT BY CERTIFIED CHEQUE... "@en ;
                                          rdfs:label "airWaybill:accountInformationDescription"@en .
 
 
@@ -1468,9 +1491,16 @@ branch:iATACargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
                                         rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
                                         rdfs:label "branch:iATACargoAgentLocationIdentifier"@en .
 
+###  http://cargo.iata.org/Carriage#noCarriageValue
+carriage:noCarriageValue rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Carriage ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "NVD (No Value Declared) indicator when no value is declared for carriage"@en ;
+                       rdfs:label "carriage:noCarriageValue"@en .
+
 
 ###  http://cargo.iata.org/CarrierSignature#date
-<http://cargo.iata.org/CarrierSignature#date> rdf:type owl:DatatypeProperty ;
+carrierSignature:date rdf:type owl:DatatypeProperty ;
                                               rdfs:domain :CarrierSignature ;
                                               rdfs:range xsd:dateTime ;
                                               rdfs:comment "Executed on (date)"@en ;
@@ -1489,7 +1519,7 @@ characteristic:type rdf:type owl:DatatypeProperty ;
 characteristic:value rdf:type owl:DatatypeProperty ;
                      rdfs:domain :Characteristic ;
                      rdfs:range xsd:string ;
-                     rdfs:comment "Product characteristic value / attribute - e.g. Blue…"@en ;
+                     rdfs:comment "Product characteristic value / attribute - e.g. Blue..."@en ;
                      rdfs:label "characteristic:value"@en .
 
 
@@ -1593,7 +1623,7 @@ commodity:name rdf:type owl:DatatypeProperty ;
 commodity:type rdf:type owl:DatatypeProperty ;
                rdfs:domain :Commodity ;
                rdfs:range xsd:string ;
-               rdfs:comment "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade…"@en ;
+               rdfs:comment "Issuer of the Commodity Code - e.g. Brussels Tariff Nomenclature, EU Harmonized System Code, UN Standard International Trade..."@en ;
                rdfs:label "commodity:type"@en .
 
 
@@ -1660,6 +1690,12 @@ country:countryName rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Full country name"@en ;
                     rdfs:label "country:countryName"@en .
 
+###  http://cargo.iata.org/Customs#noCustomsValue
+customs:noCustomsValue rdf:type owl:DatatypeProperty ;
+                                    rdfs:domain :Customs ;
+                                    rdfs:range xsd:string ;
+                                    rdfs:comment "NCV (No Customs Value) indicator when no value is declared for customs"@en ;
+                                    rdfs:label "customs:noCustomsValue"@en .
 
 ###  http://cargo.iata.org/CustomsInfo#customsStatusCode
 customsInfo:customsStatusCode rdf:type owl:DatatypeProperty ;
@@ -2445,11 +2481,51 @@ value:value rdf:type owl:DatatypeProperty ;
 :Address rdf:type owl:Class ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:onProperty address:pOBox ;
-                           owl:minCardinality "0"^^xsd:nonNegativeInteger
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:pOBox ;
+                           owl:minCardinality "0"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty address:pOBox ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:addressCode ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:addressCodeType ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:cityCode ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:cityName ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:postalCode ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:regionCode ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:regionName ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:street ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty address:country ;
+                           owl:allValuesFrom <http://cargo.iata.org/Country> ;
                          ] ;
          rdfs:comment "Address details"@en ;
          rdfs:label "Address"@en .
@@ -2484,7 +2560,119 @@ value:value rdf:type owl:DatatypeProperty ;
                             [ rdf:type owl:Restriction ;
                               owl:onProperty airWaybill:waybillLine ;
                               owl:minCardinality "1"^^xsd:nonNegativeInteger
-                            ] ;
+                            ],
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:airWaybillNumber ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:carrier ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:carrierSignature ;
+                           owl:allValuesFrom <http://cargo.iata.org/CarrierSignature> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:chargeDeclaration ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:chargeSummary ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:consignee ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:customsInformation ;
+                           owl:allValuesFrom <http://cargo.iata.org/CustomsInfo> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:freightForwarder ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:handling ;
+                           owl:allValuesFrom <http://cargo.iata.org/Handling> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:insurance ;
+                           owl:allValuesFrom <http://cargo.iata.org/Insurance> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:notifyParty ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:originDestination ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:otherCharge ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:paymentMethodCode ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:requestedRouting ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:securityInformation ;
+                           owl:allValuesFrom <http://cargo.iata.org/SecurityInfo> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:shipper ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:shipperSignature ;
+                           owl:allValuesFrom <http://cargo.iata.org/ShipperSignature> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalChargeAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalChargeableWeight ;
+                           owl:allValuesFrom <http://cargo.iata.org/Booking> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalGrossWeight ;
+                           owl:allValuesFrom <http://cargo.iata.org/Shipment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalPieceAndULDCount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Shipment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalSLAC ;
+                           owl:allValuesFrom <http://cargo.iata.org/Shipment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:totalVolume ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:waybillLine ;
+                           owl:allValuesFrom <http://cargo.iata.org/PieceGrouping> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:accountInformationCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:accountInformationDescription ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty airWaybill:date ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ;
             rdfs:comment "Air Waybill details"@en ;
             rdfs:label "AirWaybill"@en .
 
@@ -2498,6 +2686,42 @@ value:value rdf:type owl:DatatypeProperty ;
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:date ;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:chargeDeclaration ;
+                           owl:allValuesFrom <http://cargo.iata.org/ChargeDeclaration> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:chargeSummary ;
+                           owl:allValuesFrom <http://cargo.iata.org/ChargeSummary> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:chargeableWeight ;
+                           owl:allValuesFrom <http://cargo.iata.org/VolumetricWeight> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:otherCharge ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:segmentDetail ;
+                           owl:allValuesFrom <http://cargo.iata.org/TransportSegment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:airWaybillNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:bookingRequestNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:bookingType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty booking:date ;
+                           owl:allValuesFrom xsd:dateTime ;
                          ] ;
          rdfs:comment "Booking details"@en ;
          rdfs:label "Booking"@en .
@@ -2508,55 +2732,183 @@ value:value rdf:type owl:DatatypeProperty ;
                rdfs:subClassOf [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingStatus:dateTime ;
                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
-                               ] ;
+                               ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty bookingStatus:issuedBy ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty bookingStatus:code ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty bookingStatus:dateTime ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty bookingStatus:description ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                rdfs:comment "Booking status details"@en ;
                rdfs:label "BookingStatus"@en .
 
 
 ###  http://cargo.iata.org/Branch
 :Branch rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty branch:contactPerson ;
+                           owl:allValuesFrom <http://cargo.iata.org/Person> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty branch:location ;
+                           owl:allValuesFrom <http://cargo.iata.org/Location> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty branch:otherIdentifier ;
+                           owl:allValuesFrom <http://cargo.iata.org/OtherIdentifier> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty branch:branchName ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty branch:iATACargoAgentLocationIdentifier ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ;
         rdfs:comment "Company branches"@en ;
         rdfs:label "Branch"@en .
 
 
 ###  http://cargo.iata.org/Carriage
 :Carriage rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty carriage:amount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty carriage:noCarriageValue ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
           rdfs:comment "Carriage value declaration"@en ;
           rdfs:label "Carriage"@en .
 
 
 ###  http://cargo.iata.org/CarrierSignature
 :CarrierSignature rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty carrierSignature:location ;
+                           owl:allValuesFrom <http://cargo.iata.org/Location> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty carrierSignature:signatoryCompany ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty carrierSignature:date ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ;
                   rdfs:comment "Carrier signature details"@en ;
                   rdfs:label "CarrierSignature"@en .
 
 
 ###  http://cargo.iata.org/Characteristic
 :Characteristic rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty characteristic:type ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty characteristic:value ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                 rdfs:comment "Product additional details"@en ;
                 rdfs:label "Characteristic"@en .
 
 
 ###  http://cargo.iata.org/ChargeDeclaration
 :ChargeDeclaration rdf:type owl:Class ;
-                   rdfs:comment "Goods value declaration details"@en ;
-                   rdfs:label "ChargeDeclaration"@en .
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDeclaration:carriageAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDeclaration:customsAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDeclaration:insuranceAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDeclaration:otherChargesPayment ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDeclaration:weightValuationChargePayment ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
+                rdfs:comment "Goods value declaration details"@en ;
+                rdfs:label "ChargeDeclaration"@en .
 
 
 ###  http://cargo.iata.org/ChargeDescription
 :ChargeDescription rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDescription:code ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDescription:description ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDescription:locationIndicator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeDescription:subCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                    rdfs:comment "Other charge description details"@en ;
                    rdfs:label "ChargeDescription"@en .
 
 
 ###  http://cargo.iata.org/ChargePayment
 :ChargePayment rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty chargePayment:amount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargePayment:byItemQuantity ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargePayment:byTime ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargePayment:dueParty ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargePayment:prepaidCollectIndicator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                rdfs:comment "Charge payment details"@en ;
                rdfs:label "ChargePayment"@en .
 
 
 ###  http://cargo.iata.org/ChargeSummary
 :ChargeSummary rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeSummary:collect ;
+                           owl:allValuesFrom <http://cargo.iata.org/Collect> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty chargeSummary:prepaid ;
+                           owl:allValuesFrom <http://cargo.iata.org/Prepaid> ;
+                         ] ;
                rdfs:comment "Charge summary details"@en ;
                rdfs:label "ChargeSummary"@en .
 
@@ -2566,6 +2918,34 @@ value:value rdf:type owl:DatatypeProperty ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:onProperty collect:totalPrepaidCharges ;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:inDestinationCurrency ;
+                           owl:allValuesFrom <http://cargo.iata.org/InDestinationCurrency> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalOtherChargesDueAgent ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalOtherChargesDueCarrier ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalPrepaidCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalTaxes ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalValuationCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty collect:totalWeightCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
                          ] ;
          rdfs:comment "Collect totals in base / origin currency"@en ;
          rdfs:label "Collect"@en .
@@ -2573,42 +2953,126 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Commodity
 :Commodity rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty commodity:code ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty commodity:name ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty commodity:type ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
            rdfs:comment "Commodity details"@en ;
            rdfs:label "Commodity"@en .
 
 
 ###  http://cargo.iata.org/Company
 :Company rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty company:airlineCode ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty company:airlinePrefix ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty company:iATACargoAgentCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty company:name ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty company:branch ;
+                           owl:allValuesFrom <http://cargo.iata.org/Branch> ;
+                         ] ;
          rdfs:comment "Company details"@en ;
          rdfs:label "Company"@en .
 
 
 ###  http://cargo.iata.org/Contact
 :Contact rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty contact:emailAddress ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty contact:phoneNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty contact:other ;
+                           owl:allValuesFrom <http://cargo.iata.org/Other> ;
+                         ] ;
          rdfs:comment "Contact details"@en ;
          rdfs:label "Contact"@en .
 
 
 ###  http://cargo.iata.org/Country
 :Country rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty country:countryCode ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty country:countryName ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
          rdfs:comment "Country details"@en ;
          rdfs:label "Country"@en .
 
 
 ###  http://cargo.iata.org/Customs
 :Customs rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty customs:amount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value>  ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty customs:noCustomsValue ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
          rdfs:comment "Customs value declaration"@en ;
          rdfs:label "Customs"@en .
 
 
 ###  http://cargo.iata.org/CustomsInfo
 :CustomsInfo rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty customsInfo:otherCustomsInformation ;
+                           owl:allValuesFrom <http://cargo.iata.org/OtherCustomsInformation>  ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty customsInfo:customsStatusCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
              rdfs:comment "Customs information details"@en ;
              rdfs:label "CustomsInfo"@en .
 
 
 ###  http://cargo.iata.org/Dimensions
 :Dimensions rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty dimensions:height ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty dimensions:length ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty dimensions:volume ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty dimensions:width ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ;
             rdfs:comment "Dimension details"@en ;
             rdfs:label "Dimensions"@en .
 
@@ -2622,40 +3086,106 @@ value:value rdf:type owl:DatatypeProperty ;
                        [ rdf:type owl:Restriction ;
                          owl:onProperty event:eventTypeIndicator ;
                          owl:minCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
+                       ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:handlingDetails ;
+                           owl:allValuesFrom <http://cargo.iata.org/Handling> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:location ;
+                           owl:allValuesFrom <http://cargo.iata.org/Location> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:performedBy ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:dateTime ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:eventCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:eventName ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:eventTypeIndicator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
        rdfs:comment "Event details"@en ;
        rdfs:label "Event"@en .
 
 
 ###  http://cargo.iata.org/ExternalReference
 :ExternalReference rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:externalReference ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:documentID ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:documentName ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:documentType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:documentVersion ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty externalReference:uri ;
+                           owl:allValuesFrom xsd:anyURI ;
+                         ] ;
                    rdfs:comment "Reference documents details"@en ;
                    rdfs:label "ExternalReference"@en .
 
-
-###  http://cargo.iata.org/FreightForwarderSignature
-:FreightForwarderSignature rdf:type owl:Class ;
-                           rdfs:comment "Freight forwarder signature details"@en ;
-                           rdfs:label "FreightForwarderSignature"@en .
-
-
 ###  http://cargo.iata.org/Geolocation
 :Geolocation rdf:type owl:Class ;
-             rdfs:comment "Geolocation details - e.g. for drones, automated vehicles…"@en ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty geolocation:elevation ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty geolocation:latitude ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty geolocation:longitude ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ;
+             rdfs:comment "Geolocation details - e.g. for drones, automated vehicles..."@en ;
              rdfs:label "Geolocation"@en .
 
 
 ###  http://cargo.iata.org/Handling
 :Handling rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty handling:serviceRequest ;
+                           owl:allValuesFrom <http://cargo.iata.org/ServiceRequest> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty handling:specialHandling ;
+                           owl:allValuesFrom <http://cargo.iata.org/SpecialHandling> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty handling:deckPosition ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty handling:loadTypeCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
           rdfs:comment "Handling details"@en ;
           rdfs:label "Handling"@en .
-
-
-###  http://cargo.iata.org/HouseManifest
-:HouseManifest rdf:type owl:Class ;
-               rdfs:comment "House Manifest details"@en ;
-               rdfs:label "HouseManifest"@en .
-
 
 ###  http://cargo.iata.org/HouseWaybill
 :HouseWaybill rdf:type owl:Class ;
@@ -2665,12 +3195,32 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/InDestinationCurrency
 :InDestinationCurrency rdf:type owl:Class ;
+                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty inDestinationCurrency:collectionCharge ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty inDestinationCurrency:grandTotalCollectCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty inDestinationCurrency:totalCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ;
                        rdfs:comment "Collect totals in target / destination currency"@en ;
                        rdfs:label "InDestinationCurrency"@en .
 
 
 ###  http://cargo.iata.org/Insurance
 :Insurance rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty insurance:coveringParty ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty insurance:insuranceAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ;
            rdfs:comment "Insurance details"@en ;
            rdfs:label "Insurance"@en .
 
@@ -2678,54 +3228,202 @@ value:value rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Item
 :Item rdf:type owl:Class ;
       rdfs:subClassOf :Product ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:event ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Event> ;
+                                 ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:otherIdentifier ;
+                                 owl:allValuesFrom <http://cargo.iata.org/OtherIdentifier> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:production ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Production> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:productionCountry ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Country> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:targetCountry ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Country> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty item:itemIdentifier ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ;
       rdfs:comment "Item details"@en ;
       rdfs:label "Item"@en .
 
 
 ###  http://cargo.iata.org/Location
 :Location rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty location:address ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Address> ;
+                                 ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty location:geoLocation ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Geolocation> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty location:code ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty location:name ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty location:type ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ;
           rdfs:comment "Loading location details"@en ;
           rdfs:label "Location"@en .
 
 
 ###  http://cargo.iata.org/Other
 :Other rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty other:detail ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty other:type ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
        rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
        rdfs:label "Other"@en .
 
 
 ###  http://cargo.iata.org/OtherCharge
 :OtherCharge rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+               owl:allValuesFrom <http://cargo.iata.org/ChargePayment> ;
+               owl:onProperty otherCharge:chargePayment
+               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCharge:chargeDescription ;
+                                 owl:allValuesFrom <http://cargo.iata.org/ChargeDescription> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCharge:specialService ;
+                                 owl:allValuesFrom <http://cargo.iata.org/SpecialService> ;
+                               ] ;
              rdfs:comment "Other charge details"@en ;
              rdfs:label "OtherCharge"@en .
 
 
 ###  http://cargo.iata.org/OtherCustomsInformation
 :OtherCustomsInformation rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:commodity ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Commodity> ;
+                                 ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:country ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Country> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:customsContentCode ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:customsInformation ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:customsNote ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty otherCustomsInformation:customsSubjectCode ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ;
                          rdfs:comment "Other customs information details"@en ;
                          rdfs:label "OtherCustomsInformation"@en .
 
 
 ###  http://cargo.iata.org/OtherIdentifier
 :OtherIdentifier rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty otherIdentifier:identifier ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty otherIdentifier:type ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                  rdfs:comment "Other identifiers"@en ;
                  rdfs:label "OtherIdentifier"@en .
 
 
 ###  http://cargo.iata.org/OtherParty
 :OtherParty rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty otherParty:companyDetails ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty otherParty:roleName ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
             rdfs:comment "Company details"@en ;
             rdfs:label "OtherParty"@en .
 
 
 ###  http://cargo.iata.org/PackagingType
 :PackagingType rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty packagingType:code ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty packagingType:description ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                rdfs:comment "Packaging details "@en ;
                rdfs:label "PackagingType"@en .
 
 
 ###  http://cargo.iata.org/Person
 :Person rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:contact ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Contact> ;
+                                 ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:contactType ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:department ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:employeeId ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:firstName ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:lastName ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:middleName ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:salutation ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty person:jobTitle ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ;
         rdfs:comment "Person details"@en ;
         rdfs:label "Person"@en .
 
@@ -2743,7 +3441,99 @@ value:value rdf:type owl:DatatypeProperty ;
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:uLD ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
+                       ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:consignee ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:containedItem ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Item> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:containedPiece ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:customsDetails ;
+                                 owl:allValuesFrom <http://cargo.iata.org/CustomsInfo> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:dimensions ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Dimensions> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:event ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Event> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:externalReference ;
+                                 owl:allValuesFrom <http://cargo.iata.org/ExternalReference> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:grossWeight ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:handlingDetails ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Handling> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:originCountry ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Country> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:originDestination ;
+                                 owl:allValuesFrom <http://cargo.iata.org/TransportSegment> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:otherIdentifier ;
+                                 owl:allValuesFrom <http://cargo.iata.org/OtherIdentifier> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:otherParty ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:packagingType ;
+                                 owl:allValuesFrom <http://cargo.iata.org/PackagingType> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:securityDetails ;
+                                 owl:allValuesFrom <http://cargo.iata.org/SecurityInfo> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:shipper ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Company>;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:transportSegment ;
+                                 owl:allValuesFrom <http://cargo.iata.org/TransportSegment> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:uLD ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Uld> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:volumetricWeight ;
+                                 owl:allValuesFrom <http://cargo.iata.org/VolumetricWeight> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:containedPieceCount ;
+                                 owl:allValuesFrom xsd:decimal ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:goodsDescription ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:sLAC ;
+                                 owl:allValuesFrom xsd:decimal ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty piece:uPID ;
+                                 owl:allValuesFrom xsd:string ;
+                               ] ;
        rdfs:comment "Individual piece / package / pallet / ULD details"@en ;
        rdfs:label "Piece"@en .
 
@@ -2753,6 +3543,14 @@ value:value rdf:type owl:DatatypeProperty ;
                rdfs:subClassOf [ rdf:type owl:Restriction ;
                                  owl:onProperty pieceGrouping:pieceDetails ;
                                  owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty pieceGrouping:pieceDetails ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty pieceGrouping:ratingDetails ;
+                                 owl:allValuesFrom <http://cargo.iata.org/Rating>;
                                ] ;
                rdfs:comment "Grouping of individual pieces or logistics components"@en ;
                rdfs:label "PieceGrouping"@en .
@@ -2763,6 +3561,30 @@ value:value rdf:type owl:DatatypeProperty ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:onProperty prepaid:totalPrepaidCharges ;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalOtherChargesDueAgent ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalOtherChargesDueCarrier ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalPrepaidCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalTaxes ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalValuationCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty prepaid:totalWeightCharges ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
                          ] ;
          rdfs:comment "Prepaid totals in base / origin currency"@en ;
          rdfs:label "Prepaid"@en .
@@ -2770,36 +3592,176 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/Price
 :Price rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty price:unitPrice ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty price:quantityForUnitPrice ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ;
        rdfs:comment "Product price details"@en ;
        rdfs:label "Price"@en .
 
 
 ###  http://cargo.iata.org/Product
 :Product rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty product:characteristic ;
+                           owl:allValuesFrom <http://cargo.iata.org/Characteristic> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:commodity ;
+                           owl:allValuesFrom <http://cargo.iata.org/Commodity> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:dimensions ;
+                           owl:allValuesFrom <http://cargo.iata.org/Dimensions> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:manufacturer ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:otherIdentifier ;
+                           owl:allValuesFrom <http://cargo.iata.org/OtherIdentifier> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:price ;
+                           owl:allValuesFrom <http://cargo.iata.org/Price> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:weight ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:productDescription ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:productIdentifier ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty product:uNNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
          rdfs:comment "Product details"@en ;
          rdfs:label "Product"@en .
 
 
 ###  http://cargo.iata.org/Production
 :Production rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty production:batchNumber ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty production:lotNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty production:productExpiryDate ;
+                           owl:allValuesFrom xsd:date ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty production:productionDate ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ;
             rdfs:comment "Production batch and lot details"@en ;
             rdfs:label "Production"@en .
 
 
 ###  http://cargo.iata.org/Rating
 :Rating rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rateChargeAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:subTotalAmount ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:commodityItemNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:loadTypeCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rateClassBasis ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rateClassCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rateReferenceCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rateReferenceType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:ratingClassPercentage ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:ratingTypeIndicator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:rcp ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty rating:uldRateClassType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
         rdfs:comment "Rating details"@en ;
         rdfs:label "Rating"@en .
 
 
 ###  http://cargo.iata.org/ReasonsForSecurityStatus
 :ReasonsForSecurityStatus rdf:type owl:Class ;
+                          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty reasonsForSecurityStatus:receivedFrom ;
+                           owl:allValuesFrom <http://cargo.iata.org/ReceivedFrom> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty reasonsForSecurityStatus:groundsForExemption ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty reasonsForSecurityStatus:otherScreeningMethods ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty reasonsForSecurityStatus:screeningMethod ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                           rdfs:comment "Security status details"@en ;
                           rdfs:label "ReasonsForSecurityStatus"@en .
 
 
 ###  http://cargo.iata.org/ReceivedFrom
 :ReceivedFrom rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty receivedFrom:regulatedEntityIdentifier ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty receivedFrom:expiryDate ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty receivedFrom:regulatedPartyType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
               rdfs:comment "Known Consignor or Regulated Agent reference"@en ;
               rdfs:label "ReceivedFrom"@en .
 
@@ -2813,6 +3775,26 @@ value:value rdf:type owl:DatatypeProperty ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty securityInfo:securityStatus ;
                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:externalReference ;
+                                owl:allValuesFrom <http://cargo.iata.org/ExternalReference> ;
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:reasonsForSecurityStatus ;
+                                owl:allValuesFrom <http://cargo.iata.org/ReasonsForSecurityStatus> ;
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:securityStatus ;
+                                owl:allValuesFrom <http://cargo.iata.org/SecurityStatus> ;
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:additionalSecurityInformation ;
+                                owl:allValuesFrom xsd:string ;
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty securityInfo:regulatingAuthority ;
+                                owl:allValuesFrom xsd:string ;
                               ] ;
               rdfs:comment "Security information details"@en ;
               rdfs:label "SecurityInfo"@en .
@@ -2835,13 +3817,45 @@ value:value rdf:type owl:DatatypeProperty ;
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty securityStatus:statusCode ;
                                   owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                ] ;
+                                ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty securityStatus:issuedBy ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty securityStatus:issuedOn ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty securityStatus:regulatedPartyType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty securityStatus:statusCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                 rdfs:comment "Security status details"@en ;
                 rdfs:label "SecurityStatus"@en .
 
 
 ###  http://cargo.iata.org/ServiceRequest
 :ServiceRequest rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty serviceRequest:code ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty serviceRequest:description ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty serviceRequest:statementText ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty serviceRequest:statementType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                 rdfs:comment "Service request details"@en ;
                 rdfs:label "ServiceRequest"@en .
 
@@ -2851,6 +3865,54 @@ value:value rdf:type owl:DatatypeProperty ;
           rdfs:subClassOf [ rdf:type owl:Restriction ;
                             owl:onProperty shipment:waybillNumber ;
                             owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:dimensions ;
+                            owl:allValuesFrom <http://cargo.iata.org/Dimensions> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:externalReference ;
+                            owl:allValuesFrom <http://cargo.iata.org/ExternalReference> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:grossWeight ;
+                            owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:shipmentDetails ;
+                            owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:shipmentDetails ;
+                            owl:allValuesFrom <http://cargo.iata.org/Uld> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:totalPieceAndULDCount ;
+                            owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:totalPieceAndULDCount ;
+                            owl:allValuesFrom <http://cargo.iata.org/Uld> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:totalSLAC ;
+                            owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:totalSLAC ;
+                            owl:allValuesFrom <http://cargo.iata.org/Uld> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:volumetricWeight ;
+                            owl:allValuesFrom <http://cargo.iata.org/VolumetricWeight> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:waybillNumber ;
+                            owl:someValuesFrom <http://cargo.iata.org/AirWaybill> ;
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty shipment:waybillNumber ;
+                            owl:someValuesFrom <http://cargo.iata.org/HouseWaybill> ;
                           ] ;
           rdfs:comment "Shipment details"@en ;
           rdfs:label "Shipment"@en .
@@ -2858,52 +3920,214 @@ value:value rdf:type owl:DatatypeProperty ;
 
 ###  http://cargo.iata.org/ShipperSignature
 :ShipperSignature rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty shipperSignature:signatoryCompany ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                           ] ;
                   rdfs:comment "Shipper signature details"@en ;
                   rdfs:label "ShipperSignature"@en .
 
 
 ###  http://cargo.iata.org/SpecialHandling
 :SpecialHandling rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty specialHandling:code ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                           owl:onProperty specialHandling:description ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ;
                  rdfs:comment "Special handling details"@en ;
                  rdfs:label "SpecialHandling"@en .
 
 
 ###  http://cargo.iata.org/SpecialService
 :SpecialService rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty specialService:dateTime ;
+                           owl:allValuesFrom xsd:dateTime ;
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                           owl:onProperty specialService:description ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ;
                 rdfs:comment "Special service details"@en ;
                 rdfs:label "SpecialService"@en .
 
 
 ###  http://cargo.iata.org/TransportSegment
 :TransportSegment rdf:type owl:Class ;
+                 rdfs:subClassOf
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:arrivalLocation ;
+                           owl:allValuesFrom <http://cargo.iata.org/Location> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:bookingStatus ;
+                           owl:allValuesFrom <http://cargo.iata.org/BookingStatus> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:departureLocation ;
+                           owl:allValuesFrom <http://cargo.iata.org/Location> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:externalReference ;
+                           owl:allValuesFrom <http://cargo.iata.org/ExternalReference> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:transportCompany ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:allotmentDetails ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:carriageStage ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:deckPosition ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:exceptionHandlingDetails ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:modeCode ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:seal ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:spaceAllocationDetails ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:transportDate ;
+                           owl:allValuesFrom xsd:dateTime ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:transportIdentifier ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:vehicleRegistration ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:vehicleSize ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty transportSegment:vehicleType ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
                   rdfs:comment "Transport segment details"@en ;
                   rdfs:label "TransportSegment"@en .
-
-
-###  http://cargo.iata.org/TransportStatus
-:TransportStatus rdf:type owl:Class ;
-                 rdfs:comment "Transport status details"@en ;
-                 rdfs:label "TransportStatus"@en .
-
 
 ###  http://cargo.iata.org/Uld
 :Uld rdf:type owl:Class ;
      rdfs:subClassOf [ rdf:type owl:Restriction ;
                        owl:onProperty uld:containedPiece ;
                        owl:minCardinality "1"^^xsd:nonNegativeInteger
-                     ] ;
+                     ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:containedPiece ;
+                           owl:allValuesFrom <http://cargo.iata.org/Piece> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:event ;
+                           owl:allValuesFrom <http://cargo.iata.org/Event> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:externalReference ;
+                           owl:allValuesFrom <http://cargo.iata.org/ExternalReference> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:handlingDetails ;
+                           owl:allValuesFrom <http://cargo.iata.org/Handling> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:originDestination ;
+                           owl:allValuesFrom <http://cargo.iata.org/TransportSegment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:ownerCompany ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:tareWeight ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:transportSegment ;
+                           owl:allValuesFrom <http://cargo.iata.org/TransportSegment> ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:aTAdesignator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:containedPieceCount ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:loadingIndicator ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:ownerCode ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:ownerCodeIssuer ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:sLAC ;
+                           owl:allValuesFrom xsd:decimal ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:serialNumber ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty uld:type ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
      rdfs:comment "Unit Load Device details"@en ;
      rdfs:label "Uld"@en .
 
 
 ###  http://cargo.iata.org/Value
 :Value rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty value:unit ;
+                           owl:allValuesFrom xsd:string ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty value:value ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ;
        rdfs:comment "Volumetric weight details"@en ;
        rdfs:label "Value"@en .
 
 
 ###  http://cargo.iata.org/VolumetricWeight
 :VolumetricWeight rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty volumetricWeight:chargeableWeight ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                           ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty volumetricWeight:conversionFactor ;
+                           owl:allValuesFrom <http://cargo.iata.org/Value> ;
+                         ] ;
                   rdfs:comment "Unit of measurement details"@en ;
                   rdfs:label "VolumetricWeight"@en .
 
@@ -2925,7 +4149,6 @@ value:value rdf:type owl:DatatypeProperty ;
                 :ExternalReference
                 :Geolocation
                 :Handling
-                :HouseManifest
                 :HouseWaybill
                 :Insurance
                 :Location
