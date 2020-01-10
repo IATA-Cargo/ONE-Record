@@ -1,0 +1,100 @@
+@prefix : <http://cargo.iata.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix companyInformation: <http://cargo.iata.org/CompanyInformation#> .
+@prefix delegationRequest: <http://cargo.iata.org/DelegationRequest#> .
+@prefix error: <http://cargo.iata.org/Error#> .
+@prefix notification: <http://cargo.iata.org/Notification#> .
+@prefix subscription: <http://cargo.iata.org/Subscription#> .
+@base <http://cargo.iata.org/> .
+
+<http://cargo.iata.org/> rdf:type owl:Ontology ;
+                          dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
+                          dc:title "IATA ONE Record vocabulary"@en ;
+                          owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://cargo.iata.org/CompanyInformation // TODO add error as non mandatory, all the rest are mandatory
+:CompanyInformation rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedLogisticsObjects ;
+                           ## // TODO array
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedContentTypes ;
+                           ##  // TODO array
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:serverEndpoint ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:company ;
+                           owl:allValuesFrom xsd:string
+                           ##  // TODO type company
+                         ] ;
+         rdfs:comment "Company information"@en ;
+         rdfs:label "CompanyInformation"@en .
+
+###  http://cargo.iata.org/DelegationRequest
+:DelegationRequest rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetLogisticsObject ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetCompany ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:action ;
+                           owl:allValuesFrom xsd:string
+                         ] ;
+         rdfs:comment "Delegation Request"@en ;
+         rdfs:label "Delegation"@en .
+
+###  http://cargo.iata.org/Error
+:Error rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:targetLogisticsObject ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:targetCompany ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:action ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ;
+                  rdfs:comment "Error model"@en ;
+                  rdfs:label "Error"@en .
