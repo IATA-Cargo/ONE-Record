@@ -1,0 +1,52 @@
+{
+"@context": {
+  "@vocab" : "http://cargo.iata.org/"
+},
+"@id": "https://onerecordserver.org/airline/logisticsObjectId/auditTrail",
+"@type": "AuditTrail",
+   "create":{
+      "lo":"initial content of the Logistics Object"
+   },
+   "changeRequests":[
+      {
+         "timestamp":"2019-09-17T14:49:13+00:00",
+         "companyId":"http://myonerecordserver.com/AIRLINE",
+         "changeRequest":{
+            "revision":"1",
+            "description":"Updated number of total pieces count",
+            "operations":[
+               {
+                  "op":"del",
+                  "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount",
+                  "o":{
+                     "value":"10",
+                     "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
+                  }
+               },
+               {
+                  "op":"add",
+                  "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount ",
+                  "o":{
+                     "value":"11",
+                     "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
+                  }
+               },
+               {
+                  "op":"add",
+                  "p":" http://cargo.iata.org/AirWaybill#date",
+                  "o":{
+                     "value":"2019-08-18",
+                     "datatype":"http://www.w3.org/2001/XMLSchema#date"
+                  }
+               }
+            ]
+         },
+         "errorIndicator":[
+            {
+               "error":"error model"
+            }
+         ],
+         "status":"ACCEPTED"
+      }
+   ]
+}

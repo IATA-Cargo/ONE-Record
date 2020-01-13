@@ -1,0 +1,34 @@
+{
+  "@context": {
+    "@vocab" : "http://cargo.iata.org/"
+  },
+  "@type": "PatchRequest",
+   "revision":"1",
+   "description":"Reason for the change (optional)",
+   "operations":[
+      {
+         "op":"del",
+         "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount",
+         "o":{
+            "value":"10",
+            "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
+         }
+      },
+      {
+         "op":"add",
+         "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount",
+         "o":{
+            "value":"11",
+            "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
+         }
+      },
+      {
+         "op":"add",
+         "p":" http://cargo.iata.org/Airwaybill#date",
+         "o":{
+            "value":"2019-08-18",
+            "datatype":"http://www.w3.org/2001/XMLSchema#date"
+         }
+      }
+   ]
+}

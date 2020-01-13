@@ -1,0 +1,894 @@
+@prefix : <http://cargo.iata.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix auditTrail: <http://cargo.iata.org/AuditTrail#> .
+@prefix changeRequests: <http://cargo.iata.org/ChangeRequest#> .
+@prefix companyInformation: <http://cargo.iata.org/CompanyInformation#> .
+@prefix create: <http://cargo.iata.org/Create#> .
+@prefix delegationRequest: <http://cargo.iata.org/DelegationRequest#> .
+@prefix details: <http://cargo.iata.org/Details#> .
+@prefix error: <http://cargo.iata.org/Error#> .
+@prefix notification: <http://cargo.iata.org/Notification#> .
+@prefix object: <http://cargo.iata.org/Object#> .
+@prefix operation: <http://cargo.iata.org/Operation#> .
+@prefix patchRequest: <http://cargo.iata.org/PatchRequest#> .
+@prefix subscription: <http://cargo.iata.org/Subscription#> .
+@base <http://cargo.iata.org/> .
+
+<http://cargo.iata.org/> rdf:type owl:Ontology ;
+                          dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
+                          dc:title "IATA ONE Record vocabulary"@en ;
+                          owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://cargo.iata.org/AuditTrail#create
+auditTrail:create rdf:type owl:ObjectProperty ;
+              rdfs:domain :AuditTrail ;
+              rdfs:range :Create ;
+              rdfs:comment "Company details"@en ;
+              rdfs:label "auditTrail:create"@en .
+
+###  http://cargo.iata.org/AuditTrail#changeRequests
+auditTrail:changeRequests rdf:type owl:ObjectProperty ;
+               rdfs:domain :AuditTrail ;
+               rdfs:range :ChangeRequest ;
+               rdfs:comment "Company details"@en ;
+               rdfs:label "auditTrail:changeRequests"@en .
+
+###  http://cargo.iata.org/AuditTrail#error
+auditTrail:error rdf:type owl:ObjectProperty ;
+              rdfs:domain :AuditTrail ;
+              rdfs:range :Error ;
+              rdfs:comment "Company details"@en ;
+              rdfs:label "auditTrail:error"@en .
+
+###  http://cargo.iata.org/ChangeRequest#changeRequest
+changeRequests:changeRequest rdf:type owl:ObjectProperty ;
+               rdfs:domain :ChangeRequest ;
+               rdfs:range :PatchRequest ;
+               rdfs:comment "Company details"@en ;
+               rdfs:label "changeRequests:changeRequest"@en .
+
+###  http://cargo.iata.org/CompanyInformation#company
+companyInformation:company rdf:type owl:ObjectProperty ;
+               rdfs:domain :CompanyInformation ;
+               rdfs:range :Company ;
+               rdfs:comment "Company details"@en ;
+               rdfs:label "companyInformation:company"@en .
+
+###  http://cargo.iata.org/CompanyInformation#error
+companyInformation:error rdf:type owl:ObjectProperty ;
+              rdfs:domain :CompanyInformation ;
+              rdfs:range :Error ;
+              rdfs:comment "Error details"@en ;
+              rdfs:label "companyInformation:error"@en .
+
+###  http://cargo.iata.org/Create#lo
+create:lo rdf:type owl:ObjectProperty ;
+              rdfs:domain :Create ;
+              rdfs:range [ a owl:Class; owl:unionOf (:AirWaybill :HouseWaybill) ];
+              rdfs:comment "Error details"@en ;
+              rdfs:label "create:lo"@en .
+
+###  http://cargo.iata.org/Error#details
+error:details rdf:type owl:ObjectProperty ;
+              rdfs:domain :Error ;
+              rdfs:range :Details ;
+              rdfs:comment "Error details"@en ;
+              rdfs:label "error:details"@en .
+
+###  http://cargo.iata.org/Operation#o
+operation:o rdf:type owl:ObjectProperty ;
+              rdfs:domain :Operation ;
+              rdfs:range :Object ;
+              rdfs:comment "PATCH object to modify"@en ;
+              rdfs:label "operation:o"@en .
+
+###  http://cargo.iata.org/PatchRequest#operations
+patchRequest:operations rdf:type owl:ObjectProperty ;
+              rdfs:domain :PatchRequest ;
+              rdfs:range :Operation ;
+              rdfs:comment "Error details"@en ;
+              rdfs:label "patchRequest:operations"@en .
+
+###  http://cargo.iata.org/Subscription#error
+subscription:error rdf:type owl:ObjectProperty ;
+              rdfs:domain :Subscription ;
+              rdfs:range :Error ;
+              rdfs:comment "Error details"@en ;
+              rdfs:label "subscription:error"@en .
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://cargo.iata.org/Operation#op
+operation:op rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range [ a rdfs:Datatype ;
+                      owl:oneOf  [ a rdf:List ;
+                                   rdf:first  "add" ;
+                                   rdf:rest   [ a rdf:List ;
+                                                rdf:first  "del" ;
+                                                rdf:rest   ()
+                                              ]
+                                 ]
+                    ] ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "operation:op"@en .
+
+###  http://cargo.iata.org/Operation#p
+operation:p rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "operation:p"@en .
+
+###  http://cargo.iata.org/ChangeRequest#timestamp
+changeRequests:timestamp rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :ChangeRequest ;
+                    rdfs:range xsd:dateTime ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "changeRequests:timestamp"@en .
+
+###  http://cargo.iata.org/ChangeRequest#companyId
+changeRequests:companyId rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :ChangeRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "changeRequests:companyId"@en .
+
+###  http://cargo.iata.org/ChangeRequest#status
+changeRequests:status rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :ChangeRequest ;
+                    rdfs:range [ a rdfs:Datatype ;
+                      owl:oneOf  [ a rdf:List ;
+                                   rdf:first  "ACCEPTED" ;
+                                   rdf:rest   [ a rdf:List ;
+                                                rdf:first  "REJECTED" ;
+                                                rdf:rest   ()
+                                              ]
+                                 ]
+                    ] ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "changeRequests:status"@en .
+
+###  http://cargo.iata.org/CompanyInformation#supportedLogisticsObjects
+companyInformation:supportedLogisticsObjects rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "companyInformation:supportedLogisticsObjects"@en .
+
+###  http://cargo.iata.org/CompanyInformation#supportedContentTypes
+companyInformation:supportedContentTypes rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "companyInformation:supportedContentTypes"@en .
+
+###  http://cargo.iata.org/CompanyInformation#serverEndpoint
+companyInformation:serverEndpoint rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "companyInformation:serverEndpoint"@en .
+
+###  http://cargo.iata.org/DelegationRequest#targetLogisticsObject
+delegationRequest:targetLogisticsObject rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :DelegationRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "delegationRequest:targetLogisticsObject"@en .
+
+###  http://cargo.iata.org/DelegationRequest#targetCompany
+delegationRequest:targetCompany rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :DelegationRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "delegationRequest:targetCompany"@en .
+
+###  http://cargo.iata.org/DelegationRequest#action
+delegationRequest:action rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :DelegationRequest ;
+                    rdfs:range [ a rdfs:Datatype ;
+                      owl:oneOf  [ a rdf:List ;
+                                   rdf:first  "DELEGATE" ;
+                                   rdf:rest   [ a rdf:List ;
+                                                rdf:first  "REVOKE" ;
+                                                rdf:rest   ()
+                                              ]
+                                 ]
+                    ] ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "delegationRequest:action"@en .
+
+###  http://cargo.iata.org/Details#code
+details:code rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Details ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "details:code"@en .
+
+###  http://cargo.iata.org/Details#attribute
+details:attribute rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Details ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+            rdfs:label "details:attribute"@en .
+
+###  http://cargo.iata.org/Details#resource
+details:resource rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Details ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "details:resource"@en .
+
+###  http://cargo.iata.org/Details#message
+details:message rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Details ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "details:message"@en .
+
+###  http://cargo.iata.org/Error#title
+error:title rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Error ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "error:title"@en .
+
+
+###  http://cargo.iata.org/Notification#eventType
+notification:eventType rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Notification ;
+            rdfs:range [ a rdfs:Datatype ;
+              owl:oneOf  [ a rdf:List ;
+                           rdf:first  "OBJECT_CREATED" ;
+                           rdf:rest   [ a rdf:List ;
+                                        rdf:first  "OBJECT_UPDATED" ;
+                                        rdf:rest   ()
+                                      ]
+                         ]
+            ] ;            rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+            rdfs:label "notification:eventType"@en .
+
+###  http://cargo.iata.org/Notification#topic
+notification:topic rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Notification ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "notification:topic"@en .
+
+###  http://cargo.iata.org/Notification#objectId
+notification:objectId rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Notification ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "notification:objectId"@en .
+
+###  http://cargo.iata.org/Object#value
+object:value rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Object ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "object:value"@en .
+
+###  http://cargo.iata.org/Object#datatype
+object:datatype rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Object ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "object:datatype"@en .
+
+###  http://cargo.iata.org/PatchRequest#revision
+patchRequest:revision rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :PatchRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "patchRequest:revision"@en .
+
+###  http://cargo.iata.org/PatchRequest#description
+patchRequest:description rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :PatchRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "patchRequest:description"@en .
+
+###  http://cargo.iata.org/Subscription#subscribedTo
+subscription:subscribedTo rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:subscribedTo"@en .
+
+###  http://cargo.iata.org/Subscription#topic
+subscription:topic rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:topic"@en .
+
+###  http://cargo.iata.org/Subscription#callbackUrl
+subscription:callbackUrl rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:callbackUrl"@en .
+
+###  http://cargo.iata.org/Subscription#contentType
+subscription:contentType rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:contentType"@en .
+
+###  http://cargo.iata.org/Subscription#secret
+subscription:secret rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:secret"@en .
+
+###  http://cargo.iata.org/Subscription#subscribeToStatusUpdates
+subscription:subscribeToStatusUpdates rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:subscribeToStatusUpdates"@en .
+
+###  http://cargo.iata.org/Subscription#sendLogisticsObjectBody
+subscription:sendLogisticsObjectBody rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:sendLogisticsObjectBody"@en .
+
+###  http://cargo.iata.org/Subscription#cacheFor
+subscription:cacheFor rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:nonNegativeInteger ;
+                    rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
+                    rdfs:label "subscription:cacheFor"@en .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://cargo.iata.org/AuditTrail
+:AuditTrail rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:create ;
+                          owl:allValuesFrom <http://cargo.iata.org/Create>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:create;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:create;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:changeRequests ;
+                          owl:allValuesFrom <http://cargo.iata.org/ChangeRequest>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:changeRequests;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:error ;
+                          owl:allValuesFrom <http://cargo.iata.org/Error>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:error;
+                          owl:minCardinality "0"^^xsd:nonNegativeInteger
+                        ] ;
+        rdfs:comment "Audit trail of a logistics object"@en ;
+        rdfs:label "AuditTrail"@en .
+
+###  http://cargo.iata.org/CompanyInformation
+:CompanyInformation rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedLogisticsObjects ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedLogisticsObjects;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedContentTypes ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:supportedContentTypes;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:serverEndpoint ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:serverEndpoint;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:serverEndpoint ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:company ;
+                           owl:allValuesFrom <http://cargo.iata.org/Company>
+                         ],
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:company ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ],
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:error ;
+                           owl:allValuesFrom <http://cargo.iata.org/Error>
+                         ],
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:error;
+                           owl:minCardinality "0"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "Company information"@en ;
+         rdfs:label "CompanyInformation"@en .
+
+###  http://cargo.iata.org/ChangeRequest
+:ChangeRequest rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:timestamp ;
+                         owl:allValuesFrom xsd:dateTime
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:timestamp;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:timestamp;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:companyId ;
+                         owl:allValuesFrom xsd:string
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:companyId;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:companyId;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:changeRequest;
+                         owl:allValuesFrom <http://cargo.iata.org/PatchRequest>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:changeRequest;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:changeRequest;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:status ;
+                         owl:allValuesFrom xsd:string
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:status ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty changeRequests:status ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ;
+       rdfs:comment "Change Request for the audit trail"@en ;
+       rdfs:label "ChangeRequest"@en .
+
+###  http://cargo.iata.org/Create
+:Create rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty create:lo ;
+                                   owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty create:lo ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ],
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty create:lo ;
+                                   owl:someValuesFrom <http://cargo.iata.org/AirWaybill> ;
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty create:lo ;
+                                   owl:someValuesFrom <http://cargo.iata.org/HouseWaybill> ;
+                                 ] ;
+                 rdfs:comment "Create model"@en ;
+                 rdfs:label "Create"@en .
+
+###  http://cargo.iata.org/Operation
+:Operation rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:op ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:op;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:op;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:p ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:p;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:p;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:o ;
+                          owl:allValuesFrom <http://cargo.iata.org/Object>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:o;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty operation:o;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ;
+        rdfs:comment "Operation Request - PATCH body"@en ;
+        rdfs:label "Operation"@en .
+
+###  http://cargo.iata.org/DelegationRequest
+:DelegationRequest rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetLogisticsObject ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetLogisticsObject;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetCompany ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:targetCompany;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:action ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:action;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "Delegation Request"@en ;
+         rdfs:label "Delegation"@en .
+
+###  http://cargo.iata.org/Details
+:Details rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:code ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:code ;
+                                   owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:code ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:attribute ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:attribute ;
+                                   owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:attribute ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:resource ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:resource ;
+                                   owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:resource ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:message ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:message ;
+                                   owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty details:message ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ;
+                 rdfs:comment "Error details"@en ;
+                 rdfs:label "Details"@en .
+
+###  http://cargo.iata.org/Error
+:Error rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:title ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:title ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:title ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:details ;
+                                    owl:allValuesFrom <http://cargo.iata.org/Details>
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty error:details ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Error model"@en ;
+                  rdfs:label "Error"@en .
+
+###  http://cargo.iata.org/Notification
+:Notification rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:eventType ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty  notification:eventType ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:eventType ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:topic ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty  notification:topic ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:topic ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:objectId ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty  notification:objectId ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty notification:objectId ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Notification model"@en ;
+                  rdfs:label "Notification"@en .
+
+###  http://cargo.iata.org/Object
+:Object rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty object:value ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty  object:value ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty object:value ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty object:datatype ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty  object:datatype ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty object:datatype ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "PATCH object model"@en ;
+                  rdfs:label "Object"@en .
+
+###  http://cargo.iata.org/PatchRequest
+:PatchRequest rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:revision ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:revision;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:revision;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:description ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:description;
+                           owl:minCardinality "0"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:description;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:operations ;
+                           owl:allValuesFrom <http://cargo.iata.org/PatchRequest>
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:operations;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "PATCH Request body"@en ;
+         rdfs:label "PatchRequest"@en .
+
+###  http://cargo.iata.org/Subscription
+:Subscription rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribedTo ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribedTo ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribedTo ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:topic ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:topic ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:callbackUrl ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:callbackUrl ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:callbackUrl ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:contentType ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:contentType ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:secret ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:secret ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:secret ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribeToStatusUpdates ;
+                                    owl:allValuesFrom xsd:boolean
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribeToStatusUpdates ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:subscribeToStatusUpdates ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:sendLogisticsObjectBody ;
+                                    owl:allValuesFrom xsd:boolean
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:sendLogisticsObjectBody ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:sendLogisticsObjectBody ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:cacheFor ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:cacheFor ;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:cacheFor ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:error ;
+                                    owl:allValuesFrom <http://cargo.iata.org/Error>
+                                  ],
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:error;
+                                    owl:minCardinality "0"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Subscription model"@en ;
+                  rdfs:label "Subscription"@en .
