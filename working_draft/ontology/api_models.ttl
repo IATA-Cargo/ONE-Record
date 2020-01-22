@@ -128,6 +128,14 @@ subscription:error rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
+###  http://cargo.iata.org/AuditTrail#logisticsObjectRef
+auditTrail:logisticsObjectRef rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :AuditTrail ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Logistics Object Reference for which the audit trail applies"@en ;
+                    rdfs:label "auditTrail:logisticsObjectRef"@en .
+
+
 ###  http://cargo.iata.org/Operation#op
 operation:op rdf:type owl:DatatypeProperty ;
                     rdfs:domain :CompanyInformation ;
@@ -394,6 +402,18 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty auditTrail:create;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:logisticsObjectRef ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:logisticsObjectRef;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:logisticsObjectRef ;
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ,
                         [ rdf:type owl:Restriction ;
