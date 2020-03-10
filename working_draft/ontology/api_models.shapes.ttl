@@ -12,7 +12,6 @@
 @prefix delegationRequest: <http://cargo.iata.org/DelegationRequest#> .
 @prefix details: <http://cargo.iata.org/Details#> .
 @prefix error: <http://cargo.iata.org/Error#> .
-@prefix event: <http://cargo.iata.org/Event#> .
 @prefix notification: <http://cargo.iata.org/Notification#> .
 @prefix object: <http://cargo.iata.org/Object#> .
 @prefix operation: <http://cargo.iata.org/Operation#> .
@@ -230,54 +229,6 @@
   sh:datatype xsd:string ;
   sh:maxCount 1 ;
   sh:minCount 1 ;
-.
-:Event
-  rdf:type sh:NodeShape ;
-  sh:property :Error-logisticsObjectRef ;
-  sh:property :Error-event ;
-  sh:property :Error-performedBy ;
-  sh:property :Error-eventTimestamp ;
-  sh:property :Error-eventApplicableTo ;
-  sh:property :Error-location;
-.
-:Event-logisticsObjectRef
-  rdf:type sh:PropertyShape ;
-  sh:path event:logisticsObjectRef ;
-  sh:datatype xsd:string ;
-  sh:maxCount 1 ;
-  sh:minCount 1 ;
-.
-:Event-event
-  rdf:type sh:PropertyShape ;
-  sh:path event:event ;
-  sh:datatype xsd:string ;
-  sh:maxCount 1 ;
-  sh:minCount 1 ;
-.
-:Event-performedBy
-  rdf:type sh:PropertyShape ;
-  sh:path event:performedBy ;
-  sh:datatype xsd:string ;
-  sh:maxCount 1 ;
-  sh:minCount 1 ;
-.
-:Event-eventTimestamp
-  rdf:type sh:PropertyShape ;
-  sh:path event:eventTimestamp ;
-  sh:datatype xsd:dateTime ;
-  sh:maxCount 1 ;
-  sh:minCount 1 ;
-.
-:Event-eventApplicableTo
-  rdf:type sh:PropertyShape ;
-  sh:path event:eventApplicableTo ;
-  sh:datatype xsd:string ;
-.
-:Event-location
-  rdf:type sh:PropertyShape ;
-  sh:path event:location ;
-  sh:class :Location ;
-  sh:maxCount 1 ;
 .
 :Notification
   rdf:type sh:NodeShape ;

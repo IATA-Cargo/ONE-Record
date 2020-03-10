@@ -12,7 +12,6 @@
 @prefix delegationRequest: <http://cargo.iata.org/DelegationRequest#> .
 @prefix details: <http://cargo.iata.org/Details#> .
 @prefix error: <http://cargo.iata.org/Error#> .
-@prefix event: <http://cargo.iata.org/Event#> .
 @prefix notification: <http://cargo.iata.org/Notification#> .
 @prefix object: <http://cargo.iata.org/Object#> .
 @prefix operation: <http://cargo.iata.org/Operation#> .
@@ -103,13 +102,6 @@ error:details rdf:type owl:ObjectProperty ;
               rdfs:range :Details ;
               rdfs:comment "Error details"@en ;
               rdfs:label "error:details"@en .
-
-###  http://cargo.iata.org/Event#location
-event:location rdf:type owl:ObjectProperty ;
-              rdfs:domain :Event ;
-              rdfs:range :Location ;
-              rdfs:comment "Location of where the event occurred"@en ;
-              rdfs:label "event:location"@en .
 
 ###  http://cargo.iata.org/Operation#o
 operation:o rdf:type owl:ObjectProperty ;
@@ -279,41 +271,6 @@ error:title rdf:type owl:DatatypeProperty ;
                     rdfs:range xsd:string ;
                     rdfs:comment "Brief description of the error"@en ;
                     rdfs:label "error:title"@en .
-
-###  http://cargo.iata.org/Event#logisticsObjectRef
-event:logisticsObjectRef rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Event ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Logistics object the event is valid for"@en ;
-                    rdfs:label "event:logisticsObjectRef"@en .
-
-###  http://cargo.iata.org/Event#event
-event:event rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Event ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Valid event"@en ;
-                    rdfs:label "event:event"@en .
-
-###  http://cargo.iata.org/Event#performedBy
-event:performedBy rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Event ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Company IoL identifier of the entity from which the event comes from"@en ;
-                    rdfs:label "event:performedBy "@en .
-
-###  http://cargo.iata.org/Event#eventTimestamp
-event:eventTimestamp rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Event ;
-                    rdfs:range xsd:dateTime ;
-                    rdfs:comment "Date and time when the event occurred"@en ;
-                    rdfs:label "event:eventTimestamp"@en .
-
-###  http://cargo.iata.org/Event#eventApplicableTo
-event:eventApplicableTo rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Event ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Used only when the event is only applicable to certain linked logistics objects in the primary logistics object (logisticsObjectRef)"@en ;
-                    rdfs:label "event:eventApplicableTo"@en .
 
 ###  http://cargo.iata.org/Notification#eventType
 notification:eventType rdf:type owl:DatatypeProperty ;
@@ -731,71 +688,6 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                                   ] ;
                   rdfs:comment "Error model"@en ;
                   rdfs:label "Error"@en .
-
-###  http://cargo.iata.org/Event
-:Event rdf:type owl:Class ;
-        rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:logisticsObjectRef ;
-                                    owl:allValuesFrom xsd:string
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:logisticsObjectRef ;
-                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:logisticsObjectRef ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:performedBy ;
-                                    owl:allValuesFrom xsd:string
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:performedBy ;
-                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                  ],
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:performedBy ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:event ;
-                                    owl:allValuesFrom xsd:string
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:event ;
-                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                  ],
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:event ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:eventTimestamp ;
-                                    owl:allValuesFrom xsd:dateTime
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:eventTimestamp ;
-                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                  ],
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:eventTimestamp ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:eventApplicableTo ;
-                                    owl:allValuesFrom xsd:string
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:location ;
-                                    owl:allValuesFrom <http://cargo.iata.org/Location>
-                                  ],
-                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty event:location ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ;
-                  rdfs:comment "Event (status update) model"@en ;
-                  rdfs:label "Event"@en .
 
 
 ###  http://cargo.iata.org/Notification
