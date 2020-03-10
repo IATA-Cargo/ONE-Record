@@ -234,11 +234,11 @@
 :Event
   rdf:type sh:NodeShape ;
   sh:property :Error-logisticsObjectRef ;
-  sh:property :Error-status ;
-  sh:property :Error-statusBy ;
-  sh:property :Error-statusTimestamp ;
-  sh:property :Error-statusApplicableTo ;
-  sh:property :Error-geo;
+  sh:property :Error-event ;
+  sh:property :Error-performedBy ;
+  sh:property :Error-eventTimestamp ;
+  sh:property :Error-eventApplicableTo ;
+  sh:property :Error-location;
 .
 :Event-logisticsObjectRef
   rdf:type sh:PropertyShape ;
@@ -247,35 +247,35 @@
   sh:maxCount 1 ;
   sh:minCount 1 ;
 .
-:Event-status
+:Event-event
   rdf:type sh:PropertyShape ;
-  sh:path event:status ;
+  sh:path event:event ;
   sh:datatype xsd:string ;
   sh:maxCount 1 ;
   sh:minCount 1 ;
 .
-:Event-statusBy
+:Event-performedBy
   rdf:type sh:PropertyShape ;
-  sh:path event:statusBy ;
+  sh:path event:performedBy ;
   sh:datatype xsd:string ;
   sh:maxCount 1 ;
   sh:minCount 1 ;
 .
-:Event-statusTimestamp
+:Event-eventTimestamp
   rdf:type sh:PropertyShape ;
-  sh:path event:statusTimestamp ;
+  sh:path event:eventTimestamp ;
   sh:datatype xsd:dateTime ;
   sh:maxCount 1 ;
   sh:minCount 1 ;
 .
-:Event-statusApplicableTo
+:Event-eventApplicableTo
   rdf:type sh:PropertyShape ;
-  sh:path event:statusApplicableTo ;
+  sh:path event:eventApplicableTo ;
   sh:datatype xsd:string ;
 .
-:Event-geo
+:Event-location
   rdf:type sh:PropertyShape ;
-  sh:path event:geo ;
+  sh:path event:location ;
   sh:class :Location ;
   sh:maxCount 1 ;
 .
