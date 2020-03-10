@@ -311,7 +311,7 @@ event:statusTimestamp rdf:type owl:DatatypeProperty ;
 ###  http://cargo.iata.org/Event#statusApplicableTo
 event:statusApplicableTo rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Event ;
-                    rdfs:range xsd:dateTime ;
+                    rdfs:range xsd:string ;
                     rdfs:comment "Used only when the event is only applicable to certain linked logistics objects in the primary logistics object (logisticsObjectRef)"@en ;
                     rdfs:label "event:statusApplicableTo"@en .
 
@@ -784,7 +784,7 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty event:statusApplicableTo ;
-                                    owl:allValuesFrom xsd:String
+                                    owl:allValuesFrom xsd:string
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty event:geo ;
