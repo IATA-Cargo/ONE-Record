@@ -1,10 +1,11 @@
 {
   "@context": {
-    "@vocab" : "http://cargo.iata.org/"
+    "@vocab" : "https://onerecord.iata.org/"
   },
   "@id": "https://myonerecordserver.org/my_company_identifier",
   "@type": "CompanyInformation",
   "company": {
+     "@id": "https://myonerecordserver.org#Organization",
      "@type": "Company",
      "name": "text",
      "IATACargoAgentCode": "numeric",
@@ -16,11 +17,13 @@
            "identifer": "text"
         }],
         "location": {
+           "@id": "https://onerecord.iata.org#Location",
            "@type": "Location",
            "type": "text",
            "code": "text",
            "name": "text",
            "geoLocation": {
+             "@id": "https://onerecord.iata.org#Geolocation",
              "@type": "GeoLocation",
              "latitude": {
                "@type": "Value",
@@ -39,6 +42,7 @@
              }
            },
            "address": {
+             "@id": "https://onerecord.iata.org#Address",
              "@type": "Address",
              "street": "text",
              "POBox": "text",
@@ -54,6 +58,7 @@
            }
         },
         "contactPerson": {
+           "@id": "https://onerecord.iata.org#Person",
            "@type": "Person",
            "contactType": "text",
            "salutation": "text",

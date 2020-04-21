@@ -159,12 +159,20 @@
 :DelegationRequest
   rdf:type sh:NodeShape ;
   sh:property :DelegationRequest-action ;
+  sh:property :DelegationRequest-operations ;
   sh:property :DelegationRequest-targetCompany ;
   sh:property :DelegationRequest-targetLogisticsObject ;
 .
 :DelegationRequest-action
   rdf:type sh:PropertyShape ;
   sh:path delegationRequest:action ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+.
+:DelegationRequest-operations
+  rdf:type sh:PropertyShape ;
+  sh:path delegationRequest:operations ;
   sh:datatype xsd:string ;
   sh:minCount 1 ;
 .
