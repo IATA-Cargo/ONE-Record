@@ -237,6 +237,21 @@ delegationRequest:action rdf:type owl:DatatypeProperty ;
                     rdfs:comment "REVOKE or DELEGATE"@en ;
                     rdfs:label "delegationRequest:action"@en .
 
+###  https://onerecord.iata.org/DelegationRequest#operations
+delegationRequest:operations rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :DelegationRequest ;
+                    rdfs:range [ a rdfs:Datatype ;
+                      owl:oneOf  [ a rdf:List ;
+                                   rdf:first  "GET" ;
+                                   rdf:rest   [ a rdf:List ;
+                                                rdf:first  "PATCH" ;
+                                                rdf:rest   ()
+                                              ]
+                                 ]
+                    ] ;
+                    rdfs:comment "GET or PATCH"@en ;
+                    rdfs:label "delegationRequest:operations"@en .
+
 ###  https://onerecord.iata.org/Details#code
 details:code rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Details ;
@@ -618,6 +633,18 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty delegationRequest:action;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:action;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:operations ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty delegationRequest:operations;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Delegation Request to 3rd parties"@en ;
