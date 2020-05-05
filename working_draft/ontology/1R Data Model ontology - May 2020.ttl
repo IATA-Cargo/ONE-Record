@@ -165,7 +165,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:freightForwarder ;
-                           owl:allValuesFrom <https://onerecord.iata.org/FreightForwarder> ;
+                           owl:allValuesFrom <https://onerecord.iata.org/Company> ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:freightForwarder ;
@@ -173,7 +173,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:notifyParty ;
-                           owl:allValuesFrom <https://onerecord.iata.org/VolumetricWeight> ;
+                           owl:allValuesFrom <https://onerecord.iata.org/Company> ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:offer ;
@@ -189,7 +189,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:waybillNumber ;
-                           owl:allValuesFrom xsd:string ;
+                           owl:allValuesFrom <https://onerecord.iata.org/Waybill> ;
                          ] ;
          rdfs:comment "Booking details"@en ;
          rdfs:label "Booking"@en .
@@ -203,7 +203,7 @@ xsd:date rdf:type rdfs:Datatype .
 								] ,
 								[ rdf:type owl:Restriction ;
 									owl:onProperty bookingRequest:status ;
-									owl:allValuesFrom <https://onerecord.iata.org/Company> ;
+									owl:allValuesFrom xsd:string ;
 								] ,
 								[ rdf:type owl:Restriction ;
 									owl:onProperty bookingRequest:waybillNumber ;
@@ -316,7 +316,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:other ;
-                           owl:allValuesFrom <https://onerecord.iata.org/Other> ;
+                           owl:allValuesFrom <https://onerecord.iata.org/ContactOther> ;
                          ] ;
          rdfs:comment "Contact details"@en ;
          rdfs:label "Contact"@en .
@@ -332,7 +332,7 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:allValuesFrom xsd:string ;
                          ] ;
        rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
-       rdfs:label "Other"@en .
+       rdfs:label "Contact Other"@en .
 
 
 ###  https://onerecord.iata.org/Country
@@ -1607,6 +1607,13 @@ booking:price 	rdf:type owl:ObjectProperty ;
 				rdfs:comment "Price of the Booking (if different from the offer)"@en ;
 				rdfs:label "booking:price"@en .
 
+###  https://onerecord.iata.org/Booking#shipper
+booking:shipper rdf:type owl:ObjectProperty ;
+					rdfs:domain :Booking ;
+					rdfs:range :Company ;
+					rdfs:comment "Shipper information"@en ;
+					rdfs:label "booking:shipper"@en .
+
 ###  https://onerecord.iata.org/Booking#waybillNumber
 booking:waybillNumber 	rdf:type owl:ObjectProperty ;
 						rdfs:domain :Booking ;
@@ -1661,7 +1668,7 @@ company:branch rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/Contact#other
 contact:other rdf:type owl:ObjectProperty ;
               rdfs:domain :Contact ;
-              rdfs:range :Other ;
+              rdfs:range :ContactOther ;
               rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
               rdfs:label "contact:other"@en .
 
@@ -2051,7 +2058,7 @@ piece:volumetricWeight rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/Price#ratings
 price:ratings rdf:type owl:ObjectProperty ;
                        rdfs:domain :Piece ;
-                       rdfs:range :ratings ;
+                       rdfs:range :Ratings ;
                        rdfs:comment "Rating used for pricing"@en ;
                        rdfs:label "price:ratings"@en .
 
@@ -2415,7 +2422,7 @@ uld:tareWeight rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/ULD#transportSegment
 uld:transportSegment rdf:type owl:ObjectProperty ;
                                        rdfs:domain :ULD ;
-                                       rdfs:range :Transport_Segment ;
+                                       rdfs:range :TransportSegment ;
                                        rdfs:comment "Segment related to the ULD movement"@en ;
                                        rdfs:label "uld:transportSegment"@en .
 
@@ -2582,7 +2589,7 @@ characteristics:value rdf:type owl:DatatypeProperty ;
 
 ###  https://onerecord.iata.org/CO2CalcMethod#methodName
 co2CalcMethod:methodName 	rdf:type owl:DatatypeProperty ;
-							rdfs:domain :CO2Calc_ethod ;
+							rdfs:domain :CO2CalcMethod ;
 							rdfs:range xsd:string ;
 							rdfs:comment "Name of the CO2 calculation method"@en ;
 							rdfs:label "co2CalcMethod:methodName"@en .
@@ -3333,14 +3340,14 @@ serviceRequest:statementType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Shipment#goodsDescription
 shipment:goodsDescription rdf:type owl:DatatypeProperty ;
                                        rdfs:domain :Shipment ;
-                                       rdfs:range :string ;
+                                       rdfs:range xsd:string ;
                                        rdfs:comment "General goods description"@en ;
                                        rdfs:label "shipment:goodsDescription"@en .
 
 ###  https://onerecord.iata.org/Shipment#totalSLAC
 shipment:totalSLAC rdf:type owl:DatatypeProperty ;
                                        rdfs:domain :Shipment ;
-                                       rdfs:range :integer ;
+                                       rdfs:range xsd:integer ;
                                        rdfs:comment "Total SLAC of all piece groups "@en ;
                                        rdfs:label "shipment:totalSLAC"@en .
 
