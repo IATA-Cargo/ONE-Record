@@ -12,17 +12,22 @@
 @prefix delegationRequest: <https://onerecord.iata.org/DelegationRequest#> .
 @prefix details: <https://onerecord.iata.org/Details#> .
 @prefix error: <https://onerecord.iata.org/Error#> .
+@prefix memento: <https://onerecord.iata.org/Memento#> .
+@prefix mementoEntry: <https://onerecord.iata.org/MementoEntry#> .
+@prefix mementos: <https://onerecord.iata.org/Mementos#> .
+@prefix mementoList: <https://onerecord.iata.org/MementoList#> .
 @prefix notification: <https://onerecord.iata.org/Notification#> .
 @prefix object: <https://onerecord.iata.org/Object#> .
 @prefix operation: <https://onerecord.iata.org/Operation#> .
 @prefix patchRequest: <https://onerecord.iata.org/PatchRequest#> .
 @prefix subscription: <https://onerecord.iata.org/Subscription#> .
+@prefix timemap: <https://onerecord.iata.org/Timemap#> .
 @base <https://onerecord.iata.org/> .
 
 <https://onerecord.iata.org/> rdf:type owl:Ontology ;
                           dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                           dc:title "IATA ONE Record vocabulary"@en ;
-                          owl:versionInfo "1.0" .
+                          owl:versionInfo "1.1" .
 
 #################################################################
 #    Annotation properties
@@ -103,6 +108,20 @@ error:details rdf:type owl:ObjectProperty ;
               rdfs:comment "Error details"@en ;
               rdfs:label "error:details"@en .
 
+###  https://onerecord.iata.org/Mementos#list
+mementos:list rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Mementos ;
+                    rdfs:range :MementoList ;
+                    rdfs:comment "List of mementos of a Logistics Object"@en ;
+                    rdfs:label "mementos:list"@en .
+
+###  https://onerecord.iata.org/MementoList#mementoEntry
+mementoList:mementoEntry rdf:type owl:ObjectProperty ;
+                    rdfs:domain :MementoList ;
+                    rdfs:range :MementoEntry ;
+                    rdfs:comment "List of mementos of a Logistics Object"@en ;
+                    rdfs:label "mementoList:mementoEntry"@en .
+
 ###  https://onerecord.iata.org/Operation#o
 operation:o rdf:type owl:ObjectProperty ;
               rdfs:domain :Operation ;
@@ -123,6 +142,13 @@ subscription:error rdf:type owl:ObjectProperty ;
               rdfs:range :Error ;
               rdfs:comment "Non mandatory error details"@en ;
               rdfs:label "subscription:error"@en .
+
+###  https://onerecord.iata.org/Timemap#mementos
+timemap:mementos rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Timemap ;
+                    rdfs:range :Mementos ;
+                    rdfs:comment "List of mementos of a Logistics Object"@en ;
+                    rdfs:label "timemap:mementos"@en .
 
 #################################################################
 #    Data properties
@@ -287,6 +313,92 @@ error:title rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Brief description of the error"@en ;
                     rdfs:label "error:title"@en .
 
+###  https://onerecord.iata.org/Memento#original
+memento:original rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "First version of the Logistics Object"@en ;
+                                        rdfs:label "memento:original"@en .
+
+###  https://onerecord.iata.org/Memento#memento
+memento:memento rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "URL of the version/memento"@en ;
+                                        rdfs:label "memento:memento"@en .
+
+###  https://onerecord.iata.org/Memento#label
+memento:label rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Label of the memento"@en ;
+                                        rdfs:label "memento:label"@en .
+
+###  https://onerecord.iata.org/Memento#created
+memento:created rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:dateTime ;
+                                        rdfs:comment "Date and time of the memento creation"@en ;
+                                        rdfs:label "memento:created"@en .
+
+
+###  https://onerecord.iata.org/Memento#createdBy
+memento:createdBy rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Name of the memento creator"@en ;
+                                        rdfs:label "memento:createdBy"@en .
+
+###  https://onerecord.iata.org/Memento#lastModified
+memento:lastModified rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:dateTime ;
+                                        rdfs:comment "Date and time of the memento last modification"@en ;
+                                        rdfs:label "memento:lastModified"@en .
+
+
+###  https://onerecord.iata.org/Memento#lastModifiedBy
+memento:lastModifiedBy rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Memento ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Name of the memento last modifier"@en ;
+                                        rdfs:label "memento:lastModifiedBy"@en .
+
+###  https://onerecord.iata.org/Mementos#firstMemento
+mementos:firstMemento rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Mementos ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "First memento of the Logistics Object"@en ;
+                                        rdfs:label "mementos:firstMemento"@en .
+
+###  https://onerecord.iata.org/Mementos#lastMemento
+mementos:lastMemento rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :Mementos ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Last memento of the Logistics Object"@en ;
+                                        rdfs:label "mementos:lastMemento"@en .
+
+###  https://onerecord.iata.org/MementoEntry#memento
+mementoEntry:memento rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :MementoEntry ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Link to the memento"@en ;
+                                        rdfs:label "mementoEntry:memento"@en .
+
+###  https://onerecord.iata.org/MementoEntry#label
+mementoEntry:label rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :MementoEntry ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Non mandatory label of the memento"@en ;
+                                        rdfs:label "mementoEntry:label"@en .
+
+###  https://onerecord.iata.org/MementoEntry#datetime
+mementoEntry:datetime rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :MementoEntry ;
+                                        rdfs:range xsd:dateTime ;
+                                        rdfs:comment "Creation date of the memento"@en ;
+                                        rdfs:label "mementoEntry:datetime"@en .
+
 ###  https://onerecord.iata.org/Notification#eventType
 notification:eventType rdf:type owl:DatatypeProperty ;
             rdfs:domain :Notification ;
@@ -399,6 +511,21 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                     rdfs:range xsd:nonNegativeInteger ;
                     rdfs:comment "Duration of the period to cache the subscription information in seconds"@en ;
                     rdfs:label "subscription:cacheFor"@en .
+
+###  https://onerecord.iata.org/Timemap#original
+timemap:original rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Timemap ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Link to the initial version of the Logistics Object"@en ;
+                    rdfs:label "timemap:original"@en .
+
+
+###  https://onerecord.iata.org/Timemap#timegate
+timemap:timegate rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Timemap ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Link to the time gate of the Logistics Object, if applicable"@en ;
+                    rdfs:label "timemap:timegate"@en .
 
 #################################################################
 #    Classes
@@ -716,6 +843,181 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                   rdfs:comment "Error model"@en ;
                   rdfs:label "Error"@en .
 
+###  https://onerecord.iata.org/Memento
+:Memento rdf:type owl:Class ;
+      rdfs:subClassOf [  rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:original ;
+                                                        owl:allValuesFrom xsd:string
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:original ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:original ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:memento ;
+                                                        owl:allValuesFrom xsd:string
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:memento ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:memento ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:label ;
+                                                        owl:allValuesFrom xsd:string
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:label ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:created ;
+                                                        owl:allValuesFrom xsd:dateTime
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:created ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:created ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:createdBy ;
+                                                        owl:allValuesFrom xsd:string
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:createdBy ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:createdBy ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:lastModified ;
+                                                        owl:allValuesFrom xsd:dateTime
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:lastModified ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:lastModified ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:lastModifiedBy ;
+                                                        owl:allValuesFrom xsd:string
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:lastModifiedBy ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:lastModifiedBy ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ;
+                                      rdfs:comment "Version of a Logistics Object"@en ;
+                                      rdfs:label "Memento"@en .
+
+###  https://onerecord.iata.org/Mementos
+:Mementos rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:list ;
+                                    owl:allValuesFrom <https://onerecord.iata.org/MementoList>
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:list ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:list ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:firstMemento ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:firstMemento ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:firstMemento ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:lastMemento ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:lastMemento ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementos:lastMemento ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Memento list model"@en ;
+                  rdfs:label "Mementos"@en .
+
+###  https://onerecord.iata.org/MementoList
+:MementoList rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementoList:mementoEntry ;
+                                    owl:allValuesFrom <https://onerecord.iata.org/MementoEntry>
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mementoList:mementoEntry ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Memento list model"@en ;
+                  rdfs:label "MementoList"@en .
+
+###  https://onerecord.iata.org/MementoEntry
+:MementoEntry rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:memento ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:memento ;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:memento ;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:label ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:label ;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:datetime ;
+                          owl:allValuesFrom xsd:dateTime
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:datetime ;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty mementoEntry:datetime ;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ;
+        rdfs:comment "Memento entry from the time map"@en ;
+        rdfs:label "MementoEntry"@en .
 
 ###  https://onerecord.iata.org/Notification
 :Notification rdf:type owl:Class ;
@@ -896,3 +1198,41 @@ subscription:cacheFor rdf:type owl:DatatypeProperty ;
                                   ] ;
                   rdfs:comment "Subscription information sent to the publisher"@en ;
                   rdfs:label "Subscription"@en .
+
+
+###  https://onerecord.iata.org/Timemap
+:Timemap rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:original ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:original ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:original ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:timegate ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:timegate ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:mementos ;
+                                    owl:allValuesFrom <https://onerecord.iata.org/Mementos>
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:mementos ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty timemap:mementos ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "Timemap of a Logistics Object containing mementos and timegate URI"@en ;
+                  rdfs:label "Timemap"@en .
