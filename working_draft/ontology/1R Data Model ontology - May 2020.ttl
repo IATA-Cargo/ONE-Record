@@ -1,5 +1,6 @@
 @prefix : <https://onerecord.iata.org/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix terms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -54,8 +55,13 @@
 @base <https://onerecord.iata.org/> .
 
 <https://onerecord.iata.org/> rdf:type owl:Ontology ;
+                          rdfs:label "IATA ONE Record Ontology"@en ;
+                          rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                           dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
-                          dc:title "IATA ONE Record vocabulary"@en ;
+                          dc:title "IATA ONE Record Ontology"@en ;
+                          terms:title "IATA ONE Record Ontology"@en ;
+                          terms:modified "30-06-2020" ;
+                          terms:abstract "The ontology of IATA ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
                           owl:versionInfo "1.0" .
 
 #################################################################
@@ -68,6 +74,15 @@ dc:description rdf:type owl:AnnotationProperty .
 
 ###  http://purl.org/dc/elements/1.1/title
 dc:title rdf:type owl:AnnotationProperty .
+
+###  http://purl.org/dc/terms/title
+terms:title rdf:type owl:AnnotationProperty .
+
+###  http://purl.org/dc/terms/modified
+terms:modified rdf:type owl:AnnotationProperty .
+
+###  http://purl.org/dc/terms/abstract
+terms:abstract rdf:type owl:AnnotationProperty .
 
 
 #################################################################
