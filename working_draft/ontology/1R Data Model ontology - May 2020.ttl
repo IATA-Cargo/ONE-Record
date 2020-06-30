@@ -332,7 +332,7 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:allValuesFrom xsd:string ;
                          ] ;
        rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
-       rdfs:label "Contact Other"@en .
+       rdfs:label "ContactOther"@en .
 
 
 ###  https://onerecord.iata.org/Country
@@ -984,7 +984,7 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:allValuesFrom <https://onerecord.iata.org/TransportSegment> ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty quoteRequest:units ;
+                           owl:onProperty quoteRequest:unitsPreference ;
                            owl:allValuesFrom <https://onerecord.iata.org/Value> ;
                          ] ;
               rdfs:comment "Quote request details"@en ;
@@ -1033,7 +1033,7 @@ xsd:date rdf:type rdfs:Datatype .
 						owl:onProperty ranges:unitBasis ;
 						owl:allValuesFrom xsd:string ;
 						] ;
-		rdfs:comment "Ranges"@en ;
+		rdfs:comment "Ranges details"@en ;
 		rdfs:label "Ranges"@en .
 
 
@@ -1436,7 +1436,7 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:allValuesFrom <https://onerecord.iata.org/Company> ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty uld:SerialNumber ;
+                           owl:onProperty uld:serialNumber ;
                            owl:allValuesFrom xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -2146,12 +2146,12 @@ quoteRequest:transportMovement rdf:type owl:ObjectProperty ;
                         rdfs:comment "Transport segment linked to the request, including the Departure and Arrival locations requested"@en ;
                         rdfs:label "quoteRequest:transportMovement"@en .
 
-###  https://onerecord.iata.org/QuoteRequest#unitPreference
-quoteRequest:unitPreference rdf:type owl:ObjectProperty ;
+###  https://onerecord.iata.org/QuoteRequest#unitsPreference
+quoteRequest:unitsPreference rdf:type owl:ObjectProperty ;
                         rdfs:domain :QuoteRequest ;
                         rdfs:range :Value ;
                         rdfs:comment "Unit preferences of the request (e.g. kg or cm)"@en ;
-                        rdfs:label "quoteRequest:unitPreference"@en .
+                        rdfs:label "quoteRequest:unitsPreference"@en .
 
 ###  https://onerecord.iata.org/QuoteResponse#offers
 quoteResponse:offers rdf:type owl:ObjectProperty ;
@@ -2701,12 +2701,12 @@ customsInfo:customsInformation rdf:type owl:DatatypeProperty ;
                                            rdfs:label "customsInfo:customsInformation"@en .
 
 
-###  https://onerecord.iata.org/CustomsInfo#customsNote
-customsInfo:customsNote rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/CustomsInfo#customsInfoNote
+customsInfo:customsInfoNote rdf:type owl:DatatypeProperty ;
                          rdfs:domain :CustomsInfo ;
                          rdfs:range xsd:string ;
-                         rdfs:comment "Free text f or customs remarks"@en ;
-                         rdfs:label "customsInfo:customsNote"@en .
+                         rdfs:comment "Free text for customs remarks"@en ;
+                         rdfs:label "customsInfo:customsInfoNote"@en .
 
 
 ###  https://onerecord.iata.org/CustomsInfo#customsInfoSubjectCode
@@ -2743,6 +2743,13 @@ dangerousGoods:packingInstruction 	rdf:type owl:DatatypeProperty ;
 									rdfs:range xsd:string ;
 									rdfs:comment "Packing instructions"@en ;
 									rdfs:label "dangerousGoods:packingInstruction"@en .
+
+###  https://onerecord.iata.org/DangerousGoods#quantityUnits
+dangerousGoods:quantityUnits 	rdf:type owl:DatatypeProperty ;
+                  									rdfs:domain :DangerousGoods ;
+                  									rdfs:range xsd:string ;
+                  									rdfs:comment "Quantity Units"@en ;
+                  									rdfs:label "dangerousGoods:quantityUnits"@en .
 
 ###  https://onerecord.iata.org/DangerousGoods#unNumber
 dangerousGoods:unNumber 	rdf:type owl:DatatypeProperty ;
@@ -3344,6 +3351,13 @@ shipment:goodsDescription rdf:type owl:DatatypeProperty ;
                                        rdfs:comment "General goods description"@en ;
                                        rdfs:label "shipment:goodsDescription"@en .
 
+###  https://onerecord.iata.org/Shipment#totalPieceCount
+shipment:totalPieceCount rdf:type owl:DatatypeProperty ;
+                                                                              rdfs:domain :Shipment ;
+                                                                              rdfs:range xsd:integer ;
+                                                                              rdfs:comment "Total Piece Count"@en ;
+                                                                              rdfs:label "shipment:totalPieceCount"@en .
+
 ###  https://onerecord.iata.org/Shipment#totalSLAC
 shipment:totalSLAC rdf:type owl:DatatypeProperty ;
                                        rdfs:domain :Shipment ;
@@ -3385,6 +3399,13 @@ transportSegment:fuelType rdf:type owl:DatatypeProperty ;
                      rdfs:range xsd:string ;
                      rdfs:comment "e.g. Kerosene, Diesel, SAF, Electricity [renewable], Electricity [non-renewable]"@en ;
                      rdfs:label "transportSegment:fuelType"@en .
+
+                     ###  https://onerecord.iata.org/TransportSegment#modeCode
+                     transportSegment:modeCode rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain :TransportSegment ;
+                                          rdfs:range xsd:decimal ;
+                                          rdfs:comment "Mode Code"@en ;
+                                          rdfs:label "transportSegment:modeCode"@en .
 
 ###  https://onerecord.iata.org/TransportSegment#seal
 transportSegment:seal rdf:type owl:DatatypeProperty ;
