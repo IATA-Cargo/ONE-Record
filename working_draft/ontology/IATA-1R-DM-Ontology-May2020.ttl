@@ -981,8 +981,12 @@ xsd:date rdf:type rdfs:Datatype .
           				rdfs:subClassOf [ rdf:type owl:Restriction ;
           									owl:onProperty logisticsObject:event ;
           									owl:allValuesFrom <https://onerecord.iata.org/Event> ;
-          								] ;
-          				rdfs:comment "Logistics Object prent class, containgin all common properties for logistics objects."@en ;
+          								] ,
+                        [ rdf:type owl:Restriction ;
+                                    owl:onProperty logisticsObject:companyIdentifier ;
+                                    owl:allValuesFrom xsd:string ;
+                                  ] ;
+          				rdfs:comment "Logistics Object prent class, containing all common properties for logistics objects."@en ;
           				rdfs:label "LogisticsObject"@en .
 
 
@@ -3724,6 +3728,14 @@ location:locationType rdf:type owl:DatatypeProperty ;
               rdfs:range xsd:string ;
               rdfs:comment "Location type - e.g. Airport, Freight terminal, Rail station, Seaport, etc"@en ;
               rdfs:label "location:locationType"@en .
+
+              ###  https://onerecord.iata.org/LogisticsObject#companyIdentifier
+              logisticsObject:companyIdentifier rdf:type owl:ObjectProperty ;
+                                                      rdfs:domain :LogisticsObject ;
+                                                      rdfs:range xsd:string ;
+                                                      rdfs:comment "Company identifier from the Internet of Logistics of the entity that hosts the Logistics Object."@en ;
+                                                      rdfs:label "logisticsObject:companyIdentifier"@en .
+
 
 ###  https://onerecord.iata.org/Offer#requestMatchInd
 offer:requestMatchInd rdf:type owl:DatatypeProperty ;
