@@ -985,7 +985,15 @@ xsd:date rdf:type rdfs:Datatype .
                         [ rdf:type owl:Restriction ;
                                     owl:onProperty logisticsObject:companyIdentifier ;
                                     owl:allValuesFrom xsd:string ;
-                                  ] ;
+                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty logisticsObject:companyIdentifier ;
+                                                    owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty logisticsObject:companyIdentifier ;
+                                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 ] ;
           				rdfs:comment "Logistics Object prent class, containing all common properties for logistics objects."@en ;
           				rdfs:label "LogisticsObject"@en .
 
