@@ -1147,11 +1147,11 @@ xsd:date rdf:type rdfs:Datatype .
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty packagingType:description ;
+                           owl:onProperty packagingType:packagingTypeDescription ;
                            owl:allValuesFrom xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty packagingType:description ;
+                           owl:onProperty packagingType:packagingTypeDescription ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
                rdfs:comment "Packaging details "@en ;
@@ -1964,11 +1964,11 @@ xsd:date rdf:type rdfs:Datatype .
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty serviceRequest:description ;
+                           owl:onProperty serviceRequest:serviceRequestDescription ;
                            owl:allValuesFrom xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty serviceRequest:description ;
+                           owl:onProperty serviceRequest:serviceRequestDescription ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -3790,12 +3790,12 @@ packagingType:code rdf:type owl:DatatypeProperty ;
                    rdfs:label "packagingType:code"@en .
 
 
-###  https://onerecord.iata.org/PackagingType#description
-packagingType:description rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/PackagingType#packagingTypeDescription
+packagingType:packagingTypeDescription rdf:type owl:DatatypeProperty ;
                           rdfs:domain :PackagingType ;
                           rdfs:range xsd:string ;
                           rdfs:comment "If no Code provided, packaging type description"@en ;
-                          rdfs:label "packagingType:description"@en .
+                          rdfs:label "packagingType:packagingTypeDescription"@en .
 
 ###  https://onerecord.iata.org/Person#contactType
 person:contactType rdf:type owl:DatatypeProperty ;
@@ -4187,8 +4187,8 @@ serviceRequest:code rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Service request code"@en ;
                     rdfs:label "serviceRequest:code"@en .
 
-###  https://onerecord.iata.org/ServiceRequest#description
-serviceRequest:description rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/ServiceRequest#serviceRequestDescription
+serviceRequest:serviceRequestDescription rdf:type owl:DatatypeProperty ;
                            rdfs:domain :ServiceRequest ;
                            rdfs:range xsd:string ;
                            rdfs:comment "Service request description"@en ;
