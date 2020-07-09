@@ -234,6 +234,13 @@ companyInformation:serverEndpoint rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Endpoint of the company in the Internet of Logistics"@en ;
                     rdfs:label "companyInformation:serverEndpoint"@en .
 
+###  https://onerecord.iata.org/CompanyInformation#companyId
+companyInformation:companyId rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :CompanyInformation ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Company Id, for example airline code."@en ;
+                    rdfs:label "companyInformation:companyId"@en .
+
 ###  https://onerecord.iata.org/DelegationRequest#targetLogisticsObject
 delegationRequest:targetLogisticsObject rdf:type owl:DatatypeProperty ;
                     rdfs:domain :DelegationRequest ;
@@ -585,6 +592,18 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                          [ rdf:type owl:Restriction ;
                            owl:onProperty companyInformation:supportedLogisticsObjects;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:companyId;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:companyId;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:companyId;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty companyInformation:supportedContentTypes ;
