@@ -97,7 +97,7 @@ companyInformation:error rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/Create#lo
 create:lo rdf:type owl:ObjectProperty ;
               rdfs:domain :Create ;
-              rdfs:range [ a owl:Class; owl:unionOf (:AirWaybill :HouseWaybill) ];
+              rdfs:range :LogisticsObject ;
               rdfs:comment "Content of a Logistics Object"@en ;
               rdfs:label "create:lo"@en .
 
@@ -686,11 +686,7 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                  ],
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty create:lo ;
-                                   owl:someValuesFrom <https://onerecord.iata.org/AirWaybill> ;
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty create:lo ;
-                                   owl:someValuesFrom <https://onerecord.iata.org/HouseWaybill> ;
+                                   owl:allValuesFrom <https://onerecord.iata.org/LogisticsObject> ;
                                  ] ;
                  rdfs:comment "Create model for the audit trail"@en ;
                  rdfs:label "Create"@en .
