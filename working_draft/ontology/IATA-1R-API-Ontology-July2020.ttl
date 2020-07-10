@@ -484,6 +484,13 @@ subscription:callbackUrl rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Callback URL of the Client Subscription API where the subscriber receives Logistics Objects"@en ;
                     rdfs:label "subscription:callbackUrl"@en .
 
+###  https://onerecord.iata.org/Subscription#myCompanyIdentifier
+subscription:myCompanyIdentifier rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Subscription ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "The company identifier from the Internet of Logistics of my company."@en ;
+                    rdfs:label "subscription:myCompanyIdentifier"@en .
+
 ###  https://onerecord.iata.org/Subscription#contentType
 subscription:contentType rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Subscription ;
@@ -632,6 +639,10 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                          [ rdf:type owl:Restriction ;
                            owl:onProperty companyInformation:company ;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty companyInformation:company ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty companyInformation:error ;
@@ -1158,6 +1169,22 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty subscription:topic ;
                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:topic ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:myCompanyIdentifier ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:myCompanyIdentifier ;
+                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty subscription:myCompanyIdentifier ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty subscription:callbackUrl ;
