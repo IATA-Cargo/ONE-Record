@@ -456,6 +456,20 @@ patchRequest:revision rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Revision number of the Logistics Object"@en ;
                     rdfs:label "patchRequest:revision"@en .
 
+###  https://onerecord.iata.org/PatchRequest#logisticsObjectRef
+patchRequest:logisticsObjectRef rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :PatchRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "Reference of the Logistics Object to which te change request is applied to"@en ;
+                    rdfs:label "patchRequest:logisticsObjectRef"@en .
+
+###  https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier
+patchRequest:requestorCompanyIdentifier rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :PatchRequest ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "The company identifier of the entity that is requesting the change request"@en ;
+                    rdfs:label "patchRequest:requestorCompanyIdentifier"@en .
+
 ###  https://onerecord.iata.org/PatchRequest#description
 patchRequest:description rdf:type owl:DatatypeProperty ;
                     rdfs:domain :PatchRequest ;
@@ -1127,6 +1141,30 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty patchRequest:revision;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:logisticsObjectRef ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:logisticsObjectRef;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:logisticsObjectRef;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:requestorCompanyIdentifier ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:requestorCompanyIdentifier;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty patchRequest:requestorCompanyIdentifier;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;

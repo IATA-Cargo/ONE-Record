@@ -327,11 +327,11 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:maxCardinality "1"^^xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty branch:iATACargoAgentLocationIdentifier ;
+                           owl:onProperty branch:iataCargoAgentLocationIdentifier ;
                            owl:allValuesFrom xsd:decimal ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty branch:iATACargoAgentLocationIdentifier ;
+                           owl:onProperty branch:iataCargoAgentLocationIdentifier ;
                            owl:maxCardinality "1"^^xsd:string ;
                          ] ;
         rdfs:comment "Company branches"@en ;
@@ -423,11 +423,11 @@ xsd:date rdf:type rdfs:Datatype .
                            owl:maxCardinality "1"^^xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty company:iATACargoAgentCode ;
+                           owl:onProperty company:iataCargoAgentCode ;
                            owl:allValuesFrom xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty company:iATACargoAgentCode  ;
+                           owl:onProperty company:iataCargoAgentCode  ;
                            owl:maxCardinality "1"^^xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -676,6 +676,18 @@ xsd:date rdf:type rdfs:Datatype .
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty event:eventTypeIndicator ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                       ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty event:logisticsObjectRef ;
+                           owl:allValuesFrom xsd:string ;
+                         ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty event:logisticsObjectRef ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty event:logisticsObjectRef ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                        ] ,
                          [ rdf:type owl:Restriction ;
@@ -3407,12 +3419,12 @@ branch:branchName rdf:type owl:DatatypeProperty ;
                   rdfs:comment "Company branch name"@en ;
                   rdfs:label "branch:branchName"@en .
 
-###  https://onerecord.iata.org/Branch#iATACargoAgentLocationIdentifier
-branch:iATACargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/Branch#iataCargoAgentLocationIdentifier
+branch:iataCargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
                                         rdfs:domain :Branch ;
                                         rdfs:range xsd:decimal ;
                                         rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
-                                        rdfs:label "branch:iATACargoAgentLocationIdentifier"@en .
+                                        rdfs:label "branch:iataCargoAgentLocationIdentifier"@en .
 
 ###  https://onerecord.iata.org/CarrierProduct#productCode
 carrierProduct:productCode 	rdf:type owl:DatatypeProperty ;
@@ -3473,12 +3485,12 @@ company:airlinePrefix rdf:type owl:DatatypeProperty ;
                       rdfs:label "company:airlinePrefix"@en .
 
 
-###  https://onerecord.iata.org/Company#iATACargoAgentCode
-company:iATACargoAgentCode rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/Company#iataCargoAgentCode
+company:iataCargoAgentCode rdf:type owl:DatatypeProperty ;
                            rdfs:domain :Company ;
                            rdfs:range xsd:decimal ;
                            rdfs:comment "IATA accredited cargo agent 7 digit number"@en ;
-                           rdfs:label "company:iATACargoAgentCode"@en .
+                           rdfs:label "company:iataCargoAgentCode"@en .
 
 
 ###  https://onerecord.iata.org/Company#companyName
@@ -3644,6 +3656,13 @@ event:eventTypeIndicator rdf:type owl:DatatypeProperty ;
                          rdfs:range xsd:string ;
                          rdfs:comment "Indicates type of event e.g.  Scheduled, Estimated, Actual"@en ;
                          rdfs:label "event:eventTypeIndicator"@en .
+
+###  https://onerecord.iata.org/Event#logisticsObjectRef
+event:logisticsObjectRef rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :Event ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Logistics object the event is valid for"@en ;
+                         rdfs:label "event:logisticsObjectRef"@en .
 
 ###  https://onerecord.iata.org/ExternalReference#documentID
 externalReference:documentID rdf:type owl:DatatypeProperty ;
