@@ -327,13 +327,6 @@ memento:original rdf:type owl:DatatypeProperty ;
                                         rdfs:comment "First version of the Logistics Object"@en ;
                                         rdfs:label "memento:original"@en .
 
-###  https://onerecord.iata.org/Memento#memento
-memento:memento rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain :Memento ;
-                                        rdfs:range xsd:string ;
-                                        rdfs:comment "URL of the version/memento"@en ;
-                                        rdfs:label "memento:memento"@en .
-
 ###  https://onerecord.iata.org/Memento#label
 memento:label rdf:type owl:DatatypeProperty ;
                                         rdfs:domain :Memento ;
@@ -355,21 +348,6 @@ memento:createdBy rdf:type owl:DatatypeProperty ;
                                         rdfs:range xsd:string ;
                                         rdfs:comment "Name of the memento creator"@en ;
                                         rdfs:label "memento:createdBy"@en .
-
-###  https://onerecord.iata.org/Memento#lastModified
-memento:lastModified rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain :Memento ;
-                                        rdfs:range xsd:dateTime ;
-                                        rdfs:comment "Date and time of the memento last modification"@en ;
-                                        rdfs:label "memento:lastModified"@en .
-
-
-###  https://onerecord.iata.org/Memento#lastModifiedBy
-memento:lastModifiedBy rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain :Memento ;
-                                        rdfs:range xsd:string ;
-                                        rdfs:comment "Name of the memento last modifier"@en ;
-                                        rdfs:label "memento:lastModifiedBy"@en .
 
 ###  https://onerecord.iata.org/Mementos#firstMemento
 mementos:firstMemento rdf:type owl:DatatypeProperty ;
@@ -898,18 +876,6 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:memento ;
-                                                        owl:allValuesFrom xsd:string
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty  memento:memento ;
-                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:memento ;
-                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
                                                         owl:onProperty memento:label ;
                                                         owl:allValuesFrom xsd:string
                                                       ] ,
@@ -939,30 +905,6 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
                                                         owl:onProperty memento:createdBy ;
-                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:lastModified ;
-                                                        owl:allValuesFrom xsd:dateTime
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty  memento:lastModified ;
-                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:lastModified ;
-                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:lastModifiedBy ;
-                                                        owl:allValuesFrom xsd:string
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty  memento:lastModifiedBy ;
-                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty memento:lastModifiedBy ;
                                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                                       ] ;
                                       rdfs:comment "Version of a Logistics Object"@en ;
@@ -1054,7 +996,7 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty mementoEntry:datetime ;
-                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
         rdfs:comment "Memento entry from the time map"@en ;
         rdfs:label "MementoEntry"@en .
