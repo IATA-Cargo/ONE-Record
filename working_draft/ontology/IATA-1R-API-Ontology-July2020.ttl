@@ -17,7 +17,7 @@
 @prefix mementos: <https://onerecord.iata.org/Mementos#> .
 @prefix mementoList: <https://onerecord.iata.org/MementoList#> .
 @prefix notification: <https://onerecord.iata.org/Notification#> .
-@prefix object: <https://onerecord.iata.org/Object#> .
+@prefix operationObject: <https://onerecord.iata.org/OperationObject#> .
 @prefix operation: <https://onerecord.iata.org/Operation#> .
 @prefix patchRequest: <https://onerecord.iata.org/PatchRequest#> .
 @prefix subscription: <https://onerecord.iata.org/Subscription#> .
@@ -413,19 +413,19 @@ notification:logisticsObjectRef rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Logistics Object reference for which the notification is sent"@en ;
                     rdfs:label "notification:logisticsObjectRef"@en .
 
-###  https://onerecord.iata.org/Object#value
-object:value rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Object ;
+###  https://onerecord.iata.org/OperationObject#value
+operationObject:value rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :OperationObject ;
                     rdfs:range xsd:string ;
                     rdfs:comment "Value to update"@en ;
-                    rdfs:label "object:value"@en .
+                    rdfs:label "Object::value"@en .
 
-###  https://onerecord.iata.org/Object#datatype
-object:datatype rdf:type owl:DatatypeProperty ;
+###  https://onerecord.iata.org/OperationObject#datatype
+Object::datatype rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Object ;
                     rdfs:range xsd:string ;
                     rdfs:comment "Data type of the field to update"@en ;
-                    rdfs:label "object:datatype"@en .
+                    rdfs:label "Object::datatype"@en .
 
 ###  https://onerecord.iata.org/PatchRequest#revision
 patchRequest:revision rdf:type owl:DatatypeProperty ;
@@ -679,7 +679,7 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty changeRequests:changeRequest;
-                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty changeRequests:status ;
@@ -1042,30 +1042,30 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                   rdfs:comment "Notification sent by the publisher to the subscriber"@en ;
                   rdfs:label "Notification"@en .
 
-###  https://onerecord.iata.org/Object
-:Object rdf:type owl:Class ;
+###  https://onerecord.iata.org/OperationObject
+:OperationObject rdf:type owl:Class ;
         rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                    owl:onProperty object:value ;
+                                    owl:onProperty operationObject:value ;
                                     owl:allValuesFrom xsd:string
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty  object:value ;
+                                    owl:onProperty  operationObject:value ;
                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty object:value ;
+                                    owl:onProperty operationObject:value ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty object:datatype ;
+                                    owl:onProperty operationObject:datatype ;
                                     owl:allValuesFrom xsd:string
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty  object:datatype ;
+                                    owl:onProperty  operationObject:datatype ;
                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty object:datatype ;
+                                    owl:onProperty operationObject:datatype ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "Object to modify in the PATCH request"@en ;
