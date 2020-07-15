@@ -125,7 +125,7 @@ mementoList:mementoEntry rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/Operation#o
 operation:o rdf:type owl:ObjectProperty ;
               rdfs:domain :Operation ;
-              rdfs:range :Object ;
+              rdfs:range :OperationObject ;
               rdfs:comment "PATCH object to modify"@en ;
               rdfs:label "operation:o"@en .
 
@@ -418,14 +418,14 @@ operationObject:value rdf:type owl:DatatypeProperty ;
                     rdfs:domain :OperationObject ;
                     rdfs:range xsd:string ;
                     rdfs:comment "Value to update"@en ;
-                    rdfs:label "Object::value"@en .
+                    rdfs:label "operationObject:value"@en .
 
 ###  https://onerecord.iata.org/OperationObject#datatype
-Object::datatype rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Object ;
+operationObject:datatype rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :OperationObject ;
                     rdfs:range xsd:string ;
                     rdfs:comment "Data type of the field to update"@en ;
-                    rdfs:label "Object::datatype"@en .
+                    rdfs:label "operationObject:datatype"@en .
 
 ###  https://onerecord.iata.org/PatchRequest#revision
 patchRequest:revision rdf:type owl:DatatypeProperty ;
@@ -741,7 +741,7 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty operation:o ;
-                          owl:allValuesFrom <https://onerecord.iata.org/Object>
+                          owl:allValuesFrom <https://onerecord.iata.org/OperationObject>
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty operation:o;
@@ -1069,7 +1069,7 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "Object to modify in the PATCH request"@en ;
-                  rdfs:label "Object"@en .
+                  rdfs:label "OperationObject"@en .
 
 ###  https://onerecord.iata.org/PatchRequest
 :PatchRequest rdf:type owl:Class ;
