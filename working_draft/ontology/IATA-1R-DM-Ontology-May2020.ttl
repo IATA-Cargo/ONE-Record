@@ -184,15 +184,23 @@ xsd:date rdf:type rdfs:Datatype .
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty waybill:waybillNumber ;
-                              owl:maxCardinality "1"^^xsd:string ;
+                              owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty waybill:waybillNumber ;
+                              owl:allValuesFrom xsd:long ;
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty waybill:waybillType ;
-                              owl:minCardinality "1"^^xsd:string ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger ;
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty waybill:waybillType ;
-                              owl:maxCardinality "1"^^xsd:string ;
+                              owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty waybill:waybillType ;
+                              owl:allValuesFrom xsd:string ;
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty waybill:containedWaybill ;
@@ -219,7 +227,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:consignee ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:freightForwarder ;
@@ -239,7 +247,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:offer ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:price ;
@@ -247,7 +255,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:price ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:shipper ;
@@ -255,7 +263,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:shipper ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:waybillNumber ;
@@ -263,7 +271,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty booking:waybillNumber ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
          rdfs:comment "Booking details"@en ;
          rdfs:label "Booking"@en .
@@ -278,7 +286,7 @@ xsd:date rdf:type rdfs:Datatype .
 								] ,
                 [ rdf:type owl:Restriction ;
                   owl:onProperty bookingRequest:offer ;
-                  owl:maxCardinality "1"^^xsd:string ;
+                  owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                 ] ,
 								[ rdf:type owl:Restriction ;
 									owl:onProperty bookingRequest:status ;
@@ -286,7 +294,7 @@ xsd:date rdf:type rdfs:Datatype .
 								] ,
                 [ rdf:type owl:Restriction ;
                   owl:onProperty bookingRequest:status ;
-                  owl:maxCardinality "1"^^xsd:string ;
+                  owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                 ] ,
 								[ rdf:type owl:Restriction ;
 									owl:onProperty bookingRequest:waybillNumber ;
@@ -294,7 +302,7 @@ xsd:date rdf:type rdfs:Datatype .
 								] ,
                 [ rdf:type owl:Restriction ;
                   owl:onProperty bookingRequest:waybillNumber ;
-                  owl:maxCardinality "1"^^xsd:string ;
+                  owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                 ] ;
 				rdfs:comment "Booking request details"@en ;
 				rdfs:label "BookingRequest"@en .
@@ -312,7 +320,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty branch:location ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty branch:otherIdentifier ;
@@ -324,15 +332,15 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty branch:branchName ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty branch:iataCargoAgentLocationIdentifier ;
-                           owl:allValuesFrom xsd:decimal ;
+                           owl:allValuesFrom xsd:integer ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty branch:iataCargoAgentLocationIdentifier ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
         rdfs:comment "Company branches"@en ;
         rdfs:label "Branch"@en .
@@ -347,7 +355,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty carrierProduct:productCode ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty carrierProduct:productDescription ;
@@ -355,7 +363,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty carrierProduct:productDescription ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
           rdfs:comment "Carrier product details"@en ;
           rdfs:label "CarrierProduct"@en .
@@ -369,7 +377,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty characteristics:characteristicsType ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty characteristics:value ;
@@ -377,7 +385,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty characteristics:value ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
                 rdfs:comment "Product additional details"@en ;
                 rdfs:label "Characteristics"@en .
@@ -391,7 +399,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty co2CalcMethod:methodName ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty co2CalcMethod:methodVersion ;
@@ -399,7 +407,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty co2CalcMethod:methodVersion ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
                 rdfs:comment "CO2 calculation methods"@en ;
                 rdfs:label "CO2CalcMethod"@en .
@@ -412,23 +420,23 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty company:airlineCode  ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:airlinePrefix ;
-                           owl:allValuesFrom xsd:string ;
+                           owl:allValuesFrom xsd:integer ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:airlinePrefix  ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:iataCargoAgentCode ;
-                           owl:allValuesFrom xsd:string ;
+                           owl:allValuesFrom xsd:integer ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:iataCargoAgentCode  ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:companyName ;
@@ -436,7 +444,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:companyName  ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:branch ;
@@ -444,7 +452,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty company:branch ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
          rdfs:comment "Company details"@en ;
          rdfs:label "Company"@en .
@@ -458,7 +466,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty contact:emailAddress ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:phoneNumber ;
@@ -466,7 +474,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:phoneNumber ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:other ;
@@ -474,7 +482,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:other ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
          rdfs:comment "Contact details"@en ;
          rdfs:label "Contact"@en .
@@ -487,7 +495,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty contactOther:detail ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contactOther:otherType ;
@@ -495,7 +503,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contactOther:otherType ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
        rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
        rdfs:label "ContactOther"@en .
@@ -509,7 +517,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty country:countryCode ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty country:countryName ;
@@ -517,7 +525,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty country:countryName ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
          rdfs:comment "Country details"@en ;
          rdfs:label "Country"@en .
@@ -531,7 +539,7 @@ xsd:date rdf:type rdfs:Datatype .
 									] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty customsInfo:customsInfoContentCode ;
-                    owl:maxCardinality "1"^^xsd:string ;
+                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                   ] ,
 									[ rdf:type owl:Restriction ;
 									owl:onProperty customsInfo:customsInfoCountryCode ;
@@ -539,7 +547,7 @@ xsd:date rdf:type rdfs:Datatype .
 									] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty customsInfo:customsInfoCountryCode ;
-                    owl:maxCardinality "1"^^xsd:string ;
+                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                   ] ,
 									[ rdf:type owl:Restriction ;
 									owl:onProperty customsInfo:customsInformation ;
@@ -547,7 +555,7 @@ xsd:date rdf:type rdfs:Datatype .
 									] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty customsInfo:customsInformation ;
-                    owl:maxCardinality "1"^^xsd:string ;
+                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                   ] ,
 									[ rdf:type owl:Restriction ;
 									owl:onProperty customsInfo:customsInfoNote ;
@@ -555,7 +563,7 @@ xsd:date rdf:type rdfs:Datatype .
 									] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty customsInfo:customsInfoNote ;
-                    owl:maxCardinality "1"^^xsd:string ;
+                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                   ] ,
 									[ rdf:type owl:Restriction ;
 									owl:onProperty customsInfo:customsInfoSubjectCode ;
@@ -563,7 +571,7 @@ xsd:date rdf:type rdfs:Datatype .
 									] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty customsInfo:customsInfoSubjectCode ;
-                    owl:maxCardinality "1"^^xsd:string ;
+                    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                   ] ;
 				rdfs:comment "Customs information details"@en ;
 				rdfs:label "CustomsInfo"@en .
@@ -577,15 +585,15 @@ xsd:date rdf:type rdfs:Datatype .
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:classCode ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ,
 										[ rdf:type owl:Restriction ;
 										owl:onProperty dangerousGoods:netQuantity ;
-										owl:allValuesFrom xsd:string  ;
+										owl:allValuesFrom xsd:double  ;
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:netQuantity ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ,
 										[ rdf:type owl:Restriction ;
 										owl:onProperty dangerousGoods:packingGroup ;
@@ -593,7 +601,7 @@ xsd:date rdf:type rdfs:Datatype .
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:packingGroup ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ,
 										[ rdf:type owl:Restriction ;
 										owl:onProperty dangerousGoods:packingInstruction ;
@@ -601,7 +609,7 @@ xsd:date rdf:type rdfs:Datatype .
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:packingInstruction ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ,
 										[ rdf:type owl:Restriction ;
 										owl:onProperty dangerousGoods:quantityUnits ;
@@ -609,7 +617,7 @@ xsd:date rdf:type rdfs:Datatype .
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:quantityUnits ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ,
 										[ rdf:type owl:Restriction ;
 										owl:onProperty dangerousGoods:unNumber ;
@@ -617,7 +625,7 @@ xsd:date rdf:type rdfs:Datatype .
 										] ,
                     [ rdf:type owl:Restriction ;
                       owl:onProperty dangerousGoods:unNumber ;
-                      owl:maxCardinality "1"^^xsd:string ;
+                      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                     ] ;
 					rdfs:comment "Dangerous goods details"@en ;
 					rdfs:label "DangerousGoods"@en .
@@ -630,7 +638,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty dimensions:height ;
-                             owl:maxCardinality "1"^^xsd:string ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:length ;
@@ -638,7 +646,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:length ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:volume ;
@@ -646,7 +654,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:volume ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:width ;
@@ -654,7 +662,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty dimensions:width ;
-                           owl:maxCardinality "1"^^xsd:string ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
                          ] ;
             rdfs:comment "Dimension details"@en ;
             rdfs:label "Dimensions"@en .
@@ -909,7 +917,7 @@ xsd:date rdf:type rdfs:Datatype .
                         ] ,
 						[ rdf:type owl:Restriction ;
                         owl:onProperty item:quantityForUnitPrice ;
-                        owl:allValuesFrom xsd:decimal ;
+                        owl:allValuesFrom xsd:double ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty item:quantityForUnitPrice ;
@@ -1432,7 +1440,7 @@ xsd:date rdf:type rdfs:Datatype .
         rdfs:subClassOf :LogisticsObject ;
         rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:onProperty price:grandTotal ;
-                           owl:allValuesFrom xsd:decimal ;
+                           owl:allValuesFrom xsd:double ;
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty price:grandTotal ;
@@ -1658,7 +1666,7 @@ xsd:date rdf:type rdfs:Datatype .
     rdfs:subClassOf :LogisticsObject ;
 		rdfs:subClassOf [ rdf:type owl:Restriction ;
 						owl:onProperty ranges:amount ;
-						owl:allValuesFrom xsd:decimal ;
+						owl:allValuesFrom xsd:double ;
 						] ,
             [ rdf:type owl:Restriction ;
               owl:onProperty ranges:amount ;
@@ -1666,7 +1674,7 @@ xsd:date rdf:type rdfs:Datatype .
             ] ,
 						[ rdf:type owl:Restriction ;
 						owl:onProperty ranges:maximumQuantity ;
-						owl:allValuesFrom xsd:decimal ;
+						owl:allValuesFrom xsd:double ;
 						] ,
             [ rdf:type owl:Restriction ;
               owl:onProperty ranges:maximumQuantity ;
@@ -1674,7 +1682,7 @@ xsd:date rdf:type rdfs:Datatype .
             ] ,
 						[ rdf:type owl:Restriction ;
 						owl:onProperty ranges:minimumQuantity ;
-						owl:allValuesFrom xsd:decimal ;
+						owl:allValuesFrom xsd:double ;
 						] ,
             [ rdf:type owl:Restriction ;
               owl:onProperty ranges:minimumQuantity ;
@@ -1765,7 +1773,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
 						 [ rdf:type owl:Restriction ;
                            owl:onProperty ratings:subTotal ;
-                           owl:allValuesFrom xsd:decimal ;
+                           owl:allValuesFrom xsd:double ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty ratings:subTotal ;
@@ -1849,7 +1857,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty routing:maxConnections ;
-                           owl:allValuesFrom xsd:decimal ;
+                           owl:allValuesFrom xsd:integer ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty routing:maxConnections ;
@@ -2237,7 +2245,7 @@ xsd:date rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty transportSegment:modeCode ;
-                           owl:allValuesFrom xsd:decimal ;
+                           owl:allValuesFrom xsd:string ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty transportSegment:modeCode ;
@@ -2405,7 +2413,7 @@ xsd:date rdf:type rdfs:Datatype .
                            ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty value:value ;
-                           owl:allValuesFrom xsd:string ;
+                           owl:allValuesFrom xsd:double ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty value:value ;
@@ -3394,7 +3402,7 @@ address:street rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Waybill#waybillNumber
 waybill:waybillNumber rdf:type owl:DatatypeProperty ;
                                         rdfs:domain :Waybill ;
-                                        rdfs:range xsd:string ;
+                                        rdfs:range xsd:long ;
                                         rdfs:comment "House or Master Waybill unique identifier"@en ;
                                         rdfs:label "waybill:waybillNumber"@en .
 
@@ -3422,7 +3430,7 @@ branch:branchName rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Branch#iataCargoAgentLocationIdentifier
 branch:iataCargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
                                         rdfs:domain :Branch ;
-                                        rdfs:range xsd:decimal ;
+                                        rdfs:range xsd:integer ;
                                         rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
                                         rdfs:label "branch:iataCargoAgentLocationIdentifier"@en .
 
@@ -3480,7 +3488,7 @@ company:airlineCode rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Company#airlinePrefix
 company:airlinePrefix rdf:type owl:DatatypeProperty ;
                       rdfs:domain :Company ;
-                      rdfs:range xsd:string ;
+                      rdfs:range xsd:integer ;
                       rdfs:comment "IATA three-numeric airline prefix number "@en ;
                       rdfs:label "company:airlinePrefix"@en .
 
@@ -3488,7 +3496,7 @@ company:airlinePrefix rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Company#iataCargoAgentCode
 company:iataCargoAgentCode rdf:type owl:DatatypeProperty ;
                            rdfs:domain :Company ;
-                           rdfs:range xsd:decimal ;
+                           rdfs:range xsd:integer ;
                            rdfs:comment "IATA accredited cargo agent 7 digit number"@en ;
                            rdfs:label "company:iataCargoAgentCode"@en .
 
@@ -3594,7 +3602,7 @@ dangerousGoods:classCode 	rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/DangerousGoods#netQuantity
 dangerousGoods:netQuantity 	rdf:type owl:DatatypeProperty ;
 							rdfs:domain :DangerousGoods ;
-							rdfs:range xsd:string ;
+							rdfs:range xsd:double ;
 							rdfs:comment "Net quantity"@en ;
 							rdfs:label "dangerousGoods:netQuantity"@en .
 
@@ -3729,7 +3737,7 @@ item:productionDate rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Item#quantityForUnitPrice
 item:quantityForUnitPrice rdf:type owl:DatatypeProperty ;
                           rdfs:domain :Item ;
-                          rdfs:range xsd:decimal ;
+                          rdfs:range xsd:double ;
                           rdfs:comment "Product quantity for unit price - e.g. 12 (eggs for one USD 1)"@en ;
                           rdfs:label "item:quantityForUnitPrice"@en .
 
@@ -3938,7 +3946,7 @@ piece:upid rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Price#grandTotal
 price:grandTotal rdf:type owl:DatatypeProperty ;
            rdfs:domain :Piece ;
-           rdfs:range xsd:decimal ;
+           rdfs:range xsd:double ;
            rdfs:comment "Total price"@en ;
            rdfs:label "price:grandTotal"@en .
 
@@ -4009,21 +4017,21 @@ quoteRequest:shipmentSecurityStatus rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Ranges#amount
 ranges:amount rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Ranges ;
-                 rdfs:range xsd:decimal ;
+                 rdfs:range xsd:double ;
                  rdfs:comment "Amount"@en ;
                  rdfs:label "ranges:amount"@en .
 
 ###  https://onerecord.iata.org/Ranges#maximumQuantity
 ranges:maximumQuantity rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Ranges ;
-                 rdfs:range xsd:decimal ;
+                 rdfs:range xsd:double ;
                  rdfs:comment "Maximum quantity"@en ;
                  rdfs:label "ranges:maximumQuantity"@en .
 
 ###  https://onerecord.iata.org/Ranges#minimumQuantity
 ranges:minimumQuantity rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Ranges ;
-                 rdfs:range xsd:decimal ;
+                 rdfs:range xsd:double ;
                  rdfs:comment "Minimum quantity"@en ;
                  rdfs:label "ranges:minimumQuantity"@en .
 
@@ -4093,7 +4101,7 @@ ratings:priceSpecificationRef rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Ratings#subTotal
 ratings:subTotal rdf:type owl:DatatypeProperty ;
                  rdfs:domain :Ratings ;
-                 rdfs:range xsd:string ;
+                 rdfs:range xsd:double ;
                  rdfs:comment "Subtotal of the charge"@en ;
                  rdfs:label "ratings:subTotal"@en .
 
@@ -4286,7 +4294,7 @@ transportSegment:fuelType rdf:type owl:DatatypeProperty ;
                      ###  https://onerecord.iata.org/TransportSegment#modeCode
                      transportSegment:modeCode rdf:type owl:DatatypeProperty ;
                                           rdfs:domain :TransportSegment ;
-                                          rdfs:range xsd:decimal ;
+                                          rdfs:range xsd:string ;
                                           rdfs:comment "Mode Code"@en ;
                                           rdfs:label "transportSegment:modeCode"@en .
 
@@ -4378,7 +4386,7 @@ value:unit rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Value#value
 value:value rdf:type owl:DatatypeProperty ;
             rdfs:domain :Value ;
-            rdfs:range xsd:string ;
+            rdfs:range xsd:double ;
             rdfs:comment "Value"@en ;
             rdfs:label "value:value"@en .
 
