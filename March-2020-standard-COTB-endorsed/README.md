@@ -1,4 +1,4 @@
-# CSC Notification 008
+# Note
 
 The materials presented in this folder constitute a proposal to amend the Attachment "A" of the Recommended Practice 1690 "Internet Based Cargo Data Sharing Standards". This proposal was agreed by the **Cargo Operations & Technology Board (COTB)**.
 
