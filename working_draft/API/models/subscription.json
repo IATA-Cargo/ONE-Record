@@ -1,13 +1,35 @@
 {
-  "@context": "https://onerecord.iata.org/",
-  "@id": "https://subscriberonerecordserver?topic=HouseManifest",
-  "@type": "Subscription",
-  "subscribedTo": "https://publisheronerecordserver.net/yourCompany",
-  "topic": "http://cargo.iata.org/HouseManifest",
-  "callbackUrl": "https://subscriberonerecordserver/callback",
-  "contentType": ["application/ld+json"],
-  "secret": "C89583BA9B1FEEAB25F715A3BA2F3",
-  "subscribeToStatusUpdates": "true",
-  "sendLogisticsObjectBody": "true",
-  "cacheFor": "86400"
+  "@type": [
+    "https://onerecord.iata.org/Subscription"
+  ],
+  "contentType": [
+    "string"
+  ],
+  "https://onerecord.iata.org/Subscription#cacheFor": "string",
+  "https://onerecord.iata.org/Subscription#callbackUrl": "string",
+  "https://onerecord.iata.org/Subscription#error": [
+    {
+      "@type": [
+        "https://onerecord.iata.org/Error"
+      ],
+      "https://onerecord.iata.org/Error#details": [
+        {
+          "@type": [
+            "https://onerecord.iata.org/Details"
+          ],
+          "https://onerecord.iata.org/Details#attribute": "string",
+          "https://onerecord.iata.org/Details#code": "string",
+          "https://onerecord.iata.org/Details#message": "string",
+          "https://onerecord.iata.org/Details#resource": "string"
+        }
+      ],
+      "https://onerecord.iata.org/Error#title": "string"
+    }
+  ],
+  "https://onerecord.iata.org/Subscription#myCompanyIdentifier": "string",
+  "https://onerecord.iata.org/Subscription#secret": "string",
+  "https://onerecord.iata.org/Subscription#sendLogisticsObjectBody": true,
+  "https://onerecord.iata.org/Subscription#subscribeToStatusUpdates": true,
+  "https://onerecord.iata.org/Subscription#subscribedTo": "string",
+  "https://onerecord.iata.org/Subscription#topic": "string"
 }

@@ -1,12 +1,17 @@
 {
-  "@context": "https://onerecord.iata.org/",
-  "@id": "https://onerecord.iata.org#Error",
-  "@type": "Error",
-  "title": "Request contains invalid field",
-  "details": [{
-    "code": "1234",
-    "attribute": ".AirWayBillNumber",
-    "resource": "http://cargo.iata.org/AirWayBill",
-    "message": "AirWaybill number could not be dereferenced, an error occurred"
-  }]
+  "@type": [
+    "https://onerecord.iata.org/Error"
+  ],
+  "https://onerecord.iata.org/Error#details": [
+    {
+      "@type": [
+        "https://onerecord.iata.org/Details"
+      ],
+      "https://onerecord.iata.org/Details#attribute": "string",
+      "https://onerecord.iata.org/Details#code": "string",
+      "https://onerecord.iata.org/Details#message": "string",
+      "https://onerecord.iata.org/Details#resource": "string"
+    }
+  ],
+  "https://onerecord.iata.org/Error#title": "string"
 }

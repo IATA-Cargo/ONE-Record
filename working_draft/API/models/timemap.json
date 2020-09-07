@@ -1,23 +1,29 @@
 {
-  "@context": "https://onerecord.iata.org/",
-  "@id": "https://www.onerecordcargo.org/my_airline/shipment_123456/timemap",
-  "@type": "Timemap",
-  "original": "https://www.onerecordcargo.org/my_airline/shipment_123456",
-  "mementos": {
-      "list": [
-       {
-        "memento": "https://www.onerecordcargo.org/my_airline/shipment_123456/mementos/677b715e-3b46-492b-93df-bf9cc059a111",
-        "label": "v0",
-        "datetime": "2020-04-20T10:36:42+00:00"
-       },
-       {
-        "memento": "https://www.onerecordcargo.org/my_airline/shipment_123456/mementos/addd87ed-f208-4e8a-8b69-d7cf698c8d4e",
-        "label": "v1",
-        "datetime": "2020-04-21T10:36:42+00:00"
-       }
+  "@type": [
+    "https://onerecord.iata.org/Timemap"
+  ],
+  "https://onerecord.iata.org/Timemap#mementos": {
+    "@type": [
+      "https://onerecord.iata.org/Mementos"
+    ],
+    "https://onerecord.iata.org/Mementos#firstMemento": "string",
+    "https://onerecord.iata.org/Mementos#lastMemento": "string",
+    "https://onerecord.iata.org/Mementos#list": {
+      "@type": [
+        "https://onerecord.iata.org/MementoList"
       ],
-     "firstMemento": "https://www.onerecordcargo.org/my_airline/shipment_123456/mementos/677b715e-3b46-492b-93df-bf9cc059a111",
-     "lastMemento": "https://www.onerecordcargo.org/my_airline/shipment_123456/mementos/addd87ed-f208-4e8a-8b69-d7cf698c8d4e"
-   },
-  "timegate": "https://www.onerecordcargo.org/my_airline/shipment_123456/timegate"
+      "https://onerecord.iata.org/MementoList#mementoEntry": [
+        {
+          "@type": [
+            "https://onerecord.iata.org/MementoEntry"
+          ],
+          "https://onerecord.iata.org/MementoEntry#datetime": "2020-09-07T12:00:00.183Z",
+          "https://onerecord.iata.org/MementoEntry#label": "string",
+          "https://onerecord.iata.org/MementoEntry#memento": "string"
+        }
+      ]
+    }
+  },
+  "https://onerecord.iata.org/Timemap#original": "string",
+  "https://onerecord.iata.org/Timemap#timegate": "string"
 }

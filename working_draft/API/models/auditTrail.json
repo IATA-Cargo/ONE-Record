@@ -1,51 +1,68 @@
 {
-"@context": "https://onerecord.iata.org/",
-"@id": "https://onerecordserver.org/airline/logisticsObjectId/auditTrail",
-"@type":"AuditTrail",
-"create":{
-  "lo":"initial content of the Logistics Object"
-},
-"logisticsObjectRef":"https://onerecordserver.org/airline/logisticsObjectId",
-"changeRequests":[
-      {
-         "timestamp":"2019-09-17T14:49:13+00:00",
-         "companyId":"http://myonerecordserver.com/AIRLINE",
-         "changeRequest":{
-            "revision":"1",
-            "description":"Updated number of total pieces count",
-            "operations":[
-               {
-                  "op":"del",
-                  "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount",
-                  "o":{
-                     "value":"10",
-                     "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
-                  }
-               },
-               {
-                  "op":"add",
-                  "p":"http://cargo.iata.org/AirWaybill#totalPieceAndULDCount ",
-                  "o":{
-                     "value":"11",
-                     "datatype":"https://www.w3.org/2001/XMLSchema#decimal"
-                  }
-               },
-               {
-                  "op":"add",
-                  "p":" http://cargo.iata.org/AirWaybill#date",
-                  "o":{
-                     "value":"2019-08-18",
-                     "datatype":"http://www.w3.org/2001/XMLSchema#date"
-                  }
-               }
-            ]
-         },
-         "errorIndicator":[
-            {
-               "error":"error model"
-            }
-         ],
-         "status":"ACCEPTED"
-      }
-   ]
+  "@type": [
+    "https://onerecord.iata.org/AuditTrail"
+  ],
+  "https://onerecord.iata.org/AuditTrail#changeRequests": [
+    {
+      "@type": [
+        "https://onerecord.iata.org/ChangeRequest"
+      ],
+      "https://onerecord.iata.org/ChangeRequest#changeRequest": {
+        "@type": [
+          "https://onerecord.iata.org/PatchRequest"
+        ],
+        "https://onerecord.iata.org/PatchRequest#description": "string",
+        "https://onerecord.iata.org/PatchRequest#logisticsObjectRef": "string",
+        "https://onerecord.iata.org/PatchRequest#operations": [
+          {
+            "@type": [
+              "https://onerecord.iata.org/Operation"
+            ],
+            "https://onerecord.iata.org/Operation#o": [
+              {
+                "@type": [
+                  "https://onerecord.iata.org/OperationObject"
+                ],
+                "https://onerecord.iata.org/OperationObject#datatype": "string",
+                "https://onerecord.iata.org/OperationObject#value": "string"
+              }
+            ],
+            "https://onerecord.iata.org/Operation#op": "string",
+            "https://onerecord.iata.org/Operation#p": "string"
+          }
+        ],
+        "https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier": "string",
+        "https://onerecord.iata.org/PatchRequest#revision": "string"
+      },
+      "https://onerecord.iata.org/ChangeRequest#companyId": "string",
+      "https://onerecord.iata.org/ChangeRequest#status": "string",
+      "https://onerecord.iata.org/ChangeRequest#timestamp": "2020-09-07T11:55:45.768Z"
+    }
+  ],
+  "https://onerecord.iata.org/AuditTrail#create": {
+    "@type": [
+      "https://onerecord.iata.org/Create"
+    ],
+    "https://onerecord.iata.org/Create#lo": {}
+  },
+  "https://onerecord.iata.org/AuditTrail#error": [
+    {
+      "@type": [
+        "https://onerecord.iata.org/Error"
+      ],
+      "https://onerecord.iata.org/Error#details": [
+        {
+          "@type": [
+            "https://onerecord.iata.org/Details"
+          ],
+          "https://onerecord.iata.org/Details#attribute": "string",
+          "https://onerecord.iata.org/Details#code": "string",
+          "https://onerecord.iata.org/Details#message": "string",
+          "https://onerecord.iata.org/Details#resource": "string"
+        }
+      ],
+      "https://onerecord.iata.org/Error#title": "string"
+    }
+  ],
+  "https://onerecord.iata.org/AuditTrail#logisticsObjectRef": "string"
 }
