@@ -2,13 +2,13 @@
 
 This repository contains the specifications and ontology of ONE Record Standard.
 
-## What is ONE Record? 
+## What is ONE Record?
 
 The vision for ONE Record is an end-to-end digital logistics and transport supply chain where data is easily and transparently exchanged in a digital ecosystem of air cargo stakeholders, communities and data platforms.
 
 ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API.
 
-You can find further information about ONE Record standard on the [IATA dedicated webpage](https://www.iata.org/en/programs/cargo/e/one-record/).
+You can find further information about ONE Record standard on the [IATA dedicated webpage](https://www.iata.org/en/programs/cargo/e/one-record/) and on the [ONE Record Developer Portal](http://www.onerecordcargo.org/index.html).
 
 # Content
 This repository contains the data model, ontology, API & Security specifications of ONE Record.
@@ -22,6 +22,7 @@ This repository contains the data model, ontology, API & Security specifications
 
 ## Structure of the working_draft folder
 - **API**: ONE Record API & Security latest specifications and JSON-LD models;
+- **security**: ONE Record Security documentation provided for the Security Proof-of-Concept;
 - **data-model**: ONE Record logical data model, ONE Record physical data model, Design Principles;
 - **ontology**: ONE Record Data Model ontology and ONE Record API models ontology.
 
