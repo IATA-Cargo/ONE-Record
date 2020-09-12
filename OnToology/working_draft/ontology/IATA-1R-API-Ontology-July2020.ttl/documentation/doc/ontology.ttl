@@ -1,0 +1,1324 @@
+@prefix : <https://onerecord.iata.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://onerecord.iata.org/> .
+
+<https://onerecord.iata.org/> rdf:type owl:Ontology ;
+                               <http://purl.org/dc/elements/1.1/description> "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
+                               <http://purl.org/dc/elements/1.1/title> "IATA ONE Record API vocabulary"@en ;
+                               owl:versionInfo "1.1" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://onerecord.iata.org/AuditTrail#changeRequests
+<https://onerecord.iata.org/AuditTrail#changeRequests> rdf:type owl:ObjectProperty ;
+                                                       rdfs:domain :AuditTrail ;
+                                                       rdfs:range :ChangeRequest ;
+                                                       rdfs:comment "List of change requests that were sent as PATCH on for a Logitstics Object"@en ;
+                                                       rdfs:label "auditTrail:changeRequests"@en .
+
+
+###  https://onerecord.iata.org/AuditTrail#create
+<https://onerecord.iata.org/AuditTrail#create> rdf:type owl:ObjectProperty ;
+                                               rdfs:domain :AuditTrail ;
+                                               rdfs:range :Create ;
+                                               rdfs:comment "Initial content of the Logistics Object at the creation moment"@en ;
+                                               rdfs:label "auditTrail:create"@en .
+
+
+###  https://onerecord.iata.org/AuditTrail#error
+<https://onerecord.iata.org/AuditTrail#error> rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :AuditTrail ;
+                                              rdfs:range :Error ;
+                                              rdfs:comment "Non mandatory error details"@en ;
+                                              rdfs:label "auditTrail:error"@en .
+
+
+###  https://onerecord.iata.org/ChangeRequest#changeRequest
+<https://onerecord.iata.org/ChangeRequest#changeRequest> rdf:type owl:ObjectProperty ;
+                                                         rdfs:domain :ChangeRequest ;
+                                                         rdfs:range :PatchRequest ;
+                                                         rdfs:comment "PATCH body of a change request sent for a specific Logistics Object"@en ;
+                                                         rdfs:label "changeRequests:changeRequest"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#company
+<https://onerecord.iata.org/CompanyInformation#company> rdf:type owl:ObjectProperty ;
+                                                        rdfs:domain :CompanyInformation ;
+                                                        rdfs:range :Company ;
+                                                        rdfs:comment "Company details"@en ;
+                                                        rdfs:label "companyInformation:company"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#error
+<https://onerecord.iata.org/CompanyInformation#error> rdf:type owl:ObjectProperty ;
+                                                      rdfs:domain :CompanyInformation ;
+                                                      rdfs:range :Error ;
+                                                      rdfs:comment "Non mandatory error details"@en ;
+                                                      rdfs:label "companyInformation:error"@en .
+
+
+###  https://onerecord.iata.org/Create#lo
+<https://onerecord.iata.org/Create#lo> rdf:type owl:ObjectProperty ;
+                                       rdfs:domain :Create ;
+                                       rdfs:range :LogisticsObject ;
+                                       rdfs:comment "Content of a Logistics Object"@en ;
+                                       rdfs:label "create:lo"@en .
+
+
+###  https://onerecord.iata.org/Error#details
+<https://onerecord.iata.org/Error#details> rdf:type owl:ObjectProperty ;
+                                           rdfs:domain :Error ;
+                                           rdfs:range :Details ;
+                                           rdfs:comment "Error details"@en ;
+                                           rdfs:label "error:details"@en .
+
+
+###  https://onerecord.iata.org/MementoList#mementoEntry
+<https://onerecord.iata.org/MementoList#mementoEntry> rdf:type owl:ObjectProperty ;
+                                                      rdfs:domain :MementoList ;
+                                                      rdfs:range :MementoEntry ;
+                                                      rdfs:comment "List of mementos of a Logistics Object"@en ;
+                                                      rdfs:label "mementoList:mementoEntry"@en .
+
+
+###  https://onerecord.iata.org/Mementos#list
+<https://onerecord.iata.org/Mementos#list> rdf:type owl:ObjectProperty ;
+                                           rdfs:domain :Mementos ;
+                                           rdfs:range :MementoList ;
+                                           rdfs:comment "List of mementos of a Logistics Object"@en ;
+                                           rdfs:label "mementos:list"@en .
+
+
+###  https://onerecord.iata.org/Operation#o
+<https://onerecord.iata.org/Operation#o> rdf:type owl:ObjectProperty ;
+                                         rdfs:domain :Operation ;
+                                         rdfs:range :OperationObject ;
+                                         rdfs:comment "PATCH object to modify"@en ;
+                                         rdfs:label "operation:o"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest#operations
+<https://onerecord.iata.org/PatchRequest#operations> rdf:type owl:ObjectProperty ;
+                                                     rdfs:domain :PatchRequest ;
+                                                     rdfs:range :Operation ;
+                                                     rdfs:comment "List of operations to apply as PATCH on a Logistics Object"@en ;
+                                                     rdfs:label "patchRequest:operations"@en .
+
+
+###  https://onerecord.iata.org/Subscription#error
+<https://onerecord.iata.org/Subscription#error> rdf:type owl:ObjectProperty ;
+                                                rdfs:domain :Subscription ;
+                                                rdfs:range :Error ;
+                                                rdfs:comment "Non mandatory error details"@en ;
+                                                rdfs:label "subscription:error"@en .
+
+
+###  https://onerecord.iata.org/Timemap#mementos
+<https://onerecord.iata.org/Timemap#mementos> rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :Timemap ;
+                                              rdfs:range :Mementos ;
+                                              rdfs:comment "List of mementos of a Logistics Object"@en ;
+                                              rdfs:label "timemap:mementos"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://onerecord.iata.org/AuditTrail#logisticsObjectRef
+<https://onerecord.iata.org/AuditTrail#logisticsObjectRef> rdf:type owl:DatatypeProperty ;
+                                                           rdfs:domain :AuditTrail ;
+                                                           rdfs:range xsd:string ;
+                                                           rdfs:comment "Logistics Object Reference for which the audit trail applies"@en ;
+                                                           rdfs:label "auditTrail:logisticsObjectRef"@en .
+
+
+###  https://onerecord.iata.org/ChangeRequest#companyId
+<https://onerecord.iata.org/ChangeRequest#companyId> rdf:type owl:DatatypeProperty ;
+                                                     rdfs:domain :ChangeRequest ;
+                                                     rdfs:range xsd:string ;
+                                                     rdfs:comment "Company which sent the change request"@en ;
+                                                     rdfs:label "changeRequests:companyId"@en .
+
+
+###  https://onerecord.iata.org/ChangeRequest#status
+<https://onerecord.iata.org/ChangeRequest#status> rdf:type owl:DatatypeProperty ;
+                                                  rdfs:domain :ChangeRequest ;
+                                                  rdfs:range [ rdf:type rdfs:Datatype ;
+                                                               owl:oneOf [ rdf:type rdf:List ;
+                                                                           rdf:first "ACCEPTED" ;
+                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                      rdf:first "REJECTED" ;
+                                                                                      rdf:rest rdf:nil
+                                                                                    ]
+                                                                         ]
+                                                             ] ;
+                                                  rdfs:comment "ACCEPTED or REJECTED"@en ;
+                                                  rdfs:label "changeRequests:status"@en .
+
+
+###  https://onerecord.iata.org/ChangeRequest#timestamp
+<https://onerecord.iata.org/ChangeRequest#timestamp> rdf:type owl:DatatypeProperty ;
+                                                     rdfs:domain :ChangeRequest ;
+                                                     rdfs:range xsd:dateTime ;
+                                                     rdfs:comment "Timestamp of the change request"@en ;
+                                                     rdfs:label "changeRequests:timestamp"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#companyId
+<https://onerecord.iata.org/CompanyInformation#companyId> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:domain :CompanyInformation ;
+                                                          rdfs:range xsd:string ;
+                                                          rdfs:comment "Company Id, for example airline code."@en ;
+                                                          rdfs:label "companyInformation:companyId"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#serverEndpoint
+<https://onerecord.iata.org/CompanyInformation#serverEndpoint> rdf:type owl:DatatypeProperty ;
+                                                               rdfs:domain :CompanyInformation ;
+                                                               rdfs:range xsd:string ;
+                                                               rdfs:comment "Endpoint of the company in the Internet of Logistics"@en ;
+                                                               rdfs:label "companyInformation:serverEndpoint"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#supportedContentTypes
+<https://onerecord.iata.org/CompanyInformation#supportedContentTypes> rdf:type owl:DatatypeProperty ;
+                                                                      rdfs:domain :CompanyInformation ;
+                                                                      rdfs:range xsd:string ;
+                                                                      rdfs:comment "Supported content types of the server"@en ;
+                                                                      rdfs:label "companyInformation:supportedContentTypes"@en .
+
+
+###  https://onerecord.iata.org/CompanyInformation#supportedLogisticsObjects
+<https://onerecord.iata.org/CompanyInformation#supportedLogisticsObjects> rdf:type owl:DatatypeProperty ;
+                                                                          rdfs:domain :CompanyInformation ;
+                                                                          rdfs:range xsd:string ;
+                                                                          rdfs:comment "Supported logistics object types on the server"@en ;
+                                                                          rdfs:label "companyInformation:supportedLogisticsObjects"@en .
+
+
+###  https://onerecord.iata.org/DelegationRequest#action
+<https://onerecord.iata.org/DelegationRequest#action> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:domain :DelegationRequest ;
+                                                      rdfs:range [ rdf:type rdfs:Datatype ;
+                                                                   owl:oneOf [ rdf:type rdf:List ;
+                                                                               rdf:first "DELEGATE" ;
+                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                          rdf:first "REVOKE" ;
+                                                                                          rdf:rest rdf:nil
+                                                                                        ]
+                                                                             ]
+                                                                 ] ;
+                                                      rdfs:comment "REVOKE or DELEGATE"@en ;
+                                                      rdfs:label "delegationRequest:action"@en .
+
+
+###  https://onerecord.iata.org/DelegationRequest#operations
+<https://onerecord.iata.org/DelegationRequest#operations> rdf:type owl:DatatypeProperty ;
+                                                          rdfs:domain :DelegationRequest ;
+                                                          rdfs:range [ rdf:type rdfs:Datatype ;
+                                                                       owl:oneOf [ rdf:type rdf:List ;
+                                                                                   rdf:first "GET" ;
+                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                              rdf:first "PATCH" ;
+                                                                                              rdf:rest rdf:nil
+                                                                                            ]
+                                                                                 ]
+                                                                     ] ;
+                                                          rdfs:comment "GET or PATCH"@en ;
+                                                          rdfs:label "delegationRequest:operations"@en .
+
+
+###  https://onerecord.iata.org/DelegationRequest#targetCompany
+<https://onerecord.iata.org/DelegationRequest#targetCompany> rdf:type owl:DatatypeProperty ;
+                                                             rdfs:domain :DelegationRequest ;
+                                                             rdfs:range xsd:string ;
+                                                             rdfs:comment "Party that receives the delegated rights"@en ;
+                                                             rdfs:label "delegationRequest:targetCompany"@en .
+
+
+###  https://onerecord.iata.org/DelegationRequest#targetLogisticsObject
+<https://onerecord.iata.org/DelegationRequest#targetLogisticsObject> rdf:type owl:DatatypeProperty ;
+                                                                     rdfs:domain :DelegationRequest ;
+                                                                     rdfs:range xsd:string ;
+                                                                     rdfs:comment "Identifier of the logistics object to which the access is requested"@en ;
+                                                                     rdfs:label "delegationRequest:targetLogisticsObject"@en .
+
+
+###  https://onerecord.iata.org/Details#attribute
+<https://onerecord.iata.org/Details#attribute> rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain :Details ;
+                                               rdfs:range xsd:string ;
+                                               rdfs:comment "Field of the object for which the error applies"@en ;
+                                               rdfs:label "details:attribute"@en .
+
+
+###  https://onerecord.iata.org/Details#code
+<https://onerecord.iata.org/Details#code> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain :Details ;
+                                          rdfs:range xsd:string ;
+                                          rdfs:comment "Error code"@en ;
+                                          rdfs:label "details:code"@en .
+
+
+###  https://onerecord.iata.org/Details#message
+<https://onerecord.iata.org/Details#message> rdf:type owl:DatatypeProperty ;
+                                             rdfs:domain :Details ;
+                                             rdfs:range xsd:string ;
+                                             rdfs:comment "Message of the error"@en ;
+                                             rdfs:label "details:message"@en .
+
+
+###  https://onerecord.iata.org/Details#resource
+<https://onerecord.iata.org/Details#resource> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain :Details ;
+                                              rdfs:range xsd:string ;
+                                              rdfs:comment "Object for which the error applies"@en ;
+                                              rdfs:label "details:resource"@en .
+
+
+###  https://onerecord.iata.org/Error#title
+<https://onerecord.iata.org/Error#title> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain :Error ;
+                                         rdfs:range xsd:string ;
+                                         rdfs:comment "Brief description of the error"@en ;
+                                         rdfs:label "error:title"@en .
+
+
+###  https://onerecord.iata.org/Memento#created
+<https://onerecord.iata.org/Memento#created> rdf:type owl:DatatypeProperty ;
+                                             rdfs:domain :Memento ;
+                                             rdfs:range xsd:dateTime ;
+                                             rdfs:comment "Date and time of the memento creation"@en ;
+                                             rdfs:label "memento:created"@en .
+
+
+###  https://onerecord.iata.org/Memento#createdBy
+<https://onerecord.iata.org/Memento#createdBy> rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain :Memento ;
+                                               rdfs:range xsd:string ;
+                                               rdfs:comment "Name of the memento creator"@en ;
+                                               rdfs:label "memento:createdBy"@en .
+
+
+###  https://onerecord.iata.org/Memento#label
+<https://onerecord.iata.org/Memento#label> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain :Memento ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "Label of the memento"@en ;
+                                           rdfs:label "memento:label"@en .
+
+
+###  https://onerecord.iata.org/Memento#original
+<https://onerecord.iata.org/Memento#original> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain :Memento ;
+                                              rdfs:range xsd:string ;
+                                              rdfs:comment "First version of the Logistics Object"@en ;
+                                              rdfs:label "memento:original"@en .
+
+
+###  https://onerecord.iata.org/MementoEntry#datetime
+<https://onerecord.iata.org/MementoEntry#datetime> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:domain :MementoEntry ;
+                                                   rdfs:range xsd:dateTime ;
+                                                   rdfs:comment "Creation date of the memento"@en ;
+                                                   rdfs:label "mementoEntry:datetime"@en .
+
+
+###  https://onerecord.iata.org/MementoEntry#label
+<https://onerecord.iata.org/MementoEntry#label> rdf:type owl:DatatypeProperty ;
+                                                rdfs:domain :MementoEntry ;
+                                                rdfs:range xsd:string ;
+                                                rdfs:comment "Non mandatory label of the memento"@en ;
+                                                rdfs:label "mementoEntry:label"@en .
+
+
+###  https://onerecord.iata.org/MementoEntry#memento
+<https://onerecord.iata.org/MementoEntry#memento> rdf:type owl:DatatypeProperty ;
+                                                  rdfs:domain :MementoEntry ;
+                                                  rdfs:range xsd:string ;
+                                                  rdfs:comment "Link to the memento"@en ;
+                                                  rdfs:label "mementoEntry:memento"@en .
+
+
+###  https://onerecord.iata.org/Mementos#firstMemento
+<https://onerecord.iata.org/Mementos#firstMemento> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:domain :Mementos ;
+                                                   rdfs:range xsd:string ;
+                                                   rdfs:comment "First memento of the Logistics Object"@en ;
+                                                   rdfs:label "mementos:firstMemento"@en .
+
+
+###  https://onerecord.iata.org/Mementos#lastMemento
+<https://onerecord.iata.org/Mementos#lastMemento> rdf:type owl:DatatypeProperty ;
+                                                  rdfs:domain :Mementos ;
+                                                  rdfs:range xsd:string ;
+                                                  rdfs:comment "Last memento of the Logistics Object"@en ;
+                                                  rdfs:label "mementos:lastMemento"@en .
+
+
+###  https://onerecord.iata.org/Notification#eventType
+<https://onerecord.iata.org/Notification#eventType> rdf:type owl:DatatypeProperty ;
+                                                    rdfs:domain :Notification ;
+                                                    rdfs:range [ rdf:type rdfs:Datatype ;
+                                                                 owl:oneOf [ rdf:type rdf:List ;
+                                                                             rdf:first "OBJECT_CREATED" ;
+                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                        rdf:first "OBJECT_UPDATED" ;
+                                                                                        rdf:rest rdf:nil
+                                                                                      ]
+                                                                           ]
+                                                               ] ;
+                                                    rdfs:comment "OBJECT_CREATED or OBJECT_UPDATED"@en ;
+                                                    rdfs:label "notification:eventType"@en .
+
+
+###  https://onerecord.iata.org/Notification#logisticsObjectRef
+<https://onerecord.iata.org/Notification#logisticsObjectRef> rdf:type owl:DatatypeProperty ;
+                                                             rdfs:domain :Notification ;
+                                                             rdfs:range xsd:string ;
+                                                             rdfs:comment "Logistics Object reference for which the notification is sent"@en ;
+                                                             rdfs:label "notification:logisticsObjectRef"@en .
+
+
+###  https://onerecord.iata.org/Notification#topic
+<https://onerecord.iata.org/Notification#topic> rdf:type owl:DatatypeProperty ;
+                                                rdfs:domain :Notification ;
+                                                rdfs:range xsd:string ;
+                                                rdfs:comment "Type of Logistics Object"@en ;
+                                                rdfs:label "notification:topic"@en .
+
+
+###  https://onerecord.iata.org/Operation#op
+<https://onerecord.iata.org/Operation#op> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain :Operation ;
+                                          rdfs:range [ rdf:type rdfs:Datatype ;
+                                                       owl:oneOf [ rdf:type rdf:List ;
+                                                                   rdf:first "add" ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first "del" ;
+                                                                              rdf:rest rdf:nil
+                                                                            ]
+                                                                 ]
+                                                     ] ;
+                                          rdfs:comment "Operation objects must have exactly one op (operation) member; this value indicates which operation is to be performed. The value must be one of add or del; all other values result in an error"@en ;
+                                          rdfs:label "operation:op"@en .
+
+
+###  https://onerecord.iata.org/Operation#p
+<https://onerecord.iata.org/Operation#p> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain :Operation ;
+                                         rdfs:range xsd:string ;
+                                         rdfs:comment "Operations objects must have exactly one p, predicate, member. The value of this member must be an IRI"@en ;
+                                         rdfs:label "operation:p"@en .
+
+
+###  https://onerecord.iata.org/OperationObject#datatype
+<https://onerecord.iata.org/OperationObject#datatype> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:domain :OperationObject ;
+                                                      rdfs:range xsd:string ;
+                                                      rdfs:comment "Data type of the field to update"@en ;
+                                                      rdfs:label "operationObject:datatype"@en .
+
+
+###  https://onerecord.iata.org/OperationObject#value
+<https://onerecord.iata.org/OperationObject#value> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:domain :OperationObject ;
+                                                   rdfs:range xsd:string ;
+                                                   rdfs:comment "Value to update"@en ;
+                                                   rdfs:label "operationObject:value"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest#description
+<https://onerecord.iata.org/PatchRequest#description> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:domain :PatchRequest ;
+                                                      rdfs:range xsd:string ;
+                                                      rdfs:comment "Reason for the change (optional)"@en ;
+                                                      rdfs:label "patchRequest:description"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest#logisticsObjectRef
+<https://onerecord.iata.org/PatchRequest#logisticsObjectRef> rdf:type owl:DatatypeProperty ;
+                                                             rdfs:domain :PatchRequest ;
+                                                             rdfs:range xsd:string ;
+                                                             rdfs:comment "Reference of the Logistics Object to which te change request is applied to"@en ;
+                                                             rdfs:label "patchRequest:logisticsObjectRef"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier
+<https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier> rdf:type owl:DatatypeProperty ;
+                                                                     rdfs:domain :PatchRequest ;
+                                                                     rdfs:range xsd:string ;
+                                                                     rdfs:comment "The company identifier of the entity that is requesting the change request"@en ;
+                                                                     rdfs:label "patchRequest:requestorCompanyIdentifier"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest#revision
+<https://onerecord.iata.org/PatchRequest#revision> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:domain :PatchRequest ;
+                                                   rdfs:range xsd:string ;
+                                                   rdfs:comment "Revision number of the Logistics Object"@en ;
+                                                   rdfs:label "patchRequest:revision"@en .
+
+
+###  https://onerecord.iata.org/Subscription#cacheFor
+<https://onerecord.iata.org/Subscription#cacheFor> rdf:type owl:DatatypeProperty ;
+                                                   rdfs:domain :Subscription ;
+                                                   rdfs:range xsd:nonNegativeInteger ;
+                                                   rdfs:comment "Duration of the period to cache the subscription information in seconds"@en ;
+                                                   rdfs:label "subscription:cacheFor"@en .
+
+
+###  https://onerecord.iata.org/Subscription#callbackUrl
+<https://onerecord.iata.org/Subscription#callbackUrl> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:domain :Subscription ;
+                                                      rdfs:range xsd:string ;
+                                                      rdfs:comment "Callback URL of the Client Subscription API where the subscriber receives Logistics Objects"@en ;
+                                                      rdfs:label "subscription:callbackUrl"@en .
+
+
+###  https://onerecord.iata.org/Subscription#contentType
+<https://onerecord.iata.org/Subscription#contentType> rdf:type owl:DatatypeProperty ;
+                                                      rdfs:domain :Subscription ;
+                                                      rdfs:range xsd:string ;
+                                                      rdfs:comment "Content type that the subscriber wants to receive in the notifications"@en ;
+                                                      rdfs:label "subscription:contentType"@en .
+
+
+###  https://onerecord.iata.org/Subscription#myCompanyIdentifier
+<https://onerecord.iata.org/Subscription#myCompanyIdentifier> rdf:type owl:DatatypeProperty ;
+                                                              rdfs:domain :Subscription ;
+                                                              rdfs:range xsd:string ;
+                                                              rdfs:comment "The company identifier from the Internet of Logistics of my company."@en ;
+                                                              rdfs:label "subscription:myCompanyIdentifier"@en .
+
+
+###  https://onerecord.iata.org/Subscription#secret
+<https://onerecord.iata.org/Subscription#secret> rdf:type owl:DatatypeProperty ;
+                                                 rdfs:domain :Subscription ;
+                                                 rdfs:range xsd:string ;
+                                                 rdfs:comment "Either a secret or API Key that ensures that only companies with this subscription information can POST to the subscriber callback endpoint"@en ;
+                                                 rdfs:label "subscription:secret"@en .
+
+
+###  https://onerecord.iata.org/Subscription#sendLogisticsObjectBody
+<https://onerecord.iata.org/Subscription#sendLogisticsObjectBody> rdf:type owl:DatatypeProperty ;
+                                                                  rdfs:domain :Subscription ;
+                                                                  rdfs:range xsd:boolean ;
+                                                                  rdfs:comment "Flag specifying if the publisher should send the whole logistics object or not in the notification object"@en ;
+                                                                  rdfs:label "subscription:sendLogisticsObjectBody"@en .
+
+
+###  https://onerecord.iata.org/Subscription#subscribeToStatusUpdates
+<https://onerecord.iata.org/Subscription#subscribeToStatusUpdates> rdf:type owl:DatatypeProperty ;
+                                                                   rdfs:domain :Subscription ;
+                                                                   rdfs:range xsd:boolean ;
+                                                                   rdfs:comment "Flag specifying if the subscriber wants to receive updates for a Logistics Object"@en ;
+                                                                   rdfs:label "subscription:subscribeToStatusUpdates"@en .
+
+
+###  https://onerecord.iata.org/Subscription#subscribedTo
+<https://onerecord.iata.org/Subscription#subscribedTo> rdf:type owl:DatatypeProperty ;
+                                                       rdfs:domain :Subscription ;
+                                                       rdfs:range xsd:string ;
+                                                       rdfs:comment "Company Identifier of the company the subscriber wants to subscribe to (delegation scenario)."@en ;
+                                                       rdfs:label "subscription:subscribedTo"@en .
+
+
+###  https://onerecord.iata.org/Subscription#topic
+<https://onerecord.iata.org/Subscription#topic> rdf:type owl:DatatypeProperty ;
+                                                rdfs:domain :Subscription ;
+                                                rdfs:range xsd:string ;
+                                                rdfs:comment "The Logistics Object type to which the subscriber wants subscribe to"@en ;
+                                                rdfs:label "subscription:topic"@en .
+
+
+###  https://onerecord.iata.org/Timemap#original
+<https://onerecord.iata.org/Timemap#original> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain :Timemap ;
+                                              rdfs:range xsd:string ;
+                                              rdfs:comment "Link to the initial version of the Logistics Object"@en ;
+                                              rdfs:label "timemap:original"@en .
+
+
+###  https://onerecord.iata.org/Timemap#timegate
+<https://onerecord.iata.org/Timemap#timegate> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain :Timemap ;
+                                              rdfs:range xsd:string ;
+                                              rdfs:comment "Link to the time gate of the Logistics Object, if applicable"@en ;
+                                              rdfs:label "timemap:timegate"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://onerecord.iata.org/AuditTrail
+:AuditTrail rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#changeRequests> ;
+                              owl:allValuesFrom :ChangeRequest
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#create> ;
+                              owl:allValuesFrom :Create
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#error> ;
+                              owl:allValuesFrom :Error
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#changeRequests> ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#create> ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#error> ;
+                              owl:minCardinality "0"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#create> ;
+                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#logisticsObjectRef> ;
+                              owl:allValuesFrom xsd:string
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#logisticsObjectRef> ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <https://onerecord.iata.org/AuditTrail#logisticsObjectRef> ;
+                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                            ] ;
+            rdfs:comment "Audit trail of a Logistics Object"@en ;
+            rdfs:label "AuditTrail"@en .
+
+
+###  https://onerecord.iata.org/ChangeRequest
+:ChangeRequest rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#changeRequest> ;
+                                 owl:allValuesFrom :PatchRequest
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#changeRequest> ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#changeRequest> ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#companyId> ;
+                                 owl:allValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#status> ;
+                                 owl:allValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#timestamp> ;
+                                 owl:allValuesFrom xsd:dateTime
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#companyId> ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#status> ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#timestamp> ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#companyId> ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#status> ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <https://onerecord.iata.org/ChangeRequest#timestamp> ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
+               rdfs:comment "Change Request for the audit trail"@en ;
+               rdfs:label "ChangeRequest"@en .
+
+
+###  https://onerecord.iata.org/Company
+:Company rdf:type owl:Class .
+
+
+###  https://onerecord.iata.org/CompanyInformation
+:CompanyInformation rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#company> ;
+                                      owl:allValuesFrom :Company
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#error> ;
+                                      owl:allValuesFrom :Error
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#company> ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#company> ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#companyId> ;
+                                      owl:allValuesFrom xsd:string
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#serverEndpoint> ;
+                                      owl:allValuesFrom xsd:string
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#supportedContentTypes> ;
+                                      owl:allValuesFrom xsd:string
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#supportedLogisticsObjects> ;
+                                      owl:allValuesFrom xsd:string
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#companyId> ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#serverEndpoint> ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#supportedContentTypes> ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#supportedLogisticsObjects> ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#companyId> ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <https://onerecord.iata.org/CompanyInformation#serverEndpoint> ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ;
+                    rdfs:comment "Company information in the Internet of Logistics"@en ;
+                    rdfs:label "CompanyInformation"@en .
+
+
+###  https://onerecord.iata.org/Create
+:Create rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty <https://onerecord.iata.org/Create#lo> ;
+                          owl:allValuesFrom :LogisticsObject
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <https://onerecord.iata.org/Create#lo> ;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <https://onerecord.iata.org/Create#lo> ;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ;
+        rdfs:comment "Create model for the audit trail"@en ;
+        rdfs:label "Create"@en .
+
+
+###  https://onerecord.iata.org/DelegationRequest
+:DelegationRequest rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#action> ;
+                                     owl:allValuesFrom xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#operations> ;
+                                     owl:allValuesFrom xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#targetCompany> ;
+                                     owl:allValuesFrom xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#targetLogisticsObject> ;
+                                     owl:allValuesFrom xsd:string
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#action> ;
+                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#operations> ;
+                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#targetCompany> ;
+                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#targetLogisticsObject> ;
+                                     owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <https://onerecord.iata.org/DelegationRequest#action> ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ;
+                   rdfs:comment "Delegation Request to 3rd parties"@en ;
+                   rdfs:label "DelegationRequest"@en .
+
+
+###  https://onerecord.iata.org/Details
+:Details rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#attribute> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#code> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#message> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#resource> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#code> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#attribute> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#code> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#message> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Details#resource> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "Error details"@en ;
+         rdfs:label "Details"@en .
+
+
+###  https://onerecord.iata.org/Error
+:Error rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty <https://onerecord.iata.org/Error#details> ;
+                         owl:allValuesFrom :Details
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <https://onerecord.iata.org/Error#details> ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <https://onerecord.iata.org/Error#title> ;
+                         owl:allValuesFrom xsd:string
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <https://onerecord.iata.org/Error#title> ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <https://onerecord.iata.org/Error#title> ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ;
+       rdfs:comment "Error model"@en ;
+       rdfs:label "Error"@en .
+
+
+###  https://onerecord.iata.org/LogisticsObject
+:LogisticsObject rdf:type owl:Class .
+
+
+###  https://onerecord.iata.org/Memento
+:Memento rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#created> ;
+                           owl:allValuesFrom xsd:dateTime
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#createdBy> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#label> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#original> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#created> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#createdBy> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#original> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#created> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#createdBy> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#label> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Memento#original> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "Version of a Logistics Object"@en ;
+         rdfs:label "Memento"@en .
+
+
+###  https://onerecord.iata.org/MementoEntry
+:MementoEntry rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#datetime> ;
+                                owl:allValuesFrom xsd:dateTime
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#label> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#memento> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#datetime> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#memento> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#datetime> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#label> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/MementoEntry#memento> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:comment "Memento entry from the time map"@en ;
+              rdfs:label "MementoEntry"@en .
+
+
+###  https://onerecord.iata.org/MementoList
+:MementoList rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty <https://onerecord.iata.org/MementoList#mementoEntry> ;
+                               owl:allValuesFrom :MementoEntry
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <https://onerecord.iata.org/MementoList#mementoEntry> ;
+                               owl:minCardinality "1"^^xsd:nonNegativeInteger
+                             ] ;
+             rdfs:comment "Memento list model"@en ;
+             rdfs:label "MementoList"@en .
+
+
+###  https://onerecord.iata.org/Mementos
+:Mementos rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#list> ;
+                            owl:allValuesFrom :MementoList
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#list> ;
+                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#list> ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#firstMemento> ;
+                            owl:allValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#lastMemento> ;
+                            owl:allValuesFrom xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#firstMemento> ;
+                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#lastMemento> ;
+                            owl:minCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#firstMemento> ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <https://onerecord.iata.org/Mementos#lastMemento> ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                          ] ;
+          rdfs:comment "Memento list model"@en ;
+          rdfs:label "Mementos"@en .
+
+
+###  https://onerecord.iata.org/Notification
+:Notification rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#eventType> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#logisticsObjectRef> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#topic> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#eventType> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#logisticsObjectRef> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#topic> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#eventType> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#logisticsObjectRef> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Notification#topic> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:comment "Notification sent by the publisher to the subscriber"@en ;
+              rdfs:label "Notification"@en .
+
+
+###  https://onerecord.iata.org/Operation
+:Operation rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#o> ;
+                             owl:allValuesFrom :OperationObject
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#o> ;
+                             owl:minCardinality "1"^^xsd:nonNegativeInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#op> ;
+                             owl:allValuesFrom xsd:string
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#p> ;
+                             owl:allValuesFrom xsd:string
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#op> ;
+                             owl:minCardinality "1"^^xsd:nonNegativeInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#p> ;
+                             owl:minCardinality "1"^^xsd:nonNegativeInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#op> ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <https://onerecord.iata.org/Operation#p> ;
+                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                           ] ;
+           rdfs:comment "Operation Request contained in the PATCH body"@en ;
+           rdfs:label "Operation"@en .
+
+
+###  https://onerecord.iata.org/OperationObject
+:OperationObject rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#datatype> ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#value> ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#datatype> ;
+                                   owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#value> ;
+                                   owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#datatype> ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <https://onerecord.iata.org/OperationObject#value> ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ;
+                 rdfs:comment "Object to modify in the PATCH request"@en ;
+                 rdfs:label "OperationObject"@en .
+
+
+###  https://onerecord.iata.org/PatchRequest
+:PatchRequest rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#operations> ;
+                                owl:allValuesFrom :Operation
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#operations> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#description> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#logisticsObjectRef> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#revision> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#logisticsObjectRef> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#revision> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#description> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#logisticsObjectRef> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/PatchRequest#revision> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:comment "PATCH Request body containing updates on a Logistics Object"@en ;
+              rdfs:label "PatchRequest"@en .
+
+
+###  https://onerecord.iata.org/Subscription
+:Subscription rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#error> ;
+                                owl:allValuesFrom :Error
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#cacheFor> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#callbackUrl> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#contentType> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#myCompanyIdentifier> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#secret> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#sendLogisticsObjectBody> ;
+                                owl:allValuesFrom xsd:boolean
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#subscribeToStatusUpdates> ;
+                                owl:allValuesFrom xsd:boolean
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#subscribedTo> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#topic> ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#callbackUrl> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#myCompanyIdentifier> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#subscribedTo> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#topic> ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#cacheFor> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#callbackUrl> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#myCompanyIdentifier> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#secret> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#sendLogisticsObjectBody> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#subscribeToStatusUpdates> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#subscribedTo> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <https://onerecord.iata.org/Subscription#topic> ;
+                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:comment "Subscription information sent to the publisher"@en ;
+              rdfs:label "Subscription"@en .
+
+
+###  https://onerecord.iata.org/Timemap
+:Timemap rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#mementos> ;
+                           owl:allValuesFrom :Mementos
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#mementos> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#mementos> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#original> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#timegate> ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#original> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#original> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <https://onerecord.iata.org/Timemap#timegate> ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:comment "Timemap of a Logistics Object containing mementos and timegate URI"@en ;
+         rdfs:label "Timemap"@en .
+
+
+###  Generated by the OWL API (version 5.1.14) https://github.com/owlcs/owlapi/
