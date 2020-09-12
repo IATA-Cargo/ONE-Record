@@ -1,0 +1,1085 @@
+{
+  "@context" : {
+    "productionDate" : {
+      "@id" : "https://onerecord.iata.org/Item#productionDate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "abstract" : {
+      "@id" : "http://purl.org/dc/terms/abstract"
+    },
+    "Address" : {
+      "@id" : "https://onerecord.iata.org/Address"
+    },
+    "countryCode" : {
+      "@id" : "https://onerecord.iata.org/Country#countryCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "commodityCode" : {
+      "@id" : "https://onerecord.iata.org/Product#commodityCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "receivedBy" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#receivedBy",
+      "@type" : "@id"
+    },
+    "quantityForUnitPrice" : {
+      "@id" : "https://onerecord.iata.org/Item#quantityForUnitPrice",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "companyName" : {
+      "@id" : "https://onerecord.iata.org/Company#companyName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "transportSegment" : {
+      "@id" : "https://onerecord.iata.org/ULD#transportSegment",
+      "@type" : "@id"
+    },
+    "minimumQuantity" : {
+      "@id" : "https://onerecord.iata.org/Ranges#minimumQuantity",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "loadingIndicator" : {
+      "@id" : "https://onerecord.iata.org/ULD#loadingIndicator",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "QuoteResponse" : {
+      "@id" : "https://onerecord.iata.org/QuoteResponse"
+    },
+    "otherIdentifier" : {
+      "@id" : "https://onerecord.iata.org/Item#otherIdentifier",
+      "@type" : "@id"
+    },
+    "classCode" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods#classCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "fuelAmountCalculated" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#fuelAmountCalculated",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "chargeDescription" : {
+      "@id" : "https://onerecord.iata.org/Ratings#chargeDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "dangerousGoods" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#dangerousGoods",
+      "@type" : "@id"
+    },
+    "department" : {
+      "@id" : "https://onerecord.iata.org/Person#department",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "totalSLAC" : {
+      "@id" : "https://onerecord.iata.org/Shipment#totalSLAC",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "regionName" : {
+      "@id" : "https://onerecord.iata.org/Address#regionName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "width" : {
+      "@id" : "https://onerecord.iata.org/Dimensions#width",
+      "@type" : "@id"
+    },
+    "ExternalReference" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference"
+    },
+    "VolumetricWeight" : {
+      "@id" : "https://onerecord.iata.org/VolumetricWeight"
+    },
+    "customsInfoCountryCode" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo#customsInfoCountryCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "containedWaybill" : {
+      "@id" : "https://onerecord.iata.org/Waybill#containedWaybill",
+      "@type" : "@id"
+    },
+    "securityStatus" : {
+      "@id" : "https://onerecord.iata.org/Piece#securityStatus",
+      "@type" : "@id"
+    },
+    "cityCode" : {
+      "@id" : "https://onerecord.iata.org/Address#cityCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "addressCodeType" : {
+      "@id" : "https://onerecord.iata.org/Address#addressCodeType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "subTotal" : {
+      "@id" : "https://onerecord.iata.org/Ratings#subTotal",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "uldReference" : {
+      "@id" : "https://onerecord.iata.org/Piece#uldReference",
+      "@type" : "@id"
+    },
+    "Country" : {
+      "@id" : "https://onerecord.iata.org/Country"
+    },
+    "country" : {
+      "@id" : "https://onerecord.iata.org/Address#country",
+      "@type" : "@id"
+    },
+    "unNumber" : {
+      "@id" : "https://onerecord.iata.org/Product#unNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "OtherParty" : {
+      "@id" : "https://onerecord.iata.org/OtherParty"
+    },
+    "Branch" : {
+      "@id" : "https://onerecord.iata.org/Branch"
+    },
+    "Thing" : {
+      "@id" : "http://www.w3.org/2002/07/owl#Thing"
+    },
+    "contactPerson" : {
+      "@id" : "https://onerecord.iata.org/Branch#contactPerson",
+      "@type" : "@id"
+    },
+    "poBox" : {
+      "@id" : "https://onerecord.iata.org/Address#poBox",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "characteristicsType" : {
+      "@id" : "https://onerecord.iata.org/Characteristics#characteristicsType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "emailAddress" : {
+      "@id" : "https://onerecord.iata.org/Contact#emailAddress",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "QuoteRequest" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest"
+    },
+    "Product" : {
+      "@id" : "https://onerecord.iata.org/Product"
+    },
+    "containedPiece" : {
+      "@id" : "https://onerecord.iata.org/Piece#containedPiece",
+      "@type" : "@id"
+    },
+    "height" : {
+      "@id" : "https://onerecord.iata.org/Dimensions#height",
+      "@type" : "@id"
+    },
+    "receivedFrom" : {
+      "@id" : "https://onerecord.iata.org/ReasonsForSecurityStatus#receivedFrom",
+      "@type" : "@id"
+    },
+    "offer" : {
+      "@id" : "https://onerecord.iata.org/BookingRequest#offer",
+      "@type" : "@id"
+    },
+    "Offer" : {
+      "@id" : "https://onerecord.iata.org/Offer"
+    },
+    "securityState" : {
+      "@id" : "https://onerecord.iata.org/Offer#securityState",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "OtherIdentifier" : {
+      "@id" : "https://onerecord.iata.org/OtherIdentifier"
+    },
+    "serviceRequestDescription" : {
+      "@id" : "https://onerecord.iata.org/ServiceRequest#serviceRequestDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "ownerCodeIssuer" : {
+      "@id" : "https://onerecord.iata.org/ULD#ownerCodeIssuer",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "rfsInd" : {
+      "@id" : "https://onerecord.iata.org/Routing#rfsInd",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "priceSpecificationRef" : {
+      "@id" : "https://onerecord.iata.org/Ratings#priceSpecificationRef",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "transportDate" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#transportDate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "customsInfoSubjectCode" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo#customsInfoSubjectCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "rateClassCode" : {
+      "@id" : "https://onerecord.iata.org/Ranges#rateClassCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "upid" : {
+      "@id" : "https://onerecord.iata.org/Piece#upid",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "co2Emissions" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#co2Emissions",
+      "@type" : "@id"
+    },
+    "modeCode" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#modeCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "shipmentSecurityStatus" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#shipmentSecurityStatus",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "branch" : {
+      "@id" : "https://onerecord.iata.org/Company#branch",
+      "@type" : "@id"
+    },
+    "uldType" : {
+      "@id" : "https://onerecord.iata.org/ULD#uldType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "consignee" : {
+      "@id" : "https://onerecord.iata.org/Booking#consignee",
+      "@type" : "@id"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "branchName" : {
+      "@id" : "https://onerecord.iata.org/Branch#branchName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "regulatedPartyType" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#regulatedPartyType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "ownerCode" : {
+      "@id" : "https://onerecord.iata.org/ULD#ownerCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "elevation" : {
+      "@id" : "https://onerecord.iata.org/Geolocation#elevation",
+      "@type" : "@id"
+    },
+    "ULD" : {
+      "@id" : "https://onerecord.iata.org/ULD"
+    },
+    "longitude" : {
+      "@id" : "https://onerecord.iata.org/Geolocation#longitude",
+      "@type" : "@id"
+    },
+    "manufacturer" : {
+      "@id" : "https://onerecord.iata.org/Product#manufacturer",
+      "@type" : "@id"
+    },
+    "detail" : {
+      "@id" : "https://onerecord.iata.org/ContactOther#detail",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Location" : {
+      "@id" : "https://onerecord.iata.org/Location"
+    },
+    "totalPieceCount" : {
+      "@id" : "https://onerecord.iata.org/Shipment#totalPieceCount",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "chargeableWeight" : {
+      "@id" : "https://onerecord.iata.org/VolumetricWeight#chargeableWeight",
+      "@type" : "@id"
+    },
+    "fuelType" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#fuelType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "lastName" : {
+      "@id" : "https://onerecord.iata.org/Person#lastName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "loadType" : {
+      "@id" : "https://onerecord.iata.org/Piece#loadType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "countryName" : {
+      "@id" : "https://onerecord.iata.org/Country#countryName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "priceSpecification" : {
+      "@id" : "https://onerecord.iata.org/Ratings#priceSpecification",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "typicalFuelConsumption" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#typicalFuelConsumption",
+      "@type" : "@id"
+    },
+    "ratingsPreference" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#ratingsPreference",
+      "@type" : "@id"
+    },
+    "dateTime" : {
+      "@id" : "https://onerecord.iata.org/Event#dateTime",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Event" : {
+      "@id" : "https://onerecord.iata.org/Event"
+    },
+    "expiryDate" : {
+      "@id" : "https://onerecord.iata.org/ReceivedFrom#expiryDate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "maxConnections" : {
+      "@id" : "https://onerecord.iata.org/Routing#maxConnections",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "turnable" : {
+      "@id" : "https://onerecord.iata.org/Piece#turnable",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "otherIdentifierType" : {
+      "@id" : "https://onerecord.iata.org/OtherIdentifier#otherIdentifierType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "event" : {
+      "@id" : "https://onerecord.iata.org/LogisticsObject#event",
+      "@type" : "@id"
+    },
+    "Person" : {
+      "@id" : "https://onerecord.iata.org/Person"
+    },
+    "Contact" : {
+      "@id" : "https://onerecord.iata.org/Contact"
+    },
+    "routingPreferences" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#routingPreferences",
+      "@type" : "@id"
+    },
+    "waybillNumber" : {
+      "@id" : "https://onerecord.iata.org/Waybill#waybillNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#long"
+    },
+    "Shipment" : {
+      "@id" : "https://onerecord.iata.org/Shipment"
+    },
+    "batchNumber" : {
+      "@id" : "https://onerecord.iata.org/Item#batchNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Price" : {
+      "@id" : "https://onerecord.iata.org/Price"
+    },
+    "documentName" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference#documentName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "ReceivedFrom" : {
+      "@id" : "https://onerecord.iata.org/ReceivedFrom"
+    },
+    "middleName" : {
+      "@id" : "https://onerecord.iata.org/Person#middleName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "employeeId" : {
+      "@id" : "https://onerecord.iata.org/Person#employeeId",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "latitude" : {
+      "@id" : "https://onerecord.iata.org/Geolocation#latitude",
+      "@type" : "@id"
+    },
+    "geolocation" : {
+      "@id" : "https://onerecord.iata.org/Location#geolocation",
+      "@type" : "@id"
+    },
+    "ratingType" : {
+      "@id" : "https://onerecord.iata.org/Ranges#ratingType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "departureLocation" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#departureLocation",
+      "@type" : "@id"
+    },
+    "product" : {
+      "@id" : "https://onerecord.iata.org/Piece#product",
+      "@type" : "@id"
+    },
+    "issuedOn" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#issuedOn",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "airlinePrefix" : {
+      "@id" : "https://onerecord.iata.org/Company#airlinePrefix",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "Ratings" : {
+      "@id" : "https://onerecord.iata.org/Ratings"
+    },
+    "parties" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#parties",
+      "@type" : "@id"
+    },
+    "grandTotal" : {
+      "@id" : "https://onerecord.iata.org/Price#grandTotal",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "ataDesignator" : {
+      "@id" : "https://onerecord.iata.org/ULD#ataDesignator",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "insuranceAmount" : {
+      "@id" : "https://onerecord.iata.org/Insurance#insuranceAmount",
+      "@type" : "@id"
+    },
+    "commodity" : {
+      "@id" : "https://onerecord.iata.org/Offer#commodity",
+      "@type" : "@id"
+    },
+    "chargeType" : {
+      "@id" : "https://onerecord.iata.org/Ratings#chargeType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "scr" : {
+      "@id" : "https://onerecord.iata.org/Ranges#scr",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "postalCode" : {
+      "@id" : "https://onerecord.iata.org/Address#postalCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "co2CalculationMethod" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#co2CalculationMethod",
+      "@type" : "@id"
+    },
+    "Characteristics" : {
+      "@id" : "https://onerecord.iata.org/Characteristics"
+    },
+    "eventName" : {
+      "@id" : "https://onerecord.iata.org/Event#eventName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "groundsForExemption" : {
+      "@id" : "https://onerecord.iata.org/ReasonsForSecurityStatus#groundsForExemption",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "customsInformation" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo#customsInformation",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "CarrierProduct" : {
+      "@id" : "https://onerecord.iata.org/CarrierProduct"
+    },
+    "companyIdentifier" : {
+      "@id" : "https://onerecord.iata.org/LogisticsObject#companyIdentifier",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "totalGrossWeight" : {
+      "@id" : "https://onerecord.iata.org/Shipment#totalGrossWeight",
+      "@type" : "@id"
+    },
+    "onlineInd" : {
+      "@id" : "https://onerecord.iata.org/Routing#onlineInd",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "netQuantity" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods#netQuantity",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "value" : {
+      "@id" : "https://onerecord.iata.org/Value#value",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "DangerousGoods" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods"
+    },
+    "dimensions" : {
+      "@id" : "https://onerecord.iata.org/Piece#dimensions",
+      "@type" : "@id"
+    },
+    "coload" : {
+      "@id" : "https://onerecord.iata.org/Piece#coload",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "stackable" : {
+      "@id" : "https://onerecord.iata.org/Piece#stackable",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "Insurance" : {
+      "@id" : "https://onerecord.iata.org/Insurance"
+    },
+    "location" : {
+      "@id" : "https://onerecord.iata.org/Event#location",
+      "@type" : "@id"
+    },
+    "routing" : {
+      "@id" : "https://onerecord.iata.org/Offer#routing",
+      "@type" : "@id"
+    },
+    "statementType" : {
+      "@id" : "https://onerecord.iata.org/ServiceRequest#statementType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "regulatedEntityIdentifier" : {
+      "@id" : "https://onerecord.iata.org/ReceivedFrom#regulatedEntityIdentifier",
+      "@type" : "@id"
+    },
+    "logisticsObjectRef" : {
+      "@id" : "https://onerecord.iata.org/Event#logisticsObjectRef",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "grossWeight" : {
+      "@id" : "https://onerecord.iata.org/Piece#grossWeight",
+      "@type" : "@id"
+    },
+    "otherScreeningMethods" : {
+      "@id" : "https://onerecord.iata.org/ReasonsForSecurityStatus#otherScreeningMethods",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "statusCode" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#statusCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "regionCode" : {
+      "@id" : "https://onerecord.iata.org/Address#regionCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "address" : {
+      "@id" : "https://onerecord.iata.org/Location#address",
+      "@type" : "@id"
+    },
+    "TransportMeans" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans"
+    },
+    "shipmentDetails" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#shipmentDetails",
+      "@type" : "@id"
+    },
+    "otherType" : {
+      "@id" : "https://onerecord.iata.org/ContactOther#otherType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "contactType" : {
+      "@id" : "https://onerecord.iata.org/Person#contactType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "documentVersion" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference#documentVersion",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "methodName" : {
+      "@id" : "https://onerecord.iata.org/CO2CalcMethod#methodName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "status" : {
+      "@id" : "https://onerecord.iata.org/BookingRequest#status",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "targetCountry" : {
+      "@id" : "https://onerecord.iata.org/Item#targetCountry",
+      "@type" : "@id"
+    },
+    "Value" : {
+      "@id" : "https://onerecord.iata.org/Value"
+    },
+    "lotNumber" : {
+      "@id" : "https://onerecord.iata.org/Item#lotNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Dimensions" : {
+      "@id" : "https://onerecord.iata.org/Dimensions"
+    },
+    "ContactOther" : {
+      "@id" : "https://onerecord.iata.org/ContactOther"
+    },
+    "issuedBy" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#issuedBy",
+      "@type" : "@id"
+    },
+    "firstName" : {
+      "@id" : "https://onerecord.iata.org/Person#firstName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "request" : {
+      "@id" : "https://onerecord.iata.org/QuoteResponse#request",
+      "@type" : "@id"
+    },
+    "transportCompany" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#transportCompany",
+      "@type" : "@id"
+    },
+    "iataCargoAgentLocationIdentifier" : {
+      "@id" : "https://onerecord.iata.org/Branch#iataCargoAgentLocationIdentifier",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "insurance" : {
+      "@id" : "https://onerecord.iata.org/Shipment#insurance",
+      "@type" : "@id"
+    },
+    "identifier" : {
+      "@id" : "https://onerecord.iata.org/OtherIdentifier#identifier",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "unitsPreference" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#unitsPreference",
+      "@type" : "@id"
+    },
+    "uld" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#uld",
+      "@type" : "@id"
+    },
+    "quantityUnits" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods#quantityUnits",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Company" : {
+      "@id" : "https://onerecord.iata.org/Company"
+    },
+    "conversionFactor" : {
+      "@id" : "https://onerecord.iata.org/VolumetricWeight#conversionFactor",
+      "@type" : "@id"
+    },
+    "packagingType" : {
+      "@id" : "https://onerecord.iata.org/Piece#packagingType",
+      "@type" : "@id"
+    },
+    "productionCountry" : {
+      "@id" : "https://onerecord.iata.org/Item#productionCountry",
+      "@type" : "@id"
+    },
+    "commodityName" : {
+      "@id" : "https://onerecord.iata.org/Product#commodityName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "documentOriginator" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference#documentOriginator",
+      "@type" : "@id"
+    },
+    "locationType" : {
+      "@id" : "https://onerecord.iata.org/Location#locationType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "units" : {
+      "@id" : "https://onerecord.iata.org/Offer#units",
+      "@type" : "@id"
+    },
+    "volumetricWeight" : {
+      "@id" : "https://onerecord.iata.org/Shipment#volumetricWeight",
+      "@type" : "@id"
+    },
+    "CO2CalcMethod" : {
+      "@id" : "https://onerecord.iata.org/CO2CalcMethod"
+    },
+    "phoneNumber" : {
+      "@id" : "https://onerecord.iata.org/Contact#phoneNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "BookingRequest" : {
+      "@id" : "https://onerecord.iata.org/BookingRequest"
+    },
+    "unitBasis" : {
+      "@id" : "https://onerecord.iata.org/Ranges#unitBasis",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "isDefinedBy" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#isDefinedBy"
+    },
+    "roleName" : {
+      "@id" : "https://onerecord.iata.org/OtherParty#roleName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "shipper" : {
+      "@id" : "https://onerecord.iata.org/Booking#shipper",
+      "@type" : "@id"
+    },
+    "Routing" : {
+      "@id" : "https://onerecord.iata.org/Routing"
+    },
+    "length" : {
+      "@id" : "https://onerecord.iata.org/Dimensions#length",
+      "@type" : "@id"
+    },
+    "eventTypeIndicator" : {
+      "@id" : "https://onerecord.iata.org/Event#eventTypeIndicator",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "iataCargoAgentCode" : {
+      "@id" : "https://onerecord.iata.org/Company#iataCargoAgentCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "addressCode" : {
+      "@id" : "https://onerecord.iata.org/Address#addressCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "goodsDescription" : {
+      "@id" : "https://onerecord.iata.org/Shipment#goodsDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "statementText" : {
+      "@id" : "https://onerecord.iata.org/ServiceRequest#statementText",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Piece" : {
+      "@id" : "https://onerecord.iata.org/Piece"
+    },
+    "specialHandling" : {
+      "@id" : "https://onerecord.iata.org/Offer#specialHandling",
+      "@type" : "@id"
+    },
+    "jobTitle" : {
+      "@id" : "https://onerecord.iata.org/Person#jobTitle",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "customsInfoNote" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo#customsInfoNote",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "piece" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#piece",
+      "@type" : "@id"
+    },
+    "Waybill" : {
+      "@id" : "https://onerecord.iata.org/Waybill"
+    },
+    "contour" : {
+      "@id" : "https://onerecord.iata.org/ULD#contour",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "title" : {
+      "@id" : "http://purl.org/dc/elements/1.1/title"
+    },
+    "validTo" : {
+      "@id" : "https://onerecord.iata.org/Price#validTo",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "typicalCO2Coefficient" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#typicalCO2Coefficient",
+      "@type" : "@id"
+    },
+    "additionalSecurityInfo" : {
+      "@id" : "https://onerecord.iata.org/Piece#additionalSecurityInfo",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "reasonsForSecurityStatus" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#reasonsForSecurityStatus",
+      "@type" : "@id"
+    },
+    "amount" : {
+      "@id" : "https://onerecord.iata.org/Ranges#amount",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "characteristics" : {
+      "@id" : "https://onerecord.iata.org/Product#characteristics",
+      "@type" : "@id"
+    },
+    "Booking" : {
+      "@id" : "https://onerecord.iata.org/Booking"
+    },
+    "deckPosition" : {
+      "@id" : "https://onerecord.iata.org/ULD#deckPosition",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "tareWeight" : {
+      "@id" : "https://onerecord.iata.org/ULD#tareWeight",
+      "@type" : "@id"
+    },
+    "modified" : {
+      "@id" : "http://purl.org/dc/terms/modified"
+    },
+    "ownerCompany" : {
+      "@id" : "https://onerecord.iata.org/ULD#ownerCompany",
+      "@type" : "@id"
+    },
+    "regulatingAuthority" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus#regulatingAuthority",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "other" : {
+      "@id" : "https://onerecord.iata.org/Contact#other",
+      "@type" : "@id"
+    },
+    "productDescription" : {
+      "@id" : "https://onerecord.iata.org/CarrierProduct#productDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "volume" : {
+      "@id" : "https://onerecord.iata.org/Dimensions#volume",
+      "@type" : "@id"
+    },
+    "TransportSegment" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment"
+    },
+    "Ranges" : {
+      "@id" : "https://onerecord.iata.org/Ranges"
+    },
+    "SpecialHandling" : {
+      "@id" : "https://onerecord.iata.org/SpecialHandling"
+    },
+    "productIdentifier" : {
+      "@id" : "https://onerecord.iata.org/Product#productIdentifier",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "commodityType" : {
+      "@id" : "https://onerecord.iata.org/Product#commodityType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "ranges" : {
+      "@id" : "https://onerecord.iata.org/Ratings#ranges",
+      "@type" : "@id"
+    },
+    "transportMovement" : {
+      "@id" : "https://onerecord.iata.org/QuoteRequest#transportMovement",
+      "@type" : "@id"
+    },
+    "unit" : {
+      "@id" : "https://onerecord.iata.org/Value#unit",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "seal" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#seal",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "ReasonsForSecurityStatus" : {
+      "@id" : "https://onerecord.iata.org/ReasonsForSecurityStatus"
+    },
+    "packingInstruction" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods#packingInstruction",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "salutation" : {
+      "@id" : "https://onerecord.iata.org/Person#salutation",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "slac" : {
+      "@id" : "https://onerecord.iata.org/Piece#slac",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "customsInfoContentCode" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo#customsInfoContentCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "cityName" : {
+      "@id" : "https://onerecord.iata.org/Address#cityName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "transportIdentifier" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#transportIdentifier",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "notifyParty" : {
+      "@id" : "https://onerecord.iata.org/Booking#notifyParty",
+      "@type" : "@id"
+    },
+    "productExpiryDate" : {
+      "@id" : "https://onerecord.iata.org/Item#productExpiryDate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "street" : {
+      "@id" : "https://onerecord.iata.org/Address#street",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "packagingTypeDescription" : {
+      "@id" : "https://onerecord.iata.org/PackagingType#packagingTypeDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "distanceCalculated" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#distanceCalculated",
+      "@type" : "@id"
+    },
+    "Geolocation" : {
+      "@id" : "https://onerecord.iata.org/Geolocation"
+    },
+    "CustomsInfo" : {
+      "@id" : "https://onerecord.iata.org/CustomsInfo"
+    },
+    "eventCode" : {
+      "@id" : "https://onerecord.iata.org/Event#eventCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "price" : {
+      "@id" : "https://onerecord.iata.org/Offer#price",
+      "@type" : "@id"
+    },
+    "requestMatchInd" : {
+      "@id" : "https://onerecord.iata.org/Offer#requestMatchInd",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "maximumQuantity" : {
+      "@id" : "https://onerecord.iata.org/Ranges#maximumQuantity",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "documentID" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference#documentID",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "externalReference" : {
+      "@id" : "https://onerecord.iata.org/Shipment#externalReference",
+      "@type" : "@id"
+    },
+    "productCode" : {
+      "@id" : "https://onerecord.iata.org/CarrierProduct#productCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "screeningMethod" : {
+      "@id" : "https://onerecord.iata.org/ReasonsForSecurityStatus#screeningMethod",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "freightForwarder" : {
+      "@id" : "https://onerecord.iata.org/Booking#freightForwarder",
+      "@type" : "@id"
+    },
+    "carrierProductInfo" : {
+      "@id" : "https://onerecord.iata.org/Offer#carrierProductInfo",
+      "@type" : "@id"
+    },
+    "transportMeans" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#transportMeans",
+      "@type" : "@id"
+    },
+    "vehicleType" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#vehicleType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "airlineCode" : {
+      "@id" : "https://onerecord.iata.org/Company#airlineCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "isInPiece" : {
+      "@id" : "https://onerecord.iata.org/Item#isInPiece",
+      "@type" : "@id"
+    },
+    "ServiceRequest" : {
+      "@id" : "https://onerecord.iata.org/ServiceRequest"
+    },
+    "fuelAmountMeasured" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#fuelAmountMeasured",
+      "@type" : "@id"
+    },
+    "carrier" : {
+      "@id" : "https://onerecord.iata.org/Booking#carrier",
+      "@type" : "@id"
+    },
+    "unitPrice" : {
+      "@id" : "https://onerecord.iata.org/Item#unitPrice",
+      "@type" : "@id"
+    },
+    "companyDetails" : {
+      "@id" : "https://onerecord.iata.org/OtherParty#companyDetails",
+      "@type" : "@id"
+    },
+    "LogisticsObject" : {
+      "@id" : "https://onerecord.iata.org/LogisticsObject"
+    },
+    "transportMeansOperator" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#transportMeansOperator",
+      "@type" : "@id"
+    },
+    "latestArrivalDateTime" : {
+      "@id" : "https://onerecord.iata.org/Routing#latestArrivalDateTime",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "performedBy" : {
+      "@id" : "https://onerecord.iata.org/Event#performedBy",
+      "@type" : "@id"
+    },
+    "commodityDescription" : {
+      "@id" : "https://onerecord.iata.org/Product#commodityDescription",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "chargeCode" : {
+      "@id" : "https://onerecord.iata.org/Ratings#chargeCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "vehicleRegistration" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#vehicleRegistration",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Item" : {
+      "@id" : "https://onerecord.iata.org/Item"
+    },
+    "serialNumber" : {
+      "@id" : "https://onerecord.iata.org/ULD#serialNumber",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "aircraftPossibilityCode" : {
+      "@id" : "https://onerecord.iata.org/Routing#aircraftPossibilityCode",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "locationName" : {
+      "@id" : "https://onerecord.iata.org/Location#locationName",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "packingGroup" : {
+      "@id" : "https://onerecord.iata.org/DangerousGoods#packingGroup",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "code" : {
+      "@id" : "https://onerecord.iata.org/Location#code",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "vehicleSize" : {
+      "@id" : "https://onerecord.iata.org/TransportMeans#vehicleSize",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "arrivalLocation" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#arrivalLocation",
+      "@type" : "@id"
+    },
+    "PackagingType" : {
+      "@id" : "https://onerecord.iata.org/PackagingType"
+    },
+    "ratings" : {
+      "@id" : "https://onerecord.iata.org/Price#ratings",
+      "@type" : "@id"
+    },
+    "contact" : {
+      "@id" : "https://onerecord.iata.org/Person#contact",
+      "@type" : "@id"
+    },
+    "distanceMeasured" : {
+      "@id" : "https://onerecord.iata.org/TransportSegment#distanceMeasured",
+      "@type" : "@id"
+    },
+    "documentType" : {
+      "@id" : "https://onerecord.iata.org/ExternalReference#documentType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "weight" : {
+      "@id" : "https://onerecord.iata.org/Item#weight",
+      "@type" : "@id"
+    },
+    "description" : {
+      "@id" : "http://purl.org/dc/elements/1.1/description"
+    },
+    "waybillType" : {
+      "@id" : "https://onerecord.iata.org/Waybill#waybillType",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "otherParty" : {
+      "@id" : "https://onerecord.iata.org/Piece#otherParty",
+      "@type" : "@id"
+    },
+    "customsInfo" : {
+      "@id" : "https://onerecord.iata.org/Piece#customsInfo",
+      "@type" : "@id"
+    },
+    "coveringParty" : {
+      "@id" : "https://onerecord.iata.org/Insurance#coveringParty",
+      "@type" : "@id"
+    },
+    "offers" : {
+      "@id" : "https://onerecord.iata.org/QuoteResponse#offers",
+      "@type" : "@id"
+    },
+    "SecurityStatus" : {
+      "@id" : "https://onerecord.iata.org/SecurityStatus"
+    },
+    "methodVersion" : {
+      "@id" : "https://onerecord.iata.org/CO2CalcMethod#methodVersion",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "serviceRequest" : {
+      "@id" : "https://onerecord.iata.org/Offer#serviceRequest",
+      "@type" : "@id"
+    }
+  }
+}
