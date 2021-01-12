@@ -18,7 +18,7 @@ This repository contains the data model, ontology, API & Security specifications
 ## Structure of the repository
 - **CSC_adopted_March_2019** : ONE Record standard version adopted by CSC in March 2019;
 - **March-2020-standard-COTB-endorsed** : ONE Record standard version endorsed by the Cargo Operations & Technology Board (COTB) on March 2020;
-- **November-2020-standard-COTB-for-endorsement** : ONE Record standard version to be endorsed by the Cargo Operations & Technology Board (COTB) in November 2020;
+- **November-2020-standard-COTB-endorsed** : ONE Record standard version endorsed by the Cargo Operations & Technology Board (COTB) in November 2020;
 - **working_draft** : latest version of ONE Record standard.
 
 ## Structure of the working_draft folder
