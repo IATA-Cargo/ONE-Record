@@ -1,68 +1,216 @@
 {
+  "@language": "string",
   "@type": [
     "https://onerecord.iata.org/AuditTrail"
   ],
-  "https://onerecord.iata.org/AuditTrail#changeRequests": [
+  "https://onerecord.iata.org/AuditTrail#changeRequest": [
     {
+      "@language": "string",
       "@type": [
         "https://onerecord.iata.org/ChangeRequest"
       ],
-      "https://onerecord.iata.org/ChangeRequest#changeRequest": {
+      "https://onerecord.iata.org/ChangeRequest#companyId": "string",
+      "https://onerecord.iata.org/ChangeRequest#patchRequest": {
+        "@language": "string",
         "@type": [
           "https://onerecord.iata.org/PatchRequest"
         ],
         "https://onerecord.iata.org/PatchRequest#description": "string",
-        "https://onerecord.iata.org/PatchRequest#logisticsObjectRef": "string",
+        "https://onerecord.iata.org/PatchRequest#logisticsObjectRef": {
+          "@language": "string",
+          "@type": [
+            "https://onerecord.iata.org/LogisticsObjectRef"
+          ],
+          "https://onerecord.iata.org/LogisticsObjectRef#logisticsObjectId": "string",
+          "https://onerecord.iata.org/LogisticsObjectRef#logisticsObjectType": "string",
+          "id": "string"
+        },
         "https://onerecord.iata.org/PatchRequest#operations": [
           {
+            "@language": "string",
             "@type": [
               "https://onerecord.iata.org/Operation"
             ],
-            "https://onerecord.iata.org/Operation#o": [
-              {
-                "@type": [
-                  "https://onerecord.iata.org/OperationObject"
-                ],
-                "https://onerecord.iata.org/OperationObject#datatype": "string",
-                "https://onerecord.iata.org/OperationObject#value": "string"
-              }
-            ],
+            "https://onerecord.iata.org/Operation#o": {
+              "@language": "string",
+              "@type": [
+                "https://onerecord.iata.org/OperationObject"
+              ],
+              "https://onerecord.iata.org/OperationObject#datatype": "string",
+              "https://onerecord.iata.org/OperationObject#value": "string",
+              "id": "string"
+            },
             "https://onerecord.iata.org/Operation#op": "string",
-            "https://onerecord.iata.org/Operation#p": "string"
+            "https://onerecord.iata.org/Operation#p": "string",
+            "id": "string"
           }
         ],
         "https://onerecord.iata.org/PatchRequest#requestorCompanyIdentifier": "string",
-        "https://onerecord.iata.org/PatchRequest#revision": "string"
+        "https://onerecord.iata.org/PatchRequest#revision": "string",
+        "id": "string"
       },
-      "https://onerecord.iata.org/ChangeRequest#companyId": "string",
+      "https://onerecord.iata.org/ChangeRequest#requestingParty": {
+        "@type": [
+          "https://onerecord.iata.org/Branch"
+        ],
+        "branchName": "string",
+        "https://onerecord.iata.org/Branch#company": {
+          "@type": [
+            "https://onerecord.iata.org/Company"
+          ],
+          "https://onerecord.iata.org/Company#airlineCode": "string",
+          "https://onerecord.iata.org/Company#airlinePrefix": 0,
+          "https://onerecord.iata.org/Company#companyName": "string",
+          "https://onerecord.iata.org/Company#iataCargoAgentCode": 0
+        },
+        "https://onerecord.iata.org/Branch#contactPerson": [
+          {
+            "@type": [
+              "https://onerecord.iata.org/Person"
+            ],
+            "https://onerecord.iata.org/Person#contact": [
+              {
+                "@type": [
+                  "https://onerecord.iata.org/Contact"
+                ],
+                "https://onerecord.iata.org/Contact#emailAddress": "string",
+                "https://onerecord.iata.org/Contact#other": {
+                  "@type": [
+                    "https://onerecord.iata.org/ContactOther"
+                  ],
+                  "https://onerecord.iata.org/ContactOther#detail": "string",
+                  "https://onerecord.iata.org/ContactOther#otherType": "string"
+                },
+                "https://onerecord.iata.org/Contact#phoneNumber": "string"
+              }
+            ],
+            "https://onerecord.iata.org/Person#contactType": "string",
+            "https://onerecord.iata.org/Person#department": "string",
+            "https://onerecord.iata.org/Person#employeeId": "string",
+            "https://onerecord.iata.org/Person#firstName": "string",
+            "https://onerecord.iata.org/Person#jobTitle": "string",
+            "https://onerecord.iata.org/Person#lastName": "string",
+            "https://onerecord.iata.org/Person#middleName": "string",
+            "https://onerecord.iata.org/Person#salutation": "string"
+          }
+        ],
+        "https://onerecord.iata.org/Branch#iataCargoAgentLocationIdentifier": 0,
+        "https://onerecord.iata.org/Branch#location": {
+          "@type": [
+            "https://onerecord.iata.org/Location"
+          ],
+          "https://onerecord.iata.org/Location#address": {
+            "@type": [
+              "https://onerecord.iata.org/Address"
+            ],
+            "https://onerecord.iata.org/Address#addressCode": [
+              "string"
+            ],
+            "https://onerecord.iata.org/Address#addressCodeType": "string",
+            "https://onerecord.iata.org/Address#cityCode": "string",
+            "https://onerecord.iata.org/Address#cityName": "string",
+            "https://onerecord.iata.org/Address#country": {
+              "@type": [
+                "https://onerecord.iata.org/Country"
+              ],
+              "https://onerecord.iata.org/Country#countryCode": "string",
+              "https://onerecord.iata.org/Country#countryName": "string"
+            },
+            "https://onerecord.iata.org/Address#poBox": "string",
+            "https://onerecord.iata.org/Address#postalCode": "string",
+            "https://onerecord.iata.org/Address#regionCode": "string",
+            "https://onerecord.iata.org/Address#regionName": "string",
+            "https://onerecord.iata.org/Address#street": [
+              "string"
+            ]
+          },
+          "https://onerecord.iata.org/Location#code": "string",
+          "https://onerecord.iata.org/Location#geolocation": {
+            "@type": [
+              "https://onerecord.iata.org/Geolocation"
+            ],
+            "https://onerecord.iata.org/Geolocation#elevation": {
+              "@type": [
+                "https://onerecord.iata.org/Value"
+              ],
+              "https://onerecord.iata.org/Value#unit": "string",
+              "https://onerecord.iata.org/Value#value": 0
+            },
+            "https://onerecord.iata.org/Geolocation#latitude": {
+              "@type": [
+                "https://onerecord.iata.org/Value"
+              ],
+              "https://onerecord.iata.org/Value#unit": "string",
+              "https://onerecord.iata.org/Value#value": 0
+            },
+            "https://onerecord.iata.org/Geolocation#longitude": {
+              "@type": [
+                "https://onerecord.iata.org/Value"
+              ],
+              "https://onerecord.iata.org/Value#unit": "string",
+              "https://onerecord.iata.org/Value#value": 0
+            }
+          },
+          "https://onerecord.iata.org/Location#locationName": "string",
+          "https://onerecord.iata.org/Location#locationType": "string"
+        },
+        "https://onerecord.iata.org/Branch#otherIdentifier": [
+          {
+            "@type": [
+              "https://onerecord.iata.org/OtherIdentifier"
+            ],
+            "https://onerecord.iata.org/OtherIdentifier#identifier": "string",
+            "https://onerecord.iata.org/OtherIdentifier#otherIdentifierType": "string"
+          }
+        ]
+      },
       "https://onerecord.iata.org/ChangeRequest#status": "string",
-      "https://onerecord.iata.org/ChangeRequest#timestamp": "2020-09-07T11:55:45.768Z"
+      "https://onerecord.iata.org/ChangeRequest#timestamp": "2021-03-03T17:12:01.913Z",
+      "id": "string"
     }
   ],
-  "https://onerecord.iata.org/AuditTrail#create": {
-    "@type": [
-      "https://onerecord.iata.org/Create"
-    ],
-    "https://onerecord.iata.org/Create#lo": {}
-  },
   "https://onerecord.iata.org/AuditTrail#error": [
     {
+      "@language": "string",
       "@type": [
         "https://onerecord.iata.org/Error"
       ],
       "https://onerecord.iata.org/Error#details": [
         {
+          "@language": "string",
           "@type": [
             "https://onerecord.iata.org/Details"
           ],
           "https://onerecord.iata.org/Details#attribute": "string",
           "https://onerecord.iata.org/Details#code": "string",
           "https://onerecord.iata.org/Details#message": "string",
-          "https://onerecord.iata.org/Details#resource": "string"
+          "https://onerecord.iata.org/Details#resource": "string",
+          "id": "string"
         }
       ],
-      "https://onerecord.iata.org/Error#title": "string"
+      "https://onerecord.iata.org/Error#title": "string",
+      "id": "string"
     }
   ],
-  "https://onerecord.iata.org/AuditTrail#logisticsObjectRef": "string"
+  "https://onerecord.iata.org/AuditTrail#loInitialSnapshot": {
+    "@language": "string",
+    "@type": [
+      "https://onerecord.iata.org/Memento"
+    ],
+    "https://onerecord.iata.org/Memento#created": "2021-03-03T17:12:01.913Z",
+    "https://onerecord.iata.org/Memento#createdBy": "string",
+    "https://onerecord.iata.org/Memento#label": "string",
+    "https://onerecord.iata.org/Memento#original": "string",
+    "id": "string"
+  },
+  "https://onerecord.iata.org/AuditTrail#logisticsObjectRef": {
+    "@language": "string",
+    "@type": [
+      "https://onerecord.iata.org/LogisticsObjectRef"
+    ],
+    "https://onerecord.iata.org/LogisticsObjectRef#logisticsObjectId": "string",
+    "https://onerecord.iata.org/LogisticsObjectRef#logisticsObjectType": "string",
+    "id": "string"
+  },
+  "id": "string"
 }
