@@ -1,0 +1,43 @@
+Following are a few guidelines on how to write the Data Model ontology to be compliant with JOPA. These guidelines are to be updated if new constraints are found.
+
+#########
+### Maximum number of lines for Restrictions on properties linked to classes
+#########
+
+JOPA does not handle properply Restrictions that contain more than 3 lines. When defining the properties of a class the restrictions need to be split accordingly.
+
+For instance the following:
+
+	[ rdf:type owl:Restriction ;
+		owl:onProperty address:country ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onClass :Country
+	]
+						 
+Should be written:
+
+	[ rdf:type owl:Restriction ;
+		owl:onProperty address:country ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger
+	] ,
+	[ rdf:type owl:Restriction ;
+		owl:onProperty address:country ;
+		owl:onClass :Country
+	]
+
+#########
+### Defining cardinality restrictions for properties
+#########
+
+Protege defines cardinality in a different way than JOPA handles. maxQualifiedCardinality, minQualifiedCardinality and qualifiedCardinality should not be used. Only maxCardinality and minCardinality should be used.
+
+In case there is exactly one, or any other number, expected value(s) it should be written:
+
+	[ rdf:type owl:Restriction ;
+		owl:onProperty address:country ;
+		owl:maxCardinality "1"^^xsd:nonNegativeInteger
+	] ,
+	[ rdf:type owl:Restriction ;
+		owl:onProperty address:country ;
+		owl:minCardinality "1"^^xsd:nonNegativeInteger
+	]
