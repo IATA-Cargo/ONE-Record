@@ -2,7 +2,7 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix uld: <https://onerecord.iata.org/cargo/ULD#> .
+@prefix uld: <https://onerecord.iata.org/cargo/Uld#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix item: <https://onerecord.iata.org/cargo/Item#> .
@@ -907,7 +907,7 @@ piece:transportSegment rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/cargo/Piece#uldReference
 piece:uldReference rdf:type owl:ObjectProperty ;
                    rdfs:domain :Piece ;
-                   rdfs:range :ULD ;
+                   rdfs:range :Uld ;
                    rdfs:comment "ULD on which the (virtual) piece has been loaded into - URIs of the ULD"@en ;
                    rdfs:label "piece:uldReference"@en .
 
@@ -1348,38 +1348,38 @@ transportSegment:transportedPieces rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/cargo/TransportSegment#transportedUlds
 transportSegment:transportedUlds rdf:type owl:ObjectProperty ;
                                  rdfs:domain :TransportSegment ;
-                                 rdfs:range :ULD ;
+                                 rdfs:range :Uld ;
                                  rdfs:comment "ULDs assigned to the transport segment"@en ;
                                  rdfs:label "transportSegment:transportedUlds"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#externalReference
+###  https://onerecord.iata.org/cargo/Uld#externalReference
 uld:externalReference rdf:type owl:ObjectProperty ;
-                      rdfs:domain :ULD ;
+                      rdfs:domain :Uld ;
                       rdfs:range :ExternalReference ;
                       rdfs:comment "Reference documents details "@en ;
                       rdfs:label "uld:externalReference"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#tareWeight
+###  https://onerecord.iata.org/cargo/Uld#tareWeight
 uld:tareWeight rdf:type owl:ObjectProperty ;
-               rdfs:domain :ULD ;
+               rdfs:domain :Uld ;
                rdfs:range :Value ;
                rdfs:comment "Tare weight of the empty ULD"@en ;
                rdfs:label "uld:tareWeight"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#transportSegment
+###  https://onerecord.iata.org/cargo/Uld#transportSegment
 uld:transportSegment rdf:type owl:ObjectProperty ;
-                     rdfs:domain :ULD ;
+                     rdfs:domain :Uld ;
                      rdfs:range :TransportSegment ;
                      rdfs:comment "Segment related to the ULD movement"@en ;
                      rdfs:label "uld:transportSegment"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#upid
+###  https://onerecord.iata.org/cargo/Uld#upid
 uld:upid rdf:type owl:ObjectProperty ;
-         rdfs:domain :ULD ;
+         rdfs:domain :Uld ;
          rdfs:range :Piece ;
          rdfs:comment "Details of contained (virtual) piece(s)"@en ;
          rdfs:label "uld:upid"@en .
@@ -2582,7 +2582,7 @@ piece:loadType rdf:type owl:DatatypeProperty ;
                                         rdf:rest [ rdf:type rdf:List ;
                                                    rdf:first "Pallet" ;
                                                    rdf:rest [ rdf:type rdf:List ;
-                                                              rdf:first "ULD" ;
+                                                              rdf:first "Uld" ;
                                                               rdf:rest rdf:nil
                                                             ]
                                                  ]
@@ -3602,97 +3602,97 @@ transportSegment:transportIdentifier rdf:type owl:DatatypeProperty ;
                                      rdfs:label "transportSegment:transportIdentifier"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#ataDesignator
+###  https://onerecord.iata.org/cargo/Uld#ataDesignator
 uld:ataDesignator rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :ULD ;
+                  rdfs:domain :Uld ;
                   rdfs:range xsd:string ;
                   rdfs:comment "US / ATA Unit Load Device type code e.g. M2"@en ;
                   rdfs:label "uld:ataDesignator"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#damageFlag
+###  https://onerecord.iata.org/cargo/Uld#damageFlag
 uld:damageFlag rdf:type owl:DatatypeProperty ;
-               rdfs:domain :ULD ;
+               rdfs:domain :Uld ;
                rdfs:range xsd:boolean ;
                rdfs:comment "Indicates if the ULD is Damaged"@en ;
                rdfs:label "uld:damageFlag"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#demurrageCode
+###  https://onerecord.iata.org/cargo/Uld#demurrageCode
 uld:demurrageCode rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :ULD ;
+                  rdfs:domain :Uld ;
                   rdfs:range xsd:string ;
                   rdfs:comment "Contains three designator of demurrage code, refer to RP 1654 (BCC, HHH, XXX, ZZZ)"@en ;
                   rdfs:label "uld:demurrageCode"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#loadingIndicator
+###  https://onerecord.iata.org/cargo/Uld#loadingIndicator
 uld:loadingIndicator rdf:type owl:DatatypeProperty ;
-                     rdfs:domain :ULD ;
+                     rdfs:domain :Uld ;
                      rdfs:range xsd:string ;
                      rdfs:comment "ULD height or loading limitation code. Refer CXML Code List 1.47,  e.g. R - ULD Height above 244 centimetres"@en ;
                      rdfs:label "uld:loadingIndicator"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#nbDoor
+###  https://onerecord.iata.org/cargo/Uld#nbDoor
 uld:nbDoor rdf:type owl:DatatypeProperty ;
-           rdfs:domain :ULD ;
+           rdfs:domain :Uld ;
            rdfs:range xsd:integer ;
            rdfs:comment "Number of doors"@en ;
            rdfs:label "uld:nbDoor"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#nbFittings
+###  https://onerecord.iata.org/cargo/Uld#nbFittings
 uld:nbFittings rdf:type owl:DatatypeProperty ;
-               rdfs:domain :ULD ;
+               rdfs:domain :Uld ;
                rdfs:range xsd:integer ;
                rdfs:comment "Number of fittings"@en ;
                rdfs:label "uld:nbFittings"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#nbNets
+###  https://onerecord.iata.org/cargo/Uld#nbNets
 uld:nbNets rdf:type owl:DatatypeProperty ;
-           rdfs:domain :ULD ;
+           rdfs:domain :Uld ;
            rdfs:range xsd:integer ;
            rdfs:comment "Number of nets"@en ;
            rdfs:label "uld:nbNets"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#nbStraps
+###  https://onerecord.iata.org/cargo/Uld#nbStraps
 uld:nbStraps rdf:type owl:DatatypeProperty ;
-             rdfs:domain :ULD ;
+             rdfs:domain :Uld ;
              rdfs:range xsd:integer ;
              rdfs:comment "Number of straps"@en ;
              rdfs:label "uld:nbStraps"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#odlnCode
+###  https://onerecord.iata.org/cargo/Uld#odlnCode
 uld:odlnCode rdf:type owl:DatatypeProperty ;
-             rdfs:domain :ULD ;
+             rdfs:domain :Uld ;
              rdfs:range xsd:string ;
              rdfs:comment "Contains two designator codes of ODLN or Operational Damage Limit Notices. ODLN code is used to define type of damage after visually check the serviceability of ULDs section 7, Standard Specifications 40/3 or 40/4 in ULD Regulations"@en ;
              rdfs:label "uld:odlnCode"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#ownerCode
+###  https://onerecord.iata.org/cargo/Uld#ownerCode
 uld:ownerCode rdf:type owl:DatatypeProperty ;
-              rdfs:domain :ULD ;
+              rdfs:domain :Uld ;
               rdfs:range xsd:string ;
               rdfs:comment "Owner code of the ULD in aa, an or na format - owner can be an airline or leasing company"@en ;
               rdfs:label "uld:ownerCode"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#serialNumber
+###  https://onerecord.iata.org/cargo/Uld#serialNumber
 uld:serialNumber rdf:type owl:DatatypeProperty ;
-                 rdfs:domain :ULD ;
+                 rdfs:domain :Uld ;
                  rdfs:range xsd:string ;
                  rdfs:comment "ULD serial number"@en ;
                  rdfs:label "uld:serialNumber"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#serviceabilityCode
+###  https://onerecord.iata.org/cargo/Uld#serviceabilityCode
 uld:serviceabilityCode rdf:type owl:DatatypeProperty ;
-                       rdfs:domain :ULD ;
+                       rdfs:domain :Uld ;
                        rdfs:range [ rdf:type rdfs:Datatype ;
                                     owl:oneOf [ rdf:type rdf:List ;
                                                 rdf:first "DAM" ;
@@ -3706,25 +3706,25 @@ uld:serviceabilityCode rdf:type owl:DatatypeProperty ;
                        rdfs:label "uld:serviceabilityCode"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#uldRemarks
+###  https://onerecord.iata.org/cargo/Uld#uldRemarks
 uld:uldRemarks rdf:type owl:DatatypeProperty ;
-               rdfs:domain :ULD ;
+               rdfs:domain :Uld ;
                rdfs:range xsd:string ;
                rdfs:comment "Remarks or Supplement Information"@en ;
                rdfs:label "uld:uldRemarks"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#uldSealNumber
+###  https://onerecord.iata.org/cargo/Uld#uldSealNumber
 uld:uldSealNumber rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :ULD ;
+                  rdfs:domain :Uld ;
                   rdfs:range xsd:string ;
                   rdfs:comment "ULD seal number if applicable"@en ;
                   rdfs:label "uld:uldSealNumber"@en .
 
 
-###  https://onerecord.iata.org/cargo/ULD#uldTypeCode
+###  https://onerecord.iata.org/cargo/Uld#uldTypeCode
 uld:uldTypeCode rdf:type owl:DatatypeProperty ;
-                rdfs:domain :ULD ;
+                rdfs:domain :Uld ;
                 rdfs:range xsd:string ;
                 rdfs:comment "Standard Unit Load Device type code e.g. AKE - Certified Container - Contoured"@en ;
                 rdfs:label "uld:uldTypeCode"@en .
@@ -5859,7 +5859,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:uldReference ;
-                         owl:allValuesFrom :ULD
+                         owl:allValuesFrom :Uld
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:volumetricWeight ;
@@ -7225,7 +7225,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty transportSegment:transportedUlds ;
-                                    owl:allValuesFrom :ULD
+                                    owl:allValuesFrom :Uld
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty transportSegment:arrivalLocation ;
@@ -7351,8 +7351,8 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
  ] .
 
 
-###  https://onerecord.iata.org/cargo/ULD
-:ULD rdf:type owl:Class ;
+###  https://onerecord.iata.org/cargo/Uld
+:Uld rdf:type owl:Class ;
      rdfs:subClassOf :LogisticsObject ,
                      [ rdf:type owl:Class ;
                        owl:oneOf rdf:nil
