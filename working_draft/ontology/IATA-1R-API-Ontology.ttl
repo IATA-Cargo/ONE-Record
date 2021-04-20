@@ -162,6 +162,12 @@ auditTrail:logisticsObjectRef rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Logistics Object Reference for which the audit trail applies"@en ;
                     rdfs:label "auditTrail:logisticsObjectRef"@en .
 
+                    ###  https://onerecord.iata.org/api/AuditTrail#latestRevision
+                    auditTrail:latestRevision rdf:type owl:DatatypeProperty ;
+                                        rdfs:domain :AuditTrail ;
+                                        rdfs:range xsd:nonNegativeInteger ;
+                                        rdfs:comment "Latest revision of the Logistics Object"@en ;
+                                        rdfs:label "auditTrail:latestRevision"@en .
 
 ###  https://onerecord.iata.org/api/Operation#op
 operation:op rdf:type owl:DatatypeProperty ;
@@ -363,6 +369,13 @@ memento:createdBy rdf:type owl:DatatypeProperty ;
                                         rdfs:range xsd:string ;
                                         rdfs:comment "Name of the memento creator"@en ;
                                         rdfs:label "memento:createdBy"@en .
+
+                                        ###  https://onerecord.iata.org/api/Memento#data
+                                        memento:data rdf:type owl:DatatypeProperty ;
+                                                                                rdfs:domain :Memento ;
+                                                                                rdfs:range :LogisticsObject ;
+                                                                                rdfs:comment "The actual data"@en ;
+                                                                                rdfs:label "memento:data"@en .
 
 ###  https://onerecord.iata.org/api/Mementos#firstMemento
 mementos:firstMemento rdf:type owl:DatatypeProperty ;
@@ -576,6 +589,18 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty auditTrail:logisticsObjectRef ;
+                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:latestRevision ;
+                          owl:allValuesFrom xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:latestRevision;
+                          owl:minCardinality "1"^^xsd:nonNegativeInteger
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty auditTrail:latestRevision ;
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ,
                         [ rdf:type owl:Restriction ;
@@ -929,6 +954,18 @@ timemap:timegate rdf:type owl:DatatypeProperty ;
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
                                                         owl:onProperty memento:created ;
+                                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:data ;
+                                                        owl:allValuesFrom <https://onerecord.iata.org/cargo/LogisticsObject>
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty  memento:data ;
+                                                        owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty memento:data ;
                                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
