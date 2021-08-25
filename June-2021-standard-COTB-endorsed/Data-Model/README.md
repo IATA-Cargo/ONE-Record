@@ -1,0 +1,1 @@
+This folder contains the June 2021 package of the ONE Record Data Model, also refered to as the Data Model Ontology v1.1. The Release Note document provides an overview of the changes and improvements.
