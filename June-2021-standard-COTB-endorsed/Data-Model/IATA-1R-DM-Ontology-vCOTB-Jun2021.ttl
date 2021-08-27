@@ -762,6 +762,14 @@ externalReference:location rdf:type owl:ObjectProperty ;
                            rdfs:label "externalReference:location"@en .
 
 
+###  https://onerecord.iata.org/Geolocation#elevation
+geolocation:elevation rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Geolocation ;
+                      rdfs:range :Value ;
+                      rdfs:comment "Elevation from sea level - Change of data type to Value as of ontology v1.1"@en ;
+                      rdfs:label "geolocation:elevation"@en .
+
+
 ###  https://onerecord.iata.org/Insurance#coveringParty
 insurance:coveringParty rdf:type owl:ObjectProperty ;
                         rdfs:domain :Insurance ;
@@ -939,6 +947,14 @@ logisticsObject:events rdf:type owl:ObjectProperty ;
                        rdfs:comment "Events object"@en ;
                        rdfs:label "logisticsObject:event"@en ;
                        owl:versionInfo "v1.1 changed name to events"@en .
+
+
+###  https://onerecord.iata.org/LogisticsObject#iotDevices
+logisticsObject:iotDevices rdf:type owl:ObjectProperty ;
+                           rdfs:domain :LogisticsObject ;
+                           rdfs:range :IotDevice ;
+                           rdfs:comment "Allows to link Logistic Objects with IoT Devices"@en ;
+                           rdfs:label "logisticsObject:iotDevices"@en .
 
 
 ###  https://onerecord.iata.org/MeasurementsGeoloc#geolocationMeasurement
@@ -2280,7 +2296,30 @@ companybranch:iataCargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Contact#contactType
 contact:contactType rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Contact ;
-                    rdfs:range xsd:string ;
+                    rdfs:range [ rdf:type rdfs:Datatype ;
+                                 owl:oneOf [ rdf:type rdf:List ;
+                                             rdf:first "Alternate email address" ;
+                                             rdf:rest [ rdf:type rdf:List ;
+                                                        rdf:first "Alternate phone number" ;
+                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                   rdf:first "Email address" ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first "Fax number" ;
+                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                         rdf:first "Phone number" ;
+                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                    rdf:first "Telex" ;
+                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                               rdf:first "Website" ;
+                                                                                                               rdf:rest rdf:nil
+                                                                                                             ]
+                                                                                                  ]
+                                                                                       ]
+                                                                            ]
+                                                                 ]
+                                                      ]
+                                           ]
+                               ] ;
                     rdfs:comment "Type of the contact details, e.g. Phone number, Mail address"@en ;
                     rdfs:label "contact:contactType"@en ;
                     owl:versionInfo "Added on v1.1"@en .
@@ -2694,14 +2733,6 @@ externalReference:validFrom rdf:type owl:DatatypeProperty ;
                             rdfs:label "externalReference:validFrom"@en .
 
 
-###  https://onerecord.iata.org/Geolocation#elevation
-geolocation:elevation rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :Geolocation ;
-                      rdfs:range xsd:double ;
-                      rdfs:comment "Elevation from sea level - Change of data type to string as of version 1.2"@en ;
-                      rdfs:label "geolocation:elevation"@en .
-
-
 ###  https://onerecord.iata.org/Geolocation#geolocationUnit
 geolocation:geolocationUnit rdf:type owl:DatatypeProperty ;
                             rdfs:domain :Geolocation ;
@@ -3062,7 +3093,60 @@ packagingType:typeCode rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Party#partyRole
 party:partyRole rdf:type owl:DatatypeProperty ;
                 rdfs:domain :Party ;
-                rdfs:range xsd:string ;
+                rdfs:range [ rdf:type rdfs:Datatype ;
+                             owl:oneOf [ rdf:type rdf:List ;
+                                         rdf:first "Agent" ;
+                                         rdf:rest [ rdf:type rdf:List ;
+                                                    rdf:first "Airline" ;
+                                                    rdf:rest [ rdf:type rdf:List ;
+                                                               rdf:first "Airport Authority" ;
+                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                          rdf:first "Broker" ;
+                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                     rdf:first "Commissionable Agent" ;
+                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                rdf:first "Consignee" ;
+                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                           rdf:first "Customs" ;
+                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                      rdf:first "Declarant" ;
+                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                 rdf:first "Deconsolidator" ;
+                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                            rdf:first "Freight Forwarder" ;
+                                                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                       rdf:first "Ground Handling Agent" ;
+                                                                                                                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                  rdf:first "Nominated freight company" ;
+                                                                                                                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                             rdf:first "Notify Party" ;
+                                                                                                                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                        rdf:first "Other Participant Identifier" ;
+                                                                                                                                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                   rdf:first "Post Office" ;
+                                                                                                                                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                              rdf:first "Shipper" ;
+                                                                                                                                                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                                         rdf:first "Trucker" ;
+                                                                                                                                                                                                                         rdf:rest rdf:nil
+                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                            ]
+                                                                                                                                                                                                 ]
+                                                                                                                                                                                      ]
+                                                                                                                                                                           ]
+                                                                                                                                                                ]
+                                                                                                                                                     ]
+                                                                                                                                          ]
+                                                                                                                               ]
+                                                                                                                    ]
+                                                                                                         ]
+                                                                                              ]
+                                                                                   ]
+                                                                        ]
+                                                             ]
+                                                  ]
+                                       ]
+                           ] ;
                 rdfs:comment "Role fo the Company in the context. Can refer to Code List 1.36 in the CXML Toolkit"@en ;
                 rdfs:label "party:partyRole"@en .
 
@@ -4417,7 +4501,13 @@ waybill:optionalShippingRefNo rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Waybill#waybillNumber
 waybill:waybillNumber rdf:type owl:DatatypeProperty ;
                       rdfs:domain :Waybill ;
-                      rdfs:range xsd:long ;
+                      rdfs:range xsd:string ,
+                                 [ rdf:type rdfs:Datatype ;
+                                   owl:onDatatype xsd:string ;
+                                   owl:withRestrictions ( [ xsd:pattern "[0-9]"
+                                                          ]
+                                                        )
+                                 ] ;
                       rdfs:comment "House or Master Waybill unique identifier"@en ;
                       rdfs:label "waybill:waybillNumber"@en .
 
@@ -4425,7 +4515,18 @@ waybill:waybillNumber rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Waybill#waybillPrefix
 waybill:waybillPrefix rdf:type owl:DatatypeProperty ;
                       rdfs:domain :Waybill ;
-                      rdfs:range xsd:integer ;
+                      rdfs:range [ rdf:type rdfs:Datatype ;
+                                   owl:onDatatype xsd:string ;
+                                   owl:withRestrictions ( [ xsd:maxLength "3"
+                                                          ]
+                                                        )
+                                 ] ,
+                                 [ rdf:type rdfs:Datatype ;
+                                   owl:onDatatype xsd:string ;
+                                   owl:withRestrictions ( [ xsd:pattern "[0-9]"
+                                                          ]
+                                                        )
+                                 ] ;
                       rdfs:comment "Prefix used for the Waybill Number"@en ;
                       rdfs:label "waybill:waybillPrefix"@en .
 
@@ -4710,7 +4811,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:requestRef ;
-                                 owl:allValuesFrom :Request
+                                 owl:allValuesFrom :BookingOptionRequest
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:routing ;
@@ -6072,7 +6173,11 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 :Geolocation rdf:type owl:Class ;
              rdfs:subClassOf [ rdf:type owl:Restriction ;
                                owl:onProperty geolocation:elevation ;
-                               owl:allValuesFrom xsd:double
+                               owl:allValuesFrom :Value
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty geolocation:elevation ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty geolocation:geolocationUnit ;
@@ -6085,10 +6190,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                              [ rdf:type owl:Restriction ;
                                owl:onProperty geolocation:longitude ;
                                owl:allValuesFrom xsd:double
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty geolocation:elevation ;
-                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty geolocation:geolocationUnit ;
@@ -6572,6 +6673,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                  rdfs:subClassOf [ rdf:type owl:Restriction ;
                                    owl:onProperty logisticsObject:events ;
                                    owl:allValuesFrom :Event
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty logisticsObject:iotDevices ;
+                                   owl:allValuesFrom :IotDevice
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty logisticsObject:companyIdentifier ;
@@ -7401,10 +7506,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty price:ratings ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty price:carrierChargeCode ;
                          owl:allValuesFrom xsd:string
                        ] ,
@@ -7879,7 +7980,8 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Request object, refers to the Quote request or Booking request "@en ;
-         rdfs:label "Request"@en .
+         rdfs:label "Request"@en ;
+         owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/Routing
@@ -8739,20 +8841,20 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
    owl:annotatedSource :TransportSegment ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty transportMovement:co2CalculationMethod ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         owl:onProperty transportMovement:co2Emissions ;
+                         owl:allValuesFrom :CO2Emissions
                        ] ;
-   owl:deprecated "true"^^xsd:boolean
+   rdfs:comment "Change of data type to object CO2Emissions"@en
  ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :TransportSegment ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty transportMovement:co2Emissions ;
-                         owl:allValuesFrom :CO2Emissions
+                         owl:onProperty transportMovement:co2CalculationMethod ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
-   rdfs:comment "Change of data type to object CO2Emissions"@en
+   owl:deprecated "true"^^xsd:boolean
  ] .
 
 
@@ -9028,7 +9130,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:waybillNumber ;
-                           owl:allValuesFrom xsd:long
+                           owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:waybillPrefix ;
