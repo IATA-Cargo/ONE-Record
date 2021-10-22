@@ -82,7 +82,7 @@
                                dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                dc:title "IATA ONE Record Ontology"@en ;
                                terms:abstract "The ontology of the IATA ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                               terms:modified "24-06-2021" ;
+                               terms:modified "22-10-2021" ;
                                terms:title "IATA ONE Record Ontology"@en ;
                                rdfs:comment """Version 1.0 refers to the version that has been endorsed by the COTB in November 2020
 
@@ -90,10 +90,13 @@ Version 1.01 includes some bugfixes to allow for the generation of JSON-LD schem
 - Removal of Piece:dgDeclaration property to avoid java error as it is moved to PieceDg:dgDeclaration
 - Change of comment on price:carrierChargeCode to avoid non-unicode characters \"...\"
 
-Version 1.1 includes improvements and bugfixes, details can be found on GitHub"""@en ;
+Version 1.1 includes improvements and bugfixes, details can be found on GitHub
+
+Version 1.11 includes bugfixes, including:
+- Change of cardinality for CompanyBranch#otherIdentifiers and CompanyBranch#contactPersons (removed max = 1)"""@en ;
                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                rdfs:label "IATA ONE Record Ontology"@en ;
-                               owl:versionInfo 1.1 .
+                               owl:versionInfo 1.11 .
 
 #################################################################
 #    Annotation properties
@@ -4621,7 +4624,8 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Address details"@en ;
-         rdfs:label "Address"@en .
+         rdfs:label "Address"@en ;
+         owl:versionInfo 1.0 .
 
 
 ###  https://onerecord.iata.org/Booking
@@ -5448,15 +5452,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty companybranch:contactPersons ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
                                  owl:onProperty companybranch:location ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty companybranch:otherIdentifiers ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
