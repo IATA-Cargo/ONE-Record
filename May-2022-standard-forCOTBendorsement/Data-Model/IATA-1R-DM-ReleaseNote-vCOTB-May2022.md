@@ -10,7 +10,7 @@ This ONE Record data model release is the result of the work achieved by the ded
 * xxx
 
 ### Scope of the release
-This release includes improvements and scope extensions
+This release includes improvements and scope extensions. More details on the release can be found in the [ChangeLog](https://github.com/IATA-Cargo/ONE-Record/blob/clambert-update2022/May-2022-standard-forCOTBendorsement/Data-Model/IATA-1R-DM-ChangeLog-vCOTB-May2022.md)
 
 * xxx
 * xxx
@@ -19,4 +19,3 @@ This release includes improvements and scope extensions
 ### Comments
 As with previous releases of the Data Model, this is still a work in progress and improvements can, and will, be made after the endorsement by the COTB. Note that all data properties that are to be removed are set as deprecated in the ontology for backward compatibility purposes. These will be deleted for next version.
 
-[link](http://www.example/com)
