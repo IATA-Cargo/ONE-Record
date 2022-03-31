@@ -8,19 +8,18 @@ Are included the reference to issues that are fixed with the release as well.
 In order to allow for a better followup of Github issues and their resolution, below is the list of all issues that were closed in accordance to the release.
  
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/92
-- [ ] https://github.com/IATA-Cargo/ONE-Record/issues/134
-- https://github.com/IATA-Cargo/ONE-Record/issues/106
-- https://github.com/IATA-Cargo/ONE-Record/issues/116
-- https://github.com/IATA-Cargo/ONE-Record/issues/119
-- https://github.com/IATA-Cargo/ONE-Record/issues/123
-- https://github.com/IATA-Cargo/ONE-Record/issues/124
-- https://github.com/IATA-Cargo/ONE-Record/issues/126
-- https://github.com/IATA-Cargo/ONE-Record/issues/129
-- https://github.com/IATA-Cargo/ONE-Record/issues/130
-- https://github.com/IATA-Cargo/ONE-Record/issues/131
-- https://github.com/IATA-Cargo/ONE-Record/issues/132
-- https://github.com/IATA-Cargo/ONE-Record/issues/133
-- https://github.com/IATA-Cargo/ONE-Record/issues/137
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/106
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/116
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/119
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/123
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/124
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/126
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/129
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/130
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/131
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/132
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/133
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/137
 
 
 #### Addition of ScheduledLegs object
