@@ -40,10 +40,10 @@ In order to be more compliant with AWB requirements and to clarify each data pro
 
 #### Small changes
 - Added missing data properties on **BookingTimes**: data properties were created but not linked to BookingTimes
-- Removed Piece#product max cardinality
-- Added Piece#nvdForCarriage and Piece#nvdForCustoms
-- Added Insurance#nvdIndicator
-- Added Waybill#originCurrency
-- Added Waybill#consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
-- Renamed shipment#containedPiece to shipment#containedPieces
+- Removed `Piece:product` max cardinality
+- Added `Piece:nvdForCarriage` and `Piece:nvdForCustoms`
+- Added `Insurance:nvdIndicator`
+- Added `Waybill:originCurrency`
+- Added `Waybill`:consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
+- Renamed `shipment:containedPiece` to `shipment:containedPieces`
 - Removed "&" sign within comments as it was leading to issues
