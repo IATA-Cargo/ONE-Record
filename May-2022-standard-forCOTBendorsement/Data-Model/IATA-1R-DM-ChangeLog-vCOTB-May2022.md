@@ -30,6 +30,7 @@ Note that this applies also to other modes of transport.
  
 #### Modifications and additions of data properties on Ratings object
 In order to be more compliant with AWB requirements and to clarify each data property, some additional properties were added on **Ratings** object.
+- `Ratings:ratingsType` used to identify the type of ratings: Face (F), Published (P) or Actual (A)
 - `Ratings:billingChargeIdentifier` used to identify the charge identifier for CASS records purposes. Refers to Code List 1.33 `Billing charge identifiers`
 - `Ratings:otherChargeCode` used to identify other charges as per Code List 1.2 `Other charge codes`
 - `Ratings:quantity` used if there is an applicable quantity to the rate (e.g. a Time or a Number)
