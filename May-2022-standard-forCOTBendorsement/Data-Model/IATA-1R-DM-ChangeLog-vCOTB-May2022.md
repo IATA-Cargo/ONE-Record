@@ -42,9 +42,9 @@ In order to be more compliant with AWB requirements and to clarify each data pro
 #### Small changes
 - Added missing data properties on **BookingTimes**: data properties were created but not linked to BookingTimes
 - Removed `Piece:product` max cardinality
-- Added `Piece:nvdForCarriage` and `Piece:nvdForCustoms`
-- Added `Insurance:nvdIndicator`
-- Added `Waybill:originCurrency`
+- Added `Piece:nvdForCarriage` and `Piece:nvdForCustoms` to indicate if there is no value declared for Customs or for Carriage. This is required as the ValueforCarriage and ValueforCustoms can be equal to 0 which doesn't bear the same meaning as No value declared.
+- Added `Insurance:nvdIndicator` to indicate if there is no value declared for Insurance. This is required as the value for insurance can be equal to 0 which doesn't bear the same meaning as No value declared.
+- Added `Waybill:originCurrency` to indicate the origin currency based on ISO 4217
 - Added `Waybill`:consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
 - Renamed `shipment:containedPiece` to `shipment:containedPieces`
 - Removed "&" sign within comments as it was leading to issues
