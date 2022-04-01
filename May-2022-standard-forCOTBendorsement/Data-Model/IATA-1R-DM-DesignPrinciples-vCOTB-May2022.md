@@ -21,6 +21,8 @@ Such a data structure needs to be as simple as possible and needs to be shared a
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png">
-![1RGoals](https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png)
-###### test
- </p>
+</p>
+<p align="center"> *Goals of ONE Record Data Model* </p>
+
+ 
+ 
