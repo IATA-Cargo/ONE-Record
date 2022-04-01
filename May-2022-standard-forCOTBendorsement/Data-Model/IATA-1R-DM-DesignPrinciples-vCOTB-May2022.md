@@ -5,7 +5,7 @@
 xxx
 
 ### Introduction
-#### 1.1. Purpouse of this document
+#### 1.1. Purpuse of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the design principles that have been defined and applied to produce the ONE Record Data Model on conceptual and logical levels.
 The design principles are general rules and cargo industry business rules explaining the way the data model has been defined.
 Note that this document, especially the concepts and objects in it, may evolve with revised versions of the data model in the future and will include feedbacks from the industry and pilot projects.
@@ -18,3 +18,5 @@ An expert group with stakeholders from the whole logistics and transport chain h
 #### 1.3. The ONE Record Data Model
 The Data Model is an essential part of ONE Record and aims to provide the air cargo industry with a standard data structure for data exchange using JSON-LD that facilitates data integration with existing and new data services.
 Such a data structure needs to be as simple as possible and needs to be shared and understood by any stakeholder involved. This means that the way data objects are defined is applicable to the relationship between a shipper and a forwarder as well as between a forwarder and a carrier.
+
+![1RGoals](https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png)
