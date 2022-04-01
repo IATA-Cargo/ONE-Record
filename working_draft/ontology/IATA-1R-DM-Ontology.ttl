@@ -108,10 +108,18 @@ Version 1.2.0 (beta for Version 2.0.0 to come)
 - Added Waybill#consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
 - Improved Ratings objects for Billing&Settlement purposes with new properties
 - Added CommonObjects class and EmbeddedObject class
-- Addded ScheduledLegs object and Routing#scheduledLegs"""@en ;
+- Addded ScheduledLegs object and Routing#scheduledLegs
+- Renames shipment#containedPiece to shipment#containedPieces
+- Removed & sign within comments
+
+Version 1.2.1 (beta for Version 2.0.0 to come)
+- Added Ratings#entitlement and Ratings#quantity
+
+Version 2.0.0
+- Official release to validate Version 1.2.0 and 1.2.1 changes"""@en ;
                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                rdfs:label "IATA ONE Record Ontology"@en ;
-                               owl:versionInfo "1.2"@en .
+                               owl:versionInfo "2.0.0"@en .
 
 #################################################################
 #    Annotation properties
@@ -173,114 +181,6 @@ address:country rdf:type owl:ObjectProperty ;
                 rdfs:label "address:country"@en .
 
 
-###  https://onerecord.iata.org/Booking#carrier
-booking:carrier rdf:type owl:ObjectProperty ;
-                rdfs:domain :Booking ;
-                rdfs:range :Company ;
-                rdfs:comment "Carrier details"@en ;
-                rdfs:label "booking:carrier"@en ;
-                owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#carrierProductInfo
-booking:carrierProductInfo rdf:type owl:ObjectProperty ;
-                           rdfs:domain :Booking ;
-                           rdfs:range :CarrierProduct ;
-                           rdfs:comment "Reference to the Carrier products included in the offer"@en ;
-                           rdfs:label "booking:carrierProductInfo"@en ;
-                           owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#consignee
-booking:consignee rdf:type owl:ObjectProperty ;
-                  rdfs:domain :Booking ;
-                  rdfs:range :Company ;
-                  rdfs:comment "Consignee details"@en ;
-                  rdfs:label "booking:consignee"@en ;
-                  owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#freightForwarder
-booking:freightForwarder rdf:type owl:ObjectProperty ;
-                         rdfs:domain :Booking ;
-                         rdfs:range :Company ;
-                         rdfs:comment "Freight Forwarder details"@en ;
-                         rdfs:label "booking:freightForwarder"@en ;
-                         owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#notifyParty
-booking:notifyParty rdf:type owl:ObjectProperty ;
-                    rdfs:domain :Booking ;
-                    rdfs:range :Company ;
-                    rdfs:comment "Other parties to be notified of the booking evolution"@en ;
-                    rdfs:label "booking:notifyParty"@en ;
-                    owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#price
-booking:price rdf:type owl:ObjectProperty ;
-              rdfs:domain :Booking ;
-              rdfs:range :Price ;
-              rdfs:comment "Price of the Booking (if different from the offer)"@en ;
-              rdfs:label "booking:price"@en ;
-              owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#requestRef
-booking:requestRef rdf:type owl:ObjectProperty ;
-                   rdfs:domain :Booking ;
-                   rdfs:range :Request ;
-                   rdfs:comment "Reference to the Request"@en ;
-                   rdfs:label "booking:requestRef"@en ;
-                   owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#routing
-booking:routing rdf:type owl:ObjectProperty ;
-                rdfs:domain :Booking ;
-                rdfs:range :Routing ;
-                rdfs:comment "Routing details of the offer, to be compared with routing preferences of the quote request"@en ;
-                rdfs:label "booking:routing"@en ;
-                owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#shipmentDetails
-booking:shipmentDetails rdf:type owl:ObjectProperty ;
-                        rdfs:domain :Booking ;
-                        rdfs:range :Shipment ;
-                        rdfs:comment "Details of the shipement that is to be shipped"@en ;
-                        rdfs:label "booking:shipmentDetails"@en ;
-                        owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#shipper
-booking:shipper rdf:type owl:ObjectProperty ;
-                rdfs:domain :Booking ;
-                rdfs:range :Company ;
-                rdfs:comment "Shipper information"@en ;
-                rdfs:label "booking:shipper"@en ;
-                owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#transportMovement
-booking:transportMovement rdf:type owl:ObjectProperty ;
-                          rdfs:domain :Booking ;
-                          rdfs:range :TransportSegment ;
-                          rdfs:comment "Transport segment linked to the offer, including the Departure and Arrival locations"@en ;
-                          rdfs:label "booking:transportMovement"@en ;
-                          owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#waybillNumber
-booking:waybillNumber rdf:type owl:ObjectProperty ;
-                      rdfs:domain :Booking ;
-                      rdfs:range :Waybill ;
-                      rdfs:comment "House or Master Waybill unique identifier"@en ;
-                      rdfs:label "booking:waybillNumber"@en ;
-                      owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/BookingOption#bookingSegment
 bookingOption:bookingSegment rdf:type owl:ObjectProperty ;
                              rdfs:domain :BookingOption ;
@@ -311,33 +211,6 @@ bookingOption:carrierProductInfo rdf:type owl:ObjectProperty ;
                                  rdfs:range :CarrierProduct ;
                                  rdfs:comment "Reference to the Carrier products included in the offer"@en ;
                                  rdfs:label "bookingOption:carrierProductInfo"@en .
-
-
-###  https://onerecord.iata.org/BookingOption#consignee
-bookingOption:consignee rdf:type owl:ObjectProperty ;
-                        rdfs:domain :BookingOption ;
-                        rdfs:range :Company ;
-                        rdfs:comment "Consignee details"@en ;
-                        rdfs:label "bookingOption:consignee"@en ;
-                        owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/BookingOption#freightForwarder
-bookingOption:freightForwarder rdf:type owl:ObjectProperty ;
-                               rdfs:domain :BookingOption ;
-                               rdfs:range :Company ;
-                               rdfs:comment "Freight forwarder details"@en ;
-                               rdfs:label "bookingOption:freightForwarder"@en ;
-                               owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/BookingOption#notifyParty
-bookingOption:notifyParty rdf:type owl:ObjectProperty ;
-                          rdfs:domain :BookingOption ;
-                          rdfs:range :Company ;
-                          rdfs:comment "Other parties to be notified of the booking evolution"@en ;
-                          rdfs:label "bookingOption:notifyParty"@en ;
-                          owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/BookingOption#parties
@@ -372,30 +245,12 @@ bookingOption:routing rdf:type owl:ObjectProperty ;
                       rdfs:label "bookingOption:routing"@en .
 
 
-###  https://onerecord.iata.org/BookingOption#schedule
-bookingOption:schedule rdf:type owl:ObjectProperty ;
-                       rdfs:domain :BookingOption ;
-                       rdfs:range :Schedule ;
-                       rdfs:comment "Schedule details of the Booking Option (proposed or actual)"@en ;
-                       rdfs:label "bookingOption:schedule"@en ;
-                       owl:deprecated "true"^^xsd:boolean .
-
-
 ###  https://onerecord.iata.org/BookingOption#shipmentDetails
 bookingOption:shipmentDetails rdf:type owl:ObjectProperty ;
                               rdfs:domain :BookingOption ;
                               rdfs:range :Shipment ;
                               rdfs:comment "Details of the shipement that is to be shipped"@en ;
                               rdfs:label "bookingOption:shipmentDetails"@en .
-
-
-###  https://onerecord.iata.org/BookingOption#shipper
-bookingOption:shipper rdf:type owl:ObjectProperty ;
-                      rdfs:domain :BookingOption ;
-                      rdfs:range :Company ;
-                      rdfs:comment "Shipper details"@en ;
-                      rdfs:label "bookingOption:shipper"@en ;
-                      owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/BookingOption#transportMovement
@@ -451,15 +306,6 @@ bookingOptionRequest:routingPreferences rdf:type owl:ObjectProperty ;
                                         rdfs:range :Routing ;
                                         rdfs:comment "Routing details that are part of the request, these details will be used to determine if the offer is a perfect match"@en ;
                                         rdfs:label "bookingOptionRequest:routingPreferences"@en .
-
-
-###  https://onerecord.iata.org/BookingOptionRequest#schedulePreferences
-bookingOptionRequest:schedulePreferences rdf:type owl:ObjectProperty ;
-                                         rdfs:domain :BookingOptionRequest ;
-                                         rdfs:range :Schedule ;
-                                         rdfs:comment "Schedule preferences of the request"@en ;
-                                         rdfs:label "bookingOptionRequest:schedulePreferences"@en ;
-                                         owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/BookingOptionRequest#shipmentDetails
@@ -542,42 +388,6 @@ bookingtimes:bookingOptionRequest rdf:type owl:ObjectProperty ;
                                   rdfs:label "bookingtimes:bookingOptionRequest"@en .
 
 
-###  https://onerecord.iata.org/Branch#company
-branch:company rdf:type owl:ObjectProperty ;
-               rdfs:domain :Branch ;
-               rdfs:range :Company ;
-               rdfs:comment "Refers to the mother company of the branch"@en ;
-               rdfs:label "branch:company"@en ;
-               owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Branch#contactPerson
-branch:contactPerson rdf:type owl:ObjectProperty ;
-                     rdfs:domain :Branch ;
-                     rdfs:range :Person ;
-                     rdfs:comment "Contact person details"@en ;
-                     rdfs:label "branch:contactPerson"@en ;
-                     owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Branch#location
-branch:location rdf:type owl:ObjectProperty ;
-                rdfs:domain :Branch ;
-                rdfs:range :Location ;
-                rdfs:comment "Location and address details"@en ;
-                rdfs:label "branch:location"@en ;
-                owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Branch#otherIdentifier
-branch:otherIdentifier rdf:type owl:ObjectProperty ;
-                       rdfs:domain :Branch ;
-                       rdfs:range :OtherIdentifier ;
-                       rdfs:comment "Other identifiers (e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc)"@en ;
-                       rdfs:label "branch:otherIdentifier"@en ;
-                       owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/CO2Emissions#calculatedEmissions
 co2Emissions:calculatedEmissions rdf:type owl:ObjectProperty ;
                                  rdfs:domain :CO2Emissions ;
@@ -651,15 +461,6 @@ companybranch:otherIdentifiers rdf:type owl:ObjectProperty ;
                                rdfs:comment "Other identifiers (e.g. LEI (Legal Entity Identifier), TIN (Trader Identification Number), PIMA address, Account number, VAT/Tax id, Legal Registration id, DUNS number, etc)"@en ;
                                rdfs:label "companybranch:otherIdentifier"@en ;
                                owl:versionInfo "v1.1 renamed to otherIdentifiers"@en .
-
-
-###  https://onerecord.iata.org/Contact#other
-contact:other rdf:type owl:ObjectProperty ;
-              rdfs:domain :Contact ;
-              rdfs:range :ContactOther ;
-              rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
-              rdfs:label "contact:other"@en ;
-              owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/CustomsInfo#piece
@@ -991,15 +792,6 @@ measurementsOther:genericMeasurement rdf:type owl:ObjectProperty ;
                                      rdfs:label "measurementsOther:genericMeasurement"@en .
 
 
-###  https://onerecord.iata.org/OtherParty#companyDetails
-otherParty:companyDetails rdf:type owl:ObjectProperty ;
-                          rdfs:domain :OtherParty ;
-                          rdfs:range :Company ;
-                          rdfs:comment "Company details"@en ;
-                          rdfs:label "otherParty:companyDetails"@en ;
-                          owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/PackagingType#piece
 packagingType:piece rdf:type owl:ObjectProperty ;
                     rdfs:domain :PackagingType ;
@@ -1019,7 +811,6 @@ party:partyDetails rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/Person#associatedBranch
 person:associatedBranch rdf:type owl:ObjectProperty ;
                         rdfs:domain :Person ;
-                        rdfs:range :Branch ;
                         rdfs:comment "Refers to the Branch the person is associated with"@en ;
                         rdfs:label "person:associatedBranch"@en .
 
@@ -1102,15 +893,6 @@ piece:otherIdentifiers rdf:type owl:ObjectProperty ;
                        owl:versionInfo "v1.1 renamed to otherIdentifers"@en .
 
 
-###  https://onerecord.iata.org/Piece#otherParty
-piece:otherParty rdf:type owl:ObjectProperty ;
-                 rdfs:domain :Piece ;
-                 rdfs:range :Company ;
-                 rdfs:comment "Other party company details - e.g. the party to be notified"@en ;
-                 rdfs:label "piece:otherParty"@en ;
-                 owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/Piece#packagingType
 piece:packagingType rdf:type owl:ObjectProperty ;
                     rdfs:domain :Piece ;
@@ -1152,15 +934,6 @@ piece:securityDeclaration rdf:type owl:ObjectProperty ;
                           owl:versionInfo "Added on v1.1"@en .
 
 
-###  https://onerecord.iata.org/Piece#securityStatus
-piece:securityStatus rdf:type owl:ObjectProperty ;
-                     rdfs:domain :Piece ;
-                     rdfs:range :SecurityDeclaration ;
-                     rdfs:comment "Security details"@en ;
-                     rdfs:label "piece:securityStatus"@en ;
-                     owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/Piece#serviceRequest
 piece:serviceRequest rdf:type owl:ObjectProperty ;
                      rdfs:domain :Piece ;
@@ -1177,15 +950,6 @@ piece:shipment rdf:type owl:ObjectProperty ;
                rdfs:label "piece:shipment"@en .
 
 
-###  https://onerecord.iata.org/Piece#shipper
-piece:shipper rdf:type owl:ObjectProperty ;
-              rdfs:domain :Piece ;
-              rdfs:range :Company ;
-              rdfs:comment "Shipper company details - e.g. the party shipping the piece"@en ;
-              rdfs:label "piece:shipper"@en ;
-              owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/Piece#specialHandling
 piece:specialHandling rdf:type owl:ObjectProperty ;
                       rdfs:domain :Piece ;
@@ -1200,15 +964,6 @@ piece:transportMovements rdf:type owl:ObjectProperty ;
                          rdfs:range :TransportMovement ;
                          rdfs:comment "Transport Movements on which the piece is transported"@en ;
                          rdfs:label "piece:transportMovements"@en .
-
-
-###  https://onerecord.iata.org/Piece#transportSegments
-piece:transportSegments rdf:type owl:ObjectProperty ;
-                        rdfs:domain :Piece ;
-                        rdfs:range :TransportSegment ;
-                        rdfs:comment "Segment related to the transport status"@en ;
-                        rdfs:label "piece:transportSegments"@en ;
-                        owl:versionInfo "v1.1 renamed to transportSegments"@en .
 
 
 ###  https://onerecord.iata.org/Piece#uldReference
@@ -1342,7 +1097,6 @@ ratings:ranges rdf:type owl:ObjectProperty ;
 ###  https://onerecord.iata.org/RegulatedEntity#entity
 regulatedEntity:entity rdf:type owl:ObjectProperty ;
                        rdfs:domain :RegulatedEntity ;
-                       rdfs:range :Branch ;
                        rdfs:comment "Branch/Company"@en ;
                        rdfs:label "regulatedEntity:entity"@en .
 
@@ -1353,51 +1107,6 @@ regulatedEntity:regulatedEntityIdentifier rdf:type owl:ObjectProperty ;
                                           rdfs:range :Company ;
                                           rdfs:comment "Regulated entity identifier (e.g. Regulated Agent Identifier) is mandatory"@en ;
                                           rdfs:label "regulatedEntity:regulatedEntityIdentifier"@en .
-
-
-###  https://onerecord.iata.org/Request#parties
-request:parties rdf:type owl:ObjectProperty ;
-                rdfs:domain :Request ;
-                rdfs:range :OtherParty ;
-                rdfs:comment "Parties involved if known"@en ;
-                rdfs:label "request:parties"@en ;
-                owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#ratingsPreference
-request:ratingsPreference rdf:type owl:ObjectProperty ;
-                          rdfs:domain :Request ;
-                          rdfs:range :Ratings ;
-                          rdfs:comment "Ratings preferences of the request"@en ;
-                          rdfs:label "request:ratingsPreference"@en ;
-                          owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#shipmentDetails
-request:shipmentDetails rdf:type owl:ObjectProperty ;
-                        rdfs:domain :Request ;
-                        rdfs:range :Shipment ;
-                        rdfs:comment "Details of the shipement that is to be shipped"@en ;
-                        rdfs:label "request:shipmentDetails"@en ;
-                        owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#transportMovement
-request:transportMovement rdf:type owl:ObjectProperty ;
-                          rdfs:domain :Request ;
-                          rdfs:range :TransportSegment ;
-                          rdfs:comment "Transport segment linked to the request, including the Departure and Arrival locations requested"@en ;
-                          rdfs:label "request:transportMovement"@en ;
-                          owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#unitsPreference
-request:unitsPreference rdf:type owl:ObjectProperty ;
-                        rdfs:domain :Request ;
-                        rdfs:range :Value ;
-                        rdfs:comment "Unit preferences of the request (e.g. kg or cm)"@en ;
-                        rdfs:label "request:unitsPreference"@en ;
-                        owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/Routing#bookingOption
@@ -1498,12 +1207,13 @@ sensorOther:val rdf:type owl:ObjectProperty ;
                 rdfs:label "sensorOther:val"@en .
 
 
-###  https://onerecord.iata.org/Shipment#containedPiece
-shipment:containedPiece rdf:type owl:ObjectProperty ;
-                        rdfs:domain :Shipment ;
-                        rdfs:range :Piece ;
-                        rdfs:comment "Details of contained piece(s)"@en ;
-                        rdfs:label "shipment:containedPiece"@en .
+###  https://onerecord.iata.org/Shipment#containedPieces
+shipment:containedPieces rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Shipment ;
+                         rdfs:range :Piece ;
+                         rdfs:comment "Details of contained piece(s)"@en ;
+                         rdfs:label "shipment:containedPieces"@en ;
+                         owl:versionInfo "1.2 renamed to containedPieces"@en .
 
 
 ###  https://onerecord.iata.org/Shipment#deliveryLocation
@@ -1635,15 +1345,6 @@ transportMovement:arrivalLocation rdf:type owl:ObjectProperty ;
                                   rdfs:range :Location ;
                                   rdfs:comment "Arrival location details"@en ;
                                   rdfs:label "transportMovement:arrivalLocation"@en .
-
-
-###  https://onerecord.iata.org/TransportMovement#co2CalculationMethod
-transportMovement:co2CalculationMethod rdf:type owl:ObjectProperty ;
-                                       rdfs:domain :TransportSegment ;
-                                       rdfs:range :CO2CalcMethod ;
-                                       rdfs:comment "Method of calculation of the CO2 emissions"@en ;
-                                       rdfs:label "transportMovement:co2CalculationMethod"@en ;
-                                       owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/TransportMovement#co2Emissions
@@ -1820,16 +1521,6 @@ waybill:booking rdf:type owl:ObjectProperty ;
                 rdfs:label "waybill:booking"@en .
 
 
-###  https://onerecord.iata.org/Waybill#bookingRef
-waybill:bookingRef rdf:type owl:ObjectProperty ;
-                   rdfs:domain :Waybill ;
-                   rdfs:range :Booking ,
-                              :BookingOption ;
-                   rdfs:comment "Refers to the Booking "@en ;
-                   rdfs:label "waybill:bookingRef"@en ;
-                   owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/Waybill#carrierDeclarationPlace
 waybill:carrierDeclarationPlace rdf:type owl:ObjectProperty ;
                                 rdfs:domain :Waybill ;
@@ -1923,76 +1614,6 @@ address:street rdf:type owl:DatatypeProperty ;
                rdfs:label "address:street"@en .
 
 
-###  https://onerecord.iata.org/Booking#bookingStatus
-booking:bookingStatus rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :Booking ;
-                      rdfs:range [ rdf:type rdfs:Datatype ;
-                                   owl:oneOf [ rdf:type rdf:List ;
-                                               rdf:first "Booked" ;
-                                               rdf:rest [ rdf:type rdf:List ;
-                                                          rdf:first "Quoted" ;
-                                                          rdf:rest rdf:nil
-                                                        ]
-                                             ]
-                                 ] ;
-                      rdfs:comment "Status of the Booking with regards to the step in the Quote and Book process: Quoted, Booked"@en ;
-                      rdfs:label "booking:bookingStatus"@en ;
-                      owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#latestAcceptanceTime
-booking:latestAcceptanceTime rdf:type owl:DatatypeProperty ;
-                             rdfs:domain :Booking ;
-                             rdfs:range xsd:dateTime ;
-                             rdfs:comment "Latest Acceptance time as per CargoIQ definition"@en ;
-                             rdfs:label "booking:latestAcceptanceTime"@en ;
-                             owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#requestMatchInd
-booking:requestMatchInd rdf:type owl:DatatypeProperty ;
-                        rdfs:domain :Booking ;
-                        rdfs:range xsd:boolean ;
-                        rdfs:comment "Indicates if the offer is a perfect match to the quote request (boolean)"@en ;
-                        rdfs:label "booking:requestMatchInd"@en ;
-                        owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#shipmentSecurityStatus
-booking:shipmentSecurityStatus rdf:type owl:DatatypeProperty ;
-                               rdfs:domain :Booking ;
-                               rdfs:range [ rdf:type rdfs:Datatype ;
-                                            owl:oneOf [ rdf:type rdf:List ;
-                                                        rdf:first "NCR" ;
-                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                   rdf:first "SCR" ;
-                                                                   rdf:rest rdf:nil
-                                                                 ]
-                                                      ]
-                                          ] ;
-                               rdfs:comment "Indicate the secruty state of the shipment, screened or not"@en ;
-                               rdfs:label "booking:shipmentSecurityStatus"@en ;
-                               owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#timeOfAvailability
-booking:timeOfAvailability rdf:type owl:DatatypeProperty ;
-                           rdfs:domain :Booking ;
-                           rdfs:range xsd:dateTime ;
-                           rdfs:comment "Time of availability of the shipment as per CargoIQ definition"@en ;
-                           rdfs:label "booking:timeOfAvailability"@en ;
-                           owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Booking#totalTransitTime
-booking:totalTransitTime rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :Booking ;
-                         rdfs:range xsd:duration ;
-                         rdfs:comment "Total transit time as per CargoIQ definition"@en ;
-                         rdfs:label "booking:totalTransitTime"@en ;
-                         owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/BookingOption#bookingStatus
 bookingOption:bookingStatus rdf:type owl:DatatypeProperty ;
                             rdfs:domain :BookingOption ;
@@ -2005,7 +1626,7 @@ bookingOption:bookingStatus rdf:type owl:DatatypeProperty ;
                                                               ]
                                                    ]
                                        ] ;
-                            rdfs:comment "Status of the Booking with regards to the step in the Quote and Book process: Quoted, Booked (to be confirmed)"@en ;
+                            rdfs:comment "Status of the Booking with regards to the step in the Sales and Booking process: Quoted, Booked (to be confirmed)"@en ;
                             rdfs:label "bookingOption:bookingStatus"@en .
 
 
@@ -2146,44 +1767,6 @@ bookingtimes:totalTransitTime rdf:type owl:DatatypeProperty ;
                               rdfs:label "bookingtimes:totalTransitTime"@en .
 
 
-###  https://onerecord.iata.org/Branch#branchName
-branch:branchName rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :Branch ;
-                  rdfs:range xsd:string ;
-                  rdfs:comment "Company branch name"@en ;
-                  rdfs:label "branch:branchName"@en ;
-                  owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Branch#iataCargoAgentLocationIdentifier
-branch:iataCargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain :Branch ;
-                                        rdfs:range xsd:integer ;
-                                        rdfs:comment "IATA CASS cargo agent 4 digit branch number / location identifier"@en ;
-                                        rdfs:label "branch:iataCargoAgentLocationIdentifier"@en ;
-                                        owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/CO2CalcMethod#methodName
-co2CalcMethod:methodName rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :CO2CalcMethod ,
-                                     :CO2Emissions ;
-                         rdfs:range xsd:string ;
-                         rdfs:comment "Name of the CO2 calculation method"@en ;
-                         rdfs:label "co2CalcMethod:methodName"@en ;
-                         owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/CO2CalcMethod#methodVersion
-co2CalcMethod:methodVersion rdf:type owl:DatatypeProperty ;
-                            rdfs:domain :CO2CalcMethod ,
-                                        :CO2Emissions ;
-                            rdfs:range xsd:string ;
-                            rdfs:comment "Version of the CO2 calculation method"@en ;
-                            rdfs:label "co2CalcMethod:methodVersion"@en ;
-                            owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/CO2Emissions#methodName
 co2Emissions:methodName rdf:type owl:DatatypeProperty ;
                         rdfs:domain :CO2Emissions ;
@@ -2288,24 +1871,6 @@ commonobjects:companyIdentifier rdf:type owl:DatatypeProperty ;
                                 rdfs:label "commonobjects:companyIdentifier"@en .
 
 
-###  https://onerecord.iata.org/Company#airlineCode
-company:airlineCode rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Company ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "IATA two-character airline code "@en ;
-                    rdfs:label "company:airlineCode"@en ;
-                    owl:deprecated "true"^^xsd:boolean .
-
-
-###  https://onerecord.iata.org/Company#airlinePrefix
-company:airlinePrefix rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :Company ;
-                      rdfs:range xsd:integer ;
-                      rdfs:comment "IATA three-numeric airline prefix number "@en ;
-                      rdfs:label "company:airlinePrefix"@en ;
-                      owl:deprecated "true"^^xsd:boolean .
-
-
 ###  https://onerecord.iata.org/Company#companyName
 company:companyName rdf:type owl:DatatypeProperty ;
                     rdfs:domain :Company ;
@@ -2344,7 +1909,6 @@ companybranch:branchName rdf:type owl:DatatypeProperty ;
 
 ###  https://onerecord.iata.org/CompanyBranch#iataCargoAgentLocationIdentifier
 companybranch:iataCargoAgentLocationIdentifier rdf:type owl:DatatypeProperty ;
-                                               rdfs:domain :Branch ;
                                                rdfs:range [ rdf:type rdfs:Datatype ;
                                                             owl:onDatatype xsd:string ;
                                                             owl:withRestrictions ( [ xsd:maxLength "4"
@@ -2403,42 +1967,6 @@ contact:contactValue rdf:type owl:DatatypeProperty ;
                      rdfs:comment "Value of the contact detail, e.g. phone number"@en ;
                      rdfs:label "contact:contactValue"@en ;
                      owl:versionInfo "Added on v1.1"@en .
-
-
-###  https://onerecord.iata.org/Contact#emailAddress
-contact:emailAddress rdf:type owl:DatatypeProperty ;
-                     rdfs:domain :Contact ;
-                     rdfs:range xsd:string ;
-                     rdfs:comment "E-mail address"@en ;
-                     rdfs:label "contact:emailAddress"@en ;
-                     owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Contact#phoneNumber
-contact:phoneNumber rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Contact ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Phone number"@en ;
-                    rdfs:label "contact:phoneNumber"@en ;
-                    owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/ContactOther#detail
-contactOther:detail rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :ContactOther ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Contact details e.g. Skype ID "@en ;
-                    rdfs:label "contactOther:detail"@en ;
-                    owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/ContactOther#otherType
-contactOther:otherType rdf:type owl:DatatypeProperty ;
-                       rdfs:domain :ContactOther ;
-                       rdfs:range xsd:string ;
-                       rdfs:comment "Contact type - e.g. Skype"@en ;
-                       rdfs:label "contactOther:otherType"@en ;
-                       owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/Country#countryCode
@@ -3218,24 +2746,6 @@ otherIdentifier:otherIdentifierType rdf:type owl:DatatypeProperty ;
                                     rdfs:label "otherIdentifier:otherIdentifierType"@en .
 
 
-###  https://onerecord.iata.org/OtherParty#partyTypeCode
-otherParty:partyTypeCode rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :OtherParty ;
-                         rdfs:range xsd:string ;
-                         rdfs:comment "Specifies the code of an additional party if required. Standard codes from UN/EDIFACT 3035 Party function code qualifier can be used."@en ;
-                         rdfs:label "otherParty:partyTypeCode"@en ;
-                         owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/OtherParty#roleName
-otherParty:roleName rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :OtherParty ;
-                    rdfs:range xsd:string ;
-                    rdfs:comment "Role of other party - e.g. Notify party, Nominated agent, Customs broker, Manufacturer, Importer, Payer, Payee, ShipTo, ShipFrom, BillTo, BillFrom, RemitTo, RemitFrom "@en ;
-                    rdfs:label "otherParty:roleName"@en ;
-                    owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/PackagingType#packagingTypeDescription
 packagingType:packagingTypeDescription rdf:type owl:DatatypeProperty ;
                                        rdfs:domain :PackagingType ;
@@ -3316,7 +2826,21 @@ party:partyRole rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Person#contactType
 person:contactType rdf:type owl:DatatypeProperty ;
                    rdfs:domain :Person ;
-                   rdfs:range xsd:string ;
+                   rdfs:range [ rdf:type rdfs:Datatype ;
+                                owl:oneOf [ rdf:type rdf:List ;
+                                            rdf:first "Customer contact" ;
+                                            rdf:rest [ rdf:type rdf:List ;
+                                                       rdf:first "Customs contact" ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first "Emergency contact" ;
+                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                             rdf:first "Other" ;
+                                                                             rdf:rest rdf:nil
+                                                                           ]
+                                                                ]
+                                                     ]
+                                          ]
+                              ] ;
                    rdfs:comment "Contact type - e.g. Emergency contact, Customs contact, Customer contact"@en ;
                    rdfs:label "person:contactType"@en .
 
@@ -3372,7 +2896,21 @@ person:middleName rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Person#salutation
 person:salutation rdf:type owl:DatatypeProperty ;
                   rdfs:domain :Person ;
-                  rdfs:range xsd:string ;
+                  rdfs:range [ rdf:type rdfs:Datatype ;
+                               owl:oneOf [ rdf:type rdf:List ;
+                                           rdf:first "Dr." ;
+                                           rdf:rest [ rdf:type rdf:List ;
+                                                      rdf:first "Mr." ;
+                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                 rdf:first "Ms." ;
+                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                            rdf:first "Pr." ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ]
+                             ] ;
                   rdfs:comment "Salutation "@en ;
                   rdfs:label "person:salutation"@en .
 
@@ -3930,7 +3468,7 @@ ranges:unitBasis rdf:type owl:DatatypeProperty ;
 ratings:billingChargeIdentifier rdf:type owl:DatatypeProperty ;
                                 rdfs:domain :Ratings ;
                                 rdfs:range xsd:string ;
-                                rdfs:comment "Billig charge identifiers to be used for CASS. Refer to CargoXML Code List 1.33"@en ;
+                                rdfs:comment "Billing charge identifiers to be used for CASS. Refer to CargoXML Code List 1.33"@en ;
                                 rdfs:label "ratings:billingChargeIdentifier"@en .
 
 
@@ -3970,8 +3508,24 @@ ratings:chargePaymentType rdf:type owl:DatatypeProperty ;
 ratings:chargeType rdf:type owl:DatatypeProperty ;
                    rdfs:domain :Ratings ;
                    rdfs:range xsd:string ;
-                   rdfs:comment "Type of charge e.g. Freight, Surcharges, etc."@en ;
+                   rdfs:comment "Type of charge that should match the code expressed in either chargeCode, otherChargeCode or billingChargeIndentifier data properties."@en ;
                    rdfs:label "ratings:chargeType"@en .
+
+
+###  https://onerecord.iata.org/Ratings#entitlement
+ratings:entitlement rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Ratings ;
+                    rdfs:range [ rdf:type rdfs:Datatype ;
+                                 owl:oneOf [ rdf:type rdf:List ;
+                                             rdf:first "A" ;
+                                             rdf:rest [ rdf:type rdf:List ;
+                                                        rdf:first "C" ;
+                                                        rdf:rest rdf:nil
+                                                      ]
+                                           ]
+                               ] ;
+                    rdfs:comment "Entitlement code to define if charges are Due carrier (C) or Due agent (A). Refer to CXML Code List 1.3"@en ;
+                    rdfs:label "ratings:entitlement"@en .
 
 
 ###  https://onerecord.iata.org/Ratings#otherChargeCode
@@ -3996,6 +3550,33 @@ ratings:priceSpecificationRef rdf:type owl:DatatypeProperty ;
                               rdfs:range xsd:string ;
                               rdfs:comment "Reference of price specifications"@en ;
                               rdfs:label "ratings:priceSpecificationRef"@en .
+
+
+###  https://onerecord.iata.org/Ratings#quantity
+ratings:quantity rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Ratings ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Used if there is an applicable quantity to the rate (Usually a Time or a Number)"@en ;
+                 rdfs:label "ratings:quantity"@en .
+
+
+###  https://onerecord.iata.org/Ratings#ratingsType
+ratings:ratingsType rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Ratings ;
+                    rdfs:range [ rdf:type rdfs:Datatype ;
+                                 owl:oneOf [ rdf:type rdf:List ;
+                                             rdf:first "A" ;
+                                             rdf:rest [ rdf:type rdf:List ;
+                                                        rdf:first "C" ;
+                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                   rdf:first "F" ;
+                                                                   rdf:rest rdf:nil
+                                                                 ]
+                                                      ]
+                                           ]
+                               ] ;
+                    rdfs:comment "Used to identify if the Ratings are Face, Published or Actual ratings. Expected values are F, A, C."@en ;
+                    rdfs:label "ratings:ratingsType" .
 
 
 ###  https://onerecord.iata.org/Ratings#rcp
@@ -4042,49 +3623,6 @@ regulatedEntity:regulatedEntityCategory rdf:type owl:DatatypeProperty ;
                                                    ] ;
                                         rdfs:comment "Party type - e.g. RA - Regulated Agent, KC - Known Consignor, AO - Aircraft Operator, RC - Regulated Carrier"@en ;
                                         rdfs:label "regulatedEntity:regulatedEntityCategory"@en .
-
-
-###  https://onerecord.iata.org/Request#allotment
-request:allotment rdf:type owl:DatatypeProperty ;
-                  rdfs:domain :Request ;
-                  rdfs:range xsd:string ;
-                  rdfs:comment "Reference to the Allotment as per the contracts between forwarders and carriers"@en ;
-                  rdfs:label "request:allotment"@en ;
-                  owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#requestType
-request:requestType rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Request ;
-                    rdfs:range [ rdf:type rdfs:Datatype ;
-                                 owl:oneOf [ rdf:type rdf:List ;
-                                             rdf:first "Booking" ;
-                                             rdf:rest [ rdf:type rdf:List ;
-                                                        rdf:first "Quote" ;
-                                                        rdf:rest rdf:nil
-                                                      ]
-                                           ]
-                               ] ;
-                    rdfs:comment "Identification of the request type: Quote or Booking"@en ;
-                    rdfs:label "request:requestType"@en ;
-                    owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/Request#shipmentSecurityStatus
-request:shipmentSecurityStatus rdf:type owl:DatatypeProperty ;
-                               rdfs:domain :Request ;
-                               rdfs:range [ rdf:type rdfs:Datatype ;
-                                            owl:oneOf [ rdf:type rdf:List ;
-                                                        rdf:first "NCR" ;
-                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                   rdf:first "SCR" ;
-                                                                   rdf:rest rdf:nil
-                                                                 ]
-                                                      ]
-                                          ] ;
-                               rdfs:comment "Indicate the security state of the shipment, screened or not"@en ;
-                               rdfs:label "request:shipmentSecurityStatus"@en ;
-                               owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/Routing#aircraftPossibilityCode
@@ -4517,28 +4055,6 @@ transportMeans:vehicleType rdf:type owl:DatatypeProperty ;
                            rdfs:label "transportMeans:vehicleType"@en .
 
 
-###  https://onerecord.iata.org/TransportMovement#arrivalDate
-transportMovement:arrivalDate rdf:type owl:DatatypeProperty ;
-                              rdfs:domain :TransportSegment ;
-                              rdfs:range xsd:dateTime ;
-                              rdfs:comment """Arrival date and time. Actual or planned depends on the movementType property
-
-Included in MovementTimes in v1.1"""@en ;
-                              rdfs:label "transportMovement:arrivalDate"@en ;
-                              owl:deprecated "true"@en .
-
-
-###  https://onerecord.iata.org/TransportMovement#departureDate
-transportMovement:departureDate rdf:type owl:DatatypeProperty ;
-                                rdfs:domain :TransportSegment ;
-                                rdfs:range xsd:dateTime ;
-                                rdfs:comment """Departure date and time. Actual or planned depends on the movementType property
-
-Included in MovementTimes in v1.1"""@en ;
-                                rdfs:label "transportMovement:departureDate"@en ;
-                                owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/TransportMovement#fuelType
 transportMovement:fuelType rdf:type owl:DatatypeProperty ;
                            rdfs:domain :TransportMovement ,
@@ -4610,23 +4126,6 @@ transportMovement:modeQualifier rdf:type owl:DatatypeProperty ;
                                 rdfs:label "transportMovement:modeQualifier"@en .
 
 
-###  https://onerecord.iata.org/TransportMovement#movementType
-transportMovement:movementType rdf:type owl:DatatypeProperty ;
-                               rdfs:domain :TransportSegment ;
-                               rdfs:range [ rdf:type rdfs:Datatype ;
-                                            owl:oneOf [ rdf:type rdf:List ;
-                                                        rdf:first "Actual" ;
-                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                   rdf:first "Planned" ;
-                                                                   rdf:rest rdf:nil
-                                                                 ]
-                                                      ]
-                                          ] ;
-                               rdfs:comment "Refers to the type of movement: Actual or planned"@en ;
-                               rdfs:label "transportMovement::movementType"@en ;
-                               owl:deprecated "true"^^xsd:boolean .
-
-
 ###  https://onerecord.iata.org/TransportMovement#seal
 transportMovement:seal rdf:type owl:DatatypeProperty ;
                        rdfs:domain :TransportMovement ,
@@ -4634,29 +4133,6 @@ transportMovement:seal rdf:type owl:DatatypeProperty ;
                        rdfs:range xsd:string ;
                        rdfs:comment "Seal identifier"@en ;
                        rdfs:label "transportMovement:seal"@en .
-
-
-###  https://onerecord.iata.org/TransportMovement#segmentLevel
-transportMovement:segmentLevel rdf:type owl:DatatypeProperty ;
-                               rdfs:domain :TransportSegment ;
-                               rdfs:range [ rdf:type rdfs:Datatype ;
-                                            owl:oneOf [ rdf:type rdf:List ;
-                                                        rdf:first "Contractual" ;
-                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                   rdf:first "Flight leg" ;
-                                                                   rdf:rest [ rdf:type rdf:List ;
-                                                                              rdf:first "Other" ;
-                                                                              rdf:rest [ rdf:type rdf:List ;
-                                                                                         rdf:first "Warehouse movement" ;
-                                                                                         rdf:rest rdf:nil
-                                                                                       ]
-                                                                            ]
-                                                                 ]
-                                                      ]
-                                          ] ;
-                               rdfs:comment "Identification of the segment level in the movement of the pieces: contractual, flight leg, truck movement, etc."@en ;
-                               rdfs:label "transportMovement:segmentLevel"@en ;
-                               owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/TransportMovement#transportIdentifier
@@ -5033,138 +4509,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
          rdfs:subClassOf :LogisticsObject ,
                          [ rdf:type owl:Class ;
                            owl:oneOf rdf:nil
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:carrier ;
-                           owl:allValuesFrom :Company
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:carrierProductInfo ;
-                           owl:allValuesFrom :CarrierProduct
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:consignee ;
-                           owl:allValuesFrom :Company
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:freightForwarder ;
-                           owl:allValuesFrom :Company
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:notifyParty ;
-                           owl:allValuesFrom :Company
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:price ;
-                           owl:allValuesFrom :Price
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:requestRef ;
-                           owl:allValuesFrom :Request
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:routing ;
-                           owl:allValuesFrom :Routing
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:shipmentDetails ;
-                           owl:allValuesFrom :Shipment
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:shipper ;
-                           owl:allValuesFrom :Company
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:transportMovement ;
-                           owl:allValuesFrom :TransportSegment
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:waybillNumber ;
-                           owl:allValuesFrom :Waybill
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:carrier ;
-                           owl:minCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:freightForwarder ;
-                           owl:minCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:carrierProductInfo ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:consignee ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:price ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:requestRef ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:routing ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:shipmentDetails ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:shipper ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:transportMovement ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:waybillNumber ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:latestAcceptanceTime ;
-                           owl:allValuesFrom xsd:dateTime
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:requestMatchInd ;
-                           owl:allValuesFrom xsd:boolean
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:timeOfAvailability ;
-                           owl:allValuesFrom xsd:dateTime
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:totalTransitTime ;
-                           owl:allValuesFrom xsd:duration
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:bookingStatus ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:latestAcceptanceTime ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:requestMatchInd ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:shipmentSecurityStatus ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:timeOfAvailability ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty booking:totalTransitTime ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Booking details - Deprecated, BookingOption should be used instead"@en ;
          rdfs:label "Booking"@en ;
@@ -5194,18 +4538,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                  owl:allValuesFrom :CarrierProduct
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:consignee ;
-                                 owl:allValuesFrom :Company
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:freightForwarder ;
-                                 owl:allValuesFrom :Company
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:notifyParty ;
-                                 owl:allValuesFrom :Company
-                               ] ,
-                               [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:parties ;
                                  owl:allValuesFrom :Party
                                ] ,
@@ -5222,16 +4554,8 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                  owl:allValuesFrom :Routing
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:schedule ;
-                                 owl:allValuesFrom :Schedule
-                               ] ,
-                               [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:shipmentDetails ;
                                  owl:allValuesFrom :Shipment
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:shipper ;
-                                 owl:allValuesFrom :Company
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:transportMovement ;
@@ -5267,10 +4591,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:routing ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty bookingOption:schedule ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
@@ -5328,68 +4648,8 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
    owl:annotatedSource :BookingOption ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:consignee ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:freightForwarder ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:notifyParty ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:schedule ;
-                         owl:allValuesFrom :Schedule
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:shipper ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
                          owl:onProperty bookingOption:transportMovement ;
                          owl:allValuesFrom :TransportSegment
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOption ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOption:schedule ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
    owl:deprecated "true"^^xsd:boolean
  ] .
@@ -5416,10 +4676,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty bookingOptionRequest:routingPreferences ;
                                         owl:allValuesFrom :Routing
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty bookingOptionRequest:schedulePreferences ;
-                                        owl:allValuesFrom :Schedule
                                       ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty bookingOptionRequest:shipmentDetails ;
@@ -5504,16 +4760,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:allValuesFrom :Party
                        ] ;
    owl:versionInfo "Changed the object type in v1.1"
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BookingOptionRequest ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty bookingOptionRequest:schedulePreferences ;
-                         owl:allValuesFrom :Schedule
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
  ] .
 
 [ rdf:type owl:Axiom ;
@@ -5620,72 +4866,9 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
               rdfs:label "BookingTimes"@en .
 
 
-###  https://onerecord.iata.org/Branch
-:Branch rdf:type owl:Class ;
-        rdfs:subClassOf [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:company ;
-                          owl:allValuesFrom :Company
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:contactPerson ;
-                          owl:allValuesFrom :Person
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:location ;
-                          owl:allValuesFrom :Location
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:otherIdentifier ;
-                          owl:allValuesFrom :OtherIdentifier
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:company ;
-                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:location ;
-                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:branchName ;
-                          owl:allValuesFrom xsd:string
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:iataCargoAgentLocationIdentifier ;
-                          owl:allValuesFrom xsd:integer
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:branchName ;
-                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty branch:iataCargoAgentLocationIdentifier ;
-                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                        ] ;
-        rdfs:comment "Company branches"@en ;
-        rdfs:label "Branch"@en ;
-        owl:deprecated "true"@en .
-
-
 ###  https://onerecord.iata.org/CO2CalcMethod
 :CO2CalcMethod rdf:type owl:Class ;
-               rdfs:subClassOf :LogisticsObject ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty co2CalcMethod:methodName ;
-                                 owl:allValuesFrom xsd:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty co2CalcMethod:methodVersion ;
-                                 owl:allValuesFrom xsd:string
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty co2CalcMethod:methodName ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty co2CalcMethod:methodVersion ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ;
+               rdfs:subClassOf :LogisticsObject ;
                rdfs:comment "CO2 calculation methods"@en ;
                rdfs:label "CO2CalcMethod"@en ;
                owl:deprecated "true"^^xsd:boolean .
@@ -5926,14 +5109,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Contact
 :Contact rdf:type owl:Class ;
          rdfs:subClassOf [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:other ;
-                           owl:allValuesFrom :ContactOther
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:other ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty contact:contactType ;
                            owl:allValuesFrom xsd:string
                          ] ,
@@ -5942,114 +5117,15 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:emailAddress ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:phoneNumber ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty contact:contactType ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty contact:contactValue ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:emailAddress ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty contact:phoneNumber ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Contact details"@en ;
          rdfs:label "Contact"@en .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:other ;
-                         owl:allValuesFrom :ContactOther
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:other ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:emailAddress ;
-                         owl:allValuesFrom xsd:string
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:phoneNumber ;
-                         owl:allValuesFrom xsd:string
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:emailAddress ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Contact ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty contact:phoneNumber ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-
-###  https://onerecord.iata.org/ContactOther
-:ContactOther rdf:type owl:Class ;
-              rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                owl:onProperty contactOther:detail ;
-                                owl:allValuesFrom xsd:string
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty contactOther:otherType ;
-                                owl:allValuesFrom xsd:string
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty contactOther:detail ;
-                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty contactOther:otherType ;
-                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                              ] ;
-              rdfs:comment "Other contact options e.g. Skype, Whatsapp, Viber, Fax etc"@en ;
-              rdfs:label "ContactOther"@en ;
-              owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/Country
@@ -7272,61 +6348,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                  rdfs:label "OtherIdentifier"@en .
 
 
-###  https://onerecord.iata.org/OtherParty
-:OtherParty rdf:type owl:Class ;
-            rdfs:subClassOf [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:companyDetails ;
-                              owl:allValuesFrom :Company
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:companyDetails ;
-                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:partyTypeCode ;
-                              owl:allValuesFrom xsd:string
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:roleName ;
-                              owl:allValuesFrom xsd:string
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:partyTypeCode ;
-                              owl:minCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:partyTypeCode ;
-                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty otherParty:roleName ;
-                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                            ] ;
-            rdfs:comment "Company details"@en ;
-            rdfs:label "OtherParty"@en ;
-            owl:deprecated "true"@en .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :OtherParty ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty otherParty:roleName ;
-                         owl:allValuesFrom xsd:string
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :OtherParty ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty otherParty:roleName ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-
 ###  https://onerecord.iata.org/PackagingType
 :PackagingType rdf:type owl:Class ;
                rdfs:subClassOf :LogisticsObject ,
@@ -7379,10 +6400,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Person
 :Person rdf:type owl:Class ;
         rdfs:subClassOf [ rdf:type owl:Restriction ;
-                          owl:onProperty person:associatedBranch ;
-                          owl:allValuesFrom :Branch
-                        ] ,
-                        [ rdf:type owl:Restriction ;
                           owl:onProperty person:contact ;
                           owl:allValuesFrom :Contact
                         ] ,
@@ -7497,10 +6514,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:allValuesFrom :OtherIdentifier
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:otherParty ;
-                         owl:allValuesFrom :Company
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty piece:packagingType ;
                          owl:allValuesFrom :PackagingType
                        ] ,
@@ -7521,10 +6534,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:allValuesFrom :SecurityDeclaration
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:securityStatus ;
-                         owl:allValuesFrom :SecurityDeclaration
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty piece:serviceRequest ;
                          owl:allValuesFrom :ServiceRequest
                        ] ,
@@ -7533,20 +6542,12 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:allValuesFrom :Shipment
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:shipper ;
-                         owl:allValuesFrom :Company
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty piece:specialHandling ;
                          owl:allValuesFrom :SpecialHandling
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:transportMovements ;
                          owl:allValuesFrom :TransportMovement
-                       ] ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:transportSegments ;
-                         owl:allValuesFrom :TransportSegment
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:uldReference ;
@@ -7585,15 +6586,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:securityStatus ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty piece:shipment ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:shipper ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -7711,67 +6704,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
        rdfs:comment "Individual piece or virtual grouping of pieces"@en ;
        rdfs:label "Piece"@en ;
        owl:versionInfo "v1.01 - piece:dgDeclaration annoted as deprecated"@en .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:otherParty ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   rdfs:comment "v1.1 replaced by piece#parties"@en ;
-   owl:deprecated "true"@en
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:securityStatus ;
-                         owl:allValuesFrom :SecurityDeclaration
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:shipper ;
-                         owl:allValuesFrom :Company
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:transportSegments ;
-                         owl:allValuesFrom :TransportSegment
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:securityStatus ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Piece ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty piece:shipper ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
 
 
 ###  https://onerecord.iata.org/PieceDg
@@ -8306,6 +7238,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:entitlement ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty ratings:otherChargeCode ;
                            owl:allValuesFrom xsd:string
                          ] ,
@@ -8315,6 +7251,14 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty ratings:priceSpecificationRef ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:quantity ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:ratingsType ;
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -8342,6 +7286,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:entitlement ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty ratings:otherChargeCode ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -8351,6 +7299,14 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty ratings:priceSpecificationRef ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:quantity ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty ratings:ratingsType ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -8364,10 +7320,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/RegulatedEntity
 :RegulatedEntity rdf:type owl:Class ;
                  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                   owl:onProperty regulatedEntity:entity ;
-                                   owl:allValuesFrom :Branch
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty regulatedEntity:regulatedEntityIdentifier ;
                                    owl:allValuesFrom :Company
                                  ] ,
@@ -8412,70 +7364,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
          rdfs:subClassOf :LogisticsObject ,
                          [ rdf:type owl:Class ;
                            owl:oneOf rdf:nil
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:parties ;
-                           owl:allValuesFrom :OtherParty
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:ratingsPreference ;
-                           owl:allValuesFrom :Ratings
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:shipmentDetails ;
-                           owl:allValuesFrom :Shipment
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:transportMovement ;
-                           owl:allValuesFrom :TransportSegment
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:unitsPreference ;
-                           owl:allValuesFrom :Value
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:parties ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:ratingsPreference ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:shipmentDetails ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:transportMovement ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:unitsPreference ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:allotment ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:requestType ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:shipmentSecurityStatus ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:allotment ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:requestType ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty request:shipmentSecurityStatus ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Request object, refers to the Quote request or Booking request "@en ;
          rdfs:label "Request"@en ;
@@ -8852,7 +7740,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 :Shipment rdf:type owl:Class ;
           rdfs:subClassOf :LogisticsObject ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty shipment:containedPiece ;
+                            owl:onProperty shipment:containedPieces ;
                             owl:allValuesFrom :Piece
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -9238,10 +8126,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:allValuesFrom :Location
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:co2CalculationMethod ;
-                                    owl:allValuesFrom :CO2CalcMethod
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty transportMovement:co2Emissions ;
                                     owl:allValuesFrom :CO2Emissions
                                   ] ,
@@ -9294,10 +8178,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:co2CalculationMethod ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty transportMovement:departureLocation ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
@@ -9326,14 +8206,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:arrivalDate ;
-                                    owl:allValuesFrom xsd:dateTime
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:departureDate ;
-                                    owl:allValuesFrom xsd:dateTime
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty transportMovement:fuelType ;
                                     owl:allValuesFrom xsd:string
                                   ] ,
@@ -9354,14 +8226,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:allValuesFrom xsd:string
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:arrivalDate ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:departureDate ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty transportMovement:fuelType ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
@@ -9374,15 +8238,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:movementType ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty transportMovement:seal ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty transportMovement:segmentLevel ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
@@ -9401,16 +8257,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:allValuesFrom :CO2Emissions
                        ] ;
    rdfs:comment "Change of data type to object CO2Emissions"@en
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :TransportSegment ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty transportMovement:co2CalculationMethod ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   owl:deprecated "true"^^xsd:boolean
  ] .
 
 
@@ -9645,10 +8491,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:allValuesFrom :BookingOption
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty waybill:bookingRef ;
-                           owl:allValuesFrom :Booking
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:carrierDeclarationPlace ;
                            owl:allValuesFrom :Location
                          ] ,
@@ -9662,10 +8504,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:booking ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty waybill:bookingRef ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -9787,17 +8625,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ;
          rdfs:comment "Waybill details"@en ;
          rdfs:label "Waybill"@en .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :Waybill ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty waybill:bookingRef ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ;
-   rdfs:comment "Deprecated, use booking data property instead"@en ;
-   owl:deprecated "true"^^xsd:boolean
- ] .
 
 
 [ owl:maxCardinality "1"^^xsd:nonNegativeInteger
