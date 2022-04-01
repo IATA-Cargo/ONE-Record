@@ -1,3 +1,3 @@
-The materials presented in this folder constitute a proposal to amend the Attachment "A" of the Recommended Practice 1690 "Internet Based Cargo Data Sharing Standards". This proposal will be proposed for endorsement by the Cargo Operations & Technology Board (COTB).
+This folder contains the May 2022 package of the ONE Record Data Model, also refered to as the Data Model Ontology v2.0.0.
 
-A Notification of Amendment (NoA) will be issued to all Members of IATA and to the Cargo Services Conference Accredited Representatives and Alternates. Any IATA Member may, within 30 days after the circulation of the NoA, protest these amendments by informing the Cargo Services Conference Secretary with specific reasons for the protest. If no protests are received within this timeframe, the proposed amendments will become effective.
+The Release Note document provides an overview of the changes and improvements.
