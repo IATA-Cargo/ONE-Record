@@ -20,6 +20,7 @@ The Data Model is an essential part of ONE Record and aims to provide the air ca
 Such a data structure needs to be as simple as possible and needs to be shared and understood by any stakeholder involved. This means that the way data objects are defined is applicable to the relationship between a shipper and a forwarder as well as between a forwarder and a carrier.
 
 <p align="center">
+ <img src="https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png">
 ![1RGoals](https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png)
 ###### test
  </p>
