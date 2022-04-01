@@ -6,7 +6,7 @@
 This ONE Record data model release is the result of the work achieved by the dedicated task force since the last version endorsed by the COTB in June 2021.
 
 ### Attached deliverables
-* xxx
+* IATA-1R-DM-LogicalDataModel-vCOTB-May2022
 * xxx
 
 ### Scope of the release
