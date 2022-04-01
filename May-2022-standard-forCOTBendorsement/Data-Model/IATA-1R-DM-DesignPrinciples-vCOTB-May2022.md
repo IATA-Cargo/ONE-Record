@@ -4,7 +4,7 @@
 ### Contents
 xxx
 
-### Introduction
+### 1. Introduction
 #### 1.1. Purpuse of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the design principles that have been defined and applied to produce the ONE Record Data Model on conceptual and logical levels.
 The design principles are general rules and cargo industry business rules explaining the way the data model has been defined.
@@ -22,7 +22,68 @@ Such a data structure needs to be as simple as possible and needs to be shared a
 <p align="center">
  <img src="https://user-images.githubusercontent.com/58464775/161277988-6dc2a309-8f00-42ad-a0bf-4646804bcee2.png">
 </p>
-<p align="center"> *Goals of ONE Record Data Model* </p>
+<p align="center"><i>Goals of ONE Record Data Model</i></p>
 
- 
+This document focuses on the Airline Core Ontology referring to the interaction of General Cargo between shippers and freight forwarders as well as between freight forwarders and Airlines. It is designed to be expandable to other types of cargo such as dangerous goods and special cargo with add-ons to cover as well other logistics partners included in the end-to-end transport supply chain of air cargo.
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/58464775/161279813-559dafa2-1cce-4355-91fb-35d513a4193e.PNG">
+</p>
+<p align="center"><i>Scope of the data model</i></p>
+
+### 2. Principles
+To achieve the data model objectives, four core design principles have been identified as per below:
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/58464775/161280068-bc5a0f1b-2617-457b-af7d-906b59a4d953.png">
+</p>
+<p align="center"><i>Core principles</i></p>
+
+#### 2.1. Piece centric
+As defined by the IATA Recommended Practice 1689, a piece is a uniquely identified physical single unit. A Piece may form all or a part of a shipment in the logistics supply chain. 
+As a basic architectural principle, the ONE Record data model is built around the logistic object “piece”. Having the piece at the center of the data model encourages all parties in the supply chain to deliver detailed data at a high level of granularity.
+
+#### 2.2. Physics oriented
+The data model intends to reflect as much as possible the actual operational data, it has been designed around the concept of **Digital Twin**: the main objects of the data model represent either physical assets or the physical journey within the logistics supply chain.
+For instance, the objects Item, Pieces or ULD are easily identified in operations and they bear the same meaning in the data model.
+
+#### 2.3. One single source of truth
+The ONE Record data model aims at minimizing redundancy of data. In other words, data  should be defined and stored at a single place in the data model. Having data only in a single place has several benefits:
+- There’s only one single source of truth, instead of having multiple sources that can have contradicting values
+- Ownership of the data is clear and data management is simplified
+- Efficiency and performance of the data model are optimized
+- Data quality is improved, as there will be no corruption of data due to conversion, trans-mission errors or delayed updates
+
+#### 2.4. Data driven
+##### 2.4.1. A data-driven data model
+Cargo industry of today relies on many documents that are sent from stakeholder to stakeholder, some of them being legally binding. The ONE Record data model aims to be **data-driven, not document-driven.** 
+As documents remain essential for the legal side of logistics, the data model aims to be exhaustive enough to make sure that all required information is captured. Any stakeholder who has access to the proper information should be able to create or re-create any document he needs for operations purposes.
+
+##### 2.4.2. Semantic web and linked data
+As Tim Berners-Lee, inventor of the World Wide Web, describes it, “the Semantic Web isn’t just about putting data on the web. It is about making links, so that a person or machine can explore the web of data.  With linked data, when you have some of it, you can find other, related, data.”
+With the correct usage of web technologies and standard mechanisms, as defined and de-scribed in the API & Security specifications of ONE Record, the linked data enables to connect and query data from different sources.
+This gives the flexibility for every stakeholder to choose if they want to host their data and make it available to others or use a common platform, from another stakeholder or an IT service provider.
+The ontology, defined in the Turtle syntax, is the faithful transcription of the logical data model in a machine-readable format.
+In the ONE Record data model this principle also allows to:
+- **Keep the relation between objects simple**
+- **Avoid redundancy of links and information**
+
+For instance, if a Product is linked to a Piece and a Piece is linked to a Shipment, an explicit link between Product and Shipment is not required.
+
+##### 2.4.3. Events
+The status of a Logistic Object is a key element of the transparency and tracking possibilities that ONE Record wants to provide. The **generic object Event** enables to capture the evolution of all objects in the logistics and transport supply chain.
+Events can, for instance, be used to monitor Cargo iQ milestones, the state of physical assets or the status of transport segments such as Departed, Arrived, etc. This includes the planned events as per the routemap as well. 
+
+### 3. The Logistic objects
+As part of the Internet of Logistics, the ONE Record data model is using Logistic Objects (LO). In the ONE Record context a LO can be defined as follows:
+- It represents an essential element of the supply chain: physical objects, legal documents, etc.
+- It has its own lifecycle and can have statuses or events;
+- It can be shared and subscribed to by any stakeholder involved in the logistics supply chain;
+- As a digital twin of a physical object, a LO can have IoT data. 
+The Unique Resource Identifier (URI) of a LO contains its endpoint (c.f. API & Security specifications available on the Github space ONE Record) as well as an identifier that can be an existing unique identifier standardized among the industry (e.g. UPID for pieces or AirWaybill numbers).
+Following the design principles defined above, we have defined a semantic data model, or conceptual data model, which focuses on the Logistic Objects of the data model.
+
+
+
+
  
