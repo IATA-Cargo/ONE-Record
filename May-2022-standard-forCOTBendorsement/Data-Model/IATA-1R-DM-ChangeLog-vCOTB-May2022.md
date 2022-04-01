@@ -1,4 +1,4 @@
-# ONE Record Data Model
+# [DRAFT] ONE Record Data Model
 ## ChangeLog - Ontology v2.0.0
 
 In addition to the [Release note](https://github.com/IATA-Cargo/ONE-Record/blob/clambert-update2022/May-2022-standard-forCOTBendorsement/Data-Model/IATA-1R-DM-ReleaseNote-vCOTB-May2022.md) this provides further details on the changes compared to the previous version of the ontology.
