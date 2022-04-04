@@ -1,3 +1,4 @@
+![image](https://user-images.githubusercontent.com/58464775/161543416-699a4907-0034-49dc-b9fa-90dc102b8c4b.png)
 # ONE Record Data Model
 ## Scope extensions
 
