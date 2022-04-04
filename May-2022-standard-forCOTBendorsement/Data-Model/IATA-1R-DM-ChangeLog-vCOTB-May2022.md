@@ -1,3 +1,4 @@
+![image](https://user-images.githubusercontent.com/58464775/161543671-fc444388-04af-4998-8a5a-b2218072af50.png)
 # [DRAFT] ONE Record Data Model
 ## ChangeLog - Ontology v2.0.0
 
