@@ -1,9 +1,6 @@
 # ONE Record Data Model
 ## Design principles
 
-### Contents
-xxx
-
 ### 1. Introduction
 #### 1.1. Purpuse of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the design principles that have been defined and applied to produce the ONE Record Data Model on conceptual and logical levels.
