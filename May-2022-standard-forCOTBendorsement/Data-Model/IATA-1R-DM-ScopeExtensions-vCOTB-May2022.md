@@ -10,8 +10,7 @@ Note that this document, especially the concepts and objects in it, may evolve w
 The Data Model is an essential part of ONE Record and aims to provide the air cargo industry with a standard data structure for data exchange using JSON-LD that facilitates data integration with existing and new data services.
 The data model was first defined to cover the interaction of General Cargo between shippers and freight forwarders as well as between freight forwarders and Airlines, this refers to the Airline Core Ontology.
 This document focuses on the expansion of the data model in order to include more specific requirements such as Cargo Distribution or the transport of Dangerous Goods.
- 
-Figure 1 - Scope of the data model
+
 The latest progress made on the ONE Record data model, ontology and technical specifications can be found on the dedicated GituHub space:
 https://github.com/IATA-Cargo/ONE-Record
  
@@ -54,8 +53,8 @@ The overall idea is that the SLI document in itself does not exist in the Data M
 #### 2.3. Impacts and updates on the data model
 
 As a result of the SLI analysis, a few data properties have been added to the Data Model.
- 
- 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543289-2992fd26-4ef5-4e35-aad1-2c9b26b3b9db.png"></p>
+
 ### 3. ULD Tracking
 #### 3.1. Requirements
 
@@ -80,20 +79,23 @@ For better transparency we propose to split the ground transfer/handover using 2
 - ULD Transfer: the transferring party creates a “Transfer” Event associated to the ULDs
 - ULD Reception: the receiving party creates a “Received” Event associated to the ULDs
 With this approach we recommend that events are created on every ULD to ensure proper tracking of the assets.
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543221-16866468-5c07-4e4b-9171-5b7495871cd1.png"></p>
 
 - Aircraft Loading and Unloading are managed through Events associated to the ULDs
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543170-fba25de5-1358-499e-a723-1af37336c502.png"></p>
  
 The Transport movement gives details about the associated flight (flight number, time of departure, etc.).
 The loadingPosition field in the Event allows to record the loading position of the ULD in the aircraft (e.g. lower or main deck), it is managed by a EventUld subtype of the Event.
 
 #### 3.3. Impacts and updates on the data model
 The ULD tracking requirements have highlighted the need for a few additional data properties on the ULD object as well as the need to create a EventUld subtype of Event to record the loading position.
- 
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543116-b78a7c8b-77ac-499f-b270-9a8c2e2eaf63.png"></p>
+
 ### 4. CO2 Emissions
 #### 4.1. Requirements
-CO2 Emissions transparency is an essential topic in order to move toward a more sustainable industry. IATA has been addressing CO2 Emissions measurement methodology, joint with ICAO, in the Recommended Practice 1678, more details can be found on IATA’s website dedicated page. 
+CO2 Emissions transparency is an essential topic in order to move toward a more sustainable industry. IATA has been addressing CO2 Emissions measurement methodology, joint with ICAO, in the Recommended Practice 1678, more details can be found on IATA’s website dedicated page: https://www.iata.org/en/programs/cargo/sustainability/carbon-footprint/  
 Our objective is to provide necessary information in the data model to be able to calculate or predict CO2 emissions for transport movements. Required information relate to:
 - Typical CO2 coefficient 
 - Distance of the transport movement, calculated and measured
@@ -103,19 +105,29 @@ Our objective is to provide necessary information in the data model to be able t
 To fulfil these requirements, it has been decided to add relevant data properties in the model on the Transport movement and Transport Means.
 Details about the method used for calculation are to be managed outside of the data model. The data model needs to ensure that all required information are recorded and available.
 #### 4.3. Impacts and updates on the data model
-A few data properties are added on TransportMeans and TransportMovement. A new object CO2Emissions is added as well as depicted below:
+A few data properties are added on TransportMeans and TransportMovement. A new object CO2Emissions is added as well as depicted below:]
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542962-673fb079-7f30-44f8-9485-36a519b17e2b.png"></p>
  
 ### 5. Cargo Distribution
 #### 5.1. Requirements
 The Modernizing Cargo Distribution working group (MCD) has been gathering in January 2020 to highlight the business and data requirements of Distribution.
 The agreed Quote & Book process is the following:
  
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542912-bf7666e3-da51-474b-b581-1b8d4afefad2.png"></p>
+ 
 In this process, the quote request should contain a minimum set of information:
+ 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542864-5186c31b-6751-4077-8576-c6c037c5c4ca.png"></p>
  
 The second step, airline presenting booking options, needs to ensure that the following data are included:
  
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542537-7ba94102-e12d-4a39-b6cd-8361b90b0327.png"></p>
+
 The booking confirmation step ends the Quote & Book process, it should ensure that some data are validated and agreed between the two parties. The data are:
  
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542478-683d4ade-410f-4602-8505-342320802e79.png"></p>
+
 The technical team of the MCD working group has transcribed the business requirements in four main objects:
 - Quote Request
 - Quote Response
@@ -125,6 +137,8 @@ The technical team of the MCD working group has transcribed the business require
 Further discussions with MCD working group members allowed to identify the need to properly track the shipment status and data throughout the shipment lifecycle. Essential shipment data such as Weight can evolve as the Quote & Book process moves forward, the data model and ONE Record specifications need to ensure that this is possible.
 The group came up with a proposal for a standard shipment lifecycle as depicted below:
  
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542328-812adeb3-2b26-4d8b-b3f5-2cbe8e3fad25.png"></p>
+
 This is an example of a typical shipment lifecycle that should help standardize some of the events and milestones that are required on the business side of the Quote & Book process.
 #### 5.2. Chosen approach in the data model
 The chosen approach is on multiple levels to make sure that all requirements are met.
@@ -133,12 +147,13 @@ The chosen approach is to combine the four objects expressed by the MCD working 
 - Booking Option: As quotes and confirmed booking contain almost the same kind of information, it was chosen to merge them in the Booking Option object. 
 - Booking Option Request: It refers to the quote request and booking confirmation request.
 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541666-ae8141c4-b54e-45c9-b7c1-d678573d730c.png"></p>
 
-Along those two main objects, a few simpler objects are added to ensure that all information are available for the Quote & Book process. It includes Routing, Schedule, CarrierProduct, Price, Ratings and Ranges.
+Along those two main objects, a few simpler objects are added to ensure that all information are available for the Quote & Book process. It includes **Routing, Schedule, CarrierProduct, Price, Ratings and Ranges**.
 
-Ranges are included to address challenges where cargo tendered to Airline has variance versus the booking option request dimension and/or weight.  
+**Ranges** are included to address challenges where cargo tendered to Airline has variance versus the booking option request dimension and/or weight.  
 
-The bookingStatus data property in the BookingOption will be used to capture the milestones of the Sales & Booking process. Current values are:
+The bookingStatus data property in the **BookingOption** will be used to capture the milestones of the Sales & Booking process. Current values are:
 - Quote: the BookingOption is an offer made by the carrier
 - Booked: the BookingOption has been chosen by the forwarder and validated against capacity by the carrier
 - Pending: the BookingOption is either being reviewed by the forwarder or being processed by the carrier (eventually processed manually)
@@ -149,22 +164,30 @@ The bookingStatus data property in the BookingOption will be used to capture the
 
 These milestones may change based on the MCD working group progress on the matter.
 
-As the Sales & Booking process may occur before actual operations, we have chosen to allow for some data property at BookingOptionRequest level that are to be used for the sole purpose of the quote request. Thus the expectedCommodity and requestedHandling data properties are used at an early stage to indicate what the forwarder intends to ship.
+As the Sales & Booking process may occur before actual operations, we have chosen to allow for some data property at **BookingOptionRequest** level that are to be used for the sole purpose of the quote request. Thus the expectedCommodity and requestedHandling data properties are used at an early stage to indicate what the forwarder intends to ship.
 
 The expectedCommodity values are to be discussed and decided by the MCD working group, the requestedHandling values shall refer to special handling codes. 
 ##### 5.2.2 ONE Record mechanisms to ensure keeping track of data throughout the lifecycle
-Like all Logistic Objects, Shipments can have Events. An Event can record the state of a shipment (e.g. “Quote Requested, Booking requested, etc.) and reflect the lifecycle.
+Like all Logistic Objects, **Shipments** can have **Events**. An **Event** can record the state of a shipment (e.g. “Quote Requested, Booking requested, etc.) and reflect the lifecycle.
 
 The Memento protocol offers the possibility to create a snapshot of an object at any time, such snapshots are called Mementos. 
 The joint usage of Events and Mementos ensures that all historical data are kept and labeled correctly to be easily searched later. 
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541470-61ae03f2-06bd-4b28-8bab-858f68e428ca.png"></p>
+
 This mechanism can be applied to the shipment lifecycle to record data at the key steps as shown below: 
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541432-90e29a31-9f57-4728-a5bb-ffebd943b915.png"></p>
+
 #### 5.3. Impacts and updates on the data model
 The new objects and their data properties are the following:
 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541367-288d5a4a-3254-4609-a8ba-3fee5fc7b479.png"></p>
+
 The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541321-8afb1295-0c96-4862-a93e-9c2e9da34814.png"></p>
+ 
 ### 6. Interactive Cargo 
 #### 6.1. Requirements
 The Interactive Cargo requirements are still a work in progress however the dedicated taskforce has drafted a Recommended Practice that expresses requirements as to what kind of data should be recorded. The recommended practice follows the guiding principles of ONE Record, meaning that the integration of the requirements are quite straightforward and in line with the existing data model.
@@ -183,39 +206,54 @@ The recommended practice highlights:
 - Most observed properties have a datatype double and a unit of measurement. Only the geolocation differs as the geolocation contains a triplet of values latitude, longitude, altitude.
 
 #### 6.2. Chosen approach in the data model
-To meet the requirements of the Interactive Cargo RP there IotDevice, Sensor, and Measurements objects that have been created. In order to respect the Digital Twin principle and align on the real world, multiple IotDevice objects can be linked to any Logistic Object that refers to known physical entities. Such LO can be a Piece, a ULD, a specific location, etc.
+To meet the requirements of the Interactive Cargo RP there **IotDevice, Sensor, and Measurements** objects that have been created. In order to respect the Digital Twin principle and align on the real world, multiple **IotDevice** objects can be linked to any Logistic Object that refers to known physical entities. Such LO can be a **Piece**, a **ULD**, a specific location, etc.
 
-Then an IotDevice can be linked to multiple Sensor objects that record a single type Measurements. 
+Then an **IotDevice** can be linked to multiple Sensor objects that record a single type Measurements. 
+ 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541172-0009961c-d88d-46d5-99d9-a14f6acb02d5.png"></p>
  
 #### 6.3. Impacts and updates on the data model
 To take into account the specificity of the Geolocation sensor type, subtypes of Sensor and Measurements have been added to ease the usage of the data model. 
- 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541131-3057fb5d-d9a3-49bd-93e7-ce50ff80917a.png"></p>
+
 ### 7. Dangerous Goods
 #### 7.1. Requirements
 
 The requirements for Dangerous Goods are strongly based on the Cargo-XML message xSDG that contains all required information for the transport of dangerous goods. The details of the information can be found in the Cargo-XML toolkit and thus will not be fully transcribed in this document.
 
 #### 7.2. Chosen approach in the data model
-The different data required in the xSDG message are split among objects Piece, Product, Item and some dedicated objects: DgProductRadioactive, DgRadioactiveIsotope and DgDeclaration. A focus is made on making sure that all legal data required are within ONE Record data model.
-As Dangerous Goods cargo require specific data, ProductDg, ItemDg and PieceDg objects are added to simplify the data model, they are subtypes of Product, Item and Piece objects.
+The different data required in the xSDG message are split among objects **Piece, Product, Item** and some dedicated objects: **DgProductRadioactive, DgRadioactiveIsotope and DgDeclaration**. A focus is made on making sure that all legal data required are within ONE Record data model.
+
+As Dangerous Goods cargo require specific data, **ProductDg, ItemDg and PieceDg** objects are added to simplify the data model, they are subtypes of Product, Item and Piece objects.
 
 In details information related to the packaging concept of Dangerous Goods is added on the PieceDg object to fully integrate these requirements.
-DgProductRadioactive and DgRadioactiveIsotope objects contain specific data related to radioactive products and are linked to ProductDg object.
-DgDeclaration object is used to contain data related to the existing Dangerous Goods Declaration, it is linked to one or many PieceDg objects. 
+
+**DgProductRadioactive and DgRadioactiveIsotope** objects contain specific data related to radioactive products and are linked to ProductDg object.
+
+**DgDeclaration** object is used to contain data related to the existing Dangerous Goods Declaration, it is linked to one or many **PieceDg** objects. 
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161540859-0dc548e5-2bc4-4088-87ce-79252e835cba.png"></p>
 
  
 #### 7.3. Impacts and updates on the data model
 All Dangerous Goods requirements result in the creation of new subtypes or objects, they are described in details below.
  
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161540819-4143145e-5957-493c-96fd-2d2e398f58d4.png"></p>
+ 
 ### 8. Pharmaceutical products
 #### 8.1. Requirements
 The requirements for pharmaceutical shipments may differ depending on the parties involved. We have highlighted two cases.
-  **From Shipper to forwarder:**
+
+ ![image](https://user-images.githubusercontent.com/58464775/161540717-d8822fe8-98be-4706-8dd2-95921ddbc4cb.png)
+ **From Shipper to forwarder:**
 - Product Temperature Range: the shipper express the temperature range the shipment need to handled. The requirement is expressed in free format.
 - Packaging Technology: passive or active technology
 - Packaging Type: packaging type as per chapter 6.3.7 of the TCR
 - Unit Loading Device: information related to the ULD (exemple: uldTypeCode, serialNumber, ownerCode, ataDesignator)
 
+
+![image](https://user-images.githubusercontent.com/58464775/161540770-fe4db666-d382-45a7-b899-1410a1c4e8e4.png)
   **From forwarder to carrier:**
 - Product Temperature Range: Special handling code (COL, CRT, ERT, FRO)
 - Packaging Technology: Special handling code (ACT, PIP)
@@ -223,7 +261,10 @@ The requirements for pharmaceutical shipments may differ depending on the partie
 - Unit Loading Device: see ULD data elements from ONE Record data model
 
 #### 8.2. Chosen approach in the data model
-The current data model covers the pharmaceutical shipments requirements using the ULD, Piece, ServiceRequest and SpecialHandling objects.
+The current data model covers the pharmaceutical shipments requirements using the **ULD, Piece, ServiceRequest and SpecialHandling** objects.
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161540599-509917bb-17f7-453f-b111-afe3e20b5d77.png"></p>
+
 
 1.	The ULD object capture all the information related to the ULD used by the shipper/forwarder
 2.	The information is captured at Piece level. The Piece object enables to capture all the required information, including goods description, product information, ULD information, handling information, packaging type as per chapter 6.3.7 of the TCR. If accompany certificate are required, they can be digitalized (if acceptable) in PDF format for example and the link to the PDF document can be inserted using the externalReference data property. 
@@ -248,6 +289,8 @@ As a result there are no impacts on the data model for the integration of pharma
 #### 9.1. Requirements
 ##### 9.1.1 Shipper’s certification for Live Animals
 The shipper’s certification for Live Animals is an essential document required to transport live animals. The requirements are described in the Live Animals Regulation as published by IATA.
+
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161540521-47f26e6f-8a70-408f-b701-266e4921d97c.png"></p>
  
 ##### 9.1.2 CITES ePermit
 The CITES permit is a the key instrument to control the trade in the species it protects. An extensive work has been done in order to define the requirements for the CITES ePermit, including the ePermit Core Component Data Model V2.0.
@@ -259,7 +302,9 @@ Requirements have shown that the data model requires new objects to capture the 
 - **EPermitConsignement** object to reflect the pieces (Animals) contained in a eCITES permit
 - **LiveAnimalsEpermit** object to reflect the eCITES permit document requirements and allow for its creation from the ONE Record data model
 - **EpermitSignature** object to take into account Signature requirements in the eCITES permit, mainly identifying the signatory and recording the date of signature
-  
+ 
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161540428-c0469319-21e4-4a66-b049-e86856366a8a.png"></p>
+
 
 The mapping with the CITES ePermit data model has been made to ensure all required information are available, it is available in details in the Excel version of the data model on GitHub in the document IATA-1R-DataModel-LiveAnimalsIntegration Nov 2020.
 
@@ -319,11 +364,17 @@ The mapping with the CITES ePermit data model has been made to ensure all requir
 
 #### 9.3. Impacts and updates on the data model
 The objects added for Live Animals integration have been specified, accordingly with the existing models.
- 
+ <p align="center">
+<img src="https://user-images.githubusercontent.com/58464775/161540369-42550a3b-2609-4975-9142-55264a1b0cb9.png"></p>
+
  
 ### 10. Air Waybill
 #### 10.1. Requirements
 The Air Waybill document’s requirements are expressed in multiple forms: the Air Waybill paper document as described in the Cargo Services Conference Resolutions Manual (CSCRM) in Resolution 600a and various Cargo XML messages, especially the XFWB and XFZB.
+ 
+ <p align="center">
+<img src="https://user-images.githubusercontent.com/58464775/161540275-fd1d910c-4c5e-420c-a47a-be118ee1ab2e.png"></p>
+
  
 #### 10.2. Chosen approach in the data model
 The analysis has shown that some information were missing in the data model, they were removed when the Waybill object was drastically reduced early 2020. We expect some potential changes in the approach and impacts on the data model in the future, based on feedbacks we may receive from pilots and first implementations of ONE Record.
@@ -414,6 +465,11 @@ The overall chosen approach for the Air Waybill is to attach each data property 
 The Air Waybill document can be re-created at any moment as all required information are within the data model and can be retrieved using the linked data (see the conceptual data model in the Design Principles documentation).
 
 To “record” the signature of the Waybill, we use the Memento protocol as specified in the ONE Record API & Security specifications. Joint with the creation of a dedicated **Event** linked to the **Waybill**, it allows to ensure that the data used for the Waybill signature is properly recorded and can be retrieved at any time.
+ 
+ <p align="center">
+ <img src="https://user-images.githubusercontent.com/58464775/161540123-7ca41e43-775d-4f1e-a31f-e7c2ae79551b.png">
+</p>
+
  
 #### 10.3. Impacts and updates on the data model
 
