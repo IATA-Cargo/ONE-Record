@@ -2,6 +2,7 @@
 # ONE Record Data Model
 ## Scope extensions
 
+**Table of contents**
 - [ONE Record Data Model](#one-record-data-model)
   * [Scope extensions](#scope-extensions)
     + [1. Introduction](#1-introduction)
@@ -47,8 +48,6 @@
       - [10.1. Requirements](#101-requirements)
       - [10.2. Chosen approach in the data model](#102-chosen-approach-in-the-data-model)
       - [10.3. Impacts and updates on the data model](#103-impacts-and-updates-on-the-data-model)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
 ### 1. Introduction
