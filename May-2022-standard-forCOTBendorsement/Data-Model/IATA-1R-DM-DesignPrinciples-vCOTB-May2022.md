@@ -33,8 +33,6 @@
         * [4.1.2 Pieces / ULDs in AWB wording](#412-pieces---ulds-in-awb-wording)
         * [4.2. House AWB](#42-house-awb)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 ### 1. Introduction
 #### 1.1. Purpuse of this document
