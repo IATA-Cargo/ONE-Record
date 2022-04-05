@@ -49,6 +49,7 @@
       - [10.2. Chosen approach in the data model](#102-chosen-approach-in-the-data-model)
       - [10.3. Impacts and updates on the data model](#103-impacts-and-updates-on-the-data-model)
 
+---
 
 ### 1. Introduction
 #### 1.1. Purpose of this document
