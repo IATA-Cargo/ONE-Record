@@ -51,3 +51,4 @@ In order to be more compliant with AWB requirements and to clarify each data pro
 - Added `Waybill`:consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
 - Renamed `shipment:containedPiece` to `shipment:containedPieces`
 - Removed "&" sign within comments as it was leading to issues
+- Added **PartyAWB** object as a subclass of **Party**
