@@ -20,6 +20,7 @@ In order to allow for a better followup of Github issues and their resolution, b
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/131
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/132
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/133
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/135
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/137
 
 
@@ -46,6 +47,7 @@ In order to be more compliant with AWB requirements and to clarify each data pro
 - Added `Piece:nvdForCarriage` and `Piece:nvdForCustoms` to indicate if there is no value declared for Customs or for Carriage. This is required as the ValueforCarriage and ValueforCustoms can be equal to 0 which doesn't bear the same meaning as No value declared.
 - Added `Insurance:nvdIndicator` to indicate if there is no value declared for Insurance. This is required as the value for insurance can be equal to 0 which doesn't bear the same meaning as No value declared.
 - Added `Waybill:originCurrency` to indicate the origin currency based on ISO 4217
+- Added `Waybill:customsOriginCode` to indicate the origin of goods for Customs purposes
 - Added `Waybill`:consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
 - Renamed `shipment:containedPiece` to `shipment:containedPieces`
 - Removed "&" sign within comments as it was leading to issues
