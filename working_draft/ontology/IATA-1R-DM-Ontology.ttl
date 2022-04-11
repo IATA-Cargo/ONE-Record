@@ -103,7 +103,7 @@ Version 1.2.0 (beta for Version 2.0.0 to come)
 - Change of ratings:chargePaymentType values from (S,P) to (C,P) as it was a mistake
 - Added data properties on BookingTimes
 - Removed Piece#product max cardinality
-- Added Waybill#originCurrency
+- Added Waybill#originCurrency adn Waybill#customsOriginCode
 - Added Piece#nvdForCarriage and Piece#nvdForCustoms
 - Added Insurance#nvdIndicator
 - Added Waybill#consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
@@ -2327,7 +2327,9 @@ country:countryName rdf:type owl:DatatypeProperty ;
 customsInfo:customsInfoContentCode rdf:type owl:DatatypeProperty ;
                                    rdfs:domain :CustomsInfo ;
                                    rdfs:range xsd:string ;
-                                   rdfs:comment "Customs content code. Refer CXML Code List 1.100, e.g. IST - Security Textual StatementNumber, M - Movement Reference Number"@en ;
+                                   rdfs:comment """Customs, Security and Regulatory Control Information Identifier. Coded indicator qualifying Customs related information: Item Number \"I\", Exemption Legend \"L\", System Downtime Reference \"S\", Unique Consignment Reference Number \"U\", Movement Reference Number \"M\" .
+Refers to Code List 1.100
+Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
                                    rdfs:label "customsInfo:customsInfoContentCode"@en .
 
 
@@ -2335,7 +2337,8 @@ customsInfo:customsInfoContentCode rdf:type owl:DatatypeProperty ;
 customsInfo:customsInfoCountryCode rdf:type owl:DatatypeProperty ;
                                    rdfs:domain :CustomsInfo ;
                                    rdfs:range xsd:string ;
-                                   rdfs:comment "Customs country code. Refer ISO 3166-2"@en ;
+                                   rdfs:comment """Customs country code. Refer ISO 3166-2
+Condition:  At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
                                    rdfs:label "customsInfo:customsInfoCountryCode"@en .
 
 
@@ -2343,7 +2346,7 @@ customsInfo:customsInfoCountryCode rdf:type owl:DatatypeProperty ;
 customsInfo:customsInfoNote rdf:type owl:DatatypeProperty ;
                             rdfs:domain :CustomsInfo ;
                             rdfs:range xsd:string ;
-                            rdfs:comment "Free text for customs remarks"@en ;
+                            rdfs:comment "Free text for customs remarks, not used in OCI Composition Rules Table"@en ;
                             rdfs:label "customsInfo:customsInfoNote"@en .
 
 
@@ -2351,7 +2354,8 @@ customsInfo:customsInfoNote rdf:type owl:DatatypeProperty ;
 customsInfo:customsInfoSubjectCode rdf:type owl:DatatypeProperty ;
                                    rdfs:domain :CustomsInfo ;
                                    rdfs:range xsd:string ;
-                                   rdfs:comment "Customs subject code. Refer CXML Code List 1.19, e.g. IMP for import, EXP for export, AGT for Agent, ISS for The Regulated Agent Issuing the Security Status for rdf:type Consignment etc.   At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
+                                   rdfs:comment """Information Identifier. Code identifying a piece of information/entity e.g. \"IMP\" for import, \"EXP\" for export, \"AGT\" for Agent, \"ISS\" for The Regulated Agent Issuing the Security Status for a Consignment etc. 
+Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
                                    rdfs:label "customsInfo:customsInfoSubjectCode"@en .
 
 
@@ -2359,7 +2363,7 @@ customsInfo:customsInfoSubjectCode rdf:type owl:DatatypeProperty ;
 customsInfo:customsInformation rdf:type owl:DatatypeProperty ;
                                rdfs:domain :CustomsInfo ;
                                rdfs:range xsd:string ;
-                               rdfs:comment "Information for customs submission"@en ;
+                               rdfs:comment "Supplementary Customs, Security and Regulatory Control Information"@en ;
                                rdfs:label "customsInfo:customsInformation"@en .
 
 
@@ -4703,6 +4707,15 @@ waybill:consignorDeclarationSignature rdf:type owl:DatatypeProperty ;
                                       rdfs:label "waybil:consignorDeclarationSignature" .
 
 
+###  https://onerecord.iata.org/Waybill#customsOriginCode
+waybill:customsOriginCode rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :Waybill ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment """Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) 
+List to be provided by local authorities"""@en ;
+                          rdfs:label "waybill:customsOriginCode"@en .
+
+
 ###  https://onerecord.iata.org/Waybill#destinationCharges
 waybill:destinationCharges rdf:type owl:DatatypeProperty ;
                            rdfs:domain :Waybill ;
@@ -5796,6 +5809,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                owl:allValuesFrom xsd:string
                              ] ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty customsInfo:customsInfoCountryCode ;
+                               owl:allValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty customsInfo:customsInfoNote ;
                                owl:allValuesFrom xsd:string
                              ] ,
@@ -5809,6 +5826,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty customsInfo:customsInfoContentCode ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty customsInfo:customsInfoCountryCode ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
@@ -6894,6 +6915,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty logisticsObject:companyIdentifier ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty waybill:customsOriginCode ;
                                    owl:allValuesFrom xsd:string
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -9456,6 +9481,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:onDataRange owl:thing
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty waybill:customsOriginCode ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:destinationCurrencyCode ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -9505,10 +9534,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 [ owl:maxCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
+[ owl:maxCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
-[ owl:maxCardinality "1"^^xsd:nonNegativeInteger
+[ owl:minCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 #################################################################
