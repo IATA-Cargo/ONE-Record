@@ -19,7 +19,6 @@ This release includes improvements and scope extensions. More details on the rel
 * Addition of several data properties on **Ratings** object
 * Addition of data properties on **Waybill** object
 * Addition of **HandlingInstructions** object to replace **ServiceRequest** and **SpecialHandling** object
-* Addition of **PartyAWB** object to include relevant data for AWB purposes
 * Minor modifications on data properties names
 * Overall review of reference data with addition of expected values or lists as reference
 
