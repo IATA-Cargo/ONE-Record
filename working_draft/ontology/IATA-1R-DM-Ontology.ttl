@@ -33,6 +33,7 @@
 @prefix waybill: <https://onerecord.iata.org/Waybill#> .
 @prefix eventUld: <https://onerecord.iata.org/EventUld#> .
 @prefix location: <https://onerecord.iata.org/Location#> .
+@prefix partyawb: <https://onerecord.iata.org/PartyAWB#> .
 @prefix schedule: <https://onerecord.iata.org/Schedule#> .
 @prefix shipment: <https://onerecord.iata.org/Shipment#> .
 @prefix insurance: <https://onerecord.iata.org/Insurance#> .
@@ -118,7 +119,8 @@ Version 1.2.1 (beta for Version 2.0.0 to come)
 
 Version 2.0.0
 - Official release to validate Version 1.2.0 and 1.2.1 changes
-- ServiceRequest and SpecialHandling objects are replaced with HandlingInstructions object"""@en ;
+- ServiceRequest and SpecialHandling objects are replaced with HandlingInstructions object
+- Added Party#otherIdentifiers"""@en ;
                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                rdfs:label "IATA ONE Record Ontology"@en ;
                                owl:versionInfo "2.0.0"@en .
@@ -1024,6 +1026,14 @@ packagingType:piece rdf:type owl:ObjectProperty ;
                     rdfs:range :Piece ;
                     rdfs:comment "Piece on which the Packaging type is applicable"@en ;
                     rdfs:label "packagingType:piece"@en .
+
+
+###  https://onerecord.iata.org/Party#otherIdentifiers
+party:otherIdentifiers rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Party ;
+                       rdfs:range :OtherIdentifier ;
+                       rdfs:comment "Reference to other identifiers for parties. In the context of the AWB, otherIdentifier object can be used with types \"PrimaryID\" (internal ID), \"Additional ID\" (Standard ID) or \"AccountID\" (Account numbers)." ;
+                       rdfs:label "party:otherIdentifiers" .
 
 
 ###  https://onerecord.iata.org/Party#partyDetails
@@ -7086,6 +7096,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Party
 :Party rdf:type owl:Class ;
        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty party:otherIdentifiers ;
+                         owl:allValuesFrom :OtherIdentifier
+                       ] ,
+                       [ rdf:type owl:Restriction ;
                          owl:onProperty party:partyDetails ;
                          owl:allValuesFrom :Company
                        ] ,
@@ -7220,6 +7234,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:grossWeight ;
                          owl:allValuesFrom :Value
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:handlingInstructions ;
+                         owl:allValuesFrom :HandlingInstructions
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:otherIdentifiers ;
