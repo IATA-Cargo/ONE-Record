@@ -1747,6 +1747,14 @@ transportMovement:fuelAmountMeasured rdf:type owl:ObjectProperty ;
                                      rdfs:label "transportMovement:fuelAmountMeasured"@en .
 
 
+###  https://onerecord.iata.org/TransportMovement#movementTimes
+transportMovement:movementTimes rdf:type owl:ObjectProperty ;
+                                rdfs:domain :TransportMovement ;
+                                rdfs:range :MovementTimes ;
+                                rdfs:comment "Reference to all Movement Times such as Departure, Arrival, etc."@en ;
+                                rdfs:label "transportMovement:movementTimes" .
+
+
 ###  https://onerecord.iata.org/TransportMovement#payload
 transportMovement:payload rdf:type owl:ObjectProperty ;
                           rdfs:domain :TransportMovement ,
@@ -8881,6 +8889,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty transportMovement:fuelAmountMeasured ;
                                      owl:allValuesFrom :Value
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty transportMovement:movementTimes ;
+                                     owl:allValuesFrom :MovementTimes
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty transportMovement:payload ;
