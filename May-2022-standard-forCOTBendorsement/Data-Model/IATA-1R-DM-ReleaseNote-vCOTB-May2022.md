@@ -10,6 +10,7 @@ This ONE Record data model release is the result of the work achieved by the ded
 * IATA-1R-DM-LogicalDataModel-vCOTB-May2022 (pdf)
 * IATA-1R-DM-ChangeLog-vCOTB-May2022 (md)
 * IATA-1R-DM-DesignPrinciples-vCOTB-May2022 (md)
+* IATA-1R-DM-ScopeExtension-vCOTB-May2022 (md)
 * IATA-1R-DM-Ontology (ttl)
 
 ### Scope of the release
