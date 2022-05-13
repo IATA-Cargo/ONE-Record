@@ -20,7 +20,7 @@ In order to allow for a better followup of Github issues and their resolution, b
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/131
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/132
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/133
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/133
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/134
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/135
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/137
 
