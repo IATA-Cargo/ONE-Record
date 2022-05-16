@@ -6936,10 +6936,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                    owl:allValuesFrom xsd:string
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty waybill:customsOriginCode ;
-                                   owl:allValuesFrom xsd:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty logisticsObject:companyIdentifier ;
                                    owl:minCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
@@ -9509,6 +9505,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:customsOriginCode ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                            owl:onProperty waybill:customsOriginCode ;
+                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:destinationCurrencyCode ;
