@@ -1,38 +1,19 @@
 {
-  "@type": [
-    "https://onerecord.iata.org/api/Subscription"
-  ],
-  "https://onerecord.iata.org/api/Subscription#cacheFor": "string",
-  "https://onerecord.iata.org/api/Subscription#callbackUrl": "string",
-  "https://onerecord.iata.org/api/Subscription#contentTypes": [
-    "string"
-  ],
-  "https://onerecord.iata.org/api/Subscription#errors": [
-    {
-      "@type": [
-        "https://onerecord.iata.org/api/Error"
-      ],
-      "https://onerecord.iata.org/api/Error#details": [
-        {
-          "@type": [
-            "https://onerecord.iata.org/api/Details"
-          ],
-          "https://onerecord.iata.org/api/Details#attribute": "string",
-          "https://onerecord.iata.org/api/Details#code": "string",
-          "https://onerecord.iata.org/api/Details#message": "string",
-          "https://onerecord.iata.org/api/Details#resource": "string",
-          "id": "string"
-        }
-      ],
-      "https://onerecord.iata.org/api/Error#title": "string",
-      "id": "string"
-    }
-  ],
-  "https://onerecord.iata.org/api/Subscription#myCompanyIdentifier": "string",
-  "https://onerecord.iata.org/api/Subscription#secret": "string",
-  "https://onerecord.iata.org/api/Subscription#sendLogisticsObjectBody": true,
-  "https://onerecord.iata.org/api/Subscription#subscribeToStatusUpdates": true,
-  "https://onerecord.iata.org/api/Subscription#subscribedTo": "string",
-  "https://onerecord.iata.org/api/Subscription#topic": "string",
-  "id": "string"
+   "@context": {
+      "iata": "https://onerecord.iata.org/"
+   },
+   "@type": "iata:Subscription",
+   "iata:subscription:subscribedTo" : "string",
+   "iata:subscription:topic" : "string",
+   "iata:subscription:myCompanyIdentifier" : "string",
+   "iata:subscription:callbackUrl" : "string",
+   "iata:subscription:contentTypes" : "string",
+   "iata:subscription:secret" : "string",
+   "iata:subscription:subscribeToStatusUpdates" : "boolean",
+   "iata:subscription:sendLogisticsObjectBody" : "boolean",
+   "iata:subscription:cacheFor" : "string",
+   "iata:subscription:errors" : {
+      "@id": "iata:<https//onerecord.iata.org/api/Error>/thisObjectId",
+      "@type": "iata:<https//onerecord.iata.org/api/Error>"
+   }
 }
