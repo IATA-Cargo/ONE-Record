@@ -76,57 +76,16 @@
         "deprecated": false
       }
     },
-    "/{getloId}": {
+    "/{loid}/": {
       "get": {
         "tags": [
           "logistics-objects"
         ],
-        "summary": "Retrieves a logistics object by a logistics object id",
-        "operationId": "getLogisticsObjectUsingGET",
-        "parameters": [
-          {
-            "name": "getloId",
-            "in": "path",
-            "description": "Logistics object ID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/ld+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Body"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Notr authorized",
-            "content": {}
-          },
-          "404": {
-            "description": "Logistics object not found",
-            "content": {}
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/{atloId}?at={at}": {
-      "get": {
-        "tags": [
-          "logistics-objects"
-        ],
-        "summary": "Retrieves a previous state of logistics object",
+        "summary": "Retrieves a logistics object, of a previous state of logistics object if the \"at\" query is included",
         "operationId": "getLogisticsObjectAtUsingGET",
         "parameters": [
           {
-            "name": "atloId",
+            "name": "loid",
             "in": "path",
             "description": "Logistics object ID",
             "required": true,
@@ -165,6 +124,46 @@
           }
         },
         "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "logistics-objects"
+        ],
+        "summary": "sends a request for update to the data host",
+        "operationId": "updateLogisticsObjectUsingPATCH",
+        "parameters": [
+          {
+            "name": "loid",
+            "in": "path",
+            "description": "Logistics object ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "request for update is received but pending"
+          },
+          "204": {
+            "description": "The update has  been successful"
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        },
+        "deprecated": false
       }
     },
     "/all": {
@@ -174,10 +173,6 @@
         ],
         "summary": "Retrieves all logistics objects (that the requestor is authorized to access)",
         "operationId": "getAllLogisticsObjectsUsingGET",
-        "requestBody": {
-          "description": "This endpoint retrieves all logistics objects that have this search string in their URI",
-          "content": {}
-        },
         "parameters": [
           {
             "name": "search-string",
@@ -215,49 +210,7 @@
         "deprecated": false
       }
     },
-    "/{patchloId}": {
-      "patch": {
-        "tags": [
-          "logistics-objects"
-        ],
-        "summary": "sends a request for update to the data host",
-        "operationId": "updateLogisticsObjectUsingPATCH",
-        "parameters": [
-          {
-            "name": "patchloId",
-            "in": "path",
-            "description": "Logistics object ID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/ld+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatchBody"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "request for update is received but pending"
-          },
-          "204": {
-            "description": "The update has  been successful"
-          },
-          "403": {
-            "description": "Not authorized"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/{aclloId}/acl": {
+    "/{loid}/acl": {
       "get": {
         "tags": [
           "access-control"
@@ -266,9 +219,9 @@
         "operationId": "getACLUsingGET",
         "parameters": [
           {
-            "name": "aclloId",
+            "name": "loid",
             "in": "path",
-            "description": "loId",
+            "description": "loid",
             "required": true,
             "schema": {
               "type": "string"
@@ -280,9 +233,9 @@
             "description": "OK",
             "content": {
               "application/ld+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Acl"
-              }
+                "schema": {
+                  "$ref": "#/components/schemas/Acl"
+                }
               }
             }
           },
@@ -310,9 +263,9 @@
             "description": "OK",
             "content": {
               "application/ld+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Acl"
-              }
+                "schema": {
+                  "$ref": "#/components/schemas/Acl"
+                }
               }
             }
           },
@@ -328,7 +281,7 @@
         "deprecated": false
       }
     },
-    "/{auditloId}/audittrail": {
+    "/{loid}/audittrail": {
       "get": {
         "tags": [
           "audit-trail"
@@ -337,7 +290,7 @@
         "operationId": "getAuditTrailUsingGET",
         "parameters": [
           {
-            "name": "auditloId",
+            "name": "loid",
             "in": "path",
             "description": "Logistics object ID",
             "required": true,
@@ -387,7 +340,7 @@
         "deprecated": false
       }
     },
-    "/{eventsloId}/events": {
+    "/{loid}/events": {
       "get": {
         "tags": [
           "event-resource"
@@ -396,9 +349,9 @@
         "operationId": "getEventsUsingGET",
         "parameters": [
           {
-            "name": "eventsloId",
+            "name": "loid",
             "in": "path",
-            "description": "loId",
+            "description": "loid",
             "required": true,
             "schema": {
               "type": "string"
@@ -438,9 +391,9 @@
         "operationId": "addEventsUsingPOST",
         "parameters": [
           {
-            "name": "loId",
+            "name": "loid",
             "in": "path",
-            "description": "loId",
+            "description": "loid",
             "required": true,
             "schema": {
               "type": "string"
@@ -544,7 +497,7 @@
         "deprecated": false
       }
     },
-    "/subscription/?subscriptionLoID={subscrioptionLoID}": {
+    "/{loid}/subscription/": {
       "post": {
         "tags": [
           "subscription"
@@ -553,8 +506,8 @@
         "operationId": "addSubscriptionInformationUsingPOST",
         "parameters": [
           {
-            "name": "subscriptionLoID",
-            "in": "query",
+            "name": "loid",
+            "in": "path",
             "description": "Logistics object ID for which a subscription has been requested",
             "required": true,
             "schema": {
@@ -601,7 +554,7 @@
         "x-codegen-request-body-name": "subscription"
       }
     },
-    "/notification": {
+    "/{loid}/notification": {
       "post": {
         "tags": [
           "subscription"
@@ -610,8 +563,8 @@
         "operationId": "addSubscriptionInformationnUsingPOST",
         "parameters": [
           {
-            "name": "subscriptionLoID",
-            "in": "query",
+            "name": "loid",
+            "in": "path",
             "description": "Logistics object ID for which a subscription has been requested",
             "required": true,
             "schema": {
@@ -699,22 +652,22 @@
             "iata": "https://onerecord.iata.org/"
           },
           "@type": "iata:Event",
-          "iata:event:linkedObject" :{
+          "iata:event:linkedObject": {
             "@id": "iata:LogisticsObjectId",
             "@type": "iata:LogisticsObject"
           },
-          "iata:event:location" : {
+          "iata:event:location": {
             "@id": "iata:Location/thisObjectId",
             "@type": "iata:Location"
           },
-          "iata:event:performedBy" : {
+          "iata:event:performedBy": {
             "@id": "iata:Company/thisObjectId",
             "@type": "iata:Company"
           },
-          "iata:event:dateTime" : "dateTime",
-          "iata:event:eventCode" : "string",
-          "iata:event:eventName" : "string",
-          "iata:event:eventTypeIndicator" : "string"
+          "iata:event:dateTime": "dateTime",
+          "iata:event:eventCode": "string",
+          "iata:event:eventName": "string",
+          "iata:event:eventTypeIndicator": "string"
         }
       },
       "Subscription": {
@@ -741,21 +694,20 @@
         "type": "object",
         "example": {
           "@context": {
-              "w3c": "http://www.w3.org/ns/",
-              "cargo": "https://onerecord.iata.org/",
-              "api": "https://onerecord.iata.org/api/",
-              "publisher": "https://publisher.com/",
-              "subscriber": "https://subscriber.com/"
-          },  
+            "w3c": "http://www.w3.org/ns/",
+            "cargo": "https://onerecord.iata.org/",
+            "api": "https://onerecord.iata.org/api/",
+            "publisher": "https://publisher.com/",
+            "subscriber": "https://subscriber.com/"
+          },
           "@type": "w3c:auth/acl#Authorization",
-          "w3c:auth/acl#accessTo": 
-            {
+          "w3c:auth/acl#accessTo": {
             "api:LogisticsObjectRef#logisticsObjectId": "publisher:lo_123",
             "api:LogisticsObjectRef#logisticsObjectType": "cargo:Booking"
           },
           "w3c:auth/acl#agent": {
-              "@id": "subscriber:company"
-            },
+            "@id": "subscriber:company"
+          },
           "w3c:auth/acl#mode": "acl:Read, acl:Write"
         }
       },
@@ -777,8 +729,6 @@
           "iata:sensor:sensorType": "type of device"
         }
       },
-
-
       "MultipleLos": {
         "title": "LogisticsObjects",
         "type": "object",
