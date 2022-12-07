@@ -26,24 +26,6 @@ Preivously deprecated objects have been removed (e.g. **Schedule**)
 ![image](https://user-images.githubusercontent.com/58464775/206226681-9384032c-82a1-48ca-8f33-7dec419fc200.png)
 
 
-#### Modifications and additions of data properties on Ratings object
-In order to be more compliant with AWB requirements and to clarify each data property, some additional properties were added on **Ratings** object.
-- `Ratings:ratingsType` used to identify the type of ratings: Face (F), Published (P) or Actual (A)
-- `Ratings:billingChargeIdentifier` used to identify the charge identifier for CASS records purposes. Refers to Code List 1.33 `Billing charge identifiers`
-- `Ratings:otherChargeCode` used to identify other charges as per Code List 1.2 `Other charge codes`
-- `Ratings:quantity` used if there is an applicable quantity to the rate (e.g. a Time or a Number)
-- `Ratings:entitlement` used to identify if the charges are Due Carrier (C) or Due Agent (A). Refers to Code List 1.3 `Entitlement codes`
-- `Ratings:chargeCode` description has been changed so that it refers to Code List 1.1 `Charge codes`
-- `Ratings:chargeType` description has been changed to remove confusion on what values it should contain. Type of charge that should match the code expressed in either chargeCode, otherChargeCode or billingChargeIndentifier data properties.
-- Correction of `ratings:chargePaymentType` values from (S,P) to (C,P)
-
 #### Small changes
-- Added missing data properties on **BookingTimes**: data properties were created but not linked to BookingTimes
-- Removed `Piece:product` max cardinality
-- Added `Piece:nvdForCarriage` and `Piece:nvdForCustoms` to indicate if there is no value declared for Customs or for Carriage. This is required as the ValueforCarriage and ValueforCustoms can be equal to 0 which doesn't bear the same meaning as No value declared.
-- Added `Insurance:nvdIndicator` to indicate if there is no value declared for Insurance. This is required as the value for insurance can be equal to 0 which doesn't bear the same meaning as No value declared.
-- Added `Waybill:originCurrency` to indicate the origin currency based on ISO 4217
-- Added `Waybill:customsOriginCode` to indicate the origin of goods for Customs purposes
-- Added `Waybill`:consignorDeclarationSignature / carrierDeclarationPlace / carrierDeclarationDate / carrierDeclarationSignature
-- Renamed `shipment:containedPiece` to `shipment:containedPieces`
-- Removed "&" sign within comments as it was leading to issues
+- Added missing `BookingOptionRequest:bookingOptions` data property
+
