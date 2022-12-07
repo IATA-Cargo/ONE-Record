@@ -8,29 +8,24 @@ Are included the reference to issues that are fixed with the release as well.
 ## Issues fixed with this release
 In order to allow for a better followup of Github issues and their resolution, below is the list of all issues that were closed in accordance to the release.
  
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/92
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/106
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/116
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/119
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/123
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/124
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/126
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/129
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/130
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/131
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/132
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/133
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/134
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/135
-- [x] https://github.com/IATA-Cargo/ONE-Record/issues/137
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/174
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/178
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/179
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/180
 
 
-#### Addition of ScheduledLegs object
-At the time of booking, carrier may communicate an expected route with scheduled flight legs. **ScheduledLegs** object can be used for that purpose.
-Note that this applies also to other modes of transport.
+#### Addition of BookingRequest and Booking objects
+To facilitate distribution and the API design, **BookingRequest** and **Booking** ojects were added
 
-![ChangeLog-ScheduledLegs](https://user-images.githubusercontent.com/58464775/161061355-18386241-1013-4e39-9f54-93d25dea660e.PNG)
+![image](https://user-images.githubusercontent.com/58464775/206222918-e3a812fb-459c-410e-93d2-59c19ce7b66b.png)
  
+#### Removal of deprecated objects and data/object properties
+Preivously deprecated objects have been removed (e.g. **Schedule**)
+
+#### Addition of BillingDetails object for CASS2.0 integration
+![image](https://user-images.githubusercontent.com/58464775/206226681-9384032c-82a1-48ca-8f33-7dec419fc200.png)
+
+
 #### Modifications and additions of data properties on Ratings object
 In order to be more compliant with AWB requirements and to clarify each data property, some additional properties were added on **Ratings** object.
 - `Ratings:ratingsType` used to identify the type of ratings: Face (F), Published (P) or Actual (A)
