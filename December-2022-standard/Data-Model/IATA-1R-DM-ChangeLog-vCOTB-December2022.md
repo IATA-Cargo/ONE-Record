@@ -15,7 +15,7 @@ In order to allow for a better followup of Github issues and their resolution, b
 
 
 #### Addition of BookingRequest and Booking objects
-To facilitate distribution and the API design, **BookingRequest** and **Booking** ojects were added
+To facilitate distribution and the API design, **BookingShipment**, **BookingRequest** and **Booking** ojects were added
 
 ![image](https://user-images.githubusercontent.com/58464775/206222918-e3a812fb-459c-410e-93d2-59c19ce7b66b.png)
  
