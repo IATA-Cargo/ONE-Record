@@ -23,7 +23,7 @@ To facilitate distribution and the API design, **BookingShipment**, **BookingReq
 Preivously deprecated objects have been removed (e.g. **Schedule**)
 
 #### Addition of BillingDetails object for CASS2.0 integration
-![image](https://user-images.githubusercontent.com/58464775/206226681-9384032c-82a1-48ca-8f33-7dec419fc200.png)
+![image](https://user-images.githubusercontent.com/58464775/208463637-d6edd879-bd9c-49fa-a10f-557042ef3300.png)
 
 
 #### Small changes
