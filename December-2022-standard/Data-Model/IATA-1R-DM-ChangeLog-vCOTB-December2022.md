@@ -8,6 +8,7 @@ Are included the reference to issues that are fixed with the release as well.
 ## Issues fixed with this release
 In order to allow for a better followup of Github issues and their resolution, below is the list of all issues that were closed in accordance to the release.
  
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/155
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/174
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/178
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/179
