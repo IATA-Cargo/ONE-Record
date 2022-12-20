@@ -219,9 +219,7 @@ Like all Logistic Objects, **Shipments** can have **Events**. An **Event** can r
 The Audit Trail specified in ONE Record API can be used to recover older versions of the objects based on, for instance, a specific date and time.
 
 #### 5.3. Impacts and updates on the data model
-The objects and their data properties are the following:
-
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541367-288d5a4a-3254-4609-a8ba-3fee5fc7b479.png"></p>
+Details of the objects and their data properties can be found in the Ontology or the PDF version of the data model.
 
 The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
 
