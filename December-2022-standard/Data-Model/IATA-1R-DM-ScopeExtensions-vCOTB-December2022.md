@@ -210,16 +210,6 @@ Along those two main objects, a few simpler objects are added to ensure that all
 
 **Ranges** are included to address challenges where cargo tendered to Airline has variance versus the booking option request dimension and/or weight.  
 
-The bookingStatus data property in the **BookingOption** will be used to capture the milestones of the Sales & Booking process. Current values are:
-- Quote: the BookingOption is an offer made by the carrier
-- Booked: the BookingOption has been chosen by the forwarder and validated against capacity by the carrier
-- Pending: the BookingOption is either being reviewed by the forwarder or being processed by the carrier (eventually processed manually)
-- Cancelled: the BookingOption has been properly cancelled by one of the parties 
-- Expired: the BookingOption is not valid anymore
-- Rejected: the BookingOption has been rejected by the carrier 
-
-These milestones may change based on the MCD working group progress on the matter.
-
 As the Sales & Booking process may occur before actual operations, we have chosen to allow for some data property at **BookingOptionRequest** level that are to be used for the sole purpose of the quote request. Thus the expectedCommodity and requestedHandling data properties are used at an early stage to indicate what the forwarder intends to ship. The **BookingShipment** object, which is still being finalized, is also used for that purpose, with more detailed information on intended shipment.
 
 The expectedCommodity values are to be discussed and decided by the MCD working group, the requestedHandling values shall refer to special handling codes. 
