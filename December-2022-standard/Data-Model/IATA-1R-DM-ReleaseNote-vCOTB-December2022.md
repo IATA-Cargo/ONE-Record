@@ -16,12 +16,9 @@ This ONE Record data model release is the result of the work achieved by the ded
 ### Scope of the release
 This release includes improvements and scope extensions. More details on the release can be found in the [ChangeLog](https://github.com/IATA-Cargo/ONE-Record/blob/clambert-update2022/May-2022-standard-forCOTBendorsement/Data-Model/IATA-1R-DM-ChangeLog-vCOTB-May2022.md)
 
-* Addition of **ScheduledLegs** object
-* Addition of several data properties on **Ratings** object
-* Addition of data properties on **Waybill** object
-* Addition of **HandlingInstructions** object to replace **ServiceRequest** and **SpecialHandling** object
-* Minor modifications on data properties names
-* Overall review of reference data with addition of expected values or lists as reference
+* Addition of Billing & Settlement (CASS2.0) elements
+* Addition of **BookingRequest**, **Booking** and **BookingShipment** objects for Distribution integration
+* Removal of old deprecated objects and data properties
 
 ### Comments
 As with previous releases of the Data Model, this is still a work in progress and improvements can, and will, be made after the endorsement by the COTB. Note that all data properties that are to be removed are set as deprecated in the ontology for backward compatibility purposes. These will be deleted for next version.
