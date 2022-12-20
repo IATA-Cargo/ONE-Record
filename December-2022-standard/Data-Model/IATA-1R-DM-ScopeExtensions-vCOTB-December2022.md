@@ -161,10 +161,14 @@ A few data properties are added on TransportMeans and TransportMovement. A new o
  
 ### 5. Cargo Distribution
 #### 5.1. Requirements
-The Modernizing Cargo Distribution working group (MCD) has been gathering in January 2020 to highlight the business and data requirements of Distribution.
-The agreed Quote & Book process is the following:
+The Modernizing Cargo Distribution working group (MCD) has defined the standardized Sales & Booking process to highlight the business and data requirements of Distribution.
+The current Sales & Booking process is the following:
  
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161542912-bf7666e3-da51-474b-b581-1b8d4afefad2.png"></p>
+ <p align="center">![image](https://user-images.githubusercontent.com/58464775/208693593-3cb14437-a7a1-4346-b190-0ac9c971127d.png)</p>
+ 
+ In addition a specific Cancellation process has been defined:
+ 
+ <p align="center">![image](https://user-images.githubusercontent.com/58464775/208693718-e891685c-915d-43ff-85cf-d602e042488c.png)</p>
  
 In this process, the quote request should contain a minimum set of information:
  
@@ -192,14 +196,17 @@ The group came up with a proposal for a standard shipment lifecycle as depicted 
 This is an example of a typical shipment lifecycle that should help standardize some of the events and milestones that are required on the business side of the Quote & Book process.
 #### 5.2. Chosen approach in the data model
 The chosen approach is on multiple levels to make sure that all requirements are met.
-##### 5.2.1 Simplifying the approach with two main objects and associated objects
-The chosen approach is to combine the four objects expressed by the MCD working group in two main objects:
-- Booking Option: As quotes and confirmed booking contain almost the same kind of information, it was chosen to merge them in the Booking Option object. 
-- Booking Option Request: It refers to the quote request and booking confirmation request.
+##### 5.2.1 Definition of appropriate objects to reflect Distribution
+Four main objects have been defined to represent the Distribution:
+- Booking Shipment: In the context of Distribution, and only distribution, the **BookingShipment** is a simplified mix between Piece and Shipment to meet a quote request minial requirements.
+- Booking Option Request: It refers to the quote request.
+- Booking Option: A Booking Option is an offer made by a carrier that is supposed to be bookable.
+- Booking Request: It refers to the booking confirmation request, equivalent to (X)FFR message.
+- Booking: Used for confirmed bookings, it contains all information that have been agreed between customer and carrier.
 
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541666-ae8141c4-b54e-45c9-b7c1-d678573d730c.png"></p>
+ <p align="center">![image](https://user-images.githubusercontent.com/58464775/208692176-dbd79115-e340-4567-bcd9-dbd3f79176fc.png)</p>
 
-Along those two main objects, a few simpler objects are added to ensure that all information are available for the Quote & Book process. It includes **Routing, Schedule, CarrierProduct, Price, Ratings and Ranges**.
+Along those two main objects, a few simpler objects are added to ensure that all information are available for the Sales & Booking process. It includes **Routing,  ScheduledLegs, BookingTimes, BookingSegment, CarrierProduct, Price, Ratings and Ranges**.
 
 **Ranges** are included to address challenges where cargo tendered to Airline has variance versus the booking option request dimension and/or weight.  
 
@@ -211,32 +218,24 @@ The bookingStatus data property in the **BookingOption** will be used to capture
 - Expired: the BookingOption is not valid anymore
 - Rejected: the BookingOption has been rejected by the carrier 
 
-
 These milestones may change based on the MCD working group progress on the matter.
 
-As the Sales & Booking process may occur before actual operations, we have chosen to allow for some data property at **BookingOptionRequest** level that are to be used for the sole purpose of the quote request. Thus the expectedCommodity and requestedHandling data properties are used at an early stage to indicate what the forwarder intends to ship.
+As the Sales & Booking process may occur before actual operations, we have chosen to allow for some data property at **BookingOptionRequest** level that are to be used for the sole purpose of the quote request. Thus the expectedCommodity and requestedHandling data properties are used at an early stage to indicate what the forwarder intends to ship. The **BookingShipment** object, which is still being finalized, is also used for that purpose, with more detailed information on intended shipment.
 
 The expectedCommodity values are to be discussed and decided by the MCD working group, the requestedHandling values shall refer to special handling codes. 
 ##### 5.2.2 ONE Record mechanisms to ensure keeping track of data throughout the lifecycle
 Like all Logistic Objects, **Shipments** can have **Events**. An **Event** can record the state of a shipment (e.g. “Quote Requested, Booking requested, etc.) and reflect the lifecycle.
 
-The Memento protocol offers the possibility to create a snapshot of an object at any time, such snapshots are called Mementos. 
-The joint usage of Events and Mementos ensures that all historical data are kept and labeled correctly to be easily searched later. 
-
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541470-61ae03f2-06bd-4b28-8bab-858f68e428ca.png"></p>
-
-This mechanism can be applied to the shipment lifecycle to record data at the key steps as shown below: 
-
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541432-90e29a31-9f57-4728-a5bb-ffebd943b915.png"></p>
+The Audit Trail specified in ONE Record API can be used to recover older versions of the objects based on, for instance, a specific date and time.
 
 #### 5.3. Impacts and updates on the data model
-The new objects and their data properties are the following:
+The objects and their data properties are the following:
 
  <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541367-288d5a4a-3254-4609-a8ba-3fee5fc7b479.png"></p>
 
 The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
 
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161541321-8afb1295-0c96-4862-a93e-9c2e9da34814.png"></p>
+ <p align="center">![image](https://user-images.githubusercontent.com/58464775/208690795-fd4ad4d6-ea82-49f9-8104-54a074d36e61.png)</p>
  
 ### 6. Interactive Cargo 
 #### 6.1. Requirements
