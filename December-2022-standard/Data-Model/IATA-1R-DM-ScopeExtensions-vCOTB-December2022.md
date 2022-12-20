@@ -164,11 +164,11 @@ A few data properties are added on TransportMeans and TransportMovement. A new o
 The Modernizing Cargo Distribution working group (MCD) has defined the standardized Sales & Booking process to highlight the business and data requirements of Distribution.
 The current Sales & Booking process is the following:
  
- <p align="center">![image](https://user-images.githubusercontent.com/58464775/208693593-3cb14437-a7a1-4346-b190-0ac9c971127d.png)</p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208693593-3cb14437-a7a1-4346-b190-0ac9c971127d.png"></p>
  
  In addition a specific Cancellation process has been defined:
  
- <p align="center">![image](https://user-images.githubusercontent.com/58464775/208693718-e891685c-915d-43ff-85cf-d602e042488c.png)</p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208693718-e891685c-915d-43ff-85cf-d602e042488c.png"></p>
  
 In this process, the quote request should contain a minimum set of information:
  
@@ -204,7 +204,7 @@ Four main objects have been defined to represent the Distribution:
 - Booking Request: It refers to the booking confirmation request, equivalent to (X)FFR message.
 - Booking: Used for confirmed bookings, it contains all information that have been agreed between customer and carrier.
 
- <p align="center">![image](https://user-images.githubusercontent.com/58464775/208692176-dbd79115-e340-4567-bcd9-dbd3f79176fc.png)</p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208692176-dbd79115-e340-4567-bcd9-dbd3f79176fc.png"></p>
 
 Along those two main objects, a few simpler objects are added to ensure that all information are available for the Sales & Booking process. It includes **Routing,  ScheduledLegs, BookingTimes, BookingSegment, CarrierProduct, Price, Ratings and Ranges**.
 
@@ -235,7 +235,7 @@ The objects and their data properties are the following:
 
 The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
 
- <p align="center">![image](https://user-images.githubusercontent.com/58464775/208690795-fd4ad4d6-ea82-49f9-8104-54a074d36e61.png)</p>
+ <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208690795-fd4ad4d6-ea82-49f9-8104-54a074d36e61.png"></p>
  
 ### 6. Interactive Cargo 
 #### 6.1. Requirements
