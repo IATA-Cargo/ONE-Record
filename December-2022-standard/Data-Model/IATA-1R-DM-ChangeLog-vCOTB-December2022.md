@@ -30,4 +30,6 @@ Preivously deprecated objects have been removed (e.g. **Schedule**)
 #### Small changes
 - Added missing `BookingOptionRequest:bookingOptions` data property
 - Removed `bookingOptionRequest:requestType` data property
+- Added `Routing:excludedViaPoints` data property
+- Added `BookingTimes:latestArrivalTime` data property
 
