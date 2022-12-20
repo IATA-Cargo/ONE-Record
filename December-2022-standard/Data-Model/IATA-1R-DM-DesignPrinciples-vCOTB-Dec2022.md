@@ -115,7 +115,7 @@ The Unique Resource Identifier (URI) of a LO contains its endpoint (c.f. API & S
 Following the design principles defined above, we have defined a semantic data model, or conceptual data model, which focuses on the Logistic Objects of the data model.
 
 <p align="center">
- <img src="https://user-images.githubusercontent.com/58464775/161281541-d7157b58-ed92-4ad4-a4c0-f8caae9d7e14.PNG">
+![image](https://user-images.githubusercontent.com/58464775/208689223-51d79639-dc49-477e-af01-ac5633f15a80.png)
 </p>
 <p align="center"><i>Conceptual Data Model</i></p>
 
@@ -177,13 +177,13 @@ The segments at a contractual level, e.g. transportation information at AirWaybi
 
 #### 3.7. Booking Option Request
 **Definition** 
-> A booking option request refers to both a quote request for the transportation of goods or the booking confirmation request. It leads to a booking option and is part of the Quote & Book process as defined in the Distribution part of the Data Model.
+> A booking option request refers to a quote request for the transportation of goods. It leads to a booking option and is part of the Sales & Booking process as defined in the Distribution part of the Data Model.
 
 #### 3.8. Booking Option
 **Definition**
-> A booking option refers to the quotes made or the arrangement that is made between two parties regarding a shipment. It can be between a shipper and a forwarder or between a forwarder/shipper and a carrier. At this stage of the Data Model, the booking option refers to the arrangement between the forwarder/shipper and the carrier only.
+> A booking option refers to the quotes made between two parties regarding the transportation of a shipment. It can be between a shipper and a forwarder or between a forwarder/shipper and a carrier. At this stage of the Data Model, the booking option refers to the arrangement between the forwarder/shipper and the carrier only.
 
-In the case of a booking between a forwarder/shipper and a carrier, the booking option is the result of the Quote & Book process as defined in the Distribution part of the Data Model. It contains the agreed conditions between the two parties including the overall movement (origin and destination), the price information, the carrier product, services, etc. 
+In the case of a booking between a forwarder/shipper and a carrier, the booking option is the result of the Sales & Booking process as defined in the Distribution part of the Data Model. It contains the agreed conditions between the two parties including the overall movement (origin and destination), the price information, the carrier product, services, etc. 
 
 #### 3.9. Waybill
 **Definition**
