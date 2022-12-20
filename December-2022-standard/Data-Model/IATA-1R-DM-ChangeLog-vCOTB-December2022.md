@@ -10,6 +10,7 @@ In order to allow for a better followup of Github issues and their resolution, b
  
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/155
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/174
+- [x] https://github.com/IATA-Cargo/ONE-Record/issues/177
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/178
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/179
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/180
@@ -32,4 +33,8 @@ Preivously deprecated objects have been removed (e.g. **Schedule**)
 - Removed `bookingOptionRequest:requestType` data property
 - Added `Routing:excludedViaPoints` data property
 - Added `BookingTimes:latestArrivalTime` data property
+- Added max cardinality 1 for `Piece:declaredValueForCarriage` and `Piece:declaredValuForCustoms`
+- Added max cardinality 1 for `Sensor:iotDevice`
+- Added max cardinality 1 for `Product:hsCommodityName`
+- Removed max cardinality 1 for `DgProductRadioactive:isotopes`
 
