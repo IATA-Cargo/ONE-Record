@@ -14,7 +14,7 @@ This ONE Record data model release is the result of the work achieved by the ded
 * IATA-1R-DM-Ontology (ttl)
 
 ### Scope of the release
-This release includes improvements and scope extensions. More details on the release can be found in the [ChangeLog](https://github.com/IATA-Cargo/ONE-Record/blob/clambert-update2022/May-2022-standard-forCOTBendorsement/Data-Model/IATA-1R-DM-ChangeLog-vCOTB-May2022.md)
+This release includes improvements and scope extensions. More details on the release can be found in the [ChangeLog](https://github.com/IATA-Cargo/ONE-Record/blob/master/December-2022-standard/Data-Model/IATA-1R-DM-ChangeLog-vCOTB-December2022.md)
 
 * Addition of Billing & Settlement (CASS2.0) elements
 * Addition of **BookingRequest**, **Booking** and **BookingShipment** objects for Distribution integration
