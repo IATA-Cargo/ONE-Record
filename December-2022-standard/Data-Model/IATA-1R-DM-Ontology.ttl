@@ -41,6 +41,7 @@
 @prefix productDg: <https://onerecord.iata.org/ProductDg#> .
 @prefix dimensions: <https://onerecord.iata.org/Dimensions#> .
 @prefix otherParty: <https://onerecord.iata.org/OtherParty#> .
+@prefix adjustments: <https://onerecord.iata.org/Adjustments#> .
 @prefix customsInfo: <https://onerecord.iata.org/CustomsInfo#> .
 @prefix geolocation: <https://onerecord.iata.org/Geolocation#> .
 @prefix sensorOther: <https://onerecord.iata.org/SensorOther#> .
@@ -90,23 +91,24 @@
                                dc:description "The IATA ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                dc:title "IATA ONE Record Ontology"@en ;
                                terms:abstract "The ontology of the IATA ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                               terms:modified "21-12-2022" ;
+                               terms:modified "24-01-2023" ;
                                terms:title "IATA ONE Record Ontology"@en ;
                                rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
-
 Version 2.0.0
 - Official release to validate Version 1.2.0 and 1.2.1 changes
 - ServiceRequest and SpecialHandling objects are replaced with HandlingInstructions object
 - Added Party#otherIdentifiers
-
 Version 2.1.0 (December 2022 release)
 - Cleared previous deprecated objects and data properties
 - Addition of BookingOptionRequest#bookingOptions
 - Addition of Booking, BookingRequest, BookingShipment, BillingDetails, Adjustments objects
-- See detailed Changelog on GitHub"""@en ;
+- See detailed Changelog on GitHub
+Version 2.1.1
+- Added properties Waybill#shipment (backlink), Piece#inPiece (backlink of Piece:containedPieces), Waybill#masterWaybill (backlink of Waybill#containedWaybills) and EpermitConsignment#epermit
+- Minor bugfixes as per GitHub"""@en ;
                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                rdfs:label "IATA ONE Record Ontology"@en ;
-                               owl:versionInfo "2.1.0"@en .
+                               owl:versionInfo "2.1.1"@en .
 
 #################################################################
 #    Annotation properties
@@ -600,6 +602,14 @@ epermitConsignment:consignmentItems rdf:type owl:ObjectProperty ;
                                     rdfs:label "epermitConsignment:consignmentItems"@en .
 
 
+###  https://onerecord.iata.org/EpermitConsignment#epermit
+epermitConsignment:epermit rdf:type owl:ObjectProperty ;
+                           rdfs:domain :EpermitConsignment ;
+                           rdfs:range :LiveAnimalsEpermit ;
+                           rdfs:comment "Reference to the Epermit of the consignment"@en ;
+                           rdfs:label "epermitConsignment:epermit"@en .
+
+
 ###  https://onerecord.iata.org/EpermitConsignment#examiningQuantity
 epermitConsignment:examiningQuantity rdf:type owl:ObjectProperty ;
                                      rdfs:domain :EpermitConsignment ;
@@ -988,6 +998,14 @@ piece:handlingInstructions rdf:type owl:ObjectProperty ;
                            rdfs:range :HandlingInstructions ;
                            rdfs:comment "Links to Handling instructions / service requests of the piece"@en ;
                            rdfs:label "piece:handlingInstructions"@en .
+
+
+###  https://onerecord.iata.org/Piece#inPiece
+piece:inPiece rdf:type owl:ObjectProperty ;
+              rdfs:domain :Piece ;
+              rdfs:range :Piece ;
+              rdfs:comment "Reference to the parent Piece if the Piece is contained within another Piece"@en ;
+              rdfs:label "piece:inPiece"@en .
 
 
 ###  https://onerecord.iata.org/Piece#otherIdentifiers
@@ -1400,12 +1418,13 @@ shipment:volumetricWeight rdf:type owl:ObjectProperty ;
                           rdfs:label "shipment:volumetricWeight"@en .
 
 
-###  https://onerecord.iata.org/Shipment#waybillNumber
-shipment:waybillNumber rdf:type owl:ObjectProperty ;
-                       rdfs:domain :Shipment ;
-                       rdfs:range :Waybill ;
-                       rdfs:comment "Waybill unique identifier (AWB or HWB)"@en ;
-                       rdfs:label "shipment:waybillNumber"@en .
+###  https://onerecord.iata.org/Shipment#waybill
+shipment:waybill rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Shipment ;
+                 rdfs:range :Waybill ;
+                 rdfs:comment "Reference to the Waybill of the shipment"@en ;
+                 rdfs:label "shipment:waybill"@en ;
+                 owl:versionInfo "v2.1.1 renamed from shipment:waybillNumber"@en .
 
 
 ###  https://onerecord.iata.org/TransportMeans#transportCompany
@@ -1641,6 +1660,22 @@ waybill:containedWaybills rdf:type owl:ObjectProperty ;
                           owl:versionInfo "v1.1 renamed to containedWaybills"@en .
 
 
+###  https://onerecord.iata.org/Waybill#masterWaybill
+waybill:masterWaybill rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Waybill ;
+                      rdfs:range :Waybill ;
+                      rdfs:comment "Reference to the master Waybill if it is contained in one"@en ;
+                      rdfs:label "waybill:masterWaybill"@en .
+
+
+###  https://onerecord.iata.org/Waybill#shipment
+waybill:shipment rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Waybill ;
+                 rdfs:range :Shipment ;
+                 rdfs:comment "Reference to the Shipment"@en ;
+                 rdfs:label "waybill:shipment"@en .
+
+
 #################################################################
 #    Data properties
 #################################################################
@@ -1718,27 +1753,27 @@ address:street rdf:type owl:DatatypeProperty ;
 
 
 ###  https://onerecord.iata.org/Adjustments#correctionSerialNumber
-<https://onerecord.iata.org/Adjustments#correctionSerialNumber> rdf:type owl:DatatypeProperty ;
-                                                                rdfs:domain :Adjustments ;
-                                                                rdfs:range xsd:string ;
-                                                                rdfs:comment "Serial Number of the correction"@en ;
-                                                                rdfs:label "Adjustments:correctionSerialNumber"@en .
+adjustments:correctionSerialNumber rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain :Adjustments ;
+                                   rdfs:range xsd:string ;
+                                   rdfs:comment "Serial Number of the correction"@en ;
+                                   rdfs:label "Adjustments:correctionSerialNumber"@en .
 
 
 ###  https://onerecord.iata.org/Adjustments#nbCorrections
-<https://onerecord.iata.org/Adjustments#nbCorrections> rdf:type owl:DatatypeProperty ;
-                                                       rdfs:domain :Adjustments ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:comment "Number of the adjustment"@en ;
-                                                       rdfs:label "Adjustments:nbCorrections"@en .
+adjustments:nbCorrections rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :Adjustments ;
+                          rdfs:range xsd:integer ;
+                          rdfs:comment "Number of the adjustment"@en ;
+                          rdfs:label "Adjustments:nbCorrections"@en .
 
 
 ###  https://onerecord.iata.org/Adjustments#reasonsForAdjustments
-<https://onerecord.iata.org/Adjustments#reasonsForAdjustments> rdf:type owl:DatatypeProperty ;
-                                                               rdfs:domain :Adjustments ;
-                                                               rdfs:range xsd:string ;
-                                                               rdfs:comment "A free text for user to include a reason for correction"@en ;
-                                                               rdfs:label "Adjustments:reasonsForAdjustments"@en .
+adjustments:reasonsForAdjustments rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain :Adjustments ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:comment "A free text for user to include a reason for correction"@en ;
+                                  rdfs:label "Adjustments:reasonsForAdjustments"@en .
 
 
 ###  https://onerecord.iata.org/BillingDetails#awbAcceptanceDate
@@ -2256,7 +2291,7 @@ customsInfo:customsInfoNote rdf:type owl:DatatypeProperty ;
 customsInfo:customsInfoSubjectCode rdf:type owl:DatatypeProperty ;
                                    rdfs:domain :CustomsInfo ;
                                    rdfs:range xsd:string ;
-                                   rdfs:comment """Information Identifier. Code identifying a piece of information/entity e.g. \"IMP\" for import, \"EXP\" for export, \"AGT\" for Agent, \"ISS\" for The Regulated Agent Issuing the Security Status for a Consignment etc. 
+                                   rdfs:comment """Information Identifier. Code identifying a piece of information/entity e.g. \"IMP\" for import, \"EXP\" for export, \"AGT\" for Agent, \"ISS\" for The Regulated Agent Issuing the Security Status for a Consignment etc.
 Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
                                    rdfs:label "customsInfo:customsInfoSubjectCode"@en .
 
@@ -4034,7 +4069,7 @@ securityDeclaration:groundsForExemption rdf:type owl:DatatypeProperty ;
                                                                           ]
                                                                ]
                                                    ] ;
-                                        rdfs:comment """Exemption code - e.g. BIOM- Bio-Medical Samples 
+                                        rdfs:comment """Exemption code - e.g. BIOM- Bio-Medical Samples
 SMUS - small undersized shipments MAIL - mail
 BIOM - bio-medical samples
 DIPL - diplomatic bags or diplomatic mail
@@ -4090,12 +4125,12 @@ securityDeclaration:screeningMethod rdf:type owl:DatatypeProperty ;
                                                            ]
                                                ] ;
                                     rdfs:comment """Screening methods which have been used to secure the cargo
-PHS – Physical Inspection and/or hand search 
-VCK - Visual check 
-XRY- X-ray equipment 
-EDS - Explosive detection system 
+PHS – Physical Inspection and/or hand search
+VCK - Visual check
+XRY- X-ray equipment
+EDS - Explosive detection system
 EDD - Explosive detection dogs
-ETD - Explosive trace detection equipment - particles or vapor 
+ETD - Explosive trace detection equipment - particles or vapor
 CMD - Cargo metal detection
 AOM - Subjected to any other means: this entry should be followed by free text specifying what other mean was used to secure the cargo"""@en ;
                                     rdfs:label "securityDeclaration:screeningMethod"@en .
@@ -4599,7 +4634,7 @@ waybill:consignorDeclarationSignature rdf:type owl:DatatypeProperty ;
 waybill:customsOriginCode rdf:type owl:DatatypeProperty ;
                           rdfs:domain :Waybill ;
                           rdfs:range xsd:string ;
-                          rdfs:comment """Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) 
+                          rdfs:comment """Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU)
 List to be provided by local authorities"""@en ;
                           rdfs:label "waybill:customsOriginCode"@en .
 
@@ -4808,27 +4843,27 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Adjustments
 :Adjustments rdf:type owl:Class ;
              rdfs:subClassOf [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#correctionSerialNumber> ;
+                               owl:onProperty adjustments:correctionSerialNumber ;
                                owl:allValuesFrom xsd:string
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#nbCorrections> ;
+                               owl:onProperty adjustments:nbCorrections ;
                                owl:allValuesFrom xsd:integer
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#reasonsForAdjustments> ;
+                               owl:onProperty adjustments:reasonsForAdjustments ;
                                owl:allValuesFrom xsd:string
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#correctionSerialNumber> ;
+                               owl:onProperty adjustments:correctionSerialNumber ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#nbCorrections> ;
+                               owl:onProperty adjustments:nbCorrections ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <https://onerecord.iata.org/Adjustments#reasonsForAdjustments> ;
+                               owl:onProperty adjustments:reasonsForAdjustments ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Adjustments in the context of CASS records"@en ;
@@ -4839,11 +4874,11 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 :BillingDetails rdf:type owl:Class ;
                 rdfs:subClassOf [ rdf:type owl:Restriction ;
                                   owl:onProperty billingDetails:taxDueAgent ;
-                                  owl:someValuesFrom :Value
+                                  owl:allValuesFrom :Value
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty billingDetails:taxDueAirline ;
-                                  owl:someValuesFrom :Value
+                                  owl:allValuesFrom :Value
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty billingDetails:waybill ;
@@ -4979,9 +5014,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/BookingOption
 :BookingOption rdf:type owl:Class ;
                rdfs:subClassOf :LogisticsObject ,
-                               [ rdf:type owl:Class ;
-                                 owl:oneOf rdf:nil
-                               ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty bookingOption:bookingSegment ;
                                  owl:allValuesFrom :BookingSegment
@@ -5105,9 +5137,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/BookingOptionRequest
 :BookingOptionRequest rdf:type owl:Class ;
                       rdfs:subClassOf :LogisticsObject ,
-                                      [ rdf:type owl:Class ;
-                                        owl:oneOf rdf:nil
-                                      ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty bookingOptionRequest:bookingOptions ;
                                         owl:allValuesFrom :BookingOption
@@ -5949,6 +5978,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                       owl:allValuesFrom :PieceLiveAnimals
                                     ] ,
                                     [ rdf:type owl:Restriction ;
+                                      owl:onProperty epermitConsignment:epermit ;
+                                      owl:allValuesFrom :LiveAnimalsEpermit
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
                                       owl:onProperty epermitConsignment:examiningQuantity ;
                                       owl:allValuesFrom :Value
                                     ] ,
@@ -5958,6 +5991,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty epermitConsignment:consignmentItems ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epermitConsignment:epermit ;
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
@@ -6047,7 +6084,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 :Event rdf:type owl:Class ;
        rdfs:subClassOf [ rdf:type owl:Restriction ;
                          owl:onProperty event:linkedObject ;
-                         owl:someValuesFrom :LogisticsObject
+                         owl:allValuesFrom :LogisticsObject
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty event:location ;
@@ -7043,9 +7080,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/Piece
 :Piece rdf:type owl:Class ;
        rdfs:subClassOf :LogisticsObject ,
-                       [ rdf:type owl:Class ;
-                         owl:oneOf rdf:nil
-                       ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:containedItems ;
                          owl:allValuesFrom :Item
@@ -7073,6 +7107,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:handlingInstructions ;
                          owl:allValuesFrom :HandlingInstructions
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:inPiece ;
+                         owl:allValuesFrom :Piece
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:otherIdentifiers ;
@@ -7124,6 +7162,10 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty piece:grossWeight ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty piece:inPiece ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -8255,7 +8297,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                             owl:allValuesFrom :VolumetricWeight
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty shipment:waybillNumber ;
+                            owl:onProperty shipment:waybill ;
                             owl:allValuesFrom :Waybill
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -8267,7 +8309,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                             owl:minCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty shipment:waybillNumber ;
+                            owl:onProperty shipment:waybill ;
                             owl:minCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -8279,7 +8321,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty shipment:waybillNumber ;
+                            owl:onProperty shipment:waybill ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -8412,9 +8454,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/TransportMovement
 :TransportMovement rdf:type owl:Class ;
                    rdfs:subClassOf :LogisticsObject ,
-                                   [ rdf:type owl:Class ;
-                                     owl:oneOf rdf:nil
-                                   ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty transportMovement:arrivalLocation ;
                                      owl:allValuesFrom :Location
@@ -8568,9 +8607,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
 ###  https://onerecord.iata.org/ULD
 :ULD rdf:type owl:Class ;
      rdfs:subClassOf :LogisticsObject ,
-                     [ rdf:type owl:Class ;
-                       owl:oneOf rdf:nil
-                     ] ,
                      [ rdf:type owl:Restriction ;
                        owl:onProperty uld:externalReference ;
                        owl:allValuesFrom :ExternalReference
@@ -8745,7 +8781,7 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          owl:onProperty value:value ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
-       rdfs:comment "Volumetric weight details"@en ;
+       rdfs:comment "Unit of measurement details"@en ;
        rdfs:label "Value"@en .
 
 
@@ -8767,16 +8803,13 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                                     owl:onProperty volumetricWeight:conversionFactor ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
-                  rdfs:comment "Unit of measurement details"@en ;
+                  rdfs:comment "Volumetric weight details"@en ;
                   rdfs:label "VolumetricWeight"@en .
 
 
 ###  https://onerecord.iata.org/Waybill
 :Waybill rdf:type owl:Class ;
          rdfs:subClassOf :LogisticsObject ,
-                         [ rdf:type owl:Class ;
-                           owl:oneOf rdf:nil
-                         ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:booking ;
                            owl:allValuesFrom :Booking
@@ -8790,6 +8823,14 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                            owl:allValuesFrom :Waybill
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty waybill:masterWaybill ;
+                           owl:allValuesFrom :Waybill
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty waybill:shipment ;
+                           owl:allValuesFrom :Shipment
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:carrierDeclarationPlace ;
                            owl:minCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -8799,6 +8840,14 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty waybill:carrierDeclarationPlace ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty waybill:masterWaybill ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty waybill:shipment ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -8932,23 +8981,6 @@ waybill:waybillType rdf:type owl:DatatypeProperty ;
                          ] ;
          rdfs:comment "Waybill details"@en ;
          rdfs:label "Waybill"@en .
-
-
-[ owl:maxCardinality "1"^^xsd:nonNegativeInteger
-] .
-
-[ owl:maxCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-#################################################################
-#    Annotations
-#################################################################
-
-owl:rational rdfs:comment "Timestamp for the measurement"@en ;
-              rdfs:label "measurements:measurementTimestamp"@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
