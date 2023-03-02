@@ -15,6 +15,11 @@ In order to allow for a better followup of Github issues and their resolution, b
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/179
 - [x] https://github.com/IATA-Cargo/ONE-Record/issues/180
 
+In addition some additions were made to clean the ontology, details are on the pull requests below:
+- [x] https://github.com/IATA-Cargo/ONE-Record/pull/190
+- [x] https://github.com/IATA-Cargo/ONE-Record/pull/191
+- [x] https://github.com/IATA-Cargo/ONE-Record/pull/194
+
 
 #### Addition of BookingRequest and Booking objects
 To facilitate distribution and the API design, **BookingShipment**, **BookingRequest** and **Booking** ojects were added
