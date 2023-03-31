@@ -1,0 +1,1703 @@
+openapi: 3.0.2
+info:
+  title: ONE Record API
+  description: >-
+    This OpenAPI specification describes the API endpoint structure of an 
+    ONE Record API implementation. <br/><br/>
+    <b>Note:</b><br/>
+    The included schemas can only be used to generate JSON-LD in the extended 
+    document form.<br/>
+    However, to be fully ONE Record compliant, any ONE Record API (and any compliant ONE Record client) <br/>
+    <b>MUST</b> support at least the expanded, compacted, and flattened document forms.    
+    <br/><br/>
+    More information about the ONE Record specification are available on [IATA Github
+    repository](https://github.com/IATA-Cargo/ONE-Record) and on the [ONE Record
+    Developer Portal](https://onerecord.iata.org).
+  contact:
+    name: IATA
+    url: https://onerecord.iata.org/
+    email: onerecord@iata.org
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  version: '2.0.0-dev'
+servers:
+  - url: https://1r.example.com
+paths:
+  /:
+    get:
+      tags:
+        - General Server Information
+      summary: >-
+        Retrieve the ServerInformation that provides information about supported
+        LogisticsObject types, languages, default callbackURL etc..
+      operationId: getServerInformation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/CompanyInformation'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /logistics-objects:
+    post:
+      tags:
+        - Logistics Object Endpoints
+      summary: 'INTERNAL: Create a LogisticsObject'
+      operationId: addLogisticsObject
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/LogisticsObject'
+        required: true
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}:
+    get:
+      tags:
+        - Logistics Object Endpoints
+      summary: Retrieves a LogisticsObject
+      operationId: getLogisticsObject
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: embedded
+          in: query
+          required: false
+          schema:
+            type: boolean        
+        - name: at
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/LogisticsObject'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Logistics Object Endpoints
+      summary: Submit a ChangeRequest for the specific LogisticsObject
+      operationId: updateLogisticsObject
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/logistics-events:
+    post:
+      tags:
+        - Logistics Event Endpoints
+      summary: Append a LogisticsEvents to the event log of a given LogisticsObject
+      operationId: addEvents
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - Logistics Event Endpoints
+      summary: Retrieves the LogisticsEvent of a given LogisticsObject
+      operationId: getEvents
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscriptions:
+    post:
+        tags:
+          - Publish / Subscribe
+        summary: 'INTERNAL: Create Subscription information on a ONE Record server'
+        operationId: createSubscription
+        requestBody:
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          required: true
+        responses:
+          '200':
+            description: OK
+            content:
+              application/ld+json:
+                schema:
+                  $ref: '#/components/schemas/Subscription'
+          '404':
+            description: Not Found
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Error'
+          '503':
+            description: Service Unavailable
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - Publish / Subscribe
+      summary: >-
+        Retrieve Subscription information when a publisher proposes a
+        subscription
+      operationId: getSubscriptions
+      parameters:
+        - name: topicType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: ["LOGISTICS_OBJECT_TYPE", "LOGISTICS_OBJECT_URI"]
+        - name: topic
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uri
+          example: https://onerecord.iata.org/cargo/Piece
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscriptions/{subscriptionId}:
+    get:
+      tags:
+        - Publish / Subscribe
+      summary: >-
+        Retrieve Subscription information by URI
+      operationId: getSubscription
+      parameters:
+        - name: subscriptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscription-requests:
+    post:
+      tags:
+        - Publish / Subscribe
+      summary: Submit a Subscription Request when a subscriber initiates pub/sub
+      operationId: submitSubscriptionRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /subscription-requests/{subscriptionRequestId}:
+    get:
+      tags:
+        - Publish / Subscribe
+      summary: Retrieve a specific SubscriptionRequest
+      operationId: getSubscriptionRequest
+      parameters:
+        - name: subscriptionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Publish / Subscribe
+      summary: 'INTERNAL: Change SubscriptionRequest to accept/reject'
+      operationId: updateSubscriptionRequest
+      parameters:
+        - name: subscriptionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /delegation-requests:
+    post:
+      tags:
+        - Access Delegation
+      summary: Submit a request for delegation of permissions
+      operationId: submitDelegationRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  
+  /delegation-requests/{delegationRequestId}:
+    get:
+      tags:
+        - Access Delegation
+      summary: Retrieve a DelegationRequest, for example, to check the status
+      operationId: getDelegationRequest
+      parameters:
+        - name: delegationRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Access Delegation
+      summary: 'INTERNAL: Change DelegationRequest to accept/reject'
+      operationId: updateDelegationRequest
+      parameters:
+        - name: delegationRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventId}:
+    get:
+      tags:
+        - Logistics Event Endpoints
+      summary: Retrieves single event of a given logistics object
+      operationId: getEvent
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: logisticsEventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/audit-trail:
+    get:
+      tags:
+        - Logistics Object Endpoints
+      summary: Retrieve the AuditTrail of a given LogisticsObject
+      operationId: getAuditTrail
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: updatedFrom
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: updatedTo
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/AuditTrail'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/acl:
+    get:
+      tags:
+        - Logistics Object Endpoints
+      summary: Retrieve the Access Control List (ACL) of a given LogisticsObject
+      operationId: getACL
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /notifications:
+    post:
+      tags:
+        - Notifications / Webhook Endpoint
+      summary: Used as callback URL for receiving Notifications from publishers
+      operationId: callbackUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: See https://oauth.net/2/grant-types/client-credentials/
+      flows: 
+        clientCredentials: 
+          tokenUrl: https://auth.example.com/oauth2/token/
+          scopes: {}
+  schemas:
+    Details:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        attribute:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+        resource:
+          type: string
+    Error:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        details:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Details'
+        title:
+          type: string
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        errors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        cacheFor:
+          type: string
+        callbackUrl:
+          type: string
+        contentTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        myCompanyIdentifier:
+          type: string
+        secret:
+          type: string
+        sendLogisticsObjectBody:
+          type: boolean
+        subscribeToStatusUpdates:
+          type: boolean
+        subscribedTo:
+          type: string
+        topic:
+          type: string
+          format: uri
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        addressCode:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        cityCode:
+          type: string
+        cityName:
+          type: string
+        poBox:
+          type: string
+        postalCode:
+          type: string
+        regionCode:
+          type: string
+        regionName:
+          type: string
+        street:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Company:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        branch:
+          $ref: '#/components/schemas/CompanyBranch'
+        companyName:
+          type: string
+        iataCargoAgentCode:
+          type: string
+    CompanyBranch:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        company:
+          $ref: '#/components/schemas/Company'
+        contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        location:
+          $ref: '#/components/schemas/Location'
+        otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        branchName:
+          type: string
+        iataCargoAgentLocationIdentifier:
+          type: string
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        other:
+          $ref: '#/components/schemas/ContactOther'
+        contactType:
+          type: string
+        contactValue:
+          type: string
+    ContactOther:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+    Country:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        countryCode:
+          type: string
+        countryName:
+          type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        linkedObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        location:
+          $ref: '#/components/schemas/Location'
+        performedBy:
+          $ref: '#/components/schemas/Company'
+        performedByPerson:
+          $ref: '#/components/schemas/Person'
+        dateTime:
+          type: string
+          format: date-time
+        eventCode:
+          type: string
+        eventName:
+          type: string
+        eventTypeIndicator:
+          type: string
+    ExternalReference:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        documentOriginator:
+          $ref: '#/components/schemas/Company'
+        location:
+          $ref: '#/components/schemas/Location'
+        documentChecksum:
+          type: string
+        documentId:
+          type: string
+        documentLink:
+          type: string
+        documentName:
+          type: string
+        documentType:
+          type: string
+        documentVersion:
+          type: string
+        expiryDate:
+          type: string
+          format: date-time
+        validFrom:
+          type: string
+          format: date-time
+    Geolocation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        elevation:
+          $ref: '#/components/schemas/Value'
+        geolocationUnit:
+          type: string
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+    IotDevice:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        companyIdentifier:
+          type: string
+        deviceManufacturer:
+          $ref: '#/components/schemas/Company'
+        sensors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Sensor'
+        associatedObject:
+          type: string
+        deviceDescription:
+          type: string
+        deviceModel:
+          type: string
+        deviceName:
+          type: string
+        deviceSerialNumber:
+          type: string
+    Location:
+      title: Location
+      type: object
+      properties:
+        '@id':
+          title: '@id'
+          type: string
+          readOnly: true
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - https://onerecord.iata.org/cargo/Location
+          enum:
+            - https://onerecord.iata.org/cargo/Location
+          default: [https://onerecord.iata.org/cargo/Location]
+        https://onerecord.iata.org/cargo/Location#locationType:
+          title: https://onerecord.iata.org/cargo/Location#locationType
+          type: string
+        https://onerecord.iata.org/cargo/Location#code:
+          title: https://onerecord.iata.org/cargo/Location#code
+          type: string
+        https://onerecord.iata.org/cargo/Location#locationName:
+          title: https://://onerecord.iata.org/cargo/Location#locationName
+          type: string
+        https://onerecord.iata.org/cargo/Location#geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        https://onerecord.iata.org/cargo/Location#address:
+          $ref: '#/components/schemas/Address'
+    LogisticsObject:
+      title: LogisticsObject
+      type: object
+      discriminator:
+        propertyName: '@type'
+      properties:
+        '@id':
+          title: '@id'
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - https://onerecord.iata.org/cargo/LogisticsObject
+          enum:
+            - https://onerecord.iata.org/cargo/LogisticsObject
+          default: [https://onerecord.iata.org/cargo/LogisticsObject]
+        https://onerecord.iata.org/cargo/LogisticsObject#companyIdentifier:
+          title: https://onerecord.iata.org/cargo/LogisticsObject#companyIdentifier
+          type: string
+      example:
+        "@type": "https://onerecord.iata.org/cargo/Piece"
+        "https://onerecord.iata.org/cargo/Piece#goodsDescription": "ONE Record Advertisement Materials"
+        "https://onerecord.iata.org/cargo/Piece#handlingInstructions":
+            - "@type": "https://onerecord.iata.org/cargo/HandlingInstructions"
+              "https://onerecord.iata.org/cargo/HandlingInstructions#serviceType": "SPH"
+              "https://onerecord.iata.org/cargo/HandlingInstructions#serviceDescription": "Valuable Cargo"
+              "https://onerecord.iata.org/cargo/HandlingInstructions#serviceTypeCode": "VAL"                 
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        logisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        eventType:
+          type: string
+        topic:
+          type: string
+          format: uri
+    OtherIdentifier:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        identifier:
+          type: string
+        otherIdentifierType:
+          type: string
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        associatedBranch:
+          $ref: '#/components/schemas/CompanyBranch'
+        contact:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        documents:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        contactType:
+          type: string
+        department:
+          type: string
+        employeeId:
+          type: string
+        firstName:
+          type: string
+        jobTitle:
+          type: string
+        lastName:
+          type: string
+        middleName:
+          type: string
+        salutation:
+          type: string
+    Piece:
+      title: Piece
+      allOf:     
+        - $ref: '#/components/schemas/LogisticsObject'
+        - properties:
+            '@type':
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+                enum:
+                  - https://onerecord.iata.org/cargo/Piece
+              enum:
+                - https://onerecord.iata.org/cargo/Piece
+              default: ["https://onerecord.iata.org/cargo/Piece"]
+            https://onerecord.iata.org/cargo/Piece#goodsDescription:
+              title: https://onerecord.iata.org/cargo/Piece#goodsDescription
+              type: string
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        companyIdentifier:
+          type: string
+        iotDevice:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        sensorDescription:
+          type: string
+        sensorName:
+          type: string
+        sensorSerialNumber:
+          type: string
+        sensorType:
+          type: string
+    Value:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        unit:
+          type: string
+        value:
+          type: number
+          format: double
+    LogisticsObjectRef:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        logisticsObjectId:
+          type: string
+        logisticsObjectType:
+          type: string
+    Operation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        o:
+          $ref: '#/components/schemas/OperationObject'
+        op:
+          type: string
+        p:
+          type: string
+    OperationObject:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        datatype:
+          type: string
+        value:
+          type: string
+        object:
+          type: object
+    PatchRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        logisticsObjectRef:
+          $ref: '#/components/schemas/LogisticsObjectRef'
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        description1:
+          type: string
+        requestorCompanyIdentifier:
+          type: string
+        revision:
+          type: string
+    AuditTrail:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        changeRequests:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ChangeRequest'
+        errors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        loInitialSnapshot:
+          $ref: '#/components/schemas/Memento'
+        logisticsObjectRef:
+          $ref: '#/components/schemas/LogisticsObjectRef'
+        latestRevision:
+          type: integer
+          format: int32
+    Branch:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        id1:
+          type: string
+        name1:
+          type: string
+        description1:
+          type: string
+        types1:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties1:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+    ChangeRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        patchRequest:
+          $ref: '#/components/schemas/PatchRequest'
+        requestingParty:
+          $ref: '#/components/schemas/Branch'
+        companyId:
+          type: string
+        status:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+    Memento:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        data:
+          $ref: '#/components/schemas/LogisticsObject'
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        label:
+          type: string
+        original:
+          type: string
+    Agent:
+      type: object
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - http://xmlns.com/foaf/0.1/Agent
+          enum:
+            - http://xmlns.com/foaf/0.1/Agent
+    Authorization:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - http://www.w3.org/ns/auth/acl#Authorization
+          enum:
+            - http://www.w3.org/ns/auth/acl#Authorization
+        http://www.w3.org/ns/auth/acl#agent:
+          $ref: '#/components/schemas/Agent'
+        http://www.w3.org/ns/auth/acl#accessTo:
+          $ref: '#/components/schemas/LogisticsObject'
+        http://www.w3.org/ns/auth/acl#agentGroup:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+        http://www.w3.org/ns/auth/acl#mode:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+              - http://www.w3.org/2006/vcard/ns#Group
+          enum:
+            - http://www.w3.org/2006/vcard/ns#Group
+    CompanyInformation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        properties:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+        company:
+          $ref: '#/components/schemas/Company'
+        errors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        companyId:
+          type: string
+        serverEndpoint:
+          type: string
+        supportedContentTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        supportedLogisticsObjects:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+security:
+  - oAuth2ClientCredentials: []
