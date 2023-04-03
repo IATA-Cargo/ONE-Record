@@ -2,7 +2,7 @@ ONE Record utilizes a Publish & Subscribe pattern to enable exchanging data upda
 
 This chapter describes the Publish & Subscribe concept, its implementation and the requirements of a Notifications API which a ONE Record server MUST implement to receive Notifications about new created or updated Logistics Objects from other ONE Record servers through Subscriptions.
 
-## Publish & Subscribe in ONE Record
+# Publish & Subscribe in ONE Record
 
 **Publish/subscribe topics and guaranteed delivery queue**
 
@@ -22,7 +22,7 @@ Both scenarios are described with examples below. For simplicity reasons, the se
 
 
 
-## Subscription initiated by Publisher
+# Subscription initiated by Publisher
 
 If the publisher of a Logistics Object wants to subscribe a user of a Logistics Object - also called `Subscriber` in this scenario  - to send [Notifications](https://onerecord.iata.org/api#Notification) about data updates and/or Logistics Events, the publisher can request the potential subscriber to provide subscription information. 
 
@@ -34,7 +34,7 @@ There are two different shapes of the scenario:
 - The publisher wants to notify the subscriber about changes to Logistics Objects of a certain type (e.g. Waybills or Pieces)
 - The publisher wants to notify the subscriber about changes to a specific Logistics Object
 
-### Workflow
+## Workflow
 
 As result, for both scenarios the interaction between two ONE Record participants follows the following workflow:
 
@@ -67,7 +67,7 @@ In order to acknowledge a proposal the subscriber response to the request with t
 Once the subscription information is received the publisher sends notifications to the Subscriber using the details provided. 
 If a subscriber was not available at the time, then the publisher MUST need to queue and retry to notify the Subscriber.
 
-### Request
+## Request
 
 To specify receive the Subscription Information about a specific LogisticsObject or a Logistics Object type, the publisher sends a GET request to the subscription endpoint of Subscriber with the proposed Logistics Object type or a specific Logistics Object URI using the query parameters `topicType` and `topic`.
 This parameters MUST be provided by the publisher.
@@ -79,10 +79,10 @@ The following HTTP query parameters MUST be present in the GET request:
 | topicType       | Used by the publisher to specify if Subscription information for a specific Logistics Object or a data class should be in the response body. | <ul><li>LOGISTICS_OBJECT_TYPE</li><li>LOGISTICS_OBJECT_URI</li></ul> |
 | topic       | Used by the publisher to specify the data class or Logistics Object URI the Subscription information should be related to. topic MUST be a valid URI | <ul><li>https://onerecord.iata.org/ns/cargo/3.0.0#Piece</li><li>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</li></ul> |
 
-TODO: add Type for parameters, enum for topicType and topic is xsd:anyURI
-TODO: add error handling, if parameter is missing, or combination is not allowed, topic is not supported "Server does not support requested Logistics Object Type"
+==TODO: add Type for parameters, enum for topicType and topic is xsd:anyURI==
+==TODO: add error handling, if parameter is missing, or combination is not allowed, topic is not supported "Server does not support requested Logistics Object Type"==
 
-### Response
+## Response
 
 The following HTTP status codes MUST be supported:
 
@@ -135,7 +135,7 @@ classDiagram
 | subscribedTo             | Company Identifier of the company the subscriber wants to subscribe to (used delegation scenario).                | y        | w3c:URI         |
 | topic                    | The Logistics Object type to which the subscriber wants subscribe to      | y        | https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject (list) |
 
-### Example 1
+## Example A1
 
 Request:
 
@@ -149,7 +149,7 @@ Response:
 ```json
 
 ```
-### Example 2
+## Example A2
 
 ```http
 GET /subscriptions?topicType=LOGISTICS_OBJECT_URI&topic=https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
@@ -158,7 +158,7 @@ Host: 1r.example.com
 Accept: application/ld+json
 ```
 
-### Example 3
+## Example A3
 If the subscriber created subscription information for the provided parameters, the response body includes the following elements:
 Otherwise, a `404 Not Found` Error must be returned.
 
@@ -206,7 +206,7 @@ Content-Type: application/ld+json
 | **403**  |     | Not authorized to retrieve the Subscription Information                  | Error             |
 | **404**  |     | Subscription Information not found                   | Error             |
 
-## Subscription initiated by Subscriber
+# Subscription initiated by Subscriber
 
 In the second scenario, the subscriber initiates the subscription process by actively sending subscription information to the publisher. 
 The subscription information can either target a type of Logistics Object or a specific Logistics Object.
@@ -224,9 +224,9 @@ The subscription information can either target a type of Logistics Object or a s
   PUB->>SUB: Send Notifications about updates and events<br> POST /notifications HTTP/1.1
 ```
 
-## Subscription initiated by 3rd party
+# Subscription initiated by 3rd party
 
-Making it possible to subscribe a 3rd party to receive Notifications CAN raise an security issue. 
-For example, if Error happen during the Subscription request process or a malicious Subscription is requested, this CAN result in unwanted Notification spam.
+Making it possible to subscribe a 3rd party to receive Notifications can raise an security issue. 
+For example, if Error happen during the Subscription request process or a malicious Subscription is requested, this can result in unwanted Notification spam.
 
 Therefore, a subscriber MUST subscribe only themselves, after receiving access to a Logistics Object or get subscribed by the publisher (after access is granted). 

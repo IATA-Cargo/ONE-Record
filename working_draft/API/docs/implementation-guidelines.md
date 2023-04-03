@@ -34,7 +34,7 @@ Every ONE Record server (and every compliant ONE Record client) MUST support at 
 Furthermore, the following requirements MUST be fulfilled:
 
 - Every JSON-LD document that is returned from a ONE Record API MUST include `@id` property
-- A JSON-LD document CAN include an `@context` that contains namespaces, vocabularies and more that facilitate the remainder of the data elements. In this context, there is a specification of two ontologies: the ONE Record cargo ontology (`cargo`) and the ONE Record API ontology (`api`).
+- A JSON-LD document MAY include an `@context` that contains namespaces, vocabularies and more that facilitate the remainder of the data elements. In this context, there is a specification of two ontologies: the ONE Record cargo ontology (`cargo`) and the ONE Record API ontology (`api`).
 - A JSON-LD document MUST include an `@type` property that specifies the type of the data object, i.e. the ONE Record Logistics Object class (https://onerecord.iata.org/ns/cargo/3.0.0#Sensor in the previous example 1 and example 2).
 - A JSON-LD document MUST include an `@language` property in the `@context` property that specifies the language of the returned data object, if the language differs from the default language `en-US`.
 
@@ -63,7 +63,7 @@ In this document, the ids of this embedded objects are called `embedded object i
 The structure of this embedded object id is up to the implementor of the ONE Record server.
 Nevertheless, it is RECOMMENDED to use the following structure for embedded object ids:
 
-`1r:<data class name>-<uuid4>`, e.g. `1r:value-1410d13f-670a-4c75-90ae-fa93c28039a8`
+`1r:<uuid5 using the data class name>`, e.g. `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07` as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")
 
 !!! note 
     It MUST be ensured that these embedded object IDs, similar to logistics object URIs, are unintelligible and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
@@ -82,7 +82,7 @@ Therefore, in ONE Record, a ONE Record serer MUST convert bNodes to named resour
   "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
   "cargo:grossWeight": {
     "@type": "cargo:Value",
-    "@id": "1r:value-1410d13f-670a-4c75-90ae-fa93c28039a8",
+    "@id": "1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07",
     "cargo:value": "20.0",
     "cargo:unit": "KGM"
   }
@@ -114,19 +114,19 @@ Date and time formats MUST follow [RFC 3339](https://www.rfc-editor.org/rfc/rfc3
 | date     | Dates used in JSON-LD MUST follow YYYY-MM-DD. Dates used in HTTP query parameters MUST follow: YYYYMMDD | 2023-03-01                |
 | datetime | Always UTC              | 2023-03-031T10:38:01.000Z |
 
-Time durations and intervals MUST be conform to ISO 8601. However, whenever possible, explicit expiry dates `SHOULD` be used in favor of durations and intervals.
+Time durations and intervals MUST be conform to ISO 8601. However, whenever possible, explicit expiry dates SHOULD be used in favor of durations and intervals.
 
 **Airline, Airport, Country, Currency, Language Codes**
 
 The following standards MUST be used:
 
-| Type     | Description                   | Example |
-| -------- |  ------- | ------- |
-| Airline  | IATA Two Letter Codes         | LH      |
-| Airport  | IATA Three Letter Codes       | FRA     |
-| Country  | Two letter country codes. Follow ISO 3166 alpha-2 | CH      |
-| Currency | Follow ISO 4217               | EUR     |
-| Language | Follow IETF BCP 47 language tag                   | en-US   |
+| Type     | Description                                        | Example |
+| -------- | -------------------------------------------------- | ------- |
+| Airline  | IATA Two Letter Codes                              | LH      |
+| Airport  | IATA Three Letter Codes                            | FRA     |
+| Country  | Two letter country codes. Follow ISO 3166 alpha-2  | CH      |
+| Currency | Follow ISO 4217                                    | EUR     |
+| Language | Follow IETF BCP 47 language tag                    | en-US   |
 
 **Collections**
 
@@ -135,20 +135,23 @@ For example, [handlingInstructions](https://onerecord.iata.org/ns/cargo/3.0.0#ha
 
 **Null values**
 
-To safe bandwidth, null valued properties `SHOULD` not be part of the JSON-LD bodies.
+To safe bandwidth, null valued properties SHOULD not be part of the JSON-LD bodies.
 
 # API Versioning
 
-API versioning is an important part of any API design, as it addresses the key challenge of maintaining APIs while dealing with changes over time. Furthermore, it supports the communication between a client and a server by knowing which API version is supported and has to be used for interaction. It is reasonable to assume that in practice an API will never be feature complete and it is accordingly important to manage these changes. This is also true for the ONE Record API. 
+API versioning is an important part of any API design, as it addresses the key challenge of maintaining APIs while dealing with changes over time. 
+Furthermore, it supports the communication between a client and a server by knowing which API version is supported and has to be used for interaction. 
+It is reasonable to assume that in practice an API will never be feature complete and it is accordingly important to manage these changes. 
+This is also true for the ONE Record API. 
 
 Proper API versioning ensures that the ONE Record API specification can be further developed without interrupting existing applications that interact with older ONE Record API versions. 
 
 Some possible changes in the API:
 
--	Request/Response bodies changes due to the constant review of the ONE Record API specifications
--	ONE Record ontology changes, which reflect on the request/response bodies
--	Addition of new API endpoint
--	Removal of an existing API endpoint
+- Request/Response bodies changes due to the constant review of the ONE Record API specifications
+- ONE Record ontology changes, which reflect on the request/response bodies
+- Addition of new API endpoint
+- Removal of an existing API endpoint
 
 Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](#logistics-object-uri)), an API versioning via URI Path is **not** possible,
 e.g. [http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b](http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b)
@@ -176,9 +179,9 @@ To support this evolution of the ONE Record data model, appropriate data model v
 
 Some examples for possible changes in the Data Model (ontology):
 
--	Addition/Removal of Classes/Properties
--	Updates of cardinality/data types
--	Updates of comments/labels
+- Addition/Removal of Classes/Properties
+- Updates of cardinality/data types
+- Updates of comments/labels
 
 Every ONE Record server MUST provide information about supported data model versions using [supportedLogisticsObjectTypes](https://onerecord.iata.org/api#supportedLogisticsObjectTypes) (see. [Get Server Information](#get-server-information)).
 This IRIs MUST include the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece
@@ -391,6 +394,6 @@ Although ONE Record is intended for use in a secured environment only, this cann
 # Asynchronous Job Processing
 
 To enable scalability of the ONE Record server, it is RECOMMENDED to use job queue systems to process asynchronous workloads that result from incoming ChangeRequests, DelegationRequests, or SubscriptionRequests.
-For example, it CAN be useful to decouple Notification queuing and actual sending of Notifications.
+For example, it can be useful to decouple Notification queuing and actual sending of Notifications.
 
 Decisions about architecture, technology as well as its implementation are up to the implementor of the ONE Record server.

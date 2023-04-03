@@ -1,4 +1,4 @@
-TODO: What are Logistics Events?
+Logistics events are events related to the management and execution of transport and logistics services and document the occurrence of actions, discrepancies, or status changes. These events can be either internal or external to an organization and can include transportation, warehousing, inventory management, supply chain optimization, and other related activities. Examples of logistics events include the departure of an aircraft or the acceptance of shipments in a warehouse.
 
 # Create a Logistics Event
 
@@ -6,6 +6,7 @@ Logistics Events (also known as status updates) in ONE Record can be added to an
 by posting a [LogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent) object to the `/logistics-events` endpoint of a LogisticsObject.
 
 As for all API interactions, the submitter must be authenticated and have the access rights to perform this action.
+
 As Logistics Events MUST be associated with a specific Logistics Object, creating Logistics Events requires the existence of a Logistics Object. 
 
 ## Request
@@ -41,8 +42,6 @@ classDiagram
     class ExternalReference{        
     }  
     
-    
-
     class LogisticsEvent{
         + creationDate: xsd:dateTime [0..1]
         + eventCode: xsd:string [0..1]
@@ -56,7 +55,6 @@ classDiagram
         + performedByActor: Person [0..1]
 
     }
-
     LogisticsEvent "1" --> "0..*" ExternalReference
     LogisticsEvent "1" --> "0..1" LogisticsObject
     LogisticsEvent "1" --> "0..1" Location
@@ -80,12 +78,14 @@ One of the following HTTP response codes MUST be present in the response:
 
 | Code    | Description          | Response body |
 | ------- |  ------------------ | ------------- |
-| **201** | Logistics Event has been created        | No content    |
-| **400** | Invalid Logistics Object                 | Error         |
-| **401** | Not authenticated    | Error         |
-| **403** | Not authorized to publish the Logistics Object to the server | Error         |
-| **404** | Logistics Object not found                 | Error         |
-| **415** | Unsupported Content Type                 | Error         |
+| 201 | Logistics Event has been created        | No content    |
+| 400 | Invalid Logistics Object                 | Error         |
+| 401 | Not authenticated, invalid or expired token    | Error         |
+| 403 | Not authorized to perform action | Error         |
+| 404 | Logistics Object not found                 | Error         |
+| 415 | Unsupported Content Type                 | Error         |
+| 500 |     Internal Server Error | Error model       |
+
 
 A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
 
@@ -93,20 +93,20 @@ The following HTTP headers parameters MUST be present in the response:
 
 | Response Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
-| **Location**    | The URI of the newly created Logistics Event           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c |
-| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent                    |
+| Location    | The URI of the newly created Logistics Event           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f |
+| Type        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent                    |
 
 
-## Example 1
+## Example A1
 
 Request:
 
 ```http
-POST /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events HTTP/1.1
+POST /logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events HTTP/1.1
 Host: 1r.example.com
 
-Content-Type: application/ld+json;version=2.0.0-dev
-Accept: application/ld+json;version=2.0.0-dev
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
 
 --8<-- "examples/LogisticsEvent.json"
 ```
@@ -117,29 +117,38 @@ Response:
 
 ```bash
 HTTP/1.1 201 Created
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f
-Content-Type: application/ld+json;version=2.0.0-dev
+Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f
+Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent
 ```
 
+## Example A2
 
+Request:
+
+```http
+POST /logistics-objects/1a8ded38-1804-467c-c369-81a411416b7c/logistics-events HTTP/1.1
+Host: 1r.example.com
+
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
+
+--8<-- "examples/LogisticsEvent.json"
 ```
-{
-  "@type": "iata-api:Event",
-  "@context": {
-     "iata-cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
-     "iata-api": "https://onerecord.iata.org/api/",
-  },
-  "iata-api:Event#dateTime": "2020-08-25T13:44:49.399Z",
-  "iata-api:Event#eventCode": "DEP",
-  "iata-api:Event#eventName": "Flight departure",
-  "iata-api:Event#eventTypeIndicator": "Actual",
-  "iata-api:Event#location": {"...Location object..."}
-  "iata-api:Event#linkedObject": "http://wwww.myhost.com/Sensor_715823",
-  "iata-api:Event#performedBy": {"...Company object..."}
-  "id": "string"
-}
+
+_([examples/LogisticsEvent.json](examples/LogisticsEvent.json))_
+
+Response:
+
+```bash
+HTTP/1.1 404 Not Found
+Content-Language: en-US
+Content-Type: application/ld+json
+
+--8<-- "examples/Error_404.json"
 ```
+
+_([examples/Error_404.json](examples/Error_404.json))_
 
 # Get a List of Logistic Events
 
@@ -162,7 +171,7 @@ A positive HTTP 200 response is expected to a GET request. The body of the respo
 | **403**  |     | Not authorized to retrieve Events | Error model       |
 | **404**  |     | Logistics Object Not Found        | Error model       |
 
-## Example 3
+## Example B1
 
 Request:
 
@@ -186,7 +195,7 @@ Content-Language: en-US
    },
     "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
     "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#goodsDescription": "ONE Record Advertisement Materials",
+    "https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription": "ONE Record Advertisement Materials",
     "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
         {
             "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",
@@ -199,10 +208,10 @@ Content-Language: en-US
 ]
 ```
 
-## Example 4
+## Example B2
 Filtered list of Logistics Events
 
-## Example 5
+## Example B3
 Error Logistics Object not found 404
 
 **Filtering and sorting Logistics Events list**
@@ -219,8 +228,10 @@ limit=10 means that a maximum of 10 records will be returned.
 
 ## Response
 
-## Example 6
+## Example C1
+A successful submit of a LogisticsEvent 
+
 200 
 
-## Example 7
+## Example C2
 404 Error

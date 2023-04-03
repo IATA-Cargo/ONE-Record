@@ -23,7 +23,7 @@ Furthermore, an online documentation based on the ontology can be found in the T
 ## Internet of Logistics Node (IoL Node)
 
 Each Internet of Logistics participant is technically represented as an Internet of Logistics Node (IoL Node) (also called ONE Record node). 
-Such an IoL node CAN have capabilities of a [ONE Record server](#one-record-server) and/or a [ONE Record client](#one-record-client).
+Such an IoL node can have capabilities of a [ONE Record server](#one-record-server) and/or a [ONE Record client](#one-record-client).
 
 Typically, an IoL node represents a single organization. 
 However, there might exist scenarios where an IoL node is shared between (sub-)organizations.
@@ -42,7 +42,7 @@ In this document, the term ONE Record server is used when referring to an actual
 A ONE Record client is a technical representation of a stakeholder using ONE Record to exchange data in the Internet of Logistics. 
 Unlike a ONE Record server that responses to API requests, a ONE Record Client initiates interaction with a ONE Record server. 
 
-Each ONE Record server CAN also include a ONE Record client implementation in order to interact with other ONE Record server, i.e. by sending HTTP requests.
+Each ONE Record server can also include a ONE Record client implementation in order to interact with other ONE Record server, i.e. by sending HTTP requests.
 
 However, not every ONE Record client MUST contain a ONE Record server implementation. 
 Nevertheless, it is useful for [pub-sub interactions](subscriptions.md), for example.
@@ -110,9 +110,9 @@ https://api.airline.com/rest/public/onerecord/logistics-objects/6596bb81-f5a0-46
 In ONE Record, each party in the Internet of Logistics, e.g., a shipper, airline, or public authorities like customs that acts as an owner or user of Logistics Objects, requires a globally unique identifier, a so-called `Organization URI`.
 This MUST have a URI that points to a data object that inherits from [Organization](https://onerecord.iata.org/ns/cargo/3.0.0#Organization) which inherits from [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject). Therefore, the same URI structure as for Logistics Objects MUST be applied.
 
-This data object CAN be a [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company), a [Carrier](https://onerecord.iata.org/ns/cargo/3.0.0#Carrier), or a [PublicAuthority](https://onerecord.iata.org/ns/cargo/3.0.0#PublicAuthority).
+This data object can be a [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company), a [Carrier](https://onerecord.iata.org/ns/cargo/3.0.0#Carrier), or a [PublicAuthority](https://onerecord.iata.org/ns/cargo/3.0.0#PublicAuthority).
 It MUST uniquely identifies an organization in its data exchanges with other organizations that use ONE Record.
-As shown below, this Organization URI CAN share the same structure as a Logistics Object URI:
+As shown below, this Organization URI MAY share the same structure as a Logistics Object URI:
 
 **Examples of valid Organization URIs:**
 

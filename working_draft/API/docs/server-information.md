@@ -49,7 +49,7 @@ The response body includes the following data elements.
 | **supportedContentTypes**     | HTTP content types supported by this server     | y        | http://www.w3.org/2001/XMLSchema#string (list) |
 | **supportedLogisticsObjects** | Logistics Object types supported by this server | y        | http://www.w3.org/2001/XMLSchema#anyURI (list) |
 
-## Example 1
+## Example A1
 
 Request:
 
@@ -71,7 +71,7 @@ Content-Type: application/ld+json
 ```
 _([examples/ServerInformation.json](examples/ServerInformation.json))_
 
-## Example 2
+## Example A2
 
 Request:
 

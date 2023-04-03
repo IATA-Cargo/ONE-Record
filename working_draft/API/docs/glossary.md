@@ -1,7 +1,7 @@
 | Term        | Description |
 | ----------- | ----------- |
-| ACL            | Access Control List                                      |
-| Authentication                     | A process that validates the identity of IoL participant                                         |
+| ACL            | Access Control List (ACL) is a security mechanism used in computer systems to define permissions and restrictions on who can access specific resources or perform certain actions. It is a list of rules that specifies which users or groups are allowed or denied access to a resource, like a LogisticsObject.                                    |
+| Authentication                     | A process that validates the identity of a IoL participant                                         |
 | Authorization  | A process that determines whether a IoL participant is allowed to access a specific Logistics Object                                     |
 | Cargo Operations & Technology Board (COTB) | Cargo Operations & Technology Board (COTB) reports to the Cargo Services Conference (CSC) at the International Air Transport Association. The COTB has authority over the ONE Record specifications. COTB decisions are formally endorsed by the CSC.            |     |
 | Hashed Message Authentication Code (HMAC) | An authentication method to verify data integrity and authenticity of a message. |
@@ -13,7 +13,7 @@
 | JSON Web Token (JWT)               | JSON specification for a token format that includes a user defined payload and the option for encryption.                                |
 | Linked Data    | Linked Data empowers people that publish and use information on the Web. It is a way to create a network of standards-based, machine-readable data across Web sites. It allows an application to start at one piece of Linked Data and follow embedded links to other pieces of Linked Data that are hosted on different sites across the Web.   |
 | Logistics Object                   | A data object that represents a meaningful entity in the logistics business. These may represent documents like air waybills but may also be more granular such as company details or a transport segment description. Logistics Objects are specified in a common data model by IATA and transport and logistics partners.  |
-| OAuth 2.0      | A protocol for delegation of authentication in a network of secure systems, see https://oauth.net/2/                                     |
+| Open Authorization (OAuth)      |  OAuth (Open Authorization) is an authorization framework that enables a user to grant a third-party application access to their resources on another API or service without giving them their credentials (delegation of access in a network of secure systems). It uses tokens to ensure secure and limited access to user data while protecting their privacy. see [https://oauth.net/2/](https://oauth.net/2/) |
 | ONE Record Client                  | A software program that sends ONE Record API requests to a ONE Record server.                                         |
 | ONE Record Server                  | A software program that responses to ONE Record API requests from a ONE Record client on behalf of one or more participants in the Internet of Logistics                      |
 | ONE Record Notifications API          | A dedicated ONE Record API endpoint for receiving notifications about updates related to logistics objects.  |

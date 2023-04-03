@@ -172,7 +172,7 @@ ONE Record recommends the use of the [ACL ontology](https://www.w3.org/ns/auth/a
 
 Example of GET ACL of a Logistics Object
 
-> **Note:** ONE Record Clients CAN assume that the location of an ACL resource can be derived from a Logistics Object URI.
+> **Note:** ONE Record Clients can assume that the location of an ACL resource can be derived from a Logistics Object URI.
 
 ONE Record recommends the definition of three types of Authorization:
 

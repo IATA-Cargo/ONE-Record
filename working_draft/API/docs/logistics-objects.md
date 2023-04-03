@@ -12,7 +12,7 @@ However, it is important that the Logistics Object is created with a [Logistics 
 
 As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
 
-### Request
+## Request
 
 The following HTTP header parameters MUST be present in the request
 
@@ -23,7 +23,7 @@ The following HTTP header parameters MUST be present in the request
 
 The HTTP body must contain a valid Logistics Object in the format as specified by the Content-Type in the header.
 
-### Response
+## Response
 
 A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
 
@@ -31,8 +31,6 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 | --------------- |  ------------- |  ----------------------------------- |
 | **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c |
 | **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo/3.0.0#Piece                    |
-
-
 
 The following HTTP status codes MUST be supported:
 
@@ -44,7 +42,7 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to publish the Logistics Object to the server | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
 
-### Example 1
+## Example A1
 
 Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
 
@@ -70,9 +68,9 @@ Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
 ```
 
-### Example 2
+## Example A2
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company)
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company) with an embedded Logistics Object of type [Person](https://onerecord.iata.org/ns/cargo/3.0.0#Person)
 
 Request:
 
@@ -97,7 +95,7 @@ Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/cargo/3.0.0#Company
 ```
 
-### Example 3
+## Example A3
 
 Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Shipment](https://onerecord.iata.org/ns/cargo/3.0.0#Shipment) that links the previously created Piece (see [Example 1](#example-1))
 
@@ -110,17 +108,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
-{
-    "@context": {
-        "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#"
-    },
-    "@type": "cargo:Shipment",
-    "cargo:goodsDescription": "Lots of awesome ONE Record information materials",
-    "cargo:containedPieces": [{
-        "@type": "cargo:Piece",
-        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
-    }]
-}
+--8<-- "examples/Shipment_with_Piece.json"
 ```
 
 _([examples/Shipment.json](examples/Shipment_with_Piece.json))_
@@ -152,14 +140,13 @@ If not a historical version is explicitly requested (see [(Retrieve a historical
 the ONE Record server MUST return the latest version of the requested Logistics Object.
 
 Because of Linked Data as a core concept of ONE Record, it could be possible that the requested Logistics Object contains links to other Logistics Object (see Shipment in [Example 3](#example-3)),
-If the User of the Logistics Object is interested in this linked data objects (which not necessary have to be on the same ONE Record server) and has the necessary access permissions,
-the User of the Logistics Object CAN request those Logistics Objects via their linked Logistics Object URIs.
+If the User of the Logistics Object is interested in this linked data objects (which not necessary have to be on the same ONE Record server) and has the necessary access permissions, the User of the Logistics Object can request those Logistics Objects via their linked Logistics Object URIs.
 
 Although linking logistics objects instead of embedding logistics objects is the preferred and RECOMMENDED approach,
-to reduce the number of GET requests, it CAN be helpful to request an embedded version of a Logistics Object by setting the optional query parameter `embedded=true`. 
+to reduce the number of GET requests, it can be helpful to request an embedded version of a Logistics Object by setting the optional query parameter `embedded=true`. 
 The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example 6](#example-6)).
 
-> **Note:** The ONE Record server CAN only resolve and replace linked Logistics Objects that are published  on the same ONE Record server.
+> **Note:** The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.
 
 ## Request
 
@@ -176,8 +163,6 @@ The following HTTP header MUST be present in the request:
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
 | **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.0.0-dev</li><li>application/ld+json; version=1.2</li></ul> |
-
-
 
 ## Response
 
@@ -204,7 +189,7 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to retrieve the Logistics Object                  | Error            |
 | **404** | Logistics Object not found                   | Error            |
 
-## Example 4
+## Example B1
 
 Request:
 
@@ -225,28 +210,12 @@ Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
 Revision: 1
 Latest-Revision: 1
 
-{
-   "@context": {
-     "api": "https://onerecord.iata.org/api/",
-     "@language": "en-US"
-   },
-    "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
-    "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#goodsDescription": "ONE Record Advertisement Materials",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
-        {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceType": "SPH",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceDescription": "Valuable Cargo",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceTypeCode": "VAL"
-        }
-    ]
-}
+--8<-- "examples/Piece_with_id.json"
 ```
 
-_(cf. [examples/Piece_with_id.json](examples/Piece_with_id.json))_
+_([examples/Piece_with_id.json](examples/Piece_with_id.json))_
 
-## Example 5
+## Example B2
 This is an example for an unsuccessful HTTP GET request that results in an error.
 
 Request:
@@ -268,9 +237,9 @@ Content-Type: application/ld+json
 --8<-- "examples/Error_403.json"
 ```
 
-_(cf. [examples/Error_403.json](examples/Error_403.json))_
+_([examples/Error_403.json](examples/Error_403.json))_
 
-## Example 6
+## Example B3
 
 This is an example for a HTTP GET request that asks the ONE Record server to embed the linked Logistics Objects.
 
@@ -297,20 +266,16 @@ Latest-Revision: 1
 --8<-- "examples/Piece_with_id.json"
 ```
 
-_(cf. [examples/Piece.json](examples/Piece_with_id.json))_
+_([examples/Piece.json](examples/Piece_with_id.json))_
+
+## Example B4 
+==TODO: examples for 301 and 302 and 307 HTTP Status Code==
 
 # Update a Logistics Object
 
-==b:b0 has to be replaced and generated by the server==
+In ONE Record, Logistics Objects MAY be updated.
 
-==check if datatype if not is LogisticsObject and is part of cargo ontology==
-==
-
-
-
-In ONE Record, Logistics Objects CAN be updated.
-
-In ONE Record, only the `Owner of the Logistics Object` can make changes.
+In ONE Record, only the `Owner of the Logistics Object` MAY make changes.
 
 However, `Users of the Logistics Object` can submit so-called `ChangeRequests` to the owner, which follow a structure described in this section.
 
@@ -320,8 +285,6 @@ This differs from the HTTP PUT method that is used for the complete replacement 
 
 Logistics Objects MUST have a revision number, which is a non negative integer to be incremented after every applied change.
 The audit trail contains a field latestRevision which defines the latest revision of the Logistics Object.
-
-
 
 **Linked Data PATCH Format**
 
@@ -342,13 +305,15 @@ Thus, any property in a Logistics Object can be _deleted_, _added_, or _replaced
 - Only the Owner of a Logistics Object MAY make the change to the data.
 - Any User of a Logistics Object CAN request a change on the Logistics Object, which is referred to as `ChangeRequest`
 - The Owner of a Logistics Object CAN apply the `ChangeRequest` to the Logistics Object changes unless there is a business or technical reason to reject it.
-- Evaluation of a `ChangeRequest` occurs as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire PATCH fails.
-- If the PATCH is successful, the revision number of a Logistics Object's `AuditTrail` is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#historical-logistics-object) and [Audit Trail of Logistics Objects](#audit-trail-of-logistics-object) for more details.
+- Evaluation and Application of a `ChangeRequest` MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire PATCH fails. Meaning, if a field update fails, the entire PATCH request is unsuccessful. No partial updates MUST be accepted.
+- If the PATCH is successful, the revision number of a Logistics Object's `AuditTrail` is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#retrieve-a-historical-logistics-object) and [Audit Trail of Logistics Objects](#get-audit-trail-of-a-logistics-object) for more details.
 - It is RECOMMENDED to get the latest version of Logistics Object before creating a `ChangeRequest` to ensure that the change is made to the latest version of the Logistics Object.
 - If a `ChangeRequest` is rejected by the Owner of the Logistics Object, the revision number of the Logistics Object is not incremented but the requests is added to the Audit Trail of this Logistics Object, marked with the status `REJECTED`.
-- Application of a ChangeRequest MUST occur as a single event. Operations are sorted and processed as groups of delete and then add operations until the operations are applied, or the entire PATCH fails. Meaning that if a field update fails, the whole PATCH request is unsuccessful. No partial updates should be accepted.
 - Rejected ChangeRequests are kept in the AuditTrail of the Logistics Object.
 - After a ChangeRequest is accepted, other PENDING ChangeRequests that affect the same revision MUST be rejected.
+- The PATCH operation MUST NOT be used to create logistics objects; only linking to an existing object is allowed in a ChangeReuqest.
+- The ONE Record server MUST check that the referenced logistics object URI in operations#s matches the referenced logistics object URI in the affectedLogisticsObject property and matches the URI/endpoint used for the PATCH request. 
+- The ONE Record Server MUST replace potential bNodes with generated embeddedObjectIds if `datatype` is an IRI of the ONE Record Cargo ontology, but does not describe a data class that inherits from LogisticsObject.
 
 The ChangeRequest is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
 The properties and relationships to other data classes in visualized in the following class diagram.
@@ -459,10 +424,7 @@ The following HTTP status codes MUST be supported:
 | **415** | Unsupported Content Type, response when the client sends a PATCH document format that the server does not support for the resource identified by the Request-URI.  | Error            |
 | **422** | Unprocessable request, when the server understands the PATCH document and the syntax of the PATCH document appears to be valid, but the server is incapable of processing the request. | Error            |
 
-==TODO: Deny off adding new Logistics Objects==
-==TODO: Deny the creation of Logistics Objet with a PATCH Request==
-
-## Example 7
+## Example C1
 
 In the example below, a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) from `TRUE` to `FALSE`.
 This results in the following operations that MUST to be part of the [ChangeRequest](https://onerecord.iata.org/api#ChangeRequest):
@@ -493,7 +455,7 @@ Type: https://onerecord.iata.org/api/ChangeRequest
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99b
 ```
 
-## Example 8
+## Example C2
 
 In the example below, Piece#grossWeight is added.
 This results in the following operations that MUST to be part of the ChangeRequest:
@@ -522,12 +484,13 @@ Type: https://onerecord.iata.org/api/ChangeRequest
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99c
 ```
 
-## Example 9
+## Example C3
 
-In the example below, Piece#grossWeight is deleted.
+In the example below, Piece#grossWeight is changed to 25.0 KGM .
 This results in the following operations that MUST to be part of the ChangeRequest:
 
-1. delete the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) from the property Piece#grossWeight
+1. delete the property value of embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) within the property Piece#grossWeight
+1. add the property value to the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM") within the property Piece#grossWeight
 
 Request:
 
@@ -551,7 +514,36 @@ Type: https://onerecord.iata.org/api/ChangeRequest
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99d
 ```
 
-## Example 10
+## Example C4
+
+In the example below, Piece#grossWeight is deleted.
+This results in the following operations that MUST to be part of the ChangeRequest:
+
+1. delete the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) from the property Piece#grossWeight
+
+Request:
+
+```http
+PATCH /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
+Host: 1r.example.com
+Content-Type: application/ld+json
+Accept: application/ld+json
+
+--8<-- "examples/ChangeRequest_example4.json"
+```
+
+_([examples/ChangeRequest_example4.json](examples/ChangeRequest_example4.json))_
+
+Response:
+
+```bash
+HTTP/1.1 204 No Content
+Content-Type: application/ld+json
+Type: https://onerecord.iata.org/api/ChangeRequest
+Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99d
+```
+
+## Example C5
 
 In the example below, CustomsInformations are added to Piece#customsInfo.
 This results in following the workflow:
@@ -613,10 +605,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example4.json"
+--8<-- "examples/ChangeRequest_example5.json"
 ```
 
-_([examples/ChangeRequest_example4.json](examples/ChangeRequest_example4.json))_
+_([examples/ChangeRequest_example5.json](examples/ChangeRequest_example5.json))_
 
 Response:
 
@@ -722,15 +714,15 @@ classDiagram
     }
 ```
 
-> **Note:** Only the owner of the Logistics Object is responsible for updating the AuditTrail.
-> The users of the Logistics Object CAN only retrieve the Audit Trail. 
+!!! note
+        The users of the logistics object can retrieve the audit trail.  Only the owner of the logistics object MAY be responsible for updating the audit trail.
 
-The ONE Record client CAN specify a date-time window.
+
 
 The AuditTrail of a Logistics Object can be retrieved by performing a GET request to the Logistics Object URI appended by: "/audit-trail", e.g.
 [https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail](https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail)
 
-In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&updated-to=YYYYMMDDThhmmssZ"
+In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&updated-to=YYYYMMDDThhmmssZ". The ONE Record client MUST specify this date-time window.
 
 ## Request
 
@@ -773,7 +765,7 @@ The response body follows the API AuditTrail class structure.
 | -- message                   | Detailed error message                | n        | w3c:String            |
 | -- resource                  | Object for which the error applies                        | n        | w3c:String            |
 
-## Example 11
+## Example D1
 
 The following example shows an AuditTrail response. 
 For clarity, the main elements of the changeRequest object are collapsed.
@@ -796,37 +788,9 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 
-{    
-  "@type": "api:AuditTrail",
-  "@context": {
-    "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
-    "api": "https://onerecord.iata.org/api/",
-  },
-  "api:AuditTrail#latestRevision": "2",
-  "api:AuditTrail#changeRequests": [
-    {
-      "@type": "api:ChangeRequest",
-      "api:ChangeRequest#patchRequest": {...this contains a complete PatchRequest...},
-      "api:ChangeRequest#companyId": "myCompany",
-      "api:ChangeRequest#status": "ACCEPTED",
-      "api:ChangeRequest#timestamp": "2020-09-07T11:55:45.768Z",
-      "api:AuditTrail#loInitialSnapshot": {...this contains memento details (described in this doc...},
-      "api:AuditTrail#errors": [...this contains errors that may have occured in the change request...],
-      "api:AuditTrail#logisticsObjectRef": {...}
-    },
-    {
-      "@type": "api:ChangeRequest",
-      "api:ChangeRequest#patchRequest": {...this contains a complete PatchRequest...},
-      "api:ChangeRequest#companyId": "myCompany",
-      "api:ChangeRequest#status": "ACCEPTED",
-      "api:ChangeRequest#timestamp": "2020-09-06T05:33:12.123Z",
-      "api:AuditTrail#errors": [...This field contains errors if any were found when processing the change request....],
-      "api:AuditTrail#logisticsObjectRef": {...}
-    }  ]
-}
-
-
+--8<-- "examples/AuditTrail.json"
 ```
+_([examples/AuditTrail.json](examples/AuditTrail.json))_
 
 An example of an AuditTrail with ChangeRequests with Errors is shown in the next section.
 
@@ -850,7 +814,7 @@ If this parameter is in the future, `400 Bad Request` is returned.
 
 To ensure consistency when following the linked objects in a response, all linked Logistics Object in the response body MUST also contain the `?at=`query parameter with the same provided datetime value.
 
-## Example 12
+## Example E1
 
 Request:
 
@@ -872,38 +836,7 @@ Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
 Revision: 3
 Latest-Revision: 4
 
-{
-    "@context": {
-        "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
-        "@language": "en-US"
-    },
-    "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
-    "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c?at=20190926T075830Z",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#goodsDescription": "ONE Record Advertisement Materials",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
-        {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceType": "SPH",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceDescription": "Valuable Cargo",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceTypeCode": "VAL"
-        }
-    ],
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#customsInfos": [
-        {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#CustomsInformation",
-            "@id": "https://1r.example.com/logistics-objects/4d73acf0-3073-4ec9-8aee-b82d64ba3805?at=20190926T075830Z"
-        },
-        {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#CustomsInformation",
-            "@id": "https://1r.example.com/logistics-objects/ba1c2194-2442-400b-b26b-466a01dda8b5?at=20190926T075830Z"
-        }
-    ]
-}
+--8<-- "examples/Piece_with_id.rev3.json"
 ```
 
 _([examples/Piece_with_id.json](examples/Piece_with_id.rev3.json))_
-
-
-!!! note
-
-    301 and 302 and 307 HTTP Status Code

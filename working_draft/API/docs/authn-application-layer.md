@@ -214,7 +214,7 @@ Latest-Revision: 1
    },
     "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
     "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#goodsDescription": "ONE Record Advertisement Materials",
+    "https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription": "ONE Record Advertisement Materials",
     "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
         {
             "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",

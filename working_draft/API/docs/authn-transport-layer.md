@@ -1,4 +1,6 @@
 # Transport Layer Security (TLS)
+==Define minimum TLS version==
+==Server authentication==
 Securing data exchange in the Internet of Logistics and particular with ONE Record is NOT optional. 
 One way to secure the communication channel on transport layer is using TLS.
 
@@ -8,7 +10,7 @@ TLS is the successor to the earlier SSL (Secure Sockets Layer) protocol, and is 
 
 TLS is an essential component of internet security, as it helps to protect sensitive information such as passwords, credit card numbers, and personal data from interception and theft by hackers and other malicious actors.
 
-==TODO: Add sentence about the workflow, i.e. server presents certificate to the client.==
+==TODO: Describe the workflow, i.e. server presents certificate to the client.==
 
 Without Transport Layer Security, a third party could intercept and read sensitive information such as API credentials and private data as it is transmitted. However, relying solely on TLS encryption, does not ensure security.
 
@@ -18,6 +20,7 @@ Because the certificates are only as trustworthy as the Certificate Authority (C
 
 # Mutual Transport Layer Security (mTLS)
 
+==client authentication==
 By default, TLS only proves the identity of the server to the client, and the authentication of the client to the server is left to the application layer (see, for example,  (oAUTH 2.0)[]). 
 
 mTLS means that not only the server must have a certificate, but also any client that wants to connect to the server.
