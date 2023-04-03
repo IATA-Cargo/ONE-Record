@@ -44,10 +44,11 @@ sequenceDiagram
   participant PUB as Publisher
   participant SUB as Subscriber
 
-  PUB->>SUB: Propose subscription for specific Logistics Object or Logistics Object type
-  SUB->>PUB: Acknowledge proposal
+  PUB->>+SUB: Propose subscription for specific Logistics Object or Logistics Object type<br> GET /subscriptions HTTP/1.1
+  SUB-->>-PUB: Acknowledge proposal by returning Subscription object<br> HTTP/1.1 OK<br>Subscription
+
   note over PUB, SUB: After Subscription proposal process
-  PUB->>SUB: Notify about data updates and events
+  PUB->>SUB: Send Notifications about data updates and events<br> POST /notifications HTTP/1.1
 ```
 
 **(Optional) Step 0 - Create and Publish a Logistics Object**
@@ -214,11 +215,11 @@ The subscription information can either target a type of Logistics Object or a s
   participant SUB as Subscriber
   participant PUB as Publisher
 
-  SUB->>PUB: Subscribe to either a concreteLogistics Objector a Logistics Object type <br> POST /subscription-request HTTP/1.1
-
-  PUB->>SUB: Acknowledge Subscription Request and return location of SubscriptionRequest<br> HTTP/1.1 201 Created 
+  SUB->>+PUB: Subscribe to either a concrete Logistics Objector a Logistics Object type <br> POST /subscriptions HTTP/1.1
+  PUB-->>-SUB: Acknowledge Subscription Request and return location of SubscriptionRequest<br>HTTP/1.1 204 No Content <br> Location: <URI of SubscriptionRequest>
+  
   note over PUB, SUB: After subscription proposal process
-  PUB->>SUB: Send Notifications about updates and events<br> POST /notifications HTTP/1.1
+  PUB->>SUB: Send Notifications about data updates and events<br> POST /notifications HTTP/1.1
 ```
 
 # Subscription initiated by 3rd party

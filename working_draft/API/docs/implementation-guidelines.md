@@ -381,7 +381,7 @@ Decisions about architecture, technology as well as its implementation are up to
 
 # API Documentation
 
-It is RECOMMENDED to provide a technical documentation of the implemented and released API endpoints. One way is to publish an OpenAPI specification and grant partners access to it. See [ONE-Record-API-OpenAPI.yam](assets/ONE-Record-API-OpenAPI.yaml) as an example.
+It is RECOMMENDED to provide a technical documentation of the implemented and released API endpoints. One way is to publish an OpenAPI specification and grant partners access to it. See [ONE-Record-API-OpenAPI.yaml](assets/ONE-Record-API-OpenAPI.yaml) as an example.
 
 # Security
 
