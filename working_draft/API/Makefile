@@ -44,4 +44,7 @@ deploy:
 clean:
 	rm -rf $(SITE_DIR)
 
-.PHONY: install upggrade copy-assets create-symlinks serve build deploy clean
+gh-deploy: 
+	ghp-import -m "updating docs" --no-history -p site
+
+.PHONY: install upggrade copy-assets create-symlinks serve build deploy clean gh-deploy

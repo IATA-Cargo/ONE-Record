@@ -190,7 +190,7 @@ Content-Language: en-US
 [
 {
    "@context": {
-     "api": "https://onerecord.iata.org/api/",
+     "api": "https://onerecord.iata.org/ns/api/2.0.0#",
      "@language": "en-US"
    },
     "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",

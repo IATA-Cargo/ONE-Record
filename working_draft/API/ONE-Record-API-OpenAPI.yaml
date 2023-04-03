@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: ONE Record API
   description: >-
@@ -27,7 +27,7 @@ paths:
   /:
     get:
       tags:
-        - General Server Information
+        - Server Information
       summary: >-
         Retrieve the ServerInformation that provides information about supported
         LogisticsObject types, languages, default callbackURL etc..
@@ -55,7 +55,7 @@ paths:
   /logistics-objects:
     post:
       tags:
-        - Logistics Object Endpoints
+        - Logistics Object
       summary: 'INTERNAL: Create a LogisticsObject'
       operationId: addLogisticsObject
       requestBody:
@@ -82,7 +82,7 @@ paths:
   /logistics-objects/{logisticsObjectId}:
     get:
       tags:
-        - Logistics Object Endpoints
+        - Logistics Object
       summary: Retrieves a LogisticsObject
       operationId: getLogisticsObject
       parameters:
@@ -123,9 +123,9 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-        - Logistics Object Endpoints
-      summary: Submit a ChangeRequest for the specific LogisticsObject
-      operationId: updateLogisticsObject
+        - Logistics Object
+      summary: Request a Change for the specific LogisticsObject
+      operationId: requestLogisticsObjectChange
       parameters:
         - name: logisticsObjectId
           in: path
@@ -136,11 +136,17 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/PatchRequest'
+              $ref: '#/components/schemas/Change'
         required: true
       responses:
         '204':
-          description: No Content
+          description: The Change was successfully requested.
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: URI of the ChangeRequest
         '404':
           description: Not Found
           content:
@@ -156,7 +162,7 @@ paths:
   /logistics-objects/{logisticsObjectId}/logistics-events:
     post:
       tags:
-        - Logistics Event Endpoints
+        - Logistics Event
       summary: Append a LogisticsEvents to the event log of a given LogisticsObject
       operationId: addEvents
       parameters:
@@ -188,7 +194,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     get:
       tags:
-        - Logistics Event Endpoints
+        - Logistics Event
       summary: Retrieves the LogisticsEvent of a given LogisticsObject
       operationId: getEvents
       parameters:
@@ -218,11 +224,41 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+  /notifications:
+    post:
+      tags:
+        - Notifications
+      summary: Used as callback URL for receiving Notifications
+      operationId: callbackUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+        required: true
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
   /subscriptions:
     post:
         tags:
-          - Publish / Subscribe
-        summary: 'INTERNAL: Create Subscription information on a ONE Record server'
+          - Subscriptions
+        summary: 'Create Subscription information on a ONE Record server'
         operationId: createSubscription
         requestBody:
           content:
@@ -231,12 +267,14 @@ paths:
                 $ref: '#/components/schemas/Subscription'
           required: true
         responses:
-          '200':
-            description: OK
-            content:
-              application/ld+json:
+          '204':
+            description: The Subscription was requested successfully.    
+            headers:
+              Location:
                 schema:
-                  $ref: '#/components/schemas/Subscription'
+                  type: string
+                  format: uri
+                description: URI of the SubscriptionRequest
           '404':
             description: Not Found
             content:
@@ -251,7 +289,7 @@ paths:
                   $ref: '#/components/schemas/Error'
     get:
       tags:
-        - Publish / Subscribe
+        - Subscriptions
       summary: >-
         Retrieve Subscription information when a publisher proposes a
         subscription
@@ -292,7 +330,7 @@ paths:
   /subscriptions/{subscriptionId}:
     get:
       tags:
-        - Publish / Subscribe
+        - Subscriptions
       summary: >-
         Retrieve Subscription information by URI
       operationId: getSubscription
@@ -321,41 +359,10 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
-  /subscription-requests:
-    post:
-      tags:
-        - Publish / Subscribe
-      summary: Submit a Subscription Request when a subscriber initiates pub/sub
-      operationId: submitSubscriptionRequest
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Subscription'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
   /subscription-requests/{subscriptionRequestId}:
     get:
       tags:
-        - Publish / Subscribe
+        - Subscriptions
       summary: Retrieve a specific SubscriptionRequest
       operationId: getSubscriptionRequest
       parameters:
@@ -385,7 +392,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     patch:
       tags:
-        - Publish / Subscribe
+        - Subscriptions
       summary: 'INTERNAL: Change SubscriptionRequest to accept/reject'
       operationId: updateSubscriptionRequest
       parameters:
@@ -414,8 +421,67 @@ paths:
           content:
             '*/*':
               schema:
+                $ref: '#/components/schemas/Error'  
+    delete:
+      tags:
+        - Subscriptions
+      summary: Revoke SubscriptionRequest
+      operationId: revokeSubscriptionRequest
+      parameters:
+        - name: subscriptionRequestId
+          in: path
+          required: true
+          schema:
+            type: string      
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
                 $ref: '#/components/schemas/Error'
-  /delegation-requests:
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'  
+  /access-delegations:
+    post:
+        tags:
+          - Access Delegation
+        summary: Request delegated Access on a Logistics Object
+        operationId: requestDelegatedAccess
+        requestBody:
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/AccessDelegation'
+          required: true
+        responses:
+          '204':
+            description: The AccessDelegation was requested successfully.        
+            headers:
+              Location:
+                schema:
+                  type: string
+                  format: uri
+                description: URI of the AccessDelegationRequest
+          '404':
+            description: Not Found
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Error'
+          '503':
+            description: Service Unavailable
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /access-delegation-requests:
     post:
       tags:
         - Access Delegation
@@ -448,14 +514,14 @@ paths:
                 $ref: '#/components/schemas/Error'
   
   
-  /delegation-requests/{delegationRequestId}:
+  /access-delegation-requests/{accessDelegationRequestId}:
     get:
       tags:
         - Access Delegation
-      summary: Retrieve a DelegationRequest, for example, to check the status
-      operationId: getDelegationRequest
+      summary: Retrieve AccessDelegationRequest, for example, to check the status
+      operationId: getAccessDelegationRequest
       parameters:
-        - name: delegationRequestId
+        - name: accessDelegationRequestId
           in: path
           required: true
           schema:
@@ -482,10 +548,10 @@ paths:
     patch:
       tags:
         - Access Delegation
-      summary: 'INTERNAL: Change DelegationRequest to accept/reject'
-      operationId: updateDelegationRequest
+      summary: 'INTERNAL: Change AccessDelegationRequest to accept/reject'
+      operationId: updateAccessDelegationRequest
       parameters:
-        - name: delegationRequestId
+        - name: accessDelegationRequestId
           in: path
           required: true
           schema:
@@ -511,10 +577,36 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Access Delegation
+      summary: Revoke AccessDelegationRequest
+      operationId: revokeAccessDelegationRequest
+      parameters:
+        - name: accessDelegationRequestId
+          in: path
+          required: true
+          schema:
+            type: string      
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'  
   /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventId}:
     get:
       tags:
-        - Logistics Event Endpoints
+        - Logistics Event
       summary: Retrieves single event of a given logistics object
       operationId: getEvent
       parameters:
@@ -550,7 +642,7 @@ paths:
   /logistics-objects/{logisticsObjectId}/audit-trail:
     get:
       tags:
-        - Logistics Object Endpoints
+        - Logistics Object
       summary: Retrieve the AuditTrail of a given LogisticsObject
       operationId: getAuditTrail
       parameters:
@@ -593,7 +685,7 @@ paths:
   /logistics-objects/{logisticsObjectId}/acl:
     get:
       tags:
-        - Logistics Object Endpoints
+        - Logistics Object
       summary: Retrieve the Access Control List (ACL) of a given LogisticsObject
       operationId: getACL
       parameters:
@@ -620,37 +712,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Error'
-  /notifications:
-    post:
-      tags:
-        - Notifications / Webhook Endpoint
-      summary: Used as callback URL for receiving Notifications from publishers
-      operationId: callbackUrl
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Notification'
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Notification'
-        required: true
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/Error'  
 components:
   securitySchemes:
     oAuth2ClientCredentials:
@@ -658,7 +720,7 @@ components:
       description: See https://oauth.net/2/grant-types/client-credentials/
       flows: 
         clientCredentials: 
-          tokenUrl: https://auth.example.com/oauth2/token/
+          tokenUrl: https://auth.example.com/oauth2/token
           scopes: {}
   schemas:
     Details:
@@ -718,6 +780,26 @@ components:
             $ref: '#/components/schemas/Details'
         title:
           type: string
+    AccessDelegation:
+      type: object
+      properties:
+        id:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string        
+    Change:
+      type: object
+      properties:
+        id:
+          type: string
+        types:
+          uniqueItems: true
+          type: array
+          items:
+            type: string     
     Subscription:
       type: object
       properties:

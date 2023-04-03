@@ -57,12 +57,13 @@ The Notifications API is required to receive data from ONE Record Servers via a 
 
 Rules and recommendations related to the Notifications API:
 
--	MUST support HTTP 1.1
--	MUST support TLS 1.2
--	MUST support the POST request on the endpoint.
--	MUST expect a Logistics Object in the POST request. Note only the content types that you specify in the subscription request need to be supported.
--	MUST respond with a 2XX response when it receives the Logistics Object.
--	MUST verify incoming requests either by the HMAC signature or API key to ensure only authorized requests are processed 
+- MUST support HTTP 1.1
+- MUST support TLS 1.2
+- MUST support the POST request on the endpoint.
+- MUST expect a Notification object in the POST request. 
+- MUST support the content types that are specified in the Subscription information
+- MUST respond with a HTTP response when it receives the Notification
+- MUST verify incoming requests by the HMAC signature to ensure only authorized requests are processed 
 
 !!! note 
     The HMAC signature (in the HTTP header property `X-Hub-Signature`) with a shared subscription secret can be used to authorize the request. If the signature does not match, Subscriber's ONE Record servers MUST locally ignore the message as invalid. Subscribers's ONE Record server may still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. [(see RFC 6151)](https://tools.ietf.org/html/rfc6151)

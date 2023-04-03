@@ -138,7 +138,7 @@ The ONE Record client must authenticate for this request.
 
 Request:
 ```http
-POST /token
+POST /oauth2/token
 Host: auth.example.com
 Authorization: Basic bXljbGllbnRpZDpteWNsaWVudHNlY3JldA==
 Content-Type: application/x-www-form-urlencoded
@@ -209,7 +209,7 @@ Latest-Revision: 1
 
 {
    "@context": {
-     "api": "https://onerecord.iata.org/api/",
+     "api": "https://onerecord.iata.org/ns/api/2.0.0#",
      "@language": "en-US"
    },
     "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",

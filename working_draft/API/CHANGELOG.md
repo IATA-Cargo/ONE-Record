@@ -57,6 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - renamed DelegationRequest#operations to DelegationRequest#permissions
 - renamed api#status (used in SubscriptionRequest, ChangeRequest DelegationRequest) to api#requestStatus
 
+
 ### Removed
 
 - removed not used classes, data properties, object properties
@@ -68,6 +69,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed ServerInformation#errors
 - removed Subscription#subscribedTo
 - replaced LogisticsObjectRef data class and use https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject instead
+- removed Subscription#secret
+- removed DelegationRequest#action
+- removed Subscription#callbackUrl
 
 
 ### Added
@@ -76,12 +80,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added further enums to notification#eventType, i.e. EVENT_RECEIVED, CHANGE_REQUEST_ACCEPTED, CHANGE_REQUEST_FAILED, CHANGE_REQUEST_PENDING, CHANGE_REQUEST_REJECTED, DELEGATION_REQUEST_PENDING, DELEGATION_REQUEST_ACCEPTED, DELEGATION_REQUEST_REJECTED, DELEGATION_REQUEST_FAILED, SUBSCRIPTION_REQUEST_PENDING, SUBSCRIPTION_REQUEST_ACCEPTED, SUBSCRIPTION_REQUEST_REJECTED, SUBSCRIPTION_REQUEST_FAILED
 - added PENDING enum to ChangeRequest#requestStatus
 - added Operation#s to enable updating not only properties of primitive types, e.g. int, string, but also embedded objects, e.g. Shipment#totalGrossWeight<Value> in LogisticsObjects
-- added DelegationRequest#requestStatus as required property, initial value SHOULD be PENDING
-- added ChangeRequest#errors
-- added ChangeRequest#callbackURL
-- added Notification#changeRequest
-- added DelegationRequest#errors
-- added DelegationRequest#description
+- added Notification#triggeringChangeRequest
 - added SubscriptionRequest. Subscription is the response for the scenario where publisher initiates the Subscription and asks the subscribers for their Subscription information. SubscriptionRequest is used for scenario where the subscriber initiates a SubscriptionRequest towards the Publisher.
 - added Subscription#topicType to indicate if topic is a LogisticsObject type or a specific LogisticsObjectIdentifier
 - added ServerInformation#supportedAPIVersions
+- added ActionRequest as superclass for SubscriptionRequest, ChangeRequest, and DelegationRequest
+- added ServerInformation#notificationsEndpoint
+- added AccessDelegation and Change for ActionRequests

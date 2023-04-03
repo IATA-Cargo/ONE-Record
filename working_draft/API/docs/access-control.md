@@ -1,3 +1,8 @@
+**Rules and recommendations related to Access Control Lists:**
+- No Access Control Lists on property level.
+- Accessors MUST be added on LogisticsObject level
+
+
 In ONE Record, access to resources could be handled by using Access Control Lists (ACLs) stored in the backend systems of the ONE Record Servers and defined using the [Web Access Control standard from W3C](https://www.w3.org/wiki/WebAccessControl).
 
 ## Web Access Control

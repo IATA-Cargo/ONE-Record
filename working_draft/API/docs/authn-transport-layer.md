@@ -33,17 +33,17 @@ Mutual TLS, or mTLS, is a type of mutual authentication in which the two parties
 
 Benefit is authentication on protocol layer.
 
-
-
 **Advantages of mTLS**
 
 - More secure than TLS, because it validates not only server's certificate, but also client'certificate
-- Authentication of client on protocol layer 
+- Authentication of client on protocol layer.
 
 **Note on disadvantages of mTLS:** 
 
-- Complex to implement, rollout for high number of clients/server
+- Complex to implement, rollout for high number of clients/server. Requires an additional secure communication channel to exchange certificates (inl. private key).
 - Complex to manage, because ONE Record server and ONE Record client must maintain certificates of all ONE Record applications with which they exchange data, considering expiry dates, revocations, drop of root CAs
 - Computationally costly and slower than TLS, because of the extra mTLS handshake for every connection
 - TLS and mTLS works best when an open connection is used for multiple requests
 - Less user-friendly and rarely used in end-user API applications
+- Depending on setup, termination of mTLS may hinder the passing of authentication details to ONE Record server for authorization.
+

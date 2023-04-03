@@ -492,6 +492,11 @@ This results in the following operations that MUST to be part of the ChangeReque
 1. delete the property value of embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) within the property Piece#grossWeight
 1. add the property value to the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM") within the property Piece#grossWeight
 
+!!! note
+        The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
+
+        
+
 Request:
 
 ```http
