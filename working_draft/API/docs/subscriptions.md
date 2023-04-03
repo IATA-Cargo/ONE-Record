@@ -79,9 +79,6 @@ The following HTTP query parameters MUST be present in the GET request:
 | topicType       | Used by the publisher to specify if Subscription information for a specific Logistics Object or a data class should be in the response body. | <ul><li>LOGISTICS_OBJECT_TYPE</li><li>LOGISTICS_OBJECT_URI</li></ul> |
 | topic       | Used by the publisher to specify the data class or Logistics Object URI the Subscription information should be related to. topic MUST be a valid URI | <ul><li>https://onerecord.iata.org/ns/cargo/3.0.0#Piece</li><li>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</li></ul> |
 
-==TODO: add Type for parameters, enum for topicType and topic is xsd:anyURI==
-==TODO: add error handling, if parameter is missing, or combination is not allowed, topic is not supported "Server does not support requested Logistics Object Type"==
-
 ## Response
 
 The following HTTP status codes MUST be supported:
@@ -101,11 +98,9 @@ classDiagram
     class Organization{        
     }  
 
-    class Subscription{
-        + callbackUrl: xsd:anyURI
+    class Subscription{        
         + contentTypes[]: xsd:string [*]
-        + expiresAt: xsd:dateTime [0..1]                        
-        + secret: xsd:string [0..1]
+        + expiresAt: xsd:dateTime [0..1]                                
         + sendLogisticsObjectBody: xsd:boolean = FALSE
         + subscriber: Organization        
         + subscribeToLogisticsEvents: xsd:boolean = FALSE
@@ -122,7 +117,7 @@ classDiagram
     }
 ```
 
-| Subscription             | Description                       | Required                     |                 |
+<!-- | Subscription             | Description                       | Required                     |                 |
 | ------------------------ |   ----------------------- | ---------------------------- |  ------------- |
 | contentTypes             | content types that the subscriber wants to receive in the notifications                       | n        | http://www.w3.org/2001/XMLSchema#string                 |
 | cacheFor                 | duration of the period to cache the subscription information in seconds                       | n        | http://www.w3.org/2001/XMLSchema#int                    |
@@ -133,7 +128,7 @@ classDiagram
 | sendLogisticsObjectBody  | Flag specifying if the publisher should send the whole Logistics Object or only the Logistics Object URI in the notification object   | n        | w3c:Boolean     |
 | subscribeToStatusUpdates | Flag specifying if the subscriber wants to receive updates for a Logistics Object             | n        | w3c:Boolean     |
 | subscribedTo             | Company Identifier of the company the subscriber wants to subscribe to (used delegation scenario).                | y        | w3c:URI         |
-| topic                    | The Logistics Object type to which the subscriber wants subscribe to      | y        | https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject (list) |
+| topic                    | The Logistics Object type to which the subscriber wants subscribe to      | y        | https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject (list) | -->
 
 ## Example A1
 
@@ -162,6 +157,8 @@ Accept: application/ld+json
 If the subscriber created subscription information for the provided parameters, the response body includes the following elements:
 Otherwise, a `404 Not Found` Error must be returned.
 
+## Example A4
+If parameter is missing, or combination is not allowed, topic is not supported "Server does not support requested Logistics Object Type"
 
 ```
 Request header:

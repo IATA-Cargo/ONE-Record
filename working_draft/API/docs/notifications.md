@@ -10,23 +10,37 @@ The initialization of this data exchange channel is described in the [Subscripti
 ## Notifications API
 
 ```mermaid
-  classDiagram
+    classDiagram
 
-  direction LR   
+    direction LR   
 
-  class LogisticsObject{                
-  }
-
-  class Notification{
-        + changedProperties[]: xsd:anyURI [*]
-        + changeRequest: ChangeRequest [0..1]
-        + eventType: NotificationEventType
-        + logisticsObject: LogisticsObject [0..1]        
-        + topic: xsd:anyURI
+    class LogisticsObject{                
     }
-    Notification "1" --> "0..1" ChangeRequest    
+
+    class ActionRequest {
+        <<Abstract>> 
+        + description: xsd:string [0..1]
+        + errors[]: Error [*]
+        + requestedAt: xsd:dateTime         
+        + requestedBy: Organization    
+        + requestStatus: RequestStatus = PENDING
+        + revokedAt: xsd:dateTime         
+        + revokedBy: Organization 
+    }
+    ActionRequest <|-- AccessDelegationRequest
+    ActionRequest <|-- ChangeRequest
+    ActionRequest <|-- SubscriptionRequest
+
+    class Notification{
+        + affectedLogisticsObject: LogisticsObject [0..1]        
+        + changedProperties[]: xsd:anyURI [*]
+        + eventType: NotificationEventType
+        + topic: xsd:anyURI
+        + triggeringActionRequest: ActionRequest [0..1]  
+    }
+    Notification "1"--> "0..1" LogisticsObject
     Notification --> NotificationEventType
-    Notification "1"--> "1" LogisticsObject
+    Notification --> ActionRequest    
 
     class NotificationEventType{
         <<Enumeration>>
@@ -38,17 +52,21 @@ The initialization of this data exchange channel is described in the [Subscripti
         CHANGE_REQUEST_PENDING
         CHANGE_REQUEST_ACCEPTED                
         CHANGE_REQUEST_REJECTED
-        CHANGE_REQUEST_FAILED
+        CHANGE_REQUEST_FAILED        
+        CHANGE_REQUEST_REVOKED
+        
 
         DELEGATION_REQUEST_PENDING
         DELEGATION_REQUEST_ACCEPTED                
         DELEGATION_REQUEST_REJECTED
         DELEGATION_REQUEST_FAILED
+        DELEGATION_REQUEST_REVOKED
 
         SUBSCRIPTION_REQUEST_PENDING
         SUBSCRIPTION_REQUEST_ACCEPTED                
         SUBSCRIPTION_REQUEST_REJECTED
         SUBSCRIPTION_REQUEST_FAILED
+        SUBSCRIPTION_REQUEST_REVOKED
     }
 ```
 
