@@ -1,11 +1,13 @@
 Logistics events are events related to the management and execution of transport and logistics services and document the occurrence of actions, discrepancies, or status changes. These events can be either internal or external to an organization and can include transportation, warehousing, inventory management, supply chain optimization, and other related activities. Examples of logistics events include the departure of an aircraft or the acceptance of shipments in a warehouse.
 
+==TODO: Describe immmutabel property==
+
 # Create a Logistics Event
 
 Logistics Events (also known as status updates) in ONE Record can be added to any Logistics Objects 
-by posting a [LogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent) object to the `/logistics-events` endpoint of a LogisticsObject.
+by sending a HTTP POST request containing a [LogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent) object to the `/logistics-events` endpoint of a LogisticsObject.
 
-As for all API interactions, the submitter must be authenticated and have the access rights to perform this action.
+As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
 
 As Logistics Events MUST be associated with a specific Logistics Object, creating Logistics Events requires the existence of a Logistics Object. 
 
@@ -20,7 +22,7 @@ The following HTTP header parameters MUST be present in the request:
 
 The HTTP request body must contain a valid [LogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent) in the format as specified by the Content-Type in the header.
 
-The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/cargo).
+The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/ns/cargo/3.0).
 The properties and relationships to other data classes in visualized in the following class diagram.
 
 ```mermaid
@@ -76,15 +78,15 @@ classDiagram
 
 One of the following HTTP response codes MUST be present in the response:
 
-| Code    | Description          | Response body |
-| ------- |  ------------------ | ------------- |
-| 201 | Logistics Event has been created        | No content    |
-| 400 | Invalid Logistics Object                 | Error         |
-| 401 | Not authenticated, invalid or expired token    | Error         |
-| 403 | Not authorized to perform action | Error         |
-| 404 | Logistics Object not found                 | Error         |
-| 415 | Unsupported Content Type                 | Error         |
-| 500 |     Internal Server Error | Error model       |
+| Code    | Description                             | Response body |
+| ------- |  -------------------------------------- | ------------- |
+| 201 | Logistics Event has been created            | No content    |
+| 400 | Invalid Logistics Event                     | Error         |
+| 401 | Not authenticated, invalid or expired token | Error         |
+| 403 | Not authorized to perform action            | Error         |
+| 404 | Logistics Object not found                  | Error         |
+| 415 | Unsupported Content Type                    | Error         |
+| 500 | Internal Server Error                       | Error         |
 
 
 A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
@@ -119,7 +121,7 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent
+Type: https://onerecord.iata.org/ns/cargo#LogisticsEvent
 ```
 
 ## Example A2
@@ -143,7 +145,7 @@ Response:
 ```bash
 HTTP/1.1 404 Not Found
 Content-Language: en-US
-Content-Type: application/ld+json
+Content-Type: application/ld+json; version=2.0.0-dev
 
 --8<-- "examples/Error_404.json"
 ```
@@ -152,24 +154,43 @@ _([examples/Error_404.json](examples/Error_404.json))_
 
 # Get a List of Logistic Events
 
+Logistics events that are linked to a logistics object CAN be retrieved by doing a HTTP GET request to the the `/logistics-events` endpoint of a logistics object.
+In addition, only a subset of all linked logistics events can optionally be retrieved by setting filter parameters.
+
+As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
+
 ## Request
 
 The following HTTP header parameters MUST be present in the request:
 
-| **Header** | Description                       |
-| ---------- |    ----- |
-| **Accept** | The content type that you want the HTTP response to be formatted in. Valid content types include: ▪ application/x-turtle or text/turtle ▪ application/ld+json |
+| Request Header   | Description                         | Examples            |
+| ---------------- |  --------------------------------- | ------------------- |
+| **Accept**       | The content type that the ONE Record client wants the HTTP response to be formatted in.        | application/ld+json |
+| **Content-Type** | The content type that is contained with the HTTP body. Valid content types. | application/ld+json |
+
+The following HTTP query parameters MUST be supported:
+
+| Query parameter               | Description                                                                           | Valid values                       |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------- |
+| **eventType** (optional)      | Optional parameter that can be used to filter the list of logistics objects by event type, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
+| **created_after** (optional)  | Optional parameter that can be used to filter the list of logistics objects           | <ul><li>20190926T075830Z</li></ul> |
+| **created_before** (optional) | Optional parameter that can be used to filter the list of logistics objects           | <ul><li>20190926T075830Z</li></ul> |
+| **occurred_after** (optional) | Optional parameter that can be used to filter the list of logistics objects           | <ul><li>20190926T075830Z</li></ul> |
+| **occurred_before** (optional)| Optional parameter that can be used to filter the list of logistics objects           | <ul><li>20190926T075830Z</li></ul> |
 
 ## Response
 
-A positive HTTP 200 response is expected to a GET request. The body of the response is expected to be the events list in the format that has been requested in the Accept header of the request.
+A successful request MUST return a `HTTP/1.1 200 OK` status code. 
+The body of the response includes a list of all logistics events matching the specified query parameters.
+The list is formatted accordingly to the format that has been requested in the `Accept` request header.
 
-| Code |     | Description                           | Response body |
-| -------- | --- | --------------------------------- | ----------------- |
-| **200**  |     | Events retrieved successfully     | List of Events    |
-| **401**  |     | Not authenticated                 | Error model       |
-| **403**  |     | Not authorized to retrieve Events | Error model       |
-| **404**  |     | Logistics Object Not Found        | Error model       |
+| Code     | Description                       | Response body            |
+| -------- | --------------------------------- | ------------------------ |
+| **200**  | Events retrieved successfully     | List of LogisticsEvents  |
+| **200**  | Bad Request                       | Error                    |
+| **401**  | Not authenticated                 | Error                    |
+| **403**  | Not authorized to retrieve Events | Error                    |
+| **404**  | Logistics Object Not Found        | Error                    |
 
 ## Example B1
 
@@ -178,38 +199,43 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json
+Accept: application/ld+json; version=2.0.0-dev
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
+Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
-[
-{
-   "@context": {
-     "api": "https://onerecord.iata.org/ns/api/2.0.0#",
-     "@language": "en-US"
-   },
-    "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
-    "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription": "ONE Record Advertisement Materials",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
-        {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceType": "SPH",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceDescription": "Valuable Cargo",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceTypeCode": "VAL"
-        }
-    ]
-}
-]
+
+--8<-- "examples/LogisticsEvents_list.json"
 ```
+_([examples/LogisticsEvents_list.json](examples/LogisticsEvents_list.json))_
+
 
 ## Example B2
-Filtered list of Logistics Events
+
+Get a filtered list of events. Filtered by eventType that needs to be DEP.
+
+Request:
+
+```http
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events?eventType=DEP HTTP/1.1
+Host: 1r.example.com
+Accept: application/ld+json; version=2.0.0-dev
+```
+
+Response:
+
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; version=2.0.0-dev
+Content-Language: en-US
+
+--8<-- "examples/LogisticsEvents_filtered_list.json"
+```
+_([examples/LogisticsEvents_filtered_list.json](examples/LogisticsEvents_filtered_list.json))_
 
 ## Example B3
 Error Logistics Object not found 404
@@ -235,3 +261,4 @@ A successful submit of a LogisticsEvent
 
 ## Example C2
 404 Error
+

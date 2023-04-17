@@ -128,6 +128,7 @@ classDiagram
         + supportedEncodings[]: xsd:string [*]
         + supportedLanguages[]: xsd:string [1..*]
         + supportedLogisticsObjectTypes[]: xsd:anyURI [1..*]
+        + supportedOntologies[]: xsd:anyURI [1..*]
     }    
     ServerInformation "1" --> "1" Organization
 

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed implicit endpoints; define URI structure of Logistics Objects
 - removed Link HTTP header, because URI and endpoint structure is defined
 - removed required ttl/turtle as supported content-type
+
   
 ### Added
 
@@ -35,12 +36,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added overview of permissions for Access Delegation
 - added ActionEnum to class diagram
 
+
 ---
 
 ## ONE Record API Ontology
 
 ### Changed 
 
+- changed IRI structure to follow best practice
 - renamed CompanyInformation to ServerInformation, because it mainly contains meta information about the ONE Record API and its configuration
 - replaced ServerInformation#company and ServerInformation#companyId (formerly CompanyInformation) with ServerInformation#dataOwner
 - merged PatchRequest into ChangeRequest
@@ -72,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed Subscription#secret
 - removed DelegationRequest#action
 - removed Subscription#callbackUrl
-
+- removed cargo ontology data classes
 
 ### Added
 
@@ -87,3 +90,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added ActionRequest as superclass for SubscriptionRequest, ChangeRequest, and DelegationRequest
 - added ServerInformation#notificationsEndpoint
 - added AccessDelegation and Change for ActionRequests
+- import cargo ontology with `owl:imports cargo`
+- changed min/max cardinalities to exact cardinalities (`qualifiedCardinality`)
+- introduced Named Individuals to represent ENUMs

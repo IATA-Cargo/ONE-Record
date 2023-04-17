@@ -180,3 +180,7 @@ Response:
 ```http
 HTTP/1.1 204 No Content
 ```
+
+!!! note
+        If the embedded object of a LO changed, the Notification:changedProperties will contain the IRI of the embeddedObject, for example: 
+        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight

@@ -4,11 +4,12 @@ This API action is used to create a Logistics Object on a ONE Record server usin
 This particular Logistics Object MUST be a type of Logistics Object, i.e. data classes that inherit from the class Logistics Object, that is specified in the ONE Record data model.
 A list of all possible data classes that inherit from Logistics Object can be found [here](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject).
 
-> **Note:** Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
-The reason for this is that _only the owner of the logistics object_ MAY create a logistics object with any business logic or technology. 
-However, it is important that the Logistics Object is created with a [Logistics Object URI](#logistics-object-uri) that is accessible on the logistics Internet.
+!!! note 
+        Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
+        The reason for this is that _only the owner of the logistics object_ MAY create a logistics object with any business logic or technology. 
+        However, it is important that the Logistics Object is created with a [Logistics Object URI](#logistics-object-uri) that is accessible on the logistics Internet.
 
-> Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
+         Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
 
 As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
 
@@ -40,6 +41,7 @@ The following HTTP status codes MUST be supported:
 | **400** | Invalid Logistics Object                                     | Error            |
 | **401** | Not authenticated                                            | Error            |
 | **403** | Not authorized to publish the Logistics Object to the server | Error            |
+| **409** | Logistics object with specified ID already exists            | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
 
 ## Example A1
@@ -170,8 +172,9 @@ A successful request MUST return a `HTTP/1.1 200 OK` status code.
 The body of the response includes the Logistics Object in the RDF serialization format that has been requested in the `Accept` header of the request.
 
 The following HTTP headers parameters MUST be present in the response:
-| Header      | Description                                  | Example   |
-| -------------------- |    --- ------- | ----------------------------- |
+
+| Header                | Description                                  | Example   |
+| -------------------- |    ---------- | ----------------------------- |
 | **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
 | **Revision**         | The revision of the requested Logistics Object as a non-negative numerical value. This is particularly relevant if the query parameter `at=` is set to request a historical version of the Logistics Object. | 3         |
@@ -313,7 +316,7 @@ Thus, any property in a Logistics Object can be _deleted_, _added_, or _replaced
 - After a ChangeRequest is accepted, other PENDING ChangeRequests that affect the same revision MUST be rejected.
 - The PATCH operation MUST NOT be used to create logistics objects; only linking to an existing object is allowed in a ChangeReuqest.
 - The ONE Record server MUST check that the referenced logistics object URI in operations#s matches the referenced logistics object URI in the affectedLogisticsObject property and matches the URI/endpoint used for the PATCH request. 
-- The ONE Record Server MUST replace potential bNodes with generated embeddedObjectIds if `datatype` is an IRI of the ONE Record Cargo ontology, but does not describe a data class that inherits from LogisticsObject.
+- If `datatype` in `OperationObject` is an IRI of the ONE Record cargo ontology and is not a data class that inherits from LogisticsObject, then the ONE Record Server MUST generate an embeddedObjectIds for the object in the `value` property of `OperationObject`
 
 The ChangeRequest is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
 The properties and relationships to other data classes in visualized in the following class diagram.
@@ -817,7 +820,7 @@ This datetime value MUST be in the past.
 If this parameter is before the creation date of the Logistics Object, `404 Not Found` is returned.
 If this parameter is in the future, `400 Bad Request` is returned.
 
-To ensure consistency when following the linked objects in a response, all linked Logistics Object in the response body MUST also contain the `?at=`query parameter with the same provided datetime value.
+To ensure consistency when following the linked objects in a response, all linked Logistics Object, i.e. their Logistics Object URIs. in the response body MUST also contain the `?at=`query parameter with the same provided datetime value.
 
 ## Example E1
 

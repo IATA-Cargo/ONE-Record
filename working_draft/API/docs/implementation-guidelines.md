@@ -66,12 +66,12 @@ Nevertheless, it is RECOMMENDED to use the following structure for embedded obje
 `1r:<uuid5 using the data class name>`, e.g. `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07` as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")
 
 !!! note 
-    It MUST be ensured that these embedded object IDs, similar to logistics object URIs, are unintelligible and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
+    It MUST be ensured that these embedded object IDs, similar to logistics object URIs, MUST be unique within the domain of the ONE Record server and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
 
 In the context of ONE Record, only logistics objects have public accessible URIs, while other objects, e.g., [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value), do not have public accessible URIs but must be linked.
-Nevertheless, in ONE Record each bNode MUST have a unique `@id` within the document that does not change. 
+Nevertheless, in ONE Record each node MUST have a unique `@id` within the document that does not change. 
 If stored in an RDF database/store, this `@id` MUST also have a global unique identifier within a graph.
-Therefore, in ONE Record, a ONE Record serer MUST convert bNodes to named resources with proper URIs (i.e. embedded object ids) if those blank nodes represent entities that have a stable identity and are likely to be references in other datasets, applications, or documents.
+Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resources with proper URIs (i.e. embedded object ids) if those blank nodes represent entities that have a stable identity and are likely to be references in other datasets, applications, or documents.
 
 ```json
 {
@@ -92,7 +92,7 @@ Therefore, in ONE Record, a ONE Record serer MUST convert bNodes to named resour
 Explanations:
 
 - [https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c](https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c) is the @id of the parent Logistics Object of type Piece
-- `1r:ded2e183` is the id ob the embedded object of type Value which can only exist along the parent Logistics Object
+- `1r:ded2e183` is the `@id` of the embedded object of type Value which can only exist along the parent Logistics Object
 
 This is particularly relevant for the [updating of Logistics Objects](logistics-objects.md#update-a-logistics-object) when
 changes to the logistics object affect embedded objects and MUST be identifier during processing using their embedded object id.
@@ -137,27 +137,31 @@ For example, [handlingInstructions](https://onerecord.iata.org/ns/cargo/3.0.0#ha
 
 To safe bandwidth, null valued properties SHOULD not be part of the JSON-LD bodies.
 
-# API Versioning
+# Versioning
+
+## API Versioning
 
 API versioning is an important part of any API design, as it addresses the key challenge of maintaining APIs while dealing with changes over time. 
 Furthermore, it supports the communication between a client and a server by knowing which API version is supported and has to be used for interaction. 
 It is reasonable to assume that in practice an API will never be feature complete and it is accordingly important to manage these changes. 
 This is also true for the ONE Record API. 
 
-Proper API versioning ensures that the ONE Record API specification can be further developed without interrupting existing applications that interact with older ONE Record API versions. 
+Proper API versioning ensures that the ONE Record API specification can evolve without affecting existing applications that implement older ONE Record API versions.
 
-Some possible changes in the API:
+Some possible changes to the ONE Record API specification COULD be:
 
 - Request/Response bodies changes due to the constant review of the ONE Record API specifications
 - ONE Record ontology changes, which reflect on the request/response bodies
 - Addition of new API endpoint
 - Removal of an existing API endpoint
 
-Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](#logistics-object-uri)), an API versioning via URI Path is **not** possible,
-e.g. [http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b](http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b)
+Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](#logistics-object-uri)), 
+an API versioning via URI Path is **not** possible, e.g. 
+[http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b](http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b)
 
 Instead, API versioning through content negotiation SHOULD be used. 
-More precisely, the `Accept` HTTP request header SHOULD be used by a ONE Record client to communicate the expected API version, so that a ONE Record server can select one of the proposals:
+More precisely, the `Accept` HTTP request header SHOULD be used by a ONE Record client to communicate the expected API version, 
+so that a ONE Record server can select one of the proposals:
 
 ```http
 Accept: application/ld+json; version=2.0.0-dev
@@ -168,32 +172,42 @@ The ONE Record server MUST inform the ONE Record client about the selected versi
 Content-Type: application/ld+json; version=2.0.0-dev
 ```
 
+If no version is specified by the ONE Record client, the ONE Record server SHOULD use the latest implemented API version.
 
-If no version is specified, the ONE Record server SHOULD use the latest API version implemented.
 Every ONE Record server MUST provide information about the supported API versions. (see [Get Server Information](server-information.md))
 
-# Data Model Versioning
+## Data Model Versioning
 
-With the introduction of ONE Record to the industry and subsequent adoption and dissemination, it is likely that the ONE Record data model will be modified, refined, and expanded over time.
+With the introduction of ONE Record to the industry and subsequent adoption and dissemination, 
+it is likely that the ONE Record data model will be modified, refined, and expanded over time.
 To support this evolution of the ONE Record data model, appropriate data model versioning is required.
 
-Some examples for possible changes in the Data Model (ontology):
+Some examples for possible changes to the ONE Record data models (ontology):
 
-- Addition/Removal of Classes/Properties
-- Updates of cardinality/data types
-- Updates of comments/labels
+- Addition/Removal of classes and/or properties
+- Updates of cardinality or data types
+- Updates of comments or labels
 
-Every ONE Record server MUST provide information about supported data model versions using [supportedLogisticsObjectTypes](https://onerecord.iata.org/api#supportedLogisticsObjectTypes) (see. [Get Server Information](#get-server-information)).
-This IRIs MUST include the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Every ONE Record server MUST provide information about supported data model ontologies using [supportedOntologies](https://onerecord.iata.org/api#supportedOntologies) (see. [Get Server Information](#get-server-information)).
+This `supportedOntologies` MUST be a list of IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
 
-Furthermore, every request body and response body MUST use data model versioning, e.g. using the IRIs in `@type` that contain the version of the data model: 
+Every HTTP POST or PATCH request MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the request body, e.g. 
+https://onerecord.iata.org/ns/cargo/3.0.0. If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 
-- [https://onerecord.iata.org/ns/cargo/3.0.0#Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece) or 
-- [https://onerecord.iata.org/ns/cargo/2.0.0#Piece](https://onerecord.iata.org/ns/cargo/2.0.0#Piece)
+Every GET response MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the response body, e.g. 
+https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the logistics object type, e.g. https://onerecord.iata.org/ns/cargo#Piece)
 
-**Data Versioning**
+However, the `@type` property that is used by JSON-LD MUST contain a non-versioned IRI, e.g. https://onerecord.iata.org/ns/cargo#Piece
+
+To support independence between the ONE Record Cargo ontology and the ONE Record API, the serialized objects MUST also additionally contain the `versioned-type` property.
+
+## Data Versioning
 
 see [Historical Logistics Object](#retrieve-historical-logistics-object)
+
+# Validation
+
+==TODO: with SHACL files==
 
 # Error Handling
 

@@ -228,3 +228,44 @@ Making it possible to subscribe a 3rd party to receive Notifications can raise a
 For example, if Error happen during the Subscription request process or a malicious Subscription is requested, this can result in unwanted Notification spam.
 
 Therefore, a subscriber MUST subscribe only themselves, after receiving access to a Logistics Object or get subscribed by the publisher (after access is granted). 
+
+# Subscribing non-compliant 3rd parties
+
+Scenario: a 3rd party has Notification endpoint (can receive Notification requests), but does not have Subscriptions Endpoint (can not provide subscription information). e.g. "passive ONE Record node" that only receives Notifications, processes the notifications and sends GET requests to receive the logistics object.
+
+==TODO: tbd==
+
+# Processing Subscription Requests by Publisher
+
+As a publisher, this API action is used to change the status of a received Subscription Request on a ONE Record server using the PATCH HTTP method. 
+
+!!! note 
+        Although the updating the state of of a Subscription Request is specified in the ONE Record API specification, 
+        it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
+        The reason for this is that _only the owner of the logistics object_ MAY accept or reject a subscription request with any business logic or technology.         
+
+        Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP PATCH is the preferred solution to update resources with REST APIs.
+
+## Example E1
+
+Request:
+
+```http
+PATCH /subscription-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28 HTTP/1.1
+Host: 1r.example.com
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
+
+--8<-- "examples/SubscriptionRequest.json"
+```
+
+_([examples/SubscriptionRequest.json](examples/SubscriptionRequest.json))_
+
+Response:
+
+```bash
+HTTP/1.1 204 No Content
+Content-Type: application/ld+json; version=2.0.0-dev
+Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
+Location: https://1r.example.com/subscription-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28
+```

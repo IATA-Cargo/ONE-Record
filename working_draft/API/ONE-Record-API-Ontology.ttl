@@ -433,6 +433,14 @@ xsd:date rdf:type rdfs:Datatype .
                               rdfs:label "supported LogisticsObject types"@en .
 
 
+###  https://onerecord.iata.org/ns/api#supportedOntologies
+:supportedOntologies rdf:type owl:DatatypeProperty ;
+                              rdfs:domain :ServerInformation ;
+                              rdfs:range xsd:anyURI ;
+                              rdfs:comment "Supported ontologies on the server, MUST be versioned IRIs"@en ;
+                              rdfs:label "supported Ontologies"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#title
 :title rdf:type owl:DatatypeProperty ;
        rdfs:domain :Error ;
@@ -833,6 +841,10 @@ xsd:date rdf:type rdfs:Datatype .
                                      owl:onProperty :supportedLogisticsObjectType ;
                                      owl:allValuesFrom xsd:anyURI
                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                     owl:onProperty :supportedOntologies ;
+                                     owl:allValuesFrom xsd:anyURI
+                                   ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :supportedApiVersion ;
                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -850,6 +862,11 @@ xsd:date rdf:type rdfs:Datatype .
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :supportedLogisticsObjectType ;
+                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:anyURI
+                                   ] ,
+                                    [ rdf:type owl:Restriction ;
+                                     owl:onProperty :supportedOntologies ;
                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                      owl:onDataRange xsd:anyURI
                                    ] ,
