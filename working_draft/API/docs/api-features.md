@@ -1,4 +1,4 @@
-
+# API Features
 The following features summarize all of the ONE Record API features
 
 **Get ONE Record Server Information** Anyone who has access to a ONE Record server can retrieve the technical server meta information that contains information about supported features, supported ONE Record API version, supported ONE Record data model version, etc.
@@ -22,6 +22,8 @@ The following features summarize all of the ONE Record API features
 **Manage and access versions of Logistics Objects** - Each time a logistics object is updated by a change in data, this change is recorded in an audit trail. This automatically creates a new version of the Logistics Object. Each version of the logistics object SHOULD be found and retrieved.
 
 **API security** - Although not strictly an API feature, ONE Record specifies security measures for implementation on web servers such that access to the server may be identified, authenticated and authorized.
+
+# API Endpoints
 
 | HTTP Methods     | API Endpoint       | API Function                           |
 | ---------------- | -------------------------------------- |   -------- |

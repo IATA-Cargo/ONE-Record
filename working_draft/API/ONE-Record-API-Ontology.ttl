@@ -265,7 +265,8 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/api#description
 :description rdf:type owl:DatatypeProperty ;
-             rdfs:domain :ChangeRequest ,
+             rdfs:domain :AccessDelegation ,
+                         :Change ,
                          :Subscription ;
              rdfs:range xsd:string ;
              rdfs:comment "Reason for the request (optional)"@en ;
@@ -498,6 +499,10 @@ cargo:Organization rdf:type owl:Class .
                                     owl:onProperty :referencesLogisticsObject ;
                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                     owl:onClass cargo:LogisticsObject
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :description ;
+                                    owl:allValuesFrom xsd:string
                                   ] ;
                   rdfs:comment "Access to a Logistics Object delegated to an Organization"@en ;
                   rdfs:label "Access Delegation"@en .
@@ -539,10 +544,6 @@ cargo:Organization rdf:type owl:Class .
                                  owl:onProperty :isRevokedBy ;
                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass cargo:Organization
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :description ;
-                                 owl:allValuesFrom xsd:string
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :revokedAt ;
@@ -592,6 +593,10 @@ cargo:Organization rdf:type owl:Class .
                           owl:onProperty :referencesLogisticsObject ;
                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                           owl:onClass cargo:LogisticsObject
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :description ;
+                          owl:allValuesFrom xsd:string
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :revision ;
@@ -900,6 +905,10 @@ cargo:Organization rdf:type owl:Class .
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :contentType ;
+                                owl:allValuesFrom xsd:string
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :description ;
                                 owl:allValuesFrom xsd:string
                               ] ,
                               [ rdf:type owl:Restriction ;

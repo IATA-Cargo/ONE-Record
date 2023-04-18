@@ -13,6 +13,7 @@ classDiagram
     }  
 
     class AccessDelegation{
+        + description: xsd:string [0..1]
         + hasPermission[]: Permission [1..*]                
         + isRequestedFor[]: Organization [1..*]
         + referencesLogisticsObjects[]: LogisticsObject [1..*]        
@@ -23,8 +24,7 @@ classDiagram
     AccessDelegation "1" --> "1..*" LogisticsObject
 
      class ActionRequest {
-        <<Abstract>> 
-        + description: xsd:string [0..1]
+        <<Abstract>>         
         + hasError[]: Error [*]
         + requestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
@@ -64,7 +64,8 @@ classDiagram
     }
     AuditTrail "1" --> "*" ChangeRequest
 
-    class Change{        
+    class Change{    
+        + description: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
         + referencesLogisticsObject: LogisticsObject
         + revision: xsd:nonNegativeInteger        
@@ -126,6 +127,7 @@ classDiagram
 
     class Subscription{        
         + contentType[]: xsd:string [*]
+        + description: xsd:string [0..1]
         + expiresAt: xsd:dateTime [0..1]                                
         + hasSubscriber: Organization        
         + hasTopicType: TopicType        
@@ -135,14 +137,6 @@ classDiagram
     }    
     Subscription "1" --> "1" Organization
     Subscription --> TopicType
-
-    class RequestStatus{
-        <<Enumeration>>
-        PENDING
-        ACCEPTED
-        REJECTED
-        REVOKED
-    }
 
     class NotificationEventType{
         <<Enumeration>>
@@ -192,7 +186,6 @@ classDiagram
         REQUEST_ACCEPTED
         REQUEST_REJECTED
         REQUEST_FAILED
-        REQUEST_REVOKED
-        
+        REQUEST_REVOKED        
     }
 ```
