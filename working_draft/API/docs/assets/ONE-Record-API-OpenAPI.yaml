@@ -258,8 +258,8 @@ paths:
     post:
         tags:
           - Subscriptions
-        summary: 'Create Subscription information on a ONE Record server'
-        operationId: createSubscription
+        summary: 'Request a subscription'
+        operationId: requestSubscription
         requestBody:
           content:
             application/ld+json:
@@ -290,9 +290,7 @@ paths:
     get:
       tags:
         - Subscriptions
-      summary: >-
-        Retrieve Subscription information when a publisher proposes a
-        subscription
+      summary: Retrieve Subscription information
       operationId: getSubscriptions
       parameters:
         - name: topicType
@@ -300,7 +298,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: ["LOGISTICS_OBJECT_TYPE", "LOGISTICS_OBJECT_URI"]
+            enum: ["https://onerecord.iata.org/ns/api/2.0.0#LOGISTICS_OBJECT_TYPE", "https://onerecord.iata.org/ns/api/2.0.0#LOGISTICS_OBJECT_URI"]
         - name: topic
           in: query
           required: true
@@ -327,132 +325,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
-  /subscriptions/{subscriptionId}:
-    get:
-      tags:
-        - Subscriptions
-      summary: >-
-        Retrieve Subscription information by URI
-      operationId: getSubscription
-      parameters:
-        - name: subscriptionId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  /subscription-requests/{subscriptionRequestId}:
-    get:
-      tags:
-        - Subscriptions
-      summary: Retrieve a specific SubscriptionRequest
-      operationId: getSubscriptionRequest
-      parameters:
-        - name: subscriptionRequestId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      tags:
-        - Subscriptions
-      summary: 'INTERNAL: Change SubscriptionRequest to accept/reject'
-      operationId: updateSubscriptionRequest
-      parameters:
-        - name: subscriptionRequestId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/PatchRequest'
-        required: true
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'  
-    delete:
-      tags:
-        - Subscriptions
-      summary: Revoke SubscriptionRequest
-      operationId: revokeSubscriptionRequest
-      parameters:
-        - name: subscriptionRequestId
-          in: path
-          required: true
-          schema:
-            type: string      
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'  
   /access-delegations:
     post:
         tags:
           - Access Delegation
-        summary: Request delegated Access on a Logistics Object
+        summary: Request delegated access on Logistics Objects
         operationId: requestDelegatedAccess
         requestBody:
           content:
@@ -481,128 +358,6 @@ paths:
               '*/*':
                 schema:
                   $ref: '#/components/schemas/Error'
-  /access-delegation-requests:
-    post:
-      tags:
-        - Access Delegation
-      summary: Submit a request for delegation of permissions
-      operationId: submitDelegationRequest
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Subscription'
-        required: true
-      responses:
-        '200':
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-  
-  
-  /access-delegation-requests/{accessDelegationRequestId}:
-    get:
-      tags:
-        - Access Delegation
-      summary: Retrieve AccessDelegationRequest, for example, to check the status
-      operationId: getAccessDelegationRequest
-      parameters:
-        - name: accessDelegationRequestId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Subscription'
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      tags:
-        - Access Delegation
-      summary: 'INTERNAL: Change AccessDelegationRequest to accept/reject'
-      operationId: updateAccessDelegationRequest
-      parameters:
-        - name: accessDelegationRequestId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/PatchRequest'
-        required: true
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-    delete:
-      tags:
-        - Access Delegation
-      summary: Revoke AccessDelegationRequest
-      operationId: revokeAccessDelegationRequest
-      parameters:
-        - name: accessDelegationRequestId
-          in: path
-          required: true
-          schema:
-            type: string      
-      responses:
-        '204':
-          description: No Content
-        '404':
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        '503':
-          description: Service Unavailable
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'  
   /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventId}:
     get:
       tags:
@@ -682,25 +437,73 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
-  /logistics-objects/{logisticsObjectId}/acl:
+  /action-requests/{actionRequestId}:
     get:
       tags:
-        - Logistics Object
-      summary: Retrieve the Access Control List (ACL) of a given LogisticsObject
-      operationId: getACL
+        - Action Requests
+      summary: Retrieve an Action Request
+      operationId: getActionRequest
       parameters:
-        - name: logisticsObjectId
+        - name: actionRequestId
           in: path
           required: true
           schema:
             type: string
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
           content:
-            application/ld+json:
+            '*/*':
               schema:
-                $ref: '#/components/schemas/Authorization'
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'  
+    patch:
+      tags:
+      - Action Requests
+      summary: 'INTERNAL: Update an Action Request'
+      operationId: updateActionRequest
+      parameters:
+        - name: actionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'  
+    delete:
+      tags:
+      - Action Requests
+      summary: 'Revoke an Action Request'
+      operationId: revokeActionRequest
+      parameters:
+        - name: actionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
         '404':
           description: Not Found
           content:
@@ -793,13 +596,22 @@ components:
     Change:
       type: object
       properties:
-        id:
+        "@type":
+          enum:
+            - ["https://onerecord.iata.org/ns/api/2.0.0#Change"]
+        "https://onerecord.iata.org/ns/api/2.0.0#description":
           type: string
-        types:
-          uniqueItems: true
+        "https://onerecord.iata.org/ns/api#hasOperation":
           type: array
           items:
-            type: string     
+            $ref: '#/components/schemas/Operation'
+        "https://onerecord.iata.org/ns/api/2.0.0-dev#notifyRequestStatusChange":
+          type: boolean
+          default: false
+      required:
+        - "@type"
+        - "https://onerecord.iata.org/ns/api#hasOperation"
+          
     Subscription:
       type: object
       properties:
@@ -1184,37 +996,6 @@ components:
           type: string
         deviceSerialNumber:
           type: string
-    Location:
-      title: Location
-      type: object
-      properties:
-        '@id':
-          title: '@id'
-          type: string
-          readOnly: true
-        '@type':
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            enum:
-              - https://onerecord.iata.org/cargo/Location
-          enum:
-            - https://onerecord.iata.org/cargo/Location
-          default: [https://onerecord.iata.org/cargo/Location]
-        https://onerecord.iata.org/cargo/Location#locationType:
-          title: https://onerecord.iata.org/cargo/Location#locationType
-          type: string
-        https://onerecord.iata.org/cargo/Location#code:
-          title: https://onerecord.iata.org/cargo/Location#code
-          type: string
-        https://onerecord.iata.org/cargo/Location#locationName:
-          title: https://://onerecord.iata.org/cargo/Location#locationName
-          type: string
-        https://onerecord.iata.org/cargo/Location#geolocation:
-          $ref: '#/components/schemas/Geolocation'
-        https://onerecord.iata.org/cargo/Location#address:
-          $ref: '#/components/schemas/Address'
     LogisticsObject:
       title: LogisticsObject
       type: object
@@ -1455,24 +1236,6 @@ components:
     Operation:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        types:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        properties:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              type: string
         o:
           $ref: '#/components/schemas/OperationObject'
         op:

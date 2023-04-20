@@ -57,7 +57,7 @@ Each digital twin is an instance of a data classes that inherits from the Logist
 The data exchange that is facilitated by the ONE Record API is mainly the exchange of Logistics Objects.
 This is transition from the traditional logistics and transport EDI systems that only exchanged messages and documents.
 The concept of Logistics Objects is far more extensive since Logistics Objects can be more granular and have very specific usage in different use cases within the logistics and transport domain.
-Examples of a Logistics Object are a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece), an [IotDevice](https://onerecord.iata.org/ns/cargo/3.0.0#IotDevice), a [Sensor](https://onerecord.iata.org/ns/cargo/3.0.0#Sensor) or a [BookingOptionRequest](https://onerecord.iata.org/ns/cargo/3.0.0#BookingOptionRequest) and [many more](https://onerecord.iata.org/ns/cargo/3.0).
+Examples of a Logistics Object are a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece), an [IotDevice](https://onerecord.iata.org/ns/cargo/3.0.0#IotDevice), a [Sensor](https://onerecord.iata.org/ns/cargo/3.0.0#Sensor) or a [BookingOptionRequest](https://onerecord.iata.org/ns/cargo/3.0.0#BookingOptionRequest) and [many more](https://onerecord.iata.org/ns/cargo/3.0.0).
 
 ### **Owner of a Logistics Object**
 

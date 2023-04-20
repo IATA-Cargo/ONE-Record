@@ -297,6 +297,12 @@ xsd:date rdf:type rdfs:Datatype .
          rdfs:label "message"@en .
 
 
+###  https://onerecord.iata.org/ns/api#notifyRequestStatusChange
+:notifyRequestStatusChange rdf:type owl:DatatypeProperty ;
+                           rdfs:comment "Flag specifying if the requestor wants to receive Notification from the publisher when the status of an action request changed, default=FALSE"@en ;
+                           rdfs:label "notify RequestStatus Change"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#p
 :p rdf:type owl:DatatypeProperty ;
    rdfs:domain :Operation ;
@@ -503,6 +509,11 @@ cargo:Organization rdf:type owl:Class .
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :description ;
                                     owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :notifyRequestStatusChange ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onDataRange xsd:boolean
                                   ] ;
                   rdfs:comment "Access to a Logistics Object delegated to an Organization"@en ;
                   rdfs:label "Access Delegation"@en .
@@ -597,6 +608,11 @@ cargo:Organization rdf:type owl:Class .
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :description ;
                           owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :notifyRequestStatusChange ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:boolean
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :revision ;
@@ -732,9 +748,9 @@ cargo:Organization rdf:type owl:Class .
                                                          :CHANGE_REQUEST_PENDING
                                                          :CHANGE_REQUEST_REJECTED
                                                          :CHANGE_REQUEST_REVOKED
-                                                         :EVENT_RECEIVED
-                                                         :OBJECT_CREATED
-                                                         :OBJECT_UPDATED
+                                                         :LOGISTICS_EVENT_RECEIVED
+                                                         :LOGISTICS_OBJECT_CREATED
+                                                         :LOGISTICS_OBJECT_UPDATED
                                                          :SUBSCRIPTION_REQUEST_ACCEPTED
                                                          :SUBSCRIPTION_REQUEST_FAILED
                                                          :SUBSCRIPTION_REQUEST_PENDING
@@ -800,8 +816,8 @@ cargo:Organization rdf:type owl:Class .
 ###  https://onerecord.iata.org/ns/api#Permission
 :Permission rdf:type owl:Class ;
             owl:equivalentClass [ rdf:type owl:Class ;
-                                  owl:oneOf ( :GET
-                                              :PATCH
+                                  owl:oneOf ( :GET_LOGISTICS_OBJECT
+                                              :PATCH_LOGISTICS_OBJECT
                                               :POST_LOGISTICS_EVENT
                                             )
                                 ] ;
@@ -922,6 +938,11 @@ cargo:Organization rdf:type owl:Class .
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :subscribeToLogisticsEvents ;
                                 owl:allValuesFrom xsd:boolean
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :notifyRequestStatusChange ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange xsd:boolean
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :topic ;
@@ -1048,16 +1069,22 @@ cargo:Organization rdf:type owl:Class .
         rdfs:label "DELETE"@en .
 
 
-###  https://onerecord.iata.org/ns/api#EVENT_RECEIVED
-:EVENT_RECEIVED rdf:type owl:NamedIndividual ,
-                         :NotificationEventType ;
-                rdfs:label "EVENT_RECEIVED"@en .
+###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_OBJECT
+:GET_LOGISTICS_OBJECT rdf:type owl:NamedIndividual ,
+                               :Permission ;
+                      rdfs:label "GET_LOGISTICS_OBJECT"@en .
 
 
-###  https://onerecord.iata.org/ns/api#GET
-:GET rdf:type owl:NamedIndividual ,
-              :Permission ;
-     rdfs:label "GET"@en .
+###  https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED
+:LOGISTICS_EVENT_RECEIVED rdf:type owl:NamedIndividual ,
+                                   :NotificationEventType ;
+                          rdfs:label "LOGISTICS_EVENT_RECEIVED"@en .
+
+
+###  https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_CREATED
+:LOGISTICS_OBJECT_CREATED rdf:type owl:NamedIndividual ,
+                                   :NotificationEventType ;
+                          rdfs:label "LOGISTICS_OBJECT_CREATED"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_IDENTIFIER
@@ -1072,22 +1099,16 @@ cargo:Organization rdf:type owl:Class .
                        rdfs:label "LOGISTICS_OBJECT_TYPE"@en .
 
 
-###  https://onerecord.iata.org/ns/api#OBJECT_CREATED
-:OBJECT_CREATED rdf:type owl:NamedIndividual ,
-                         :NotificationEventType ;
-                rdfs:label "OBJECT_CREATED"@en .
+###  https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_UPDATED
+:LOGISTICS_OBJECT_UPDATED rdf:type owl:NamedIndividual ,
+                                   :NotificationEventType ;
+                          rdfs:label "LOGISTICS_OBJECT_UPDATED"@en .
 
 
-###  https://onerecord.iata.org/ns/api#OBJECT_UPDATED
-:OBJECT_UPDATED rdf:type owl:NamedIndividual ,
-                         :NotificationEventType ;
-                rdfs:label "OBJECT_UPDATED"@en .
-
-
-###  https://onerecord.iata.org/ns/api#PATCH
-:PATCH rdf:type owl:NamedIndividual ,
-                :Permission ;
-       rdfs:label "PATCH"@en .
+###  https://onerecord.iata.org/ns/api#PATCH_LOGISTICS_OBJECT
+:PATCH_LOGISTICS_OBJECT rdf:type owl:NamedIndividual ,
+                                 :Permission ;
+                        rdfs:label "PATCH_LOGISTICS_OBJECT"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#POST_LOGISTICS_EVENT
@@ -1099,35 +1120,30 @@ cargo:Organization rdf:type owl:Class .
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED
 :REQUEST_ACCEPTED rdf:type owl:NamedIndividual ,
-                           :ActionRequest ,
                            :RequestStatus ;
                   rdfs:label "REQUEST_ACCEPTED"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_FAILED
 :REQUEST_FAILED rdf:type owl:NamedIndividual ,
-                         :ActionRequest ,
                          :RequestStatus ;
                 rdfs:label "REQUEST_FAILED"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_PENDING
 :REQUEST_PENDING rdf:type owl:NamedIndividual ,
-                          :ActionRequest ,
                           :RequestStatus ;
                  rdfs:label "REQUEST_ACCEPTED"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_REJECTED
 :REQUEST_REJECTED rdf:type owl:NamedIndividual ,
-                           :ActionRequest ,
                            :RequestStatus ;
                   rdfs:label "REQUEST_REJECTED"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_REVOKED
 :REQUEST_REVOKED rdf:type owl:NamedIndividual ,
-                          :ActionRequest ,
                           :RequestStatus ;
                  rdfs:label "REQUEST_REVOKED"@en .
 
@@ -1162,10 +1178,10 @@ cargo:Organization rdf:type owl:Class .
                               rdfs:label "SUBSCRIPTION_REQUEST_REVOKED"@en .
 
 
-[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
-[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 [ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger

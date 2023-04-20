@@ -1,65 +1,18 @@
 {
     "@context": {
-        "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
-        "api": "https://onerecord.iata.org/ns/api/2.0.0#"
-    },
+      "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
+      "api": "https://onerecord.iata.org/ns/api/2.0.0#"
+    },    
     "@type": "api:Subscription",
-    "api:ChangeRequest#affectedLogisticsObject": [
-        {
-            "@type": "cargo:LogisticsObject",
-            "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
-        }
-    ],
-    "api:ChangeRequest#callbackUrl": "https://1r.example.com/notifications",
-    "api:ChangeRequest#description": "Update goods description and coload",
-    "api:ChangeRequest#operations": [
-        {
-            "@type": "api:Operation",
-            "api:Operation#op": "ADD",
-            "api:Operation#s": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
-            "api:Operation#p": "https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription",
-            "api:Operation#o": [
-                {
-                    "@type": "api:OperationObject",
-                    "api:OperationObject#datatype": "https://www.w3.org/2001/XMLSchema#string",
-                    "api:OperationObject#value": "BOOKS"
-                }
-            ]
-        },
-        {
-            "@type": "api:Operation",
-            "api:Operation#op": "DEL",
-            "api:Operation#s": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
-            "api:Operation#p": "https://onerecord.iata.org/ns/cargo/3.0.0#coload",
-            "api:Operation#o": [
-                {
-                    "@type": "api:OperationObject",
-                    "api:OperationObject#datatype": "https://www.w3.org/2001/XMLSchema#boolean",
-                    "api:OperationObject#value": "TRUE"
-                }
-            ]
-        },
-        {
-            "@type": "api:Operation",
-            "api:Operation#op": "ADD",
-            "api:Operation#s": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
-            "api:Operation#p": "https://onerecord.iata.org/ns/cargo/3.0.0#coload",
-            "api:Operation#o": [
-                {
-                    "@type": "api:OperationObject",
-                    "api:OperationObject#datatype": "https://www.w3.org/2001/XMLSchema#boolean",
-                    "api:OperationObject#value": "FALSE"
-                }
-            ]
-        }
-    ],
-    "api:ChangeRequest#requestedAt": "2023-03-07T06:30:00Z",
-    "api:ChangeRequest#requestedBy": [
-        {
-            "@type": "cargo:Company",
-            "@id": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda"
-        }
-    ],
-    "api:ChangeRequest#revision": "1",
-    "api:ChangeRequest#status": "PENDING"
-}
+    "api:contentType": "application/ld+json",
+    "api:hasSubscriber": {
+      "@id": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda"
+    },
+    "api:hasTopicType": {
+      "@id": "api:LOGISTICS_OBJECT_IDENTIFIER"
+    },
+    "api:subscribeToLogisticsEvents": true,
+    "api:topic": {
+      "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+    }
+  }

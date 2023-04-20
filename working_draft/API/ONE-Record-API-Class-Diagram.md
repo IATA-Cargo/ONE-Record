@@ -16,21 +16,21 @@ classDiagram
         + description: xsd:string [0..1]
         + hasPermission[]: Permission [1..*]                
         + isRequestedFor[]: Organization [1..*]
-        + referencesLogisticsObjects[]: LogisticsObject [1..*]        
+        + hasLogisticsObject[]: LogisticsObject [1..*]        
     }
 
     AccessDelegation "1" --> "1..*" Permission   
     AccessDelegation "1" --> "1..*" Organization: requestedFor
     AccessDelegation "1" --> "1..*" LogisticsObject
 
-     class ActionRequest {
+    class ActionRequest {
         <<Abstract>>         
         + hasError[]: Error [*]
         + requestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
-        + isRevokedBy: Organization 
+        + isRevokedBy: Organization [0..1]
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + revokedAt: xsd:dateTime                 
+        + revokedAt: xsd:dateTime [0..1]                 
     }
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
@@ -46,8 +46,7 @@ classDiagram
     }
     AccessDelegationRequest "1" --> "1" AccessDelegation    
 
-    class ChangeRequest{
-        + referencesLogisticsObject: LogisticsObject                                
+    class ChangeRequest{        
         + hasChange: Change        
     }
     ChangeRequest "1" --> "1" LogisticsObject
@@ -67,7 +66,7 @@ classDiagram
     class Change{    
         + description: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
-        + referencesLogisticsObject: LogisticsObject
+        + hasLogisticsObject: LogisticsObject
         + revision: xsd:nonNegativeInteger        
     }
     Change "1" --> "1" LogisticsObject
@@ -90,7 +89,7 @@ classDiagram
         + changedProperties[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
-        + referencesLogisticsObject: LogisticsObject [0..1]                
+        + hasLogisticsObject: LogisticsObject [0..1]                
         + topic: xsd:anyURI
         
     }
@@ -99,7 +98,7 @@ classDiagram
     Notification "1" --> "0..1" ActionRequest    
 
     class Operation{
-        + o: OperationObject|string
+        + o: OperationObject
         + op: PatchOperation
         + p: xsd:anyURI
         + s: xsd:string
@@ -135,15 +134,15 @@ classDiagram
         + subscribeToLogisticsEvents: xsd:boolean = FALSE
         + topic: xsd:anyURI        
     }    
-    Subscription "1" --> "1" Organization
+    Subscription "1" --> "1" Organization: hasSubscriber
     Subscription --> TopicType
 
     class NotificationEventType{
         <<Enumeration>>
-        OBJECT_CREATED
-        OBJECT_UPDATED
+        LOGISTICS_OBJECT_CREATED
+        LOGISTICS_OBJECT_UPDATED
 
-        EVENT_RECEIVED
+        LOGISTICS_EVENT_RECEIVED
 
         CHANGE_REQUEST_PENDING
         CHANGE_REQUEST_ACCEPTED                
@@ -171,8 +170,8 @@ classDiagram
     }
     class Permission{
         <<Enumeration>>
-        GET
-        PATCH
+        GET_LOGISTICS_OBJECT
+        PATCH_LOGISTICS_OBJECT
         POST_LOGISTICS_EVENT
     }
     class TopicType{

@@ -17,37 +17,44 @@ The initialization of this data exchange channel is described in the [Subscripti
     class LogisticsObject{                
     }
 
+    class Organization{        
+    }  
+
     class ActionRequest {
-        <<Abstract>> 
-        + description: xsd:string [0..1]
-        + errors[]: Error [*]
+        <<Abstract>>         
+        + hasError[]: Error [*]
         + requestedAt: xsd:dateTime         
-        + requestedBy: Organization    
-        + requestStatus: RequestStatus = PENDING
-        + revokedAt: xsd:dateTime         
-        + revokedBy: Organization 
+        + isRequestedBy: Organization            
+        + isRevokedBy: Organization 
+        + hasRequestStatus: RequestStatus = REQUEST_PENDING
+        + revokedAt: xsd:dateTime                 
     }
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
     ActionRequest <|-- SubscriptionRequest
 
+    ActionRequest "1" --> "1..*" Organization : requestedBy    
+    ActionRequest --> RequestStatus                
+    ActionRequest "1" --> "1..*" Organization : revokedBy
+
     class Notification{
-        + affectedLogisticsObject: LogisticsObject [0..1]        
-        + changedProperties[]: xsd:anyURI [*]
-        + eventType: NotificationEventType
+        + changedProperties[]: xsd:anyURI [*]        
+        + hasEventType: NotificationEventType
+        + isTriggeredBy: ActionRequest [0..1]  
+        + hasLogisticsObject: LogisticsObject [0..1]                
         + topic: xsd:anyURI
-        + triggeringActionRequest: ActionRequest [0..1]  
+        
     }
     Notification "1"--> "0..1" LogisticsObject
-    Notification --> NotificationEventType
-    Notification --> ActionRequest    
+    Notification "1" --> "1" NotificationEventType
+    Notification "1" --> "0..1" ActionRequest  
 
     class NotificationEventType{
         <<Enumeration>>
-        OBJECT_CREATED
-        OBJECT_UPDATED
+        LOGISTICS_OBJECT_CREATED
+        LOGISTICS_OBJECT_UPDATED
 
-        EVENT_RECEIVED
+        LOGISTICS_EVENT_RECEIVED
 
         CHANGE_REQUEST_PENDING
         CHANGE_REQUEST_ACCEPTED                
@@ -56,17 +63,26 @@ The initialization of this data exchange channel is described in the [Subscripti
         CHANGE_REQUEST_REVOKED
         
 
-        DELEGATION_REQUEST_PENDING
-        DELEGATION_REQUEST_ACCEPTED                
-        DELEGATION_REQUEST_REJECTED
-        DELEGATION_REQUEST_FAILED
-        DELEGATION_REQUEST_REVOKED
+        ACCESS_DELEGATION_REQUEST_PENDING
+        ACCESS_DELEGATION_REQUEST_ACCEPTED                
+        ACCESS_DELEGATION_REQUEST_REJECTED
+        ACCESS_DELEGATION_REQUEST_FAILED
+        ACCESS_DELEGATION_REQUEST_REVOKED
 
         SUBSCRIPTION_REQUEST_PENDING
         SUBSCRIPTION_REQUEST_ACCEPTED                
         SUBSCRIPTION_REQUEST_REJECTED
         SUBSCRIPTION_REQUEST_FAILED
         SUBSCRIPTION_REQUEST_REVOKED
+    }
+
+    class RequestStatus{
+        <<Enumeration>>
+        REQUEST_PENDING
+        REQUEST_ACCEPTED
+        REQUEST_REJECTED
+        REQUEST_FAILED
+        REQUEST_REVOKED        
     }
 ```
 
@@ -81,19 +97,15 @@ Rules and recommendations related to the Notifications API:
 - MUST expect a Notification object in the POST request. 
 - MUST support the content types that are specified in the Subscription information
 - MUST respond with a HTTP response when it receives the Notification
-- MUST verify incoming requests by the HMAC signature to ensure only authorized requests are processed 
 
-!!! note 
-    The HMAC signature (in the HTTP header property `X-Hub-Signature`) with a shared subscription secret can be used to authorize the request. If the signature does not match, Subscriber's ONE Record servers MUST locally ignore the message as invalid. Subscribers's ONE Record server may still acknowledge this request with a 2xx response code in order to be able to process the message asynchronously and/or prevent brute-force attempts of the signature. [(see RFC 6151)](https://tools.ietf.org/html/rfc6151)
-    
+# Send Notification
+
 ## Request
 
 The following HTTP header parameters MUST be present in the request:
 
-| Header | Description | Required |
+| Header | Description | Examples |
 | ------ | ----------- | -------- |    		
-| X-Hub-Signature | 	If a secret has been provided in the Subscription, a HMAC signature MUST be present in this header, see https://www.w3.org/TR/websub	 | NO | 
-| Authorization	| The ONE Record Access token of the ONE Record Server - to be discussed. This would require sender binding to make sense. There is also a discussion in that the owner of this API is not owning the security which may be an issue. The API Key or HMAC signature in contrast would be based on security information provided by the owner of the endpoint.	|  TO DISCUSS | 
 | Accept       | The content type in which the ONE Record client wants the HTTP response formatted.        | application/ld+json |
 
 
@@ -102,6 +114,10 @@ The Notification is a data class of the [ONE Record api ontology](https://onerec
 
 The publisher sends a notification request to the subscriber when a logistics object is created or updated. 
 If the subscriber chose to receive the entire logistics object body via sendLogisticsObjectBody=true field, then the whole object is sent.
+
+!!! note
+        If the embedded object of a LO changed, the Notification:changedProperties will contain the IRI of the embeddedObject, for example: 
+        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo/3.0.0#hasGrossWeight
 
 ## Response
 
@@ -112,23 +128,23 @@ One of the following HTTP status codes MUST be present in the response:
 | 204 |     The request has been successful | - |
 | 400 |     Notification format is invalid    | Error         |
 | 401 |     Not authenticated, invalid or expired token    | Error         |
-| 403 | 	Not authorized to perform action | Error model       |
-| 404 | 	Resource Not Found | Error model       |
-| 405 | 	Method not allowed | Error model       |
-| 415 | 	Unsupported content type | Error model       |
-| 500 |     Internal Server Error | Error model       |
+| 403 | 	Not authorized to perform action | Error       |
+| 404 | 	Resource Not Found | Error       |
+| 405 | 	Method not allowed | Error       |
+| 415 | 	Unsupported content type | Error       |
+| 500 |     Internal Server Error | Error       |
 
 A successful request MUST return a `HTTP/1.1 204 No Content` status code and the following HTTP headers parameters MUST be present in the response:
 
 ## Example 1A
 
-The following example shows a OBJECT_CREATED Notification without the content of the object, because `sendLogisticsObjectBody` in Subscription is set to `False`.
+The following example shows a `LOGISTICS_OBJECT_CREATED` Notification without the content of the object, 
+because `sendLogisticsObjectBody` in Subscription is set to `False`.
 
 Request:
 
 ```http
 POST /notifications HTTP/1.1
-
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
@@ -144,11 +160,10 @@ HTTP/1.1 204 No Content
 
 ## Example 1B
 
-The following example shows a OBJECT_UPDATED Notification with the content of the object, because `sendLogisticsObjectBody` in Subscription is set to `True`.
-
+The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification without the content of the object, 
+because `sendLogisticsObjectBody` in Subscription is set to `False`.
 ```http
 POST /notifications HTTP/1.1
-
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
@@ -164,11 +179,11 @@ HTTP/1.1 204 No Content
 
 ## Example 1C
 
-The following example shows a CHANGE_REQUEST_ACCEPTED Notification after the ChangeRequest is accepted by the owner of the logistics object.
+The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification with the content of the object, 
+because `sendLogisticsObjectBody` in Subscription is set to `True`.
 
 ```http
 POST /notifications HTTP/1.1
-
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
@@ -181,6 +196,20 @@ Response:
 HTTP/1.1 204 No Content
 ```
 
-!!! note
-        If the embedded object of a LO changed, the Notification:changedProperties will contain the IRI of the embeddedObject, for example: 
-        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
+## Example 1D
+
+The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the ChangeRequest is accepted by the owner of the logistics object.
+
+```http
+POST /notifications HTTP/1.1
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
+
+--8<-- "examples/Notification_example4.json"
+```
+_([examples/Notification_example4.json](examples/Notification_example4.json))_
+
+Response:
+```http
+HTTP/1.1 204 No Content
+```

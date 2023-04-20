@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# 2.1.0-dev
+
+## Ideas
+- Sorting/Pagination Logistics Events list
+- Add filters/triggers to Subscription information for server-side Notifications filtering
+
+
 # 2.0.0-dev
 
 ---
@@ -80,15 +87,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - added Notification#changedProperties
-- added further enums to notification#eventType, i.e. EVENT_RECEIVED, CHANGE_REQUEST_ACCEPTED, CHANGE_REQUEST_FAILED, CHANGE_REQUEST_PENDING, CHANGE_REQUEST_REJECTED, DELEGATION_REQUEST_PENDING, DELEGATION_REQUEST_ACCEPTED, DELEGATION_REQUEST_REJECTED, DELEGATION_REQUEST_FAILED, SUBSCRIPTION_REQUEST_PENDING, SUBSCRIPTION_REQUEST_ACCEPTED, SUBSCRIPTION_REQUEST_REJECTED, SUBSCRIPTION_REQUEST_FAILED
+- added further enums to notification#eventType, i.e. LOGISTICS_EVENT_RECEIVED, CHANGE_REQUEST_ACCEPTED, CHANGE_REQUEST_FAILED, CHANGE_REQUEST_PENDING, CHANGE_REQUEST_REJECTED, DELEGATION_REQUEST_PENDING, DELEGATION_REQUEST_ACCEPTED, DELEGATION_REQUEST_REJECTED, DELEGATION_REQUEST_FAILED, SUBSCRIPTION_REQUEST_PENDING, SUBSCRIPTION_REQUEST_ACCEPTED, SUBSCRIPTION_REQUEST_REJECTED, SUBSCRIPTION_REQUEST_FAILED
 - added PENDING enum to ChangeRequest#requestStatus
 - added Operation#s to enable updating not only properties of primitive types, e.g. int, string, but also embedded objects, e.g. Shipment#totalGrossWeight<Value> in LogisticsObjects
 - added Notification#triggeringChangeRequest
 - added SubscriptionRequest. Subscription is the response for the scenario where publisher initiates the Subscription and asks the subscribers for their Subscription information. SubscriptionRequest is used for scenario where the subscriber initiates a SubscriptionRequest towards the Publisher.
 - added Subscription#topicType to indicate if topic is a LogisticsObject type or a specific LogisticsObjectIdentifier
-- added ServerInformation#supportedAPIVersions
+- added ServerInformation#supportedApiVersion
 - added ActionRequest as superclass for SubscriptionRequest, ChangeRequest, and DelegationRequest
-- added ServerInformation#notificationsEndpoint
+- added providesNotificationsEndpoint (xsd:boolean) to ServerInformation
 - added AccessDelegation and Change for ActionRequests
 - import cargo ontology with `owl:imports cargo`
 - changed min/max cardinalities to exact cardinalities (`qualifiedCardinality`)

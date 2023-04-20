@@ -3,11 +3,14 @@
         "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
         "api": "https://onerecord.iata.org/ns/api/2.0.0#"
     },
-    "@type": "api:Notification",
-    "api:eventType": "OBJECT_CREATED",
-    "api:logisticsObject": {
-        "@type": "cargo:Piece",
+    "@type": "api:Notification",    
+    "api:eventType": {
+        "@id": "api:LOGISTICS_OBJECT_CREATED"
+    },
+    "api:referencesLogisticsObject": {
         "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
     },
-    "api:topic": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece"
+    "api:isTriggeredBy": {
+        "@id": "https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed"
+    }
 }

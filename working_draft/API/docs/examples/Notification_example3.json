@@ -4,10 +4,22 @@
         "api": "https://onerecord.iata.org/ns/api/2.0.0#"
     },
     "@type": "api:Notification",
-    "api:eventType": "CHANGE_REQUEST_ACCEPTED",
-    "api:logisticsObject": {
-        "@type": "cargo:Piece",
-        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+    "api:eventType": {
+        "@id": "api:LOGISTICS_OBJECT_CREATED"
     },
-    "api:topic": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99b"
+    "api:hasLogisticsObject": {
+        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c",
+        "@type": "cargo:Shipment",
+        "cargo:goodsDescription": "Lots of awesome ONE Record information materials",
+        "cargo:containedPieces": [{
+            "@type": "cargo:Piece",
+            "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+        }]
+    },
+    "api:referencesLogisticsObject": {
+        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c"
+    },
+    "api:isTriggeredBy": {
+        "@id": "https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed"
+    }
 }

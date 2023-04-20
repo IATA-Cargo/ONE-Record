@@ -4,16 +4,16 @@
         "api": "https://onerecord.iata.org/ns/api/2.0.0#"
     },
     "@type": "api:Notification",
-    "api:changedProperties": ["https://onerecord.iata.org/ns/cargo#containedPieces"],
-    "api:eventType": "OBJECT_UPDATED",
-    "api:logisticsObject": {
-        "@type": "cargo:Shipment",
-        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c",
-        "cargo:goodsDescription": "Lots of awesome ONE Record information materials",
-        "cargo:containedPieces": [{
-            "@type": "cargo:Piece",
-            "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
-        }]
+    "api:changedProperty": [
+        "https://onerecord.iata.org/ns/cargo/3.0.0#grossWeight"
+    ],
+    "api:eventType": {
+        "@id": "api:LOGISTICS_OBJECT_UPDATED"
     },
-    "api:topic": "https://onerecord.iata.org/ns/cargo/3.0.0#Shipment"
+    "api:referencesLogisticsObject": {
+        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+    },
+    "api:isTriggeredBy": {
+        "@id": "https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed"
+    }
 }

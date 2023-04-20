@@ -1,4 +1,5 @@
 **Rules and recommendations related to Access Control Lists:**
+
 - No Access Control Lists on property level.
 - Accessors MUST be added on LogisticsObject level
 
@@ -295,10 +296,10 @@ The following HTTP header parameters MUST be present in the request:
 | Code |     | Description           | Response body |
 | -------- | --- |  --- | ----------------- |
 | **201**  |     | ACL has been published for a Logistics Object | No response body  |
-| **400**  |     | Invalid ACL               | Error model       |
-| **401**  |     | Not authenticated         | Error model       |
-| **403**  |     | Not authorized to publish an ACL              | Error model       |
-| **415**  |     | Unsupported Content Type  | Error model       |
+| **400**  |     | Invalid ACL               | Error       |
+| **401**  |     | Not authenticated         | Error       |
+| **403**  |     | Not authorized to publish an ACL              | Error       |
+| **415**  |     | Unsupported Content Type  | Error       |
 
 ## Retrieve ACL for a specific Logistics Object (GET)
 

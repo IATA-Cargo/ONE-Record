@@ -172,7 +172,7 @@ The ONE Record server MUST inform the ONE Record client about the selected versi
 Content-Type: application/ld+json; version=2.0.0-dev
 ```
 
-If no version is specified by the ONE Record client, the ONE Record server SHOULD use the latest implemented API version.
+If no version is specified in the `Accept` request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see [supportedApiVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedApiVersion) in [ServerInformation](https://onerecord.iata.org/ns/api/2.0.0-dev#ServerInformation)).
 
 Every ONE Record server MUST provide information about the supported API versions. (see [Get Server Information](server-information.md))
 
@@ -188,18 +188,18 @@ Some examples for possible changes to the ONE Record data models (ontology):
 - Updates of cardinality or data types
 - Updates of comments or labels
 
-Every ONE Record server MUST provide information about supported data model ontologies using [supportedOntologies](https://onerecord.iata.org/api#supportedOntologies) (see. [Get Server Information](#get-server-information)).
-This `supportedOntologies` MUST be a list of IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
+Every ONE Record server MUST provide information about the supported data model / ontologies using [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) (see [Get Server Information](#get-server-information)).
+This [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) property MUST be a list of versioned IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
 
-Every HTTP POST or PATCH request MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the request body, e.g. 
-https://onerecord.iata.org/ns/cargo/3.0.0. If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
+Every HTTP POST or PATCH request MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the request body, e.g. https://onerecord.iata.org/ns/cargo/3.0.0. If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 
 Every GET response MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the response body, e.g. 
-https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the logistics object type, e.g. https://onerecord.iata.org/ns/cargo#Piece)
+https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the logistics object type, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
 
-However, the `@type` property that is used by JSON-LD MUST contain a non-versioned IRI, e.g. https://onerecord.iata.org/ns/cargo#Piece
+However, the `@type` property that is used by JSON-LD MUST contain a non-versioned IRI, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece
 
-To support independence between the ONE Record Cargo ontology and the ONE Record API, the serialized objects MUST also additionally contain the `versioned-type` property.
+To support the independence between the ONE Record Cargo ontology and the ONE Record API, 
+the serialized objects - e.g. in JSON-LD format -  MUST also additionally contain the `versioned-type` property.
 
 ## Data Versioning
 
@@ -207,7 +207,7 @@ see [Historical Logistics Object](#retrieve-historical-logistics-object)
 
 # Validation
 
-==TODO: with SHACL files==
+==TODO: Discuss whether SHACL files should be provided for field validation.==
 
 # Error Handling
 
@@ -216,9 +216,9 @@ With this information, the ONE Record client can proceed accordingly.
 
 The ONE Record API specifies two classes of errors, namely: (1) as a direct response to a synchronous request, or (2) as an asynchronous response submitted after a submitted request has been processed.
 
-This section describes the general error model data type definition used for error handling within the ONE Record API, and examples for both types of errors.
+This section describes the general Error data type definition used for error handling within the ONE Record API, and examples for both types of errors.
 
-## Error Model
+## Error
 
 Class diagram:
 
@@ -240,7 +240,7 @@ classDiagram
     }
 ```
 
-The error model contains the following properties:
+The Error contains the following properties:
 
 | Property       | Description                      | Required     | Class       |
 | ----------- |  ------------------------------- | ------------ | ----------- |
@@ -261,17 +261,17 @@ In this scenario, the [api#errorCode](https://onerecord.iata.org/ns/api/2.0.0-de
 
 **Error HTTP Status Codes**
 
-The following table contains a non-exhaustive list of HTTP error statuses that require an error model response:
+The following table contains a non-exhaustive list of HTTP error statuses that require an Error response:
 
 | Code  | Description                | Response body |
 | --- | -----                | --- |
-| 400 | 	Bad request | Error model       |
-| 401 | 	Not authenticated or expired token | Error model       |
-| 403 | 	Not authorized to perform action | Error model       |
-| 404 | 	Not Found | Error model       |
-| 405 | 	Method not allowed | Error model       |
-| 415 | 	Unsupported content type | Error model       |
-| 500 |  Internal Server Error | Error model       |
+| 400 | 	Bad request | Error       |
+| 401 | 	Not authenticated or expired token | Error       |
+| 403 | 	Not authorized to perform action | Error       |
+| 404 | 	Not Found | Error       |
+| 405 | 	Method not allowed | Error       |
+| 415 | 	Unsupported content type | Error       |
+| 500 |  Internal Server Error | Error       |
 
 There is a list of non-exhaustive JSON-LD syntax error types (relative to 400 Bad Request error family) on the official [JSON-LD API specifications website](https://www.w3.org/TR/json-ld-api/#error-handling).
 
