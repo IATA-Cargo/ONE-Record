@@ -218,7 +218,7 @@ The ONE Record API specifies two classes of errors, namely: (1) as a direct resp
 
 This section describes the general Error data type definition used for error handling within the ONE Record API, and examples for both types of errors.
 
-## Error
+**Error data model**
 
 Class diagram:
 
@@ -227,51 +227,51 @@ classDiagram
     direction LR   
 
    class Error{        
-        + details[]: ErrorDetails [1..*]
-        + title: xsd:string
+        + hasErrorDetails[]: ErrorDetails [1..*]
+        + hasTitle: xsd:string
     }
     Error "1" --> "*" ErrorDetails
     
     class ErrorDetails{
-        + code: xsd:string
-        + message: xsd:string [0..1]
-        + property: xsd:anyURI [0..1]
-        + resource: xsd:anyURI [0..1]
+        + hasCode: xsd:string  [0..1] [0..1]
+        + hasMessage: xsd:string [0..1]
+        + hasProperty: xsd:anyURI [0..1]
+        + hasResource: xsd:anyURI [0..1]
     }
 ```
 
-The Error contains the following properties:
+The Error object has the following properties:
 
 | Property       | Description                      | Required     | Class       |
 | ----------- |  ------------------------------- | ------------ | ----------- |
-| **title**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | y            | w3c:String  |
-| **details**          | details of the error              | n            | api:Details |
-| - code               | a ONE Record application-specific error code expressed as a string value. | n            | w3c:String  |
-| - property          | data element to which the error applies               | n            | w3c:String  |
-| - resource           | URI of the object concerned       | n            | w3c:String   |
-| - message            | Explanation specific to this problem                  | n            | w3c:String  |
+| **hasTitle**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | y            | w3c:String  |
+| **hasErrorDetail**          | details of the error              | n            | api:ErrorDetails |
+| - hasCode               | a ONE Record application-specific error code expressed as a string value. | n            | w3c:String  |
+| - hasMessage            | Explanation specific to this problem                  | n            | w3c:String  |
+| - hasProperty          | data element to which the error applies               | n            | w3c:String  |
+| - hasResource           | URI of the object concerned       | n            | w3c:String   |
 
-[ErrorDetails](https://onerecord.iata.org/api#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
-For example, set the property [api#errorMessage](https://onerecord.iata.org/ns/api/2.0.0-dev#errorMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.
+[ErrorDetails](https://onerecord.iata.org/ns/api/2.0.0-dev#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
+For example, set the property [hasMessage](https://onerecord.iata.org/ns/api/2.0.0-dev#hasMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.
 
 ## Synchronous Error Handling
 
 For interaction with ONE Record endpoints, the ONE Record API specification defines a an error handling as a direct response to a failed synchronous request.
-In this scenario, the [api#errorCode](https://onerecord.iata.org/ns/api/2.0.0-dev#errorCode) MUST be same as the HTTP status code (see below).
+In this scenario, the property [hasCode](https://onerecord.iata.org/ns/api/2.0.0-dev#hasCode) MUST be same as the HTTP status code (see below).
 
 **Error HTTP Status Codes**
 
 The following table contains a non-exhaustive list of HTTP error statuses that require an Error response:
 
 | Code  | Description                | Response body |
-| --- | -----                | --- |
-| 400 | 	Bad request | Error       |
-| 401 | 	Not authenticated or expired token | Error       |
-| 403 | 	Not authorized to perform action | Error       |
-| 404 | 	Not Found | Error       |
-| 405 | 	Method not allowed | Error       |
-| 415 | 	Unsupported content type | Error       |
-| 500 |  Internal Server Error | Error       |
+| --- | -----                        | --- |
+| 400 | Bad request | Error       |
+| 401 | Not authenticated or expired token | Error       |
+| 403 | Not authorized to perform action | Error       |
+| 404 | Not Found | Error       |
+| 405 | Method not allowed | Error       |
+| 415 | Unsupported content type | Error       |
+| 500 | Internal Server Error | Error       |
 
 There is a list of non-exhaustive JSON-LD syntax error types (relative to 400 Bad Request error family) on the official [JSON-LD API specifications website](https://www.w3.org/TR/json-ld-api/#error-handling).
 
@@ -314,21 +314,22 @@ Note that the [api#errors](https://onerecord.iata.org/ns/api/2.0.0-dev#errors) p
         "@language": "en-US"
     },
     "@type": "api:ChangeRequest",
-    "api#errors": [{
+    "@id": "https://1r.example.com/action-requests/f74ae62b-0af3-52ca-8a83-fa756fc3fab9",
+    "api#hasError": [{
         "@type": "api:Error",
-        "@id": "1r:error-f721a9fa-41d1-4294-afb4-20b95a299984",
-        "api:title": "Conflict with Logistics Object revision number",
+        "@id": "https://1r.example.com/action-requests/f74ae62b-0af3-52ca-8a83-fa756fc3fab9/errors/0da27144-fa78-5201-be5f-0f9ab3d3b3d8",
+        "api:hasTitle": "Conflict with Logistics Object revision number",
         "api:details": [{
             "@type": "api:ErrorDetails",
-            "@id": "1r:error-details-9c53b821-4c57-45a1-ab21-ec6a7a511c10",            
-            "api:code": "409",
-            "api:message": "The provided revision number is invalid or lower than the current Logistics Object revision",
-            "api:resource": "http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93"
+            "@id": "_:b1",            
+            "api:hasCode": "409",
+            "api:hasMessage": "The provided revision number is invalid or lower than the current Logistics Object revision",
+            "api:hasResource": "http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93"
         }]
     }]
 }
 ```
-*(The properties of the actual ChangeRequest are omitted for clarity. See [here](logistics-objects.md#update-a-logistics-object) for complete examples.)*
+*(The properties of the actual ChangeRequest are omitted for clarity. See [here](action-requests.md) for complete examples.)*
 
 # Internationalization (i18n)
 
@@ -336,7 +337,7 @@ Internationalization (abbreviated i18n) enables ONE Record clients and ONE Recor
 
 This i18n support is helpful exchanging of data using different languages. For example, if a shipper provides information only in Chinese characters, an English-speaking organization may not be able to use this information without preprocessing. Therefore, it is necessary to specify the language in which the data will be transmitted and SHOULD be returned.
 
-Every ONE Record server MUST provided the supported languages in the [ServerInformation](#get-server-information) using the [api#supportedLanguages](https://onerecord.iata.org/api#supportedLanguages) property.
+Every ONE Record server MUST provided the supported languages in the [ServerInformation](#get-server-information) using the [api#supportedLanguages](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedLanguages) property.
 
 To ensure global interoperability, each ONE Record server MUST implement American English as a supported language (i.e. en-US).
 The request HTTP header `Accept-Language` SHOULD be used by the ONE Record client to specify the language of the response.

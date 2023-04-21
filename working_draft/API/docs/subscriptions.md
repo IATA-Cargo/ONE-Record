@@ -35,15 +35,15 @@ classDiagram
     SubscriptionRequest "1" --> "1" Subscription
 
     class Subscription{        
-        + contentType[]: xsd:string [*]
-        + description: xsd:string [0..1]
+        + hasContentType[]: xsd:string [*]
+        + hasDescription: xsd:string [0..1]
         + expiresAt: xsd:dateTime [0..1]                                
         + hasSubscriber: Organization        
         + hasTopicType: TopicType        
-        + notifyRequestStatusChange: xsd:boolean = FALSE
+                + notifyRequestStatusChange: xsd:boolean = FALSE
         + sendLogisticsObjectBody: xsd:boolean = FALSE        
         + subscribeToLogisticsEvents: xsd:boolean = FALSE
-        + topic: xsd:anyURI        
+        + hasTopic: xsd:anyURI        
     }    
     Subscription "1" --> "1" Organization: hasSubscriber
     Subscription --> TopicType
@@ -121,7 +121,7 @@ Content-Language: en-US
 _([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
 
 The publisher uses the response to store it in a SubscriptionRequest, which can later be referenced in Notifications and used to revoke the subscription.
-For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed](https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed)
+For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed)
 
 **Step 3 - Send Notification to Subscribers**
 
@@ -307,7 +307,7 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
-| **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed |
+| **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed |
 | **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest                     |
 
 The following HTTP status codes MUST be supported:
@@ -340,7 +340,7 @@ Response:
 
 ```bash
 HTTP/1.1 201 Created
-Location: https://1r.example.com/subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed
+Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed
 Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest
 ```

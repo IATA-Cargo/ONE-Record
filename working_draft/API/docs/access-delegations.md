@@ -67,9 +67,10 @@ classDiagram
     class Organization{        
     }  
     class AccessDelegation{
-        + description: xsd:string [0..1]
+        + hasDescription: xsd:string [0..1]
         + hasPermission[]: Permission [1..*]                
         + isRequestedFor[]: Organization [1..*]
+        + notifyRequestStatusChange: xsd:boolean = FALSE
         + hasLogisticsObject[]: LogisticsObject [1..*]        
     }
 
@@ -130,8 +131,8 @@ Type: https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest
 ```
 
 !!! note
-    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
-    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are the same.
+    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
+    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are the same.
 
 ## Example A2
 
@@ -157,8 +158,8 @@ Type: https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest
 ```
 
 !!! note
-    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
-    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are different.
+    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
+    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are different.
 
 
 # Trust Chains

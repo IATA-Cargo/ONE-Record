@@ -23,7 +23,7 @@ The initialization of this data exchange channel is described in the [Subscripti
     class ActionRequest {
         <<Abstract>>         
         + hasError[]: Error [*]
-        + requestedAt: xsd:dateTime         
+        + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
@@ -38,11 +38,11 @@ The initialization of this data exchange channel is described in the [Subscripti
     ActionRequest "1" --> "1..*" Organization : revokedBy
 
     class Notification{
-        + changedProperties[]: xsd:anyURI [*]        
+        + hasChangedProperty[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]                
-        + topic: xsd:anyURI
+        + hasTopic: xsd:anyURI
         
     }
     Notification "1"--> "0..1" LogisticsObject

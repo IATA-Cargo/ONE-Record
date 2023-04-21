@@ -11,11 +11,22 @@
     "api:hasChange": {
       ...this contains a complete Change object...
     },
-    "api:hasError": [],
+    "api:hasError": [{
+      "@type": "api:Error",
+      "@id": "https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b/errors/98843671-388c-53c6-ba79-7be266f61aa0",
+      "api:hasTitle": "LogisticsObject revision does not match",
+      "api:details": [{
+        "@type": "api:ErrorDetails",
+        "@id": "_:b1",
+        "api:hasCode": "409",
+        "api:hasMessage": "LogisticsObject revision does not match",
+        "api:hasResource": "http://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+      }]
+    }],
     "api:hasRequestedAt": "2020-09-07T11:55:45.768Z",
     "api:isRequestedBy": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
     "api:hasRequestStatus": {
-      "@id": "api:REQUEST_STATUS_ACCEPTED"
+      "@id": "api:REQUEST_STATUS_REJECTED"
     }
   }],
   "api:hasLatestRevision": "2"

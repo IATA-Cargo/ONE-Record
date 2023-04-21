@@ -4,7 +4,7 @@
         "api": "https://onerecord.iata.org/ns/api/2.0.0#"
     },
     "@type": "api:Change",
-    "api:referencesLogisticsObject": [
+    "api:hasLogisticsObject": [
         {
             "@type": "cargo:LogisticsObject",
             "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
@@ -14,17 +14,17 @@
     "api:hasOperation": [
         {
             "@type": "api:Operation",
-            "api:op": "ADD",
+            "api:op": { "@id": "api:ADD" },
             "api:s": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
             "api:p": "https://onerecord.iata.org/ns/cargo/3.0.0#hasLogisticsEvent",
             "api:o": [
                 {
                     "@type": "api:OperationObject",
-                    "api:datatype": "https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent",
-                    "api:value": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events/c9ab534e-3246-48d3-b34d-bb380bd98af7"
+                    "api:hasDatatype": "https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent",
+                    "api:hasValue": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events/c9ab534e-3246-48d3-b34d-bb380bd98af7"
                 }
             ]
         }             
     ],    
-    "api:revision": "4"    
+    "api:hasRevision": "4"    
 }

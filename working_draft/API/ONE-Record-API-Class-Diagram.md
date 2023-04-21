@@ -13,9 +13,10 @@ classDiagram
     }  
 
     class AccessDelegation{
-        + description: xsd:string [0..1]
+        + hasDescription: xsd:string [0..1]
         + hasPermission[]: Permission [1..*]                
         + isRequestedFor[]: Organization [1..*]
+        + notifyRequestStatusChange: xsd:boolean = FALSE
         + hasLogisticsObject[]: LogisticsObject [1..*]        
     }
 
@@ -26,11 +27,11 @@ classDiagram
     class ActionRequest {
         <<Abstract>>         
         + hasError[]: Error [*]
-        + requestedAt: xsd:dateTime         
+        + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization [0..1]
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + revokedAt: xsd:dateTime [0..1]                 
+        + isRevokedAt: xsd:dateTime [0..1]                 
     }
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
@@ -59,38 +60,39 @@ classDiagram
        
     class AuditTrail{                
         + hasChangeRequest[]: ChangeRequest [*]                
-        + latestRevision: xsd:nonNegativeInteger       
+        + hasLatestRevision: xsd:nonNegativeInteger       
     }
     AuditTrail "1" --> "*" ChangeRequest
 
     class Change{    
-        + description: xsd:string [0..1]    
+        + hasDescription: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
         + hasLogisticsObject: LogisticsObject
-        + revision: xsd:nonNegativeInteger        
+        + hasRevision: xsd:nonNegativeInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Change "1" --> "1" LogisticsObject
     Change "1" --> "1..*" Operation
     
     class Error{        
         + hasErrorDetail[]: ErrorDetails [1..*]
-        + title: xsd:string
+        + hasTitle: xsd:string
     }
     Error "1" --> "*" ErrorDetails
     
     class ErrorDetails{
-        + code: xsd:string
-        + message: xsd:string [0..1]
-        + property: xsd:anyURI [0..1]
-        + resource: xsd:anyURI [0..1]
+        + hasCode: xsd:string  [0..1]
+        + hasMessage: xsd:string [0..1]
+        + hasProperty: xsd:anyURI [0..1]
+        + hasResource: xsd:anyURI [0..1]
     }
     
     class Notification{
-        + changedProperties[]: xsd:anyURI [*]        
+        + hasChangedProperty[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]                
-        + topic: xsd:anyURI
+        + hasTopic: xsd:anyURI
         
     }
     Notification "1"--> "0..1" LogisticsObject
@@ -107,32 +109,31 @@ classDiagram
     Operation --> PatchOperation
 
     class OperationObject{
-        + datatype: xsd:anyURI
-        + value: xsd:string   
+        + hasDatatype: xsd:anyURI
+        + hasValue: xsd:string   
     }
 
     class ServerInformation{
-        + hasDataOwner: Organization        
-        + providesNotificationsEndpoint: xsd:boolean = TRUE
-        + serverEndpoint: xsd:anyURI        
-        + supportedApiVersion[]: xsd:string [1..*]
-        + supportedContentType[]: xsd:string [1..*]        
-        + supportedEncoding[]: xsd:string [*]
-        + supportedLanguage[]: xsd:string [1..*]
-        + supportedLogisticsObjectType[]: xsd:anyURI [1..*]
-        + supportedOntology[]: xsd:anyURI [1..*]
+        + hasDataOwner: Organization                
+        + hasServerEndpoint: xsd:anyURI        
+        + hasSupportedApiVersion[]: xsd:string [1..*]
+        + hasSupportedContentType[]: xsd:string [1..*]        
+        + hasSupportedEncoding[]: xsd:string [*]
+        + hasSupportedLanguage[]: xsd:string [1..*]
+        + hasSupportedLogisticsObjectType[]: xsd:anyURI [1..*]
+        + hasSupportedOntology[]: xsd:anyURI [1..*]
     }    
     ServerInformation "1" --> "1" Organization
 
     class Subscription{        
-        + contentType[]: xsd:string [*]
-        + description: xsd:string [0..1]
+        + hasContentType[]: xsd:string [*]
+        + hasDescription: xsd:string [0..1]
         + expiresAt: xsd:dateTime [0..1]                                
         + hasSubscriber: Organization        
         + hasTopicType: TopicType        
         + sendLogisticsObjectBody: xsd:boolean = FALSE        
         + subscribeToLogisticsEvents: xsd:boolean = FALSE
-        + topic: xsd:anyURI        
+        + hasTopic: xsd:anyURI        
     }    
     Subscription "1" --> "1" Organization: hasSubscriber
     Subscription --> TopicType

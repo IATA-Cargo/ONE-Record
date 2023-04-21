@@ -37,17 +37,29 @@ A successful request MUST return a `HTTP/1.1 200 OK` status code and the followi
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.                    | en-US     |
 | **Last-Modified**    | Date and time when the ServerInformation was last time changed. See https://developer.mozilla.org/en-US/docs/Web/ | Tue, 21 Feb 2023 07:28:00 GMT |
 
-The HTTP body must contain a valid [ServerInformation](https://iata.onerecord.org/api#ServerInformation) object in the format as specified by the Content-Type in the header.
+The HTTP body must contain a valid [ServerInformation](https://iata.onerecord.org/ns/api/2.0.0-dev#ServerInformation) object in the format as specified by the Content-Type in the header.
 
-The response body includes the following data elements.
+The [ServerInformation](https://iata.onerecord.org/ns/api/2.0.0-dev#ServerInformation) is a data class of the ONE Record API ontology. The properties and relationships to other data classes are visualized in the following class diagram.
 
-| Object Property               | Description                 | Required |        |
-| ----------------------------- |  ----- | -------- |  ---- |
-| **dataOwner**                 | URI to the Company that is hosted on the server | y        | http://www.w3.org/2001/XMLSchema#anyURI        |
-| **serverEndpoint**            | ONE Record server endpoint  | y        | http://www.w3.org/2001/XMLSchema#anyURI        |
-| **supportedLanguages**        | Languages supported by this server              | y        | http://www.w3.org/2001/XMLSchema#string (list) |
-| **supportedContentTypes**     | HTTP content types supported by this server     | y        | http://www.w3.org/2001/XMLSchema#string (list) |
-| **supportedLogisticsObjects** | Logistics Object types supported by this server | y        | http://www.w3.org/2001/XMLSchema#anyURI (list) |
+```mermaid
+classDiagram   
+    direction LR   
+
+    class Organization{        
+    }  
+
+    class ServerInformation{
+        + hasDataOwner: Organization                
+        + hasServerEndpoint: xsd:anyURI        
+        + hasSupportedApiVersion[]: xsd:string [1..*]
+        + hasSupportedContentType[]: xsd:string [1..*]        
+        + hasSupportedEncoding[]: xsd:string [*]
+        + hasSupportedLanguage[]: xsd:string [1..*]
+        + hasSupportedLogisticsObjectType[]: xsd:anyURI [1..*]
+        + hasSupportedOntology[]: xsd:anyURI [1..*]
+    }        
+    ServerInformation "1" --> "1" Organization
+```
 
 ## Example A1
 
@@ -57,15 +69,15 @@ Request:
 
 GET / HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json
-Accept: application/ld+json
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
+Content-Type: application/ld+json; version=2.0.0-dev
 
 --8<-- "examples/ServerInformation.json"
 ```
@@ -76,11 +88,9 @@ _([examples/ServerInformation.json](examples/ServerInformation.json))_
 Request:
 
 ```http
-
 GET / HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json
-Accept: application/ld+json
+Accept: application/ld+json; version=2.0.0-dev
 ```
 
 Response:

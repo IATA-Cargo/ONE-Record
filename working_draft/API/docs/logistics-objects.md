@@ -305,8 +305,8 @@ Thus, any property in a Logistics Object can be _deleted_, _added_, or _replaced
 - Only the Owner of a Logistics Object MAY make the changes to logistics objects.
 - Any User of a Logistics Object CAN request a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) on a Logistics Object, which result in a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_PENDING).
 - The Owner of a Logistics Object decides about the [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) and applies changes to a Logistics Object unless there is a business or technical reason to reject it.
-- Evaluation and Application of a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. Meaning, 
-- If a field update fails, the entire [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is unsuccessful. Partial updates MUST NOT be accepted. The ONE Record server MUST use the property [hasError](https://onerecord.iata.org/ns/cargo/3.0.0#hasError) of the [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) to document the errors.
+- Evaluation and Application of a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. Meaning, 
+- If a field update fails, the entire [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) is unsuccessful. Partial updates MUST NOT be accepted. The ONE Record server MUST use the property [hasError](https://onerecord.iata.org/ns/cargo/3.0.0#hasError) of the [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) to document the errors.
 - If the update is successful, the revision number in a Logistics Object's [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#retrieve-a-historical-logistics-object) and [Audit Trail of Logistics Objects](#get-audit-trail-of-a-logistics-object) for more details.
 - It is RECOMMENDED to get the latest version of Logistics Object before requesting a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) to ensure that the update is made to the latest version of the Logistics Object.
 - If a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is rejected by the Owner of the Logistics Object, the revision number of the Logistics Object is not incremented but the request is added to the [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) of this Logistics Object, marked with the status [REQUEST_REJECTED](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_REJECTED). A rejected [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is kept in the [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) of the Logistics Object.
@@ -347,7 +347,7 @@ classDiagram
     class ActionRequest {
         <<Abstract>>         
         + hasError[]: Error [*]
-        + requestedAt: xsd:dateTime         
+        + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
@@ -369,24 +369,25 @@ classDiagram
 
     class Change{        
         + hasOperation[]: Operation [1..*]        
-        + description: xsd:string [0..1]
+        + hasDescription: xsd:string [0..1]
         + hasLogisticsObject: LogisticsObject
-        + revision: xsd:nonNegativeInteger        
+        + hasRevision: xsd:nonNegativeInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Change "1" --> "1" LogisticsObject
     Change "1" --> "1..*" Operation
 
     class Error{        
         + hasErrorDetail[]: ErrorDetails [1..*]
-        + title: xsd:string
+        + hasTitle: xsd:string
     }
     Error "1" --> "*" ErrorDetails
     
     class ErrorDetails{
-        + code: xsd:string
-        + message: xsd:string [0..1]
-        + property: xsd:anyURI [0..1]
-        + resource: xsd:anyURI [0..1]
+        + hasCode: xsd:string  [0..1]
+        + hasMessage: xsd:string [0..1]
+        + hasProperty: xsd:anyURI [0..1]
+        + hasResource: xsd:anyURI [0..1]
     }
 
     class Operation{
@@ -399,8 +400,8 @@ classDiagram
     Operation --> PatchOperation
 
     class OperationObject{
-        + datatype: xsd:anyURI
-        + value: xsd:string   
+        + hasDatatype: xsd:anyURI
+        + hasValue: xsd:string   
     }
 
     class PatchOperation{
@@ -424,8 +425,8 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 
 | Header | Description                 | Example                |
 | -------------------- |  ----- |   -------------------------------- |
-| **Location**         | The URI of the submitted ChangeRequest          | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99b |
-| **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/api/ChangeRequest                   |
+| **Location**         | The URI of the submitted ChangeRequest          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
+| **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest                   |
 
 Otherwise, an `Error` object with `ErrorDetails` as response body MUST be returned with the following HTTP headers:
 
@@ -449,7 +450,7 @@ The following HTTP status codes MUST be supported:
 ## Example C1
 
 In the example below, a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) from `TRUE` to `FALSE`.
-This results in the following operations that MUST to be part of the [ChangeRequest](https://onerecord.iata.org/api#ChangeRequest):
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
 
 1. add the value `"BOOKS"` (xsd:string) to the property [goodsDescription](https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription) of [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
 2. delete the value `TRUE` (xsd:boolean) from property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) of [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
@@ -463,24 +464,24 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example1.json"
+--8<-- "examples/Change_example1.json"
 ```
 
-_([examples/ChangeRequest_example1.json](examples/ChangeRequest_example1.json))_
+_([examples/Change_example1.json](examples/Change_example1.json))_
 
 Response:
 
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/api/ChangeRequest
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99b
+Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b
 ```
 
 ## Example C2
 
 In the example below, Piece#grossWeight is added.
-This results in the following operations that MUST to be part of the ChangeRequest:
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
 
 1. add the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) to the property Piece#grossWeight
 
@@ -492,24 +493,24 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example2.json"
+--8<-- "examples/Change_example2.json"
 ```
 
-_([examples/ChangeRequest_example2.json](examples/ChangeRequest_example2.json))_
+_([examples/Change_example2.json](examples/Change_example2.json))_
 
 Response:
 
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/api/ChangeRequest
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99c
+Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99c
 ```
 
 ## Example C3
 
 In the example below, Piece#grossWeight is changed from 20.0 KGM to 25.0 KGM .
-This results in the following operations that MUST to be part of the ChangeRequest:
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
 
 1. delete the property value of embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) within the property Piece#grossWeight
 1. add the property value `25.0` to the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM") within the property Piece#grossWeight
@@ -525,24 +526,24 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example3.json"
+--8<-- "examples/Change_example3.json"
 ```
 
-_([examples/ChangeRequest_example3.json](examples/ChangeRequest_example3.json))_
+_([examples/Change_example3.json](examples/Change_example3.json))_
 
 Response:
 
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/api/ChangeRequest
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99d
+Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
 ```
 
 ## Example C4
 
 In the example below, Piece#grossWeight is deleted.
-This results in the following operations that MUST to be part of the ChangeRequest:
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
 
 1. delete the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) from the property Piece#grossWeight
 
@@ -554,18 +555,18 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example4.json"
+--8<-- "examples/Change_example4.json"
 ```
 
-_([examples/ChangeRequest_example4.json](examples/ChangeRequest_example4.json))_
+_([examples/Change_example4.json](examples/Change_example4.json))_
 
 Response:
 
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/api/ChangeRequest
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99d
+Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
 ```
 
 ## Example C5
@@ -630,18 +631,18 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/ChangeRequest_example5.json"
+--8<-- "examples/Change_example5.json"
 ```
 
-_([examples/ChangeRequest_example5.json](examples/ChangeRequest_example5.json))_
+_([examples/Change_example5.json](examples/Change_example5.json))_
 
 Response:
 
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/api/ChangeRequest
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail/change-requests/6b948f9b-b812-46ed-be39-4501453da99e
+Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99e
 ```
 
 
@@ -653,7 +654,7 @@ Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a41
     If you want to delete the whole object.
 
 ## Example C6
-In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api/2.0.0-dev#referencesLogisticsObject) in the Change object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
+In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api/2.0.0-dev#referencesLogisticsObject) in the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
 
 Request:
 
@@ -680,7 +681,8 @@ _([examples/Error_400.json](examples/Error_400.json))_
 
 ## Example C7
 
-In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#hasLogisticsEvent). The ONE Record server returns a `400 Bad Request`.
+In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#hasLogisticsEvent).
+The ONE Record server returns a `400 Bad Request`.
 
 Request:
 
@@ -721,7 +723,7 @@ classDiagram
 
     class AuditTrail{                
         + hasChangeRequest[]: ChangeRequest [*]                
-        + latestRevision: xsd:nonNegativeInteger       
+        + hasLatestRevision: xsd:nonNegativeInteger       
     }
     AuditTrail "1" --> "*" ChangeRequest
 ```
@@ -785,7 +787,7 @@ The following example shows an AuditTrail including a ChangeRequest.
 Request:
 
 ```http
-GET /logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail HTTP/1.1
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail HTTP/1.1
 Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
@@ -803,9 +805,29 @@ Content-Language: en-US
 _([examples/AuditTrail.json](examples/AuditTrail.json))_
 
 ## Example D2
-An example of an AuditTrail with ChangeRequests with Errors
+An example of an AuditTrail with ChangeRequests with Errors, e.g. the revision of the Logistics Object used in the submitted Change is outdated
 
-> 🚧🚧🚧 TODO 🚧🚧🚧
+Request:
+
+```http
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail HTTP/1.1
+Host: 1r.example.com
+Content-Type: application/ld+json
+Accept: application/ld+json
+```
+
+Response:
+
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+Content-Language: en-US
+
+--8<-- "examples/AuditTrail_example2.json"
+```
+_([examples/AuditTrail_example2.json](examples/AuditTrail_example2.json))_
+
+
 
 # Retrieve a historical Logistics Object
 

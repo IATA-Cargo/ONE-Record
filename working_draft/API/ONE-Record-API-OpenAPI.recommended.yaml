@@ -51,6 +51,34 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+  
+  /logistics-objects:
+    post:
+      tags:
+        - Logistics Object
+      summary: 'INTERNAL: Create a LogisticsObject'
+      operationId: addLogisticsObject
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/LogisticsObject'
+        required: true
+      responses:
+        '201':
+          description: Created
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
   /logistics-objects/{logisticsObjectId}:
     get:
       tags:
@@ -435,7 +463,33 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Error'      
+                $ref: '#/components/schemas/Error'  
+    patch:
+      tags:
+      - Action Requests
+      summary: 'INTERNAL: Update an Action Request'
+      operationId: updateActionRequest
+      parameters:
+        - name: actionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'  
     delete:
       tags:
       - Action Requests
@@ -461,7 +515,76 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Error'  
+                $ref: '#/components/schemas/Error' 
+  /action-requests/{actionRequestId}/errors:   
+    get:
+      tags:
+        - Action Requests
+      summary: Retrieves the Errors of a given ActionRequest
+      operationId: getActionRequestErrors
+      parameters:
+        - name: actionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+  /action-requests/{actionRequestId}/errors/{errorId}:   
+    get:
+      tags:
+        - Action Requests
+      summary: Retrieves an Error
+      operationId: getError
+      parameters:
+        - name: actionRequestId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: errorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/ld+json:
+              schema:                
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     oAuth2ClientCredentials:
@@ -705,9 +828,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/Person'
-        location:
-          $ref: '#/components/schemas/Location'
+            $ref: '#/components/schemas/Person'        
         otherIdentifiers:
           uniqueItems: true
           type: array
@@ -813,8 +934,6 @@ components:
               type: string
         linkedObject:
           $ref: '#/components/schemas/LogisticsObject'
-        location:
-          $ref: '#/components/schemas/Location'
         performedBy:
           $ref: '#/components/schemas/Company'
         performedByPerson:
@@ -851,8 +970,6 @@ components:
               type: string
         documentOriginator:
           $ref: '#/components/schemas/Company'
-        location:
-          $ref: '#/components/schemas/Location'
         documentChecksum:
           type: string
         documentId:
@@ -960,10 +1077,7 @@ components:
               - https://onerecord.iata.org/cargo/LogisticsObject
           enum:
             - https://onerecord.iata.org/cargo/LogisticsObject
-          default: [https://onerecord.iata.org/cargo/LogisticsObject]
-        https://onerecord.iata.org/cargo/LogisticsObject#companyIdentifier:
-          title: https://onerecord.iata.org/cargo/LogisticsObject#companyIdentifier
-          type: string
+          default: [https://onerecord.iata.org/cargo/LogisticsObject]        
       example:
         "@type": "https://onerecord.iata.org/cargo/Piece"
         "https://onerecord.iata.org/cargo/Piece#goodsDescription": "ONE Record Advertisement Materials"
@@ -1074,24 +1188,6 @@ components:
           type: string
         salutation:
           type: string
-    Piece:
-      title: Piece
-      allOf:     
-        - $ref: '#/components/schemas/LogisticsObject'
-        - properties:
-            '@type':
-              uniqueItems: true
-              type: array
-              items:
-                type: string
-                enum:
-                  - https://onerecord.iata.org/cargo/Piece
-              enum:
-                - https://onerecord.iata.org/cargo/Piece
-              default: ["https://onerecord.iata.org/cargo/Piece"]
-            https://onerecord.iata.org/cargo/Piece#goodsDescription:
-              title: https://onerecord.iata.org/cargo/Piece#goodsDescription
-              type: string
     Sensor:
       type: object
       properties:
