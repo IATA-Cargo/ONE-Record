@@ -4,7 +4,7 @@ This section discusses the security options for the ONE Record API that governs 
 When exchanging data, each party needs to know with certainty the true identity of the other party and that they have the authority to receive or share the data. They also need to be certain that the data being shared is private, secured, and confidential and cannot be intercepted or changed by any unauthorized third party. The ONE Record security framework works globally and for all stakeholders in the full logistics and transport supply chain, and in compliance with corporate and local data security requirements.
 
 <figure markdown>
-  ![Security overview](img/Security_overview.png)
+  ![Security overview](../img/Security_overview.png)
   <figcaption>Security overview</figcaption>
 </figure>
 

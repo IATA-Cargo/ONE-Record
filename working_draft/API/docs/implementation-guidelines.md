@@ -403,7 +403,7 @@ It is RECOMMENDED to provide a technical documentation of the implemented and re
 
 The ONE Record API specification prescribes only the minimum security requirements that enable secure communication in the Internet of Logistics. 
 This involves securing the communication channel, authentication (verifying the identity of a requestor) and authorization (checking the access right of the requestor). 
-More information on authentication and authorization in the ONE Record context is described in the [Security section](security.md).
+More information on authentication and authorization in the ONE Record context is described in the [Security section](security/security-overview.md).
 
 Although ONE Record is intended for use in a secured environment only, this cannot be guaranteed. Therefore, it is RECOMMENDED to follow best practices for Web API security. For example, topics include rate limiting/throttling, web application firewalls (WAF), security scanning, data exposure in HTTP headers, logging, etc.
 
