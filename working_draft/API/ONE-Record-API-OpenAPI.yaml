@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
   title: ONE Record API Documentation
   description: >-
@@ -27,7 +27,7 @@ paths:
       tags:
         - Access Delegations
       summary: Request delegated access on LogisticsObjects
-      operationId: appendLogisticsEvent_2
+      operationId: createAccessDelegationRequest
       requestBody:
         content:
           application/ld+json:
@@ -42,7 +42,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Error'  
+                $ref: '#/components/schemas/Error'
   /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventsId}:
     get:
       tags:
@@ -207,7 +207,7 @@ paths:
       tags:
         - Subscriptions
       summary: Get subscription information
-      operationId: getLogisticsEvents
+      operationId: getSubscription
       parameters:
         - name: topicType
           in: query
@@ -238,7 +238,7 @@ paths:
       tags:
         - Subscriptions
       summary: Request subscription
-      operationId: appendLogisticsEvent
+      operationId: createSubscriptionRequest
       requestBody:
         content:
           application/ld+json:
@@ -432,13 +432,13 @@ paths:
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Error'  
+                $ref: '#/components/schemas/Error'
   /logistics-objects/{logisticsObjectId}/logistics-events:
     get:
       tags:
         - Logistics Events
       summary: Retrieves the LogisticsEvents of a given LogisticsObject
-      operationId: getLogisticsEvents_1
+      operationId: getLogisticsEvents
       parameters:
         - name: logisticsObjectId
           in: path
@@ -464,7 +464,7 @@ paths:
       tags:
         - Logistics Events
       summary: Append a LogisticsEvent to the event log of a given LogisticsObject
-      operationId: appendLogisticsEvent_1
+      operationId: appendLogisticsEvent
       parameters:
         - name: logisticsObjectId
           in: path
@@ -508,7 +508,10 @@ paths:
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/ActionRequest'
+                oneOf:
+                  - $ref: '#/components/schemas/AccessDelegationRequest'
+                  - $ref: '#/components/schemas/ChangeRequest'
+                  - $ref: '#/components/schemas/SubscriptionRequest'
         '404':
           description: Not Found
           content:
@@ -534,7 +537,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Error'    
+                $ref: '#/components/schemas/Error'
   /logistics-objects/{logisticsObjectId}/access-permissions:
     get:
       tags:
@@ -624,6 +627,15 @@ components:
           type: string
         https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
           type: boolean
+    AccessDelegationRequest:
+      title: AccessDelegationRequest
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ActionRequest'
+        - type: object
+          properties:
+            https://onerecord.iata.org/ns/api#hasAccessDelegation:
+              $ref: '#/components/schemas/AccessDelegation'
     AccessPermissions:
       type: object
       properties:
@@ -644,6 +656,7 @@ components:
           items:
             $ref: '#/components/schemas/Permission'
     ActionRequest:
+      title: ActionRequest
       type: object
       properties:
         '@id':
@@ -1609,34 +1622,14 @@ components:
         https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
           type: boolean
     ChangeRequest:
+      title: ChangeRequest
       type: object
-      properties:
-        '@id':
-          type: string
-        '@type':
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        https://onerecord.iata.org/ns/api#hasError:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-        https://onerecord.iata.org/ns/api#hasRequestStatus:
-          $ref: '#/components/schemas/RequestStatus'
-        https://onerecord.iata.org/ns/api#isRequestedBy:
-          $ref: '#/components/schemas/Organization'
-        https://onerecord.iata.org/ns/api#isRevokedBy:
-          $ref: '#/components/schemas/Organization'
-        https://onerecord.iata.org/ns/api#isRequestedAt:
-          type: string
-          format: date-time
-        https://onerecord.iata.org/ns/api#isRevokedAt:
-          type: string
-          format: date-time
-        https://onerecord.iata.org/ns/api#hasChange:
-          $ref: '#/components/schemas/Change'
+      allOf:
+        - $ref: '#/components/schemas/ActionRequest'
+        - type: object
+          properties:
+            https://onerecord.iata.org/ns/api#hasChange:
+              $ref: '#/components/schemas/Change'
     Characteristic:
       type: object
       properties:
@@ -6160,6 +6153,15 @@ components:
             type: string
         https://onerecord.iata.org/ns/api#subscribeToLogisticsEvents:
           type: boolean
+    SubscriptionRequest:
+      title: SubscriptionRequest
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ActionRequest'
+        - type: object
+          properties:
+            https://onerecord.iata.org/ns/api#hasSubscription:
+              $ref: '#/components/schemas/Subscription'
     Thing:
       type: object
       properties:
