@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed implicit endpoints; define URI structure of Logistics Objects
 - removed Link HTTP header, because URI and endpoint structure is defined
 - removed required ttl/turtle as supported content-type
+- removed acl endpoint
 
   
 ### Added
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added JSON files with examples mentioned in the API specification
 - added overview of permissions for Access Delegation
 - added ActionEnum to class diagram
+- added an endpoint to get permissions on a LogisticsObject `/access-permissions`
 
 
 ---
@@ -100,3 +102,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - import cargo ontology with `owl:imports cargo`
 - changed min/max cardinalities to exact cardinalities (`qualifiedCardinality`)
 - introduced Named Individuals to represent ENUMs
+- added AccessPermission

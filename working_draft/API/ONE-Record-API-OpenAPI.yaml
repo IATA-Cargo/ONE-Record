@@ -535,6 +535,64 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'    
+  /logistics-objects/{logisticsObjectId}/access-permissions:
+    get:
+      tags:
+        - Logistics Objects
+      summary: Retrieve access permissions for a specific logistics object
+      operationId: getAccessPermission
+      parameters:
+        - name: logisticsObjectId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request to retrieve the access permissions has been successful
+          headers:
+            Type:
+              description: Type of the resource
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the AccessPermissions resource
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/AccessPermissions'
+        '401':
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     AccessDelegation:
@@ -565,10 +623,26 @@ components:
         https://onerecord.iata.org/ns/api#hasDescription:
           type: string
         https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
+          type: boolean
+    AccessPermissions:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
           uniqueItems: true
           type: array
           items:
             type: string
+        https://onerecord.iata.org/ns/api#hasLogisticsAgent:
+          $ref: '#/components/schemas/LogisticsAgent'
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasPermission:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
     ActionRequest:
       type: object
       properties:
@@ -587,25 +661,15 @@ components:
         https://onerecord.iata.org/ns/api#hasRequestStatus:
           $ref: '#/components/schemas/RequestStatus'
         https://onerecord.iata.org/ns/api#isRequestedBy:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization'
+          $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#isRevokedBy:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization'
+          $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#isRequestedAt:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: date-time
         https://onerecord.iata.org/ns/api#isRevokedAt:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: date-time
     ActivitySequence:
       type: object
       properties:
@@ -796,10 +860,8 @@ components:
           items:
             $ref: '#/components/schemas/ChangeRequest'
         https://onerecord.iata.org/ns/api#hasLatestRevision:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: integer
+          format: int32
     BillingDetails:
       type: object
       properties:
@@ -1545,10 +1607,7 @@ components:
           items:
             type: string
         https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: boolean
     ChangeRequest:
       type: object
       properties:
@@ -1567,30 +1626,17 @@ components:
         https://onerecord.iata.org/ns/api#hasRequestStatus:
           $ref: '#/components/schemas/RequestStatus'
         https://onerecord.iata.org/ns/api#isRequestedBy:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization'
+          $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#isRevokedBy:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization'
+          $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#isRequestedAt:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: date-time
         https://onerecord.iata.org/ns/api#isRevokedAt:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: date-time
         https://onerecord.iata.org/ns/api#hasChange:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Change'
+          $ref: '#/components/schemas/Change'
     Characteristic:
       type: object
       properties:
@@ -2457,10 +2503,7 @@ components:
           items:
             $ref: '#/components/schemas/ErrorDetail'
         https://onerecord.iata.org/ns/api#hasTitle:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
     ErrorDetail:
       type: object
       properties:
@@ -2472,23 +2515,15 @@ components:
           items:
             type: string
         https://onerecord.iata.org/ns/api#hasCode:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
         https://onerecord.iata.org/ns/api#hasMessage:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
         https://onerecord.iata.org/ns/api#hasProperty:
           type: string
           format: uri
         https://onerecord.iata.org/ns/api#hasResource:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: uri
     EventUld:
       type: object
       properties:
@@ -3927,13 +3962,7 @@ components:
           items:
             type: string
         https://onerecord.iata.org/ns/api#hasEventType:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            enum:
-              - OBJECT_CREATED
-              - OBJECT_UPDATED
+          $ref: '#/components/schemas/NotificationEventType'
         https://onerecord.iata.org/ns/api#hasLogisticsObject:
           $ref: '#/components/schemas/LogisticsObject'
         https://onerecord.iata.org/ns/api#isTriggeredBy:
@@ -3947,6 +3976,16 @@ components:
         https://onerecord.iata.org/ns/api#hasTopic:
           type: string
           format: uri
+    NotificationEventType:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
     Operation:
       type: object
       properties:
@@ -3958,22 +3997,14 @@ components:
           items:
             type: string
         https://onerecord.iata.org/ns/api#o:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/OperationObject'
+          $ref: '#/components/schemas/OperationObject'
         https://onerecord.iata.org/ns/api#op:
           $ref: '#/components/schemas/PatchOperation'
         https://onerecord.iata.org/ns/api#p:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: uri
         https://onerecord.iata.org/ns/api#s:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
     OperationObject:
       type: object
       properties:
@@ -3985,10 +4016,8 @@ components:
           items:
             type: string
         https://onerecord.iata.org/ns/api#hasDatatype:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
+          type: string
+          format: uri
         https://onerecord.iata.org/ns/api#hasValue:
           type: string
     Organization:
@@ -6105,10 +6134,7 @@ components:
         https://onerecord.iata.org/ns/api#hasSubscriber:
           $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#hasTopicType:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/TopicType'
+          $ref: '#/components/schemas/TopicType'
         https://onerecord.iata.org/ns/api#expiresAt:
           type: string
           format: date-time
