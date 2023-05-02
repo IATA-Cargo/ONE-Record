@@ -14,14 +14,6 @@ However, if a ground handling agent (GHA) also needs access to this logistics ob
 
 If, as in this presented scenario, the airline already has a delegation of access to the logistics object, the concept of [Trust Chains](#trust-chains) takes effect.
 
-<!-- <figure>
-  <img src="../img/Access-Delegation_overview.png" style="zoom: 70%; border: 1px solid" />
-  <figcaption>
-  Figure 1: Access Delegation Scenario
-  </figcaption>
-</figure> -->
-
-
 !!! note
     The party granting access is referred to as the `Delegator` and the party receiving access is the `Delegate`. 
     The party requesting access is referred to as the `Requestor` who MAY NOT be the same as the `Delegator`.

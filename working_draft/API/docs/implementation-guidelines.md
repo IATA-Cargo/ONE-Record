@@ -191,15 +191,16 @@ Some examples for possible changes to the ONE Record data models (ontology):
 Every ONE Record server MUST provide information about the supported data model / ontologies using [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) (see [Get Server Information](#get-server-information)).
 This [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) property MUST be a list of versioned IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
 
-Every HTTP POST or PATCH request MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the request body, e.g. https://onerecord.iata.org/ns/cargo/3.0.0. If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
+The ONE Record client is responsible to determine the ontology version that is supported by ONE Record server and the ONE Record client.
+Therefore, every HTTP request MUST contain the HTTP header `Cargo-Ontology-Version` that specifies the ontology version used for the request body (e.g. https://onerecord.iata.org/ns/cargo/3.0.0).
+If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 
-Every GET response MUST contain the HTTP header `Ontology-Version` that specifies the ontology version used for the response body, e.g. 
-https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the logistics object type, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
-
-However, the `@type` property that is used by JSON-LD MUST contain a non-versioned IRI, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Every GET response MUST contain the HTTP header `Cargo-Ontology-Version` that specifies the ontology version used for the response body and MUST be a versioned IRI, e.g. 
+https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the LogisticsObject type, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
 
 To support the independence between the ONE Record Cargo ontology and the ONE Record API, 
-the serialized objects - e.g. in JSON-LD format -  MUST also additionally contain the `versioned-type` property.
+versioned IRIs MUST be used for JSON-LD serialization, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece for the `@type` property and
+https://onerecord.iata.org./ns/cargo/3.0.0#hasGrossWeight for a the property name.
 
 ## Data Versioning
 

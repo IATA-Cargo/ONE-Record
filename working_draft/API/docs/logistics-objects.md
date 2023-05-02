@@ -191,6 +191,7 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated        | Error            |
 | **403** | Not authorized to retrieve the Logistics Object                  | Error            |
 | **404** | Logistics Object not found                   | Error            |
+| **415** | Unsupported Content Type                   | Error            |
 
 ## Example B1
 

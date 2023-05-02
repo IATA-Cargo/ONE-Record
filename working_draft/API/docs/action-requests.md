@@ -144,7 +144,7 @@ and the publisher to obtain the current status of the request and subscription d
 Request:
 
 ```http
-GET /subscription-requests/599fea49-7287-42af-b441-1fa618d2aaed HTTP/1.1
+GET /action-requests/599fea49-7287-42af-b441-1fa618d2aaed HTTP/1.1
 Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 ```
