@@ -7,6 +7,9 @@ mTLS is a transport layer protocol that authenticates both client and server. OA
 
 The following HTTP header MUST be present in the request:
 
+The so-called `Client Credentials Flow` or `Client Credentials Grant Type` can be used to secure machine-to-machine (m2m) communications, where a software program, rather than a user, needs to be authenticated and authorized.
+
+
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
 | **Authorization** | Provides credentials that authenticates the ONE Record client with the ONE Record server. This COULD be an base64 encoded JSON Web Token (JWT) or credentials.       | Basic b25lOnJlY29yZA==                      |

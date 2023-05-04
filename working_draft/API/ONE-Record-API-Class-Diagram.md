@@ -122,6 +122,7 @@ classDiagram
         + hasSupportedLanguage[]: xsd:string [1..*]
         + hasSupportedLogisticsObjectType[]: xsd:anyURI [1..*]
         + hasSupportedOntology[]: xsd:anyURI [1..*]
+        + hasSupportedOntologyVersion[]: xsd:anyURI [1..*]
     }    
     ServerInformation "1" --> "1" Organization
 
@@ -170,10 +171,14 @@ classDiagram
         DEL
     }
     class Permission{
-        <<Enumeration>>
+        <<Enumeration>>        
+        GET_AUDIT_TRAIL
+        GET_LOGISTICS_EVENT
         GET_LOGISTICS_OBJECT
         PATCH_LOGISTICS_OBJECT
+        POST_ACCESS_DELEGATION
         POST_LOGISTICS_EVENT
+        POST_SUBSCRIPTION
     }
     class TopicType{
         <<Enumeration>>

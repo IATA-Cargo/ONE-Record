@@ -1,7 +1,12 @@
-This section discusses the security options for the ONE Record API that governs the connectivity between ONE Record clients and servers on the Internet of Logistics. 
+This section describes the mechanisms and guidelines for securing the ONE Record API, 
+which enables the connection between ONE Record clients and servers on the Internet of Logistics. 
 
 # Background
-When exchanging data, each party needs to know with certainty the true identity of the other party and that they have the authority to receive or share the data. They also need to be certain that the data being shared is private, secured, and confidential and cannot be intercepted or changed by any unauthorized third party. The ONE Record security framework works globally and for all stakeholders in the full logistics and transport supply chain, and in compliance with corporate and local data security requirements.
+
+When exchanging data, each party needs to know with certainty the true identity of the other party and that they have the authority to receive or share the data. 
+They also need to be certain that the data being shared is private, secured, and confidential and cannot be intercepted or changed by any unauthorized third party. 
+The ONE Record security framework works globally and for all stakeholders in the full logistics and transport supply chain, 
+and in compliance with corporate and local data security requirements.
 
 <figure markdown>
   ![Security overview](../img/Security_overview.png)
@@ -20,8 +25,5 @@ The next sections provide more detailed descriptions on the chosen security mode
 
 This section presents these models and showcases the implications and benefits that they bring to the air cargo industry.
 
-Authentication (authn) has to do with identity: are you who you’re claiming to be?
-- TLS and mTLS
-
-Authorization (authz) has to do with policy: are you allowed to do the thing you’re trying to do?
-- OAuth 2.0
+- Authentication (authn) has to do with identity: are you who you’re claiming to be?
+- Authorization (authz) has to do with policy: are you allowed to do the thing you’re trying to do?

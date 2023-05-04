@@ -103,7 +103,7 @@ Thus, unlike bNodes in RDF syntaxes,embedded objet ids MUST NOT be recreated eac
 For maximum compatibility, every request body that is returned from a ONE Record server as well as the HTTP request and response bodies MUST use `UTF-8 encoding` and MUST consist of valid Unicode strings, i.e. MUST NOT contain non-characters or surrogates.
 
 It is RECOMMENDED to implement content compression for the ONE Record API, because it improves the data transfer speed and bandwidth utilization.
-A list of supported content compressions MUST be provided to ONE Record clients via the [Server Information](#get-server-information) endpoint.
+A list of supported content compressions MUST be provided to ONE Record clients via the [Server Information](server-information.md) endpoint.
 
 **Date and Time**
 
@@ -188,19 +188,20 @@ Some examples for possible changes to the ONE Record data models (ontology):
 - Updates of cardinality or data types
 - Updates of comments or labels
 
-Every ONE Record server MUST provide information about the supported data model / ontologies using [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) (see [Get Server Information](#get-server-information)).
-This [supportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) property MUST be a list of versioned IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
+The ONE Record Server MUST be independent of the version of the data model and MUST NOT require versioning. 
+This means that serialization, e.g. using the JSON-LD format, MUST NOT use versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo#Piece for the property "@type" and
+https://onerecord.iata.org./ns/cargo#hasGrossWeight for the property name.
+The ONE Record Server MUST use the latest cargo Ontology provided by IATA for data validation. Any data class and property defined in the latest Cargo Ontology is valid.
+If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a `400 Bad Request` HTTP error.
+For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.
 
-The ONE Record client is responsible to determine the ontology version that is supported by ONE Record server and the ONE Record client.
-Therefore, every HTTP request MUST contain the HTTP header `Cargo-Ontology-Version` that specifies the ontology version used for the request body (e.g. https://onerecord.iata.org/ns/cargo/3.0.0).
-If the header is not provided, the ONE Record server MUST return a `400 Bad Request` HTTP error.
+Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) (see [Get Server Information](#get-server-information)).
+This [hasSupportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedOntology) property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo
 
-Every GET response MUST contain the HTTP header `Cargo-Ontology-Version` that specifies the ontology version used for the response body and MUST be a versioned IRI, e.g. 
-https://onerecord.iata.org/ns/cargo/3.0.0. (In addition to the `Type` HTTP header that contains the LogisticsObject type, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
+Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedOntologyVersion) (see [Get Server Information](server-information.md)).
+This [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntologyVersion) property MUST be a list of versioned ontology IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
 
-To support the independence between the ONE Record Cargo ontology and the ONE Record API, 
-versioned IRIs MUST be used for JSON-LD serialization, e.g. https://onerecord.iata.org/ns/cargo/3.0.0#Piece for the `@type` property and
-https://onerecord.iata.org./ns/cargo/3.0.0#hasGrossWeight for a the property name.
+This supports debugging because the ONE Record client knows if there is a difference in the data model version.
 
 ## Data Versioning
 
@@ -305,7 +306,7 @@ See CargoXML error codes.
 A ONE Record client sends a ChangeRequest that refers to an outdated version of a Logistics Object. After the ONE Record server has processed the ChangeRequest and detected the error, the ONE Record server logs the error in the ChangeRequest on the ONE Record server and sends a Notification of the error to the ONE Record client.
 
 Because asynchronous errors are always part of another data object, below is an example of a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) that contains errors.
-Note that the [api#errors](https://onerecord.iata.org/ns/api/2.0.0-dev#errors) property is a list and there can be multiple errors.
+Note that the [errors](https://onerecord.iata.org/ns/api/2.0.0-dev#errors) property is a list and there can be multiple errors.
 
 ```json
 {
@@ -338,7 +339,7 @@ Internationalization (abbreviated i18n) enables ONE Record clients and ONE Recor
 
 This i18n support is helpful exchanging of data using different languages. For example, if a shipper provides information only in Chinese characters, an English-speaking organization may not be able to use this information without preprocessing. Therefore, it is necessary to specify the language in which the data will be transmitted and SHOULD be returned.
 
-Every ONE Record server MUST provided the supported languages in the [ServerInformation](#get-server-information) using the [api#supportedLanguages](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedLanguages) property.
+Every ONE Record server MUST provided the supported languages in the [ServerInformation](server-information.md) using the [hasSupportedLanguages](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedLanguages) property.
 
 To ensure global interoperability, each ONE Record server MUST implement American English as a supported language (i.e. en-US).
 The request HTTP header `Accept-Language` SHOULD be used by the ONE Record client to specify the language of the response.

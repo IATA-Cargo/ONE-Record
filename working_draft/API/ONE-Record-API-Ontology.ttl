@@ -380,8 +380,16 @@ xsd:date rdf:type rdfs:Datatype .
 :hasSupportedOntology rdf:type owl:DatatypeProperty ;
                       rdfs:domain :ServerInformation ;
                       rdfs:range xsd:anyURI ;
-                      rdfs:comment "Supported ontologies on the server, MUST be versioned IRIs"@en ;
+                      rdfs:comment "Supported ontologies on the server, MUST be non-versioned IRIs"@en ;
                       rdfs:label "Supported ontology"@en .
+
+
+###  https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion
+:hasSupportedOntologyVersion rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :ServerInformation ;
+                      rdfs:range xsd:anyURI ;
+                      rdfs:comment "Supported ontology versions on the server, MUST be versioned IRIs"@en ;
+                      rdfs:label "Supported ontology version"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasTitle
@@ -925,6 +933,7 @@ xsd:date rdf:type rdfs:Datatype .
 :Permission rdf:type owl:Class ;
             owl:equivalentClass [ rdf:type owl:Class ;
                                   owl:oneOf ( :GET_AUDIT_TRAIL
+                                              :GET_LOGISTICS_EVENT
                                               :GET_LOGISTICS_OBJECT
                                               :PATCH_LOGISTICS_OBJECT
                                               :POST_ACCESS_DELEGATION
@@ -981,6 +990,11 @@ xsd:date rdf:type rdfs:Datatype .
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :hasSupportedOntology ;
+                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:anyURI
+                                   ] ,
+                                    [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasSupportedOntologyVersion ;
                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                      owl:onDataRange xsd:anyURI
                                    ] ,
@@ -1176,6 +1190,13 @@ cargo:Organization rdf:type owl:Class .
                                :Permission ;
                       rdfs:comment ":Permission to get a :LogisticsObject"@en ;
                       rdfs:label "GET_LOGISTICS_OBJECT"@en .
+
+
+###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_EVENT
+:GET_LOGISTICS_EVENT rdf:type owl:NamedIndividual ,
+                               :Permission ;
+                      rdfs:comment ":Permission to get a :LogisticsEvent"@en ;
+                      rdfs:label "GET_LOGISTICS_EVENT"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED

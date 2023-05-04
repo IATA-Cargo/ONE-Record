@@ -18,13 +18,6 @@ If, as in this presented scenario, the airline already has a delegation of acces
     The party granting access is referred to as the `Delegator` and the party receiving access is the `Delegate`. 
     The party requesting access is referred to as the `Requestor` who MAY NOT be the same as the `Delegator`.
 
-# Permissions
-
-| Permission                      | Description                                              |
-| ------------------------------- |  ------------------------------------------------------- |
-| **GET_LOGISTICS_OBJECT**        | Authorized to retrieve the content of a LogisticsObject  |
-| **PATCH_LOGISTICS_OBJECT**      | Authorized to request a change of a Logistics Object     |
-| **POST_LOGISTICS_EVENT**        | Authorized to add a Logistics Event to a LogisticsEvent  |
 
 
 # Request Access Delegation
@@ -72,9 +65,13 @@ classDiagram
 
     class Permission{
         <<Enumeration>>
+        GET_AUDIT_TRAIL
+        GET_LOGISTICS_EVENT
         GET_LOGISTICS_OBJECT
         PATCH_LOGISTICS_OBJECT
-        POST_LOGISTICS_EVENT    
+        POST_ACCESS_DELEGATION
+        POST_LOGISTICS_EVENT
+        POST_SUBSCRIPTION  
     }    
 ```
 

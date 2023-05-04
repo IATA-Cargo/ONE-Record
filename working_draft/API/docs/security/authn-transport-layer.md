@@ -11,6 +11,7 @@ It works by establishing a secure, encrypted connection between the client and s
 Without Transport Layer Security, a third party could intercept and read sensitive information such as API credentials and private data as it is transmitted. However, relying solely on TLS encryption, does not ensure security.
 
 **Workflow:**
+
 1) A ONE Record client connects to the ONE Record server
 2) The ONE Record server presents its TLS certificate (issued by a trusted authority)
 3) The ONE Record client verifies the ONE Record server's certificate
