@@ -16,15 +16,12 @@ ONE Record recommends the use of the [ACL ontology](https://www.w3.org/ns/auth/a
 | **PATCH_LOGISTICS_OBJECT**      | Authorized to request a change of a Logistics Object         |
 | **POST_LOGISTICS_EVENT**        | Authorized to add a Logistics Event to a LogisticsObject     |
 | **GET_LOGISTICS_EVENT**         | Authorized to retrieve the details of a LogisticsEvent       |
-| **GET_AUDIT_TRAIL**             | Authorized to retrieve the AuditTrail of a LogisticsObject   |
-| **POST_ACCESS_DELEGATION**      | Authorized to create a access delegation request             |
-| **POST_SUBSCRIPTION**           | Authorized to create a subscription request                  |
 
 **Rules and recommendations related to Access Control:**
 
 - No Access Control Lists on property level.
 - Access Control MUST on LogisticsObject level
-- Every ONE Record server MUST support at least the following permissions: [GET_LOGISTICS_OBJECT](https://onerecord.iata.org/ns/api/2.0.0-dev#GET_LOGISTICS_OBJECT), [PATCH_LOGISTICS_OBJECT](https://onerecord.iata.org/ns/api/2.0.0-dev#PATCH_LOGISTICS_OBJECT), [POST_LOGISTICS_EVENT](https://onerecord.iata.org/ns/api/2.0.0-dev#POST_LOGISTICS_EVENT), [GET_LOGISTICS_EVENT](https://onerecord.iata.org/ns/api/2.0.0-dev#GET_LOGISTICS_EVENT), [GET_AUDIT_TRAIL](https://onerecord.iata.org/ns/api/2.0.0-dev#GET_AUDIT_TRAIL), [POST_ACCESS_DELEGATION](https://onerecord.iata.org/ns/api/2.0.0-dev#POST_ACCESS_DELEGATION), [POST_SUBSCRIPTION](https://onerecord.iata.org/ns/api/2.0.0-dev#POST_SUBSCRIPTION)
+- Every ONE Record server MUST support at least the following permissions: [GET_LOGISTICS_OBJECT](https://onerecord.iata.org/ns/api#GET_LOGISTICS_OBJECT), [PATCH_LOGISTICS_OBJECT](https://onerecord.iata.org/ns/api#PATCH_LOGISTICS_OBJECT), [POST_LOGISTICS_EVENT](https://onerecord.iata.org/ns/api#POST_LOGISTICS_EVENT), [GET_LOGISTICS_EVENT](https://onerecord.iata.org/ns/api#GET_LOGISTICS_EVENT)
 - Each ONE Server MUST deny access to certain operations by default. Therefore, if an access permission is not explicitly set, a requesting ONE Record client MUST not be allowed to perform the respective operations until the permission is granted. If an operation is attempted to be performed and the permissions for that operation have not been granted, the ONE Record server MUST return a "403 Forbidden" HTTP error.
 
 Authenticated access is a bit like public access, but it is not anonymous. Access is only given to clients who have logged on and provided a specific Company Identifier. This allows the server to track the entities who have used the resource.

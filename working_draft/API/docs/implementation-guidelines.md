@@ -35,7 +35,7 @@ Furthermore, the following requirements MUST be fulfilled:
 
 - Every JSON-LD document that is returned from a ONE Record API MUST include `@id` property
 - A JSON-LD document MAY include an `@context` that contains namespaces, vocabularies and more that facilitate the remainder of the data elements. In this context, there is a specification of two ontologies: the ONE Record cargo ontology (`cargo`) and the ONE Record API ontology (`api`).
-- A JSON-LD document MUST include an `@type` property that specifies the type of the data object, i.e. the ONE Record Logistics Object class (https://onerecord.iata.org/ns/cargo/3.0.0#Sensor in the previous example 1 and example 2).
+- A JSON-LD document MUST include an `@type` property that specifies the type of the data object, i.e. the ONE Record Logistics Object class (https://onerecord.iata.org/ns/cargo#Sensor in the previous example 1 and example 2).
 - A JSON-LD document MUST include an `@language` property in the `@context` property that specifies the language of the returned data object, if the language differs from the default language `en-US`.
 
 !!! note
@@ -68,7 +68,7 @@ Nevertheless, it is RECOMMENDED to use the following structure for embedded obje
 !!! note 
     It MUST be ensured that these embedded object IDs, similar to logistics object URIs, MUST be unique within the domain of the ONE Record server and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
 
-In the context of ONE Record, only logistics objects have public accessible URIs, while other objects, e.g., [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value), do not have public accessible URIs but must be linked.
+In the context of ONE Record, only logistics objects have public accessible URIs, while other objects, e.g., [Value](https://onerecord.iata.org/ns/cargo#Value), do not have public accessible URIs but must be linked.
 Nevertheless, in ONE Record each node MUST have a unique `@id` within the document that does not change. 
 If stored in an RDF database/store, this `@id` MUST also have a global unique identifier within a graph.
 Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resources with proper URIs (i.e. embedded object ids) if those blank nodes represent entities that have a stable identity and are likely to be references in other datasets, applications, or documents.
@@ -76,7 +76,7 @@ Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resou
 ```json
 {
   "@context": {
-    "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#"
+    "cargo": "https://onerecord.iata.org/ns/cargo#"
   },
   "@type": "cargo:Piece",
   "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
@@ -131,7 +131,7 @@ The following standards MUST be used:
 **Collections**
 
 Since there MAY be a semantic difference between an empty collection and the absence of a collection property, this difference MUST also be explicitly apparent in the response body.
-For example, [handlingInstructions](https://onerecord.iata.org/ns/cargo/3.0.0#handlingInstructions) = [] (explicit empty list) differs from an unset [handlingInstructions](https://onerecord.iata.org/ns/cargo/3.0.0#handlingInstructions) property.
+For example, [handlingInstructions](https://onerecord.iata.org/ns/cargo#handlingInstructions) = [] (explicit empty list) differs from an unset [handlingInstructions](https://onerecord.iata.org/ns/cargo#handlingInstructions) property.
 
 **Null values**
 
@@ -172,7 +172,7 @@ The ONE Record server MUST inform the ONE Record client about the selected versi
 Content-Type: application/ld+json; version=2.0.0-dev
 ```
 
-If no version is specified in the `Accept` request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see [supportedApiVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedApiVersion) in [ServerInformation](https://onerecord.iata.org/ns/api/2.0.0-dev#ServerInformation)).
+If no version is specified in the `Accept` request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see [supportedApiVersion](https://onerecord.iata.org/ns/api#supportedApiVersion) in [ServerInformation](https://onerecord.iata.org/ns/api#ServerInformation)).
 
 Every ONE Record server MUST provide information about the supported API versions. (see [Get Server Information](server-information.md))
 
@@ -195,11 +195,11 @@ The ONE Record Server MUST use the latest cargo Ontology provided by IATA for da
 If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.
 
-Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntology) (see [Get Server Information](#get-server-information)).
-This [hasSupportedOntology](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedOntology) property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo
+Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api#supportedOntology) (see [Get Server Information](#get-server-information)).
+This [hasSupportedOntology](https://onerecord.iata.org/ns/api#hasSupportedOntology) property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo
 
-Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedOntologyVersion) (see [Get Server Information](server-information.md)).
-This [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api/2.0.0-dev#supportedOntologyVersion) property MUST be a list of versioned ontology IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
+Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion) (see [Get Server Information](server-information.md)).
+This [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api#supportedOntologyVersion) property MUST be a list of versioned ontology IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0
 
 This supports debugging because the ONE Record client knows if there is a difference in the data model version.
 
@@ -253,13 +253,13 @@ The Error object has the following properties:
 | - hasProperty          | data element to which the error applies               | n            | w3c:String  |
 | - hasResource           | URI of the object concerned       | n            | w3c:String   |
 
-[ErrorDetails](https://onerecord.iata.org/ns/api/2.0.0-dev#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
-For example, set the property [hasMessage](https://onerecord.iata.org/ns/api/2.0.0-dev#hasMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.
+[ErrorDetails](https://onerecord.iata.org/ns/api#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
+For example, set the property [hasMessage](https://onerecord.iata.org/ns/api#hasMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.
 
 ## Synchronous Error Handling
 
 For interaction with ONE Record endpoints, the ONE Record API specification defines a an error handling as a direct response to a failed synchronous request.
-In this scenario, the property [hasCode](https://onerecord.iata.org/ns/api/2.0.0-dev#hasCode) MUST be same as the HTTP status code (see below).
+In this scenario, the property [hasCode](https://onerecord.iata.org/ns/api#hasCode) MUST be same as the HTTP status code (see below).
 
 **Error HTTP Status Codes**
 
@@ -305,14 +305,14 @@ See CargoXML error codes.
 
 A ONE Record client sends a ChangeRequest that refers to an outdated version of a Logistics Object. After the ONE Record server has processed the ChangeRequest and detected the error, the ONE Record server logs the error in the ChangeRequest on the ONE Record server and sends a Notification of the error to the ONE Record client.
 
-Because asynchronous errors are always part of another data object, below is an example of a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) that contains errors.
-Note that the [errors](https://onerecord.iata.org/ns/api/2.0.0-dev#errors) property is a list and there can be multiple errors.
+Because asynchronous errors are always part of another data object, below is an example of a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) that contains errors.
+Note that the [errors](https://onerecord.iata.org/ns/api#errors) property is a list and there can be multiple errors.
 
 ```json
 {
     "@context": {
-        "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#",
-        "api": "https://onerecord.iata.org/ns/api/2.0.0-dev#",
+        "cargo": "https://onerecord.iata.org/ns/cargo#",
+        "api": "https://onerecord.iata.org/ns/api#",
         "@language": "en-US"
     },
     "@type": "api:ChangeRequest",
@@ -339,7 +339,7 @@ Internationalization (abbreviated i18n) enables ONE Record clients and ONE Recor
 
 This i18n support is helpful exchanging of data using different languages. For example, if a shipper provides information only in Chinese characters, an English-speaking organization may not be able to use this information without preprocessing. Therefore, it is necessary to specify the language in which the data will be transmitted and SHOULD be returned.
 
-Every ONE Record server MUST provided the supported languages in the [ServerInformation](server-information.md) using the [hasSupportedLanguages](https://onerecord.iata.org/ns/api/2.0.0-dev#hasSupportedLanguages) property.
+Every ONE Record server MUST provided the supported languages in the [ServerInformation](server-information.md) using the [hasSupportedLanguages](https://onerecord.iata.org/ns/api#hasSupportedLanguages) property.
 
 To ensure global interoperability, each ONE Record server MUST implement American English as a supported language (i.e. en-US).
 The request HTTP header `Accept-Language` SHOULD be used by the ONE Record client to specify the language of the response.

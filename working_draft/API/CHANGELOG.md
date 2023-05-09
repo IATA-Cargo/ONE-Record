@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - renamed Details to ErrorDetails
 - renamed ChangeRequest#requestingParty to ChangeRequest#requestedBy
 - renamed ChangeRequest#timestamp to ChangeRequest#requestedAt
-- changed ChangeRequest#requestingParty<Branch> to ChangeRequest#requestedBy<https://onerecord.iata.org/ns/cargo/3.0.0#Organization>
+- changed ChangeRequest#requestingParty<Branch> to ChangeRequest#requestedBy<https://onerecord.iata.org/ns/cargo#Organization>
 - renamed ErrorDetails#attribute to ErrorDetails#property
 - renamed ServerInformation#supportedLogisticsObjects to ServerInformation#supportedLogisticsObjectTypes
 - changed property type of Notification#topic, Notification#changedProperties, OperationObject#datatype, ServerInformation#serverEndpoint, ServerInformation#supportedLogisticsObjects, ErrorDetails#property, ErrorDetails#resource, Subscription#callbackUrl, Subscription#topic, Subscription#subscribedTo
@@ -80,7 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed ChangeRequest#requestorCompanyIdentifier
 - removed ServerInformation#errors
 - removed Subscription#subscribedTo
-- replaced LogisticsObjectRef data class and use https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject instead
+- replaced LogisticsObjectRef data class and use https://onerecord.iata.org/ns/cargo#LogisticsObject instead
 - removed Subscription#secret
 - removed DelegationRequest#action
 - removed Subscription#callbackUrl

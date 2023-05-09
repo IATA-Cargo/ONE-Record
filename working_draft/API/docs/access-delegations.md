@@ -4,7 +4,7 @@ The ONE Record standard allows parties to change or revoke these access rights t
 Before an organization can access a LogisticsObject of another organization, it needs to be authorized to do so and the server that hosts the logistics objects will determine whether to grant access.
 Typically, when an participant in the Internet of Logistics creates a LogisticsObject and makes it available via its ONE Record API, the IoL participant will share the URI of that LogisticsObject with another IoL participant and grant them access by default.
 
-For example, a freight forwarder creates a [Shipment](https://onerecord.iata.org/ns/cargo/3.0.0#Shipment), grants read access to an airline, and then sends the URI of the Logistics Object via a ONE Record Notification or other channel to the airline.
+For example, a freight forwarder creates a [Shipment](https://onerecord.iata.org/ns/cargo#Shipment), grants read access to an airline, and then sends the URI of the Logistics Object via a ONE Record Notification or other channel to the airline.
 At this point, only the forwarder and the airline can access this specific LogisticsObject, but no one else.
 
 However, if a ground handling agent (GHA) also needs access to this logistics object, two options are considered in ONE Record:
@@ -37,9 +37,9 @@ The following HTTP header parameters MUST be present in the request:
 | **Accept**       | The content type that the ONE Record client wants the HTTP response to be formatted in.        | application/ld+json |
 | **Content-Type** | The content type that is contained with the HTTP body. Valid content types. | application/ld+json |
 
-The HTTP request body must contain a valid [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) object in the format as specified by the Content-Type in the header.
+The HTTP request body must contain a valid [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) object in the format as specified by the Content-Type in the header.
 
-The [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) is a data class of the [ONE Record api ontology](https://onerecord.iata.org/ns/api/2.0.0-dev).
+The [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) is a data class of the [ONE Record api ontology](https://onerecord.iata.org/ns/api).
 The properties and relationships to other data classes are visualized in the diagram.
 
 ```mermaid
@@ -65,13 +65,10 @@ classDiagram
 
     class Permission{
         <<Enumeration>>
-        GET_AUDIT_TRAIL
         GET_LOGISTICS_EVENT
         GET_LOGISTICS_OBJECT
         PATCH_LOGISTICS_OBJECT
-        POST_ACCESS_DELEGATION
         POST_LOGISTICS_EVENT
-        POST_SUBSCRIPTION  
     }    
 ```
 
@@ -84,7 +81,7 @@ The following HTTP header parameters MUST be present in the request
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
 | **Location**    | The URI of the newly created AccessDelegationRequest           | https://1r.example.com/action-requests/b6c24b63-405c-5cc3-ac88-9b109bb939ba |
-| **Type**        | The type of the newly created AccessDelegationRequest as a URI | https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest |
+| **Type**        | The type of the newly created AccessDelegationRequest as a URI | https://onerecord.iata.org/ns/api#AccessDelegationRequest |
 
 The following HTTP status codes MUST be supported:
 
@@ -116,12 +113,12 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/b6c24b63-405c-5cc3-ac88-9b109bb939ba
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest
+Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 ```
 
 !!! note
-    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
-    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are the same.
+    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest)
+    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) are the same.
 
 ## Example A2
 
@@ -143,12 +140,12 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/1d2d3807-5dd9-5b5b-acb6-26163a6d7411
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest
+Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 ```
 
 !!! note
-    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegationRequest)
-    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api/2.0.0-dev#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api/2.0.0-dev#AccessDelegation) are different.
+    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest)
+    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) are different.
 
 
 # Trust Chains

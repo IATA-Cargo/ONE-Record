@@ -206,24 +206,24 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Type: https://onerecord.iata.org/ns/cargo#Piece
 Revision: 1
 Latest-Revision: 1
 
 {
    "@context": {
-     "api": "https://onerecord.iata.org/ns/api/2.0.0#",
+     "api": "https://onerecord.iata.org/ns/api#",
      "@language": "en-US"
    },
-    "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Piece",
+    "@type": "https://onerecord.iata.org/ns/cargo#Piece",
     "@id": " https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription": "ONE Record Advertisement Materials",
-    "https://onerecord.iata.org/ns/cargo/3.0.0#Piece#handlingInstructions": [
+    "https://onerecord.iata.org/ns/cargo#goodsDescription": "ONE Record Advertisement Materials",
+    "https://onerecord.iata.org/ns/cargo#Piece#handlingInstructions": [
         {
-            "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceType": "SPH",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceDescription": "Valuable Cargo",
-            "https://onerecord.iata.org/ns/cargo/3.0.0#HandlingInstructions#serviceTypeCode": "VAL"
+            "@type": "https://onerecord.iata.org/ns/cargo#HandlingInstructions",
+            "https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceType": "SPH",
+            "https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceDescription": "Valuable Cargo",
+            "https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceTypeCode": "VAL"
         }
     ]
 }

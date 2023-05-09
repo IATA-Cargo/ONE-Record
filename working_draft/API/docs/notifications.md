@@ -109,7 +109,7 @@ The following HTTP header parameters MUST be present in the request:
 | Accept       | The content type in which the ONE Record client wants the HTTP response formatted.        | application/ld+json |
 
 
-The HTTP body must contain a valid [Notification](https://onerecord.iata.org/ns/api/2.0.0#Notification) in the format as specified by the Content-Type in the header.
+The HTTP body must contain a valid [Notification](https://onerecord.iata.org/ns/api#Notification) in the format as specified by the Content-Type in the header.
 The Notification is a data class of the [ONE Record api ontology](https://onerecord.iata.org/ns/api/2.0.0). 
 
 The publisher sends a notification request to the subscriber when a logistics object is created or updated. 
@@ -117,7 +117,7 @@ If the subscriber chose to receive the entire logistics object body via sendLogi
 
 !!! note
         If the embedded object of a LO changed, the Notification:changedProperties will contain the IRI of the embeddedObject, for example: 
-        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo/3.0.0#hasGrossWeight
+        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
 
 ## Response
 

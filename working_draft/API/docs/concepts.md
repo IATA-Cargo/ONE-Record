@@ -57,7 +57,7 @@ Each digital twin is an instance of a data classes that inherits from the Logist
 The data exchange that is facilitated by the ONE Record API is mainly the exchange of Logistics Objects.
 This is transition from the traditional logistics and transport EDI systems that only exchanged messages and documents.
 The concept of Logistics Objects is far more extensive since Logistics Objects can be more granular and have very specific usage in different use cases within the logistics and transport domain.
-Examples of a Logistics Object are a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece), an [IotDevice](https://onerecord.iata.org/ns/cargo/3.0.0#IotDevice), a [Sensor](https://onerecord.iata.org/ns/cargo/3.0.0#Sensor) or a [BookingOptionRequest](https://onerecord.iata.org/ns/cargo/3.0.0#BookingOptionRequest) and [many more](https://onerecord.iata.org/ns/cargo/3.0.0).
+Examples of a Logistics Object are a [Piece](https://onerecord.iata.org/ns/cargo#Piece), an [IotDevice](https://onerecord.iata.org/ns/cargo#IotDevice), a [Sensor](https://onerecord.iata.org/ns/cargo#Sensor) or a [BookingOptionRequest](https://onerecord.iata.org/ns/cargo#BookingOptionRequest) and [many more](https://onerecord.iata.org/ns/cargo).
 
 ### **Owner of a Logistics Object**
 
@@ -112,9 +112,9 @@ https://api.airline.com/rest/public/onerecord/logistics-objects/6596bb81-f5a0-46
 ### Organization URI
 
 In ONE Record, each party in the Internet of Logistics, e.g., a shipper, airline, or public authorities like customs that acts as an owner or user of Logistics Objects, requires a globally unique identifier, a so-called `Organization URI`.
-This MUST have a URI that points to a data object that inherits from [Organization](https://onerecord.iata.org/ns/cargo/3.0.0#Organization) which inherits from [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject). Therefore, the same URI structure as for Logistics Objects MUST be applied.
+This MUST have a URI that points to a data object that inherits from [Organization](https://onerecord.iata.org/ns/cargo#Organization) which inherits from [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject). Therefore, the same URI structure as for Logistics Objects MUST be applied.
 
-This data object can be a [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company), a [Carrier](https://onerecord.iata.org/ns/cargo/3.0.0#Carrier), or a [PublicAuthority](https://onerecord.iata.org/ns/cargo/3.0.0#PublicAuthority).
+This data object can be a [Company](https://onerecord.iata.org/ns/cargo#Company), a [Carrier](https://onerecord.iata.org/ns/cargo#Carrier), or a [PublicAuthority](https://onerecord.iata.org/ns/cargo#PublicAuthority).
 It MUST uniquely identifies an organization in its data exchanges with other organizations that use ONE Record.
 As shown below, this Organization URI MAY share the same structure as a Logistics Object URI:
 
@@ -142,8 +142,8 @@ unique and single shipment record, i.e. "one record" in that network of linked d
 
 | Prefix | Namespace                    | Description         |
 | ------ |  -------------------------- |  ------------------------------------- |
-| cargo  | [https://onerecord.iata.org/ns/cargo/3.0.0](https://onerecord.iata.org/ns/cargo/3.0.0) | This refers to the ONE Record cargo ontology.          |
-| api    | [https://onerecord.iata.org/ns/api/2.0.0-dev#](https://onerecord.iata.org/ns/api/2.0.0-dev#)     | This refers to the ONE Record API ontology.            |
+| cargo  | [https://onerecord.iata.org/ns/cargo](https://onerecord.iata.org/ns/cargo) | This refers to the ONE Record cargo ontology.          |
+| api    | [https://onerecord.iata.org/ns/api](https://onerecord.iata.org/ns/api)     | This refers to the ONE Record API ontology.            |
 | xsd    | [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema) | W3C vocabulary, primarily used for primitive data types (e.g. string, dateTime) |
 | acl    | [http://www.w3.org/ns/auth/acl](http://www.w3.org/ns/auth/acl) | Ontology for WebAccessControl with Access Control Lists (ACL)                   |
 
@@ -160,14 +160,7 @@ Therefore, the same `Sensor` object can be formatted as extended (see example 1)
 **Example 1:**
 
 ```json title="examples/Sensor.expanded.json"
-{
-  "@type": "https://onerecord.iata.org/ns/cargo/3.0.0#Sensor",
-  "@id": "http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93",
-  "https://onerecord.iata.org/ns/cargo/3.0.0#sensorDescription": "A data logger with a temperature sensor.",
-  "https://onerecord.iata.org/ns/cargo/3.0.0#sensorName": "TPx14-a",
-  "https://onerecord.iata.org/ns/cargo/3.0.0#sensorSerialNumber": "142NL",
-  "https://onerecord.iata.org/ns/cargo/3.0.0#sensorType": "Thermometer"
-}
+--8<-- "examples/Sensor.expanded.json"
 ```
 
 (see [examples/Sensor.expanded.json](examples/Sensor.expanded.json))
@@ -175,17 +168,7 @@ Therefore, the same `Sensor` object can be formatted as extended (see example 1)
 **Example 2:**
 
 ```json title="examples/Sensor.compacted.json"
-{
-  "@context": {
-    "cargo": "https://onerecord.iata.org/ns/cargo/3.0.0#"
-  },
-  "@id": "http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93",
-  "@type": "cargo:Sensor",
-  "cargo:sensorDescription": "A data logger with a temperature sensor.",
-  "cargo:sensorName": "TPx14-a",
-  "cargo:sensorSerialNumber": "142NL",
-  "cargo:sensorType": "Thermometer"
-}
+--8<-- "examples/Sensor.compacted.json"
 ```
 
 (see [examples/Sensor.compacted.json](examples/Sensor.compacted.json))

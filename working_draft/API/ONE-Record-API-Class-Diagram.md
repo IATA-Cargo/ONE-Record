@@ -171,14 +171,11 @@ classDiagram
         DEL
     }
     class Permission{
-        <<Enumeration>>        
-        GET_AUDIT_TRAIL
+        <<Enumeration>>                
         GET_LOGISTICS_EVENT
         GET_LOGISTICS_OBJECT
-        PATCH_LOGISTICS_OBJECT
-        POST_ACCESS_DELEGATION
-        POST_LOGISTICS_EVENT
-        POST_SUBSCRIPTION
+        PATCH_LOGISTICS_OBJECT        
+        POST_LOGISTICS_EVENT        
     }
     class TopicType{
         <<Enumeration>>

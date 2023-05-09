@@ -1,7 +1,7 @@
 # Publish & Subscribe in ONE Record
 
 ONE Record utilizes a publish & subscribe pattern to enable exchanging data updates in a distributed network of ONE Record nodes.
-More precisely, In ONE Record, so-called [Notification](https://onerecord.iata.org/ns/api/2.0.0-dev#Notification) data objects are exchanged between applications to inform other ONE Record nodes about data updates. 
+More precisely, In ONE Record, so-called [Notification](https://onerecord.iata.org/ns/api#Notification) data objects are exchanged between applications to inform other ONE Record nodes about data updates. 
 
 This chapter describes the publish & subscribe concept and how it MUST be implemented in ONE Record.
 
@@ -11,15 +11,15 @@ This chapter describes the publish & subscribe concept and how it MUST be implem
 
 **Guidelines for Subscriptions in ONE Record:**
 
-- A [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) MUST be immutable (unchangeable object), i.e. a [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) cannot be changed after it is created and published.
-- Updating a [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) requires to delete an existing [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) and create a new [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) that MUST be communicated to other ONE Record nodes.
-- The publisher of a [Notification](https://onerecord.iata.org/ns/api/2.0.0-dev#Notification) MUST ensure the guaranteed delivery.
+- A [Subscription](https://onerecord.iata.org/ns/api#Subscription) MUST be immutable (unchangeable object), i.e. a [Subscription](https://onerecord.iata.org/ns/api#Subscription) cannot be changed after it is created and published.
+- Updating a [Subscription](https://onerecord.iata.org/ns/api#Subscription) requires to delete an existing [Subscription](https://onerecord.iata.org/ns/api#Subscription) and create a new [Subscription](https://onerecord.iata.org/ns/api#Subscription) that MUST be communicated to other ONE Record nodes.
+- The publisher of a [Notification](https://onerecord.iata.org/ns/api#Notification) MUST ensure the guaranteed delivery.
 - It is RECOMMENDED to implement for each subscriber and each topic a message queue that is maintained by the publisher. While in transit, data is kept in message queues that ensure integrity and availability of the system. If a subscribing application is unavailable, messages are safely retained until the subscribing application returns to be available.
-- The publisher MUST ensure the guaranteed delivery.  That means keeping data until the subscriber confirms it has received a particular [Notification](https://onerecord.iata.org/ns/api/2.0.0-dev#Notification). 
+- The publisher MUST ensure the guaranteed delivery.  That means keeping data until the subscriber confirms it has received a particular [Notification](https://onerecord.iata.org/ns/api#Notification). 
 
 **Subscription Data Model**
 
-The [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) and [SubscriptionRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest) are data classes of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
+The [Subscription](https://onerecord.iata.org/ns/api#Subscription) and [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) are data classes of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
 The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
@@ -67,11 +67,11 @@ Both scenarios are described with examples below. For simplicity reasons, the se
 
 # Get Subscription information as Publisher
 
-If the publisher of a Logistics Object - also called `Owner of the Logistics Object` - wants to subscribe a user of a Logistics Object - also called `Subscriber` in this scenario  - to send [Notifications](https://onerecord.iata.org/ns/api/2.0.0-dev#Notification) about data updates and/or Logistics Events, the publisher can request the potential subscriber to provide subscription information. 
+If the publisher of a Logistics Object - also called `Owner of the Logistics Object` - wants to subscribe a user of a Logistics Object - also called `Subscriber` in this scenario  - to send [Notifications](https://onerecord.iata.org/ns/api#Notification) about data updates and/or Logistics Events, the publisher can request the potential subscriber to provide subscription information. 
 
 There are two different forms of this scenario:
 
-- The publisher wants to notify the subscriber about changes to Logistics Objects of a certain type (e.g. [Waybill](https://onerecord.iata.org/ns/cargo/3.0.0#Waybill) or [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece))
+- The publisher wants to notify the subscriber about changes to Logistics Objects of a certain type (e.g. [Waybill](https://onerecord.iata.org/ns/cargo#Waybill) or [Piece](https://onerecord.iata.org/ns/cargo#Piece))
 - The publisher wants to notify the subscriber about changes to a specific Logistics Object, e.g. [https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c](https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c)
 
 <img src="../img/PubSub_overview.png" style="background-color: white; width: 80%"/>
@@ -100,10 +100,10 @@ This step is optional, because a subscription MUST also be possible for already 
 **Step 1 - Retrieve Subscription information**
 
 The publisher MAY propose a Subscription to a subscriber by requesting the Subscription information from the potential subscriber. 
-The publisher sends a GET request to the subscriptions endpoint of a Subscriber with the proposed Logistics Object type or a specific Logistics Object URI using the query parameters `topicType` and `topic`. If the subscription proposal targets a specific Logistics Object, the subscribers MUST set the topicType=[LOGISTICS_OBJECT_URI](https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_URI) and provide an accessible Logistics Object URI as `topic` parameter. Example:
+The publisher sends a GET request to the subscriptions endpoint of a Subscriber with the proposed Logistics Object type or a specific Logistics Object URI using the query parameters `topicType` and `topic`. If the subscription proposal targets a specific Logistics Object, the subscribers MUST set the topicType=[LOGISTICS_OBJECT_URI](https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_URI) and provide an accessible Logistics Object URI as `topic` parameter. Example:
 
 ```http
-GET /subscriptions?topicType=https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_URI&topic=https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
+GET /subscriptions?topicType=https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_URI&topic=https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 ```
@@ -145,8 +145,8 @@ The following HTTP query parameters MUST be supported:
 
 | Query parameter | Description | Valid values / Examples |
 | --------------- | ----------- | ------------ |
-| **topicType**       | Used by the publisher to specify if Subscription information for a specific Logistics Object or a data class should be in the response body. | <ul><li>[https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_TYPE](https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_TYPE)</li><li>[https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_URI](https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_URI)</li></ul> |
-| **topic**       | Used by the publisher to specify the data class or Logistics Object URI the Subscription information should be related to. topic MUST be a valid URI | <ul><li>https://onerecord.iata.org/ns/cargo/3.0.0#Piece</li><li>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</li></ul> |
+| **topicType**       | Used by the publisher to specify if Subscription information for a specific Logistics Object or a data class should be in the response body. | <ul><li>[https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_TYPE](https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_TYPE)</li><li>[https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_URI](https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_URI)</li></ul> |
+| **topic**       | Used by the publisher to specify the data class or Logistics Object URI the Subscription information should be related to. topic MUST be a valid URI | <ul><li>https://onerecord.iata.org/ns/cargo#Piece</li><li>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</li></ul> |
 
 The following HTTP header parameters MUST be present in the request:
 
@@ -184,7 +184,7 @@ Request subscription information for specific Logistics Object URI.
 Request:
 
 ```http
-GET /subscriptions?topicType=https://onerecord.iata.org/ns/api/2.0.0-dev#LOGISTICS_OBJECT_URI&topic=https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
+GET /subscriptions?topicType=https://onerecord.iata.org/ns/api#LOGISTICS_OBJECT_URI&topic=https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 ```
@@ -208,7 +208,7 @@ Request subscription information for a Logistics Object type
 Request:
 
 ```http
-GET /subscriptions?topicType=LOGISTICS_OBJECT_TYPE&topic=https://onerecord.iata.org/ns/cargo/3.0.0#Shipment
+GET /subscriptions?topicType=LOGISTICS_OBJECT_TYPE&topic=https://onerecord.iata.org/ns/cargo#Shipment
 Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 ```
@@ -232,7 +232,7 @@ Request subscription information for a not supported Logistics Object type
 Request:
 
 ```http
-GET /subscriptions?topicType=LOGISTICS_OBJECT_TYPE&topic=https://onerecord.iata.org/ns/cargo/3.0.0#ForkLift
+GET /subscriptions?topicType=LOGISTICS_OBJECT_TYPE&topic=https://onerecord.iata.org/ns/cargo#ForkLift
 Host: 1r.example.com
 Accept: application/ld+json
 ```
@@ -275,7 +275,7 @@ _([examples/Subscriptions_example3_Error_400_example2.json](examples/Subscriptio
 
 In the second scenario, the subscriber initiates the subscription process by actively sending subscription information to the publisher. 
 The subscription information can either specify a type of Logistics Object or a specific Logistics Object.
-The publisher creates a [SubscriptionRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest) from the submitted [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription).
+The publisher creates a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) from the submitted [Subscription](https://onerecord.iata.org/ns/api#Subscription).
 
 ```mermaid
   sequenceDiagram
@@ -299,7 +299,7 @@ The following HTTP header parameters MUST be present in the request:
 | **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.0.0-dev</li><li>application/ld+json; version=1.2</li></ul> |
 | **Content-Type** | The content type that is contained with the HTTP body. Valid content types. | application/ld+json |
 
-The HTTP body must contain a valid [Subscription](https://onerecord.iata.org/ns/api/2.0.0-dev#Subscription) object in the format as specified by the Content-Type in the header.
+The HTTP body must contain a valid [Subscription](https://onerecord.iata.org/ns/api#Subscription) object in the format as specified by the Content-Type in the header.
 
 ## Response
 
@@ -308,7 +308,7 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
 | **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed |
-| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest                     |
+| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/api#SubscriptionRequest                     |
 
 The following HTTP status codes MUST be supported:
 
@@ -342,7 +342,7 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev#SubscriptionRequest
+Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
 ```
 
 # Subscriptions with 3rd parties

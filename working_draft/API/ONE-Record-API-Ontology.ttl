@@ -932,13 +932,10 @@ xsd:date rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/api#Permission
 :Permission rdf:type owl:Class ;
             owl:equivalentClass [ rdf:type owl:Class ;
-                                  owl:oneOf ( :GET_AUDIT_TRAIL
-                                              :GET_LOGISTICS_EVENT
+                                  owl:oneOf ( :GET_LOGISTICS_EVENT
                                               :GET_LOGISTICS_OBJECT
                                               :PATCH_LOGISTICS_OBJECT
-                                              :POST_ACCESS_DELEGATION
-                                              :POST_LOGISTICS_EVENT
-                                              :POST_SUBSCRIPTION
+                                              :POST_LOGISTICS_EVENT                                              
                                             )
                                 ] ;
             rdfs:label "Permission"@en .
@@ -1178,13 +1175,6 @@ cargo:Organization rdf:type owl:Class .
         rdfs:label "DELETE"@en .
 
 
-###  https://onerecord.iata.org/ns/api#GET_AUDIT_TRAIL
-:GET_AUDIT_TRAIL rdf:type owl:NamedIndividual ,
-                          :Permission ;
-                 rdfs:comment ":Permission to get :AuditTrail of :LogisticsObject"@en ;
-                 rdfs:label "GET_AUDIT_TRAIL"@en .
-
-
 ###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_OBJECT
 :GET_LOGISTICS_OBJECT rdf:type owl:NamedIndividual ,
                                :Permission ;
@@ -1235,25 +1225,11 @@ cargo:Organization rdf:type owl:Class .
                         rdfs:label "PATCH_LOGISTICS_OBJECT"@en .
 
 
-###  https://onerecord.iata.org/ns/api#POST_ACCESS_DELEGATION
-:POST_ACCESS_DELEGATION rdf:type owl:NamedIndividual ,
-                                 :Permission ;
-                        rdfs:comment ":Permission to post/request access delegation"@en ;
-                        rdfs:label "POST_ACCESS_DELEGATION"@en .
-
-
 ###  https://onerecord.iata.org/ns/api#POST_LOGISTICS_EVENT
 :POST_LOGISTICS_EVENT rdf:type owl:NamedIndividual ,
                                :Permission ;
                       rdfs:comment ":Permission to add a logistics event."@en ;
                       rdfs:label "POST_LOGISTICS_EVENT" .
-
-
-###  https://onerecord.iata.org/ns/api#POST_SUBSCRIPTION
-:POST_SUBSCRIPTION rdf:type owl:NamedIndividual ,
-                            :Permission ;
-                   rdfs:comment ":Permission to post/request subscription"@en ;
-                   rdfs:label "POST_SUBSCRIPTION"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED

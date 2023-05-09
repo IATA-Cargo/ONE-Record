@@ -2,7 +2,7 @@
 
 As a ONE Record client, it is helpful to know the capabilities of a ONE Record server and to be able to retrieve this information in a systematic way.
 Therefore, every ONE Record server MUST provide an endpoint that can be used to retrieve this technical server information.
-This `ServerInformation` include details about the ONE Record server's ONE Record capabilities, the data owner (as a link to an [Organization](https://onerecord.iata.org/ns/cargo/3.0.0#Organization) using the [Organization URI](concepts.md#organization-uri)), the supported Logistics Object types (incl. data model versions) and the supported serialization formats.
+This `ServerInformation` include details about the ONE Record server's ONE Record capabilities, the data owner (as a link to an [Organization](https://onerecord.iata.org/ns/cargo#Organization) using the [Organization URI](concepts.md#organization-uri)), the supported Logistics Object types (incl. data model versions) and the supported serialization formats.
 
 Every `authenticated ONE Record client` who knows this endpoint MUST be able to request this information from the ONE Record server.
 

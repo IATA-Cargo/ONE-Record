@@ -2,7 +2,7 @@
 
 This API action is used to create a Logistics Object on a ONE Record server using the POST HTTP method.
 This particular Logistics Object MUST be a type of Logistics Object, i.e. data classes that inherit from the class Logistics Object, that is specified in the ONE Record data model.
-A list of all possible data classes that inherit from Logistics Object can be found [here](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject).
+A list of all possible data classes that inherit from Logistics Object can be found [here](https://onerecord.iata.org/ns/cargo#LogisticsObject).
 
 !!! note 
         Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
@@ -31,7 +31,7 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
 | **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c |
-| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo/3.0.0#Piece                    |
+| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo#Piece                    |
 
 The following HTTP status codes MUST be supported:
 
@@ -46,7 +46,7 @@ The following HTTP status codes MUST be supported:
 
 ## Example A1
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Piece](https://onerecord.iata.org/ns/cargo#Piece)
 
 Request:
 
@@ -67,12 +67,12 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Type: https://onerecord.iata.org/ns/cargo#Piece
 ```
 
 ## Example A2
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo/3.0.0#Company) with an embedded Logistics Object of type [Person](https://onerecord.iata.org/ns/cargo/3.0.0#Person)
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo#Company) with an embedded Logistics Object of type [Person](https://onerecord.iata.org/ns/cargo#Person)
 
 Request:
 
@@ -93,12 +93,12 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Company
+Type: https://onerecord.iata.org/ns/cargo#Company
 ```
 
 ## Example A3
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsObject) of type [Shipment](https://onerecord.iata.org/ns/cargo/3.0.0#Shipment) that links the previously created Piece (see [Example 1](#example-1))
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Shipment](https://onerecord.iata.org/ns/cargo#Shipment) that links the previously created Piece (see [Example 1](#example-1))
 
 Request:
 
@@ -119,7 +119,7 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Shipment
+Type: https://onerecord.iata.org/ns/cargo#Shipment
 ```
 
 Three different logistics objects have been published, i.e. they have been created and are accessible via their URIs:
@@ -147,7 +147,8 @@ to reduce the number of GET requests, it can be helpful to request an embedded v
 The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example 6](#example-6)).
 
 !!! note 
-        The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events. 
+        The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
+        Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events.
         Logistics Events MUST be accessed using the `/logistics-events` endpoint. (see [Logistics Events](logistics-events.md))
 
 ## Request
@@ -210,7 +211,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Type: https://onerecord.iata.org/ns/cargo#Piece
 Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
@@ -251,7 +252,7 @@ This is an example for a HTTP GET request that asks the ONE Record server to emb
 Request:
 
 ```http
-GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c?embedded=true HTTP/1.1
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c?embedded=true HTTP/1.1
 Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
@@ -263,16 +264,16 @@ Response:
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
-Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c
+Type: https://onerecord.iata.org/ns/cargo#Shipment
 Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "examples/Piece_with_id.json"
+--8<-- "examples/Shipment_with_Piece.embedded.json"
 ```
 
-_([examples/Piece.json](examples/Piece_with_id.json))_
+_([examples/Shipment_with_Piece.embedded.json](examples/Shipment_with_Piece.embedded.json))_
 
 ## Example B4 
 ==TODO: examples for 301 and 302 and 307 HTTP Status Code==
@@ -304,18 +305,18 @@ Thus, any property in a Logistics Object can be _deleted_, _added_, or _replaced
 **Guidelines for updating Logistics Objects in ONE Record:**
 
 - Only the Owner of a Logistics Object MAY make the changes to logistics objects.
-- Any User of a Logistics Object CAN request a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) on a Logistics Object, which result in a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_PENDING).
-- The Owner of a Logistics Object decides about the [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) and applies changes to a Logistics Object unless there is a business or technical reason to reject it.
-- Evaluation and Application of a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. Meaning, 
-- If a field update fails, the entire [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) is unsuccessful. Partial updates MUST NOT be accepted. The ONE Record server MUST use the property [hasError](https://onerecord.iata.org/ns/cargo/3.0.0#hasError) of the [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) to document the errors.
-- If the update is successful, the revision number in a Logistics Object's [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#retrieve-a-historical-logistics-object) and [Audit Trail of Logistics Objects](#get-audit-trail-of-a-logistics-object) for more details.
-- It is RECOMMENDED to get the latest version of Logistics Object before requesting a [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) to ensure that the update is made to the latest version of the Logistics Object.
-- If a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is rejected by the Owner of the Logistics Object, the revision number of the Logistics Object is not incremented but the request is added to the [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) of this Logistics Object, marked with the status [REQUEST_REJECTED](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_REJECTED). A rejected [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is kept in the [AuditTrail](https://onerecord.iata.org/ns/api/2.0.0-dev#AuditTrail) of the Logistics Object.
-- After a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest) is accepted, other pending ChangeRequests that affect the same revision MUST be rejected.
-- The PATCH operation MUST NOT be used to create logistics objects; only linking to an existing object is allowed in a [ChangeRequest](https://onerecord.iata.org/ns/api/2.0.0-dev#ChangeRequest).
-- The PATCH operation MUST NOT be used to link a [LogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#LogisticsEvent) to a Logistics Object. The ONE Record server MUST reject requested changes that contain operations to the [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#hasLogisticsEvent) property.
-- The ONE Record server MUST check that the property [referencesLogisticsObject](https://onerecord.iata.org/ns/api/2.0.0-dev#referencesLogisticsObject) matches the URI/endpoint used for the PATCH request. 
-- If [datatype](https://onerecord.iata.org/ns/api/2.0.0-dev#datatype) in [OperationObject](https://onerecord.iata.org/ns/api/2.0.0-dev#OperationObject) is an IRI of the ONE Record cargo ontology and is not a data class that inherits from LogisticsObject, then the ONE Record Server MUST generate an embeddedObjectId for the object in the `value` property of `OperationObject` (see section about [Blank Nodes and Embedded Objects](implementation-guidelines.md#serialization-and-data-formats))
+- Any User of a Logistics Object CAN request a [Change](https://onerecord.iata.org/ns/api#Change) on a Logistics Object, which result in a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING).
+- The Owner of a Logistics Object decides about the [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) and applies changes to a Logistics Object unless there is a business or technical reason to reject it.
+- Evaluation and Application of a [Change](https://onerecord.iata.org/ns/api#Change) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. Meaning, 
+- If a field update fails, the entire [Change](https://onerecord.iata.org/ns/api#Change) is unsuccessful. Partial updates MUST NOT be accepted. The ONE Record server MUST use the property [hasError](https://onerecord.iata.org/ns/cargo#hasError) of the [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) to document the errors.
+- If the update is successful, the revision number in a Logistics Object's [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#retrieve-a-historical-logistics-object) and [Audit Trail of Logistics Objects](#get-audit-trail-of-a-logistics-object) for more details.
+- It is RECOMMENDED to get the latest version of Logistics Object before requesting a [Change](https://onerecord.iata.org/ns/api#Change) to ensure that the update is made to the latest version of the Logistics Object.
+- If a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is rejected by the Owner of the Logistics Object, the revision number of the Logistics Object is not incremented but the request is added to the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of this Logistics Object, marked with the status [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED). A rejected [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is kept in the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of the Logistics Object.
+- After a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is accepted, other pending ChangeRequests that affect the same revision MUST be rejected.
+- The PATCH operation MUST NOT be used to create logistics objects; only linking to an existing object is allowed in a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest).
+- The PATCH operation MUST NOT be used to link a [LogisticsEvent](https://onerecord.iata.org/ns/cargo#LogisticsEvent) to a Logistics Object. The ONE Record server MUST reject requested changes that contain operations to the [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo#hasLogisticsEvent) property.
+- The ONE Record server MUST check that the property [referencesLogisticsObject](https://onerecord.iata.org/ns/api#referencesLogisticsObject) matches the URI/endpoint used for the PATCH request. 
+- If [datatype](https://onerecord.iata.org/ns/api#datatype) in [OperationObject](https://onerecord.iata.org/ns/api#OperationObject) is an IRI of the ONE Record cargo ontology and is not a data class that inherits from LogisticsObject, then the ONE Record Server MUST generate an embeddedObjectId for the object in the `value` property of `OperationObject` (see section about [Blank Nodes and Embedded Objects](implementation-guidelines.md#serialization-and-data-formats))
 
 
 Logistics Objects MUST have a revision number, which is a non negative integer to be incremented after every applied change.
@@ -330,9 +331,9 @@ The following HTTP header parameters MUST be present in the PATCH request:
 | **Accept**       | The content type that you want the HTTP response to be formatted in. | application/ld+json |
 | **Content-Type** | The content type that is contained with the HTTP body.               | application/ld+json |
 
-The HTTP request body must contain a valid [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) object in the format as specified by the Content-Type in the header.
+The HTTP request body must contain a valid [Change](https://onerecord.iata.org/ns/api#Change) object in the format as specified by the Content-Type in the header.
 
-The [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
+The [Change](https://onerecord.iata.org/ns/api#Change) is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
 The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
@@ -427,7 +428,7 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 | Header | Description                 | Example                |
 | -------------------- |  ----- |   -------------------------------- |
 | **Location**         | The URI of the submitted ChangeRequest          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
-| **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest                   |
+| **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/ns/api#ChangeRequest                   |
 
 Otherwise, an `Error` object with `ErrorDetails` as response body MUST be returned with the following HTTP headers:
 
@@ -450,12 +451,12 @@ The following HTTP status codes MUST be supported:
 
 ## Example C1
 
-In the example below, a [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) from `TRUE` to `FALSE`.
-This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
+In the example below, a [Piece](https://onerecord.iata.org/ns/cargo#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo#coload) from `TRUE` to `FALSE`.
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api#Change):
 
-1. add the value `"BOOKS"` (xsd:string) to the property [goodsDescription](https://onerecord.iata.org/ns/cargo/3.0.0#goodsDescription) of [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
-2. delete the value `TRUE` (xsd:boolean) from property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) of [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
-3. add the value `FALSE` (xsd:boolean) to property [coload](https://onerecord.iata.org/ns/cargo/3.0.0#coload) of [Piece](https://onerecord.iata.org/ns/cargo/3.0.0#Piece)
+1. add the value `"BOOKS"` (xsd:string) to the property [goodsDescription](https://onerecord.iata.org/ns/cargo#goodsDescription) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
+2. delete the value `TRUE` (xsd:boolean) from property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
+3. add the value `FALSE` (xsd:boolean) to property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
 
 Request:
 
@@ -475,16 +476,16 @@ Response:
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b
 ```
 
 ## Example C2
 
 In the example below, Piece#grossWeight is added.
-This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api#Change):
 
-1. add the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) to the property Piece#grossWeight
+1. add the embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM", value=20.0) to the property Piece#grossWeight
 
 Request:
 
@@ -504,17 +505,17 @@ Response:
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99c
 ```
 
 ## Example C3
 
 In the example below, Piece#grossWeight is changed from 20.0 KGM to 25.0 KGM .
-This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api#Change):
 
-1. delete the property value of embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) within the property Piece#grossWeight
-1. add the property value `25.0` to the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM") within the property Piece#grossWeight
+1. delete the property value of embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM", value=20.0) within the property Piece#grossWeight
+1. add the property value `25.0` to the embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM") within the property Piece#grossWeight
 
 !!! note
         The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
@@ -537,16 +538,16 @@ Response:
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
 ```
 
 ## Example C4
 
 In the example below, Piece#grossWeight is deleted.
-This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change):
+This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api#Change):
 
-1. delete the embedded object [Value](https://onerecord.iata.org/ns/cargo/3.0.0#Value)(unit="KGM", value=20.0) from the property Piece#grossWeight
+1. delete the embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM", value=20.0) from the property Piece#grossWeight
 
 Request:
 
@@ -566,7 +567,7 @@ Response:
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
 ```
 
@@ -575,7 +576,7 @@ Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453
 In the example below, CustomsInformations are added to Piece#customsInfo.
 This results in following the workflow:
 
-**1. Create two [CustomsInformation](https://onerecord.iata.org/ns/cargo/3.0.0#CustomsInformation) objects (see [Create a Logistics Object](#create-a-logistics-object))**
+**1. Create two [CustomsInformation](https://onerecord.iata.org/ns/cargo#CustomsInformation) objects (see [Create a Logistics Object](#create-a-logistics-object))**
 
 Request:
 
@@ -597,7 +598,7 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/4d73acf0-3073-4ec9-8aee-b82d64ba3805
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#CustomsInformation
+Type: https://onerecord.iata.org/ns/cargo#CustomsInformation
 ```
 
 Request:
@@ -620,7 +621,7 @@ Response:
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/ba1c2194-2442-400b-b26b-466a01dda8b5
 Content-Type: application/ld+json; version=2.0.0-dev
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#CustomsInformation
+Type: https://onerecord.iata.org/ns/cargo#CustomsInformation
 ```
 
 **2. Add the URI of the newly created CustomsInformation objects to the property Piece#customsInfos**
@@ -642,7 +643,7 @@ Response:
 ```bash
 HTTP/1.1 204 No Content
 Content-Type: application/ld+json
-Type: https://onerecord.iata.org/ns/api/2.0.0-dev/ChangeRequest
+Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99e
 ```
 
@@ -655,7 +656,7 @@ Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453
     If you want to delete the whole object.
 
 ## Example C6
-In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api/2.0.0-dev#referencesLogisticsObject) in the [Change](https://onerecord.iata.org/ns/api/2.0.0-dev#Change) object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
+In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api#referencesLogisticsObject) in the [Change](https://onerecord.iata.org/ns/api#Change) object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
 
 Request:
 
@@ -682,7 +683,7 @@ _([examples/Error_400.json](examples/Error_400.json))_
 
 ## Example C7
 
-In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo/3.0.0#hasLogisticsEvent).
+In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo#hasLogisticsEvent).
 The ONE Record server returns a `400 Bad Request`.
 
 Request:
@@ -711,7 +712,7 @@ _([examples/Error_400_example2.json](examples/Error_400_example2.json))_
 # Get Audit Trail of a Logistics Object
 
 Every time a Logistics Object is requested to be updated as described in the previous section, the details of this request are added to an AuditTrail of a Logistics Object. 
-Before a ChangeRequest is processed by the owner of a Logistics Object, the status of the ChangeRequest MUST be changed from [REQUEST_PENDING](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_PENDING) to [REQUEST_ACCEPTED](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_ACCEPTED) or [REQUEST_REJECTED](https://onerecord.iata.org/ns/api/2.0.0-dev#REQUEST_REJECTED).
+Before a ChangeRequest is processed by the owner of a Logistics Object, the status of the ChangeRequest MUST be changed from [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING) to [REQUEST_ACCEPTED](https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED) or [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED).
 
 The ChangeRequest data class object details about the success or failure of this request, e.g. timestamps, any errors that occurred, in addition to the operations to be applied to a LogisticsObject.
 
@@ -833,7 +834,7 @@ _([examples/AuditTrail_example2.json](examples/AuditTrail_example2.json))_
 # Retrieve a historical Logistics Object
 
 In ONE Record, data is updated in real time and every time a ChangeRequest is applied successfully, a new version of the Logistics Object and only the latest content is available via its URI.
-However, there is a need to retrieve a specific version of a data object at a specific point in time, for example the [Master Air Waybill (MAWB)](https://onerecord.iata.org/ns/cargo/3.0.0#Waybill).
+However, there is a need to retrieve a specific version of a data object at a specific point in time, for example the [Master Air Waybill (MAWB)](https://onerecord.iata.org/ns/cargo#Waybill).
 
 > Note: Reverting to a previous version of a Logistics Object with PATCH is not supported as out of scope of ONE Record.
 
@@ -866,7 +867,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c?at=20190926T075830Z
-Type: https://onerecord.iata.org/ns/cargo/3.0.0#Piece
+Type: https://onerecord.iata.org/ns/cargo#Piece
 Revision: 3
 Latest-Revision: 4
 
