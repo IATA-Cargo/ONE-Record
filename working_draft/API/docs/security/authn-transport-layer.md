@@ -8,14 +8,14 @@ TLS is an essential component of public internet security, as it helps to protec
 It is used to encrypt data sent between a client (such as a web browser or a ONE Record client) and a server (such as a website, a REST API or a ONE Record server) to prevent unauthorized access or tampering of the data while it is in transit.
 It works by establishing a secure, encrypted connection between the client and server, which is authenticated using digital certificates.
 
-Without Transport Layer Security, a third party could intercept and read sensitive information such as API credentials and private data as it is transmitted. However, relying solely on TLS encryption, does not ensure security.
+Without TLS, a third party could intercept and read sensitive information such as API credentials and private data as it is transmitted. However, relying solely on TLS encryption, does not ensure security.
 
 **Workflow:**
 
-1) A ONE Record client connects to the ONE Record server
-2) The ONE Record server presents its TLS certificate (issued by a trusted authority)
-3) The ONE Record client verifies the ONE Record server's certificate
-4) ONE Record client and ONE Record server exchange data over an encrypted TLS connection
+1. A ONE Record client connects to the ONE Record server
+2. The ONE Record server presents its TLS certificate (issued by a trusted authority)
+3. The ONE Record client verifies the ONE Record server's certificate
+4. ONE Record client and ONE Record server exchange data over an encrypted TLS connection
 
 ```mermaid
     sequenceDiagram
@@ -29,10 +29,10 @@ Without Transport Layer Security, a third party could intercept and read sensiti
         S-->>C: Exchange data over encrypted TLS connection       
 ```
 
-Every ONE Record server MUST force the use of TLS for every ONE Record endpoint.
+**Guidelines on the usage of TLS in ONE Record:**
 
-Every ONE Record MUST support TLS 1.2 or newer. Furthermore, every ONE Record MUST set the minium TLS version to 1.2.
-A minimum TLS version only accepts incoming HTTPS connections from ONE Record clients that support the selected TLS protocol version or a newer version.
+- Every ONE Record server MUST force the use of TLS for every ONE Record endpoint.
+- Eery ONE Record MUST support TLS 1.2 or newer. Furthermore, every ONE Record MUST set the minium TLS version to 1.2. A minimum TLS version only accepts incoming HTTPS connections from ONE Record clients that support the selected TLS protocol version or a newer version.
 
 
 !!! note
@@ -41,20 +41,36 @@ A minimum TLS version only accepts incoming HTTPS connections from ONE Record cl
 
 # Mutual Transport Layer Security (mTLS)
 
-==client authentication==
-By default, TLS only proves the identity of the server to the client, and the authentication of the client to the server is left to the application layer (see, for example,  (oAUTH 2.0)[]). 
+Mutual Transport Layer Security (mTLS) is an end-to-end mutual authentication security method that ensures that the client and server exchange information about their claimed identities and that traffic is secure and trusted in both directions. This is an extension of [TLS](#transport-layer-security-tls), which only proves the identity of the server to the client and leaves the authentication of the client to the server to the application layer, e.g., using oAUTH2.
 
-mTLS means that not only the server must have a certificate, but also any client that wants to connect to the server.
+mTLS is often used in a 0-trust environment because it strictly limits which clients are allowed to connect to a server, regardless of where the client is located (e.g., VPN, internal network, etc.) and regardless of any credentials.
+mTLS is more commonly used in (closed) environments where a limited number of services and servers communicate with each other. This has limited applicability to the ONE Record open data ecosystem approach.
 
-Mutual Transport Layer Security (mTLS) is an end-to-end security method for mutual authentication that ensures the client and the server share information about their claimed identity and ensure that traffic is both secure and trusted in both directions.
+**Workflow:**
 
-mTLS is often used in 0-trust environment.
+1. A ONE Record client connects to the ONE Record server
+2. The ONE Record server presents its TLS server certificate to the ONE Record client
+3. The ONE Record client verifies the ONE Record server's certificate
+4. The ONE Record client presents its TLS client certificate to the ONE Record server
+5. The ONE Record server verified the ONE Record client's certificate
+6. THE ONE Record server grants access
+7. ONE Record client and ONE Record server exchange data over an encrypted TLS connection
 
-Mutual TLS, or mTLS, is a type of mutual authentication in which the two parties in a connection authenticate each other using the TLS protocol.
+```mermaid
+    sequenceDiagram
+        participant C as ONE Record Client
+        participant S as ONE Record Server
 
-Benefit is authentication on protocol layer.
+        C->>S: Establish TCP Connection to ONE Record server
+        S-->>C: Present TLS certificate to ONE Record client
+        C->>C: Verify TLS certificate
+        C->>S: Present TLS certificate to ONE Record server
+        S->>S: Verify TLS certificate (& grant access)        
+        C->>S: Exchange data over encrypted TLS connection
+        S-->>C: Exchange data over encrypted TLS connection       
+```
 
-**Advantages of mTLS**
+**Advantages of mTLS:**
 
 - More secure than TLS, because it validates not only server's certificate, but also client'certificate
 - Authentication of client on protocol layer.
@@ -68,3 +84,6 @@ Benefit is authentication on protocol layer.
 - Less user-friendly and rarely used in end-user API applications
 - Depending on setup, termination of mTLS may hinder the passing of authentication details to ONE Record server for authorization.
 
+**Guidelines for the usage of mTLS in ONE Record:**
+
+- mTLS is RECOMMENDED for highly sensitive data exchange using ONE Record

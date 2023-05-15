@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - renamed CompanyInformation to ServerInformation, because it mainly contains meta information about the ONE Record API and its configuration
 - replaced ServerInformation#company and ServerInformation#companyId (formerly CompanyInformation) with ServerInformation#dataOwner
 - merged PatchRequest into ChangeRequest
-- renamed Operation#op enums to UPPERCASE, e.g. changed del to DEL
+- renamed Operation#op enums to UPPERCASE, e.g. changed del to DELETE
 - renamed Details to ErrorDetails
 - renamed ChangeRequest#requestingParty to ChangeRequest#requestedBy
 - renamed ChangeRequest#timestamp to ChangeRequest#requestedAt

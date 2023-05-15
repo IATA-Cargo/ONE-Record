@@ -7,7 +7,7 @@
     "api:hasLogisticsObject": {
         "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
     },
-    "api:description": "Update goods description and coload",
+    "api:hasDescription": "Update goods description and coload",
     "api:hasOperation": [{
             "@type": "api:Operation",
             "api:op": { "@id": "api:ADD" },
@@ -15,19 +15,19 @@
             "api:p": "https://onerecord.iata.org/ns/cargo#goodsDescription",
             "api:o": [{
                 "@type": "api:OperationObject",
-                "api:hasDatatype": "https://www.w3.org/2001/XMLSchema#string",
+                "api:hasDatatype": "http://www.w3.org/2001/XMLSchema#string",
                 "api:hasValue": "ONE Record Advertisement Materials"
             }]
         },
         {
             "@type": "api:Operation",
-            "api:op": { "@id": "api:DEL" },
+            "api:op": { "@id": "api:DELETE" },
             "api:s": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
             "api:p": "https://onerecord.iata.org/ns/cargo#coload",
             "api:o": [{
                 "@type": "api:OperationObject",
-                "api:hasDatatype": "https://www.w3.org/2001/XMLSchema#boolean",
-                "api:hasValue": "TRUE"
+                "api:hasDatatype": "http://www.w3.org/2001/XMLSchema#boolean",
+                "api:hasValue": "false"
             }]
         },
         {
@@ -37,8 +37,8 @@
             "api:p": "https://onerecord.iata.org/ns/cargo#coload",
             "api:o": [{
                 "@type": "api:OperationObject",
-                "api:hasDatatype": "https://www.w3.org/2001/XMLSchema#boolean",
-                "api:hasValue": "FALSE"
+                "api:hasDatatype": "http://www.w3.org/2001/XMLSchema#boolean",
+                "api:hasValue": "true"
             }]
         }
     ],

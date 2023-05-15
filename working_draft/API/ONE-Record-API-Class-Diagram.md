@@ -168,7 +168,7 @@ classDiagram
     class PatchOperation{
         <<Enumeration>>
         ADD
-        DEL
+        DELETE
     }
     class Permission{
         <<Enumeration>>                

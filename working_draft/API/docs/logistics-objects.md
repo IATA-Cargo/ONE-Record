@@ -7,7 +7,7 @@ A list of all possible data classes that inherit from Logistics Object can be fo
 !!! note 
         Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
         The reason for this is that _only the owner of the logistics object_ MAY create a logistics object with any business logic or technology. 
-        However, it is important that the Logistics Object is created with a [Logistics Object URI](#logistics-object-uri) that is accessible on the internet of logistics.
+        However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the internet of logistics.
 
          Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
 
@@ -124,9 +124,9 @@ Type: https://onerecord.iata.org/ns/cargo#Shipment
 
 Three different logistics objects have been published, i.e. they have been created and are accessible via their URIs:
 
-- Piece with the [Logistics Object URI](#logistics-object-uri-louri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c`
-- Shipment with the [Logistics Object URI](#logistics-object-uri-louri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c`, 
-- Company with the [Organization URI](#organization-uri) `https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda`
+- Piece with the [Logistics Object URI](concepts.md#logistics-object-uri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c`
+- Shipment with the [Logistics Object URI](concepts.md#logistics-object-uri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c`, 
+- Company with the [Organization URI](concepts.md#organization-uri) `https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda`
 
 This Logistics Objects will be used for the following examples.
 
@@ -409,7 +409,7 @@ classDiagram
     class PatchOperation{
         <<Enumeration>>
         ADD
-        DEL
+        DELETE
     }
     class RequestStatus{
         <<Enumeration>>
@@ -451,12 +451,12 @@ The following HTTP status codes MUST be supported:
 
 ## Example C1
 
-In the example below, a [Piece](https://onerecord.iata.org/ns/cargo#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo#coload) from `TRUE` to `FALSE`.
+In the example below, a [Piece](https://onerecord.iata.org/ns/cargo#Piece) is modified by setting the property [goodsDescription](https://onerecord.iata.org/ns/cargo#goodsDescription) to `"BOOKS"` and change the property [coload](https://onerecord.iata.org/ns/cargo#coload) from `false` to `true`.
 This results in the following operations that MUST be part of the [Change](https://onerecord.iata.org/ns/api#Change):
 
 1. add the value `"BOOKS"` (xsd:string) to the property [goodsDescription](https://onerecord.iata.org/ns/cargo#goodsDescription) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
-2. delete the value `TRUE` (xsd:boolean) from property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
-3. add the value `FALSE` (xsd:boolean) to property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
+2. delete the value `false` (xsd:boolean) from property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
+3. add the value `true` (xsd:boolean) to property [coload](https://onerecord.iata.org/ns/cargo#coload) of [Piece](https://onerecord.iata.org/ns/cargo#Piece)
 
 Request:
 

@@ -155,7 +155,7 @@ Some possible changes to the ONE Record API specification COULD be:
 - Addition of new API endpoint
 - Removal of an existing API endpoint
 
-Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](#logistics-object-uri)), 
+Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](concepts.md#logistics-object-uri)), 
 an API versioning via URI Path is **not** possible, e.g. 
 [http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b](http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b)
 
