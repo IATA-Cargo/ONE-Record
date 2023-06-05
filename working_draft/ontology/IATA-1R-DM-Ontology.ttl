@@ -9,11 +9,11 @@
 @base <https://onerecord.iata.org/ns/cargo> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC4> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC4.1> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "10-05-2023" ;
+                                       terms:modified "02-06-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 Version 2.0.0
@@ -51,10 +51,16 @@ Version 3.0.0 RC 4
 - Added involvedParties to Waybill object instead
 - Added arrivalLocation and departureLocation to Waybill object
 - Fixed length and pattern restrictions on data properties
-- Fixed waybillPrefix to accept numbers and letters"""@en ;
+- Fixed waybillPrefix to accept numbers and letters
+Version 3.0.0 RC 4.1
+- Removed duplicate properties from deprecated Company Branch object
+- Renamed \"locationOfPerformance\" and \"loactionOfCreation\" to \"performedAtLocation\" and \"createdAtLocation\" for consistency
+- Renamed \"forBookingOptions\" to \"forBookingOption\" for consistency
+- Addded \"resultOfCheck\" and \"usedInCheck\" properties as backlinks from CheckTotalResult and CheckTemplate to Check
+- Fixed \"describedByProduct\" restriction in Item LO"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.0 RC 4 "@en .
+                                       owl:versionInfo "3.0.0 RC 4 .1"@en .
 
 #################################################################
 #    Annotation properties
@@ -656,6 +662,15 @@ owl:thing rdf:type rdfs:Datatype .
                       owl:versionInfo "v3.0 renamed from insurance:coveringParty"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#createdAtLocation
+:createdAtLocation rdf:type owl:ObjectProperty ;
+                   rdfs:domain :ExternalReference ;
+                   rdfs:range :Location ;
+                   rdfs:comment "Location of the document, e.g. location where the document was emitted"@en ;
+                   rdfs:label "createdAtLocation"@en ;
+                   owl:comment "Possible RDF good practice IRI: :isCreatedAt "@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#customsInformation
 :customsInformation rdf:type owl:ObjectProperty ;
                     rdfs:domain :Piece ;
@@ -871,6 +886,15 @@ owl:thing rdf:type rdfs:Datatype .
             owl:comment "Possible RDF good practice IRI: :isLocationOfAction "@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#forBookingOption
+:forBookingOption rdf:type owl:ObjectProperty ;
+                  rdfs:domain owl:Thing ;
+                  rdfs:range :BookingOption ;
+                  rdfs:comment "Reference to the BookingOptionRequest the LogisticsObject is detailling"@en ;
+                  rdfs:label "forBookingOption"@en ;
+                  owl:comment "Possible RDF good practice IRI: :isForBookingOption "@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#forBookingOptionRequest
 :forBookingOptionRequest rdf:type owl:ObjectProperty ;
                          rdfs:domain owl:Thing ;
@@ -878,15 +902,6 @@ owl:thing rdf:type rdfs:Datatype .
                          rdfs:comment "Reference to the BookingOptionRequest the information of the LogisticsObject is detailling"@en ;
                          rdfs:label "forBookingOptionRequest"@en ;
                          owl:comment "Possible RDF good practice IRI: :isForBookingOptionRequest "@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#forBookingOptions
-:forBookingOptions rdf:type owl:ObjectProperty ;
-                   rdfs:domain owl:Thing ;
-                   rdfs:range :BookingOption ;
-                   rdfs:comment "Reference to the BookingOptionRequest the LogisticsObject is detailling"@en ;
-                   rdfs:label "forBookingOptions"@en ;
-                   owl:comment "Possible RDF good practice IRI: :isForBookingOption "@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forBookingRequest
@@ -1211,24 +1226,6 @@ owl:thing rdf:type rdfs:Datatype .
              owl:comment "Possible RDF good practice IRI: :composesOnLoadingUnit "@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#locationOfCreation
-:locationOfCreation rdf:type owl:ObjectProperty ;
-                    rdfs:domain :ExternalReference ;
-                    rdfs:range :Location ;
-                    rdfs:comment "Location of the document, e.g. location where the document was emitted"@en ;
-                    rdfs:label "locationOfCreation"@en ;
-                    owl:comment "Possible RDF good practice IRI: :isCreatedAt "@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#locationOfPerformance
-:locationOfPerformance rdf:type owl:ObjectProperty ;
-                       rdfs:domain :LogisticsAction ;
-                       rdfs:range :Location ;
-                       rdfs:comment "Reference to the Location the Action was performed at"@en ;
-                       rdfs:label "locationOfPerformance"@en ;
-                       owl:comment "Possible RDF good practice IRI: :isPerformedAt "@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#manufacturer
 :manufacturer rdf:type owl:ObjectProperty ;
               rdfs:domain :PhysicalLogisticsObject ;
@@ -1478,6 +1475,15 @@ owl:thing rdf:type rdfs:Datatype .
          owl:deprecated "true"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#performedAtLocation
+:performedAtLocation rdf:type owl:ObjectProperty ;
+                     rdfs:domain :LogisticsAction ;
+                     rdfs:range :Location ;
+                     rdfs:comment "Reference to the Location the Action was performed at"@en ;
+                     rdfs:label "perfomedAtLocation"@en ;
+                     owl:comment "Possible RDF good practice IRI: :isPerformedAt "@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#preferenceOfRequests
 :preferenceOfRequests rdf:type owl:ObjectProperty ;
                       rdfs:domain :Ratings ;
@@ -1639,6 +1645,14 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:comment "Refers to the person that requests the handling/service"@en ;
                   rdfs:label "requestedByActor"@en ;
                   owl:comment "Possible RDF good practice IRI: :isRequestedByActor "@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#resultOfCheck
+:resultOfCheck rdf:type owl:ObjectProperty ;
+               rdfs:domain :CheckTotalResult ;
+               rdfs:range :Check ;
+               rdfs:label "resultOfCheck"@en ;
+               owl:comment "Reference to the Check this object is the result of"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#resultValue
@@ -1970,6 +1984,14 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:comment "Unit preferences of the request (e.g. kg or cm)"@en ;
                  rdfs:label "unitsPreference"@en ;
                  owl:comment "Possible RDF good practice IRI: :hasUnitsPreference "@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#usedInCheck
+:usedInCheck rdf:type owl:ObjectProperty ;
+             rdfs:domain :CheckTemplate ;
+             rdfs:range :Check ;
+             rdfs:comment "Reference to the Check the template was used in"@en ;
+             rdfs:label "usedInCheck"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#usedTemplate
@@ -6136,7 +6158,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:allValuesFrom :Location
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty :forBookingOptions ;
+                                  owl:onProperty :forBookingOption ;
                                   owl:allValuesFrom :BookingOption
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -6226,19 +6248,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :BookingTimes rdf:type owl:Class ;
               rdfs:subClassOf :LogisticsObject ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty :forBookingOptionRequest ;
-                                owl:allValuesFrom :BookingOptionRequest
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :forBookingOptions ;
+                                owl:onProperty :forBookingOption ;
                                 owl:allValuesFrom :BookingOption
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :forBookingOptionRequest ;
+                                owl:allValuesFrom :BookingOptionRequest
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :forBookingOption ;
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty :forBookingOptions ;
+                                owl:onProperty :forBookingOptionRequest ;
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ,
                               [ rdf:type owl:Restriction ;
@@ -6367,11 +6389,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :CarrierProduct rdf:type owl:Class ;
                 rdfs:subClassOf :LogisticsObject ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty :forBookingOptions ;
+                                  owl:onProperty :forBookingOption ;
                                   owl:allValuesFrom :BookingOption
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty :forBookingOptions ;
+                                  owl:onProperty :forBookingOption ;
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -6480,7 +6502,15 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:allValuesFrom :Question
                                ] ,
                                [ rdf:type owl:Restriction ;
+                                 owl:onProperty :usedInCheck ;
+                                 owl:allValuesFrom :Check
+                               ] ,
+                               [ rdf:type owl:Restriction ;
                                  owl:onProperty :legacyTemplate ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :usedInCheck ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
@@ -6528,11 +6558,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:allValuesFrom :Person
                                   ] ,
                                   [ rdf:type owl:Restriction ;
+                                    owl:onProperty :resultOfCheck ;
+                                    owl:allValuesFrom :Check
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
                                     owl:onProperty :resultValue ;
                                     owl:allValuesFrom :Value
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :certifiedByActor ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :resultOfCheck ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ,
                                   [ rdf:type owl:Restriction ;
@@ -6615,20 +6653,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :CompanyBranch rdf:type owl:Class ;
                rdfs:subClassOf :Organization ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty :basedAtLocation ;
-                                 owl:allValuesFrom :Location
-                               ] ,
-                               [ rdf:type owl:Restriction ;
                                  owl:onProperty :company ;
                                  owl:allValuesFrom :Company
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :otherIdentifiers ;
-                                 owl:allValuesFrom :OtherIdentifier
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :basedAtLocation ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :company ;
@@ -7139,19 +7165,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :ExternalReference rdf:type owl:Class ;
                    rdfs:subClassOf :LogisticsObject ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty :linkedLogisticObjects ;
-                                     owl:allValuesFrom :LogisticsObject
+                                     owl:onProperty :createdAtLocation ;
+                                     owl:allValuesFrom :Location
                                    ] ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty :locationOfCreation ;
-                                     owl:allValuesFrom :Location
+                                     owl:onProperty :linkedLogisticObjects ;
+                                     owl:allValuesFrom :LogisticsObject
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :originator ;
                                      owl:allValuesFrom :Company
                                    ] ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty :locationOfCreation ;
+                                     owl:onProperty :createdAtLocation ;
                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                    ] ,
                                    [ rdf:type owl:Restriction ;
@@ -7417,7 +7443,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :describedByProduct ;
-                        owl:allValuesFrom :Country
+                        owl:allValuesFrom :Product
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :dimensions ;
@@ -7884,7 +7910,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom :Person
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :locationOfPerformance ;
+                                   owl:onProperty :performedAtLocation ;
                                    owl:allValuesFrom :Location
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -7892,7 +7918,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom :LogisticsActivity
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :locationOfPerformance ;
+                                   owl:onProperty :performedAtLocation ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -8867,11 +8893,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :Price rdf:type owl:Class ;
        rdfs:subClassOf :LogisticsObject ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :forBookingOptionRequest ;
+                         owl:onProperty :forBookingOption ;
                          owl:allValuesFrom :BookingOption
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :forBookingOptions ;
+                         owl:onProperty :forBookingOptionRequest ;
                          owl:allValuesFrom :BookingOption
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -8879,11 +8905,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:allValuesFrom :Ratings
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :forBookingOptionRequest ;
+                         owl:onProperty :forBookingOption ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :forBookingOptions ;
+                         owl:onProperty :forBookingOptionRequest ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -9409,23 +9435,23 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:allValuesFrom :Location
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :forBookingOptionRequest ;
-                           owl:allValuesFrom :BookingOptionRequest
+                           owl:onProperty :forBookingOption ;
+                           owl:allValuesFrom :BookingOption
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :forBookingOptions ;
-                           owl:allValuesFrom :BookingOption
+                           owl:onProperty :forBookingOptionRequest ;
+                           owl:allValuesFrom :BookingOptionRequest
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :scheduledLegs ;
                            owl:allValuesFrom :ScheduledLegs
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :forBookingOptionRequest ;
+                           owl:onProperty :forBookingOption ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :forBookingOptions ;
+                           owl:onProperty :forBookingOptionRequest ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
