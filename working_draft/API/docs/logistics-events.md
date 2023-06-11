@@ -45,7 +45,7 @@ classDiagram
     class LogisticsObject{                
     }
 
-    class Person{        
+    class Actor{        
     }  
 
     class Organization{            
@@ -65,27 +65,17 @@ classDiagram
         + eventTimeType: xsd:string [0..1]
         + externalReferences: ExternalReference
         + linkedObject: LogisticsObject [0..1]
-        + location: Location [0..1]
-        + performedBy: Organization [0..1]
-        + performedByActor: Person [0..1]
+        + recordedAtLocation: Location [0..1]
+        + recordedBy: Organization [0..1]
+        + recordedByActor: Actor [0..1]
 
     }
     LogisticsEvent "1" --> "0..*" ExternalReference
     LogisticsEvent "1" --> "0..1" LogisticsObject
     LogisticsEvent "1" --> "0..1" Location
     LogisticsEvent "1" --> "0..1" Organization
-    LogisticsEvent "1" --> "0..1" Person
+    LogisticsEvent "1" --> "0..1" Actor
 ```
-
-<!-- | LogisticsEvent           | Description        | Required | Class                 |
-| ---------------------- |  ------------------------------------ | -------- | ----------------------------------------- |
-| **linkedObject**       | Logistics object the event applies to                      | y        | w3c:String            |
-| **performedBy**        | Company that is adding the event       | y        | https://onerecord.iata.org/ns/cargo#Company  |
-| **eventCode**          | Movement or milestone code. Refer cXML Code List 1.18, e.g. DEP, ARR, FOH, RCS | y        | w3c:String            |
-| **eventName**          | If no EventCode provided, event name - e.g. Security clearance                 | y        | w3c:String            |
-| **eventTypeIndicator** | Type of event being created: "Actual" , "Expected" , "Planned" or "Requested"  | y        | w3c:String            |
-| **dateTime**           | Date and time when the event occurred                      | y        | w3c:DateTime          |
-| **location**           | Location of where the event occurred                       | y        | https://onerecord.iata.org/ns/cargo#Location | -->
 
 ## Response
 
