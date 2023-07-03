@@ -178,7 +178,7 @@ The following HTTP headers parameters MUST be present in the response:
 | -------------------- |    ---------- | ----------------------------- |
 | **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
-| **Revision**         | The revision of the requested Logistics Object as a non-negative numerical value. This is particularly relevant if the query parameter `at=` is set to request a historical version of the Logistics Object. | 3         |
+| **Revision**         | The revision of the requested Logistics Object as a positive numerical value. This is particularly relevant if the query parameter `at=` is set to request a historical version of the Logistics Object. | 3         |
 | **Latest-Revision**  | The latest revision number of the Logistics Object as non-negative numerical value.                      | 3         |
 | **Last-Modified**    | Date and time when the Logistics Object was last time changed. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
 
@@ -373,7 +373,7 @@ classDiagram
         + hasOperation[]: Operation [1..*]        
         + hasDescription: xsd:string [0..1]
         + hasLogisticsObject: LogisticsObject
-        + hasRevision: xsd:nonNegativeInteger        
+        + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Change "1" --> "1" LogisticsObject
@@ -518,7 +518,7 @@ This results in the following operations that MUST be part of the [Change](https
 1. add the property value `25.0` to the embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM") within the property Piece#grossWeight
 
 !!! note
-        The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
+        The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
 
 Request:
 
@@ -725,7 +725,7 @@ classDiagram
 
     class AuditTrail{                
         + hasChangeRequest[]: ChangeRequest [*]                
-        + hasLatestRevision: xsd:nonNegativeInteger       
+        + hasLatestRevision: xsd:positiveInteger       
     }
     AuditTrail "1" --> "*" ChangeRequest
 ```

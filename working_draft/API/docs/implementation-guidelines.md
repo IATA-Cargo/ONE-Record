@@ -63,7 +63,7 @@ In this document, the ids of this embedded objects are called `embedded object i
 The structure of this embedded object id is up to the implementor of the ONE Record server.
 Nevertheless, it is RECOMMENDED to use the following structure for embedded object ids:
 
-`1r:<uuid5 using the data class name>`, e.g. `1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07` as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")
+`internal:<uuid5 using the data class name>`, e.g. `internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07` as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")
 
 !!! note 
     It MUST be ensured that these embedded object IDs, similar to logistics object URIs, MUST be unique within the domain of the ONE Record server and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
@@ -82,7 +82,7 @@ Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resou
   "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
   "cargo:grossWeight": {
     "@type": "cargo:Value",
-    "@id": "1r:7fc81d1d-6c75-568b-9e47-48c947ed2a07",
+    "@id": "internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07",
     "cargo:value": "20.0",
     "cargo:unit": "KGM"
   }
@@ -92,7 +92,7 @@ Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resou
 Explanations:
 
 - [https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c](https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c) is the @id of the parent Logistics Object of type Piece
-- `1r:ded2e183` is the `@id` of the embedded object of type Value which can only exist along the parent Logistics Object
+- `internal::7fc81d1d-6c75-568b-9e47-48c947ed2a07` is the `@id` of the embedded object of type Value which can only exist along the parent Logistics Object
 
 This is particularly relevant for the [updating of Logistics Objects](logistics-objects.md#update-a-logistics-object) when
 changes to the logistics object affect embedded objects and MUST be identifier during processing using their embedded object id.

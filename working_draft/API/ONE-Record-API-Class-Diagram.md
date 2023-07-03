@@ -60,7 +60,7 @@ classDiagram
        
     class AuditTrail{                
         + hasChangeRequest[]: ChangeRequest [*]                
-        + hasLatestRevision: xsd:nonNegativeInteger       
+        + hasLatestRevision: xsd:positiveInteger       
     }
     AuditTrail "1" --> "*" ChangeRequest
 
@@ -68,7 +68,7 @@ classDiagram
         + hasDescription: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
         + hasLogisticsObject: LogisticsObject
-        + hasRevision: xsd:nonNegativeInteger        
+        + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Change "1" --> "1" LogisticsObject

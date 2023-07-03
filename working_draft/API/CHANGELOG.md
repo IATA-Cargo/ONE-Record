@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - added UTF-8 as default content encoding
-- added 0 as default revision number for AuditTrail and LogisticsObjects
+- added 1 as default revision number for AuditTrail and LogisticsObjects
 - added class diagram as supporting document
 - added overview of data classes and properties as CSV file to supporting documents,
 - added two reference OpenAPI specifications as supporting documents (minimum = to be ONE Record server compliant; recommended = for comfort features)

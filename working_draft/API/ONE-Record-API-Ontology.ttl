@@ -290,7 +290,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/api#hasLatestRevision
 :hasLatestRevision rdf:type owl:DatatypeProperty ;
                    rdfs:domain :AuditTrail ;
-                   rdfs:range xsd:nonNegativeInteger ;
+                   rdfs:range xsd:positiveInteger ;
                    rdfs:comment "Latest revision of the Logistics Object. Starting with revision 0"@en ;
                    rdfs:label "Latest revision"@en .
 
@@ -322,7 +322,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/api#hasRevision
 :hasRevision rdf:type owl:DatatypeProperty ;
              rdfs:domain :ChangeRequest ;
-             rdfs:range xsd:string ;
+             rdfs:range xsd:positiveInteger ;
              rdfs:comment "Revision number of the Logistics Object, starting with 0 for changing the initial revision of a Logistics Object"@en ;
              rdfs:label "Revision"@en .
 
@@ -386,10 +386,10 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion
 :hasSupportedOntologyVersion rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :ServerInformation ;
-                      rdfs:range xsd:anyURI ;
-                      rdfs:comment "Supported ontology versions on the server, MUST be versioned IRIs"@en ;
-                      rdfs:label "Supported ontology version"@en .
+                             rdfs:domain :ServerInformation ;
+                             rdfs:range xsd:anyURI ;
+                             rdfs:comment "Supported ontology versions on the server, MUST be versioned IRIs"@en ;
+                             rdfs:label "Supported ontology version"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasTitle
@@ -638,12 +638,12 @@ xsd:date rdf:type rdfs:Datatype .
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :hasLatestRevision ;
-                              owl:allValuesFrom xsd:nonNegativeInteger
+                              owl:allValuesFrom xsd:positiveInteger
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :hasLatestRevision ;
                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                              owl:onDataRange xsd:nonNegativeInteger
+                              owl:onDataRange xsd:positiveInteger
                             ] ;
             rdfs:comment "Audit trail of a Logistics Object"@en ;
             rdfs:label "Audit Trail"@en .
@@ -675,7 +675,7 @@ xsd:date rdf:type rdfs:Datatype .
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :hasRevision ;
-                          owl:allValuesFrom xsd:nonNegativeInteger
+                          owl:allValuesFrom xsd:positiveInteger
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :notifyRequestStatusChange ;
@@ -684,7 +684,7 @@ xsd:date rdf:type rdfs:Datatype .
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :hasRevision ;
                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                          owl:onDataRange xsd:nonNegativeInteger
+                          owl:onDataRange xsd:positiveInteger
                         ] ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :notifyRequestStatusChange ;
@@ -935,7 +935,7 @@ xsd:date rdf:type rdfs:Datatype .
                                   owl:oneOf ( :GET_LOGISTICS_EVENT
                                               :GET_LOGISTICS_OBJECT
                                               :PATCH_LOGISTICS_OBJECT
-                                              :POST_LOGISTICS_EVENT                                              
+                                              :POST_LOGISTICS_EVENT
                                             )
                                 ] ;
             rdfs:label "Permission"@en .
@@ -990,7 +990,7 @@ xsd:date rdf:type rdfs:Datatype .
                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                      owl:onDataRange xsd:anyURI
                                    ] ,
-                                    [ rdf:type owl:Restriction ;
+                                   [ rdf:type owl:Restriction ;
                                      owl:onProperty :hasSupportedOntologyVersion ;
                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                      owl:onDataRange xsd:anyURI
@@ -1175,18 +1175,18 @@ cargo:Organization rdf:type owl:Class .
         rdfs:label "DELETE"@en .
 
 
+###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_EVENT
+:GET_LOGISTICS_EVENT rdf:type owl:NamedIndividual ,
+                              :Permission ;
+                     rdfs:comment ":Permission to get a :LogisticsEvent"@en ;
+                     rdfs:label "GET_LOGISTICS_EVENT"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_OBJECT
 :GET_LOGISTICS_OBJECT rdf:type owl:NamedIndividual ,
                                :Permission ;
                       rdfs:comment ":Permission to get a :LogisticsObject"@en ;
                       rdfs:label "GET_LOGISTICS_OBJECT"@en .
-
-
-###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_EVENT
-:GET_LOGISTICS_EVENT rdf:type owl:NamedIndividual ,
-                               :Permission ;
-                      rdfs:comment ":Permission to get a :LogisticsEvent"@en ;
-                      rdfs:label "GET_LOGISTICS_EVENT"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED
@@ -1292,16 +1292,16 @@ cargo:Organization rdf:type owl:Class .
                               rdfs:label "SUBSCRIPTION_REQUEST_REVOKED"@en .
 
 
-[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
 [ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
-[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 ###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi

@@ -157,11 +157,11 @@ Response:
 HTTP/1.1 204 No Content
 ```
 
-
 ## Example 1B
 
-The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification without the content of the object, 
-because `sendLogisticsObjectBody` in Subscription is set to `False`.
+The following example shows a `LOGISTICS_OBJECT_CREATED` Notification with the content of the object, 
+because `sendLogisticsObjectBody` in Subscription is set to `True`.
+
 ```http
 POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
@@ -179,9 +179,8 @@ HTTP/1.1 204 No Content
 
 ## Example 1C
 
-The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification with the content of the object, 
-because `sendLogisticsObjectBody` in Subscription is set to `True`.
-
+The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification without the content of the object, 
+because `sendLogisticsObjectBody` in Subscription is set to `False`.
 ```http
 POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
@@ -198,7 +197,8 @@ HTTP/1.1 204 No Content
 
 ## Example 1D
 
-The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the ChangeRequest is accepted by the owner of the logistics object.
+The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted and a subscriber set 
+`https://onerecord.iata.org/ns/api#subscribeToLogisticsEvents` to `true` in Subscription.
 
 ```http
 POST /notifications HTTP/1.1
@@ -208,6 +208,24 @@ Accept: application/ld+json; version=2.0.0-dev
 --8<-- "examples/Notification_example4.json"
 ```
 _([examples/Notification_example4.json](examples/Notification_example4.json))_
+
+Response:
+```http
+HTTP/1.1 204 No Content
+```
+
+## Example 1E
+
+The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the ChangeRequest is accepted by the owner of the logistics object.
+
+```http
+POST /notifications HTTP/1.1
+Content-Type: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.0.0-dev
+
+--8<-- "examples/Notification_example5.json"
+```
+_([examples/Notification_example5.json](examples/Notification_example5.json))_
 
 Response:
 ```http

@@ -104,7 +104,7 @@ The properties and relationships to other data classes are visualized in the fol
         + hasDescription: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
         + hasLogisticsObject: LogisticsObject
-        + hasRevision: xsd:nonNegativeInteger        
+        + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Change "1" --> "1" LogisticsObject
