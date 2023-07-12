@@ -9,11 +9,11 @@
 @base <https://onerecord.iata.org/ns/cargo> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC5a> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC5b> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "10-07-2023" ;
+                                       terms:modified "12-07-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 Version 2.0.0
@@ -58,7 +58,7 @@ Version 3.0.0 RC 4.1
 - Renamed \"forBookingOptions\" to \"forBookingOption\" for consistency
 - Addded \"resultOfCheck\" and \"usedInCheck\" properties as backlinks from CheckTotalResult and CheckTemplate to Check
 - Fixed \"describedByProduct\" restriction in Item LO
-Version 3.0.0 RC5
+Version 3.0.0 RC5a
 - Fixed missing label and description in subtotal and billing charges properties
 - Changed Shipment from PhysicalLO to LO
 - Lifted cardinality restriction from insuredShipment property and changed name and IRI suffix to insuredShipments
@@ -69,10 +69,13 @@ Version 3.0.0 RC5
 - Added TACTRateDescription, OtherCharge, TotalCharge classes and respective properties
 - Changed domain of re-used properties to owl:Thing of the abovementioned classes
 - Added properties serviceCode, chargesAtDestination and carrierCharge code to Waybill
-- Added tactRateDescriptions, chargeTotals and otherCharges to Waybill to connect with the new LOs"""@en ;
+- Added tactRateDescriptions, chargeTotals and otherCharges to Waybill to connect with the new LOs
+Version 3.0.0 RC5b
+- Moved chargesAtDestination from Waybill to TotalCharge
+- Added object property totalCollectCharges with Range Value and added it to TotalCharge"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.0 RC 5a"@en .
+                                       owl:versionInfo "3.0.0 RC 5b"@en .
 
 #################################################################
 #    Annotation properties
@@ -449,7 +452,7 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#chargesAtDestination
 :chargesAtDestination rdf:type owl:ObjectProperty ;
-                      rdfs:domain :Waybill ;
+                      rdfs:domain :TotalCharge ;
                       rdfs:range :Value ;
                       rdfs:comment "PENDING"@en ;
                       rdfs:label "chargesAtDestination"@en .
@@ -1997,6 +2000,14 @@ owl:thing rdf:type rdfs:Datatype .
        rdfs:range :Value ;
        rdfs:comment "PENDING"@en ;
        rdfs:label "total"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#totalCollectCharges
+:totalCollectCharges rdf:type owl:ObjectProperty ;
+                     rdfs:domain :TotalCharge ;
+                     rdfs:range :Value ;
+                     rdfs:comment "PENDING" ;
+                     rdfs:label "totalCollectCharges"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#totalDimensions
@@ -10156,11 +10167,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:allValuesFrom :Value
                              ] ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty :chargesAtDestination ;
+                               owl:allValuesFrom :Value
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty :collectChargesInDestinationCurrency ;
                                owl:allValuesFrom :Value
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :currencyConversionRate ;
+                               owl:allValuesFrom :Value
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :totalCollectCharges ;
                                owl:allValuesFrom :Value
                              ] ,
                              [ rdf:type owl:Restriction ;
@@ -10168,11 +10187,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty :chargesAtDestination ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty :collectChargesInDestinationCurrency ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :currencyConversionRate ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :totalCollectCharges ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
