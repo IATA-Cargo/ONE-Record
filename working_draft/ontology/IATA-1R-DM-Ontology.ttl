@@ -9,11 +9,11 @@
 @base <https://onerecord.iata.org/ns/cargo> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC5c> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0-RC5d> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "12-07-2023" ;
+                                       terms:modified "02-08-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 Version 2.0.0
@@ -74,10 +74,19 @@ Version 3.0.0 RC5b
 - Moved chargesAtDestination from Waybill to TotalCharge
 - Added object property totalCollectCharges with Range Value and added it to TotalCharge
 Version 3.0.0 RC5c
-- Moved CustomsInformation from Piece to Shipment"""@en ;
+- Moved CustomsInformation from Piece to Shipment
+Version 3.0.0 RC5d
+- Renamed property operatedTransportMovements in operatedTransportMovement
+- Added max 1 cardinality restriction to operatedTransportMovement in TransportMeans
+- Redesigned UnitComposition, Composing and LoadingUnit to be consistent with TransportMovement, Loading and TransportMeans and to enhance ability to query data (for orchestration) 
+- Renamed loadingUnit property to onLoadingUnit, changed Domain to owl:Thing
+- Added onLoadingUnit property to UnitComposition
+- Added property inUnitComposition to LoadingUnit (inverse)
+- Added properties subLocations and subLocationOf to model hierarchical relationships between Locations
+- Renamed forActions to performedActions to better reflect its inverse property performedAtLocation"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.0 RC 5c"@en .
+                                       owl:versionInfo "3.0.0 RC 5d"@en .
 
 #################################################################
 #    Annotation properties
@@ -966,15 +975,6 @@ owl:thing rdf:type rdfs:Datatype .
                     owl:versionInfo "v1.1 renamed to externalReferences"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#forActions
-:forActions rdf:type owl:ObjectProperty ;
-            rdfs:domain :Location ;
-            rdfs:range :LogisticsAction ;
-            rdfs:comment "References to the Actions happening at the Location"@en ;
-            rdfs:label "forActions"@en ;
-            owl:comment "Possible RDF good practice IRI: :isLocationOfAction "@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#forBookingOption
 :forBookingOption rdf:type owl:ObjectProperty ;
                   rdfs:domain owl:Thing ;
@@ -1139,6 +1139,14 @@ owl:thing rdf:type rdfs:Datatype .
             owl:comment "Possible RDF good practice IRI: :hasRegulatedEntityIdentifier "@en ;
             owl:deprecated "true"@en ;
             owl:versionInfo "v3.0 renamed from regulatedEntity:regulatedEntityIdentifier"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#inUnitComposition
+:inUnitComposition rdf:type owl:ObjectProperty ;
+                   rdfs:domain :LoadingUnit ;
+                   rdfs:range :UnitComposition ;
+                   dc:description "Reference to the Unit Composition the LoadingUnit is in"@en ;
+                   rdfs:label "inUnitComposition"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#insurance
@@ -1317,10 +1325,10 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#loadingUnit
 :loadingUnit rdf:type owl:ObjectProperty ;
-             rdfs:domain :Composing ;
+             rdfs:domain owl:Thing ;
              rdfs:range :LoadingUnit ;
-             rdfs:comment "Reference to the LoadingUnit being built-up or broken-down"@en ;
-             rdfs:label "loadingUnit"@en ;
+             rdfs:comment "Reference to the LoadingUnit composed in the Unit Composition or referenced in Composing actions"@en ;
+             rdfs:label "onLoadingUnit"@en ;
              owl:comment "Possible RDF good practice IRI: :composesOnLoadingUnit "@en .
 
 
@@ -1420,13 +1428,13 @@ owl:thing rdf:type rdfs:Datatype .
                   owl:comment "Possible RDF good practice IRI: :loadsOnTransportMeans "@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#operatedTransportMovements
-:operatedTransportMovements rdf:type owl:ObjectProperty ;
-                            rdfs:domain :TransportMeans ;
-                            rdfs:range :TransportMovement ;
-                            rdfs:comment "Transport Movement on which the Transport Means is used"@en ;
-                            rdfs:label "operatedTransportMovements"@en ;
-                            owl:comment "Possible RDF good practice IRI: :operatesTransportMovement "@en .
+###  https://onerecord.iata.org/ns/cargo#operatedTransportMovement
+:operatedTransportMovement rdf:type owl:ObjectProperty ;
+                           rdfs:domain :TransportMeans ;
+                           rdfs:range :TransportMovement ;
+                           rdfs:comment "Transport Movement on which the Transport Means is used"@en ;
+                           rdfs:label "operatedTransportMovement"@en ;
+                           owl:comment "Possible RDF good practice IRI: :operatesTransportMovement "@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#operatingTransportMeans
@@ -1587,6 +1595,15 @@ owl:thing rdf:type rdfs:Datatype .
          rdfs:label "payload"@en ;
          owl:comment "Possible RDF good practice IRI: :hasPayload "@en ;
          owl:deprecated "true"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#perfomedActions
+:perfomedActions rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Location ;
+                 rdfs:range :LogisticsAction ;
+                 rdfs:comment "References to the Actions happening at the Location"@en ;
+                 rdfs:label "performedActions"@en ;
+                 owl:comment "Possible RDF good practice IRI: :isLocationOfAction "@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#performedAtLocation
@@ -1940,6 +1957,22 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:comment "References to all StoringActions performed for the Storing Activity"@en ;
                 rdfs:label "storingActions"@en ;
                 owl:comment "Possible RDF good practice IRI: :hasStoringActions "@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#subLocationOf
+:subLocationOf rdf:type owl:ObjectProperty ;
+               rdfs:domain :Location ;
+               rdfs:range :Location ;
+               dc:title "subLocationOf"@en ;
+               owl:comment "Reference to the Location this Location is a part of, for example the warehouse if the Location describes a specific truckdeck"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#subLocations
+:subLocations rdf:type owl:ObjectProperty ;
+              rdfs:domain :Location ;
+              rdfs:range :Location ;
+              dc:title "subLocations"@en ;
+              owl:comment "References to all Locations which are part of this Location, for example separate truck decks of a warehouse"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#subOrganization
@@ -7953,7 +7986,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Activity to describe onloading and offloading processes"@en ;
-                 rdfs:label "LoadingActivity"@en .
+                 rdfs:label "LoadingActivity"@en ;
+                 owl:deprecated "true"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadingMaterial
@@ -8011,12 +8045,20 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :LoadingUnit rdf:type owl:Class ;
              rdfs:subClassOf :PhysicalLogisticsObject ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty :inUnitComposition ;
+                               owl:allValuesFrom :UnitComposition
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty :loadedPiecesOnLoadingUnit ;
                                owl:allValuesFrom :Piece
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :tareWeight ;
                                owl:allValuesFrom :Value
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :inUnitComposition ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :tareWeight ;
@@ -8050,12 +8092,20 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:allValuesFrom :Address
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :forActions ;
+                            owl:onProperty :geolocation ;
+                            owl:allValuesFrom :Geolocation
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :perfomedActions ;
                             owl:allValuesFrom :LogisticsAction
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :geolocation ;
-                            owl:allValuesFrom :Geolocation
+                            owl:onProperty :subLocationOf ;
+                            owl:allValuesFrom :Location
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :subLocations ;
+                            owl:allValuesFrom :Location
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :address ;
@@ -8063,6 +8113,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :geolocation ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :subLocationOf ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -8089,7 +8143,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:onProperty :locationType ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ;
-          rdfs:comment "Loading location details"@en ;
+          rdfs:comment "Location describes a physical location, e.g. an airport, a warehouse or a truck deck"@en ;
           rdfs:label "Location"@en .
 
 
@@ -10236,7 +10290,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :TransportMeans rdf:type owl:Class ;
                 rdfs:subClassOf :PhysicalLogisticsObject ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty :operatedTransportMovements ;
+                                  owl:onProperty :operatedTransportMovement ;
                                   owl:allValuesFrom :TransportMovement
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -10250,6 +10304,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty :typicalFuelConsumption ;
                                   owl:allValuesFrom :Value
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :operatedTransportMovement ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty :transportOrganization ;
@@ -10541,6 +10599,14 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom :Composing
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :loadingUnit ;
+                                   owl:allValuesFrom :LoadingUnit
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :loadingUnit ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :compositionIdentifier ;
                                    owl:allValuesFrom xsd:string
                                  ] ,
@@ -10548,7 +10614,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:onProperty :compositionIdentifier ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
-                 rdfs:comment "Activity to describe build-up and break-down processes"@en ;
+                 rdfs:comment "Activity to describe composition and decomposition of LoadingUnits"@en ;
                  rdfs:label "UnitComposition"@en .
 
 
