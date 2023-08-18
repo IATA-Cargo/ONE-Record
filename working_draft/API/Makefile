@@ -17,6 +17,7 @@ copy-assets:
 	rm -rf docs/assets/ONE-Record-API-OpenAPI.yaml; cp ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
 	rm -rf docs/assets/ONE-Record-API-OpenAPI.recommended.yaml; cp ONE-Record-API-OpenAPI.recommended.yaml docs/assets/ONE-Record-API-OpenAPI.recommended.yaml
 	rm -rf docs/assets/ONE-Record-API-Ontology.csv; cp ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
+	rm -rf docs/assets/ONE-Record-API-Collections.postman_collection; cp ONE-Record-API-Collections.postman_collection docs/assets/ONE-Record-API-Collections.postman_collection
 
 create-symlinks:
 	ln -fs ../CHANGELOG.md docs/changelog.md
@@ -27,6 +28,7 @@ create-symlinks:
 	ln -fs ../../ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
 	ln -fs ../../ONE-Record-API-OpenAPI.recommended.yaml docs/assets/ONE-Record-API-OpenAPI.recommended.yaml
 	ln -fs ../../ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
+	ln -fs ../../ONE-Record-API-Collections.postman_collection docs/assets/ONE-Record-API-Collections.postman_collection
 
 serve:
 	$(MAKE) create-symlinks
@@ -43,6 +45,10 @@ deploy:
 	$(MAKE) copy-assets
 	mkdocs gh-deploy --ignore-version --no-history
 	$(MAKE) create-symlinks
+
+deployGH:	
+	$(MAKE) copy-assets
+	mkdocs gh-deploy --ignore-version --no-history
 
 clean:
 	rm -rf $(SITE_DIR)
