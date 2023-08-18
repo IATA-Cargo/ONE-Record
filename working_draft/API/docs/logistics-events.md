@@ -5,14 +5,14 @@ Logistics events are events related to the management and execution of transport
 - Logistics Events are immutable. They MUST NOT be changed after creation.
 - List of logistics Events attached to Logistics Objects are event stores. This event store is an append-only log. Events CAN be added by using the HTTP POST method (see [Create a Logistics Event](#create-a-logistics-event)) but MUST NOT be changed or deleted.
 - Logistics Events are neither logistics objects nor embedded object
-- Every Logistics Events MUST an URI, that follows the following structure:
-<LogisticsObject>/events/<logisticsEventId> where <logisticsEventId> is
-- A Logistics Event MUST BE linked to exactly one Logistics Object
+- Every Logistics Events MUST an URI, that follows the following structure: 
+    - {{baseURL}}/logistics-object/{{logisticsObjectId}}/logistics-events/{{logisticsEventId}} where {{logisticsEventId}} is an identifier which can be globally unique and must be unique in the context of its parent Logistics Object
+- A Logistics Event MUST be linked to exactly one Logistics Object
 - Every Logistics Event MUST have a property `occuredAt (xsd:dateTime)`
 
 # Logistics Events URI
 
-Every Logistics Event MUST have globally unique identifier, a 
+Each Logistics Event MUST have globally unique IRI and MUST have a unique identifier in the context of its parent Logistics Object. The implementor can use the same algorithm as the Logistics Object ids. For more information check the section [Logistics Objects URI](./concepts.md#logistics-object-uri)
 
 
 # Create a Logistics Event
@@ -23,6 +23,12 @@ by sending a HTTP POST request containing a [LogisticsEvent](https://onerecord.i
 As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
 
 As Logistics Events MUST be associated with a specific Logistics Object, creating Logistics Events requires the existence of a Logistics Object. 
+
+## Endpoint
+
+``` 
+ POST {{baseURL}}/logistics-objects/{{logisticsObjectId}}/logistics-events
+```
 
 ## Request
 
@@ -101,6 +107,11 @@ The following HTTP headers parameters MUST be present in the response:
 | Location    | The URI of the newly created Logistics Event           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f |
 | Type        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo#LogisticsEvent                    |
 
+## Security
+
+To engage with the "Create a Logistics Event" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+The implementor has the option to allow all authenticated users the capability to create a Logistics Event. This implies that there would be no access control enforced for this particular endpoint.
 
 ## Example A1
 
@@ -160,8 +171,14 @@ _([examples/Error_404.json](examples/Error_404.json))_
 # Get a Logistics Event
 
 Each Logistics Event in the Internet of Logistics MUST be accessible via its [Logistics Event URI](#logistics-events-uri) using the HTTP GET method.
-This enables the Owner of the Logistics Object to manage access on the level of individual Logistics Event (see [#access-control] for more information).
+This enables the Holder of the Logistics Object to manage access on the level of individual Logistics Event (see [Access Control page](./security/access-control.md) for more information).
 If the requester is authorized to access this Logistics Event then the response body MUST include the requested Logistics Event.
+
+## Endpoint 
+
+``` 
+ GET {{baseURL}}/logistics-objects/{{logisticsObjectId}}/logistics-events/{{logisticsEventId}}
+```
 
 ## Request
 
@@ -170,7 +187,7 @@ The following query parameters MUST be supported:
 | Query parameter   | Description                         | Valid values        |
 | ----------------- |    -------------------------------- |   ------------- |
 | **embedded** (optional)      | Optional parameter that can be used to request an embedded version of a Logistics Object, if the parameter is not set, a linked version of the Logistics Object is returned  | <ul><li>true</li><li>false</li></ul> |
-| **at** (optional)      | Optional parameter that can be used to request a historical version of Logistics Object, if the parameter is not set,   | - |
+| **at** (optional)      | Optional parameter that can be used to request a historical version of Logistics Object, if the parameter is not set, the latest version is returned   | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ` |
 
 
 The following HTTP header MUST be present in the request:
@@ -202,6 +219,12 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated        | Error            |
 | **403** | Not authorized to retrieve the Logistics Object                  | Error            |
 | **404** | Logistics Object or Logistics Event not found                   | Error            |
+
+## Security
+
+To engage with the "Get a Logistics Event" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+It's crucial to emphasize that the authorization for logistics events can differ from that of the logistics objects they are associated with. A client might possess access to a logistics event while not having authorization for the corresponding logistics object.
 
 ## Example B1
 
@@ -258,7 +281,11 @@ _([examples/Error_404.json](examples/Error_404.json))_
 Logistics events that are linked to a logistics object CAN be retrieved by doing a HTTP GET request to the the `/logistics-events` endpoint of a logistics object.
 In addition, only a subset of all linked logistics events can optionally be retrieved by setting filter parameters.
 
-As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
+## Endpoint 
+
+``` 
+ GET {{baseURL}}/logistics-objects/{{logisticsObjectId}}/logistics-events/
+```
 
 ## Request
 
@@ -307,6 +334,12 @@ The following HTTP status codes MUST be supported:
 | **401**  | Not authenticated                 | Error                    |
 | **403**  | Not authorized to retrieve Events | Error                    |
 | **404**  | Logistics Object Not Found        | Error                    |
+
+## Security
+
+To engage with the "Get Logistics Events of a Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+The authorization to access the logistics events should be derived from the logistics objects. However, the implementor of a ONE Record server can decide to separate the control access between a logistics object and its logistics events.
 
 ## Example C1
 

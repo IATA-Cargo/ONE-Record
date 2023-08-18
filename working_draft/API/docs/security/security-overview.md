@@ -20,7 +20,7 @@ Mutual TLS secures all the Node-to-Node channels whereas OAuth2 adds an extra se
 
 IATA has conceptualized a first practical implementation, which is promoted as the official security model for ONE Record. This implementation is split in two modules:
 •	TLS authentication support, including the definition of certificate profiles and practical use of digital certificates for client and server certificates;
-•	Token-based authentication support, including a practical implementation using OAuth2 as authorization protocol, based on the concept of a “Trusted Identity Provider”.
+•	Token-based authentication support, including a practical implementation using OIDC as authentication protocol, based on the concept of a “Trusted Identity Provider”.
 The next sections provide more detailed descriptions on the chosen security models and common use cases.
 
 This section presents these models and showcases the implications and benefits that they bring to the air cargo industry.

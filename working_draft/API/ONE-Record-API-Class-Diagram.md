@@ -91,7 +91,8 @@ classDiagram
         + hasChangedProperty[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
-        + hasLogisticsObject: LogisticsObject [0..1]                
+        + hasLogisticsObject: LogisticsObject [0..1]
+        + hasLogisticsObjectType: xsd:anyURI [0..1]                    
         + hasTopic: xsd:anyURI
         
     }
@@ -114,13 +115,12 @@ classDiagram
     }
 
     class ServerInformation{
-        + hasDataOwner: Organization                
+        + hasDataHolder: Organization                
         + hasServerEndpoint: xsd:anyURI        
         + hasSupportedApiVersion[]: xsd:string [1..*]
         + hasSupportedContentType[]: xsd:string [1..*]        
         + hasSupportedEncoding[]: xsd:string [*]
         + hasSupportedLanguage[]: xsd:string [1..*]
-        + hasSupportedLogisticsObjectType[]: xsd:anyURI [1..*]
         + hasSupportedOntology[]: xsd:anyURI [1..*]
         + hasSupportedOntologyVersion[]: xsd:anyURI [1..*]
     }    
@@ -131,13 +131,15 @@ classDiagram
         + hasDescription: xsd:string [0..1]
         + expiresAt: xsd:dateTime [0..1]                                
         + hasSubscriber: Organization        
-        + hasTopicType: TopicType        
+        + hasTopicType: TopicType  
+        + notifyRequestStatusChange: xsd:boolean = FALSE      
         + sendLogisticsObjectBody: xsd:boolean = FALSE        
-        + subscribeToLogisticsEvents: xsd:boolean = FALSE
+        + includeSubscriptionEventType[]: SubscriptionEventType [1..*]
         + hasTopic: xsd:anyURI        
     }    
     Subscription "1" --> "1" Organization: hasSubscriber
     Subscription --> TopicType
+    Subscription "1" --> "1..*" SubscriptionEventType
 
     class NotificationEventType{
         <<Enumeration>>
@@ -189,5 +191,12 @@ classDiagram
         REQUEST_REJECTED
         REQUEST_FAILED
         REQUEST_REVOKED        
+    }
+    class SubscriptionEventType{
+        <<Enumeration>>
+        LOGISTICS_OBJECT_CREATED
+        LOGISTICS_OBJECT_UPDATED
+
+        LOGISTICS_EVENT_RECEIVED
     }
 ```

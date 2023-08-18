@@ -19,7 +19,7 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 - [ONE Record API class diagram](assets/ONE-Record-API-Class-Diagram.md) is a visual representation of the ONE Record API ontology and describes the ONE Record API data classes, their properties as attributes, and the relationship that can exist between the classes.
 - [OpenAPI specification (minimum)](assets/ONE-Record-API-OpenAPI.yaml) describes the prescribed API endpoint structure of a ONE Record server implementation
 - [OpenAPI specification (recommended)](assets/ONE-Record-API-OpenAPI.recommended.yaml) describes the recommended API endpoint structure of a ONE Record server implementation
-- [Postman collection]() contains demo HTTP requests that demonstrate how to interact with the various ONE Record API endpoints and can be used to playback the examples provided in this document.
+- [Postman collection](assets/ONE-Record-API-Collections.postman_collection) contains demo HTTP requests that demonstrate how to interact with the various ONE Record API endpoints and can be used to playback the examples provided in this document.
 
 # Document Version
 
@@ -35,7 +35,7 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 ## Dependencies
 
 The ontology of the ONE Record API uses data classes defined in the ONE Record cargo ontology. 
-Therefore, this ONE Record API version 2.0.0-dev requires the ONE Record cargo ontology 3.0 or later.
+Therefore, this ONE Record API version 2.0.0-dev requires the ONE Record cargo ontology 3.0.0 or later.
 
 # Conventions
 

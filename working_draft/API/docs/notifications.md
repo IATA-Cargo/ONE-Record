@@ -41,7 +41,8 @@ The initialization of this data exchange channel is described in the [Subscripti
         + hasChangedProperty[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
-        + hasLogisticsObject: LogisticsObject [0..1]                
+        + hasLogisticsObject: LogisticsObject [0..1]
+        + hasLogisticsObjectType: xsd:anyURI [0..1]                
         + hasTopic: xsd:anyURI
         
     }
@@ -100,6 +101,12 @@ Rules and recommendations related to the Notifications API:
 
 # Send Notification
 
+## Endpoint 
+``` 
+ POST {{baseURL}}/notifications
+
+```
+
 ## Request
 
 The following HTTP header parameters MUST be present in the request:
@@ -134,7 +141,13 @@ One of the following HTTP status codes MUST be present in the response:
 | 415 | 	Unsupported content type | Error       |
 | 500 |     Internal Server Error | Error       |
 
-A successful request MUST return a `HTTP/1.1 204 No Content` status code and the following HTTP headers parameters MUST be present in the response:
+A successful request MUST return a `HTTP/1.1 204 No Content` status code.
+
+
+## Security 
+
+To engage with the "Send Notifications" endpoint, a client needs to be authenticated. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
+
 
 ## Example 1A
 
@@ -197,8 +210,10 @@ HTTP/1.1 204 No Content
 
 ## Example 1D
 
-The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted and a subscriber set 
-`https://onerecord.iata.org/ns/api#subscribeToLogisticsEvents` to `true` in Subscription.
+The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted.  
+
+!!! note
+        Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
 
 ```http
 POST /notifications HTTP/1.1
@@ -216,7 +231,7 @@ HTTP/1.1 204 No Content
 
 ## Example 1E
 
-The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the ChangeRequest is accepted by the owner of the logistics object.
+The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the ChangeRequest is accepted by the holder of the logistics object.
 
 ```http
 POST /notifications HTTP/1.1

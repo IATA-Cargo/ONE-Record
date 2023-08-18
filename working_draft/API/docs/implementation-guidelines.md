@@ -205,11 +205,19 @@ This supports debugging because the ONE Record client knows if there is a differ
 
 ## Data Versioning
 
-see [Historical Logistics Object](#retrieve-historical-logistics-object)
+Whenever a change request is accepted, the data within a Logistic Object undergoes alterations. Nevertheless, clients might require access to the content of a Logistic Object at a precise moment in time. To address this need, ONE Record servers must incorporate a data versioning system.
+
+More information about data versioning can be found in the section [Historical Logistics Object](./logistics-objects.md#retrieve-a-historical-logistics-object)
 
 # Validation
 
-==TODO: Discuss whether SHACL files should be provided for field validation.==
+ONE Record server must implement two type of validations:
+
+- API validation : the payload and the headers must respect the API specification issues by IATA.
+- Model validation : during the creation of a new object, the data provided within the request body should be complaint with the ONE Record cargo ontology.
+
+If an API request is malformed, the ONE Record server is expected to respond with an error.
+IATA strongly recommends validating each object against the ONE Record cargo ontology before creating it. This validation helps prevent the creation of malformed objects that could potentially hinder interoperability across the ONE Record server network. However, ONE Record servers have the option to accept additional properties for each object.
 
 # Error Handling
 
@@ -246,12 +254,12 @@ The Error object has the following properties:
 
 | Property       | Description                      | Required     | Class       |
 | ----------- |  ------------------------------- | ------------ | ----------- |
-| **hasTitle**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | y            | w3c:String  |
-| **hasErrorDetail**          | details of the error              | n            | api:ErrorDetails |
-| - hasCode               | a ONE Record application-specific error code expressed as a string value. | n            | w3c:String  |
-| - hasMessage            | Explanation specific to this problem                  | n            | w3c:String  |
-| - hasProperty          | data element to which the error applies               | n            | w3c:String  |
-| - hasResource           | URI of the object concerned       | n            | w3c:String   |
+| **hasTitle**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | yes           | w3c:String  |
+| **hasErrorDetail**          | details of the error              | no            | api:ErrorDetails |
+| - hasCode               | a ONE Record application-specific error code expressed as a string value. | no            | w3c:String  |
+| - hasMessage            | Explanation specific to this problem                  | no            | w3c:String  |
+| - hasProperty          | data element to which the error applies               | no            | w3c:String  |
+| - hasResource           | URI of the object concerned       | no            | w3c:String   |
 
 [ErrorDetails](https://onerecord.iata.org/ns/api#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
 For example, set the property [hasMessage](https://onerecord.iata.org/ns/api#hasMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.

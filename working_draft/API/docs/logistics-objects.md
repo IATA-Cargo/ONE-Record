@@ -6,12 +6,16 @@ A list of all possible data classes that inherit from Logistics Object can be fo
 
 !!! note 
         Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
-        The reason for this is that _only the owner of the logistics object_ MAY create a logistics object with any business logic or technology. 
+        The reason for this is that _only the holder of the logistics object_ MAY create a logistics object with any business logic or technology. 
         However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the internet of logistics.
 
          Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
 
-As for all API interactions, the ONE Record client must be authenticated and have the access rights to perform this action.
+
+## Endpoint
+``` 
+ POST {{baseURL}}/logistics-objects/
+```
 
 ## Request
 
@@ -43,6 +47,9 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to publish the Logistics Object to the server | Error            |
 | **409** | Logistics object with specified ID already exists            | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
+
+## Security
+Access to the Logistics Objects creation endpoint should be restricted to internal usage only, and it must not be made available to external entities.
 
 ## Example A1
 
@@ -133,23 +140,28 @@ This Logistics Objects will be used for the following examples.
 # Get a Logistics Object
 
 Each Logistics Object in the Internet of Logistics MUST be accessible via its [Logistics Objects URI](concepts.md#logistics-object-uri) using the HTTP GET method.
-This enables the Owner of the Logistics Object to manage access on the level of individual Logistics Objects (see [#access-control] for more information).
+This enables the Holder of the Logistics Object to manage access on the level of individual Logistics Objects (see [access-control](./security/access-control.md) for more information).
 If the requester is authorized to access this Logistics Object then the response body MUST include the requested Logistics Object.
 
-If not a historical version is explicitly requested (see [(Retrieve a historical Logistics Object](#retrieve-a-historical-logistics-object)),
+If not a historical version is explicitly requested (see [Retrieve a historical Logistics Object](#retrieve-a-historical-logistics-object)),
 the ONE Record server MUST return the latest version of the requested Logistics Object.
 
-Because of Linked Data as a core concept of ONE Record, it could be possible that the requested Logistics Object contains links to other Logistics Object (see Shipment in [Example 3](#example-3)),
+Because of Linked Data as a core concept of ONE Record, it could be possible that the requested Logistics Object contains links to other Logistics Object (see Shipment in [Example A3](#example-a3)),
 If the User of the Logistics Object is interested in this linked data objects (which not necessary have to be on the same ONE Record server) and has the necessary access permissions, the User of the Logistics Object can request those Logistics Objects via their linked Logistics Object URIs.
 
 Although linking logistics objects instead of embedding logistics objects is the preferred and RECOMMENDED approach,
 to reduce the number of GET requests, it can be helpful to request an embedded version of a Logistics Object by setting the optional query parameter `embedded=true`. 
-The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example 6](#example-6)).
+The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example B3](#example-b3)).
 
 !!! note 
         The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
         Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events.
         Logistics Events MUST be accessed using the `/logistics-events` endpoint. (see [Logistics Events](logistics-events.md))
+
+## Endpoint
+``` 
+ GET {{baseURL}}/logistics-objects/{{logisticsObjectId}}
+```
 
 ## Request
 
@@ -158,7 +170,7 @@ The following query parameters MUST be supported:
 | Query parameter   | Description                         | Valid values        |
 | ----------------- |    -------------------------------- |   ------------- |
 | **embedded** (optional)      | Optional parameter that can be used to request an embedded version of a Logistics Object, if the parameter is not set, a linked version of the Logistics Object is returned  | <ul><li>true</li><li>false</li></ul> |
-| **at** (optional)      | Optional parameter that can be used to request a historical version of Logistics Object, if the parameter is not set,   | - |
+| **at** (optional)      | Optional parameter that can be used to request a historical version of Logistics Object, if the parameter is not set, the latest version is returned   | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ` |
 
 
 The following HTTP header parameters MUST be present in the request:
@@ -193,6 +205,10 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to retrieve the Logistics Object                  | Error            |
 | **404** | Logistics Object not found                   | Error            |
 | **415** | Unsupported Content Type                   | Error            |
+
+## Security
+To engage with the "Get Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
 
 ## Example B1
 
@@ -276,12 +292,31 @@ Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 _([examples/Shipment_with_Piece.embedded.json](examples/Shipment_with_Piece.embedded.json))_
 
 ## Example B4 
-==TODO: examples for 301 and 302 and 307 HTTP Status Code==
+This example illustrates an instance of an HTTP GET request that triggers a redirection. Various types of redirection can be employed based on requirements. The provided illustration demonstrates a 301 redirect used for indicating a permanent relocation of the resource.
+
+In this case the `Location` header carries the new URL of the requested resource.
+
+Request:
+
+```http
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c HTTP/1.1
+Host: 1r.example.com
+Content-Type: application/ld+json
+Accept: application/ld+json
+```
+Response:
+
+```bash
+HTTP/1.1 301 Moved Permanently
+Location: http://new1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c 
+
+```
+
 
 # Update a Logistics Object
 
 In ONE Record, logistics objects MAY be updated. 
-However, only the `Owner of a LogisticsObject` can update the data, 
+However, only the [`Holder of a LogisticsObject`](./concepts.md#holder-of-a-logistics-object) can update the data, 
 while `Users of the LogisticsObject` can only request changes following a structure described in this section.
 
 Technically, the HTTP PATCH method is used to request an update to a LogisticsObject.
@@ -304,24 +339,28 @@ Thus, any property in a Logistics Object can be _deleted_, _added_, or _replaced
 
 **Guidelines for updating Logistics Objects in ONE Record:**
 
-- Only the Owner of a Logistics Object MAY make the changes to logistics objects.
+- Only the Holder of a Logistics Object MAY make the changes to logistics objects.
 - Any User of a Logistics Object CAN request a [Change](https://onerecord.iata.org/ns/api#Change) on a Logistics Object, which result in a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING).
-- The Owner of a Logistics Object decides about the [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) and applies changes to a Logistics Object unless there is a business or technical reason to reject it.
-- Evaluation and Application of a [Change](https://onerecord.iata.org/ns/api#Change) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. Meaning, 
+- The Holder of a Logistics Object decides about the [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) and applies changes to a Logistics Object unless there is a business or technical reason to reject it.
+- Evaluation and Application of a [Change](https://onerecord.iata.org/ns/api#Change) MUST occur as a single (atomic) event. Operations are sorted and processed as two groups of (1) delete operations and (2) add operations until all operations are applied, or else the entire update fails. If an error occurs, it is necessary to revert the logistics object back to its previous state before implementing the modification.
 - If a field update fails, the entire [Change](https://onerecord.iata.org/ns/api#Change) is unsuccessful. Partial updates MUST NOT be accepted. The ONE Record server MUST use the property [hasError](https://onerecord.iata.org/ns/cargo#hasError) of the [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) to document the errors.
 - If the update is successful, the revision number in a Logistics Object's [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) is incremented and the changes are recorded in the Audit Trail. Please refer to the sections on [Historical Logistics Objects](#retrieve-a-historical-logistics-object) and [Audit Trail of Logistics Objects](#get-audit-trail-of-a-logistics-object) for more details.
 - It is RECOMMENDED to get the latest version of Logistics Object before requesting a [Change](https://onerecord.iata.org/ns/api#Change) to ensure that the update is made to the latest version of the Logistics Object.
-- If a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is rejected by the Owner of the Logistics Object, the revision number of the Logistics Object is not incremented but the request is added to the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of this Logistics Object, marked with the status [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED). A rejected [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is kept in the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of the Logistics Object.
+- If a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is rejected by the Holder of the Logistics Object, the revision number of the Logistics Object is not incremented but the request is added to the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of this Logistics Object, marked with the status [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED). A rejected [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is kept in the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) of the Logistics Object.
 - After a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) is accepted, other pending ChangeRequests that affect the same revision MUST be rejected.
 - The PATCH operation MUST NOT be used to create logistics objects; only linking to an existing object is allowed in a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest).
 - The PATCH operation MUST NOT be used to link a [LogisticsEvent](https://onerecord.iata.org/ns/cargo#LogisticsEvent) to a Logistics Object. The ONE Record server MUST reject requested changes that contain operations to the [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo#hasLogisticsEvent) property.
 - The ONE Record server MUST check that the property [referencesLogisticsObject](https://onerecord.iata.org/ns/api#referencesLogisticsObject) matches the URI/endpoint used for the PATCH request. 
-- If [datatype](https://onerecord.iata.org/ns/api#datatype) in [OperationObject](https://onerecord.iata.org/ns/api#OperationObject) is an IRI of the ONE Record cargo ontology and is not a data class that inherits from LogisticsObject, then the ONE Record Server MUST generate an embeddedObjectId for the object in the `value` property of `OperationObject` (see section about [Blank Nodes and Embedded Objects](implementation-guidelines.md#serialization-and-data-formats))
+- If [datatype](https://onerecord.iata.org/ns/api#datatype) in [OperationObject](https://onerecord.iata.org/ns/api#OperationObject) is an IRI of the ONE Record cargo ontology and is not a data class that inherits from LogisticsObject, then the ONE Record Server MUST generate an embeddedObjectId for the object in the `value` property of `OperationObject` (see section about [Blank Nodes and Embedded Objects](./implementation-guidelines.md#serialization-and-data-formats))
 
 
 Logistics Objects MUST have a revision number, which is a non negative integer to be incremented after every applied change.
 The audit trail contains a field latestRevision which defines the latest revision of the Logistics Object.
 
+## Endpoint
+``` 
+ PATCH {{baseURL}}/logistics-objects/{{logisticsObjectId}}
+```
 ## Request
 
 The following HTTP header parameters MUST be present in the PATCH request:
@@ -423,11 +462,11 @@ classDiagram
 
 ## Response
 
-A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
+A successful request MUST return a ``HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
 
 | Header | Description                 | Example                |
 | -------------------- |  ----- |   -------------------------------- |
-| **Location**         | The URI of the submitted ChangeRequest          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
+| **Location**         | The URI of the newly created ChangeRequest          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
 | **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/ns/api#ChangeRequest                   |
 
 Otherwise, an `Error` object with `ErrorDetails` as response body MUST be returned with the following HTTP headers:
@@ -441,13 +480,18 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description | Response body    |
 | ------- | ----------- | ---------------- |
-| **201** | The change was successfully requested | No body required |
+| **201** | The change request was correctly created | No body required |
 | **400** | The update request body is invalid                             | Error            |
 | **401** | Not authenticated                          | Error            |
 | **403** | Not authorized to update the Logistics Object                  | Error            |
 | **404** | Logistics Object not found                 | Error            |
 | **415** | Unsupported Content Type, response when the client sends a PATCH document format that the server does not support for the resource identified by the Request-URI.  | Error            |
 | **422** | Unprocessable request, when the server understands the PATCH document and the syntax of the PATCH document appears to be valid, but the server is incapable of processing the request. | Error            |
+
+## Security
+
+To engage with the "Update Logistics Object" endpoint, a client needs only to be authenticated. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
+
 
 ## Example C1
 
@@ -648,12 +692,8 @@ Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453
 ```
 
 
-==TODO: Add example for changing property in bNode==
-
 !!! note
     Removing a bNode, the ONE Record server implementors should handle the cleansing of the triples.
-    ONE Record allows the cutting of branches.
-    If you want to delete the whole object.
 
 ## Example C6
 In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api#referencesLogisticsObject) in the [Change](https://onerecord.iata.org/ns/api#Change) object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
@@ -712,7 +752,7 @@ _([examples/Error_400_example2.json](examples/Error_400_example2.json))_
 # Get Audit Trail of a Logistics Object
 
 Every time a Logistics Object is requested to be updated as described in the previous section, the details of this request are added to an AuditTrail of a Logistics Object. 
-Before a ChangeRequest is processed by the owner of a Logistics Object, the status of the ChangeRequest MUST be changed from [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING) to [REQUEST_ACCEPTED](https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED) or [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED).
+Before a ChangeRequest is processed by the holder of a Logistics Object, the status of the ChangeRequest MUST be changed from [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING) to [REQUEST_ACCEPTED](https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED) or [REQUEST_REJECTED](https://onerecord.iata.org/ns/api#REQUEST_REJECTED).
 
 The ChangeRequest data class object details about the success or failure of this request, e.g. timestamps, any errors that occurred, in addition to the operations to be applied to a LogisticsObject.
 
@@ -732,7 +772,7 @@ classDiagram
 
 !!! note
         `Users of the Logistics Object` can retrieve the AuditTrail of the LogisticsObject. 
-        `Owner of the Logistics Object` is responsible for updating the AuditTrail.
+        `Holder of the Logistics Object` is responsible for updating the AuditTrail.
 
 
 
@@ -741,15 +781,20 @@ The AuditTrail of a Logistics Object can be retrieved by performing a GET reques
 
 In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&updated-to=YYYYMMDDThhmmssZ". The ONE Record client MUST specify this date-time window.
 
+## Endpoint
+``` 
+ GET {{baseURL}}/logistics-objects/{{logisticsObjectId}}/audit-trail
+```
+
 ## Request
 
 The following query parameters MUST be supported:
 
 | Query parameter   | Description | Valid values |
 | ------------------| ----------- | ------------ |
-| **updated-from**  |             |              | 
-| updated-to        |             |              |
-| **status** (optional) |             | <ul><li>PENDING</li><li>ACCEPTED</li><li>REJECTED</li> |
+| **updated-from** (optional) | The start date of the requested audit trail.  If not specificed the acutal time is taken.  | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`             | 
+| **updated-to** (optional)   | The end date of the requested audit trail. If not specificed the logistics object creation date is taken.  |  ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`            |
+| **status** (optional)       | The type of change requests in the audit trail. If not specified all types are returned.  | <ul><li>PENDING</li><li>ACCEPTED</li><li>REJECTED</li> |
 
 
 The following HTTP header parameters MUST be present in the request:
@@ -763,24 +808,23 @@ The following HTTP header parameters MUST be present in the request:
 
 A successful GET request MUST return the following response body.
 
-<!-- The response body follows the API AuditTrail class structure.
+The response body follows the API [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) class structure.
 
 | AuditTrail | Description                           | Required | Class                 |
-| ---------------------------- |  --- ---------- | -------- | --------------------- |
-| **affectedLogisticsObject**  | Logistics Object that is affected by ChangeRequests in AuditTrail              | y        | cargo:LogisticsObject |
-| **changeRequests**           | List of change requests that were sent as PATCH for a Logistics Object        | y        | api:ChangeRequest     |
-| - requestedBy                | The party that has requested the change request, i.e. the person or department within the company | y        | cargo:Organization    |
-| - status                     | PENDING or ACCEPTED or REJECTED       | y        | Enumeration           |
-| - requestedAt                | Timestamp of the change request       | y        | w3c:DateTime          |
-| - affectedLogisticsObject    | Logistics Object that is affected by ChangeRequests        | y        | cargo:LogisticsObject |
-| - operations                 | Logistics Object that is affected by ChangeRequests        | y        | api:Operation         |
-| **errors**                   | Mandatory only if patchRequest was rejected. Otherwise Optional               | y/n      | api:Error             |
-| - title  | Brief description of the error        | y        | w3c:String            |
-| - details                    | error details                         | n        | api:ErrorDetails      |
-| -- attribute                 | Field of the object for which the error applies           | n        | vw3c:String           |
-| -- code  | Error code        | y        | w3c:String            |
-| -- message                   | Detailed error message                | n        | w3c:String            |
-| -- resource                  | Object for which the error applies                        | n        | w3c:String            | -->
+| ---------------------------- |  ------------- | -------- | --------------------- |
+| **hasChangeRequest** | List of change requests that were sent as PATCH for a Logistics Object  | yes        | api:ChangeRequest     |
+| **hasLatestRevision**  | The latest revision of the Logistics Object | yes        | xsd:positiveInteger |
+
+Each change request follows the API [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) class structure.
+
+## Security
+
+To engage with the "Get Audit Trail of a Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+The authorization to access the audit trail should be derived from the logistics objects. However, the implementor of a ONE Record server can decide to separate the control access between a logistics object and its audit trail.
+
+!!! note
+        The Audit trail comprehensively documents the chronological history of a logistics object. Individuals with access to the audit trail are able to view the complete evolution of the logistics object over time. Due to this, it is imperative for the implementer of the ONE Record server to exercise caution when granting access to this particular resource.
 
 ## Example D1
 
@@ -836,7 +880,8 @@ _([examples/AuditTrail_example2.json](examples/AuditTrail_example2.json))_
 In ONE Record, data is updated in real time and every time a ChangeRequest is applied successfully, a new version of the Logistics Object and only the latest content is available via its URI.
 However, there is a need to retrieve a specific version of a data object at a specific point in time, for example the [Master Air Waybill (MAWB)](https://onerecord.iata.org/ns/cargo#Waybill).
 
-> Note: Reverting to a previous version of a Logistics Object with PATCH is not supported as out of scope of ONE Record.
+!!! note 
+        Reverting to a previous version of a Logistics Object with PATCH is not supported as out of scope of ONE Record.
 
 An ONE Record server MUST enable the ONE Record client to request an historical version of a Logistics Object using the `?at=` query parameter of the Logistics Object GET endpoint.
 This `?at=` parameter MUST accept past datetime strings in ISO 8601 UTC using the following format: `YYYYMMDDThhmmssZ`
@@ -848,6 +893,8 @@ If this parameter is before the creation date of the Logistics Object, `404 Not 
 If this parameter is in the future, `400 Bad Request` is returned.
 
 To ensure consistency when following the linked objects in a response, all linked Logistics Object, i.e. their Logistics Object URIs. in the response body MUST also contain the `?at=`query parameter with the same provided datetime value.
+
+To retrieve an historical logistic object we use the "Get a logistics object" endpoint. Additional information on how to perform a correct request can be found in the section ["Get a logistics object"](#get-a-logistics-object).
 
 ## Example E1
 

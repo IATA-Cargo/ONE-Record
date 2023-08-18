@@ -686,64 +686,6 @@ paths:
                 $ref: '#/components/schemas/Error'
         "204":
           description: No Content
-  /logistics-objects/{logisticsObjectId}/access-permissions:
-    get:
-      tags:
-      - Logistics Objects
-      summary: Retrieve access permissions for a specific logistics object
-      operationId: getAccessPermission
-      parameters:
-      - name: logisticsObjectId
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "404":
-          description: Logistics Object not found
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "403":
-          description: Not authorized
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "200":
-          description: The request to retrieve the access permissions has been successful
-          headers:
-            Type:
-              description: Type of the resource
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-            Location:
-              description: Location of the AccessPermissions resource
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/AccessPermission'
-        "415":
-          description: Unsupported Content Type
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "401":
-          description: Not authenticated
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
 components:
   schemas:
     AccessDelegation:
@@ -3507,6 +3449,9 @@ components:
           $ref: '#/components/schemas/NotificationEventType'
         https://onerecord.iata.org/ns/api#hasLogisticsObject:
           $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasLogisticsObjectType:
+          type: string
+          format: uri        
         https://onerecord.iata.org/ns/api#isTriggeredBy:
           $ref: '#/components/schemas/ActionRequest'
         https://onerecord.iata.org/ns/api#hasChangedProperty:
@@ -5000,7 +4945,7 @@ components:
           type: array
           items:
             type: string
-        https://onerecord.iata.org/ns/api#hasDataOwner:
+        https://onerecord.iata.org/ns/api#hasDataHolder:
           $ref: '#/components/schemas/Organization'
         https://onerecord.iata.org/ns/api#hasServerEndpoint:
           uniqueItems: true
@@ -5027,12 +4972,6 @@ components:
           type: array
           items:
             type: string
-        https://onerecord.iata.org/ns/api#hasSupportedLogisticsObjectType:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-            format: uri
         https://onerecord.iata.org/ns/api#hasSupportedOntology:
           uniqueItems: true
           type: array
@@ -5272,8 +5211,11 @@ components:
           type: array
           items:
             type: string
-        https://onerecord.iata.org/ns/api#subscribeToLogisticsEvents:
-          type: boolean
+        https://onerecord.iata.org/ns/api#includeSubscriptionEventType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
     SubscriptionRequest:
       title: SubscriptionRequest
       type: object
