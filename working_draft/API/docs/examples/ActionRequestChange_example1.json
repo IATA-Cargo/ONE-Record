@@ -1,0 +1,41 @@
+{
+    "@context": {        
+        "api": "https://onerecord.iata.org/ns/api#"
+    },
+    "@type": "api:ActionRequestChange",    
+    "api:referencesActionRequest": {
+        "@type": "api:ActionRequest",
+        "@id": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28"
+    },
+    "api:hasDescription": "SubscriptionRequest accepted",
+    "api:hasOperation": [
+        {
+            "@type": "api:Operation",
+            "api:op": { "@id": "api:DELETE" },
+            "api:s": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28",
+            "api:p": "https://onerecord.iata.org/ns/api#hasRequestStatus",
+            "api:o": [
+                {
+                    "@type": "api:OperationObject",
+                    "api:hasDatatype": "https://onerecord.iata.org/ns/api#RequestStatus",
+                    "api:hasValue": "https://onerecord.iata.org/ns/api#REQUEST_PENDING"
+                }
+            ]
+        },
+        {
+            "@type": "api:Operation",
+            "api:op": { "@id": "api:ADD" },
+            "api:s": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28",
+            "api:p": "https://onerecord.iata.org/ns/api#hasRequestStatus",
+            "api:o": [
+                {
+                    "@type": "api:OperationObject",
+                    "api:hasDatatype": "https://onerecord.iata.org/ns/api#RequestStatus",
+                    "api:hasValue": "https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED"
+                }
+            ]
+        }                 
+    ]
+}
+    
+    

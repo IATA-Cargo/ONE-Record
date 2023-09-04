@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "https://onerecord.iata.org/ns/api#",
+    "cargo": "https://onerecord.iata.org/ns/cargo#",
+    "api": "https://onerecord.iata.org/ns/api#",
+    "publisher": "https://1r.example.com/",
+    "subscriber": "https://1r.example.com/"
+  },
+  "@id": "publisher:subscriptions/5f1a4869-e324-45b1-9ab0-60271ba54185",
+  "@type": "Subscription",
+  "contentType": "application/ld+json",
+  "hasSubscriber": {
+    "@id": "subscriber:logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda"
+  },
+  "includeSubscriptionEventType": [
+    {
+      "@id": "api:LOGISTICS_OBJECT_UPDATED"
+    },
+    {
+      "@id": "api:LOGISTICS_OBJECT_CREATED"
+    },
+    {
+      "@id": "api:LOGISTICS_EVENT_RECEIVED"
+    }
+  ],
+  "hasTopicType": {
+    "@id": "api:LOGISTICS_OBJECT_TYPE"
+  },
+  "topic": {
+    "@id": "cargo:Shipment"
+  }
+}

@@ -1,0 +1,122 @@
+# Project information
+site_name: ONE Record API Specification
+site_author: IATA
+site_description: >-
+  ONE Record API specification defines a standard, programming language-agnostic interface 
+  for the interaction with the ONE Record Web API.
+
+# Copyright
+copyright: >
+  <img alt="Made with love for Digital Cargo" style="vertical-align: bottom" src=https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational" />&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © 2023 IATA
+
+# Content
+nav:
+    - Introduction: 'index.md'
+    - Concepts: 'concepts.md'
+    - Implementation Guidelines: 'implementation-guidelines.md'
+    - Core Resources:
+        - Overview: 'api-features.md'
+        - Server Information: 'server-information.md'
+        - Logistics Objects: 'logistics-objects.md'
+        - Logistics Events: 'logistics-events.md'
+        - Subscriptions: 'subscriptions.md'        
+        - Notifications: 'notifications.md'                
+        - Access Delegations: 'access-delegations.md'    
+        - Action Requests: 'action-requests.md'
+    - Security:
+        - Overview: 'security/security-overview.md'
+        - Transport Layer Security: 'security/authn-transport-layer.md'              
+        - Authentication & Authorization : 'security/authn-application-layer.md'      
+        - Access Control: 'security/access-control.md'          
+    - Reference:        
+        - Glossary: 'glossary.md'
+        - Bibliography: 'bibliography.md'
+    - Development:
+        - License: "license.md"
+        - Changelog: "changelog.md"        
+        - Community: 'community.md'
+    
+
+# Theme Configuration
+theme:
+  name: material      
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.prune
+    - navigation.sections
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    # - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
+  palette:  
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  logo: img/logo.png
+  favicon: img/favicon.ico
+  
+# Extra
+extra:
+  # version:
+  #   provider: mike
+  #   default: dev
+  generator: true
+
+# Markdown Extensions
+markdown_extensions:
+  - toc:
+      permalink: true
+      baselevel: 2    
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+      base_path: docs
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.mark
+  - footnotes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - css/extra.css
+  # - css/pdf-print.css
+
+extra_javascript:
+  - js/extra.js
+# plugins:
+#   - with-pdf:
+#       verbose: true
+#       output_path: ../document.pdf

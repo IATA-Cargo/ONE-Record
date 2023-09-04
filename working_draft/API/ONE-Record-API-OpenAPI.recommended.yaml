@@ -1,0 +1,5585 @@
+openapi: 3.0.1
+info:
+  title: ONE Record API Documentation
+  description: "This OpenAPI specification describes the API endpoint structure of\
+    \ an ONE Record API implementation.<br/><br/><b>Note:</b><br/>The included schemas\
+    \ can only be used to generate JSON-LD in the extended document form.<br/>However,\
+    \ to be fully ONE Record compliant, any ONE Record API (and any compliant ONE\
+    \ Record client)<br/><b>MUST</b> support at least the expanded, compacted, and\
+    \ flattened document forms.<br/><br/>More information about the ONE Record specification\
+    \ are available on [IATA Github repository](https://github.com/IATA-Cargo/ONE-Record)\
+    \ and on the [ONE Record Developer Portal](https://onerecord.iata.org)."
+  contact:
+    name: IATA
+    url: https://onerecord.iata.org/
+    email: onerecord@iata.org
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  version: 2.0.0-dev
+servers:
+- url: https://1r.example.com
+paths:
+  /access-delegations:
+    post:
+      tags:
+      - Access Delegations
+      summary: Request delegated access on LogisticsObjects
+      operationId: createAccessDelegationRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/AccessDelegation'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "201":
+          description: Created
+  /action-requests/{actionRequestId}/errors:
+    get:
+      tags:
+      - Action Requests
+      summary: Retrieves the Errors of a given ActionRequest
+      operationId: getActionRequestErrors
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventsId}:
+    get:
+      tags:
+      - Logistics Events
+      summary: Retrieves a LogisticsEvents
+      operationId: getLogisticsEvent
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logisticsEventsId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/LogisticsEvent'
+  /logistics-objects/{logisticsObjectId}/audit-trail:
+    get:
+      tags:
+      - Logistics Objects
+      summary: Retrieves the audit trail (history) of a given logistics object
+      operationId: getAuditTrail
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: updatedFrom
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: updatedTo
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "200":
+          description: The request to retrieve the AuditTrail has been successful
+          headers:
+            Type:
+              description: Type of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the AuditTrail
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/AuditTrail'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "301":
+          description: The URI of the Logistics Object has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /notifications:
+    post:
+      tags:
+      - Notifications
+      summary: Used as callback URL for receiving Notifications
+      operationId: receiveNotification
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "204":
+          description: No Content
+  /:
+    get:
+      tags:
+      - Server Information
+      operationId: getServerInformation
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/ServerInformation'
+  /subscriptions:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscription information
+      operationId: getSubscription
+      parameters:
+      - name: topicType
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: topic
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+    post:
+      tags:
+      - Subscriptions
+      summary: Request subscription
+      operationId: createSubscriptionRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "201":
+          description: Created
+  /logistics-objects/{logisticsObjectId}:
+    get:
+      tags:
+      - Logistics Objects
+      summary: Request a logistics object
+      operationId: getLogisticsObject
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "200":
+          description: The request to retrieve the Logistics Object has been successful
+          headers:
+            Type:
+              description: Type of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Revision:
+              description: The revision of the requested Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: integer
+                format: int64
+            Last-Modified:
+              description: Latest revision number of the requested Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: HTTP-date
+                example: "Tue, 21 Feb 2023 07:28:00 GMT"
+            Latest-Revision:
+              description: Latest revision number of the requested Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: integer
+                format: int64
+            Location:
+              description: Location of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/LogisticsObject'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "301":
+          description: The URI of the Logistics Object has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+      - Logistics Objects
+      summary: Request a change for a given logistics object
+      operationId: updateLogisticsObject
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Change'
+        required: true
+      responses:
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "201":
+          description: The change was successfully requested
+          headers:
+            Type:
+              description: The type of the newly created resource as a URI
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: The URI of the submitted ChangeRequest
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized to update the Logistics Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "400":
+          description: The update request body is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "422":
+          description: Unprocessable Request
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "204":
+          description: No Content
+  /action-requests/{actionRequestId}/errors/{errorId}:
+    get:
+      tags:
+      - Action Requests
+      summary: Retrieves details of a specific Error
+      operationId: getActionRequestError
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: errorId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects:
+    post:
+      tags:
+      - Logistics Objects
+      summary: "INTERNAL: Create a LogisticsObject"
+      operationId: createLogisticsObject
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/LogisticsObject'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: LogisticsObject with provided ID already exists
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "201":
+          description: Logistics Object has been created
+          headers:
+            Type:
+              description: Type of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: Invalid Logistics Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logistics-objects/{logisticsObjectId}/logistics-events:
+    get:
+      tags:
+      - Logistics Events
+      summary: Retrieves the LogisticsEvents of a given LogisticsObject
+      operationId: getLogisticsEvents
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LogisticsEvent'
+    post:
+      tags:
+      - Logistics Events
+      summary: Append a LogisticsEvent to the event log of a given LogisticsObject
+      operationId: appendLogisticsEvent
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/LogisticsEvent'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LogisticsEvent'
+  /action-requests/{actionRequestId}:
+    get:
+      tags:
+      - Action Requests
+      summary: Retrieve an ActionRequest
+      operationId: getActionRequest
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+          content:
+            application/ld+json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ActionRequest'
+                - $ref: '#/components/schemas/AccessDelegationRequest'
+                - $ref: '#/components/schemas/ChangeRequest'
+                - $ref: '#/components/schemas/SubscriptionRequest'
+    delete:
+      tags:
+      - Action Requests
+      summary: Revoke an Action Request
+      operationId: revokeActionRequest
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "200":
+          description: OK
+    patch:
+      tags:
+      - Action Requests
+      summary: "INTERNAL: Update an ActionRequest"
+      operationId: updateActionRequest
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Change'
+        required: true
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'
+        "204":
+          description: No Content
+components:
+  schemas:
+    AccessDelegation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasPermission:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        https://onerecord.iata.org/ns/api#isRequestedFor:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/api#hasDescription:
+          type: string
+        https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
+          type: boolean
+    AccessDelegationRequest:
+      title: AccessDelegationRequest
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ActionRequest'
+      - type: object
+        properties:
+          '@id':
+            type: string
+          '@type':
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+          https://onerecord.iata.org/ns/api#hasError:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/components/schemas/Error'
+          https://onerecord.iata.org/ns/api#hasRequestStatus:
+            $ref: '#/components/schemas/RequestStatus'
+          https://onerecord.iata.org/ns/api#isRequestedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRevokedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRequestedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#isRevokedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#hasAccessDelegation:
+            $ref: '#/components/schemas/AccessDelegation'
+    AccessPermission:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasLogisticsAgent:
+          $ref: '#/components/schemas/LogisticsAgent'
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasPermission:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+    AccessPermissions:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasLogisticsAgent:
+          $ref: '#/components/schemas/LogisticsAgent'
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasPermission:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+    ActionRequest:
+      title: ActionRequest
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasError:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+        https://onerecord.iata.org/ns/api#hasRequestStatus:
+          $ref: '#/components/schemas/RequestStatus'
+        https://onerecord.iata.org/ns/api#isRequestedBy:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/api#isRevokedBy:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/api#isRequestedAt:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/api#isRevokedAt:
+          type: string
+          format: date-time
+      oneOf:
+      - $ref: '#/components/schemas/AccessDelegationRequest'
+      - $ref: '#/components/schemas/ChangeRequest'
+      - $ref: '#/components/schemas/SubscriptionRequest'
+    ActivitySequence:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#activity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#sequenceNumber:
+          type: string
+    Actor:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#associatedOrganization:
+          $ref: '#/components/schemas/Organization'
+    Address:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#country:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#addressCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#addressCodeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#cityCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#cityName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#postOfficeBox:
+          type: string
+        https://onerecord.iata.org/ns/cargo#postalCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#regionCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#regionName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#streetAddressLines:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Adjustments:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#correctionNumber:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#correctionSerialNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#reasonsForAdjustments:
+          type: string
+    Answer:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#answerActor:
+          $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#answerValue:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#givenAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#question:
+          $ref: '#/components/schemas/Question'
+        https://onerecord.iata.org/ns/cargo#text:
+          type: string
+    AuditTrail:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasChangeRequest:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ChangeRequest'
+        https://onerecord.iata.org/ns/api#hasLatestRevision:
+          type: integer
+          format: int32
+    BillingDetails:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#adjustments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Adjustments'
+        https://onerecord.iata.org/ns/cargo#detailedWaybill:
+          $ref: '#/components/schemas/Waybill'
+        https://onerecord.iata.org/ns/cargo#taxDueAgent:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#taxDueAirline:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#awbAcceptanceDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#awbDeliveryDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#awbExecutionDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#awbUseIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#commission:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#commissionIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#commissionPercentage:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#discount:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#exchangeRate:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#nbCorrections:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#vatIndicator:
+          type: boolean
+    Booking:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#activitySequences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivitySequence'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#forBookingRequest:
+          $ref: '#/components/schemas/BookingRequest'
+        https://onerecord.iata.org/ns/cargo#issuedForWaybill:
+          $ref: '#/components/schemas/Waybill'
+    BookingOption:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#bookingSegment:
+          $ref: '#/components/schemas/BookingSegment'
+        https://onerecord.iata.org/ns/cargo#bookingTimes:
+          $ref: '#/components/schemas/BookingTimes'
+        https://onerecord.iata.org/ns/cargo#carrierProductInfo:
+          $ref: '#/components/schemas/CarrierProduct'
+        https://onerecord.iata.org/ns/cargo#forBookingRequest:
+          $ref: '#/components/schemas/BookingRequest'
+        https://onerecord.iata.org/ns/cargo#fromCarrier:
+          $ref: '#/components/schemas/Carrier'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#price:
+          $ref: '#/components/schemas/Price'
+        https://onerecord.iata.org/ns/cargo#requestRef:
+          $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#routing:
+          $ref: '#/components/schemas/Routing'
+        https://onerecord.iata.org/ns/cargo#transportMovement:
+          $ref: '#/components/schemas/TransportMovement'
+        https://onerecord.iata.org/ns/cargo#bookingOptionStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#proposedWaybillNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#requestMatchInd:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#shipmentSecurityStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#validFrom:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#validUntil:
+          type: string
+          format: date-time
+    BookingOptionRequest:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#bookingOption:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#bookingSegment:
+          $ref: '#/components/schemas/BookingSegment'
+        https://onerecord.iata.org/ns/cargo#bookingShipmentDetails:
+          $ref: '#/components/schemas/BookingShipment'
+        https://onerecord.iata.org/ns/cargo#ratingsPreference:
+          $ref: '#/components/schemas/Ratings'
+        https://onerecord.iata.org/ns/cargo#routingPreference:
+          $ref: '#/components/schemas/Routing'
+        https://onerecord.iata.org/ns/cargo#shipmentDetails:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#timePreferences:
+          $ref: '#/components/schemas/BookingTimes'
+        https://onerecord.iata.org/ns/cargo#transportMovement:
+          $ref: '#/components/schemas/TransportMovement'
+        https://onerecord.iata.org/ns/cargo#unitsPreference:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#allotment:
+          type: string
+        https://onerecord.iata.org/ns/cargo#expectedCommodities:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#requestedHandling:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#shipmentSecurityStatus:
+          type: string
+    BookingRequest:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#booking:
+          $ref: '#/components/schemas/Booking'
+        https://onerecord.iata.org/ns/cargo#bookingOption:
+          $ref: '#/components/schemas/BookingOption'
+    BookingSegment:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#arrivalLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#bookingOptionRequest:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#departureLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#forBookingOptions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#preferredTransportId:
+          type: string
+    BookingShipment:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#bookingOptionRequest:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#preferredHandling:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/HandlingInstructions'
+        https://onerecord.iata.org/ns/cargo#totalDimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#totalGrossWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#totalVolumetricWeight:
+          $ref: '#/components/schemas/VolumetricWeight'
+        https://onerecord.iata.org/ns/cargo#goodsDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#totalPieceCount:
+          type: integer
+          format: int32
+    BookingTimes:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forBookingOptionRequest:
+          $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#forBookingOptions:
+          $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#earliestAcceptanceTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#latestAcceptanceTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#latestArrivalTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#timeOfAvailability:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#totalTransitTime:
+          type: string
+    CO2Emissions:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#calculatedEmissions:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#calculationForTransportMovement:
+          $ref: '#/components/schemas/TransportMovement'
+        https://onerecord.iata.org/ns/cargo#methodName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#methodVersion:
+          type: string
+    Carrier:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#basedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#parentOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#subOrganization:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#branch:
+          $ref: '#/components/schemas/CompanyBranch'
+        https://onerecord.iata.org/ns/cargo#companyName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#iataCargoAgentCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#iataCargoAgentLocationIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#airlineCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#carrierName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#carrierShortName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#prefix:
+          type: string
+    CarrierProduct:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forBookingOptions:
+          $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#productCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#productDescription:
+          type: string
+    Change:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasOperation:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
+        https://onerecord.iata.org/ns/api#hasDescription:
+          type: string
+        https://onerecord.iata.org/ns/api#hasRevision:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
+          type: boolean
+    ChangeRequest:
+      title: ChangeRequest
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ActionRequest'
+      - type: object
+        properties:
+          '@id':
+            type: string
+          '@type':
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+          https://onerecord.iata.org/ns/api#hasError:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/components/schemas/Error'
+          https://onerecord.iata.org/ns/api#hasRequestStatus:
+            $ref: '#/components/schemas/RequestStatus'
+          https://onerecord.iata.org/ns/api#isRequestedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRevokedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRequestedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#isRevokedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#hasChange:
+            $ref: '#/components/schemas/Change'
+    Characteristic:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#ofProduct:
+          $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#characteristicType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#textualValue:
+          type: string
+    Check:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#checkTotalResult:
+          $ref: '#/components/schemas/CheckTotalResult'
+        https://onerecord.iata.org/ns/cargo#checkedObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/cargo#checker:
+          $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#usedTemplate:
+          $ref: '#/components/schemas/CheckTemplate'
+    CheckTemplate:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#legacyTemplate:
+          $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#questions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+        https://onerecord.iata.org/ns/cargo#date:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#templatePurpose:
+          type: string
+        https://onerecord.iata.org/ns/cargo#version:
+          type: string
+    CheckTotalResult:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#certifiedByActor:
+          $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#resultValue:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#checkRemark:
+          type: string
+        https://onerecord.iata.org/ns/cargo#passed:
+          type: boolean
+    CommonObjects:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+    Company:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#basedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#parentOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#subOrganization:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#branch:
+          $ref: '#/components/schemas/CompanyBranch'
+        https://onerecord.iata.org/ns/cargo#companyName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#iataCargoAgentCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#iataCargoAgentLocationIdentifier:
+          type: string
+    CompanyBranch:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#basedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#parentOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#subOrganization:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#company:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#branchName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#iataCargoAgentLocationIdentifier:
+          type: string
+    Composing:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#composedMaterials:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LoadingMaterial'
+        https://onerecord.iata.org/ns/cargo#composedPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#loadingUnit:
+          $ref: '#/components/schemas/LoadingUnit'
+        https://onerecord.iata.org/ns/cargo#compositionType:
+          type: string
+    ContactDetail:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#contactDetailType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#textualValue:
+          type: string
+    Country:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#countryCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#countryName:
+          type: string
+    CustomsInformation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#issuedForPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#contentCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#countryCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#note:
+          type: string
+        https://onerecord.iata.org/ns/cargo#otherCustomsInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#subjectCode:
+          type: string
+    DgDeclaration:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#issuedForPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#aircraftLimitationInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#complianceDeclarationText:
+          type: string
+        https://onerecord.iata.org/ns/cargo#exclusiveUseIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#handlingInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shipperDeclarationText:
+          type: string
+    DgProductRadioactive:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forProductDg:
+          $ref: '#/components/schemas/ProductDg'
+        https://onerecord.iata.org/ns/cargo#isotopes:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/DgRadioactiveIsotope'
+        https://onerecord.iata.org/ns/cargo#dgRaTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#fissileExceptionIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#fissileExceptionReference:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transportIndexNumeric:
+          type: integer
+          format: int32
+    DgRadioactiveIsotope:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contentOfDgProductRadioactive:
+          $ref: '#/components/schemas/DgProductRadioactive'
+        https://onerecord.iata.org/ns/cargo#activityLevelMeasure:
+          type: string
+        https://onerecord.iata.org/ns/cargo#criticalitySafetyIndexNumeric:
+          type: string
+        https://onerecord.iata.org/ns/cargo#isotopeId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#isotopeName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#lowDispersibleIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#physicalChemicalForm:
+          type: string
+        https://onerecord.iata.org/ns/cargo#specialFormIndicator:
+          type: boolean
+    Dimensions:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#height:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#length:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#volume:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#width:
+          $ref: '#/components/schemas/Value'
+    EmbeddedObject:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+    EpermitConsignment:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#consignmentItems:
+          $ref: '#/components/schemas/PieceLiveAnimals'
+        https://onerecord.iata.org/ns/cargo#epermit:
+          $ref: '#/components/schemas/LiveAnimalsEpermit'
+        https://onerecord.iata.org/ns/cargo#examiningQuantity:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#usedToDateQuotaQuantity:
+          type: integer
+          format: int32
+    EpermitSignature:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forEpermit:
+          $ref: '#/components/schemas/LiveAnimalsEpermit'
+        https://onerecord.iata.org/ns/cargo#signatoryCompany:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#securityStampId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#signatoryRole:
+          type: string
+        https://onerecord.iata.org/ns/cargo#signatureDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#signatureStatement:
+          type: string
+        https://onerecord.iata.org/ns/cargo#signatureTypeCode:
+          type: string
+    Error:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasErrorDetail:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+        https://onerecord.iata.org/ns/api#hasTitle:
+          type: string
+    ErrorDetail:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasCode:
+          type: string
+        https://onerecord.iata.org/ns/api#hasMessage:
+          type: string
+        https://onerecord.iata.org/ns/api#hasProperty:
+          type: string
+          format: uri
+        https://onerecord.iata.org/ns/api#hasResource:
+          type: string
+          format: uri
+    EventUld:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#linkedObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/cargo#recordedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#recordedBy:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#recordedByActor:
+          $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#creationDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#eventCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#eventDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#eventName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#eventTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadingPosition:
+          type: string
+    ExternalReference:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#linkedLogisticObjects:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/cargo#locationOfCreation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#originator:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#checksum:
+          type: string
+        https://onerecord.iata.org/ns/cargo#documentIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#documentLink:
+          type: string
+        https://onerecord.iata.org/ns/cargo#documentName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#documentType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#documentVersion:
+          type: string
+        https://onerecord.iata.org/ns/cargo#validFrom:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#validUntil:
+          type: string
+          format: date-time
+    Geolocation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#elevation:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#geolocationUnit:
+          type: string
+        https://onerecord.iata.org/ns/cargo#latitude:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#longitude:
+          type: number
+          format: double
+    HandlingInstructions:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#requestedByActor:
+          $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#handlingInstructionsType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode:
+          type: string
+    Insurance:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#coveringOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#insuredAmount:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#insuredShipment:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#nvdIndicator:
+          type: boolean
+    IotDevice:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#attachedToObject:
+          $ref: '#/components/schemas/PhysicalLogisticsObject'
+        https://onerecord.iata.org/ns/cargo#connectedSensors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Sensor'
+        https://onerecord.iata.org/ns/cargo#manufacturer:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#associatedObject:
+          type: string
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#deviceModel:
+          type: string
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#serialNumber:
+          type: string
+    Item:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#containedItemInPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#describedByProduct:
+          $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#itemQuantity:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#productionCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#targetCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#unitPrice:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#weight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#batchNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#expiryDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#lotNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#productionDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#quantityForUnitPrice:
+          type: number
+          format: double
+    ItemDg:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#containedItemInPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#describedByProduct:
+          $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#itemQuantity:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#productionCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#targetCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#unitPrice:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#weight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#batchNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#expiryDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#lotNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#productionDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#quantityForUnitPrice:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#emergencyContact:
+          $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#netWeightMeasure:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#reportableQuantity:
+          type: string
+        https://onerecord.iata.org/ns/cargo#supplementaryInfoPrefix:
+          type: string
+        https://onerecord.iata.org/ns/cargo#supplementaryInfoSuffix:
+          type: string
+    LiveAnimalsEpermit:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#consignee:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#consignments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EpermitConsignment'
+        https://onerecord.iata.org/ns/cargo#signatures:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/EpermitSignature'
+        https://onerecord.iata.org/ns/cargo#copyIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#epermitNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#permitTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#permitTypeOtherDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#specialConditions:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transactionPurpose:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transactionPurposeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transportContractId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transportContractTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#validFrom:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#validUntil:
+          type: string
+          format: date-time
+    Loading:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadedMaterials:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LoadingMaterial'
+        https://onerecord.iata.org/ns/cargo#loadedPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#loadedUnits:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LoadingUnit'
+        https://onerecord.iata.org/ns/cargo#onTransportMeans:
+          $ref: '#/components/schemas/TransportMeans'
+        https://onerecord.iata.org/ns/cargo#loadingPositionIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadingType:
+          type: string
+    LoadingActivity:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#checkActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#servedServices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsService'
+        https://onerecord.iata.org/ns/cargo#executionStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadingActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Loading'
+        https://onerecord.iata.org/ns/cargo#loadingIdentifier:
+          type: string
+    LoadingMaterial:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#manufacturer:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#materialModel:
+          type: string
+        https://onerecord.iata.org/ns/cargo#materialType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#serialNumber:
+          type: string
+    LoadingUnit:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#loadedPiecesOnLoadingUnit:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#tareWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#remarks:
+          type: string
+    Location:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#address:
+          $ref: '#/components/schemas/Address'
+        https://onerecord.iata.org/ns/cargo#forActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        https://onerecord.iata.org/ns/cargo#code:
+          type: string
+        https://onerecord.iata.org/ns/cargo#locationName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#locationType:
+          type: string
+    LogisticsAction:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+    LogisticsActivity:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#checkActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#servedServices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsService'
+        https://onerecord.iata.org/ns/cargo#executionStatus:
+          type: string
+    LogisticsAgent:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+    LogisticsEvent:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#linkedObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/cargo#recordedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#recordedBy:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#recordedByActor:
+          $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#creationDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#eventCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#eventDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#eventName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#eventTimeType:
+          type: string
+    LogisticsObject:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+    LogisticsService:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#activitySequences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivitySequence'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    Measurement:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#measurementValue:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#recordedGeolocation:
+          $ref: '#/components/schemas/Geolocation'
+        https://onerecord.iata.org/ns/cargo#measurementTimestamp:
+          type: string
+          format: date-time
+    MeasurementsGeoloc:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#measurementValue:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#recordedGeolocation:
+          $ref: '#/components/schemas/Geolocation'
+        https://onerecord.iata.org/ns/cargo#measurementTimestamp:
+          type: string
+          format: date-time
+    MeasurementsOther:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#measurementValue:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#recordedGeolocation:
+          $ref: '#/components/schemas/Geolocation'
+        https://onerecord.iata.org/ns/cargo#measurementTimestamp:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#otherMeasurement:
+          $ref: '#/components/schemas/Value'
+    MovementTimes:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#direction:
+          type: string
+        https://onerecord.iata.org/ns/cargo#movementMilestone:
+          type: string
+        https://onerecord.iata.org/ns/cargo#movementTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#movementTimestamp:
+          type: string
+          format: date-time
+    Moving:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#movementType:
+          type: string
+    NonHumanActor:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#associatedOrganization:
+          $ref: '#/components/schemas/Organization'
+    Notification:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasEventType:
+          $ref: '#/components/schemas/NotificationEventType'
+        https://onerecord.iata.org/ns/api#hasLogisticsObject:
+          $ref: '#/components/schemas/LogisticsObject'
+        https://onerecord.iata.org/ns/api#hasLogisticsObjectType:
+          type: string
+          format: uri        
+        https://onerecord.iata.org/ns/api#isTriggeredBy:
+          $ref: '#/components/schemas/ActionRequest'
+        https://onerecord.iata.org/ns/api#hasChangedProperty:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            format: uri
+        https://onerecord.iata.org/ns/api#hasTopic:
+          type: string
+          format: uri
+    NotificationEventType:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Operation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#o:
+          $ref: '#/components/schemas/OperationObject'
+        https://onerecord.iata.org/ns/api#op:
+          $ref: '#/components/schemas/PatchOperation'
+        https://onerecord.iata.org/ns/api#p:
+          type: string
+          format: uri
+        https://onerecord.iata.org/ns/api#s:
+          type: string
+    OperationObject:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasDatatype:
+          type: string
+          format: uri
+        https://onerecord.iata.org/ns/api#hasValue:
+          type: string
+    Organization:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#basedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#parentOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#subOrganization:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortName:
+          type: string
+    OtherIdentifier:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#otherIdentifierType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#textualValue:
+          type: string
+    PackagingType:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#appliedOnPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#typeCode:
+          type: string
+    Party:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#organization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#partyDetails:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#role:
+          type: string
+    PatchOperation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Permission:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Person:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#associatedOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#associatedBranch:
+          $ref: '#/components/schemas/CompanyBranch'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#documents:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#contactRole:
+          type: string
+        https://onerecord.iata.org/ns/cargo#department:
+          type: string
+        https://onerecord.iata.org/ns/cargo#employeeId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#firstName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#jobTitle:
+          type: string
+        https://onerecord.iata.org/ns/cargo#lastName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#middleName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#salutation:
+          type: string
+    PhysicalLogisticsObject:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+    Piece:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#containedItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        https://onerecord.iata.org/ns/cargo#containedPieceInPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#containedPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#contentDescribedByProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#contentProductionCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#customsInformation:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomsInformation'
+        https://onerecord.iata.org/ns/cargo#dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#grossWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#handlingInstructions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/HandlingInstructions'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#packagingType:
+          $ref: '#/components/schemas/PackagingType'
+        https://onerecord.iata.org/ns/cargo#partOfShipment:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#securityDeclaration:
+          $ref: '#/components/schemas/SecurityDeclaration'
+        https://onerecord.iata.org/ns/cargo#uldReference:
+          $ref: '#/components/schemas/LoadingUnit'
+        https://onerecord.iata.org/ns/cargo#volumetricWeight:
+          $ref: '#/components/schemas/VolumetricWeight'
+        https://onerecord.iata.org/ns/cargo#coload:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#declaredValueForCarriage:
+          type: string
+        https://onerecord.iata.org/ns/cargo#declaredValueForCustoms:
+          type: string
+        https://onerecord.iata.org/ns/cargo#fulfillsUldTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#goodsDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#nvdForCarriage:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#nvdForCustoms:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#packageMarkCoded:
+          type: string
+        https://onerecord.iata.org/ns/cargo#packagedeIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shippingMarks:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#slac:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#stackable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#turnable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#upid:
+          type: string
+    PieceDg:
+      type: object
+      properties:
+        qvalueNumeric:
+          type: number
+          format: double
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#containedItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        https://onerecord.iata.org/ns/cargo#containedPieceInPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#containedPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#contentDescribedByProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#contentProductionCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#customsInformation:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomsInformation'
+        https://onerecord.iata.org/ns/cargo#dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#grossWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#handlingInstructions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/HandlingInstructions'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#packagingType:
+          $ref: '#/components/schemas/PackagingType'
+        https://onerecord.iata.org/ns/cargo#partOfShipment:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#securityDeclaration:
+          $ref: '#/components/schemas/SecurityDeclaration'
+        https://onerecord.iata.org/ns/cargo#uldReference:
+          $ref: '#/components/schemas/LoadingUnit'
+        https://onerecord.iata.org/ns/cargo#volumetricWeight:
+          $ref: '#/components/schemas/VolumetricWeight'
+        https://onerecord.iata.org/ns/cargo#coload:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#declaredValueForCarriage:
+          type: string
+        https://onerecord.iata.org/ns/cargo#declaredValueForCustoms:
+          type: string
+        https://onerecord.iata.org/ns/cargo#fulfillsUldTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#goodsDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#nvdForCarriage:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#nvdForCustoms:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#packageMarkCoded:
+          type: string
+        https://onerecord.iata.org/ns/cargo#packagedeIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shippingMarks:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#slac:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#stackable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#turnable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#upid:
+          type: string
+        https://onerecord.iata.org/ns/cargo#dgDeclaration:
+          $ref: '#/components/schemas/DgDeclaration'
+        https://onerecord.iata.org/ns/cargo#allPackedInOneIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#overpackCriticalitySafetyIndexNumeric:
+          type: string
+        https://onerecord.iata.org/ns/cargo#overpackIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#overpackT1:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#overpackTypeCode:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#qValueNumeric:
+          type: number
+          format: double
+    PieceLiveAnimals:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#containedItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        https://onerecord.iata.org/ns/cargo#containedPieceInPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#containedPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#contentDescribedByProducts:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        https://onerecord.iata.org/ns/cargo#contentProductionCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#customsInformation:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomsInformation'
+        https://onerecord.iata.org/ns/cargo#dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#grossWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#handlingInstructions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/HandlingInstructions'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#packagingType:
+          $ref: '#/components/schemas/PackagingType'
+        https://onerecord.iata.org/ns/cargo#partOfShipment:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#securityDeclaration:
+          $ref: '#/components/schemas/SecurityDeclaration'
+        https://onerecord.iata.org/ns/cargo#uldReference:
+          $ref: '#/components/schemas/LoadingUnit'
+        https://onerecord.iata.org/ns/cargo#volumetricWeight:
+          $ref: '#/components/schemas/VolumetricWeight'
+        https://onerecord.iata.org/ns/cargo#coload:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#declaredValueForCarriage:
+          type: string
+        https://onerecord.iata.org/ns/cargo#declaredValueForCustoms:
+          type: string
+        https://onerecord.iata.org/ns/cargo#fulfillsUldTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#goodsDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#loadType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#nvdForCarriage:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#nvdForCustoms:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#packageMarkCoded:
+          type: string
+        https://onerecord.iata.org/ns/cargo#packagedeIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shippingMarks:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#slac:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#stackable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#turnable:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#upid:
+          type: string
+        https://onerecord.iata.org/ns/cargo#associatedEpermit:
+          $ref: '#/components/schemas/EpermitConsignment'
+        https://onerecord.iata.org/ns/cargo#exportTradeCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#originTradeCountry:
+          $ref: '#/components/schemas/Country'
+        https://onerecord.iata.org/ns/cargo#acquisitionDateTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#annualQuotaQuantity:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#categoryCode:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#goodsTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#goodsTypeExtensionCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#originReferencePermitDateTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#originReferencePermitId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#originReferencePermitTypeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#quantityAnimals:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#speciesCommonName:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#speciesScientificName:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#specimenDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#specimenTypeCode:
+          type: string
+    Price:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forBookingOptionRequest:
+          $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#forBookingOptions:
+          $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#ratings:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Ratings'
+        https://onerecord.iata.org/ns/cargo#carrierChargeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#grandTotal:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#validUntil:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            format: date-time
+    Product:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#descriptionForContentOfPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#descriptionForItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        https://onerecord.iata.org/ns/cargo#manufacturer:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#otherCharacteristics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#commodityItemNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCommodityDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCommodityName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#uniqueIdentifier:
+          type: string
+    ProductDg:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#descriptionForContentOfPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#descriptionForItems:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        https://onerecord.iata.org/ns/cargo#manufacturer:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#otherCharacteristics:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#commodityItemNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCommodityDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsCommodityName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hsType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#uniqueIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#dgRadioactiveMaterial:
+          $ref: '#/components/schemas/DgProductRadioactive'
+        https://onerecord.iata.org/ns/cargo#additionalHazardClassificationId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#authorizationInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#explosiveCompatibilityGroupCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#hazardClassificationId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#packagingDangerLevelCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#packingInstructionNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#properShippingName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#specialProvisionId:
+          type: string
+        https://onerecord.iata.org/ns/cargo#technicalName:
+          type: string
+        https://onerecord.iata.org/ns/cargo#unNumber:
+          type: string
+    PublicAuthority:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#basedAtLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
+        https://onerecord.iata.org/ns/cargo#otherIdentifiers:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherIdentifier'
+        https://onerecord.iata.org/ns/cargo#parentOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#subOrganization:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortName:
+          type: string
+    Question:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#answer:
+          $ref: '#/components/schemas/Answer'
+        https://onerecord.iata.org/ns/cargo#checkTemplate:
+          $ref: '#/components/schemas/CheckTemplate'
+        https://onerecord.iata.org/ns/cargo#answerOptionsText:
+          type: string
+        https://onerecord.iata.org/ns/cargo#answerOptionsValue:
+          type: string
+        https://onerecord.iata.org/ns/cargo#longText:
+          type: string
+        https://onerecord.iata.org/ns/cargo#questionsNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#questionsSection:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shortText:
+          type: string
+    Ranges:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#amount:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#maximumQuantity:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#minimumQuantity:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#rateClassCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#ratingType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#scr:
+          type: string
+        https://onerecord.iata.org/ns/cargo#unitBasis:
+          type: string
+    Ratings:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#forPrices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        https://onerecord.iata.org/ns/cargo#preferenceOfRequests:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#ranges:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Ranges'
+        https://onerecord.iata.org/ns/cargo#billingChargeIdentifier:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#chargeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#chargeDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#chargePaymentType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#chargeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#entitlement:
+          type: string
+        https://onerecord.iata.org/ns/cargo#otherChargeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#priceSpecification:
+          type: string
+        https://onerecord.iata.org/ns/cargo#priceSpecificationRef:
+          type: string
+        https://onerecord.iata.org/ns/cargo#rateQuantity:
+          type: string
+        https://onerecord.iata.org/ns/cargo#ratingsType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#rcp:
+          type: string
+        https://onerecord.iata.org/ns/cargo#subTotal:
+          type: number
+          format: double
+    RegulatedEntity:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#entity:
+          $ref: '#/components/schemas/CompanyBranch'
+        https://onerecord.iata.org/ns/cargo#identifier:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#owningOrganization:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/cargo#category:
+          type: string
+        https://onerecord.iata.org/ns/cargo#regulatedEntityExpiryDate:
+          type: string
+          format: date-time
+    RequestStatus:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    Routing:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#excludedViaPoints:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#forBookingOptionRequest:
+          $ref: '#/components/schemas/BookingOptionRequest'
+        https://onerecord.iata.org/ns/cargo#forBookingOptions:
+          $ref: '#/components/schemas/BookingOption'
+        https://onerecord.iata.org/ns/cargo#scheduledLegs:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduledLegs'
+        https://onerecord.iata.org/ns/cargo#aircraftPossibilityCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#latestArrivalDateTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#maxConnections:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#onlineInd:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#rfsInd:
+          type: boolean
+    ScheduledLegs:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#arrivalLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#departureLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#arrivalDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#departureDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#legSequenceNumber:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#transportIdentifier:
+          type: string
+    SecurityDeclaration:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#issuedBy:
+          $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#issuedForPiece:
+          $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#otherRegulatedEntities:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulatedEntity'
+        https://onerecord.iata.org/ns/cargo#receivedFrom:
+          $ref: '#/components/schemas/RegulatedEntity'
+        https://onerecord.iata.org/ns/cargo#regulatedEntityIssuer:
+          $ref: '#/components/schemas/RegulatedEntity'
+        https://onerecord.iata.org/ns/cargo#additionalSecurityInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#groundsForExemption:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#issuedOn:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#otherScreeningMethods:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#screeningMethods:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#securityStatus:
+          type: string
+    Sensor:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#measurements:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+        https://onerecord.iata.org/ns/cargo#partOfIotDevice:
+          $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#sensorType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#serialNumber:
+          type: string
+    SensorGeoloc:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#measurements:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+        https://onerecord.iata.org/ns/cargo#partOfIotDevice:
+          $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#sensorType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#serialNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#measurementsGeoloc:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementsGeoloc'
+    SensorOther:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#measurements:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+        https://onerecord.iata.org/ns/cargo#partOfIotDevice:
+          $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#description:
+          type: string
+        https://onerecord.iata.org/ns/cargo#name:
+          type: string
+        https://onerecord.iata.org/ns/cargo#sensorType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#serialNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#measurementsOther:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementsOther'
+    ServerInformation:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasDataHolder:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/api#hasServerEndpoint:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSupportedApiVersion:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSupportedContentType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSupportedEncoding:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSupportedLanguage:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSupportedOntology:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            format: uri
+    Shipment:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#deliveryLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#insurance:
+          $ref: '#/components/schemas/Insurance'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#shipmentOfPieces:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Piece'
+        https://onerecord.iata.org/ns/cargo#totalDimensions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Dimensions'
+        https://onerecord.iata.org/ns/cargo#totalGrossWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#totalVolumetricWeight:
+          $ref: '#/components/schemas/VolumetricWeight'
+        https://onerecord.iata.org/ns/cargo#waybill:
+          $ref: '#/components/schemas/Waybill'
+        https://onerecord.iata.org/ns/cargo#deliveryDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#goodsDescription:
+          type: string
+        https://onerecord.iata.org/ns/cargo#incoterms:
+          type: string
+        https://onerecord.iata.org/ns/cargo#otherChargesIndicator:
+          type: string
+        https://onerecord.iata.org/ns/cargo#totalSLAC:
+          type: integer
+          format: int32
+        https://onerecord.iata.org/ns/cargo#weightValuationIndicator:
+          type: string
+    Storage:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#checkActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#servedServices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsService'
+        https://onerecord.iata.org/ns/cargo#executionStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#storingActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Storing'
+        https://onerecord.iata.org/ns/cargo#storingIdentifier:
+          type: string
+    Storing:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#locationOfPerformance:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#servedActivity:
+          $ref: '#/components/schemas/LogisticsActivity'
+        https://onerecord.iata.org/ns/cargo#actionEndTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionStartTime:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#actionTimeType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#storedObjects:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/PhysicalLogisticsObject'
+        https://onerecord.iata.org/ns/cargo#storagePlaceIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#storingType:
+          type: string
+    Subscription:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasSubscriber:
+          $ref: '#/components/schemas/Organization'
+        https://onerecord.iata.org/ns/api#hasTopicType:
+          $ref: '#/components/schemas/TopicType'
+        https://onerecord.iata.org/ns/api#expiresAt:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/api#hasContentType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasDescription:
+          type: string
+        https://onerecord.iata.org/ns/api#hasTopic:
+          type: string
+          format: uri
+        https://onerecord.iata.org/ns/api#notifyRequestStatusChange:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#sendLogisticsObjectBody:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#includeSubscriptionEventType:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    SubscriptionRequest:
+      title: SubscriptionRequest
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ActionRequest'
+      - type: object
+        properties:
+          '@id':
+            type: string
+          '@type':
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+          https://onerecord.iata.org/ns/api#hasError:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/components/schemas/Error'
+          https://onerecord.iata.org/ns/api#hasRequestStatus:
+            $ref: '#/components/schemas/RequestStatus'
+          https://onerecord.iata.org/ns/api#isRequestedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRevokedBy:
+            $ref: '#/components/schemas/Organization'
+          https://onerecord.iata.org/ns/api#isRequestedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#isRevokedAt:
+            type: string
+            format: date-time
+          https://onerecord.iata.org/ns/api#hasSubscription:
+            $ref: '#/components/schemas/Subscription'
+    TopicType:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    TransportMeans:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#attachedIotDevices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/IotDevice'
+        https://onerecord.iata.org/ns/cargo#involvedInActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#operatedTransportMovements:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportMovement'
+        https://onerecord.iata.org/ns/cargo#transportOrganization:
+          $ref: '#/components/schemas/Company'
+        https://onerecord.iata.org/ns/cargo#typicalCo2Coefficient:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#typicalFuelConsumption:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#vehicleModel:
+          type: string
+        https://onerecord.iata.org/ns/cargo#vehicleRegistration:
+          type: string
+        https://onerecord.iata.org/ns/cargo#vehicleSize:
+          type: string
+        https://onerecord.iata.org/ns/cargo#vehicleType:
+          type: string
+    TransportMovement:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#checkActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#servedServices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsService'
+        https://onerecord.iata.org/ns/cargo#executionStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#actions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsAction'
+        https://onerecord.iata.org/ns/cargo#arrivalLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#co2Emissions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/CO2Emissions'
+        https://onerecord.iata.org/ns/cargo#departureLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#distanceCalculated:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#distanceMeasured:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#fuelAmountCalculated:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#fuelAmountMeasured:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#movementTimes:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MovementTime'
+        https://onerecord.iata.org/ns/cargo#operatingTransportMeans:
+          $ref: '#/components/schemas/TransportMeans'
+        https://onerecord.iata.org/ns/cargo#fuelType:
+          type: string
+        https://onerecord.iata.org/ns/cargo#modeCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#modeQualifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#seal:
+          type: string
+        https://onerecord.iata.org/ns/cargo#transportIdentifier:
+          type: string
+    UnitComposition:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#checkActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#contactDetails:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+        https://onerecord.iata.org/ns/cargo#contactPersons:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+        https://onerecord.iata.org/ns/cargo#servedServices:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsService'
+        https://onerecord.iata.org/ns/cargo#executionStatus:
+          type: string
+        https://onerecord.iata.org/ns/cargo#compositionActions:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Composing'
+        https://onerecord.iata.org/ns/cargo#compositionIdentifier:
+          type: string
+    Value:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#numericalValue:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#unit:
+          type: string
+    VolumetricWeight:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#chargeableWeight:
+          $ref: '#/components/schemas/Value'
+        https://onerecord.iata.org/ns/cargo#conversionFactor:
+          $ref: '#/components/schemas/Value'
+    Waybill:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/cargo#checks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        https://onerecord.iata.org/ns/cargo#events:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/cargo#externalReferences:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalReference'
+        https://onerecord.iata.org/ns/cargo#companyIdentifier:
+          type: string
+        https://onerecord.iata.org/ns/cargo#skeletonIndicator:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#arrivalLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#billingDetails:
+          $ref: '#/components/schemas/BillingDetails'
+        https://onerecord.iata.org/ns/cargo#carrierDeclarationPlace:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#departureLocation:
+          $ref: '#/components/schemas/Location'
+        https://onerecord.iata.org/ns/cargo#houseWaybills:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Waybill'
+        https://onerecord.iata.org/ns/cargo#involvedParties:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Party'
+        https://onerecord.iata.org/ns/cargo#masterWaybill:
+          $ref: '#/components/schemas/Waybill'
+        https://onerecord.iata.org/ns/cargo#referredBookingOption:
+          $ref: '#/components/schemas/Booking'
+        https://onerecord.iata.org/ns/cargo#shipment:
+          $ref: '#/components/schemas/Shipment'
+        https://onerecord.iata.org/ns/cargo#accountingInformation:
+          type: string
+        https://onerecord.iata.org/ns/cargo#carrierDeclarationDate:
+          type: string
+          format: date-time
+        https://onerecord.iata.org/ns/cargo#carrierDeclarationSignature:
+          type: string
+        https://onerecord.iata.org/ns/cargo#consignorDeclarationSignature:
+          type: string
+        https://onerecord.iata.org/ns/cargo#customsOriginCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#destinationCharges:
+          uniqueItems: true
+          type: array
+          items:
+            type: number
+            format: double
+        https://onerecord.iata.org/ns/cargo#destinationCurrencyCode:
+          type: string
+        https://onerecord.iata.org/ns/cargo#destinationCurrencyRate:
+          type: number
+          format: double
+        https://onerecord.iata.org/ns/cargo#modularCheckNumber:
+          type: boolean
+        https://onerecord.iata.org/ns/cargo#originCurrency:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shippingInfo:
+          type: string
+        https://onerecord.iata.org/ns/cargo#shippingRefNo:
+          type: string
+        https://onerecord.iata.org/ns/cargo#waybillNumber:
+          type: string
+        https://onerecord.iata.org/ns/cargo#waybillPrefix:
+          type: string
+        https://onerecord.iata.org/ns/cargo#waybillType:
+          type: string

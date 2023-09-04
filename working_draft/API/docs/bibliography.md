@@ -1,0 +1,11 @@
+- Access Control Ontology: https://www.w3.org/ns/auth/acl
+- Web Access Control Specification from W3: https://www.w3.org/wiki/WebAccessControl
+- Web Access Control specifications by Solid project: https://github.com/solid/web-access-control-spec
+- WebSub specification by W3C: https://www.w3.org/TR/websub/
+- Fedora project: https://wiki.lyrasis.org/display/FEDORA51/WebAC+Authorizations
+- Access Control in Linked Data Using WebID: https://arxiv.org/pdf/1611.03019.pdf
+- VCard ontology: [https://www.w3.org/2006/vcard/ns#%3E](https://www.w3.org/2006/vcard/ns#>)
+- Luca Costabello (2013) Context-aware access control and presentation of linked data. https://tel.archives-ouvertes.fr/tel-00934617/document
+- JSON-LD 1.1 A JSON-based Serialization for Linked Data. https://www.w3.org/TR/json-ld11/
+- JSON Web Token (JWT). https://jwt.io
+- What is x-hub-signature? https://repl.ca/what-is-x-hub-signature/
