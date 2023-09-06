@@ -48,8 +48,5 @@ Therefore, this ONE Record API version 2.0.0-dev requires the ONE Record cargo o
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
 
-# License
-
-This document is licensed under MIT license (see [License](LICENSE) for details).
 
 
