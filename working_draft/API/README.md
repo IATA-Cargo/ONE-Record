@@ -34,10 +34,10 @@ Use the following link to reach the API documentation website: [Link to API docu
 
 **Status:** Draft; not yet approved by the COTB / CSC
 
-!!! note
-    This document is a draft and is subject to edits. 
-    Discussion on this specification is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
-    The version of the ONE Record API specification is incremented when the API specifications are endorsed by the IATA Cargo Operations Technology Board (COTB). The first version (v1.0) of the API specification was released in Aug 2020 (endorsed in Mar 2020).
+### Important
+This document is a draft and is subject to edits. 
+Discussion on this specification is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
+The version of the ONE Record API specification is incremented when the API specifications are endorsed by the IATA Cargo Operations Technology Board (COTB). The first version (v1.0) of the API specification was released in Aug 2020 (endorsed in Mar 2020).
 
 ## Dependencies
 
@@ -50,6 +50,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # License
 
-This document is licensed under MIT license (see [License](license.md) for details).
+This document is licensed under MIT license (see [License](LICENSE) for details).
 
 
