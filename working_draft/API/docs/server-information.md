@@ -4,7 +4,7 @@ As a ONE Record client, it is helpful to know the capabilities of a ONE Record s
 Therefore, every ONE Record server MUST provide an endpoint that can be used to retrieve this technical server information.
 This `ServerInformation` include details about the ONE Record server's ONE Record capabilities, the data holder (as a link to an [Organization](https://onerecord.iata.org/ns/cargo#Organization) using the [Organization URI](concepts.md#organization-uri)), the supported Logistics Object types (incl. data model versions) and the supported serialization formats.
 
-The [ServerInformation](https://iata.onerecord.org/ns/api/2.0.0-dev#ServerInformation) is a data class of the ONE Record API ontology. The properties and relationships to other data classes are visualized in the following class diagram.
+The [ServerInformation](https://onerecord.iata.org/ns/api#ServerInformation) is a data class of the ONE Record API ontology. The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
 classDiagram   
