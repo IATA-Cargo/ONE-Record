@@ -65,12 +65,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - renamed Details to ErrorDetails
 - renamed ChangeRequest#requestingParty to ChangeRequest#requestedBy
 - renamed ChangeRequest#timestamp to ChangeRequest#requestedAt
-- changed ChangeRequest#requestingParty<Branch> to ChangeRequest#requestedBy<https://onerecord.iata.org/ns/cargo#Organization>
+- changed ChangeRequest#requestingParty<Branch> to ChangeRequest#requestedBy (https://onerecord.iata.org/ns/cargo#Organization)
 - renamed ErrorDetails#attribute to ErrorDetails#property
 - renamed ServerInformation#supportedLogisticsObjects to ServerInformation#supportedLogisticsObjectTypes
 - changed property type of Notification#topic, Notification#changedProperties, OperationObject#datatype, ServerInformation#serverEndpoint, ServerInformation#supportedLogisticsObjects, ErrorDetails#property, ErrorDetails#resource, Subscription#callbackUrl, Subscription#topic, Subscription#subscribedTo
 - renamed Subscription#myCompanyIdentifier to Subscription#subscriber
-- changed Subscription#cacheFor<xsd:int> to Subscription#expiresAt<xsd:dateTime>
+- changed Subscription#cacheFor (xsd:int) to Subscription#expiresAt (xsd:dateTime)
 - renamed DelegationRequest#operations to DelegationRequest#permissions
 - renamed api#status (used in SubscriptionRequest, ChangeRequest DelegationRequest) to api#requestStatus
 - renamed ServerInformation#hasDataOnwer into ServerInformation#hasDataHolder
