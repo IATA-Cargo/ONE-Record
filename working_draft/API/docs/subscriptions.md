@@ -129,7 +129,18 @@ Content-Language: en-US
 _([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
 
 The publisher uses the response to store it in a SubscriptionRequest, which can later be referenced in Notifications and used to revoke the subscription.
-For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed)
+For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee)
+
+Here an example of a SubscriptionRequest:
+
+```bash
+--8<-- "examples/SubscriptionRequest_example.json"
+```
+
+_([examples/SubscriptionRequest_example.json](examples/SubscriptionRequest_example.json))_
+
+!!! note
+    The **@id** found in the subscription details provided by the Subscriber is not mandatory, but it can serve as a means for the Subscriber to manage various subscriptions. The Subscriber has the freedom to determine the format of this identifier. To access the SubscriptionRequest, both the Subscriber and the Publisher must utilize the id assigned by the Publisher for the SubscriptionRequest, rather than the id of the Subscription.
 
 **Step 3 - Send Notification to Subscribers**
 
