@@ -178,7 +178,7 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
 | ------- |  ---------------------- | ---------------- |
-| **200** | The request to retrieve the Action Request has been successful | Logistics Object |
+| **200** | The request to retrieve the Action Request has been successful | Action Request |
 | **301** | The URI of the Action Request has permanently changed.           | No response body |
 | **302** | The URI of the Action Request has temporarily moved.             | No response body |
 | **401** | Not authenticated        | Error            |
