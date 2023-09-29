@@ -77,7 +77,6 @@ classDiagram
 
 A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
 
-The following HTTP header parameters MUST be present in the response
 
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
