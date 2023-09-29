@@ -182,14 +182,6 @@ If the requester is authorized to access this Logistics Event then the response 
 
 ## Request
 
-The following query parameters MUST be supported:
-
-| Query parameter   | Description                         | Valid values        |
-| ----------------- |    -------------------------------- |   ------------- |
-| **embedded** (optional)      | Optional parameter that can be used to request an embedded version of a Logistics Object, if the parameter is not set, a linked version of the Logistics Object is returned  | <ul><li>true</li><li>false</li></ul> |
-| **at** (optional)      | Optional parameter that can be used to request a historical version of Logistics Object, if the parameter is not set, the latest version is returned   | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ` |
-
-
 The following HTTP header MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
