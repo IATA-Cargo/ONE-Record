@@ -213,7 +213,7 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
 | ------- |  ---------------------- | ---------------- |
-| **200** | The request to retrieve the Logistics Object has been successful | Logistics Object |
+| **200** | The request to retrieve the Logistics Event has been successful | Logistics Event |
 | **301** | The URI of the Logistics Object has permanently changed.           | No response body |
 | **302** | The URI of the Logistics Object has temporarily moved.             | No response body |
 | **401** | Not authenticated        | Error            |
@@ -327,13 +327,15 @@ The following HTTP headers parameters MUST be present in the response:
 
 The following HTTP status codes MUST be supported:
 
-| Code     | Description                       | Response body            |
-| -------- | --------------------------------- | ------------------------ |
-| **200**  | Events retrieved successfully     | List of LogisticsEvents  |
-| **200**  | Bad Request                       | Error                    |
-| **401**  | Not authenticated                 | Error                    |
-| **403**  | Not authorized to retrieve Events | Error                    |
-| **404**  | Logistics Object Not Found        | Error                    |
+| Code    | Description              | Response body    |
+| ------- |  ---------------------- | ---------------- |
+| **200** | The request to retrieve all Logistics Events has been successful    | List of Logistics Event |
+| **301** | The URI of the Logistics Object has permanently changed.            | No response body |
+| **302** | The URI of the Logistics Object has temporarily moved.              | No response body |
+| **401** | Not authenticated                                                   | Error            |
+| **403** | Not authorized to retrieve the Logistics Object                     | Error            |
+| **404** | Logistics Object not found                                          | Error            |
+
 
 ## Security
 
