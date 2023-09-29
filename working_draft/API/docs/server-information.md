@@ -60,7 +60,7 @@ A successful request MUST return a `HTTP/1.1 200 OK` status code and the followi
 | -------------------- |  -------------------------- | ----------------------------- |
 | **Content-Type**     | The content type that is contained with the HTTP body.                 | application/ld+json           |
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.                    | en-US     |
-| **Last-Modified**    | Date and time when the ServerInformation was last time changed. See https://developer.mozilla.org/en-US/docs/Web/ | Tue, 21 Feb 2023 07:28:00 GMT |
+| **Last-Modified**    | The date and time of the most recent change to the server information. See https://developer.mozilla.org/en-US/docs/Web/ | Tue, 21 Feb 2023 07:28:00 GMT |
 
 The HTTP body must contain a valid [ServerInformation](https://onerecord.iata.org/ns/api#ServerInformation) object in the format as specified by the Content-Type in the header.
 
