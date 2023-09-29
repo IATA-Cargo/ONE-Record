@@ -190,6 +190,7 @@ The following HTTP headers parameters MUST be present in the response:
 | -------------------- |    ---------- | ----------------------------- |
 | **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+| **Type**        | The type of the requested Logistics Object as a URI | https://onerecord.iata.org/ns/cargo#Piece                    |
 | **Revision**         | The revision of the requested Logistics Object as a positive numerical value. This is particularly relevant if the query parameter `at=` is set to request a historical version of the Logistics Object. | 3         |
 | **Latest-Revision**  | The latest revision number of the Logistics Object as non-negative numerical value.                      | 3         |
 | **Last-Modified**    | Date and time when the Logistics Object was last time changed. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
