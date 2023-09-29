@@ -807,8 +807,7 @@ The following HTTP header parameters MUST be present in the request:
 
 ## Response
 
-A successful GET request MUST return the following response body.
-
+A successful request MUST return a `HTTP/1.1 200 OK` status code. 
 The response body follows the API [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) class structure.
 
 | AuditTrail | Description                           | Required | Class                 |
@@ -817,6 +816,25 @@ The response body follows the API [AuditTrail](https://onerecord.iata.org/ns/api
 | **hasLatestRevision**  | The latest revision of the Logistics Object | yes        | xsd:positiveInteger |
 
 Each change request follows the API [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) class structure.
+
+The following HTTP headers parameters MUST be present in the response:
+
+| Header                | Description                                  | Example   |
+| -------------------- |    ---------- | ----------------------------- |
+| **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
+| **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+
+The following HTTP status codes MUST be supported:
+
+| Code    | Description              | Response body    |
+| ------- |  ---------------------- | ---------------- |
+| **200** | The request to retrieve the Logistics Object has been successful   | Audit Trail |
+| **301** | The URI of the Logistics Object has permanently changed.           | No response body |
+| **302** | The URI of the Logistics Object has temporarily moved.             | No response body |
+| **401** | Not authenticated                                                  | Error            |
+| **403** | Not authorized to retrieve the Logistics Object Audit Trail        | Error            |
+| **404** | Logistics Object not found                                         | Error            |
+| **415** | Unsupported Content Type                                           | Error            |
 
 ## Security
 
