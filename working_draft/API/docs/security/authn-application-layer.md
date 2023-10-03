@@ -426,9 +426,9 @@ In the following table we summarize the authentication and authorization needed 
 | /subscriptions | GET | Yes | No | 
 | /subscriptions | POST | Yes | No | 
 | /access-delegation | POST | Yes | No |
-| /access-requests/{{actionRequestId}} | GET | Yes | Yes |
-| /access-requests/{{actionRequestId}} | PATCH | Only Internal Service  | Only Internal Service  |
-| /access-requests/{{actionRequestId}} | DELETE | Yes | Yes |
+| /action-requests/{{actionRequestId}} | GET | Yes | Yes |
+| /action-requests/{{actionRequestId}} | PATCH | Only Internal Service  | Only Internal Service  |
+| /action-requests/{{actionRequestId}} | DELETE | Yes | Yes |
 | /notifications | POST | Yes | No | 
 
 The term "Only Internal Service" emphasizes that the service is exclusively accessible to internal actors and should be blocked for third-party ONE Record servers.
