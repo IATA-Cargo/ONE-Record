@@ -1,0 +1,1 @@
+In this folder, industry stakeholders may share propositions for Recommended Practices around the usage od ONE Record, both from a technical and business perspective. Some of this work may be integrated into the Data Orchestration working group scope.
