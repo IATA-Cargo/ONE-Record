@@ -1,7 +1,8 @@
 # Publish & Subscribe in ONE Record
 
 ONE Record utilizes a publish & subscribe pattern to enable exchanging data updates in a distributed network of ONE Record nodes.
-More precisely, In ONE Record, so-called [Notification](https://onerecord.iata.org/ns/api#Notification) data objects are exchanged between applications to inform other ONE Record nodes about data updates. 
+More precisely, In ONE Record, so-called [Notification](https://onerecord.iata.org/ns/api#Notification) data objects are exchanged 
+between applications to inform other ONE Record nodes about data updates. 
 
 This chapter describes the publish & subscribe concept and how it MUST be implemented in ONE Record.
 
@@ -12,10 +13,10 @@ This chapter describes the publish & subscribe concept and how it MUST be implem
 **Guidelines for Subscriptions in ONE Record:**
 
 - A [Subscription](https://onerecord.iata.org/ns/api#Subscription) MUST be immutable (unchangeable object), i.e. a [Subscription](https://onerecord.iata.org/ns/api#Subscription) cannot be changed after it is created and published.
-- Updating a [Subscription](https://onerecord.iata.org/ns/api#Subscription) requires to delete an existing [Subscription](https://onerecord.iata.org/ns/api#Subscription) and create a new [Subscription](https://onerecord.iata.org/ns/api#Subscription) that MUST be communicated to other ONE Record nodes.
+- Updating a [Subscription](https://onerecord.iata.org/ns/api#Subscription) requires to delete/revoke the active [Subscription](https://onerecord.iata.org/ns/api#Subscription) and create a new [Subscription](https://onerecord.iata.org/ns/api#Subscription) that MUST be communicated to other ONE Record nodes.
 - The publisher of a [Notification](https://onerecord.iata.org/ns/api#Notification) MUST ensure the guaranteed delivery.
 - It is RECOMMENDED to implement for each subscriber and each topic a message queue that is maintained by the publisher. While in transit, data is kept in message queues that ensure integrity and availability of the system. If a subscribing application is unavailable, messages are safely retained until the subscribing application returns to be available.
-- The publisher MUST ensure the guaranteed delivery.  That means keeping data until the subscriber confirms it has received a particular [Notification](https://onerecord.iata.org/ns/api#Notification). 
+- The publisher MUST ensure the guaranteed delivery. That means keeping data until the subscriber confirms it has received a particular [Notification](https://onerecord.iata.org/ns/api#Notification). 
 
 **Subscription Data Model**
 
@@ -128,10 +129,14 @@ Content-Language: en-US
 
 _([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
 
-The publisher uses the response to store it in a SubscriptionRequest, which can later be referenced in Notifications and used to revoke the subscription.
+It is the imperative of the publisher to check the response, i.e. compare the requested topic/topicType with tjhe topic/topicType in the responsed [Subscription](https://onerecord.iata.org/ns/api#Subscription) data object.
+
+The publisher uses the response to store it in a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest), which can later be referenced in Notifications (cf. [isTriggeredBy](https://onerecord.iata.org/ns/api#isTriggeredBy) property in [Notification](https://onerecord.iata.org/ns/api#Notification)) and used to revoke the subscription.
 For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee)
 
-Here an example of a SubscriptionRequest:
+The publisher MUST ensure that the subscriber gets sufficient access to the resulted [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) to request the status of the [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) and can revoke [AccessDelegationRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) (see also section about [revoking Action Requests](./action-requests.md#revoke-action-request)
+
+Here an example of a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest):
 
 ```bash
 --8<-- "examples/SubscriptionRequest_example.json"
