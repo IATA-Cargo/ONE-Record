@@ -129,7 +129,7 @@ Content-Language: en-US
 
 _([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
 
-It is the imperative of the publisher to check the response, i.e. compare the requested topic/topicType with tjhe topic/topicType in the responsed [Subscription](https://onerecord.iata.org/ns/api#Subscription) data object.
+It is the responsibility of the publisher to check the response, i.e. to compare the requested topic/topicType with the topic/topicType in the returned [Subscription](https://onerecord.iata.org/ns/api#Subscription) data object.
 
 The publisher uses the response to store it in a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest), which can later be referenced in Notifications (cf. [isTriggeredBy](https://onerecord.iata.org/ns/api#isTriggeredBy) property in [Notification](https://onerecord.iata.org/ns/api#Notification)) and used to revoke the subscription.
 For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee)
