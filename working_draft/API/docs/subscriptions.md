@@ -411,3 +411,14 @@ The entity responsible for implementing the ONE Record Server is obligated to es
 
 !!! note
         Notifications are sent to the subscriber's Notification endpoint. It MUST be assumed that the subscriber performs the internal forwarding of the received notifications to the backend systems or third parties for further processing.
+
+# Unsubscribe
+
+Due to changing information needs, a subscribed user of a logistics object may no longer wish to receive notifications of logistics object updates. 
+To unscribe, an active Subscriber MUST revoke a SubscriptionRequest. 
+This is explained in the [Revoke Action Request](./action-requests.md#revoke-action-request) section.
+
+The  [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) URI required for the Revocation is 
+provided to the User with the [isTriggeredBy](https://onerecord.iata.org/ns/api#isTriggeredBy) 
+property in the [Notification](https://onerecord.iata.org/ns/api#Notification)) data object.
+Or it is given to the user in the HTTP response header `Location` to the subscription request.
