@@ -18,7 +18,11 @@ If, as in this presented scenario, the airline already has a delegation of acces
     The party granting access is referred to as the `Delegator` and the party receiving access is the `Delegate`. 
     The party requesting access is referred to as the `Requestor`.
 
-
+**Guidelines for Access Delegations in ONE Record:**
+- Only the Holder of a Logistics Object MAY delegate access to logistics objects.
+- Any authenticated User of a Logistics Object CAN request a [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) on a Logistics Object, which result in a [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING).
+- The implementer of the ONE record server MUST ensure that the requestor gets sufficient access to the resulting [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) to query the status of the [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) and revoke the [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) (see also section on [revoking Action Requests](./action-requests.md#revoke-action-request)
+- The Holder of a Logistics Object decides about the [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) and changes the requestor's permissions to a Logistics Object unless there is a business or technical reason to reject it.
 
 # Request Access Delegation
 
@@ -40,7 +44,7 @@ The following HTTP header parameters MUST be present in the request:
 
 The HTTP request body must contain a valid [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) object in the format as specified by the Content-Type in the header.
 
-The [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) is a data class of the [ONE Record api ontology](https://onerecord.iata.org/ns/api).
+The [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) is a data class of the [ONE Record API ontology](https://onerecord.iata.org/ns/api).
 The properties and relationships to other data classes are visualized in the diagram.
 
 ```mermaid

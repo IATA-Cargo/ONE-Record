@@ -92,9 +92,7 @@ classDiagram
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]
-        + hasLogisticsObjectType: xsd:anyURI [0..1]                    
-        + hasTopic: xsd:anyURI
-        
+        + hasLogisticsObjectType: xsd:anyURI [0..1]            
     }
     Notification "1"--> "0..1" LogisticsObject
     Notification "1" --> "1" NotificationEventType

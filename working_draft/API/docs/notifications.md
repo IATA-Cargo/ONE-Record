@@ -3,11 +3,24 @@ ONE Record utilizes a Publish & Subscribe pattern to enable exchanging data upda
 A key pillar of the implementation of this concept is asynchronous communication via HTTP. 
 To enable asynchronous communication via HTTP, every ONE Record server MUST provide a Notification REST API endpoint that can be used by ONE Record clients to submit Notifications about data changes and updates.
 
-This chapter describes the the requirements of a Notifications API which a ONE Record server MUST implement to receive Notifications about new created or updated Logistics Objects from other ONE Record nodes.
+This chapter describes the the requirements of a Notifications API which a ONE Record server MUST implement (1) to receive information about new created or updated Logistics Objects, (2) or to receive status updates of action requests from other ONE Record nodes.
 
-The initialization of this data exchange channel is described in the [Subscription](subscriptions.md) chapter.
+For the former, the initialization of this data exchange channel is described in the [Subscription](subscriptions.md) chapter.
+The latter is set up when [notifyRequestStatusChange](https://onerecord.iata.org/ns/api#notifyRequestStatusChange) is set to `true` in the request for a Change, AccessDelegation , or Subscription.
 
-## Notifications API
+**Guidelines for Notifications in ONE Record:**
+
+- Every ONE Record server MUST implement a Notifications endpoint to receive data from ONE Record clients
+- The ONE Record Notifications endpoint MUST be accessible to any authenicated ONE Record client
+- The ONE Record Notificatons endpoint MUST expect a [Notification](https://onerecord.iata.org/ns/api#Notification) object in the POST request body
+- The ONE Record Notificatons MUST respond with a HTTP response when it receives the Notification
+- The ONE Record Notificatons MUST support HTTP 1.1
+- The ONE Record Notificatons MUST support TLS 1.2
+
+**Notification Data Model**
+
+The Notification is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
+The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
     classDiagram
@@ -42,9 +55,7 @@ The initialization of this data exchange channel is described in the [Subscripti
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]
-        + hasLogisticsObjectType: xsd:anyURI [0..1]                
-        + hasTopic: xsd:anyURI
-        
+        + hasLogisticsObjectType: xsd:anyURI [0..1]     
     }
     Notification "1"--> "0..1" LogisticsObject
     Notification "1" --> "1" NotificationEventType
@@ -87,18 +98,6 @@ The initialization of this data exchange channel is described in the [Subscripti
     }
 ```
 
-**Notifications API Requirements**
-The Notifications API is required to receive data from ONE Record Servers via a Subscription. Unlike the Server API, which can be accessed by any Internet of Logistics participant with adequate rights, the Notifications API is only exposed to ONE Record Servers with whom the company has set up a Subscription to agreed Logistics Objects.
-
-Rules and recommendations related to the Notifications API:
-
-- MUST support HTTP 1.1
-- MUST support TLS 1.2
-- MUST support the POST request on the endpoint.
-- MUST expect a Notification object in the POST request. 
-- MUST support the content types that are specified in the Subscription information
-- MUST respond with a HTTP response when it receives the Notification
-
 # Send Notification
 
 ## Endpoint 
@@ -117,14 +116,13 @@ The following HTTP header parameters MUST be present in the request:
 
 
 The HTTP body must contain a valid [Notification](https://onerecord.iata.org/ns/api#Notification) in the format as specified by the Content-Type in the header.
-The Notification is a data class of the [ONE Record api ontology](https://onerecord.iata.org/ns/api/2.0.0). 
 
 The publisher sends a notification request to the subscriber when a logistics object is created or updated. 
 If the subscriber chose to receive the entire logistics object body via sendLogisticsObjectBody=true field, then the whole object is sent.
 
 !!! note
-        If the embedded object of a LO changed, the Notification:changedProperties will contain the IRI of the embeddedObject, for example: 
-        Value in an grossWeight of a Piece is changed via ChangeRequest, the changedProperties of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
+        If the embedded object of a LogisticsObject changed, the Notification#[hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) will contain the IRI of the embeddedObject, for example: 
+        The [hasGrossWeight](https://onerecord.iata.org/ns/cargo#hasGrossWeight) property - which is of type [Value](https://onerecord.iata.org/ns/cargo#Value) - of a Piece is changed via ChangeRequest, the [hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
 
 ## Response
 
