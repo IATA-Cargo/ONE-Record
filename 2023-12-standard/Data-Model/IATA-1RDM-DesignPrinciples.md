@@ -2,6 +2,8 @@
 # ONE Record Data Model
 ## Design principles
 
+/// Work in progress ///
+
 ### 1. Introduction
 #### 1.1. Purpose of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the design principles that have been defined and applied to produce the ONE Record Data Model on conceptual and logical levels.
@@ -92,15 +94,18 @@ Following the design principles defined above, we have defined a semantic data m
 <p align="center"><i>Conceptual Data Model - To update</i></p>
 
 #### 3.1. LogisticsService
-> A **LogisticsService** is a sequence of Activities provided by one Party to another.
+> A **LogisticsService** is a sequence of Activities provided by one Party to another. 
+
 The Services usually represent an agreement between two or more parties. The first Service in our scope is the Booking. Current Service structure is very generic, more services can be added in the future, stakeholders are allowed to use the structure to define their own services.
 
 #### 3.2. LogisticsActivity
 > A **LogisticsActivity** is a scheduled set of tasks that is executed as part of one or more Services.
+
 An Activity can be either one main task or a set of tasks. The LogisticsActivity object is generic with common data properties, stakeholders can define their own subtypes or propose improvements to the standard. The **TransportMovement** activity is essential for the supply chain and a few major activites have been defined as well (Storing, Loading, etc.).
 
 #### 3.3. LogisticsAction
 > A **LogisticsAction** is a specific task with a specific result performed on one or more LOs by one party in the context of a **LogisticsActivity**.
+
 Actions represent the tasks within an Activity and contain the scheduling of the tasks. In order to track properly the potential discrepancy between a planned action and an actual action there should be a *Scheduled* or *Planned* task and an *Actual* task.
 For instance if 5 pieces were intended to be loaded onto a flight and only 4 of them are actually loaded this can be easily tracked.
 
