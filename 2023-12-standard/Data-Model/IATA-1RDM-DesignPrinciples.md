@@ -2,41 +2,8 @@
 # ONE Record Data Model
 ## Design principles
 
-**Table of contents**
-- [ONE Record Data Model](#one-record-data-model)
-  * [Design principles](#design-principles)
-    + [1. Introduction](#1-introduction)
-      - [1.1. Purpuse of this document](#11-purpuse-of-this-document)
-      - [1.2. ONE Record](#12-one-record)
-      - [1.3. The ONE Record Data Model](#13-the-one-record-data-model)
-    + [2. Principles](#2-principles)
-      - [2.1. Piece centric](#21-piece-centric)
-      - [2.2. Physics oriented](#22-physics-oriented)
-      - [2.3. One single source of truth](#23-one-single-source-of-truth)
-      - [2.4. Data driven](#24-data-driven)
-        * [2.4.1. A data-driven data model](#241-a-data-driven-data-model)
-        * [2.4.2. Semantic web and linked data](#242-semantic-web-and-linked-data)
-        * [2.4.3. Events](#243-events)
-    + [3. The Logistic objects](#3-the-logistic-objects)
-      - [3.1. Piece](#31-piece)
-      - [3.2. Shipment](#32-shipment)
-      - [3.3. Item](#33-item)
-      - [3.4. Product](#34-product)
-      - [3.5. Unit Load Device (ULD)](#35-unit-load-device--uld-)
-      - [3.6. Transport Movement](#36-transport-movement)
-      - [3.7. Booking Option Request](#37-booking-option-request)
-      - [3.8. Booking Option](#38-booking-option)
-      - [3.9. Waybill](#39-waybill)
-    + [4. Paper transport documents in ONE Record](#4-paper-transport-documents-in-one-record)
-      - [4.1. Master AWB](#41-master-awb)
-        * [4.1.1 Digital AWB approach](#411-digital-awb-approach)
-        * [4.1.2 Pieces / ULDs in AWB wording](#412-pieces---ulds-in-awb-wording)
-        * [4.2. House AWB](#42-house-awb)
-
----
-
 ### 1. Introduction
-#### 1.1. Purpuse of this document
+#### 1.1. Purpose of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the design principles that have been defined and applied to produce the ONE Record Data Model on conceptual and logical levels.
 The design principles are general rules and cargo industry business rules explaining the way the data model has been defined.
 Note that this document, especially the concepts and objects in it, may evolve with revised versions of the data model in the future and will include feedbacks from the industry and pilot projects.
@@ -130,13 +97,21 @@ The Services usually represent an agreement between two or more parties. The fir
 
 #### 3.2. LogisticsActivity
 > A **LogisticsActivity** is a scheduled set of tasks that is executed as part of one or more Services.
-ff
+An Activity can be either one main task or a set of tasks. The LogisticsActivity object is generic with common data properties, stakeholders can define their own subtypes or propose improvements to the standard. The **TransportMovement** activity is essential for the supply chain and a few major activites have been defined as well (Storing, Loading, etc.).
 
-#### 3.9. Waybill
-**Definition**
-> The Waybill can represent the House Waybill between a shipper and a forwarder as well as the Master Waybill between a forwarder and a carrier.
+#### 3.3. LogisticsAction
+> A **LogisticsAction** is a specific task with a specific result performed on one or more LOs by one party in the context of a **LogisticsActivity**.
+Actions represent the tasks within an Activity and contain the scheduling of the tasks. In order to track properly the potential discrepancy between a planned action and an actual action there should be a *Scheduled* or *Planned* task and an *Actual* task.
+For instance if 5 pieces were intended to be loaded onto a flight and only 4 of them are actually loaded this can be easily tracked.
 
-The Waybill does not contain many data elements as most of the legal information that the MAWB and HAWB contain are already defined on other LOs such as Booking and Shipment. The linked data principle allows to reconstitute the legal documents. A mapping between the document and the Data Model has been done and is available in the ONE Record documentation.
+#### 3.4. PhysicalLogisticsObject
+The Physical LO are what we refer to as Digital Twin in the core principles. Are included Pieces, ULDs, Transport Means and so on. They should be easily identifiable and relatable with their phyisical counter part.
+
+#### 3.5. LogisticAgent
+The LogisticAgent structure is derived from the W3C model of organizations: https://www.w3.org/TR/vocab-org/#description We define the Organization/companies as well as Actors/Persons with relations between the different objects.
+
+#### 3.6. Common objects
+Some objects do no fall under main categories described above, they mainly exist in the context of a LO and do not have their own lifecycle. For instance an Address usually only has meaning in the context of a Location to further describe the Location. Common objects can be, by implementation, embedded onto LOs to simplify the data management.
 
 ### 4. LogisticsEvent
 The Events are an essential part of the Data Model, they allow to record any update or occuring event linked to a LO. It contains generic data and object properties to cover most requirements and can be derived in subtypes or subclasses if it is relevant.
