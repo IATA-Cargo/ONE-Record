@@ -1,5 +1,5 @@
 ![image](https://user-images.githubusercontent.com/58464775/161543622-0c3ea890-b331-4a6b-86b7-fd41b08370eb.png)
-# ONE Record Good Practices
+# ONE Record Good Practices kikou lol
 
 This document is used as a referentiel for Good Practices description and shall be amended by stakeholders providing feedback on Pilot projects and implementations. We strongly encourage all active participants to contribute to this list and its content.
 
