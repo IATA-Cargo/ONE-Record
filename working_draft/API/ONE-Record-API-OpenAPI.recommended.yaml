@@ -580,7 +580,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LogisticsEvent'
+                  $ref: '#/components/schemas/LogisticsEventCollection'
     post:
       tags:
       - Logistics Events
@@ -3235,6 +3235,22 @@ components:
           type: string
         https://onerecord.iata.org/ns/cargo#skeletonIndicator:
           type: boolean
+    LogisticsEventCollection:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticEvent'
+        https://onerecord.iata.org/ns/api#hasTotalItem:
+          type: integer          
     LogisticsService:
       type: object
       properties:

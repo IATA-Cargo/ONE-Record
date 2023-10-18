@@ -74,6 +74,11 @@ classDiagram
     Change "1" --> "1" LogisticsObject
     Change "1" --> "1..*" Operation
     
+    class Collection{    
+        + hasItem: Object [0..*]
+     	+ hasTotalItems: xsd:nonNegativeInteger [0..1]    
+    }
+
     class Error{        
         + hasErrorDetail[]: ErrorDetails [1..*]
         + hasTitle: xsd:string
