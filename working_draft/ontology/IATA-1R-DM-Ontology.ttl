@@ -153,7 +153,8 @@ Version 3.0.0 RC6b
 
 - Renamed property :role to :partyRole
 - Renamed property :organization to :partyDetails
-- Changed domain of property :partyDetails from :organization to :LogisticsAgent"""@en ;
+- Changed domain of property :partyDetails from :organization to :LogisticsAgent
+- Made property LocationCode n-ary"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
                                        owl:versionInfo "3.0.0 RC 6"@en .
@@ -1616,13 +1617,13 @@ TRNS - transfer or transshipment"""@en ;
              owl:comment "Possible RDF good practice IRI: :composesOnLoadingUnit "@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#locationCode
-:locationCode rdf:type owl:ObjectProperty ;
-              rdfs:domain :Location ;
-              rdfs:range :CodeListElement ;
-              rdfs:comment "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
-              rdfs:label "locationCode"@en ;
-              owl:comment "Possible RDF good practice IRI: :hasLocationCode "@en .
+###  https://onerecord.iata.org/ns/cargo#locationCodes
+:locationCodes rdf:type owl:ObjectProperty ;
+               rdfs:domain :Location ;
+               rdfs:range :CodeListElement ;
+               rdfs:comment "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
+               rdfs:label "locationCodes"@en ;
+               owl:comment "Possible RDF good practice IRI: :hasLocationCode "@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#manufacturer
@@ -7285,7 +7286,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:allValuesFrom :Geolocation
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :locationCode ;
+                            owl:onProperty :locationCodes ;
                             owl:allValuesFrom :CodeListElement
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -7306,10 +7307,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :geolocation ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :locationCode ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -10298,7 +10295,8 @@ ccodes:MeasurementUnitCode rdf:type owl:Class ;
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode
-ccodes:ModeCode rdfs:subClassOf :CodeListElement .
+ccodes:ModeCode rdf:type owl:Class ;
+                rdfs:subClassOf :CodeListElement .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#MovementIndicator
