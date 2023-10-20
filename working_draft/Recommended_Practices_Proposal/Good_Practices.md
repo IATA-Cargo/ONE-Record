@@ -12,6 +12,6 @@ This document does not constitute an IATA endorsed Recommended Practice within t
 
 ## Details on business use cases
 
-### 1. ONE Record Shipemnt Tracking
+### 1. ONE Record Shipement Tracking
 
-See https://github.com/DrPhilippBillion/1R_ShipmentTracking/blob/main/1R_ShipmentTracking.md for further details
+See https://github.com/digital-cargo/good-practice-shipment-tracking for further details
