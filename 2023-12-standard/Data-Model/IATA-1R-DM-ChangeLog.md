@@ -91,3 +91,106 @@ tbd
 - Full rework of enums and code lists as NamedIndividuals
 - Added core code list ontology containing key codes used in ONE Record in accordance with IATA
 
+#### 3.0.0 RC6:
+- Removed all deprecated properties since the namespace fully changes as of 3.0.0 anyway
+- Added CurrencyValue object to enable typesafe transmission of currencies
+- Added property :inBookingOptionRequests as backlink from :transportLegs
+- Added property :inBookingOptions as backlink from :transportLegs
+- Added property :updateBookingOptionRequests as backlink from :bookingToUpdate
+- Changed :units to be an object property to demand a MeasurementUnitCode for type safety
+- Changed BookingTimes to be an EmbeddedObject
+- Changed CarrierProduct to be an EmbeddedObject
+- Changed PieceGroup to be an EmbeddedObject
+- Changed Range of :amountTotal to from Value to CurrencyValue
+- Changed Range of :chargesAtDestination to from Value to CurrencyValue
+- Changed Range of :collectChargesInDestinationCurrency to from Value to CurrencyValue
+- Changed Range of :declaredValueForCarriage to from Value to CurrencyValue
+- Changed Range of :declaredValueForCustoms to from Value to CurrencyValue
+- Changed Range of :insuredAmount to from Value to CurrencyValue
+- Changed Range of :otherChargeAmount to from Value to CurrencyValue
+- Changed Range of :total to from Value to CurrencyValue
+- Changed Range of :totalCollectCharges to from Value to CurrencyValue
+- Changed Range of :unitPrice to from Value to CurrencyValue
+- Changed StationRemarks to be an EmbeddedObject
+- Changed UnitsPreference to be an EmbeddedObject
+- Merged properties :bookingOption and :forBookingOption as :forBookingOption
+- Merged properties :bookingOptionRequest, :bookingOptionRequestId and :forBookingOptionRequest as :forBookingOptionRequest
+- Moved ModeCode codelist from /cargo ontology to coreCodeLists /ontology
+- Re-added :customsInformation to Piece
+- Re-added :issuedForPiece to CustomsInformation
+- Removed unused property :shipmentDetails
+- Renamed :bookingRequestId to :bookingRequest for consistency
+- Renamed property :actions to :loadingActions
+- Renamed property :calculationForTransportMovement to :calculationFor
+- Renamed property :containedItemInPiece to inPiece
+- Renamed property :containedPieceInPiece to inPiece
+- Renamed property :contentDescribedByProducts to :contentProducts
+- Renamed property :customsInformationForShipment to :issuedForShipment
+- Renamed property :describedByProduct to :ofProduct
+- Renamed property :descriptionForContentOfPieces to describedObjects
+- Renamed property :descriptionForItems to describedObjects
+- Renamed property :linkedLogisticObjects to :referenceForObjects
+- Renamed property :linkedObject to :eventFor
+- Renamed property :partOfShipment to ofShipment
+- Renamed property :perfomedActions to :onsiteActions
+- Renamed property :recordedAtLocation to :eventLocation
+- Renamed property :recordedBy to :recordingOrganization
+- Renamed property :recordedByActor to :recordingActor
+- Renamed property :shipmentOfPieces to .pieces
+- Renamed property :role to :partyRole
+- Renamed property :organization to :partyDetails
+- Changed domain of property :partyDetails from :organization to :LogisticsAgent
+- Made property LocationCode n-ary
+- Renamed TACTRateDescription to WaybillLineItem incl. rate-specific properties
+- Added bookingTimes property for LO BookingOption
+- Removed TotalCharge as discussed in DMWG
+- Bugfixes of ranges, domains, and codelists
+- Renamed property :organization to :partyDetails
+- Changed domain of property :partyDetails from :organization to :LogisticsAgent
+- Fixed description of status discrepancy codes
+- Removed all deprecated properties since the namespace fully changes as of 3.0.0 anyway
+- Added CurrencyValue object to enable typesafe transmission of currencies
+- Added property :inBookingOptionRequests as backlink from :transportLegs
+- Added property :inBookingOptions as backlink from :transportLegs
+- Added property :updateBookingOptionRequests as backlink from :bookingToUpdate
+- Changed :units to be an object property to demand a MeasurementUnitCode for type safety
+- Changed BookingTimes to be an EmbeddedObject
+- Changed CarrierProduct to be an EmbeddedObject
+- Changed PieceGroup to be an EmbeddedObject
+- Changed Range of :amountTotal to from Value to CurrencyValue
+- Changed Range of :chargesAtDestination to from Value to CurrencyValue
+- Changed Range of :collectChargesInDestinationCurrency to from Value to CurrencyValue
+- Changed Range of :declaredValueForCarriage to from Value to CurrencyValue
+- Changed Range of :declaredValueForCustoms to from Value to CurrencyValue
+- Changed Range of :insuredAmount to from Value to CurrencyValue
+- Changed Range of :otherChargeAmount to from Value to CurrencyValue
+- Changed Range of :total to from Value to CurrencyValue
+- Changed Range of :totalCollectCharges to from Value to CurrencyValue
+- Changed Range of :unitPrice to from Value to CurrencyValue
+- Changed StationRemarks to be an EmbeddedObject
+- Changed UnitsPreference to be an EmbeddedObject
+- Merged properties :bookingOption and :forBookingOption as :forBookingOption
+- Merged properties :bookingOptionRequest, :bookingOptionRequestId and :forBookingOptionRequest as :forBookingOptionRequest
+- Moved ModeCode codelist from /cargo ontology to coreCodeLists /ontology
+- Re-added :customsInformation to Piece
+- Re-added :issuedForPiece to CustomsInformation
+- Removed unused property :shipmentDetails
+- Renamed :bookingRequestId to :bookingRequest for consistency
+- Renamed property :actions to :loadingActions
+- Renamed property :calculationForTransportMovement to :calculationFor
+- Renamed property :containedItemInPiece to inPiece
+- Renamed property :containedPieceInPiece to inPiece
+- Renamed property :contentDescribedByProducts to :contentProducts
+- Renamed property :customsInformationForShipment to :issuedForShipment
+- Renamed property :describedByProduct to :ofProduct
+- Renamed property :descriptionForContentOfPieces to describedObjects
+- Renamed property :descriptionForItems to describedObjects
+- Renamed property :linkedLogisticObjects to :referenceForObjects
+- Renamed property :linkedObject to :eventFor
+- Renamed property :partOfShipment to ofShipment
+- Renamed property :perfomedActions to :onsiteActions
+- Renamed property :recordedAtLocation to :eventLocation
+- Renamed property :recordedBy to :recordingOrganization
+- Renamed property :recordedByActor to :recordingActor
+- Renamed property :shipmentOfPieces to pieces
+- Cleared CurrencyCode codelists since it is not maintained by IATA
