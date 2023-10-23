@@ -9,31 +9,24 @@
 @base <https://onerecord.iata.org/ns/coreCodeLists> .
 
 <https://onerecord.iata.org/ns/coreCodeLists> rdf:type owl:Ontology ;
-                                               owl:versionIRI <https://onerecord.iata.org/ns/coreCodeLists/0.0.3> ;
+                                               owl:versionIRI <https://onerecord.iata.org/ns/coreCodeLists/1.0.0> ;
                                                dc:description "ONE Record core code lists, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                                dc:title "ONE Record Core Code Lists Ontology"@en ;
                                                terms:abstract "The core code lists ontology of the ONE Record standard covers the code lists used in the standard, currently corresponding to cXML code lists, IATA Resolutions, CITES, UN recommended codes and 1R-specific codes."@en ;
-                                               terms:modified "31-08-2023" ;
+                                               terms:modified "23-10-2023" ;
                                                terms:title "ONE Record Core Code List Ontology"@en ;
                                                rdfs:comment """Attention: Note that each Individual has a code list-specific prefix in their IRI which is not shown in the labels (default view in tools such as Protege). 
 
 Furthermore, DGR and Security Status codes have the respective DangerousGoodsCode and SecurityStatus prefix, even though they are part of the Special Handling Code List, too."""@en ,
                                                             """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
-Version 0.0.1
-- Initial version covering 20 restricted code lists and 2 open code lists*, predominantly based on cXML 2023
+
+Version 1.0.0
+- Initial version covering 38 restricted code lists and 5 open code lists*, based on cXML 2023, IATA resolutions, CITES, UN recommended codes and ONE Record Working Group results
 * Open code lists can be instanced to add own, additional codes in ONE Record using the inherited properties from CodeListElement
-* Restricted code lists are defined classes and cannot be expanded
-
-Version 0.0.2
-- Inclusion of 10 further restricted code lists and one open code list, covering predominantly DGR and CITES
-
-Version 0.0.3
-- Inclusion of MCD code lists, including CommodityCode
-- Inclusion of open currency code list
-- GLAS and Automotive parts in CommodityCode list need to be clearified still!"""@en ;
+* Restricted code lists are defined classes and cannot be expanded"""@en ;
                                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                                rdfs:label "ONE Record Core Code Lists Ontology"@en ;
-                                               owl:versionInfo "0.0.3"@en .
+                                               owl:versionInfo "1.0.0"@en .
 
 #################################################################
 #    Annotation properties
@@ -172,8 +165,7 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode
 :CommodityCode rdf:type owl:Class ;
                owl:equivalentClass [ rdf:type owl:Class ;
-                                     owl:oneOf ( <<https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo Pequeno>
-                                                 :CommodityCode_CHEM
+                                     owl:oneOf ( :CommodityCode_CHEM
                                                  :CommodityCode_CHEM_CDGR
                                                  :CommodityCode_CHEM_CLNG
                                                  :CommodityCode_CHEM_CNDG
@@ -610,6 +602,7 @@ terms:title rdf:type owl:AnnotationProperty .
                                                  :CommodityCode_LIVE_MMLS_DOGS_Pomsky_Pomeranian_Siberian_Husky_Mix
                                                  :CommodityCode_LIVE_MMLS_DOGS_Poochon_Poodle_Bichon_Frise_Mix
                                                  :CommodityCode_LIVE_MMLS_DOGS_Poodle
+                                                 :CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo_Pequeno
                                                  :CommodityCode_LIVE_MMLS_DOGS_Portuguese_Water_Dog
                                                  :CommodityCode_LIVE_MMLS_DOGS_Presa_Canario
                                                  :CommodityCode_LIVE_MMLS_DOGS_Pug
@@ -810,7 +803,7 @@ terms:title rdf:type owl:AnnotationProperty .
                                                  :CommodityCode_VHCL_SVCL_BICY
                                                  :CommodityCode_VHCL_SVCL_CRTA
                                                  :CommodityCode_VHCL_SVCL_MOTO
-                                                 :CommodityCode_VHCL_SVCL_PENDING
+                                                 :CommodityCode_VHCL_SVCL_PART
                                                  :CommodityCode_VHCL_SVCL_TIRE
                                                )
                                    ] ;
@@ -972,6 +965,24 @@ terms:title rdf:type owl:AnnotationProperty .
                      rdfs:comment "Open code list extended from cXML code list 1.48 Measurement Unit Code and based on UNECE Rec. 20"@en ,
                                   "Source: UNECE Rec. 20 Rev. 17e-2021"@en ;
                      rdfs:label "MeasurementUnitCode"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode
+:ModeCode rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :ModeCode_AIR_TRANSPORT
+                                            :ModeCode_FIXED_TRANSPORT_INSTALLATION
+                                            :ModeCode_INLAND_WATER_TRANSPORT
+                                            :ModeCode_MARITIME_TRANSPORT
+                                            :ModeCode_MULTIMODAL_TRANSPORT
+                                            :ModeCode_RAIL_TRANSPORT
+                                            :ModeCode_ROAD_TRANSPORT
+                                            :ModeCode_TRANSPORT_MODE_NOT_APPLICABLE
+                                            :ModeCode_TRANSPORT_MODE_NOT_SPECIFIED
+                                          )
+                              ] ;
+          rdfs:comment "Restricted Code List of mode codes, UNECE Recommendation No. 19"@en ,
+                       "Source: TRADE/CEFACT/21/19"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#MovementIndicator
@@ -1461,7 +1472,7 @@ terms:title rdf:type owl:AnnotationProperty .
                                                              :TransportMeansServiceType_TRUCK
                                                            )
                                                ] ;
-                           rdfs:comment "Restricted code list of listable transport means in transport legs in carrier bookings"@en ;
+                           rdfs:comment "Restricted code list of possible transport means in transport legs in carrier bookings"@en ;
                            rdfs:label "TransportMeansServiceType"@en .
 
 
@@ -1539,13 +1550,6 @@ terms:title rdf:type owl:AnnotationProperty .
 #################################################################
 #    Individuals
 #################################################################
-
-###  <https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo Pequeno
-<<https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo Pequeno> rdf:type owl:NamedIndividual ,
-                                                                                                                :CommodityCode ;
-                                                                                                       rdfs:comment "Portuguese Podengo Pequeno"@en ;
-                                                                                                       rdfs:label "LIVE_MMLS_DOGS_Portuguese_Podengo Pequeno"@en .
-
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#AWBUseIndicator_R
 :AWBUseIndicator_R rdf:type owl:NamedIndividual ,
@@ -4984,6 +4988,13 @@ terms:title rdf:type owl:AnnotationProperty .
                                      rdfs:label "LIVE_MMLS_DOGS_Poodle"@en .
 
 
+###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo_Pequeno
+:CommodityCode_LIVE_MMLS_DOGS_Portuguese_Podengo_Pequeno rdf:type owl:NamedIndividual ,
+                                                                  :CommodityCode ;
+                                                         rdfs:comment "Portuguese Podengo Pequeno"@en ;
+                                                         rdfs:label "LIVE_MMLS_DOGS_Portuguese_Podengo_Pequeno"@en .
+
+
 ###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_LIVE_MMLS_DOGS_Portuguese_Water_Dog
 :CommodityCode_LIVE_MMLS_DOGS_Portuguese_Water_Dog rdf:type owl:NamedIndividual ,
                                                             :CommodityCode ;
@@ -6384,11 +6395,11 @@ terms:title rdf:type owl:AnnotationProperty .
                               rdfs:label "VHCL_SVCL_MOTO"@en .
 
 
-###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_PENDING
-:CommodityCode_VHCL_SVCL_PENDING rdf:type owl:NamedIndividual ,
-                                          :CommodityCode ;
-                                 rdfs:comment "Automobile parts"@en ;
-                                 rdfs:label "VHCL_SVCL_PENDING"@en .
+###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_PART
+:CommodityCode_VHCL_SVCL_PART rdf:type owl:NamedIndividual ,
+                                       :CommodityCode ;
+                              rdfs:comment "Automobile parts"@en ;
+                              rdfs:label "VHCL_SVCL_PART"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_TIRE
@@ -6396,1112 +6407,6 @@ terms:title rdf:type owl:AnnotationProperty .
                                        :CommodityCode ;
                               rdfs:comment "Tires"@en ;
                               rdfs:label "VHCL_SVCL_TIRE"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AED
-:CurrencyCode_AED rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "UAE Dirham"@en ;
-                  rdfs:label "AED"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AFN
-:CurrencyCode_AFN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Afghani"@en ;
-                  rdfs:label "AFN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ALL
-:CurrencyCode_ALL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Albanian Lek"@en ;
-                  rdfs:label "ALL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AMD
-:CurrencyCode_AMD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Armenian Dram"@en ;
-                  rdfs:label "AMD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ANG
-:CurrencyCode_ANG rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Netherlands Antillean Guilder"@en ;
-                  rdfs:label "ANG"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AOA
-:CurrencyCode_AOA rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kwanza"@en ;
-                  rdfs:label "AOA"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ARS
-:CurrencyCode_ARS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Argentine Peso"@en ;
-                  rdfs:label "ARS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AUD
-:CurrencyCode_AUD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Australian Dollar"@en ;
-                  rdfs:label "AUD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AWG
-:CurrencyCode_AWG rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Aruban Florin"@en ;
-                  rdfs:label "AWG"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_AZN
-:CurrencyCode_AZN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Azerbaijanian Manat"@en ;
-                  rdfs:label "AZN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BAM
-:CurrencyCode_BAM rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Convertible Mark"@en ;
-                  rdfs:label "BAM"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BBD
-:CurrencyCode_BBD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Barbados Dollar"@en ;
-                  rdfs:label "BBD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BDT
-:CurrencyCode_BDT rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bangladeshi Taka"@en ;
-                  rdfs:label "BDT"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BGN
-:CurrencyCode_BGN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bulgarian Lev"@en ;
-                  rdfs:label "BGN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BHD
-:CurrencyCode_BHD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bahraini Dinar"@en ;
-                  rdfs:label "BHD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BIF
-:CurrencyCode_BIF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Burundi Franc"@en ;
-                  rdfs:label "BIF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BMD
-:CurrencyCode_BMD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bermudian Dollar"@en ;
-                  rdfs:label "BMD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BND
-:CurrencyCode_BND rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Brunei Dollar"@en ;
-                  rdfs:label "BND"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BOB
-:CurrencyCode_BOB rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Boliviano"@en ;
-                  rdfs:label "BOB"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BRL
-:CurrencyCode_BRL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Brazilian Real"@en ;
-                  rdfs:label "BRL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BSD
-:CurrencyCode_BSD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bahamian Dollar"@en ;
-                  rdfs:label "BSD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BTN
-:CurrencyCode_BTN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bhutanese Ngultrum"@en ;
-                  rdfs:label "BTN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BWP
-:CurrencyCode_BWP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Botswana Pula"@en ;
-                  rdfs:label "BWP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BYR
-:CurrencyCode_BYR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Belarussian Ruble"@en ;
-                  rdfs:label "BYR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_BZD
-:CurrencyCode_BZD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Belize Dollar"@en ;
-                  rdfs:label "BZD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CAD
-:CurrencyCode_CAD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Canadian Dollar"@en ;
-                  rdfs:label "CAD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CDF
-:CurrencyCode_CDF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Congolese Franc"@en ;
-                  rdfs:label "CDF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CHF
-:CurrencyCode_CHF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Swiss Franc"@en ;
-                  rdfs:label "CHF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CLF
-:CurrencyCode_CLF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Unidades de Fomento"@en ;
-                  rdfs:label "CLF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CLP
-:CurrencyCode_CLP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Chilean Peso"@en ;
-                  rdfs:label "CLP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CNH
-:CurrencyCode_CNH rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "CNH"@en ;
-                  rdfs:label "CNH"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CNX
-:CurrencyCode_CNX rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "CNX"@en ;
-                  rdfs:label "CNX"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CNY
-:CurrencyCode_CNY rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Yuan Renminbi"@en ;
-                  rdfs:label "CNY"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_COP
-:CurrencyCode_COP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Colombian Peso"@en ;
-                  rdfs:label "COP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CRC
-:CurrencyCode_CRC rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Costa Rican Colon"@en ;
-                  rdfs:label "CRC"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CUP
-:CurrencyCode_CUP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Cuban Peso"@en ;
-                  rdfs:label "CUP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CVE
-:CurrencyCode_CVE rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Cape Verde Escudo"@en ;
-                  rdfs:label "CVE"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_CZK
-:CurrencyCode_CZK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Czech Koruna"@en ;
-                  rdfs:label "CZK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_DJF
-:CurrencyCode_DJF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Djibouti Franc"@en ;
-                  rdfs:label "DJF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_DKK
-:CurrencyCode_DKK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Danish Krone"@en ;
-                  rdfs:label "DKK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_DOP
-:CurrencyCode_DOP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Dominican Peso"@en ;
-                  rdfs:label "DOP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_DZD
-:CurrencyCode_DZD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Algerian Dinar"@en ;
-                  rdfs:label "DZD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_EGP
-:CurrencyCode_EGP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Egyptian Pound"@en ;
-                  rdfs:label "EGP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ESA
-:CurrencyCode_ESA rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "ESA"@en ;
-                  rdfs:label "ESA"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ETB
-:CurrencyCode_ETB rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Ethiopian Birr"@en ;
-                  rdfs:label "ETB"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_EUR
-:CurrencyCode_EUR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Euro"@en ;
-                  rdfs:label "EUR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_FJD
-:CurrencyCode_FJD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Fiji Dollar"@en ;
-                  rdfs:label "FJD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_FKP
-:CurrencyCode_FKP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Falkland Islands Pound"@en ;
-                  rdfs:label "FKP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GBP
-:CurrencyCode_GBP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Pound Sterling"@en ;
-                  rdfs:label "GBP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GEL
-:CurrencyCode_GEL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Lari"@en ;
-                  rdfs:label "GEL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GHS
-:CurrencyCode_GHS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Ghana Cedi"@en ;
-                  rdfs:label "GHS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GIP
-:CurrencyCode_GIP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Gibraltar Pound"@en ;
-                  rdfs:label "GIP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GMD
-:CurrencyCode_GMD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Dalasi"@en ;
-                  rdfs:label "GMD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GNF
-:CurrencyCode_GNF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Guinea Franc"@en ;
-                  rdfs:label "GNF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GTQ
-:CurrencyCode_GTQ rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Quetzal"@en ;
-                  rdfs:label "GTQ"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_GYD
-:CurrencyCode_GYD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Guyana Dollar"@en ;
-                  rdfs:label "GYD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_HKD
-:CurrencyCode_HKD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Hong Kong Dollar"@en ;
-                  rdfs:label "HKD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_HNL
-:CurrencyCode_HNL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Lempira"@en ;
-                  rdfs:label "HNL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_HRK
-:CurrencyCode_HRK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Croatian Kuna"@en ;
-                  rdfs:label "HRK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_HTG
-:CurrencyCode_HTG rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Gourde"@en ;
-                  rdfs:label "HTG"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_HUF
-:CurrencyCode_HUF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Forint"@en ;
-                  rdfs:label "HUF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_IDR
-:CurrencyCode_IDR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Rupiah"@en ;
-                  rdfs:label "IDR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ILS
-:CurrencyCode_ILS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "New Israeli Sheqel"@en ;
-                  rdfs:label "ILS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_INR
-:CurrencyCode_INR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Indian Rupee"@en ;
-                  rdfs:label "INR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_IQD
-:CurrencyCode_IQD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Iraqi Dinar"@en ;
-                  rdfs:label "IQD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ISK
-:CurrencyCode_ISK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Iceland Krona"@en ;
-                  rdfs:label "ISK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_JMD
-:CurrencyCode_JMD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Jamaican Dollar"@en ;
-                  rdfs:label "JMD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_JOD
-:CurrencyCode_JOD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Jordanian Dinar"@en ;
-                  rdfs:label "JOD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_JPY
-:CurrencyCode_JPY rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Yen"@en ;
-                  rdfs:label "JPY"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KES
-:CurrencyCode_KES rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kenyan Shilling"@en ;
-                  rdfs:label "KES"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KGS
-:CurrencyCode_KGS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kyrgyzstan Soma"@en ;
-                  rdfs:label "KGS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KHR
-:CurrencyCode_KHR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Riel"@en ;
-                  rdfs:label "KHR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KMF
-:CurrencyCode_KMF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Comoro Franc"@en ;
-                  rdfs:label "KMF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KRW
-:CurrencyCode_KRW rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Won"@en ;
-                  rdfs:label "KRW"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KWD
-:CurrencyCode_KWD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kuwaiti Dinar"@en ;
-                  rdfs:label "KWD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KYD
-:CurrencyCode_KYD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Cayman Islands Dollar"@en ;
-                  rdfs:label "KYD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_KZT
-:CurrencyCode_KZT rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Tenge"@en ;
-                  rdfs:label "KZT"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LAK
-:CurrencyCode_LAK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kip"@en ;
-                  rdfs:label "LAK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LBP
-:CurrencyCode_LBP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Lebanese Pound"@en ;
-                  rdfs:label "LBP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LKR
-:CurrencyCode_LKR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Sri Lanka Rupee"@en ;
-                  rdfs:label "LKR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LRD
-:CurrencyCode_LRD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Liberian Dollar"@en ;
-                  rdfs:label "LRD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LSL
-:CurrencyCode_LSL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Loti"@en ;
-                  rdfs:label "LSL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_LYD
-:CurrencyCode_LYD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Libyan Dinar"@en ;
-                  rdfs:label "LYD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MAD
-:CurrencyCode_MAD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Moroccan Dirham"@en ;
-                  rdfs:label "MAD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MDL
-:CurrencyCode_MDL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Moldovan Leu"@en ;
-                  rdfs:label "MDL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MGA
-:CurrencyCode_MGA rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Malagasy Ariary"@en ;
-                  rdfs:label "MGA"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MKD
-:CurrencyCode_MKD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Denar"@en ;
-                  rdfs:label "MKD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MMK
-:CurrencyCode_MMK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kyat"@en ;
-                  rdfs:label "MMK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MNT
-:CurrencyCode_MNT rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Tugrik"@en ;
-                  rdfs:label "MNT"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MOP
-:CurrencyCode_MOP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Pataca"@en ;
-                  rdfs:label "MOP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MRO
-:CurrencyCode_MRO rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Ouguiya"@en ;
-                  rdfs:label "MRO"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MRU
-:CurrencyCode_MRU rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Ouguiya"@en ;
-                  rdfs:label "MRU"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MUR
-:CurrencyCode_MUR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Mauritius Rupee"@en ;
-                  rdfs:label "MUR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MVR
-:CurrencyCode_MVR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Rufiyaa"@en ;
-                  rdfs:label "MVR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MWK
-:CurrencyCode_MWK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kwacha"@en ;
-                  rdfs:label "MWK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MXN
-:CurrencyCode_MXN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Mexican Peso"@en ;
-                  rdfs:label "MXN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MYR
-:CurrencyCode_MYR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Malaysian Ringgit"@en ;
-                  rdfs:label "MYR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_MZN
-:CurrencyCode_MZN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Mozambique Metical"@en ;
-                  rdfs:label "MZN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NAD
-:CurrencyCode_NAD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Namibia Dollar"@en ;
-                  rdfs:label "NAD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NGN
-:CurrencyCode_NGN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Naira"@en ;
-                  rdfs:label "NGN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NIO
-:CurrencyCode_NIO rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Cordoba Oro"@en ;
-                  rdfs:label "NIO"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NOK
-:CurrencyCode_NOK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Norwegian Krone"@en ;
-                  rdfs:label "NOK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NPR
-:CurrencyCode_NPR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Nepalese Rupee"@en ;
-                  rdfs:label "NPR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_NZD
-:CurrencyCode_NZD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "New Zealand Dollar"@en ;
-                  rdfs:label "NZD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_OMR
-:CurrencyCode_OMR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Rial Omani"@en ;
-                  rdfs:label "OMR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PAB
-:CurrencyCode_PAB rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Balboa"@en ;
-                  rdfs:label "PAB"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PEN
-:CurrencyCode_PEN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Nuevo Sol"@en ;
-                  rdfs:label "PEN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PGK
-:CurrencyCode_PGK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Kina"@en ;
-                  rdfs:label "PGK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PHP
-:CurrencyCode_PHP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Philippine Peso"@en ;
-                  rdfs:label "PHP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PKR
-:CurrencyCode_PKR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Pakistan Rupee"@en ;
-                  rdfs:label "PKR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PLN
-:CurrencyCode_PLN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Zloty"@en ;
-                  rdfs:label "PLN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_PYG
-:CurrencyCode_PYG rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Guarani"@en ;
-                  rdfs:label "PYG"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_QAR
-:CurrencyCode_QAR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Qatari Rial"@en ;
-                  rdfs:label "QAR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_RON
-:CurrencyCode_RON rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "New Romanian Leu"@en ;
-                  rdfs:label "RON"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_RSD
-:CurrencyCode_RSD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Serbian Dinar"@en ;
-                  rdfs:label "RSD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_RUB
-:CurrencyCode_RUB rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Russian Ruble"@en ;
-                  rdfs:label "RUB"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_RWF
-:CurrencyCode_RWF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Rwanda Franc"@en ;
-                  rdfs:label "RWF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SAR
-:CurrencyCode_SAR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Saudi Riyal"@en ;
-                  rdfs:label "SAR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SBD
-:CurrencyCode_SBD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Solomon Islands dollar"@en ;
-                  rdfs:label "SBD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SCR
-:CurrencyCode_SCR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Seychelles Rupee"@en ;
-                  rdfs:label "SCR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SDG
-:CurrencyCode_SDG rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Sudanese Pound"@en ;
-                  rdfs:label "SDG"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SEK
-:CurrencyCode_SEK rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Swedish Krona"@en ;
-                  rdfs:label "SEK"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SGD
-:CurrencyCode_SGD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Singapore Dollar"@en ;
-                  rdfs:label "SGD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SHP
-:CurrencyCode_SHP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Saint Helena Pound"@en ;
-                  rdfs:label "SHP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SLL
-:CurrencyCode_SLL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Leone"@en ;
-                  rdfs:label "SLL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SOS
-:CurrencyCode_SOS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Somali Shilling"@en ;
-                  rdfs:label "SOS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SRD
-:CurrencyCode_SRD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Surinam Dollar"@en ;
-                  rdfs:label "SRD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SSP
-:CurrencyCode_SSP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "South Sudanese Pound"@en ;
-                  rdfs:label "SSP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_STD
-:CurrencyCode_STD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Dobra"@en ;
-                  rdfs:label "STD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_STN
-:CurrencyCode_STN rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Dobra"@en ;
-                  rdfs:label "STN"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SVC
-:CurrencyCode_SVC rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "El Salvador Colon"@en ;
-                  rdfs:label "SVC"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_SZL
-:CurrencyCode_SZL rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Lilangeni"@en ;
-                  rdfs:label "SZL"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_THB
-:CurrencyCode_THB rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Baht"@en ;
-                  rdfs:label "THB"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TJS
-:CurrencyCode_TJS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Somoni"@en ;
-                  rdfs:label "TJS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TMT
-:CurrencyCode_TMT rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Turkmenistan New Manat"@en ;
-                  rdfs:label "TMT"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TND
-:CurrencyCode_TND rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Tunisian Dinar"@en ;
-                  rdfs:label "TND"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TOP
-:CurrencyCode_TOP rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "PaÃ¢â‚¬â„¢anga"@en ;
-                  rdfs:label "TOP"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TRY
-:CurrencyCode_TRY rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Turkish Lira"@en ;
-                  rdfs:label "TRY"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TTD
-:CurrencyCode_TTD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Trinidad and Tobago Dollar"@en ;
-                  rdfs:label "TTD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TWD
-:CurrencyCode_TWD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "New Taiwan Dollar"@en ;
-                  rdfs:label "TWD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_TZS
-:CurrencyCode_TZS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Tanzanian Shilling"@en ;
-                  rdfs:label "TZS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_UAH
-:CurrencyCode_UAH rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Hryvnia"@en ;
-                  rdfs:label "UAH"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_UGX
-:CurrencyCode_UGX rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Uganda Shilling"@en ;
-                  rdfs:label "UGX"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_USD
-:CurrencyCode_USD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "US Dollar"@en ;
-                  rdfs:label "USD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_UYU
-:CurrencyCode_UYU rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Peso Uruguayo"@en ;
-                  rdfs:label "UYU"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_UZS
-:CurrencyCode_UZS rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Uzbekistan Sum"@en ;
-                  rdfs:label "UZS"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_VEF
-:CurrencyCode_VEF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bolivar"@en ;
-                  rdfs:label "VEF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_VES
-:CurrencyCode_VES rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Bolívar Soberano"@en ;
-                  rdfs:label "VES"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_VND
-:CurrencyCode_VND rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Dong"@en ;
-                  rdfs:label "VND"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_VUV
-:CurrencyCode_VUV rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Vatu"@en ;
-                  rdfs:label "VUV"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_WST
-:CurrencyCode_WST rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Tala"@en ;
-                  rdfs:label "WST"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_XAF
-:CurrencyCode_XAF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "CFA Franc BEAC"@en ;
-                  rdfs:label "XAF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_XCD
-:CurrencyCode_XCD rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "East Caribbean Dollar"@en ;
-                  rdfs:label "XCD"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_XOF
-:CurrencyCode_XOF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "CFA Franc BCEAO"@en ;
-                  rdfs:label "XOF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_XPF
-:CurrencyCode_XPF rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "CFP Franc"@en ;
-                  rdfs:label "XPF"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_YER
-:CurrencyCode_YER rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Yemeni Rial"@en ;
-                  rdfs:label "YER"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ZAR
-:CurrencyCode_ZAR rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Rand"@en ;
-                  rdfs:label "ZAR"@en .
-
-
-###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode_ZMW
-:CurrencyCode_ZMW rdf:type owl:NamedIndividual ,
-                           :CurrencyCode ;
-                  rdfs:comment "Zambian Kwacha"@en ;
-                  rdfs:label "ZMW"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#DangerousGoodsCode_CAO
@@ -8318,6 +7223,76 @@ terms:title rdf:type owl:AnnotationProperty .
                                   :MeasurementUnitCode ;
                          rdfs:comment "Yard (0.9144 MTR)"@en ;
                          rdfs:label "YRD"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_AIR_TRANSPORT
+:ModeCode_AIR_TRANSPORT rdf:type owl:NamedIndividual ,
+                                 :ModeCode ;
+                        rdfs:comment "Indicates the transport mode to be Air Transport (4)"@en ;
+                        rdfs:label "AIR_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_FIXED_TRANSPORT_INSTALLATION
+:ModeCode_FIXED_TRANSPORT_INSTALLATION rdf:type owl:NamedIndividual ,
+                                                :ModeCode ;
+                                       rdfs:comment "Indicates that the transport mode is a Fixed Transport Installation (7)"@en ;
+                                       rdfs:label "FIXED_TRANSPORT_INSTALLATION"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_INLAND_WATER_TRANSPORT
+:ModeCode_INLAND_WATER_TRANSPORT rdf:type owl:NamedIndividual ,
+                                          :ModeCode ;
+                                 rdfs:comment "Indicates that the transport mode to be Inland Water Transport (8)"@en ;
+                                 rdfs:label "INLAND_WATER_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_MAIL
+:ModeCode_MAIL rdf:type owl:NamedIndividual ,
+                        :ModeCode ;
+               rdfs:comment "Indicates the transport mode to be Mail (5)"@en ;
+               rdfs:label "MAIL"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_MARITIME_TRANSPORT
+:ModeCode_MARITIME_TRANSPORT rdf:type owl:NamedIndividual ,
+                                      :ModeCode ;
+                             rdfs:comment "Indicates the transport mode to be Maritime Transport (1)"@en ;
+                             rdfs:label "MARITIME_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_MULTIMODAL_TRANSPORT
+:ModeCode_MULTIMODAL_TRANSPORT rdf:type owl:NamedIndividual ,
+                                        :ModeCode ;
+                               rdfs:comment "Indicates a Multimodal Transport (6)"@en ;
+                               rdfs:label "MULTIMODAL_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_RAIL_TRANSPORT
+:ModeCode_RAIL_TRANSPORT rdf:type owl:NamedIndividual ,
+                                  :ModeCode ;
+                         rdfs:comment "Indicates the transport mode to be Rail Transport (2)"@en ;
+                         rdfs:label "RAIL_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_ROAD_TRANSPORT
+:ModeCode_ROAD_TRANSPORT rdf:type owl:NamedIndividual ,
+                                  :ModeCode ;
+                         rdfs:comment "Indicates the transport mode to be Road Transport (3)"@en ;
+                         rdfs:label "ROAD_TRANSPORT"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_TRANSPORT_MODE_NOT_APPLICABLE
+:ModeCode_TRANSPORT_MODE_NOT_APPLICABLE rdf:type owl:NamedIndividual ,
+                                                 :ModeCode ;
+                                        rdfs:comment "Indicates that no transport mode is applicable (9)"@en ;
+                                        rdfs:label "TRANSPORT_MODE_NOT_APPLICABLE"@en .
+
+
+###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode_TRANSPORT_MODE_NOT_SPECIFIED
+:ModeCode_TRANSPORT_MODE_NOT_SPECIFIED rdf:type owl:NamedIndividual ,
+                                                :ModeCode ;
+                                       rdfs:comment "Indicates that the Transport Mode is not specified (0)"@en ;
+                                       rdfs:label "TRANSPORT_MODE_NOT_SPECIFIED"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#MovementIndicator_AA
@@ -10586,7 +9561,7 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode_DIS_DFLD
 :StatusCode_DIS_DFLD rdf:type owl:NamedIndividual ,
                               :StatusCode ;
-                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Offloaded"@en ;
+                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Definitely Loaded"@en ;
                      rdfs:label "DIS_DFLD"@en .
 
 
@@ -10642,28 +9617,28 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode_DIS_MSMB
 :StatusCode_DIS_MSMB rdf:type owl:NamedIndividual ,
                               :StatusCode ;
-                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Definitely Loaded"@en ;
+                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Missing Mailbag"@en ;
                      rdfs:label "DIS_MSMB"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode_DIS_OFLD
 :StatusCode_DIS_OFLD rdf:type owl:NamedIndividual ,
                               :StatusCode ;
-                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Overcarried"@en ;
+                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Offloaded"@en ;
                      rdfs:label "DIS_OFLD"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode_DIS_OVCD
 :StatusCode_DIS_OVCD rdf:type owl:NamedIndividual ,
                               :StatusCode ;
-                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Shortshipped"@en ;
+                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Overcarried"@en ;
                      rdfs:label "DIS_OVCD"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode_DIS_SSPD
 :StatusCode_DIS_SSPD rdf:type owl:NamedIndividual ,
                               :StatusCode ;
-                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Found Air Waybill"@en ;
+                     rdfs:comment "An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation: Shortshipped"@en ;
                      rdfs:label "DIS_SSPD"@en .
 
 
