@@ -9,35 +9,24 @@
 @base <https://onerecord.iata.org/ns/coreCodeLists> .
 
 <https://onerecord.iata.org/ns/coreCodeLists> rdf:type owl:Ontology ;
-                                               owl:versionIRI <https://onerecord.iata.org/ns/coreCodeLists/0.0.4> ;
+                                               owl:versionIRI <https://onerecord.iata.org/ns/coreCodeLists/1.0.0> ;
                                                dc:description "ONE Record core code lists, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                                dc:title "ONE Record Core Code Lists Ontology"@en ;
                                                terms:abstract "The core code lists ontology of the ONE Record standard covers the code lists used in the standard, currently corresponding to cXML code lists, IATA Resolutions, CITES, UN recommended codes and 1R-specific codes."@en ;
-                                               terms:modified "12-10-2023" ;
+                                               terms:modified "23-10-2023" ;
                                                terms:title "ONE Record Core Code List Ontology"@en ;
                                                rdfs:comment """Attention: Note that each Individual has a code list-specific prefix in their IRI which is not shown in the labels (default view in tools such as Protege). 
 
 Furthermore, DGR and Security Status codes have the respective DangerousGoodsCode and SecurityStatus prefix, even though they are part of the Special Handling Code List, too."""@en ,
                                                             """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
-Version 0.0.1
-- Initial version covering 20 restricted code lists and 2 open code lists*, predominantly based on cXML 2023
+
+Version 1.0.0
+- Initial version covering 38 restricted code lists and 5 open code lists*, based on cXML 2023, IATA resolutions, CITES, UN recommended codes and ONE Record Working Group results
 * Open code lists can be instanced to add own, additional codes in ONE Record using the inherited properties from CodeListElement
-* Restricted code lists are defined classes and cannot be expanded
-
-Version 0.0.2
-- Inclusion of 10 further restricted code lists and one open code list, covering predominantly DGR and CITES
-
-Version 0.0.3
-- Inclusion of MCD code lists, including CommodityCode
-- Inclusion of open currency code list
-- GLAS and Automotive parts in CommodityCode list need to be clearified still!
-
-Version 0.0.4
-- Moved ModeCode from cargo to coreCodeLists ontology
-- Cleared CurrencyCodes as it is not maintained by IATA"""@en ;
+* Restricted code lists are defined classes and cannot be expanded"""@en ;
                                                rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                                rdfs:label "ONE Record Core Code Lists Ontology"@en ;
-                                               owl:versionInfo "0.0.4"@en .
+                                               owl:versionInfo "1.0.0"@en .
 
 #################################################################
 #    Annotation properties
@@ -814,7 +803,7 @@ terms:title rdf:type owl:AnnotationProperty .
                                                  :CommodityCode_VHCL_SVCL_BICY
                                                  :CommodityCode_VHCL_SVCL_CRTA
                                                  :CommodityCode_VHCL_SVCL_MOTO
-                                                 :CommodityCode_VHCL_SVCL_PENDING
+                                                 :CommodityCode_VHCL_SVCL_PART
                                                  :CommodityCode_VHCL_SVCL_TIRE
                                                )
                                    ] ;
@@ -6406,11 +6395,11 @@ terms:title rdf:type owl:AnnotationProperty .
                               rdfs:label "VHCL_SVCL_MOTO"@en .
 
 
-###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_PENDING
-:CommodityCode_VHCL_SVCL_PENDING rdf:type owl:NamedIndividual ,
-                                          :CommodityCode ;
-                                 rdfs:comment "Automobile parts"@en ;
-                                 rdfs:label "VHCL_SVCL_PENDING"@en .
+###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_PART
+:CommodityCode_VHCL_SVCL_PART rdf:type owl:NamedIndividual ,
+                                       :CommodityCode ;
+                              rdfs:comment "Automobile parts"@en ;
+                              rdfs:label "VHCL_SVCL_PART"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode_VHCL_SVCL_TIRE
