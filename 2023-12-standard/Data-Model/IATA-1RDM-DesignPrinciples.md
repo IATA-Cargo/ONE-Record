@@ -77,7 +77,8 @@ Events can, for instance, be used to monitor Cargo iQ milestones, the state of p
 ### 3. The object structure
 Following principles defined above, the Data Model is based on an object structure that is easy to understand and allows for great flexibility in its usage. See below for details:
 
-![image](https://github.com/IATA-Cargo/ONE-Record/assets/58464775/0995dfc0-a023-4d22-a24d-3ddb58e0249f)
+<p align="center">
+<img src="https://github.com/IATA-Cargo/ONE-Record/assets/58464775/0995dfc0-a023-4d22-a24d-3ddb58e0249f"></p>
 <p align="center"><i>Object structure</i></p>
 
 ### 3. The Logistic objects
@@ -89,8 +90,7 @@ The Unique Resource Identifier (URI) of a LO contains its endpoint (c.f. API & S
 Following the design principles defined above, we have defined a semantic data model, or conceptual data model, which focuses on the Logistic Objects of the data model.
 
 <p align="center">
-![image](https://user-images.githubusercontent.com/58464775/208689223-51d79639-dc49-477e-af01-ac5633f15a80.png)
-</p>
+<img src="https://user-images.githubusercontent.com/58464775/208689223-51d79639-dc49-477e-af01-ac5633f15a80.png"></p>
 <p align="center"><i>Conceptual Data Model - To update</i></p>
 
 #### 3.1. LogisticsService
