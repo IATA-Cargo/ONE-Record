@@ -8869,70 +8869,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                    rdfs:label "TransportMovement"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#ULDBasicPiece
-:ULDBasicPiece rdf:type owl:Class ;
-               rdfs:subClassOf :PieceGroup ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :uldLoadingIndicator ;
-                                 owl:allValuesFrom ccodes:ULDLoadingIndicator
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :uldLoadingIndicator ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :slac ;
-                                 owl:allValuesFrom xsd:integer
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty :slac ;
-                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                               ] ;
-               rdfs:comment "ULDBasicPiece details"@en ;
-               rdfs:label "ULDBasicPiece"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#ULDSpecificPiece
-:ULDSpecificPiece rdf:type owl:Class ;
-                  rdfs:subClassOf :PieceGroup ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldContourCode ;
-                                    owl:allValuesFrom :CodeListElement
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldType ;
-                                    owl:allValuesFrom :CodeListElement
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldContourCode ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldType ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :slac ;
-                                    owl:allValuesFrom xsd:integer
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldSerialNumber ;
-                                    owl:allValuesFrom xsd:string
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :slac ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :uldSerialNumber ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ;
-                  rdfs:comment "ULDSpecificPiece details"@en ;
-                  rdfs:label "ULDSpecificPiece"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#Uld
-:Uld rdf:type owl:Class ;
+###  https://onerecord.iata.org/ns/cargo#ULD
+:ULD rdf:type owl:Class ;
      rdfs:subClassOf :LoadingUnit ,
                      [ rdf:type owl:Restriction ;
                        owl:onProperty :demurrageCode ;
@@ -9045,9 +8983,69 @@ Condition: At least one of the three elements (Country Code, Information Identif
                      [ rdf:type owl:Restriction ;
                        owl:onProperty :uldSerialNumber ;
                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                     ] ;
-     rdfs:comment "Unit Load Device details"@en ;
-     rdfs:label "ULD"@en .
+                     ] .
+
+
+###  https://onerecord.iata.org/ns/cargo#ULDBasicPiece
+:ULDBasicPiece rdf:type owl:Class ;
+               rdfs:subClassOf :PieceGroup ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :uldLoadingIndicator ;
+                                 owl:allValuesFrom ccodes:ULDLoadingIndicator
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :uldLoadingIndicator ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :slac ;
+                                 owl:allValuesFrom xsd:integer
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :slac ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
+               rdfs:comment "ULDBasicPiece details"@en ;
+               rdfs:label "ULDBasicPiece"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#ULDSpecificPiece
+:ULDSpecificPiece rdf:type owl:Class ;
+                  rdfs:subClassOf :PieceGroup ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldContourCode ;
+                                    owl:allValuesFrom :CodeListElement
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldType ;
+                                    owl:allValuesFrom :CodeListElement
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldContourCode ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldType ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :slac ;
+                                    owl:allValuesFrom xsd:integer
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldSerialNumber ;
+                                    owl:allValuesFrom xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :slac ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :uldSerialNumber ;
+                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                  ] ;
+                  rdfs:comment "ULDSpecificPiece details"@en ;
+                  rdfs:label "ULDSpecificPiece"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#UnitComposition
@@ -9545,8 +9543,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :uldOwnerCode ;
-                                   owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                   owl:onClass :CodeListElement
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :uldRateClassType ;
@@ -10233,9 +10230,7 @@ ccodes:WeightUnitCode rdf:type owl:Class ;
 
 ###  https://onerecord.iata.org/ns/cargo#ULD
 :ULD rdf:type owl:NamedIndividual ,
-              :LoadType ;
-     rdfs:comment "Indicates the load type as uld"@en ;
-     rdfs:label "ULD"@en .
+              :LoadType .
 
 
 ###  https://onerecord.iata.org/ns/cargo#UNLOADING
@@ -10264,6 +10259,15 @@ ccodes:WeightUnitCode rdf:type owl:Class ;
                   :ContactDetailType ;
          rdfs:comment "Indicates a contact detail as website"@en ;
          rdfs:label "WEBSITE"@en .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:ULD rdfs:comment "Unit Load Device details"@en ,
+                  "Indicates the load type as uld"@en ;
+     rdfs:label "ULD"@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
