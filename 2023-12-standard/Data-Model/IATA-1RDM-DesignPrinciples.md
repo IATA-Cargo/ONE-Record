@@ -86,10 +86,7 @@ Following the design principles defined above, we have defined a semantic data m
 <img src="https://user-images.githubusercontent.com/58464775/208689223-51d79639-dc49-477e-af01-ac5633f15a80.png"></p>
 <p align="center"><i>Conceptual Data Model - To update</i></p>
 
-#### 4. LogisticsEvent
-The Events are an essential part of the Data Model, they allow to record any update or occuring event linked to a LO. It contains generic data and object properties to cover most requirements and can be derived in subtypes or subclasses if it is relevant.
-
-#### 5. Paper transport documents in ONE Record
+#### 4. Paper transport documents in ONE Record
 
 The general concept of legal entities like MAWB or HAWB in ONE Record does not differ from the established concepts in term of legal preconditions or validity. All the legal requirements remain in place and must be fulfilled. But because of the architecture of ONE Record, changes in the practical management of data are required. In the context of ONE Record, a legal entity like the AWB has the following characteristics:
 - A defined set of data fields, as described in the corresponding Logistics Object
@@ -108,8 +105,8 @@ The traditional paper documents fulfil a defined legal purpose. To fulfil this p
 
 The data of the LO is intentionally shared by the contractual parties at a defined point in time, to freeze that version of the data set as the one used for the contractual purpose. Data might change afterwards, but the changed revisions will not be taken into consideration, unless a new version of the legal entity is generated and consented on.
 
-##### 5.1. Master AWB
-###### 5.1.1 Digital AWB approach
+##### 4.1. Master AWB
+###### 4.1.1 Digital AWB approach
 
 The digital AWB approach follows the four principles of avoiding redundancy, marking outdated data fields as deprecated, removing all data fields without a legal impact and, fourthly, separating all non-legal, physical characteristics in a separate LO (Shipment).
 
@@ -122,10 +119,10 @@ Thirdly: Remove all data fields that have no legal impact on the AWB. A lot of i
 Fourthly: All physical characteristics of the totality of pieces under one contract can be found in the Shipment LO. This does not include piece-related information, as they are characteristics of pieces themselves, but physical characteristics that are shared by all pieces under that contract. 
 The data fields of the AWB LO and owners of each of these fields are better described in the Use Case document for the ONE Record data model (insert reference). 
 
-###### 5.1.2 Pieces / ULDs in AWB wording
+###### 4.1.2 Pieces / ULDs in AWB wording
 
 The legal terminology for BUPs in the AWB is not consistent, as BUPs don´t count as ULDs, but as pieces. To solve this problem, the following solution is suggested: Whenever a BUP is pre-sented by the forwarder, additionally to the ULD LO, a single Piece LO is created with the dimensions and gross weight of the packed ULD.
 
-###### 5.2. House AWB
+###### 4.2. House AWB
 
 The House Waybill is made up from data provided by the Customer in the Shippers Letter of Instruction (SLI) which is then enhanced by the forwarder as necessary to include specific data required by the forwarder, carrier and other authorities. This then provides the door to door route map of the pieces linked to the House Waybill for cIQ transportation plan. 
