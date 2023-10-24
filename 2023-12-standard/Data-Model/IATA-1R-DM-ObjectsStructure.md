@@ -1,6 +1,6 @@
 ![image](https://user-images.githubusercontent.com/58464775/161543539-42b13949-63e0-410f-ad0c-6d1b7ffd693d.png)
 # ONE Record Data Model
-## ONE Record Objects structure
+## ONE Record Ontology and Objects structure
 
 /// Work in progress ///
 
