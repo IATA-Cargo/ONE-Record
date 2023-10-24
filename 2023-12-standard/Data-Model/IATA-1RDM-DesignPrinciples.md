@@ -74,13 +74,6 @@ For instance, if a Product is linked to a Piece and a Piece is linked to a Shipm
 The status of a Logistic Object is a key element of the transparency and tracking possibilities that ONE Record wants to provide. The **generic object Event** enables to capture the evolution of all objects in the logistics and transport supply chain.
 Events can, for instance, be used to monitor Cargo iQ milestones, the state of physical assets or the status of transport segments such as Departed, Arrived, etc. This includes the planned events as per the routemap as well. 
 
-### 3. The object structure
-Following principles defined above, the Data Model is based on an object structure that is easy to understand and allows for great flexibility in its usage. See below for details:
-
-<p align="center">
-<img src="https://github.com/IATA-Cargo/ONE-Record/assets/58464775/0995dfc0-a023-4d22-a24d-3ddb58e0249f"></p>
-<p align="center"><i>Object structure</i></p>
-
 ### 3. The Logistic objects
 As part of the Internet of Logistics, the ONE Record data model is using Logistic Objects (LO). In the ONE Record context a LO can be defined as follows:
 - It represents an essential element of the supply chain: physical objects, activities, etc.
@@ -93,35 +86,7 @@ Following the design principles defined above, we have defined a semantic data m
 <img src="https://user-images.githubusercontent.com/58464775/208689223-51d79639-dc49-477e-af01-ac5633f15a80.png"></p>
 <p align="center"><i>Conceptual Data Model - To update</i></p>
 
-#### 3.1. LogisticsService
-> A **LogisticsService** is a sequence of Activities provided by one Party to another. 
-
-The Services usually represent an agreement between two or more parties. The first Service in our scope is the Booking. Current Service structure is very generic, more services can be added in the future, stakeholders are allowed to use the structure to define their own services.
-
-#### 3.2. LogisticsActivity
-> A **LogisticsActivity** is a scheduled set of tasks that is executed as part of one or more Services.
-
-An Activity can be either one main task or a set of tasks. The LogisticsActivity object is generic with common data properties, stakeholders can define their own subtypes or propose improvements to the standard. The **TransportMovement** activity is essential for the supply chain and a few major activites have been defined as well (Storing, Loading, etc.).
-
-#### 3.3. LogisticsAction
-> A **LogisticsAction** is a specific task with a specific result performed on one or more LOs by one party in the context of a **LogisticsActivity**.
-
-Actions represent the tasks within an Activity and contain the scheduling of the tasks. In order to track properly the potential discrepancy between a planned action and an actual action there should be a *Scheduled* or *Planned* task and an *Actual* task.
-For instance if 5 pieces were intended to be loaded onto a flight and only 4 of them are actually loaded this can be easily tracked.
-
-#### 3.4. PhysicalLogisticsObject
-The Physical LO are what we refer to as Digital Twin in the core principles. Are included Pieces, ULDs, Transport Means and so on. They should be easily identifiable and relatable with their phyisical counter part.
-
-#### 3.5. LogisticAgent
-The LogisticAgent structure is derived from the W3C model of organizations: https://www.w3.org/TR/vocab-org/#description We define the Organization/companies as well as Actors/Persons with relations between the different objects.
-
-#### 3.6. Common objects
-Some objects do no fall under main categories described above, they mainly exist in the context of a LO and do not have their own lifecycle. For instance an Address usually only has meaning in the context of a Location to further describe the Location. Common objects can be, by implementation, embedded onto LOs to simplify the data management.
-
-### 4. LogisticsEvent
-The Events are an essential part of the Data Model, they allow to record any update or occuring event linked to a LO. It contains generic data and object properties to cover most requirements and can be derived in subtypes or subclasses if it is relevant.
-
-### 5. Paper transport documents in ONE Record
+#### 4. Paper transport documents in ONE Record
 
 The general concept of legal entities like MAWB or HAWB in ONE Record does not differ from the established concepts in term of legal preconditions or validity. All the legal requirements remain in place and must be fulfilled. But because of the architecture of ONE Record, changes in the practical management of data are required. In the context of ONE Record, a legal entity like the AWB has the following characteristics:
 - A defined set of data fields, as described in the corresponding Logistics Object
@@ -140,8 +105,8 @@ The traditional paper documents fulfil a defined legal purpose. To fulfil this p
 
 The data of the LO is intentionally shared by the contractual parties at a defined point in time, to freeze that version of the data set as the one used for the contractual purpose. Data might change afterwards, but the changed revisions will not be taken into consideration, unless a new version of the legal entity is generated and consented on.
 
-#### 5.1. Master AWB
-##### 5.1.1 Digital AWB approach
+##### 4.1. Master AWB
+###### 4.1.1 Digital AWB approach
 
 The digital AWB approach follows the four principles of avoiding redundancy, marking outdated data fields as deprecated, removing all data fields without a legal impact and, fourthly, separating all non-legal, physical characteristics in a separate LO (Shipment).
 
@@ -154,10 +119,10 @@ Thirdly: Remove all data fields that have no legal impact on the AWB. A lot of i
 Fourthly: All physical characteristics of the totality of pieces under one contract can be found in the Shipment LO. This does not include piece-related information, as they are characteristics of pieces themselves, but physical characteristics that are shared by all pieces under that contract. 
 The data fields of the AWB LO and owners of each of these fields are better described in the Use Case document for the ONE Record data model (insert reference). 
 
-##### 5.1.2 Pieces / ULDs in AWB wording
+###### 4.1.2 Pieces / ULDs in AWB wording
 
 The legal terminology for BUPs in the AWB is not consistent, as BUPs don´t count as ULDs, but as pieces. To solve this problem, the following solution is suggested: Whenever a BUP is pre-sented by the forwarder, additionally to the ULD LO, a single Piece LO is created with the dimensions and gross weight of the packed ULD.
 
-##### 5.2. House AWB
+###### 4.2. House AWB
 
 The House Waybill is made up from data provided by the Customer in the Shippers Letter of Instruction (SLI) which is then enhanced by the forwarder as necessary to include specific data required by the forwarder, carrier and other authorities. This then provides the door to door route map of the pieces linked to the House Waybill for cIQ transportation plan. 
