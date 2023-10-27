@@ -36,8 +36,8 @@ Without TLS, a third party could intercept and read sensitive information such a
 
 
 !!! note
-        Because the certificates used for TLS are only as trustworthy as the Certificate Authority (CA) that issues them, IATA maintains a list of trusted CAs. 
-        The CAs on this list are subject to rigorous audits.
+    Because the certificates used for TLS are only as trustworthy as the Certificate Authority (CA) that issues them, IATA maintains a list of trusted CAs. 
+    The CAs on this list are subject to rigorous audits.
 
 # Mutual Transport Layer Security (mTLS)
 

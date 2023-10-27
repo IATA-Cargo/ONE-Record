@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - use logisticsObjectID for the unique identifier part of the URI, i.e. 1a8ded38-1804-467c-a369-81a411416b7c
 - use Data Holder instead of Data Onwer
 - redesign the Update Action Requests section
+- use the Collection object to return a list of Logistics Events
 
 
 ### Removed
@@ -49,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added Authentication and Authorization with OpenID Connect
 - added security and endpoint information for all APIs
 - added allow subscription for third parties
+- added list of JSON-LD libraries in the `Implementation Guidelines`
 
 
 ---
@@ -116,3 +118,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added Notification#hasLogisticsObjectType
 - added Subscription#includeSubscriptionEventType 
 - added enumeration SubscriptionEventType
+- added Collection class 
