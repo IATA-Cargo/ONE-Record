@@ -121,8 +121,8 @@ The publisher sends a notification request to the subscriber when a logistics ob
 If the subscriber chose to receive the entire logistics object body via sendLogisticsObjectBody=true field, then the whole object is sent.
 
 !!! note
-        If the embedded object of a LogisticsObject changed, the Notification#[hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) will contain the IRI of the embeddedObject, for example: 
-        The [hasGrossWeight](https://onerecord.iata.org/ns/cargo#hasGrossWeight) property - which is of type [Value](https://onerecord.iata.org/ns/cargo#Value) - of a Piece is changed via ChangeRequest, the [hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
+    If the embedded object of a LogisticsObject changed, the Notification#[hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) will contain the IRI of the embeddedObject, for example: 
+    The [hasGrossWeight](https://onerecord.iata.org/ns/cargo#hasGrossWeight) property - which is of type [Value](https://onerecord.iata.org/ns/cargo#Value) - of a Piece is changed via ChangeRequest, the [hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) of the Notification will contain https://onerecord.iata.org/ns/cargo#hasGrossWeight
 
 ## Response
 
@@ -211,7 +211,7 @@ HTTP/1.1 204 No Content
 The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted.  
 
 !!! note
-        Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
+    Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
 
 ```http
 POST /notifications HTTP/1.1

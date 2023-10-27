@@ -206,7 +206,7 @@ One of the following HTTP status codes MUST be present in the response:
 | **token_type** | The type of the token. This is always set to bearer| bearer 
 
 !!! note
-        OIDC is built upon the foundation of OAuth 2.0 (as defined in (RFC 67490[ttps://datatracker.ietf.org/doc/html/rfc6749]). It's important to note that the ID Token, which contains user identity information, is returned within the `access_token`` field as described by the OAuth specification.
+  OIDC is built upon the foundation of OAuth 2.0 (as defined in (RFC 67490[ttps://datatracker.ietf.org/doc/html/rfc6749]). It's important to note that the ID Token, which contains user identity information, is returned within the `access_token`` field as described by the OAuth specification.
 
 ### Error Body
 

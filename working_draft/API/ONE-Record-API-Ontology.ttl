@@ -120,6 +120,13 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
               rdfs:label "has Event Type"@en .
 
 
+###  https://onerecord.iata.org/ns/api#hasItem
+:hasItem rdf:type owl:ObjectProperty ;
+         rdfs:domain :Collection ;
+         rdfs:comment "Item that is contained in a collection"@en ;
+         rdfs:label "has Item"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#hasLogisticsAgent
 :hasLogisticsAgent rdf:type owl:ObjectProperty ;
                    rdfs:domain :AccessPermissions ;
@@ -412,6 +419,14 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
           rdfs:range xsd:anyURI ;
           rdfs:comment "The Logistics Object type or specific Logistics Object to which the subscription belongs to e.g. https://onerecord.iata.org/Piece or https://1r.example.com/7f01363f-0c6a-4414-be48-d3692e219b91"@en ;
           rdfs:label "Topic"@en .
+
+
+###  https://onerecord.iata.org/ns/api#hasTotalItems
+:hasTotalItems rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Collection ;
+               rdfs:range xsd:nonNegativeInteger ;
+               rdfs:comment "The number of total items contained in a collection"@en ;
+               rdfs:label "Total items"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasValue
@@ -717,6 +732,21 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                ] ;
                rdfs:comment "Change Request containing updates on a Logistics Object"@en ;
                rdfs:label "Change Request"@en .
+
+
+###  https://onerecord.iata.org/ns/api#Collection
+:Collection rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasItem ;
+                              owl:someValuesFrom owl:Thing
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasTotalItems ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onDataRange xsd:nonNegativeInteger
+                            ] ;
+            rdfs:comment "Used as response of endpoints returning a collection of more than one graph, i.e. more than one not linked subjects."@en ;
+            rdfs:label "Collection"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#Error
@@ -1108,6 +1138,17 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                            )
                                ] .
 
+
+###  https://onerecord.iata.org/ns/cargo#LogisticsAgent
+cargo:LogisticsAgent rdf:type owl:Class .
+
+
+###  https://onerecord.iata.org/ns/cargo#LogisticsObject
+cargo:LogisticsObject rdf:type owl:Class .
+
+
+###  https://onerecord.iata.org/ns/cargo#Organization
+cargo:Organization rdf:type owl:Class .
 
 
 #################################################################

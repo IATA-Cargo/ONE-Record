@@ -224,11 +224,10 @@ This API action can be used the holder/publisher of a Logistics Object to approv
 For example, as a publisher, this API action is used to change the status of a received Subscription Request on a ONE Record server using the PATCH HTTP method. 
 
 !!! note 
-        Although the updating the state of of a Subscription Request is specified in the ONE Record API specification, 
-        it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
-        The reason for this is that _only the holder of the logistics object_ MAY accept or reject a subscription request with any business logic or technology.         
+    Although the updating the state of of a Subscription Request is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
+    The reason for this is that _only the holder of the logistics object_ MAY accept or reject a subscription request with any business logic or technology.         
 
-        Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP PATCH is the preferred solution to update resources with REST APIs.
+    Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP PATCH is the preferred solution to update resources with REST APIs.
 
 
 ## Endpoint

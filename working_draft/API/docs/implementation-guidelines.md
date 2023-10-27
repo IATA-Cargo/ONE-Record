@@ -38,6 +38,16 @@ Furthermore, the following requirements MUST be fulfilled:
 - A JSON-LD document MUST include an `@type` property that specifies the type of the data object, i.e. the ONE Record Logistics Object class (https://onerecord.iata.org/ns/cargo#Sensor in the previous example 1 and example 2).
 - A JSON-LD document MUST include an `@language` property in the `@context` property that specifies the language of the returned data object, if the language differs from the default language `en-US`.
 
+During the implementation phase, it is highly recommended to utilize a JSON-LD library. Below is a compilation of libraries for the most commonly used programming languages:
+
+- JavaScript: 
+    - [https://rdf.js.org](https://rdf.js.org)
+- Java 
+    - [https://rdf4j.org](https://rdf4j.org)
+    - [https://jena.apache.org](https://jena.apache.org)
+- Python 
+    - [https://wiki.python.org/moin/RdfLibraries](https://wiki.python.org/moin/RdfLibraries)
+
 !!! note
 
     The [OpenAPI specification](assets/ONE-Record-API-OpenAPI.yaml) includes only schemas that can be used to generate the expanded JSON-LD document form.

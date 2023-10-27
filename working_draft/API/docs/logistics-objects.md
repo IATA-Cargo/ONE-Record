@@ -5,11 +5,11 @@ This particular Logistics Object MUST be a type of Logistics Object, i.e. data c
 A list of all possible data classes that inherit from Logistics Object can be found [here](https://onerecord.iata.org/ns/cargo#LogisticsObject).
 
 !!! note 
-        Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
-        The reason for this is that _only the holder of the logistics object_ MAY create a logistics object with any business logic or technology. 
-        However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the internet of logistics.
+    Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
+    The reason for this is that _only the holder of the logistics object_ MAY create a logistics object with any business logic or technology. 
+    However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the internet of logistics.
 
-         Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
+    Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
 
 
 ## Endpoint
@@ -154,9 +154,9 @@ to reduce the number of GET requests, it can be helpful to request an embedded v
 The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example B3](#example-b3)).
 
 !!! note 
-        The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
-        Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events.
-        Logistics Events MUST be accessed using the `/logistics-events` endpoint. (see [Logistics Events](logistics-events.md))
+    The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
+    Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events.
+    Logistics Events MUST be accessed using the `/logistics-events` endpoint. (see [Logistics Events](logistics-events.md))
 
 ## Endpoint
 ``` 
@@ -564,7 +564,7 @@ This results in the following operations that MUST be part of the [Change](https
 1. add the property value `25.0` to the embedded object [Value](https://onerecord.iata.org/ns/cargo#Value)(unit="KGM") within the property Piece#grossWeight
 
 !!! note
-        The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
+    The `@id` of the bNode for grossWeight in [Example C2](#example-c2) was replaced by the ONE Record server with `internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07`  after the ChangeRequest was accepted.
 
 Request:
 
@@ -773,8 +773,8 @@ classDiagram
 ```
 
 !!! note
-        `Users of the Logistics Object` can retrieve the AuditTrail of the LogisticsObject. 
-        `Holder of the Logistics Object` is responsible for updating the AuditTrail.
+    `Users of the Logistics Object` can retrieve the AuditTrail of the LogisticsObject. 
+    `Holder of the Logistics Object` is responsible for updating the AuditTrail.
 
 
 
@@ -844,7 +844,7 @@ To engage with the "Get Audit Trail of a Logistics Object" endpoint, a client ne
 The authorization to access the audit trail should be derived from the logistics objects. However, the implementor of a ONE Record server can decide to separate the control access between a logistics object and its audit trail.
 
 !!! note
-        The Audit trail comprehensively documents the chronological history of a logistics object. Individuals with access to the audit trail are able to view the complete evolution of the logistics object over time. Due to this, it is imperative for the implementer of the ONE Record server to exercise caution when granting access to this particular resource.
+    The Audit trail comprehensively documents the chronological history of a logistics object. Individuals with access to the audit trail are able to view the complete evolution of the logistics object over time. Due to this, it is imperative for the implementer of the ONE Record server to exercise caution when granting access to this particular resource.
 
 ## Example D1
 
@@ -901,7 +901,7 @@ In ONE Record, data is updated in real time and every time a ChangeRequest is ap
 However, there is a need to retrieve a specific version of a data object at a specific point in time, for example the [Master Air Waybill (MAWB)](https://onerecord.iata.org/ns/cargo#Waybill).
 
 !!! note 
-        Reverting to a previous version of a Logistics Object with PATCH is not supported as out of scope of ONE Record.
+    Reverting to a previous version of a Logistics Object with PATCH is not supported as out of scope of ONE Record.
 
 An ONE Record server MUST enable the ONE Record client to request an historical version of a Logistics Object using the `?at=` query parameter of the Logistics Object GET endpoint.
 This `?at=` parameter MUST accept past datetime strings in ISO 8601 UTC using the following format: `YYYYMMDDThhmmssZ`

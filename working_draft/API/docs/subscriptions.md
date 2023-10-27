@@ -164,7 +164,7 @@ Accept: application/ld+json; version=2.0.0-dev
 _([examples/Notification_example1.json](examples/Notification_example1.json))_
 
 !!! note
-        Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
+    Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
 
 ## Endpoint 
 
@@ -410,7 +410,7 @@ The entity responsible for implementing the ONE Record Server is obligated to es
 
 
 !!! note
-        Notifications are sent to the subscriber's Notification endpoint. It MUST be assumed that the subscriber performs the internal forwarding of the received notifications to the backend systems or third parties for further processing.
+    Notifications are sent to the subscriber's Notification endpoint. It MUST be assumed that the subscriber performs the internal forwarding of the received notifications to the backend systems or third parties for further processing.
 
 # Unsubscribe
 

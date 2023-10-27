@@ -301,14 +301,45 @@ The following HTTP query parameters MUST be supported:
 ## Response
 
 A successful request MUST return a `HTTP/1.1 200 OK` status code. 
-The body of the response includes all logistics events matching the specified query parameters.
 The response body is formatted accordingly to the format that has been requested in the `Accept` request header.
+The body of the response is composed by a [Collection](https://onerecord.iata.org/ns/api#Collection) object containing all [LogisticsEvent](https://onerecord.iata.org/ns/cargo#LogisticsEvent) matching the specified query parameters.
+
+```mermaid
+classDiagram   
+    direction LR   
+
+    class Collection{    
+        + hasItem: LogisticsEvents [0..*]
+     	+ hasTotalItems: xsd:nonNegativeInteger [0..1]    
+    }
+    
+    class LogisticsEvent{
+
+    }
+    Collection "1" --> "0..*" LogisticsEvent
+
+```
+
+
+The ONE Record API employs the [Collection](https://onerecord.iata.org/ns/api#Collection) class to return an array of objects. This class encompasses two properties:
+
+- [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) returns the array of objects.
+- [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) returns the count of elements within the returned array.
+
+In this particular case, @id property in the response body MUST be equal to the Endpoint defined in the [Endpoint section](#endpoint_2) (i.e.: https://1r.example.com/logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events). 
+
+
 
 !!! note
-        The response body contains the keyword `@set` to indicate the ordering of the logistics events.
-        This is a preparation for future sorting and pagination filters.
-        (cf. [https://www.w3.org/TR/json-ld11/#sets](https://www.w3.org/TR/json-ld11/#sets))
 
+    The ONE Record standard fully adopts the JSON-LD specification, and as a result, the presence of the [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) property of [Collection](https://onerecord.iata.org/ns/api#Collection) is contingent on the number of Logistics Events returned byt the specified query. Specifically:
+        
+    - If the specified query returns zero Logistics Events, [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) may not appear in the JSON, and [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) must be 0.
+    - When the specified query returns exactly one Logistics Event, [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) will directly represent that Logistics Event, and [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) must be 1.
+    - In cases where the specified query returns multiple Logistics Events, [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) will be an array containing those Logistics Events, and [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) must be equal to the number of Logistics Events retrieved by the specified query.
+
+    During the implementation phase, it is highly recommended to utilize a JSON-LD library for parsing responses.
+    To discover JSON-LD libraries for various programming languages, consult the [implementation guidelines](./implementation-guidelines.md#serialization-and-data-formats).
 
 The following HTTP headers parameters MUST be present in the response:
 
@@ -379,3 +410,26 @@ Content-Language: en-US
 --8<-- "examples/LogisticsEvents_filtered_list.json"
 ```
 _([examples/LogisticsEvents_filtered_list.json](examples/LogisticsEvents_filtered_list.json))_
+
+## Example C3
+
+Get an empty list of events.
+
+Request:
+
+```http
+GET /logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events HTTP/1.1
+Host: 1r.example.com
+Accept: application/ld+json; version=2.0.0-dev
+```
+
+Response:
+
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; version=2.0.0-dev
+Content-Language: en-US
+
+--8<-- "examples/LogisticsEvents_empty_list.json"
+```
+_([examples/LogisticsEvents_empty_list.json](examples/LogisticsEvents_empty_list.json))_
