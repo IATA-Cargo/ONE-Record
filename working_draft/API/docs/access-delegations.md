@@ -96,6 +96,8 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated                                            | Error            |
 | **403** | Not authorized to submit Delegation Request                  | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
+| **500** | Internal Server Error                                        | Error            |
+
 
 ## Security
 To engage with the "Request Access Delegation" endpoint, a client needs proper authentication. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.

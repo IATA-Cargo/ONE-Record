@@ -45,14 +45,14 @@ One of the following HTTP status codes MUST be present in the response:
 
 | Code    | Description               | Response body     |
 | ------- |  ----------------------- | ----------------- |
-| 200 |     The request to retrieve the ServerInformation has been successful | ServerInformation |
-| 301 | 	Indicate that the server has moved permanently to a new location  | No response body      |
-| 401 | 	Not authenticated or expired token | Error       |
-| 403 | 	Not authorized to perform action | Error       |
-| 404 | 	Resource Not Found | Error       |
-| 405 | 	Method not allowed | Error       |
-| 415 | 	Unsupported content type | Error       |
-| 500 |     Internal Server Error | Error       |
+| **200** |     The request to retrieve the ServerInformation has been successful | ServerInformation |
+| **301** | 	Indicate that the server has moved permanently to a new location  | No response body      |
+| **401** | 	Not authenticated or expired token | Error       |
+| **403** | 	Not authorized to perform action | Error       |
+| **404** | 	Resource Not Found | Error       |
+| **405** | 	Method not allowed | Error       |
+| **415** | 	Unsupported content type | Error       |
+| **500** |     Internal Server Error | Error       |
 
 A successful request MUST return a `HTTP/1.1 200 OK` status code and the following HTTP headers parameters MUST be present in the response:
 

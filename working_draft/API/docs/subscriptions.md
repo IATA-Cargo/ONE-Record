@@ -204,12 +204,14 @@ The following HTTP headers parameters MUST be present in the response:
 The following HTTP status codes MUST be supported:
 
 
-| Code     | Description                  | Response body |
+| Code     | Description                    | Response body     |
 | -------- | ------------------------------ | ----------------- |
 | **200**  | The request to retrieve the Subscription Information has been successful | Subscriptions |
-| **400**  |The request is invalid	| Error |
-| **401**  | Not authenticated                | Error             |
-| **403**  | Not authorized to retrieve the Subscription Information                  | Error             |
+| **400**  | The request is invalid	                                                  | Error |
+| **401**  | Not authenticated                                                        | Error |
+| **403**  | Not authorized to retrieve the Subscription Information                  | Error |
+| **500**  | Internal Server Error                                                    | Error |
+
 
 ## Security
 
@@ -372,6 +374,7 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated                                            | Error            |
 | **403** | Not authorized                                               | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
+| **500** | Internal Server Error                                        | Error            |
 
 ## Security
 

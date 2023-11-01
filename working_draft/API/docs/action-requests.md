@@ -178,13 +178,15 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
 | ------- |  ---------------------- | ---------------- |
-| **200** | The request to retrieve the Action Request has been successful | Action Request |
-| **301** | The URI of the Action Request has permanently changed.           | No response body |
-| **302** | The URI of the Action Request has temporarily moved.             | No response body |
-| **401** | Not authenticated        | Error            |
-| **403** | Not authorized to retrieve the Action Request                  | Error            |
-| **404** | Action Request not found                   | Error            |
-| **415** | Unsupported Content Type                   | Error            |
+| **200** | The request to retrieve the Action Request has been successful       | Action Request   |
+| **301** | The URI of the Action Request has permanently changed.               | No response body |
+| **302** | The URI of the Action Request has temporarily moved.                 | No response body |
+| **401** | Not authenticated                                                    | Error            |
+| **403** | Not authorized to retrieve the Action Request                        | Error            |
+| **404** | Action Request not found                                             | Error            |
+| **415** | Unsupported Content Type                                             | Error            |
+| **500** | Internal Server Error                                                | Error            |
+
 
 ## Security
 To engage with the "Get Action Request Details" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
@@ -271,13 +273,15 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description | Response body    |
 | ------- | ----------- | ---------------- |
-| **204** | The Action Request was successfully updated | No body required |
-| **400** | The update request body is invalid                             | Error            |
-| **401** | Not authenticated                          | Error            |
-| **403** | Not authorized to update the Action Request                  | Error            |
-| **404** | Action Request not found                 | Error            |
-| **415** | Unsupported Content Type, response when the client sends a PATCH document format that the server does not support for the resource identified by the Request-URI.  | Error            |
+| **204** | The Action Request was successfully updated                     | No body required |
+| **400** | The update request body is invalid                              | Error            |
+| **401** | Not authenticated                                               | Error            |
+| **403** | Not authorized to update the Action Request                     | Error            |
+| **404** | Action Request not found                                        | Error            |
+| **415** | Unsupported Content Type, response when the client sends a PATCH document format that the server does not support for the resource identified by the Request-URI.            | Error            |
 | **422** | Unprocessable request, when the server understands the PATCH document and the syntax of the PATCH document appears to be valid, but the server is incapable of processing the request. | Error            |
+| **500** | Internal Server Error                                           | Error            |
+
 
 ## Security
 
@@ -328,10 +332,12 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description | Response body    |
 | ------- | ----------- | ---------------- |
-| **204** | The Action Request was successfully deleted | No body required |
-| **401** | Not authenticated                          | Error            |
+| **204** | The Action Request was successfully deleted                 | No body required |
+| **401** | Not authenticated                                           | Error            |
 | **403** | Not authorized to update the Action Request                 | Error            |
-| **404** | Action Request not found                 | Error            |
+| **404** | Action Request not found                                    | Error            |
+| **500** | Internal Server Error                                       | Error            |
+
 
 
 ## Security

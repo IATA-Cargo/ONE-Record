@@ -89,13 +89,13 @@ One of the following HTTP response codes MUST be present in the response:
 
 | Code    | Description                             | Response body |
 | ------- |  -------------------------------------- | ------------- |
-| 201 | Logistics Event has been created            | No content    |
-| 400 | Invalid Logistics Event                     | Error         |
-| 401 | Not authenticated, invalid or expired token | Error         |
-| 403 | Not authorized to perform action            | Error         |
-| 404 | Logistics Object not found                  | Error         |
-| 415 | Unsupported Content Type                    | Error         |
-| 500 | Internal Server Error                       | Error         |
+| **201** | Logistics Event has been created            | No content    |
+| **400** | Invalid Logistics Event                     | Error         |
+| **401** | Not authenticated, invalid or expired token | Error         |
+| **403** | Not authorized to perform action            | Error         |
+| **404** | Logistics Object not found                  | Error         |
+| **415** | Unsupported Content Type                    | Error         |
+| **500** | Internal Server Error                       | Error         |
 
 
 A successful request MUST return a `HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
@@ -205,12 +205,13 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
 | ------- |  ---------------------- | ---------------- |
-| **200** | The request to retrieve the Logistics Event has been successful | Logistics Event |
-| **301** | The URI of the Logistics Object has permanently changed.           | No response body |
-| **302** | The URI of the Logistics Object has temporarily moved.             | No response body |
-| **401** | Not authenticated        | Error            |
-| **403** | Not authorized to retrieve the Logistics Object                  | Error            |
-| **404** | Logistics Object or Logistics Event not found                   | Error            |
+| **200** | The request to retrieve the Logistics Event has been successful     | Logistics Event |
+| **301** | The URI of the Logistics Object has permanently changed.            | No response body |
+| **302** | The URI of the Logistics Object has temporarily moved.              | No response body |
+| **401** | Not authenticated                                                   | Error            |
+| **403** | Not authorized to retrieve the Logistics Object                     | Error            |
+| **404** | Logistics Object or Logistics Event not found                       | Error            |
+| **500** | Internal Server Error                                               | Error            |
 
 ## Security
 
@@ -358,6 +359,7 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated                                                   | Error            |
 | **403** | Not authorized to retrieve the Logistics Object                     | Error            |
 | **404** | Logistics Object not found                                          | Error            |
+| **500** | Internal Server Error                                               | Error            |
 
 
 ## Security

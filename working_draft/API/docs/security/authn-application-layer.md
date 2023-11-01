@@ -191,11 +191,13 @@ Example: https://auth.example.com/token
 
 One of the following HTTP status codes MUST be present in the response:
 
-| Response    | Description                                  | Examples                |
+| Response    | Description                               | Response Body   |
 | ----------------- |    -------------------------------- |   ------------- |
-| **200** | ID Token Created | Return a newly created ID Token as shown in the Response body section
-| **400** | Bad Request | Error
-| **401** | Unauthorized| Error
+| **200** | ID Token Created                              | Return a newly created ID Token |
+| **400** | Bad Request                                   | Error            |
+| **401** | Unauthorized                                  | Error            |
+| **500** | Internal Server Error                         | Error            |
+
 
 ### Reponse Body
 

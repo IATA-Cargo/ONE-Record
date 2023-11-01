@@ -47,6 +47,7 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to publish the Logistics Object to the server | Error            |
 | **409** | Logistics object with specified ID already exists            | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
+| **500** | Internal Server Error                                        | Error            |
 
 ## Security
 Access to the Logistics Objects creation endpoint should be restricted to internal usage only, and it must not be made available to external entities.
@@ -199,13 +200,14 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
 | ------- |  ---------------------- | ---------------- |
-| **200** | The request to retrieve the Logistics Object has been successful | Logistics Object |
+| **200** | The request to retrieve the Logistics Object has been successful   | Logistics Object |
 | **301** | The URI of the Logistics Object has permanently changed.           | No response body |
 | **302** | The URI of the Logistics Object has temporarily moved.             | No response body |
-| **401** | Not authenticated        | Error            |
-| **403** | Not authorized to retrieve the Logistics Object                  | Error            |
-| **404** | Logistics Object not found                   | Error            |
-| **415** | Unsupported Content Type                   | Error            |
+| **401** | Not authenticated                                                  | Error            |
+| **403** | Not authorized to retrieve the Logistics Object                    | Error            |
+| **404** | Logistics Object not found                                         | Error            |
+| **415** | Unsupported Content Type                                           | Error            |
+| **500** | Internal Server Error                                              | Error            |
 
 ## Security
 To engage with the "Get Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
@@ -489,6 +491,7 @@ The following HTTP status codes MUST be supported:
 | **404** | Logistics Object not found                 | Error            |
 | **415** | Unsupported Content Type, response when the client sends a PATCH document format that the server does not support for the resource identified by the Request-URI.  | Error            |
 | **422** | Unprocessable request, when the server understands the PATCH document and the syntax of the PATCH document appears to be valid, but the server is incapable of processing the request. | Error            |
+| **500** | Internal Server Error                                        | Error            |
 
 ## Security
 
@@ -836,6 +839,7 @@ The following HTTP status codes MUST be supported:
 | **403** | Not authorized to retrieve the Logistics Object Audit Trail        | Error            |
 | **404** | Logistics Object not found                                         | Error            |
 | **415** | Unsupported Content Type                                           | Error            |
+| **500** | Internal Server Error                                              | Error            |
 
 ## Security
 

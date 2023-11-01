@@ -128,16 +128,16 @@ If the subscriber chose to receive the entire logistics object body via sendLogi
 
 One of the following HTTP status codes MUST be present in the response:
 
-| Code    | Description               | Response body     |
+| Code    | Description              | Response body     |
 | ------- |  ----------------------- | ----------------- |
-| 204 |     The request has been successful | - |
-| 400 |     Notification format is invalid    | Error         |
-| 401 |     Not authenticated, invalid or expired token    | Error         |
-| 403 | 	Not authorized to perform action | Error       |
-| 404 | 	Resource Not Found | Error       |
-| 405 | 	Method not allowed | Error       |
-| 415 | 	Unsupported content type | Error       |
-| 500 |     Internal Server Error | Error       |
+| **204** |     The request has been successful                 | - |
+| **400** |     Notification format is invalid                  | Error       |
+| **401** |     Not authenticated, invalid or expired token     | Error       |
+| **403** | 	Not authorized to perform action                | Error       |
+| **404** | 	Resource Not Found                              | Error       |
+| **405** | 	Method not allowed                              | Error       |
+| **415** | 	Unsupported content type                        | Error       |
+| **500** |     Internal Server Error                           | Error       |
 
 A successful request MUST return a `HTTP/1.1 204 No Content` status code.
 
