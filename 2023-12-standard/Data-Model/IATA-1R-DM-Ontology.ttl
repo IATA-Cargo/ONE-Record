@@ -15,7 +15,7 @@
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "24-10-2023" ;
+                                       terms:modified "03-11-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 
@@ -140,14 +140,6 @@ owl:thing rdf:type rdfs:Datatype .
              rdfs:range :CodeListElement ;
              rdfs:comment "Address identifier using special coding systems e.g. US CBP FIRMS code"@en ;
              rdfs:label "addressCode"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#addressCodeType
-:addressCodeType rdf:type owl:ObjectProperty ;
-                 rdfs:domain :Address ;
-                 rdfs:range :CodeListElement ;
-                 rdfs:comment "Type of address code e.g. US CBP FIRMS"@en ;
-                 rdfs:label "addressCodeType"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#adjustments
@@ -627,8 +619,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
 ###  https://onerecord.iata.org/ns/cargo#contentProductionCountry
 :contentProductionCountry rdf:type owl:ObjectProperty ;
                           rdfs:domain :Piece ;
-                          rdfs:range :Country ;
-                          rdfs:comment "Goods production country, mandatory when there are no Items"@en ;
+                          rdfs:range :CodeListElement ;
+                          rdfs:comment "Goods production country, mandatory when there are no Items. Refer ISO 3166-2"@en ;
                           rdfs:label "contentProductionCountry"@en .
 
 
@@ -642,9 +634,9 @@ Condition: At least one of the three elements (Country Code, Information Identif
 
 ###  https://onerecord.iata.org/ns/cargo#country
 :country rdf:type owl:ObjectProperty ;
-         rdfs:domain :Address ;
-         rdfs:range :Country ;
-         rdfs:comment "Country details"@en ;
+         rdfs:domain owl:Thing ;
+         rdfs:range :CodeListElement ;
+         rdfs:comment "Country details. Refer ISO 3166-2"@en ;
          rdfs:label "country"@en .
 
 
@@ -737,12 +729,12 @@ List to be provided by local authorities"""@en ;
                   rdfs:label "describedObjects"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#destinationCurrencyCode
-:destinationCurrencyCode rdf:type owl:ObjectProperty ;
-                         rdfs:domain :Waybill ;
-                         rdfs:range :CodeListElement ;
-                         rdfs:comment "ISO 3-letter currency code of destination. Refer to ISO 4217"@en ;
-                         rdfs:label "destinationCurrencyCode"@en .
+###  https://onerecord.iata.org/ns/cargo#destinationCharges
+:destinationCharges rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Waybill ;
+                    rdfs:range :CurrencyValue ;
+                    rdfs:comment "Charges levied at destination accruing to the last carrier, in destination currency"@en ;
+                    rdfs:label "destinationCharges"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#detailedWaybill
@@ -964,8 +956,8 @@ List to be provided by local authorities"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#exportTradeCountry
 :exportTradeCountry rdf:type owl:ObjectProperty ;
                     rdfs:domain :PieceLiveAnimals ;
-                    rdfs:range :Country ;
-                    rdfs:comment "Country of last re-export (box 12a)"@en ;
+                    rdfs:range :CodeListElement ;
+                    rdfs:comment "Country of last re-export (box 12a). Refer ISO 3166-2"@en ;
                     rdfs:label "exportTradeCountry"@en .
 
 
@@ -1502,14 +1494,6 @@ TRNS - transfer or transshipment"""@en ;
                          rdfs:label "operatingTransportMeans" .
 
 
-###  https://onerecord.iata.org/ns/cargo#originCurrency
-:originCurrency rdf:type owl:ObjectProperty ;
-                rdfs:domain :Waybill ;
-                rdfs:range :CodeListElement ;
-                rdfs:comment "ISO alpha 3 Code used to indicate the Origin Currency, refer to ISO 4217 currency codes"@en ;
-                rdfs:label "originCurrency" .
-
-
 ###  https://onerecord.iata.org/ns/cargo#originReferencePermitTypeCode
 :originReferencePermitTypeCode rdf:type owl:ObjectProperty ;
                                rdfs:domain :PieceLiveAnimals ;
@@ -1521,8 +1505,8 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#originTradeCountry
 :originTradeCountry rdf:type owl:ObjectProperty ;
                     rdfs:domain :PieceLiveAnimals ;
-                    rdfs:range :Country ;
-                    rdfs:comment "country of origin (box 12)"@en ;
+                    rdfs:range :CodeListElement ;
+                    rdfs:comment "country of origin (box 12). Refer ISO 3166-2"@en ;
                     rdfs:label "originTradeCountry"@en .
 
 
@@ -1777,16 +1761,16 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#productionCountry
 :productionCountry rdf:type owl:ObjectProperty ;
                    rdfs:domain :Item ;
-                   rdfs:range :Country ;
-                   rdfs:comment "Production country details" ;
-                   rdfs:label "productionCountry" .
+                   rdfs:range :CodeListElement ;
+                   rdfs:comment "Production country details. Refer ISO 3166-2"@en ;
+                   rdfs:label "productionCountry"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#productionCountryForRate
 :productionCountryForRate rdf:type owl:ObjectProperty ;
                           rdfs:domain :WaybillLineItem ;
-                          rdfs:range :Country ;
-                          rdfs:comment "Information about the production Country used for the rate descbribed by the Line Item"@en ;
+                          rdfs:range :CodeListElement ;
+                          rdfs:comment "Production country for the rate described by this Line Item. Refer ISO 3166-2"@en ;
                           rdfs:label "productionCountryForRate"@en .
 
 
@@ -1817,7 +1801,7 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#rateCharge
 :rateCharge rdf:type owl:ObjectProperty ;
             rdfs:domain :WaybillLineItem ;
-            rdfs:range :Value ;
+            rdfs:range :CurrencyValue ;
             rdfs:comment "TACT Rate for rate description details"@en ;
             rdfs:label "rateCharge"@en .
 
@@ -1852,6 +1836,14 @@ TRNS - transfer or transshipment"""@en ;
          rdfs:range :Ratings ;
          rdfs:comment "Rating used for pricing"@en ;
          rdfs:label "ratings"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#rcp
+:rcp rdf:type owl:ObjectProperty ;
+     rdfs:domain owl:Thing ;
+     rdfs:range :CodeListElement ;
+     rdfs:comment "IATA 3-letter city code of the rate combination point as defined in TACT"@en ;
+     rdfs:label "rcp"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#receivedFrom
@@ -1902,6 +1894,22 @@ TRNS - transfer or transshipment"""@en ;
                        rdfs:label "referredBookingOption"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#regionCode
+:regionCode rdf:type owl:ObjectProperty ;
+            rdfs:domain :Address ;
+            rdfs:range :CodeListElement ;
+            rdfs:comment "Region/ State / Department. Refer ISO 3166-2"@en ;
+            rdfs:label "regionCode"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#regulatedEntityAcceptor
+:regulatedEntityAcceptor rdf:type owl:ObjectProperty ;
+                         rdfs:domain :SecurityDeclaration ;
+                         rdfs:range :RegulatedEntity ;
+                         rdfs:comment "Information about the accepting regulated entity of the Security Declaration"@en ;
+                         rdfs:label "regulatedEntityAcceptor"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#regulatedEntityCategory
 :regulatedEntityCategory rdf:type owl:ObjectProperty ;
                          rdfs:domain :RegulatedEntity ;
@@ -1949,12 +1957,12 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                   rdfs:label "screeningMethods"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#securityDeclaration
-:securityDeclaration rdf:type owl:ObjectProperty ;
-                     rdfs:domain :Piece ;
-                     rdfs:range :SecurityDeclaration ;
-                     rdfs:comment "Security details of the piece"@en ;
-                     rdfs:label "securityDeclaration"@en .
+###  https://onerecord.iata.org/ns/cargo#securityDeclarations
+:securityDeclarations rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Piece ;
+                      rdfs:range :SecurityDeclaration ;
+                      rdfs:comment "Security details of the piece"@en ;
+                      rdfs:label "securityDeclarations"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#securityStatus
@@ -2159,8 +2167,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
 ###  https://onerecord.iata.org/ns/cargo#targetCountry
 :targetCountry rdf:type owl:ObjectProperty ;
                rdfs:domain :Item ;
-               rdfs:range :Country ;
-               rdfs:comment "Item target country"@en ;
+               rdfs:range :CodeListElement ;
+               rdfs:comment "Item target country. Refer ISO 3166-2"@en ;
                rdfs:label "targetCountry"@en .
 
 
@@ -2202,14 +2210,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                  rdfs:range :BookingTimes ;
                  rdfs:comment "Schedule preferences of the request"@en ;
                  rdfs:label "timePreferences"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#total
-:total rdf:type owl:ObjectProperty ;
-       rdfs:domain :WaybillLineItem ;
-       rdfs:range :CurrencyValue ;
-       rdfs:comment "Charge total for rate description details"@en ;
-       rdfs:label "total"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#totalDimensions
@@ -2757,14 +2757,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
           rdfs:label "checksum"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#cityName
-:cityName rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Address ;
-          rdfs:range xsd:string ;
-          rdfs:comment "If no CityCode provided, full name of the city "@en ;
-          rdfs:label "cityName"@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#code
 :code rdf:type owl:DatatypeProperty ;
       rdfs:domain :CodeListElement ;
@@ -2925,22 +2917,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                         rdfs:label "correctionSerialNumber"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#countryCode
-:countryCode rdf:type owl:DatatypeProperty ;
-             rdfs:domain owl:Thing ;
-             rdfs:range xsd:string ;
-             rdfs:comment "Country ISO code. Refer ISO 3166-2. At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
-             rdfs:label "countryCode"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#countryName
-:countryName rdf:type owl:DatatypeProperty ;
-             rdfs:domain :Country ;
-             rdfs:range xsd:string ;
-             rdfs:comment "Full country name, Refer ISO 3166-2"@en ;
-             rdfs:label "countryName"@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#creationDate
 :creationDate rdf:type owl:DatatypeProperty ;
               rdfs:domain :LogisticsEvent ;
@@ -2995,14 +2971,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
              rdfs:range xsd:string ;
              rdfs:comment "Natural language description if required"@en ;
              rdfs:label "description"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#destinationCharges
-:destinationCharges rdf:type owl:DatatypeProperty ;
-                    rdfs:domain :Waybill ;
-                    rdfs:range xsd:double ;
-                    rdfs:comment "Charges levied at destination accruing to the last carrier, in destination currency"@en ;
-                    rdfs:label "destinationCharges"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#destinationCurrencyRate
@@ -3846,14 +3814,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                  rdfs:label "questionSection"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#rcp
-:rcp rdf:type owl:DatatypeProperty ;
-     rdfs:domain owl:Thing ;
-     rdfs:range xsd:string ;
-     rdfs:comment "IATA 3-letter code of the rate combination point as defined in TACT"@en ;
-     rdfs:label "rcp"@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#reasonsForAdjustments
 :reasonsForAdjustments rdf:type owl:DatatypeProperty ;
                        rdfs:domain :Adjustments ;
@@ -3862,28 +3822,20 @@ Condition: At least one of the three elements (Country Code, Information Identif
                        rdfs:label "reasonsForAdjustments"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#regionCode
-:regionCode rdf:type owl:DatatypeProperty ;
-            rdfs:domain :Address ;
-            rdfs:range xsd:string ;
-            rdfs:comment "Region/ State / Department. Refer ISO 3166-2"@en ;
-            rdfs:label "regionCode"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#regionName
-:regionName rdf:type owl:DatatypeProperty ;
-            rdfs:domain :Address ;
-            rdfs:range xsd:string ;
-            rdfs:comment "If no StateCode provided, full name of the region / state / province / canton"@en ;
-            rdfs:label "regionName"@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#regulatedEntityExpiryDate
 :regulatedEntityExpiryDate rdf:type owl:DatatypeProperty ;
                            rdfs:domain :RegulatedEntity ;
                            rdfs:range xsd:dateTime ;
                            rdfs:comment "Expiry date 4 digits month/year"@en ;
                            rdfs:label "regulatedEntityExpiryDate"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#regulatedEntityIdentifier
+:regulatedEntityIdentifier rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :RegulatedEntity ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "Regulated entity identifier as per IATA e-CSD/CSD Resolution 65"@en ;
+                           rdfs:label "regulatedEntityIdentifier"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#remarks
@@ -4453,19 +4405,19 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:allValuesFrom :CodeListElement
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :addressCodeType ;
-                           owl:allValuesFrom :CodeListElement
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty :cityCode ;
                            owl:allValuesFrom :CodeListElement
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :country ;
-                           owl:allValuesFrom :Country
+                           owl:allValuesFrom :CodeListElement
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :postalCode ;
+                           owl:allValuesFrom :CodeListElement
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :regionCode ;
                            owl:allValuesFrom :CodeListElement
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -4473,10 +4425,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :addressCodeType ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty :cityCode ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -4489,19 +4437,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :cityName ;
-                           owl:allValuesFrom xsd:string
+                           owl:onProperty :regionCode ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :postOfficeBox ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :regionCode ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :regionName ;
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -4509,19 +4449,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :cityName ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty :postOfficeBox ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :regionCode ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :regionName ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Address details"@en ;
@@ -5618,28 +5546,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
              rdfs:label "ContactRole"@en .
 
 
-###  https://onerecord.iata.org/ns/cargo#Country
-:Country rdf:type owl:Class ;
-         rdfs:subClassOf [ rdf:type owl:Restriction ;
-                           owl:onProperty :countryCode ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :countryName ;
-                           owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :countryCode ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :countryName ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ;
-         rdfs:comment "Country details"@en ;
-         rdfs:label "Country"@en .
-
-
 ###  https://onerecord.iata.org/ns/cargo#CurrencyValue
 :CurrencyValue rdf:type owl:Class ;
                rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -5670,6 +5576,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:allValuesFrom :CodeListElement
                                     ] ,
                                     [ rdf:type owl:Restriction ;
+                                      owl:onProperty :country ;
+                                      owl:allValuesFrom :CodeListElement
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
                                       owl:onProperty :issuedForPiece ;
                                       owl:allValuesFrom :Piece
                                     ] ,
@@ -5686,6 +5596,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
+                                      owl:onProperty :country ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
                                       owl:onProperty :issuedForPiece ;
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
@@ -5698,20 +5612,12 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty :countryCode ;
-                                      owl:allValuesFrom xsd:string
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
                                       owl:onProperty :note ;
                                       owl:allValuesFrom xsd:string
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty :otherCustomsInformation ;
                                       owl:allValuesFrom xsd:string
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty :countryCode ;
-                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty :note ;
@@ -6316,11 +6222,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :productionCountry ;
-                        owl:allValuesFrom :Country
+                        owl:allValuesFrom :CodeListElement
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :targetCountry ;
-                        owl:allValuesFrom :Country
+                        owl:allValuesFrom :CodeListElement
                       ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :unitPrice ;
@@ -7433,7 +7339,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :contentProductionCountry ;
-                         owl:allValuesFrom :Country
+                         owl:allValuesFrom :CodeListElement
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :contentProducts ;
@@ -7484,7 +7390,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:allValuesFrom :PackagingType
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :securityDeclaration ;
+                         owl:onProperty :securityDeclarations ;
                          owl:allValuesFrom :SecurityDeclaration
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -7529,10 +7435,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :packagingType ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty :securityDeclaration ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -7733,7 +7635,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :exportTradeCountry ;
-                                    owl:allValuesFrom :Country
+                                    owl:allValuesFrom :CodeListElement
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :goodsTypeCode ;
@@ -7749,7 +7651,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :originTradeCountry ;
-                                    owl:allValuesFrom :Country
+                                    owl:allValuesFrom :CodeListElement
                                   ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :specimenTypeCode ;
@@ -8216,6 +8118,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:allValuesFrom :Ranges
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :rcp ;
+                           owl:allValuesFrom :CodeListElement
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :billingChargeIdentifier ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -8236,6 +8142,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :rcp ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :chargeDescription ;
                            owl:allValuesFrom xsd:string
                          ] ,
@@ -8250,10 +8160,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :quantity ;
                            owl:allValuesFrom xsd:double
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :rcp ;
-                           owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :subTotal ;
@@ -8273,10 +8179,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :quantity ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :rcp ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -8310,7 +8212,15 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom xsd:dateTime
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :regulatedEntityIdentifier ;
+                                   owl:allValuesFrom xsd:string
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :regulatedEntityExpiryDate ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :regulatedEntityIdentifier ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Regulated Entity"@en ;
@@ -8341,6 +8251,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                        owl:allValuesFrom :RegulatedEntity
                                      ] ,
                                      [ rdf:type owl:Restriction ;
+                                       owl:onProperty :regulatedEntityAcceptor ;
+                                       owl:allValuesFrom :RegulatedEntity
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty :regulatedEntityIssuer ;
                                        owl:allValuesFrom :RegulatedEntity
                                      ] ,
@@ -8362,6 +8276,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :receivedFrom ;
+                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :regulatedEntityAcceptor ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
@@ -9265,8 +9183,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:allValuesFrom :Location
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :destinationCurrencyCode ;
-                           owl:allValuesFrom :CodeListElement
+                           owl:onProperty :destinationCharges ;
+                           owl:allValuesFrom :CurrencyValue
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :houseWaybills ;
@@ -9279,10 +9197,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :masterWaybill ;
                            owl:allValuesFrom :Waybill
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :originCurrency ;
-                           owl:allValuesFrom :CodeListElement
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :otherCharges ;
@@ -9349,15 +9263,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty :destinationCurrencyCode ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
                            owl:onProperty :masterWaybill ;
-                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :originCurrency ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -9399,10 +9305,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :consignorDeclarationSignature ;
                            owl:allValuesFrom xsd:string
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty :destinationCharges ;
-                           owl:allValuesFrom xsd:double
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :destinationCurrencyRate ;
@@ -9492,11 +9394,11 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :productionCountryForRate ;
-                                   owl:allValuesFrom :Country
+                                   owl:allValuesFrom :CodeListElement
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateCharge ;
-                                   owl:allValuesFrom :Value
+                                   owl:allValuesFrom :CurrencyValue
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateClassCode ;
@@ -9511,8 +9413,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom :Value
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :total ;
-                                   owl:allValuesFrom :CurrencyValue
+                                   owl:onProperty :rcp ;
+                                   owl:allValuesFrom :CodeListElement
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :uldOwnerCode ;
@@ -9571,7 +9473,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :total ;
+                                   owl:onProperty :rcp ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -9611,10 +9513,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:allValuesFrom xsd:integer
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :rcp ;
-                                   owl:allValuesFrom xsd:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :slacForRate ;
                                    owl:allValuesFrom xsd:integer
                                  ] ,
@@ -9636,10 +9534,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :pieceCountForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :rcp ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
