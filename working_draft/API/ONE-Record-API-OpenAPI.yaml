@@ -19,63 +19,355 @@ info:
   version: 2.0.0-dev
 servers:
 - url: https://1r.example.com
+tags:
+  - name: Server Information
+  - name: Logistics Objects
+  - name: Logistics Events
+  - name: Subscriptions
+  - name: Notifications
+  - name: Access Delegations
+  - name: Action Requests
+  
 paths:
-  /access-delegations:
-    post:
+  /:
+    get:
+      summary: Get Server Information
+      description: Return the information about the server
       tags:
-      - Access Delegations
-      summary: Request delegated access on LogisticsObjects
-      operationId: createAccessDelegationRequest
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/AccessDelegation'
-        required: true
+      - Server Information
+      operationId: getServerInformation
       responses:
+        "200":
+          description: The request to retrieve the ServerInformation has been successful
+          headers:
+            Last-Modified:
+              description: The date and time of the most recent change to the server information
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: HTTP-date
+                example: "Tue, 21 Feb 2023 07:28:00 GMT"
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/ServerInformation'
+        "301":
+          description: The server has permanently moved to a new location
+          headers:
+            Location:
+              description: New location of the server
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri    
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                
         "404":
-          description: Not Found
+          description: Resource Not Found
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
+        "405":
+          description: Method not Allowd
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                             
+  /logistics-objects:
+    post:
+      tags:
+      - Logistics Objects
+      summary: "INTERNAL: Create a LogisticsObject"
+      description: Create a LogisticsObject in the ONE Record server
+      operationId: createLogisticsObject
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/LogisticsObject'
+        required: true
+      responses:
         "201":
-          description: Created  
-  /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventsId}:
+          description: Logistics Object has been created
+          headers:
+            Type:
+              description: Type of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the created LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: Invalid Logistics Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: LogisticsObject with provided ID already exists
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
+
+  /logistics-objects/{logisticsObjectId}:
     get:
       tags:
-      - Logistics Events
-      summary: Retrieves a LogisticsEvents
-      operationId: getLogisticsEvent
+      - Logistics Objects
+      summary: Request a logistics object
+      description: Get all information contained into a LogisticsObject in the ONE Record server      
+      operationId: getLogisticsObject
       parameters:
       - name: logisticsObjectId
         in: path
         required: true
         schema:
           type: string
-      - name: logisticsEventsId
+      - name: at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: embedded
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: The request to retrieve the Logistics Object has been successful
+          headers:
+            Type:
+              description: Type of the requested LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Revision:
+              description: The revision of the requested Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: integer
+                format: int64
+            Last-Modified:
+              description: The date and time of the most recent change to the Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: HTTP-date
+                example: "Tue, 21 Feb 2023 07:28:00 GMT"
+            Latest-Revision:
+              description: Latest revision number of the requested Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: integer
+                format: int64
+            Location:
+              description: Location of the created LogisticsObject
+              required: false
+              style: simple
+              schema:
+                type: string
+                format: uri
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/LogisticsObject'
+        "301":
+          description: The URI of the Logistics Object has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                       
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                 
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
+    patch:
+      tags:
+      - Logistics Objects
+      summary: Request a change for a given logistics object
+      description: Allow a third party to propose a change on a logistics object
+      operationId: updateLogisticsObject
+      parameters:
+      - name: logisticsObjectId
         in: path
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Change'
+        required: true
       responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
+        "201":
+          description: The change was successfully requested
+          headers:
+            Type:
+              description: The type of the newly created resource as a URI
+              required: true
+              style: simple
               schema:
-                $ref: '#/components/schemas/Error'
-        "200":
-          description: OK
+                type: string
+                format: uri
+            Location:
+              description: The URI of the submitted ChangeRequest
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri     
+        "400":
+          description: The update request body is invalid
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/LogisticsEvent'
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+        "403":
+          description: Not authorized to update the Logistics Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "422":
+          description: Unprocessable Request
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
   /logistics-objects/{logisticsObjectId}/audit-trail:
     get:
       tags:
       - Logistics Objects
       summary: Retrieves the audit trail (history) of a given logistics object
+      description: Retrieve the list of change request applied to the logistics object
       operationId: getAuditTrail
       parameters:
       - name: logisticsObjectId
@@ -95,253 +387,19 @@ paths:
         schema:
           type: string
           format: date-time
-      responses:
-        "404":
-          description: Logistics Object not found
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "403":
-          description: Not authorized
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "302":
-          description: The URI of the Logistics Object has temporarily moved.
-          headers:
-            Location:
-              description: New location of the LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-        "200":
-          description: The request to retrieve the AuditTrail has been successful
-          headers:
-            Type:
-              description: Type of the created LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-            Location:
-              description: Location of the AuditTrail
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/AuditTrail'
-        "415":
-          description: Unsupported Content Type
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "301":
-          description: The URI of the Logistics Object has permanently changed.
-          headers:
-            Location:
-              description: New location of the LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-        "401":
-          description: Not authenticated
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /notifications:
-    post:
-      tags:
-      - Notifications
-      summary: Used as callback URL for receiving Notifications
-      operationId: receiveNotification
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Notification'
-        required: true
-      responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        "204":
-          description: No Content
-  /:
-    get:
-      tags:
-      - Server Information
-      operationId: getServerInformation
-      responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        "200":
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/ServerInformation'
-  /subscriptions:
-    get:
-      tags:
-      - Subscriptions
-      summary: Get subscription information
-      operationId: getSubscription
-      parameters:
-      - name: topicType
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: topic
-        in: query
-        required: true
-        schema:
-          type: string
-      responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        "200":
-          description: OK
-          content:
-            application/ld+json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Subscription'
-    post:
-      tags:
-      - Subscriptions
-      summary: Request subscription
-      operationId: createSubscriptionRequest
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Subscription'
-        required: true
-      responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
-        "201":
-          description: Created
-  /logistics-objects/{logisticsObjectId}:
-    get:
-      tags:
-      - Logistics Objects
-      summary: Request a logistics object
-      operationId: getLogisticsObject
-      parameters:
-      - name: logisticsObjectId
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: at
+      - name: status
         in: query
         required: false
         schema:
           type: string
-          format: date-time
+          enum: [PENDING, ACCEPTED, REJECTED]          
       responses:
-        "404":
-          description: Logistics Object not found
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "403":
-          description: Not authorized
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "302":
-          description: The URI of the Logistics Object has temporarily moved.
-          headers:
-            Location:
-              description: New location of the LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
         "200":
-          description: The request to retrieve the Logistics Object has been successful
-          headers:
-            Type:
-              description: Type of the created LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-            Revision:
-              description: The revision of the requested Logistics Object
-              required: true
-              style: simple
-              schema:
-                type: integer
-                format: int64
-            Last-Modified:
-              description: Latest revision number of the requested Logistics Object
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: HTTP-date
-                example: "Tue, 21 Feb 2023 07:28:00 GMT"
-            Latest-Revision:
-              description: Latest revision number of the requested Logistics Object
-              required: true
-              style: simple
-              schema:
-                type: integer
-                format: int64
-            Location:
-              description: Location of the created LogisticsObject
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
+          description: The request to retrieve the AuditTrail has been successful
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/LogisticsObject'
-        "415":
-          description: Unsupported Content Type
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/AuditTrail'
         "301":
           description: The URI of the Logistics Object has permanently changed.
           headers:
@@ -351,91 +409,53 @@ paths:
               style: simple
               schema:
                 type: string
-                format: uri
+                format: uri                
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                
         "401":
           description: Not authenticated
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Error'
-    patch:
-      tags:
-      - Logistics Objects
-      summary: Request a change for a given logistics object
-      operationId: updateLogisticsObject
-      parameters:
-      - name: logisticsObjectId
-        in: path
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/ld+json:
-            schema:
-              $ref: '#/components/schemas/Change'
-        required: true
-      responses:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
         "404":
           description: Logistics Object not found
           content:
             application/ld+json:
               schema:
                 $ref: '#/components/schemas/Error'
-        "201":
-          description: The change was successfully requested
-          headers:
-            Type:
-              description: The type of the newly created resource as a URI
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
-            Location:
-              description: The URI of the submitted ChangeRequest
-              required: true
-              style: simple
-              schema:
-                type: string
-                format: uri
         "415":
           description: Unsupported Content Type
           content:
             application/ld+json:
               schema:
                 $ref: '#/components/schemas/Error'
-        "403":
-          description: Not authorized to update the Logistics Object
+        "500":
+          description: Internal Server Error
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Error'
-        "400":
-          description: The update request body is invalid
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "401":
-          description: Not authenticated
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "422":
-          description: Unprocessable Request
-          content:
-            application/ld+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "204":
-          description: No Content  
+                $ref: '#/components/schemas/Error'                  
   /logistics-objects/{logisticsObjectId}/logistics-events:
     get:
       tags:
       - Logistics Events
       summary: Retrieves the LogisticsEvents of a given LogisticsObject
+      description: Retrieve the list of LogisticsEvents of a given LogisticsObject
       operationId: getLogisticsEvents
       parameters:
       - name: logisticsObjectId
@@ -443,25 +463,94 @@ paths:
         required: true
         schema:
           type: string
+      - name: eventType
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+              type: string    
+          example: [FOF,DEP]
+      - name: created_after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time                    
+      - name: created_before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time  
+      - name: occurred_after
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time  
+      - name: occurred_before
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time                                
       responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
         "200":
-          description: OK
+          description: The request to retrieve the Logistics Events has been successful
           content:
             application/ld+json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LogisticsEvent'
+                $ref: '#/components/schemas/LogisticsEventCollection' 
+        "301":
+          description: The URI of the Logistics Object has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
     post:
       tags:
       - Logistics Events
       summary: Append a LogisticsEvent to the event log of a given LogisticsObject
+      description: Add a LogisticsEvent to a given LogisticsObject
       operationId: appendLogisticsEvent
       parameters:
       - name: logisticsObjectId
@@ -476,39 +565,397 @@ paths:
               $ref: '#/components/schemas/LogisticsEvent'
         required: true
       responses:
+        "201":
+          description: Logistics Event has been created
+          headers:
+            Type:
+              description: Type of the created LogisticsEvent
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the created LogisticsEvent
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: Invalid Logistics Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: LogisticsObject not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+        "500":
+          description: Internal server error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                    
+  /logistics-objects/{logisticsObjectId}/logistics-events/{logisticsEventsId}:
+    get:
+      tags:
+      - Logistics Events
+      summary: Retrieves a LogisticsEvents
+      description: Get a specific LogisticsEvents from a give LogisticsObject
+      operationId: getLogisticsEvent
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: logisticsEventsId
+        in: path
+        required: true
+        schema:
+          type: string         
+      responses:
+        "200":
+          description: The request to retrieve the Logistics Event has been successful
+          headers:
+            Last-Modified:
+              description: The date and time of the most recent change to the Logistics Object
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: HTTP-date
+                example: "Tue, 21 Feb 2023 07:28:00 GMT"
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/LogisticsEvent' 
+        "301":
+          description: The URI of the Logistics Object has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                
+        "302":
+          description: The URI of the Logistics Object has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "404":
+          description: Logistics Object or Logistics Event not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
+  /subscriptions:
+    get:
+      tags:
+      - Subscriptions
+      summary: Get subscription information
+      description: Get a specific subscription object
+      operationId: getSubscription
+      parameters:
+      - name: topicType
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: topic
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: The request to retrieve the Subscription Information has been successful
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        "400":
+          description: The request is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                 
+    post:
+      tags:
+      - Subscriptions
+      summary: Request subscription
+      description: Send a subscription request for a Logistics Object
+      operationId: createSubscriptionRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+        required: true
+      responses:
+        "201":
+          description: The Subscription Request has been created successfully
+          headers:
+            Type:
+              description: Type of the SubscriptionRequest
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the created SubscriptionRequest
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: The request is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'             
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                               
+  /notifications:
+    post:
+      tags:
+      - Notifications
+      summary: Used as callback URL for receiving Notifications
+      description: Post a notification object to a specific host
+      operationId: receiveNotification
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+        required: true
+      responses:
+        "204":
+          description: No Content 
+        "400":
+          description: The request is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                     
         "404":
           description: Not Found
           content:
             '*/*':
               schema:
                 $ref: '#/components/schemas/Error'
-        "201":
-          description: Created
+        "405":
+          description: Method not allowed
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/LogisticsEvent'
+                $ref: '#/components/schemas/Error'                
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                   
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                                                        
+  /access-delegations:
+    post:
+      tags:
+      - Access Delegations
+      summary: Request delegated access on LogisticsObjects
+      description: Request an access delegation on a given LogisticsObjects
+      operationId: createAccessDelegationRequest
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/AccessDelegation'
+        required: true
+      responses:
+        "201":
+          description: Access Delegation Request has been created
+          headers:
+            Type:
+              description: Type of the created Access Delegation Request
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: Location of the created Access Delegation Request
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri        
+        "400":
+          description: Invalid Access Delegation Object
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                    
   /action-requests/{actionRequestId}:
     get:
       tags:
       - Action Requests
       summary: Retrieve an ActionRequest
+      description: Get any type of ActionRequest by the id
       operationId: getActionRequest
       parameters:
       - name: actionRequestId
         in: path
         required: true
         schema:
-          type: string
+          type: string          
       responses:
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/Error'
         "200":
           description: OK
+          headers:
+            Type:
+              description: Type of the retrieved Action Request
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Last-Modified:
+              description: The date and time of the most recent change to the Action Request
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: HTTP-date
+                example: "Tue, 21 Feb 2023 07:28:00 GMT" 
           content:
             application/ld+json:
               schema:
@@ -516,11 +963,133 @@ paths:
                 - $ref: '#/components/schemas/ActionRequest'
                 - $ref: '#/components/schemas/AccessDelegationRequest'
                 - $ref: '#/components/schemas/ChangeRequest'
-                - $ref: '#/components/schemas/SubscriptionRequest'
+                - $ref: '#/components/schemas/SubscriptionRequest'        
+        "301":
+          description: The URI of the Action Request has permanently changed.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                       
+        "302":
+          description: The URI of the Action Request has temporarily moved.
+          headers:
+            Location:
+              description: New location of the LogisticsObject
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri                 
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                  
+    patch:
+      tags:
+      - Action Requests
+      summary: "INTERNAL: Update an ActionRequest"
+      description: Update the status of an ActionRequest 
+      operationId: updateActionRequest
+      parameters:
+      - name: actionRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: string
+          enum: [https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED, https://onerecord.iata.org/ns/api#REQUEST_REJECTED, https://onerecord.iata.org/ns/api#REQUEST_REVOKED]  
+      responses:
+        "204":
+          description: The Action Request was successfully updated
+          headers:
+            Type:
+              description: Type of retrieved Action Request
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: The update request body is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'           
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                
+        "404":
+          description: Action Request not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "422":
+          description: Unprocessable request
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'      
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                            
     delete:
       tags:
       - Action Requests
       summary: Revoke an Action Request
+      description: Revoke an Action Request
       operationId: revokeActionRequest
       parameters:
       - name: actionRequestId
@@ -529,14 +1098,32 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "204":
+          description: The Action Request was successfully deleted         
+        "401":
+          description: Not authenticated
           content:
-            '*/*':
+            application/ld+json:
               schema:
                 $ref: '#/components/schemas/Error'
-        "200":
-          description: OK    
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                
+        "404":
+          description: Action Request not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                        
 components:
   schemas:
     AccessDelegation:
@@ -601,25 +1188,6 @@ components:
             format: date-time
           https://onerecord.iata.org/ns/api#hasAccessDelegation:
             $ref: '#/components/schemas/AccessDelegation'
-    AccessPermission:
-      type: object
-      properties:
-        '@id':
-          type: string
-        '@type':
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        https://onerecord.iata.org/ns/api#hasLogisticsAgent:
-          $ref: '#/components/schemas/LogisticsAgent'
-        https://onerecord.iata.org/ns/api#hasLogisticsObject:
-          $ref: '#/components/schemas/LogisticsObject'
-        https://onerecord.iata.org/ns/api#hasPermission:
-          uniqueItems: true
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
     AccessPermissions:
       type: object
       properties:
@@ -1614,6 +2182,22 @@ components:
           type: string
         https://onerecord.iata.org/ns/cargo#passed:
           type: boolean
+    LogisticsEventCollection:
+      type: object
+      properties:
+        '@id':
+          type: string
+        '@type':
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        https://onerecord.iata.org/ns/api#hasItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogisticsEvent'
+        https://onerecord.iata.org/ns/api#hasTotalItem:
+          type: integer
     CommonObjects:
       type: object
       properties:
@@ -3302,7 +3886,7 @@ components:
           $ref: '#/components/schemas/LogisticsObject'
         https://onerecord.iata.org/ns/api#hasLogisticsObjectType:
           type: string
-          format: uri          
+          format: uri        
         https://onerecord.iata.org/ns/api#isTriggeredBy:
           $ref: '#/components/schemas/ActionRequest'
         https://onerecord.iata.org/ns/api#hasChangedProperty:
@@ -5242,7 +5826,7 @@ components:
           uniqueItems: true
           type: array
           items:
-            $ref: '#/components/schemas/MovementTime'
+            $ref: '#/components/schemas/MovementTimes'
         https://onerecord.iata.org/ns/cargo#operatingTransportMeans:
           $ref: '#/components/schemas/TransportMeans'
         https://onerecord.iata.org/ns/cargo#fuelType:
