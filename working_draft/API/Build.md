@@ -41,7 +41,6 @@ $ rm -rf docs/license.md; cp ../../LICENSE docs/license.md
 $ rm -rf docs/assets/ONE-Record-API-Ontology.ttl; cp ONE-Record-API-Ontology.ttl docs/assets/ONE-Record-API-Ontology.ttl
 $ rm -rf docs/assets/ONE-Record-API-Class-Diagram.md; cp ONE-Record-API-Class-Diagram.md docs/assets/ONE-Record-API-Class-Diagram.md
 $ rm -rf docs/assets/ONE-Record-API-OpenAPI.yaml; cp ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
-$ rm -rf docs/assets/ONE-Record-API-OpenAPI.recommended.yaml; cp ONE-Record-API-OpenAPI.recommended.yaml docs/assets/ONE-Record-API-OpenAPI.recommended.yaml
 $ rm -rf docs/assets/ONE-Record-API-Ontology.csv; cp ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
 $ mkdocs gh-deploy --ignore-version
 $ ln -fs ../CHANGELOG.md docs/changelog.md
@@ -50,7 +49,6 @@ $ mkdir -p docs/assets
 $ ln -fs ../../ONE-Record-API-Ontology.ttl docs/assets/ONE-Record-API-Ontology.ttl
 $ ln -fs ../../ONE-Record-API-Class-Diagram.md docs/assets/ONE-Record-API-Class-Diagram.md
 $ ln -fs ../../ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
-$ ln -fs ../../ONE-Record-API-OpenAPI.recommended.yaml docs/assets/ONE-Record-API-OpenAPI.recommended.yaml
 $ ln -fs ../../ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
 ```
 *This creates / uses the branch gh-pages to deploy the documentation and make it available as GitHub page*
