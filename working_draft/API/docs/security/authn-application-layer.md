@@ -64,7 +64,7 @@ In order to be compliant with ONE Record specification, the JWT token must conta
 ## Payload 
 The payload contains the claims, which are statements about the ONE Record client server or other data. The claims are divided into three types:
 
-- Registered claims: These are predefined claims that are not mandatory but recommended. They include information such as the issuer (iss), subject (sub), audience (aud) and expiration time (exp). Additional registered claims can be found in the (RFC7519 specification)[https://tools.ietf.org/html/rfc7519#section-4.1]
+- Registered claims: These are predefined claims that are not mandatory but recommended. They include information such as the issuer (iss), subject (sub), audience (aud) and expiration time (exp). Additional registered claims can be found in the [RFC7519 specification](https://tools.ietf.org/html/rfc7519#section-4.1)
 
 - Public claims: JWT users have the freedom to define public claims according to their requirements. However, to prevent conflicts, it is recommended to either register these public claims in the IANA JSON Web Token Registry or define them using a URI with a namespace that can withstand collisions.
 
