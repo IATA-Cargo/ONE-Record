@@ -7,7 +7,7 @@ A list of all possible data classes that inherit from Logistics Object can be fo
 !!! note 
     Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
     The reason for this is that _only the holder of the logistics object_ MAY create a logistics object with any business logic or technology. 
-    However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the internet of logistics.
+    However, it is important that the Logistics Object is created with a [Logistics Object URI](concepts.md#logistics-object-uri) that is accessible on the ONE Record network.
 
     Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP POST is the preferred solution to create resources with REST APIs.
 
@@ -140,7 +140,7 @@ This Logistics Objects will be used for the following examples.
 
 # Get a Logistics Object
 
-Each Logistics Object in the Internet of Logistics MUST be accessible via its [Logistics Objects URI](concepts.md#logistics-object-uri) using the HTTP GET method.
+Each Logistics Object MUST be accessible via its [Logistics Objects URI](concepts.md#logistics-object-uri) using the HTTP GET method.
 This enables the Holder of the Logistics Object to manage access on the level of individual Logistics Objects (see [access-control](./security/access-control.md) for more information).
 If the requester is authorized to access this Logistics Object then the response body MUST include the requested Logistics Object.
 

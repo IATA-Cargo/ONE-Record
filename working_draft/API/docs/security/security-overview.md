@@ -1,5 +1,5 @@
 This section describes the mechanisms and guidelines for securing the ONE Record API, 
-which enables the connection between ONE Record clients and servers on the Internet of Logistics. 
+which enables the connection between ONE Record clients and servers on the ONE Record network.
 
 # Background
 
@@ -13,7 +13,7 @@ and in compliance with corporate and local data security requirements.
   <figcaption>Security overview</figcaption>
 </figure>
 
-IT and business experts from the industry from ONE Record Task Force have explored and discussed the different connectivity configurations within the Internet of Logistics and two models – possibly complementary – were retained. 
+IT and business experts from the industry from ONE Record Task Force have explored and discussed the different connectivity configurations within the ONE Record network and two models – possibly complementary – were retained. 
 
 ONE Record Security specifications are built around two concepts: mutual TLS (short for Transport Layer Security) and OAuth2 (an authorization protocol). 
 Mutual TLS secures all the Node-to-Node channels whereas OAuth2 adds an extra security layer for identification and authentication.

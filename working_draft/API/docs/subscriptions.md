@@ -67,7 +67,7 @@ classDiagram
 Two scenarios were identified for initiating the publish/subscribe process:
 
 1) [Publisher initiates Subscription](#get-subscription-information-as-publisher): 
-After creating and publishing an Logistics Object to the Internet of Logistics, the publisher wants to subscribe another organization to receive Notifications about the newly created Logistics Object.
+After creating and publishing an Logistics Object, the publisher wants to subscribe another organization to receive Notifications about the newly created Logistics Object.
 
 2) [Subscriber initiates Subscription](#subscribe-to-logistics-objects): 
 An organization wants to receive Notifications about a specific Logistics Object or a type of Logistics Objects.

@@ -2,7 +2,7 @@ This section lists general principles and best practices for the implementation 
 The lists are inspired by other API principles (e.g. [SBB](https://schweizerischebundesbahnen.github.io/api-principles/),
 [Zalando](https://opensource.zalando.com/restful-api-guidelines/), [adidas](https://adidas.gitbook.io/api-guidelines/))
 
-This section provides guidelines that MUST be followed by an implementer of the ONE Record API to ensure maximum compatibility with other ONE Record servers and clients on the Internet of Logistics.
+This section provides guidelines that MUST be followed by an implementer of the ONE Record API to ensure maximum compatibility with other ONE Record servers and clients on the ONE Record network.
 These principles MUST be followed in order to be compliant to the ONE Record standard, when implementing and publishing a ONE Record server.
 
 This section provides also common knowledge and best practices for the implementation of REST APIs in general and the ONE Record API in particular.
@@ -165,7 +165,7 @@ Some possible changes to the ONE Record API specification COULD be:
 - Addition of new API endpoint
 - Removal of an existing API endpoint
 
-Because the URI of a Logistics Object in the Internet of Logistics MUST NOT be changed (cf. [Logistics Object URI](concepts.md#logistics-object-uri)), 
+Because the URI of a Logistics Object MUST NOT be changed (cf. [Logistics Object URI](concepts.md#logistics-object-uri)), 
 an API versioning via URI Path is **not** possible, e.g. 
 [http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b](http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b)
 
@@ -420,7 +420,7 @@ It is RECOMMENDED to provide a technical documentation of the implemented and re
 
 # Security
 
-The ONE Record API specification prescribes only the minimum security requirements that enable secure communication in the Internet of Logistics. 
+The ONE Record API specification prescribes only the minimum security requirements that enable secure communication in the IONE Record network. 
 This involves securing the communication channel, authentication (verifying the identity of a requestor) and authorization (checking the access right of the requestor). 
 More information on authentication and authorization in the ONE Record context is described in the [Security section](security/security-overview.md).
 

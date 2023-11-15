@@ -2,7 +2,7 @@ In ONE Record, parties can grant other parties access to their data (or parts of
 The ONE Record standard allows parties to change or revoke these access rights to their data whenever they wish.
 
 Before an organization can access a LogisticsObject of another organization, it needs to be authorized to do so and the server that hosts the logistics objects will determine whether to grant access.
-Typically, when an participant in the Internet of Logistics creates a LogisticsObject and makes it available via its ONE Record API, the IoL participant will share the URI of that LogisticsObject with another IoL participant and grant them access by default.
+Typically, when an participant creates a LogisticsObject and makes it available via its ONE Record API, the IoL participant will share the URI of that LogisticsObject with another IoL participant and grant them access by default.
 
 For example, a freight forwarder creates a [Shipment](https://onerecord.iata.org/ns/cargo#Shipment), grants read access to an airline, and then sends the URI of the Logistics Object via a ONE Record Notification or other channel to the airline.
 At this point, only the forwarder and the airline can access this specific LogisticsObject, but no one else.
@@ -161,7 +161,7 @@ Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 # Trust Chains
 
 Trust chains are based on business partnerships and trust in the transport chain. 
-It ensures that the company who has shared a logistics object on the Internet of Logistics, always knows who MAY access the data and at any time, it can revoke all or part of the chain of trust.
+It ensures that the company who has shared a logistics object, always knows who MAY access the data and at any time, it can revoke all or part of the chain of trust.
 
 Therefore, the concept described in the previous sections can be used by organizations to delegate access to their partners, which become 3rd parties.
 In the example above, the airline can request that the forwarder gives access to their ground handler. 

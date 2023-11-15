@@ -170,7 +170,7 @@ _([examples/Error_404.json](examples/Error_404.json))_
 
 # Get a Logistics Event
 
-Each Logistics Event in the Internet of Logistics MUST be accessible via its [Logistics Event URI](#logistics-events-uri) using the HTTP GET method.
+Each Logistics Event MUST be accessible via its [Logistics Event URI](#logistics-events-uri) using the HTTP GET method.
 This enables the Holder of the Logistics Object to manage access on the level of individual Logistics Event (see [Access Control page](./security/access-control.md) for more information).
 If the requester is authorized to access this Logistics Event then the response body MUST include the requested Logistics Event.
 

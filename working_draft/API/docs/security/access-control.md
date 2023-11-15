@@ -40,7 +40,7 @@ Each Authorization is a single rule for access, such as "entities A and B may wr
 
 In the context of ONE Record, three types of authorization can be identified:
 
-1. **Single Authorization** – when a single organization (identified by its Organization URI) from the Internet of Logistics has access to a Logistics Object.
+1. **Single Authorization** – when a single organization (identified by its Organization URI) from the ONE Record network has access to a Logistics Object.
 2. **Group Authorization** – when a group of organizations has access to the Logistics Object. The ONE Record Server can define internally groups of access such as Airlines, Ground Handlers, Customs, etc.
 3. **Public Authorization** – when every authenticated organization can access the Logistics Object URI can retrieve the data.
 

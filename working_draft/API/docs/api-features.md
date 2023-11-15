@@ -3,7 +3,7 @@ The following features summarize all of the ONE Record API features
 
 **Get ONE Record Server Information** Anyone who has access to a ONE Record server can retrieve the technical server meta information that contains information about supported features, supported ONE Record API version, supported ONE Record data model version, etc.
 
-**Create and publish a Logistics Object** - Anyone who controls a ONE Record server can create a new Logistics Object based on the ONE Record data model specification. Once created the Logistics Object is associated with a unique URI that makes the Logistics Object available in the Internet of Logistics.
+**Create and publish a Logistics Object** - Anyone who controls a ONE Record server can create a new Logistics Object based on the ONE Record data model specification. Once created the Logistics Object is associated with a unique URI that makes the Logistics Object available on the network.
 
 **Read a Logistics Object** - Logistics Objects can be retrieved by calling the URI of that Logistics Object - its Logistics Object URI. Access rights to that Logistics Object URI is managed by the Holder of the Logistics Object.
 
@@ -11,9 +11,9 @@ The following features summarize all of the ONE Record API features
 
 **Subscribe to a Logistics Object for updates** - Once a Logistics Object has been created, the holder can propose subscriptions to other parties who will then be notified of any changes. Other parties may also request such a subscription at the discretion of the holder.
 
-**Create Logistics Event linked with Logistics Objects** - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the Internet of Logistics with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.
+**Create Logistics Event linked with Logistics Objects** - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.
 
-**Read Logistics Event linked to a Logistics Object** - Every participant of the Internet of Logistics with sufficient permissions, can also query the Logistics Events associated with a Logistics Object.
+**Read Logistics Event linked to a Logistics Object** - Every participant of the network with sufficient permissions, can also query the Logistics Events associated with a Logistics Object.
 
 **Manage access to a Logistics Object** - Another fundamental principle of ONE Record is that only holders of Logistics Objects have fully control access rights to that Logistics Object. Therefore, only the holder of a Logistics Object can delegate permissions to users of the Logistics Object.
 
