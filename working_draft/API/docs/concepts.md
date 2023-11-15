@@ -1,8 +1,3 @@
-## Internet of Logistics (IoL)
-
-The overall objective is to create the foundation for a global industry data architecture that allows all participants in the logistics and transport industry to exchange data necessary for the planning and execution of their logistics activities.
-This global ecosystem for logistics and transportation data is called the `Internet of Logistics` and is expected to offer countless opportunities for digital transformation and innovation.
-
 ## ONE Record API
 
 The ONE Record API specifies the interface and interactions via standardized Web Application Programming Interface (API), which allows all participants in the Internet of Logistics to connect their IT systems to the IT systems of their partners, using state of the art web technologies.
