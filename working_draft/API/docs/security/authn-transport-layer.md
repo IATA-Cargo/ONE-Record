@@ -1,5 +1,5 @@
 # Transport Layer Security (TLS)
-Securing data exchange in the ONE Record network and particular with ONE Record is NOT optional. 
+Securing data exchange in the ONE Record network is NOT optional. 
 One way to secure the communication channel on transport layer is using TLS.
 TLS stands for Transport Layer Security. It is a cryptographic protocol that provides secure communication over the internet. 
 TLS is the successor to the earlier SSL (Secure Sockets Layer) protocol, and is used to secure a wide range of internet communications, including email, instant messaging, virtual private networks (VPNs), and e-commerce transactions. 
