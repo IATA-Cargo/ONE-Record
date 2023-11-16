@@ -28,6 +28,7 @@ The following features summarize all of the ONE Record API features
 | HTTP Methods     | API Endpoint       | API Function                           |
 | ---------------- | -------------------------------------- |   -------- |
 | GET              | /                  | Retrieve ServerInformation             |
+| POST              | /logistics-objects/ | Create Logistics Object. This endpoint could be either internal or not implemented.             |
 | GET, PATCH       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object and links to related resources                       |
 | GET              | /logistics-objects/{logisticsObjectId}/audit-trail      | Retrieve Audit Trail of a Logistics Object                 |
 | GET, POST        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
