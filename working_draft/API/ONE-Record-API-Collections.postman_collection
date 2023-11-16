@@ -74,12 +74,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										""
 									]
@@ -188,12 +186,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects"
 									]
@@ -266,7 +262,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\",\n    \"cargo:shipmentOfPieces\": [{\n        \"@type\": \"cargo:Piece\",\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\"\n    }]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\",\n    \"cargo:containedPieces\": [{\n        \"@type\": \"cargo:Piece\",\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\"\n    }]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -400,12 +396,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId"
@@ -413,7 +407,7 @@
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "f22976dc-676d-472e-bd28-24604ed082dd"
+											"value": "{{pieceId}}"
 										}
 									]
 								}
@@ -584,7 +578,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"http://localhost:8080/logistics-objects/7c24adc7-b334-45a4-9bb2-8c2421e62979\"\n    },\n    \"api:hasDescription\": \"Update goods description and coload\",\n    \"api:hasOperation\": [{\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:ADD\" },\n            \"api:s\": \"http://localhost:8080/logistics-objects/7c24adc7-b334-45a4-9bb2-8c2421e62979\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#goodsDescription\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\n                \"api:hasValue\": \"ONE Record Advertisement Materials\"\n            }]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:DELETE\" },\n            \"api:s\": \"http://localhost:8080/logistics-objects/7c24adc7-b334-45a4-9bb2-8c2421e62979\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#coload\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n                \"api:hasValue\": \"false\"\n            }]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:ADD\" },\n            \"api:s\": \"http://localhost:8080/logistics-objects/7c24adc7-b334-45a4-9bb2-8c2421e62979\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#coload\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n                \"api:hasValue\": \"true\"\n            }]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"1\"\n    }\n}\n",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\"\n    },\n    \"api:hasDescription\": \"Update goods description and coload\",\n    \"api:hasOperation\": [{\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:ADD\" },\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#goodsDescription\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\n                \"api:hasValue\": \"ONE Record Advertisement Materials\"\n            }]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:DELETE\" },\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#coload\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n                \"api:hasValue\": \"false\"\n            }]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": { \"@id\": \"api:ADD\" },\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#coload\",\n            \"api:o\": [{\n                \"@type\": \"api:OperationObject\",\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n                \"api:hasValue\": \"true\"\n            }]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"1\"\n    }\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -592,12 +586,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticObjectId",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticObjectId",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticObjectId"
@@ -605,7 +597,7 @@
 									"variable": [
 										{
 											"key": "logisticObjectId",
-											"value": "7c24adc7-b334-45a4-9bb2-8c2421e62979"
+											"value": "{{pieceId}}"
 										}
 									]
 								}
@@ -978,12 +970,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId/audit-trail",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/audit-trail",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId",
@@ -992,7 +982,7 @@
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "f22976dc-676d-472e-bd28-24604ed082dd"
+											"value": "{{pieceId}}"
 										}
 									]
 								}
@@ -1082,12 +1072,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId?at=20230807T143832Z",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId?at={{historicalDate}}",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId"
@@ -1095,13 +1083,13 @@
 									"query": [
 										{
 											"key": "at",
-											"value": "20230807T143832Z"
+											"value": "{{historicalDate}}"
 										}
 									],
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "f22976dc-676d-472e-bd28-24604ed082dd"
+											"value": "{{pieceId}}"
 										}
 									]
 								}
@@ -1114,7 +1102,7 @@
 					]
 				}
 			],
-			"description": "This folder contains all the APIs to manipulate logistics objects in ONE Record. For more information visit : [ONE Record Logistics Objects](https://iata-cargo.github.io/ONE-Record/logistics-objects/#example-a3)"
+			"description": "This folder contains all the APIs to manipulate logistics objects in ONE Record. For more information visit : [ONE Record Logistics Objects](https://iata-cargo.github.io/ONE-Record/logistics-objects/)"
 		},
 		{
 			"name": "Logistics Events",
@@ -1178,7 +1166,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": \"DEP\",\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": \"Actual\",\r\n    \"cargo:linkedObject\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"http://localhost:8080/logistics-objects/a76e06f0-0662-4602-817e-9ee4fac82b35\"\r\n    },\r\n    \"cargo:recordedBy\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"http://localhost:8080/logistics-objects/f22976dc-676d-472e-bd28-24604ed082dd\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": \"DEP\",\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": \"Actual\",\r\n    \"cargo:linkedObject\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordedBy\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1186,12 +1174,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId/logistics-events",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/logistics-events",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId",
@@ -1200,7 +1186,7 @@
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "a76e06f0-0662-4602-817e-9ee4fac82b35"
+											"value": "{{shipmentId}}"
 										}
 									]
 								}
@@ -1326,12 +1312,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId/logistics-events/:logisticsEventId",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/logistics-events/:logisticsEventId",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId",
@@ -1341,11 +1325,11 @@
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "a76e06f0-0662-4602-817e-9ee4fac82b35"
+											"value": "{{shipmentId}}"
 										},
 										{
 											"key": "logisticsEventId",
-											"value": "61454dfe-94c7-4659-b324-e0d7f45b50e6"
+											"value": "{{LEId}}"
 										}
 									]
 								}
@@ -1466,12 +1450,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/logistics-objects/:logisticsObjectId/logistics-events/",
-									"protocol": "http",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/logistics-events/",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "8080",
 									"path": [
 										"logistics-objects",
 										":logisticsObjectId",
@@ -1481,7 +1463,7 @@
 									"variable": [
 										{
 											"key": "logisticsObjectId",
-											"value": "a76e06f0-0662-4602-817e-9ee4fac82b35"
+											"value": "{{shipmentId}}"
 										}
 									]
 								}
@@ -1887,7 +1869,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\r\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\r\n    },\r\n    \"@type\": \"api:AccessDelegation\",\r\n    \"api:hasDescription\": \"Our GHA requires read access to Piece for handling\",\r\n    \"api:hasPermission\": [{\r\n            \"@id\": \"api:GET_LOGISTICS_OBJECT\"\r\n        }\r\n    ],\r\n    \"api:isRequestedFor\": [{\r\n        \"@id\": \"https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbdb\"\r\n    }],\r\n    \"api:notifyRequestStatusChange\": false,\r\n    \"api:hasLogisticsObject\": [{\r\n        \"@id\": \"http://localhost:8080/logistics-objects/d9c5d757-81d8-49fc-b7df-0addd0d55555\"\r\n    }]\r\n}"
+							"raw": "{{Add here your request body. See Examples}}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/access-delegations",
