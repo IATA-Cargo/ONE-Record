@@ -11,6 +11,7 @@ This ONE Record data model release is the result of the work achieved by the ded
 * [Vizualisation of the Data Model](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/1R%20Data%20Model%20-%20December%202023%20-%203.0.0.pdf)
 * [Core Ontology](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1R-DM-Ontology.ttl)
 * [Code List Ontology](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl)
+* [Scope Extension document](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1RDM-ScopeExtension.md)
 
 ### Scope of the release
 This release includes improvements and scope extensions. More details on the release can be found in the [ChangeLog](https://github.com/IATA-Cargo/ONE-Record/blob/master/December-2022-standard/Data-Model/IATA-1R-DM-ChangeLog-vCOTB-December2022.md)
