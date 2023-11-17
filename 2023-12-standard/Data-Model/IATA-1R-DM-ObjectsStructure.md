@@ -2,8 +2,6 @@
 # ONE Record Data Model
 ## ONE Record Ontology and Objects structure
 
-/// Work in progress ///
-
 ### 1. Introduction
 #### 1.1. Purpose of this document
 This document has been produced by the ONE Record Data Model expert group, part of the ONE Record Task Force, under the Cargo Services Conference (CSC) governance. It describes the Objects structure of ONE Record Data Model and gives an insight on the Ontology structural choices that have been made.
