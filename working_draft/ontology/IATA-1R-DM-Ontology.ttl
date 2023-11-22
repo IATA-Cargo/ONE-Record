@@ -10,12 +10,12 @@
 @base <https://onerecord.iata.org/ns/cargo> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.1> ;
                                        owl:imports <https://onerecord.iata.org/ns/coreCodeLists/1.0.0> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "20-11-2023" ;
+                                       terms:modified "22-11-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 
@@ -45,7 +45,7 @@ Cleanup
 - Homogenization of class and property names, prefixes and general bugfixes"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.0"@en .
+                                       owl:versionInfo "3.0.1"@en .
 
 #################################################################
 #    Annotation properties
@@ -1146,7 +1146,7 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#inUnitComposition
 :inUnitComposition rdf:type owl:ObjectProperty ;
                    rdfs:range :UnitComposition ;
-                   dc:description "Reference to the Unit Composition the LoadingUnit is in"@en ;
+                   rdfs:comment "Reference to the Unit Composition the LoadingUnit is in"@en ;
                    rdfs:label "inUnitComposition"@en ;
                    owl:comment "Domain :LoadingUnit"@en .
 
@@ -1930,6 +1930,7 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#resultOfCheck
 :resultOfCheck rdf:type owl:ObjectProperty ;
                rdfs:range :Check ;
+               rdfs:comment "Reference to the Check this is the Result of"@en ;
                rdfs:label "resultOfCheck"@en ;
                owl:comment "Domain :CheckTotalResult"@en .
 
@@ -2129,16 +2130,16 @@ AOM - Subjected to any other means: this entry should be followed by free text s
 ###  https://onerecord.iata.org/ns/cargo#subLocationOf
 :subLocationOf rdf:type owl:ObjectProperty ;
                rdfs:range :Location ;
-               dc:title "subLocationOf"@en ;
                rdfs:comment "Reference to the Location this is a Sublocation of"@en ;
+               rdfs:label "subLocationOf"@en ;
                owl:comment "Domain :Location"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#subLocations
 :subLocations rdf:type owl:ObjectProperty ;
               rdfs:range :Location ;
-              dc:title "subLocations"@en ;
               rdfs:comment "References to Sublocations that describe the Location in more detail"@en ;
+              rdfs:label "subLocations"@en ;
               owl:comment "Domain :Location"@en .
 
 
@@ -2851,8 +2852,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
 ###  https://onerecord.iata.org/ns/cargo#commodityItemNumberForRate
 :commodityItemNumberForRate rdf:type owl:DatatypeProperty ;
                             rdfs:range xsd:string ;
-                            rdfs:comment "Indicates the specific commodity on which the rate class code is applied"@en ,
-                                         "commodityItemNumberForRate"@en ;
+                            rdfs:comment "Indicates the specific commodity on which the rate class code is applied"@en ;
+                            rdfs:label "commodityItemNumberForRate"@en ;
                             owl:comment "Domain :WaybillLineItem"@en .
 
 
