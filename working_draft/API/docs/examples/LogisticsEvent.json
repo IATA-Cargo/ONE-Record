@@ -11,14 +11,19 @@
         "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
         "@value": "2023-04-01T10:38:01.000Z"
     },
-    "cargo:eventCode": "DEP",
+    "cargo:eventCode": {
+        "@type": "cargo:CodeListElement",
+        "cargo:code": "DEP",
+        "cargo:codeListName": "Departure"
+    },
     "cargo:eventName": "Consignment departed on a specific flight",
-    "cargo:eventTimeType": "Actual",
-    "cargo:linkedObject": {
+    "cargo:eventTimeType": "cargo:ACTUAL",
+    "cargo:partialEventIndicator": false,
+    "cargo:eventFor": {
         "@type": "cargo:Shipment",
         "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c"
     },
-    "cargo:recordedBy": {
+    "cargo:recordingOrganization": {
         "@type": "cargo:Company",
         "@id": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda"
     }
