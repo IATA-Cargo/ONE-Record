@@ -244,7 +244,7 @@ The following query parameters MUST be supported:
 
 | Query parameter   | Description                         | Valid values        |
 | ----------------- |    -------------------------------- |   ------------- |
-| **status**      | A parameter used to configure the status of an Action request. This operation modifies the status of the Action Request based on the value specified in the status parameter.  | <ul><li>https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED</li><li>https://onerecord.iata.org/ns/api#REQUEST_REJECTED</li><li>https://onerecord.iata.org/ns/api#REQUEST_REVOKED</li></ul> |
+| **status**      | A parameter used to configure the status of an Action request. This operation modifies the status of the Action Request based on the value specified in the status parameter.  | <ul><li>https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED or REQUEST_ACCEPTED</li><li>https://onerecord.iata.org/ns/api#REQUEST_REJECTED or REQUEST_REJECTED</li><li>https://onerecord.iata.org/ns/api#REQUEST_REVOKED or REQUEST_REVOKED</li></ul> |
 
 The following HTTP header parameters MUST be present in the request:
 
