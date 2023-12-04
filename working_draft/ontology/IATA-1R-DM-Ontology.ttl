@@ -15,9 +15,14 @@
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "22-11-2023" ;
+                                       terms:modified "04-12-2023" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
+
+
+Version 3.0.1
+- Changed RegEx-pattern of waybillNumber to [A-Z0-9]+
+- Fixed documentation/annotation properties
 
 Version 3.0.0
 
@@ -4326,7 +4331,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :waybillNumber rdf:type owl:DatatypeProperty ;
                rdfs:range [ rdf:type rdfs:Datatype ;
                             owl:onDatatype xsd:string ;
-                            owl:withRestrictions ( [ xsd:pattern "[-9]+"
+                            owl:withRestrictions ( [ xsd:pattern "[A-Z0-9]+"
                                                    ]
                                                  )
                           ] ;
