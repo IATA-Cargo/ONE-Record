@@ -8,7 +8,7 @@ Logistics events are events related to the management and execution of transport
 - Every Logistics Events MUST an URI, that follows the following structure: 
     - {{baseURL}}/logistics-object/{{logisticsObjectId}}/logistics-events/{{logisticsEventId}} where {{logisticsEventId}} is an identifier which can be globally unique and must be unique in the context of its parent Logistics Object
 - A Logistics Event MUST be linked to exactly one Logistics Object
-- Every Logistics Event MUST have a property `occuredAt (xsd:dateTime)`
+- Every Logistics Event MUST have a property `eventDate (xsd:dateTime)`
 
 # Logistics Events URI
 
@@ -63,17 +63,27 @@ classDiagram
     class ExternalReference{        
     }  
     
+    class EventTimeType{   
+        <<Enumeration>>
+        ACTUAL
+        ESTIMATED
+        EXPECTED
+        PLANNED
+        REQUESTED   
+    }  
+
     class LogisticsEvent{
+        + partialEventIndicator: xsd:boolean [0..1]
         + creationDate: xsd:dateTime [0..1]
         + eventCode: xsd:string [0..1]
         + eventDate: xsd:dateTime [0..1]
         + eventName: xsd:string [0..1]
-        + eventTimeType: xsd:string [0..1]
-        + externalReferences: ExternalReference
-        + linkedObject: LogisticsObject [0..1]
-        + recordedAtLocation: Location [0..1]
-        + recordedBy: Organization [0..1]
-        + recordedByActor: Actor [0..1]
+        + eventTimeType: EventTimeType [0..1]
+        + externalReferences: ExternalReference 
+        + eventFor: LogisticsObject [0..1]
+        + eventLocation: Location [0..1]
+        + recordingOrganization: Organization [0..1]
+        + recordingActor: Actor [0..1]
 
     }
     LogisticsEvent "1" --> "0..*" ExternalReference
@@ -81,6 +91,7 @@ classDiagram
     LogisticsEvent "1" --> "0..1" Location
     LogisticsEvent "1" --> "0..1" Organization
     LogisticsEvent "1" --> "0..1" Actor
+    LogisticsEvent "1" --> "0..1" EventTimeType
 ```
 
 ## Response

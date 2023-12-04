@@ -20,6 +20,7 @@ This release includes improvements and scope extensions. More details on the rel
 * Redesign of Organization and Actor modelling based on FOAF standard ad w3c recommended practices
 * Redesign of Distribution scope with new objects and review of data and object properties
 * Removal of old deprecated objects and data properties
+* Redesign of enumerations and code lists with the addition of CodeListElement object and dedicated Code List ontology
 
 ### Comments
 As with previous releases of the Data Model, this is still a work in progress and improvements can, and will, be made after the endorsement by the COTB. Note that all data properties that are to be removed are set as deprecated in the ontology for backward compatibility purposes. These will be deleted for next version.

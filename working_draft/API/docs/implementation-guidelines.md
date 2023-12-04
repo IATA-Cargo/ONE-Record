@@ -42,6 +42,7 @@ During the implementation phase, it is highly recommended to utilize a JSON-LD l
 
 - JavaScript: 
     - [https://rdf.js.org](https://rdf.js.org)
+    - [jsonld.js](https://github.com/digitalbazaar/jsonld.js)
 - Java 
     - [https://rdf4j.org](https://rdf4j.org)
     - [https://jena.apache.org](https://jena.apache.org)

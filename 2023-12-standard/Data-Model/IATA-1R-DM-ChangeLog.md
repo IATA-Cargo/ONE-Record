@@ -39,9 +39,6 @@ For instance if 5 pieces were intended to be loaded onto a flight and only 4 of 
 #### Company / Organization
 The model for organizations is taken from the W3 model: https://www.w3.org/TR/vocab-org/#description.
 
-#### tbd
-tbd
-
 
 ### Detailed changelog
 #### 3.0.0 RC4.1:
