@@ -336,7 +336,7 @@ Payload:
 ```json
 {
   "iss": "https://auth.example.com",
-  "onerecord_company_id": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
+  "logistics_agent_uri": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
   "exp": "2023-03-031T10:38:01.000Z"  
 }
 ```
