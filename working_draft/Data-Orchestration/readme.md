@@ -35,3 +35,14 @@ The Activites, as defined in the MOP, are sequential although there could be som
 * Defining API calls and content
 
 ### 2.2. Starting from the milestones
+A Milestone, from Cargo iQ perspective is:
+> A planned checkpoint in a route map indicating the latest time by which an event or events are expected to happen at a given location.
+
+Milestones are used in the Data Orchestration as the latest time by which we need to ensure that certain mechanisms or data are made avaialble to other stakeholders. In current messaging environment, milestones are converted into:
+* Providing status update though (X)FSU messages with dedicated status codes
+* Sending Waybill data through (X)FWB and (X)FZB
+* Sending booked freight list and manifest through (X)FBL and (X)FFM
+
+For the analysis with the Data Orchestration our main objective is to ensure that all those mechanisms and messages are mapped with ONE Record, it ususally relies on:
+* Mapping (X)FSU message with a dedicated LogisticsEvent
+* Making sure a proper set of data is available and shared accordingly as a replacement of a message
