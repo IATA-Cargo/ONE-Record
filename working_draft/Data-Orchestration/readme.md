@@ -35,6 +35,13 @@ The Activites, as defined in the MOP, are sequential although there could be som
 * Defining API calls and content
 
 ### 2.2. Starting from the milestones
+
+<p align="center">
+<img src="https://github.com/IATA-Cargo/ONE-Record/assets/58464775/e517f1a1-2906-4fc1-b124-960b4dd10f99">
+</p>
+<p align="center"><i>From the milestones to the Data Model</i></p>
+
+
 A Milestone, from Cargo iQ perspective is:
 > A planned checkpoint in a route map indicating the latest time by which an event or events are expected to happen at a given location.
 
