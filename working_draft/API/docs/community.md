@@ -16,7 +16,7 @@ Issues on the ONE Record API specification are tracked in GitHub:
 
 - [Henk Mulder](https://github.com/edesignextended), IATA
 - [Daniel A. Döppner](https://github.com/ddoeppner), Lufthansa Industry Solutions
-- [Davide Alocci](https://github.com/alodavide), IATA
+- [Davide Alocci](https://github.com/aloccid-iata), IATA
 
 # Contributors
 
