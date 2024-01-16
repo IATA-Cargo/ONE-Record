@@ -22,9 +22,9 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 
 # Document Version
 
-**Version:** 2.0.0-dev 
+**Version:** 2.0.0
 
-**Status:** Draft; not yet approved by the COTB / CSC
+**Status:** Approved by COTB on December 2023
 
 !!! note
     This document is a draft and is subject to edits. 
