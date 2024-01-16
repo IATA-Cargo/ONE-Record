@@ -24,17 +24,16 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 
 **Version:** 2.0.0
 
-**Status:** Approved by COTB on December 2023
+**Status:** Endorsed by COTB on December 2023
 
 !!! note
-    This document is a draft and is subject to edits. 
     Discussion on this specification is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
-    The version of the ONE Record API specification is incremented when the API specifications are endorsed by the IATA Cargo Operations Technology Board (COTB). The first version (v1.0) of the API specification was released in Aug 2020 (endorsed in Mar 2020).
+    The version of the ONE Record API specification is incremented when the API specifications are endorsed by the IATA Cargo Operations Technology Board (COTB).
 
 ## Dependencies
 
 The ontology of the ONE Record API uses data classes defined in the ONE Record cargo ontology. 
-Therefore, this ONE Record API version 2.0.0-dev requires the ONE Record cargo ontology 3.0.0 or later.
+Therefore, this ONE Record API version 2.0.0 requires the ONE Record cargo ontology 3.0.0 or later.
 
 # Conventions
 
