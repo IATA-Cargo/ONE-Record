@@ -1,6 +1,6 @@
 # ONE Record API Class Diagram
 
-**Version:** 2.0.0-dev **Status:** Draft; not yet approved by the COTB / CSC
+**Version:** 2.0.0 **Status:** Endorsed by COTB on December 2023
 
 ```mermaid
 classDiagram   
