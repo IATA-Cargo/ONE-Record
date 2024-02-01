@@ -37,4 +37,6 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 ## Scope of the release
 This release includes improvements and selected feature redesign. More details on the release can be found in the [ChangeLog](assets/changelog.md)
 
+## Additional Information
 
+You can discover more details about the API and security aspects of ONE Record by visiting the following link: https://iata-cargo.github.io/ONE-Record/
