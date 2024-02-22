@@ -24,3 +24,35 @@ The selected messages for mapping are the following:
 | XFFM | XML Flight Manifest Message | 4.00 | - |
 | XFBL | XML Freight Booked List Message | 3.00 | - |
 | XTMV | XML Transport Movement Message | 2.00 | ? |
+
+## 2. XFWB Mapping
+### 2.1. Proposed mechanism
+Security? Auth? Legal impact?
+XFWB data fields are mostly a mix of Waybill, Shipment, Pieces and TransportMovement data in ONE Record realm.
+
+
+## 3. XFZB Mapping
+
+## 4. XFHL Mapping
+
+## 5. XSDG Mapping
+
+## 6. XFSU Mapping
+### 6.1. Proposed mechanism
+XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
+In most cases, the Status updates is based on the usage of LogisticsEvents on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
+
+In case of **full shipment** status update, the LogisticsEvents can be added on the Shipment or on all the Pieces. Both scenarios are valid.
+
+**Specific case of split shipment**:
+With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
+To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
+* If pieces cannot be properly identified, recommendation would be to use LogisticsEvent on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
+* If pieces can be properly identified, it is recommended to use LogisticsEvent on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+
+## 7. XFFM Mapping
+
+## 8. XFBL Mapping
+
+## 9. XTMV Mapping
+(To be discussed)
