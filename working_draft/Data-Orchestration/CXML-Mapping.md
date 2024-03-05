@@ -27,9 +27,16 @@ The selected messages for mapping are the following:
 
 ## 2. XFWB Mapping
 ### 2.1. Proposed mechanism
-Security? Auth? Legal impact?
-XFWB data fields are mostly a mix of Waybill, Shipment, Pieces and TransportMovement data in ONE Record realm.
+XFWB data fields are mostly a mix of `Waybill`, `WaybillLineItem`, `Shipment`, `Pieces` and `TransportMovement` data in ONE Record realm.
 
+[Auth, Security in progress]
+
+### 2.2. Usage of WaybillLineItem object
+At first it was proposed to use the `Shipment` and `Piece` objects to populate the Waybill line items. However examples have shown that the line items do not necessarily correlate to actual Pieces transported, for instance Dry Ice can be interpreted as a specific line item due to a specific rate while on the operations the package, containing dry ice and transported goods, are equivalent to one `Piece`.
+
+It was decided to introduce the `WaybillLineItem` object to properly share rate data as required in the Air Waybill. The `WaybillLineItem` has a n-to-1 relationship with a `Waybill` object and represents the different line items on the paper waybill with all their specifities based on the type of rating used.
+
+It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
 ## 3. XFZB Mapping
 
