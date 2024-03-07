@@ -21,7 +21,7 @@
 For a detailed Changelog, see CHANGELOG.md in API directory in GitHub"""@en ;
                                      rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                      rdfs:label "ONE Record API Ontology"@en ;
-                                     owl:versionInfo "2.0.0-dev" .
+                                     owl:versionInfo "2.0.1-dev" .
 
 #################################################################
 #    Annotation properties
@@ -739,6 +739,10 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
             rdfs:subClassOf [ rdf:type owl:Restriction ;
                               owl:onProperty :hasItem ;
                               owl:someValuesFrom owl:Thing
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasTotalItems ;
+                              owl:allValuesFrom xsd:nonNegativeInteger
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :hasTotalItems ;
