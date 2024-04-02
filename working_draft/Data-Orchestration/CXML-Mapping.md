@@ -38,6 +38,11 @@ It was decided to introduce the `WaybillLineItem` object to properly share rate 
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
+### 2.3. Usage of OtherCharge object
+The `OtherCharge` object is used to record all charges, it refers to `<ram:ApplicableLogisticsAllowanceCharge>` grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.
+
+Totals are not directly recorded in ONE Record as they can be directly calculated based on the existing data (e.g. filtering by type of charge and prepaid/collect indicator).
+
 ## 3. XFZB Mapping
 
 ## 4. XFHL Mapping
