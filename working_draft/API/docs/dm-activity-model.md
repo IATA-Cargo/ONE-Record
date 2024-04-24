@@ -10,7 +10,7 @@ This page details the core concepts including examples.
 
 A `LogisticsService` (a subtype of `LogisticsObject`) describes a set of scheduled and sequenced `LogisticsActivities` provided by one party to another.
 
-<img src="./img/DM-ActivityModel-LogisticsService.png" style="scale: 100%">
+<img src="./img/DM-ActivityModel-LogisticsService.jpg" style="scale: 100%">
 
 # LogisticsActivity
 
@@ -20,7 +20,7 @@ Some activities are directly bound to a specific `PhysicalLogisticsObject`.
 It can be part of one or multiple `LogisticsServices`. 
 It has an execution status that is actively maintained.
 
-<img src="./img/DM-ActivityModel-LogisticsActivity.png" style="scale: 100%">
+<img src="./img/DM-ActivityModel-LogisticsActivity.jpg" style="scale: 100%">
 
 # LogisticsAction
 
@@ -28,7 +28,7 @@ A `LogisticsAction` (a subtype of `LogisticsObject`) describes a specific task p
 `LogisticsActions` serve the purpose of connecting different `PhysicalLogisticsObjects` to each other and to an `LogisticsActivity`.
 It is set at a specific point in time. This can also be a time frame (start and end time). The time type can be either requested, planned or actual.
 
-<img src="./img/DM-ActivityModel-LogisticsAction.png" style="scale: 100%">
+<img src="./img/DM-ActivityModel-LogisticsAction.jpg" style="scale: 100%">
 
 # PhysicalLogisticsObject
 
@@ -36,4 +36,4 @@ A `PhysicalLogisticsObject` (a subtype of `LogisticsObject`) is the digital twin
 It interacts with other `PhysicalLogisticsObjects` and `LogisticsActivities` through `LogisticsActions`.
 Some `PhysicalLogisticsObjects` are directly connected to an `LogisticsActivity` describing its state.
 
-<img src="./img/DM-ActivityModel-PhysicalLogisticsObject.png" style="scale: 100%">
+<img src="./img/DM-ActivityModel-PhysicalLogisticsObject.jpg" style="scale: 100%">
