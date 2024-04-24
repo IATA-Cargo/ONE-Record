@@ -2,7 +2,7 @@ ONE Record data model 3.0 introduced an activity model. It is built on the super
 The activity model is developed based the design principles Single Source of Truth and Physics-orientation. Further emphasis lays on practicality over abstractation.
 This page details the core concepts including examples.
 
-## LogisticsServices
+# LogisticsServices
 
 A `LogisticsService` (a subtype of `LogisticsObject`) describes a set of scheduled and sequenced `LogisticsActivities` provided by one party to another.
 The properties are described [here](https://onerecord.iata.org/ns/cargo#LogisticsService).
@@ -12,11 +12,11 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Logistic
   <figcaption>LogisticsService and connected objects</figcaption>
 </figure>
 
-# Booking
+## Booking
 
 - TBD
 
-## LogisticsActivities
+# LogisticsActivities
 
 A `LogisticsActivity` (a subtype of `LogisticsObject`) describes an activity or process state which is scheduled and executed by an orchestrating party.
 It involves a set of dedicated tasks in the form of specific `LogisticsActions` to be performed on `PhysicalLogisticsObjects`. 
@@ -30,7 +30,7 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Logistic
   <figcaption>LogisticsActivity and connected objects</figcaption>
 </figure>
 
-# UnitComposition
+## UnitComposition
 
 An `UnitComposition` (a subtype of `LogisticsActivity`) describes the process state of a packed/loaded LoadingUnit (Container, ULD, Pallet, ...). 
 It requires a 1:1 connection to a `LoadingUnit` as long as its execution status is Active. 
@@ -43,15 +43,15 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#UnitComp
   <figcaption>UnitComposition and connected objects</figcaption>
 </figure>
 
-# TransportMovement
+## TransportMovement
 
 - TBD
 
-# Storage
+## Storage
 
 - TBD
 
-## LogisticsActions
+# LogisticsActions
 
 A `LogisticsAction` (a subtype of `LogisticsObject`) describes a specific task performed on one or a set of `PhysicalLogisticsObjects` in the context of a `LogisticsActivity`.
 `LogisticsActions` serve the purpose of connecting different `PhysicalLogisticsObjects` to each other and to an `LogisticsActivity`.
@@ -63,23 +63,23 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Logistic
   <figcaption>LogisticsAction and connected objects</figcaption>
 </figure>
 
-# Composing
+## Composing
 
 - TBD
 
-# Loading
+## Loading
 
 - TBD
 
-# Storing
+## Storing
 
 - TBD
 
-# Check
+## Check
 
 - TBD
 
-## PhysicalLogisticsObjects
+# PhysicalLogisticsObjects
 
 A `PhysicalLogisticsObject` (a subtype of `LogisticsObject`) is the digital twin of a physically distinguishable object in the air cargo supply chain. 
 It interacts with other `PhysicalLogisticsObjects` and `LogisticsActivities` through `LogisticsActions`.
@@ -91,16 +91,16 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Physical
   <figcaption>PhysicalLogisticsObject and connected objects</figcaption>
 </figure>
 
-# Piece
+## Piece
 
 - TBD
 
-# LoadingUnit
+## LoadingUnit
 
 - TBD
 
-# TransportMeans
+## TransportMeans
 
 - TBD
 
-## Examples
+# Examples
