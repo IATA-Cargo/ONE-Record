@@ -42,7 +42,7 @@ We invite all stakeholders involved in ONE Record implementation projects to con
 
 7.	After creating the project, IATA will be able to pin your project card onto the Kanban Board.
 8.	Go to the GitHub repository for the ONE-Record-Adoption project: https://github.com/IATA-Cargo/ONE-Record-Adoption.
-9.	Navigate to the repository's Kanban board by clicking on the "Projects" tab in the repository's navigation menu and selecting the relevant project board (e.g., " ONE Record Adoption ").
+9.	Navigate to the repository's Kanban board by clicking on the "Projects" tab in the repository's navigation menu and selecting the relevant project board (e.g., " ONE Record Adoption "). Or click here: https://github.com/users/IATA-Cargo/projects/1
 10.	Locate the newly created Project card in one of the columns of the Kanban board. The Project card will display all the information of the project as previously captured.
 11.	To move the issue card to a different column on the Kanban board, simply drag and drop the card to the desired column. Note: you can only move the cards you have created.
 ### Step 4: Collaborate and Update the Project card
