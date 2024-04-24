@@ -1,4 +1,4 @@
-<img src="./img/ONE-Record_logo.png" style="scale: 80%">
+<img src="./img/ONE-Record_API-Logo.png" style="scale: 80%">
 
 # Purpose
 
