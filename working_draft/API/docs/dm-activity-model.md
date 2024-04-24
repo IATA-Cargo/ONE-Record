@@ -104,3 +104,11 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Physical
 - TBD
 
 # Examples
+
+## Booking with 2 loose and 1 palletized pieces on one flight
+
+<figure markdown>
+  ![Example 1](./img/DM-ActivityModel-Example-Loose-Pallet.jpg)
+  <figcaption>Booking with 2 loose and 1 palletized pieces on one flight</figcaption>
+</figure>
+
