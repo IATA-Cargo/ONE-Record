@@ -29,7 +29,7 @@ create-symlinks:
 	ln -fs ../../ONE-Record-API-Collections.postman_collection docs/assets/ONE-Record-API-Collections.postman_collection
 
 serve:
-	$(MAKE) create-symlinks
+	$(MAKE) copy-assets
 	mkdocs serve
 
 build:
@@ -42,7 +42,6 @@ build:
 deploy:	
 	$(MAKE) copy-assets
 	mkdocs gh-deploy --ignore-version --no-history
-	$(MAKE) create-symlinks
 
 deployGH:	
 	$(MAKE) copy-assets
