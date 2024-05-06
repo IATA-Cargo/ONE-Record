@@ -7,42 +7,33 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix terms: <http://purl.org/dc/terms/> .
 @prefix ccodes: <https://onerecord.iata.org/ns/coreCodeLists#> .
-@base <https://onerecord.iata.org/ns/cargo> .
+@base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.0> ;
-                                       owl:imports <https://onerecord.iata.org/ns/coreCodeLists/1.0.0> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.1> ;
+                                       owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "20-11-2023" ;
+                                       terms:modified "02-05-2024" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 
-Version 3.0.0
+Versio 3.1.0 (ongoing)
 
-Complete technical revision of the ontology:
-- Changed all IRIs and ontology namespaces into /cargo/ and elimination of property prefixes to conform with RDF best practices as required by API working group
-- Changed all enumberations into Named Individuals
-- Added Core Code List sub-ontology, containing most relevant Code Lists for Air Transport, as dependency for the data model
-- Added generic CodeListElement to handle undefined and company-specific code lists
-- Added superclass structure, including LogisticsAgents as discussed in DMWG workshop January 23/24th 2023
-- Added LogisticsActivities, LogisticsActions and LogisticsService as discussed in DMWG workshop March 20/21st 2023
+Additions:
+- Added temperatureInstructions to Piece
 
-Additions to the business logics of the ontology:
-- Added TransportMovement, UnitComposition and Storage as LogisticsActivity; to transmit sets of tasks (LogisticsActions) and processes in air cargo
-- Added Loading, Composing, Storing and Checks as LogisticsAction; to transmit tasks to be executed
-- Added Booking as LogisticsService; to refer to LogisticsActivities performed in the transportation contexts
-- Added PhysicalLogisticsObjects as parent class for twins of physical objects such as Piece, Item, ULD or TransportMovement
-- Added MCD 2.0 objects and properties
-- Removed old MCD 1 objects and properties
-- Minor other additions (CurrencyValue, WaybillLineItem, LoadingMaterial)
+Additions: Visualization
+- Added vis_ annotation properties for ontology visualizer
+- Annotated as per business logic inverse properties by vis_inverseProperty
 
-Cleanup
-- Removed all deprecated properties due to the namespace change - no backwards compatibility!
-- Removed all minCardinalityConstraints, these are no technical restrictions
-- Removed all domain axioms since properties are already declared on classes
-- Homogenization of class and property names, prefixes and general bugfixes"""@en ;
+Bugfixes
+- Removed line breaks in descriptions
+- Simplified descriptions of Check and related objects
+- Fixed labels (commodityItemNumber and WaybillLineItem)
+- Removed specialHandlingCodes from Shipment
+- Fixed RegEx pattern for waybillNumber to allow alphanumeric sequences (used in House Air Waybills."""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
                                        owl:versionInfo "3.0.0"@en .
@@ -81,6 +72,34 @@ owl:maxCardinality rdf:type owl:AnnotationProperty .
 
 ###  http://www.w3.org/2002/07/owl#minCardinality
 owl:minCardinality rdf:type owl:AnnotationProperty .
+
+
+###  https://onerecord.iata.org/ns/cargo#vis_element
+:vis_element rdf:type owl:AnnotationProperty ;
+             rdfs:comment "Annotation for ontology visualizer. Indicates what part of the ontology the class is a part of (air core ontology, distribution, ...) to colourize accordingly."@en ;
+             rdfs:label "vis_element"@en ;
+             rdfs:range xsd:string .
+
+
+###  https://onerecord.iata.org/ns/cargo#vis_hidden
+:vis_hidden rdf:type owl:AnnotationProperty ;
+            rdfs:comment "Annotation for ontology visualizer. Indicates that the link should be invisible in the ontology viewer."@en ;
+            rdfs:label "vis_invisible"@en ;
+            rdfs:range xsd:boolean .
+
+
+###  https://onerecord.iata.org/ns/cargo#vis_inverseProperty
+:vis_inverseProperty rdf:type owl:AnnotationProperty ;
+                     rdfs:comment "Annotation for ontology visualizer. Indicates what is shown as inverse property (edge) in the visualizer."@en ;
+                     rdfs:label "vis_inverseProperty"@en ;
+                     rdfs:range owl:topObjectProperty .
+
+
+###  https://onerecord.iata.org/ns/cargo#vis_level
+:vis_level rdf:type owl:AnnotationProperty ;
+           rdfs:comment "Annotation for ontology visualizer. Indicates levels of importance to allow for different views."@en ;
+           rdfs:label "vis_level"@en ;
+           rdfs:range xsd:nonNegativeInteger .
 
 
 #################################################################
@@ -164,7 +183,8 @@ owl:thing rdf:type rdfs:Datatype .
         rdfs:range :Answer ;
         rdfs:comment "Reference to the Answer to the Question"@en ;
         rdfs:label "answer"@en ;
-        owl:comment "Domain :Question"@en .
+        owl:comment "Domain :Question"@en ;
+        :vis_inverseProperty :question .
 
 
 ###  https://onerecord.iata.org/ns/cargo#answerActor
@@ -188,7 +208,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :Piece ;
                  rdfs:comment "Piece on which the Packaging type is applicable"@en ;
                  rdfs:label "appliedOnPieces"@en ;
-                 owl:comment "Domain :PackagingType"@en .
+                 owl:comment "Domain :PackagingType"@en ;
+                 :vis_inverseProperty :packagingType .
 
 
 ###  https://onerecord.iata.org/ns/cargo#arrivalLocation
@@ -204,7 +225,8 @@ owl:thing rdf:type rdfs:Datatype .
                    rdfs:range :EpermitConsignment ;
                    rdfs:comment "Reference to the permits associated with the Live Animals"@en ;
                    rdfs:label "associatedEpermit"@en ;
-                   owl:comment "Domain :PieceLiveAnimals"@en .
+                   owl:comment "Domain :PieceLiveAnimals"@en ;
+                   :vis_inverseProperty :consignmentItems .
 
 
 ###  https://onerecord.iata.org/ns/cargo#associatedOrganization
@@ -212,7 +234,8 @@ owl:thing rdf:type rdfs:Datatype .
                         rdfs:range :Organization ;
                         rdfs:comment "Reference to the Organization the Actor is associated with"@en ;
                         rdfs:label "associatedOrganization"@en ;
-                        owl:comment "Domain :Actor"@en .
+                        owl:comment "Domain :Actor"@en ;
+                        :vis_inverseProperty :contactPersons .
 
 
 ###  https://onerecord.iata.org/ns/cargo#attachedIotDevices
@@ -220,7 +243,8 @@ owl:thing rdf:type rdfs:Datatype .
                     rdfs:range :IotDevice ;
                     rdfs:comment "References to all connected IotDevices"@en ;
                     rdfs:label "attachedIotDevices"@en ;
-                    owl:comment "Domain :PhysicalLogisticsObject"@en .
+                    owl:comment "Domain :PhysicalLogisticsObject"@en ;
+                    :vis_inverseProperty :attachedToObject .
 
 
 ###  https://onerecord.iata.org/ns/cargo#attachedToObject
@@ -228,7 +252,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :PhysicalLogisticsObject ;
                   rdfs:comment "Reference to the PhysicalLogisticsObject the IotDevice is attached to"@en ;
                   rdfs:label "attachedToObject"@en ;
-                  owl:comment "Domain :IotDevice"@en .
+                  owl:comment "Domain :IotDevice"@en ;
+                  :vis_inverseProperty :attachedIotDevices .
 
 
 ###  https://onerecord.iata.org/ns/cargo#awbUseIndicator
@@ -260,7 +285,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :BillingDetails ;
                 rdfs:comment "Reference to the BillingDetails of the Waybill"@en ;
                 rdfs:label "billingDetails"@en ;
-                owl:comment "Domain :Waybill"@en .
+                owl:comment "Domain :Waybill"@en ;
+                :vis_inverseProperty :detailedWaybill .
 
 
 ###  https://onerecord.iata.org/ns/cargo#booking
@@ -268,7 +294,8 @@ owl:thing rdf:type rdfs:Datatype .
          rdfs:range :Booking ;
          rdfs:comment "Reference to the Booking"@en ;
          rdfs:label "booking"@en ;
-         owl:comment "Domain :BookingRequest"@en .
+         owl:comment "Domain :BookingRequest"@en ;
+         :vis_inverseProperty :bookingRequest .
 
 
 ###  https://onerecord.iata.org/ns/cargo#bookingOptions
@@ -276,7 +303,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :BookingOption ;
                 rdfs:comment "Reference to all Booking Options"@en ;
                 rdfs:label "bookingOptions"@en ;
-                owl:comment "Domain :BookingOptionRequest"@en .
+                owl:comment "Domain :BookingOptionRequest"@en ;
+                :vis_inverseProperty :forBookingOptionRequest .
 
 
 ###  https://onerecord.iata.org/ns/cargo#bookingPreference
@@ -292,7 +320,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :BookingRequest ;
                 rdfs:comment "Reference to the Booking Request"@en ;
                 rdfs:label "bookingRequest"@en ;
-                owl:comment "Domain :Booking"@en .
+                owl:comment "Domain :Booking"@en ;
+                :vis_inverseProperty :booking .
 
 
 ###  https://onerecord.iata.org/ns/cargo#bookingShipmentDetails
@@ -300,7 +329,8 @@ owl:thing rdf:type rdfs:Datatype .
                         rdfs:range :BookingShipment ;
                         rdfs:comment "Reference to the BookingShipment if required"@en ;
                         rdfs:label "bookingShipmentDetails"@en ;
-                        owl:comment "Domain :BookingOptionRequest"@en .
+                        owl:comment "Domain :BookingOptionRequest"@en ;
+                        :vis_inverseProperty :forBookingOptionRequest .
 
 
 ###  https://onerecord.iata.org/ns/cargo#bookingStatus
@@ -324,7 +354,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :Booking ;
                  rdfs:comment "Reference to the Booking to update"@en ;
                  rdfs:label "bookingToUpdate"@en ;
-                 owl:comment "Domain :BookingOptionRequest"@en .
+                 owl:comment "Domain :BookingOptionRequest"@en ;
+                 :vis_inverseProperty :updateBookingOptionRequests .
 
 
 ###  https://onerecord.iata.org/ns/cargo#calculatedEmissions
@@ -340,7 +371,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :LogisticsObject ;
                 rdfs:comment "Reference to the TransportMovement or TransportLegs the CO2Emissions have been calculated for"@en ;
                 rdfs:label "calculationFor"@en ;
-                owl:comment "Domain :CO2Emissions"@en .
+                owl:comment "Domain :CO2Emissions"@en ;
+                :vis_inverseProperty :co2Emissions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#carrier
@@ -428,7 +460,8 @@ owl:thing rdf:type rdfs:Datatype .
               rdfs:range :Check ;
               rdfs:comment "References to CheckActions performed for the Activity"@en ;
               rdfs:label "checkActions"@en ;
-              owl:comment "Domain :LogisticsActivity"@en .
+              owl:comment "Domain :LogisticsActivity"@en ;
+              :vis_inverseProperty :servedActivity .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checkTemplate
@@ -436,7 +469,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:range :CheckTemplate ;
                rdfs:comment "Reference to the CheckTemplate the Question is from"@en ;
                rdfs:label "checkTemplate"@en ;
-               owl:comment "Domain :Question"@en .
+               owl:comment "Domain :Question"@en ;
+               :vis_inverseProperty :questions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checkTotalResult
@@ -444,7 +478,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :CheckTotalResult ;
                   rdfs:comment "Reference to the result of the Check"@en ;
                   rdfs:label "checkTotalResult"@en ;
-                  owl:comment "Domain :Check"@en .
+                  owl:comment "Domain :Check"@en ;
+                  :vis_inverseProperty :resultOfCheck .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checkedObject
@@ -452,7 +487,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:range :LogisticsObject ;
                rdfs:comment "Reference to the checked Object"@en ;
                rdfs:label "checkedObject"@en ;
-               owl:comment "Domain :Check"@en .
+               owl:comment "Domain :Check"@en ;
+               :vis_inverseProperty :checks .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checker
@@ -468,7 +504,8 @@ owl:thing rdf:type rdfs:Datatype .
         rdfs:range :Check ;
         rdfs:comment "References to the CheckActions performed on the object"@en ;
         rdfs:label "checks"@en ;
-        owl:comment "Domain :LogisticsObject"@en .
+        owl:comment "Domain :LogisticsObject"@en ;
+        :vis_inverseProperty :checkedObject .
 
 
 ###  https://onerecord.iata.org/ns/cargo#cityCode
@@ -484,7 +521,8 @@ owl:thing rdf:type rdfs:Datatype .
               rdfs:range :CO2Emissions ;
               rdfs:comment "References to CO2Emissions"@en ;
               rdfs:label "co2Emissions"@en ;
-              owl:comment "Domain :LogisticsObject"@en .
+              owl:comment "Domain :LogisticsObject"@en ;
+              :vis_inverseProperty :calculationFor .
 
 
 ###  https://onerecord.iata.org/ns/cargo#composedMaterials
@@ -492,7 +530,8 @@ owl:thing rdf:type rdfs:Datatype .
                    rdfs:range :LoadingMaterial ;
                    rdfs:comment "References to the Materials being built-up or broken-down"@en ;
                    rdfs:label "composedMaterials"@en ;
-                   owl:comment "Domain :Composing"@en .
+                   owl:comment "Domain :Composing"@en ;
+                   :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#composedPieces
@@ -500,7 +539,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :Piece ;
                 rdfs:comment "References to the Pieces being built-up or broken-down"@en ;
                 rdfs:label "composedPieces"@en ;
-                owl:comment "Domain :Composing"@en .
+                owl:comment "Domain :Composing"@en ;
+                :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#compositionActions
@@ -508,7 +548,8 @@ owl:thing rdf:type rdfs:Datatype .
                     rdfs:range :Composing ;
                     rdfs:comment "References to all CompositionActions performed for the UnitComposition"@en ;
                     rdfs:label "compositionActions"@en ;
-                    owl:comment "Domain :UnitComposition"@en .
+                    owl:comment "Domain :UnitComposition"@en ;
+                    :vis_inverseProperty :servedActivity .
 
 
 ###  https://onerecord.iata.org/ns/cargo#compositionType
@@ -524,7 +565,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :Sensor ;
                   rdfs:comment "Reference to the sensors linked to the device"@en ;
                   rdfs:label "connectedSensors"@en ;
-                  owl:comment "Domain :IotDevice"@en .
+                  owl:comment "Domain :IotDevice"@en ;
+                  :vis_inverseProperty :partOfIotDevice .
 
 
 ###  https://onerecord.iata.org/ns/cargo#consignee
@@ -540,7 +582,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :PieceLiveAnimals ;
                   rdfs:comment "Reference to te pieces (Live Animals) of the permit"@en ;
                   rdfs:label "consignmentItems"@en ;
-                  owl:comment "Domain :EpermitConsignment"@en .
+                  owl:comment "Domain :EpermitConsignment"@en ;
+                  :vis_inverseProperty :associatedEpermit .
 
 
 ###  https://onerecord.iata.org/ns/cargo#consignments
@@ -548,7 +591,8 @@ owl:thing rdf:type rdfs:Datatype .
               rdfs:range :EpermitConsignment ;
               rdfs:comment "Reference to the pieces and properties linked to the Permit (box 7 to 12)"@en ;
               rdfs:label "consignments"@en ;
-              owl:comment "Domain :LiveAnimalsEpermit"@en .
+              owl:comment "Domain :LiveAnimalsEpermit"@en ;
+              :vis_inverseProperty :epermit .
 
 
 ###  https://onerecord.iata.org/ns/cargo#contactDetailType
@@ -572,7 +616,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :Actor ;
                 rdfs:comment "References to Actors (Person, NonHumanActor) acting as contacts"@en ;
                 rdfs:label "contactPersons"@en ;
-                owl:comment "Domain owl:Thing"@en .
+                owl:comment "Domain owl:Thing"@en ;
+                :vis_inverseProperty :associatedOrganization .
 
 
 ###  https://onerecord.iata.org/ns/cargo#contactRole
@@ -588,7 +633,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:range :Item ;
                 rdfs:comment "Reference to the item(s) contained in the piece"@en ;
                 rdfs:label "containedItems"@en ;
-                owl:comment "Domain :Piece"@en .
+                owl:comment "Domain :Piece"@en ;
+                :vis_inverseProperty :inPiece .
 
 
 ###  https://onerecord.iata.org/ns/cargo#containedPieces
@@ -596,15 +642,14 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :Piece ;
                  rdfs:comment "Details of contained piece(s)"@en ;
                  rdfs:label "containedPieces"@en ;
-                 owl:comment "Domain :Piece"@en .
+                 owl:comment "Domain :Piece"@en ;
+                 :vis_inverseProperty :inPiece .
 
 
 ###  https://onerecord.iata.org/ns/cargo#contentCode
 :contentCode rdf:type owl:ObjectProperty ;
              rdfs:range :CodeListElement ;
-             rdfs:comment """Customs, Security and Regulatory Control Information Identifier. Coded indicator qualifying Customs related information: Item Number \"I\", Exemption Legend \"L\", System Downtime Reference \"S\", Unique Consignment Reference Number \"U\", Movement Reference Number \"M\" .
-Refers to Code List 1.1
-Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
+             rdfs:comment "Customs, Security and Regulatory Control Information Identifier. Coded indicator qualifying Customs related information: Item Number \"I\", Exemption Legend \"L\", System Downtime Reference \"S\", Unique Consignment Reference Number \"U\", Movement Reference Number \"M\" . Refers to Code List 1.1. Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
              rdfs:label "contentCode"@en ;
              owl:comment "Domain :CustomsInformation"@en .
 
@@ -614,7 +659,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                rdfs:range :DgProductRadioactive ;
                                rdfs:comment "Reference to the DgProductRadioactive this Isotope is contained in"@en ;
                                rdfs:label "contentOfDgProductRadioactive"@en ;
-                               owl:comment "Domain :DgRadioactiveIsotope"@en .
+                               owl:comment "Domain :DgRadioactiveIsotope"@en ;
+                               :vis_inverseProperty :isotopes .
 
 
 ###  https://onerecord.iata.org/ns/cargo#contentProductionCountry
@@ -630,7 +676,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                  rdfs:range :Product ;
                  rdfs:comment "Reference to the Products describing the content of the Piece, mandatory if no data on Item level is used"@en ;
                  rdfs:label "contentProducts"@en ;
-                 owl:comment "Domain :Piece"@en .
+                 owl:comment "Domain :Piece"@en ;
+                 :vis_inverseProperty :describedObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#country
@@ -678,14 +725,15 @@ Condition: At least one of the three elements (Country Code, Information Identif
                     rdfs:range :CustomsInformation ;
                     rdfs:comment "Customs details"@en ;
                     rdfs:label "customsInformation"@en ;
-                    owl:comment "Domain :LogisticsObject"@en .
+                    owl:comment "Domain :LogisticsObject"@en ;
+                    :vis_inverseProperty :issuedForPiece ,
+                                         :issuedForShipment .
 
 
 ###  https://onerecord.iata.org/ns/cargo#customsOriginCode
 :customsOriginCode rdf:type owl:ObjectProperty ;
                    rdfs:range :CodeListElement ;
-                   rdfs:comment """Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) 
-List to be provided by local authorities"""@en ;
+                   rdfs:comment "Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) List to be provided by local authorities"@en ;
                    rdfs:label "customsOriginCode"@en ;
                    owl:comment "Domain :Waybill"@en .
 
@@ -727,7 +775,9 @@ List to be provided by local authorities"""@en ;
                   rdfs:range :PhysicalLogisticsObject ;
                   rdfs:comment "Reference to the Items or Pieces in which the product can be found."@en ;
                   rdfs:label "describedObjects"@en ;
-                  owl:comment "Domain :Product"@en .
+                  owl:comment "Domain :Product"@en ;
+                  :vis_inverseProperty :contentProducts ,
+                                       :ofProduct .
 
 
 ###  https://onerecord.iata.org/ns/cargo#destinationCharges
@@ -743,7 +793,8 @@ List to be provided by local authorities"""@en ;
                  rdfs:range :Waybill ;
                  rdfs:comment "Reference to the Waybill"@en ;
                  rdfs:label "detailedWaybill"@en ;
-                 owl:comment "Domain :BillingDetails"@en .
+                 owl:comment "Domain :BillingDetails"@en ;
+                 :vis_inverseProperty :billingDetails .
 
 
 ###  https://onerecord.iata.org/ns/cargo#dgDeclaration
@@ -751,7 +802,8 @@ List to be provided by local authorities"""@en ;
                rdfs:range :DgDeclaration ;
                rdfs:comment "Reference to the Dangerous Goods declaration"@en ;
                rdfs:label "dgDeclaration"@en ;
-               owl:comment "Domain :PieceDg"@en .
+               owl:comment "Domain :PieceDg"@en ;
+               :vis_inverseProperty :issuedForPiece .
 
 
 ###  https://onerecord.iata.org/ns/cargo#dgRaTypeCode
@@ -767,7 +819,8 @@ List to be provided by local authorities"""@en ;
                        rdfs:range :DgProductRadioactive ;
                        rdfs:comment "Dg Radioactive Material"@en ;
                        rdfs:label "dgRadioactiveMaterial"@en ;
-                       owl:comment "Domain :ProductDg"@en .
+                       owl:comment "Domain :ProductDg"@en ;
+                       :vis_inverseProperty :forProductDg .
 
 
 ###  https://onerecord.iata.org/ns/cargo#dimensions
@@ -823,7 +876,8 @@ List to be provided by local authorities"""@en ;
            rdfs:range :ExternalReference ;
            rdfs:comment "Linked documents to the person, e.g. driver's license, ID, etc."@en ;
            rdfs:label "documents"@en ;
-           owl:comment "Domain :Person"@en .
+           owl:comment "Domain :Person"@en ;
+           :vis_inverseProperty :referenceForObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#dryIceWeight
@@ -863,7 +917,8 @@ List to be provided by local authorities"""@en ;
          rdfs:range :LiveAnimalsEpermit ;
          rdfs:comment "Reference to the Epermit of the consignment"@en ;
          rdfs:label "epermit"@en ;
-         owl:comment "Domain :EpermitConsignment"@en .
+         owl:comment "Domain :EpermitConsignment"@en ;
+         :vis_inverseProperty :consignments .
 
 
 ###  https://onerecord.iata.org/ns/cargo#eventCode
@@ -967,7 +1022,8 @@ List to be provided by local authorities"""@en ;
                     rdfs:range :ExternalReference ;
                     rdfs:comment "References to all associated ExternalReferences"@en ;
                     rdfs:label "externalReferences"@en ;
-                    owl:comment "Domain owl:Thing"@en .
+                    owl:comment "Domain owl:Thing"@en ;
+                    :vis_inverseProperty :referenceForObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forBookingOption
@@ -975,7 +1031,9 @@ List to be provided by local authorities"""@en ;
                   rdfs:range :BookingOption ;
                   rdfs:comment "Reference to the BookingOption the LogisticsObject is detailling"@en ;
                   rdfs:label "forBookingOption"@en ;
-                  owl:comment "Domain owl:Thing"@en .
+                  owl:comment "Domain owl:Thing"@en ;
+                  :vis_inverseProperty :forBookingRequest ,
+                                       :price .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forBookingOptionRequest
@@ -983,7 +1041,9 @@ List to be provided by local authorities"""@en ;
                          rdfs:range :BookingOptionRequest ;
                          rdfs:comment "Reference to the BookingOptionRequest the information of the LogisticsObject is detailling"@en ;
                          rdfs:label "forBookingOptionRequest"@en ;
-                         owl:comment "Domain owl:Thing"@en .
+                         owl:comment "Domain owl:Thing"@en ;
+                         :vis_inverseProperty :bookingOptions ,
+                                              :bookingShipmentDetails .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forBookingRequest
@@ -991,7 +1051,8 @@ List to be provided by local authorities"""@en ;
                    rdfs:range :BookingRequest ;
                    rdfs:comment "Reference to the Booking Request the of the Booking Option"@en ;
                    rdfs:label "forBookingRequest"@en ;
-                   owl:comment "Domain :BookingOption"@en .
+                   owl:comment "Domain :BookingOption"@en ;
+                   :vis_inverseProperty :forBookingOption .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forEpermit
@@ -999,7 +1060,8 @@ List to be provided by local authorities"""@en ;
             rdfs:range :LiveAnimalsEpermit ;
             rdfs:comment "Reference to the LiveAnimalsEpermit this Signature applies to"@en ;
             rdfs:label "forEpermit"@en ;
-            owl:comment "Domain :EpermitSignature"@en .
+            owl:comment "Domain :EpermitSignature"@en ;
+            :vis_inverseProperty :signatures .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forPrices
@@ -1007,7 +1069,8 @@ List to be provided by local authorities"""@en ;
            rdfs:range :Price ;
            rdfs:comment "Reference to the Prices based on this Ratings"@en ;
            rdfs:label "forPrices"@en ;
-           owl:comment "Domain :Ratings"@en .
+           owl:comment "Domain :Ratings"@en ;
+           :vis_inverseProperty :ratings .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forProductDg
@@ -1015,7 +1078,8 @@ List to be provided by local authorities"""@en ;
               rdfs:range :ProductDg ;
               rdfs:comment "Reference to the ProductDg this DgProductRadiosctive details"@en ;
               rdfs:label "forProductDg"@en ;
-              owl:comment "Domain :DgProductRadioactive"@en .
+              owl:comment "Domain :DgProductRadioactive"@en ;
+              :vis_inverseProperty :dgRadioactiveMaterial .
 
 
 ###  https://onerecord.iata.org/ns/cargo#fuelAmountCalculated
@@ -1093,12 +1157,7 @@ List to be provided by local authorities"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#groundsForExemption
 :groundsForExemption rdf:type owl:ObjectProperty ;
                      rdfs:range ccodes:ScreeningExemption ;
-                     rdfs:comment """Exemption code - e.g. BIOM- Bio-Medical Samples 
-SMUS - small undersized shipments MAIL - mail
-BIOM - bio-medical samples
-DIPL - diplomatic bags or diplomatic mail
-LFSM - life-saving materials NUCL - nuclear materials
-TRNS - transfer or transshipment"""@en ;
+                     rdfs:comment "Exemption code - e.g. BIOM- Bio-Medical Samples SMUS - small undersized shipments MAIL - mail BIOM - bio-medical samples DIPL - diplomatic bags or diplomatic mail LFSM - life-saving materials NUCL - nuclear materials TRNS - transfer or transshipment"@en ;
                      rdfs:label "groundsForExemption"@en ;
                      owl:comment "Domain :SecurityDeclaration"@en .
 
@@ -1116,7 +1175,8 @@ TRNS - transfer or transshipment"""@en ;
                rdfs:range :Waybill ;
                rdfs:comment "Refers to the Waybill(s) contained"@en ;
                rdfs:label "houseWaybills"@en ;
-               owl:comment "Domain :Waybill"@en .
+               owl:comment "Domain :Waybill"@en ;
+               :vis_inverseProperty :masterWaybill .
 
 
 ###  https://onerecord.iata.org/ns/cargo#hsCode
@@ -1140,7 +1200,9 @@ TRNS - transfer or transshipment"""@en ;
          rdfs:range :Piece ;
          rdfs:comment "Reference to the Piece this Item or Piece is contained in"@en ;
          rdfs:label "inPiece"@en ;
-         owl:comment "Domain :PhysicalLogisticsObject"@en .
+         owl:comment "Domain :PhysicalLogisticsObject"@en ;
+         :vis_inverseProperty :containedItems ,
+                              :containedPieces .
 
 
 ###  https://onerecord.iata.org/ns/cargo#inUnitComposition
@@ -1148,7 +1210,8 @@ TRNS - transfer or transshipment"""@en ;
                    rdfs:range :UnitComposition ;
                    dc:description "Reference to the Unit Composition the LoadingUnit is in"@en ;
                    rdfs:label "inUnitComposition"@en ;
-                   owl:comment "Domain :LoadingUnit"@en .
+                   owl:comment "Domain :LoadingUnit"@en ;
+                   :vis_inverseProperty :loadingUnit .
 
 
 ###  https://onerecord.iata.org/ns/cargo#includedViaPoints
@@ -1172,7 +1235,8 @@ TRNS - transfer or transshipment"""@en ;
            rdfs:range :Insurance ;
            rdfs:comment "Insurance details"@en ;
            rdfs:label "insurance"@en ;
-           owl:comment "Domain :Shipment"@en .
+           owl:comment "Domain :Shipment"@en ;
+           :vis_inverseProperty :insuredShipments .
 
 
 ###  https://onerecord.iata.org/ns/cargo#insuredAmount
@@ -1188,7 +1252,8 @@ TRNS - transfer or transshipment"""@en ;
                   rdfs:range :Shipment ;
                   rdfs:comment "Reference to the shipments insured"@en ;
                   rdfs:label "insuredShipments"@en ;
-                  owl:comment "Domain :Insurance"@en .
+                  owl:comment "Domain :Insurance"@en ;
+                  :vis_inverseProperty :insurance .
 
 
 ###  https://onerecord.iata.org/ns/cargo#involvedInActions
@@ -1196,7 +1261,15 @@ TRNS - transfer or transshipment"""@en ;
                    rdfs:range :LogisticsAction ;
                    rdfs:comment "References to the Actions the object is involved in"@en ;
                    rdfs:label "involvedInActions"@en ;
-                   owl:comment "Domain :PhysicalLogisticsObject"@en .
+                   owl:comment "Domain :PhysicalLogisticsObject"@en ;
+                   :vis_inverseProperty :composedMaterials ,
+                                        :composedPieces ,
+                                        :loadedMaterials ,
+                                        :loadedPieces ,
+                                        :loadedUnits ,
+                                        :loadingUnit ,
+                                        :onTransportMeans ,
+                                        :storedObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#involvedParties
@@ -1212,7 +1285,8 @@ TRNS - transfer or transshipment"""@en ;
           rdfs:range :DgRadioactiveIsotope ;
           rdfs:comment "DgRadioactiveIsotope."@en ;
           rdfs:label "isotopes"@en ;
-          owl:comment "Domain :DgProductRadioactive"@en .
+          owl:comment "Domain :DgProductRadioactive"@en ;
+          :vis_inverseProperty :contentOfDgProductRadioactive .
 
 
 ###  https://onerecord.iata.org/ns/cargo#issuedBy
@@ -1228,7 +1302,10 @@ TRNS - transfer or transshipment"""@en ;
                 rdfs:range :Piece ;
                 rdfs:comment "Reference to the Piece the document was issued for"@en ;
                 rdfs:label "issuedForPiece"@en ;
-                owl:comment "Domain owl:Thing"@en .
+                owl:comment "Domain owl:Thing"@en ;
+                :vis_inverseProperty :customsInformation ,
+                                     :dgDeclaration ,
+                                     :securityDeclarations .
 
 
 ###  https://onerecord.iata.org/ns/cargo#issuedForShipment
@@ -1236,7 +1313,8 @@ TRNS - transfer or transshipment"""@en ;
                    rdfs:range :Shipment ;
                    rdfs:comment "Reference to the shipment the document was issued for"@en ;
                    rdfs:label "issuedForShipment"@en ;
-                   owl:comment "Domain :LogisticsObject"@en .
+                   owl:comment "Domain :LogisticsObject"@en ;
+                   :vis_inverseProperty :customsInformation .
 
 
 ###  https://onerecord.iata.org/ns/cargo#issuedForWaybill
@@ -1244,7 +1322,8 @@ TRNS - transfer or transshipment"""@en ;
                   rdfs:range :Waybill ;
                   rdfs:comment "Reference to the Waybill object"@en ;
                   rdfs:label "issuedForWaybill"@en ;
-                  owl:comment "Domain :Booking"@en .
+                  owl:comment "Domain :Booking"@en ;
+                  :vis_inverseProperty :referredBookingOption .
 
 
 ###  https://onerecord.iata.org/ns/cargo#itemQuantity
@@ -1260,7 +1339,8 @@ TRNS - transfer or transshipment"""@en ;
                 rdfs:range :ExternalReference ;
                 rdfs:comment "Reference to an ExternalReference holding a legacy templats outside of ONE Record, such as a photo or pdf of a checksheet"@en ;
                 rdfs:label "legacyTemplate"@en ;
-                owl:comment "Domain :CheckTemplate"@en .
+                owl:comment "Domain :CheckTemplate"@en ;
+                :vis_inverseProperty :referenceForObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#length
@@ -1284,7 +1364,8 @@ TRNS - transfer or transshipment"""@en ;
                  rdfs:range :LoadingMaterial ;
                  rdfs:comment "References to Materials onloaded or offloaded"@en ;
                  rdfs:label "loadedMaterials"@en ;
-                 owl:comment "Domain :Loading"@en .
+                 owl:comment "Domain :Loading"@en ;
+                 :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#loadedPieces
@@ -1292,7 +1373,8 @@ TRNS - transfer or transshipment"""@en ;
               rdfs:range :Piece ;
               rdfs:comment "References to Pieces onloaded or offloaded"@en ;
               rdfs:label "loadedPieces"@en ;
-              owl:comment "Domain :Loading"@en .
+              owl:comment "Domain :Loading"@en ;
+              :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#loadedUnits
@@ -1300,7 +1382,8 @@ TRNS - transfer or transshipment"""@en ;
              rdfs:range :LoadingUnit ;
              rdfs:comment "References to LoadingUnits onloaded or offloaded"@en ;
              rdfs:label "loadedUnits"@en ;
-             owl:comment "Domain :Loading"@en .
+             owl:comment "Domain :Loading"@en ;
+             :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#loadingActions
@@ -1308,7 +1391,8 @@ TRNS - transfer or transshipment"""@en ;
                 rdfs:range :Loading ;
                 rdfs:comment "References to all actions of type Loading performed for the TransportMovement"@en ;
                 rdfs:label "loadingActions"@en ;
-                owl:comment "Domain :TransportMovement"@en .
+                owl:comment "Domain :TransportMovement"@en ;
+                :vis_inverseProperty :servedActivity .
 
 
 ###  https://onerecord.iata.org/ns/cargo#loadingIndicator
@@ -1332,7 +1416,9 @@ TRNS - transfer or transshipment"""@en ;
              rdfs:range :LoadingUnit ;
              rdfs:comment "Reference to the LoadingUnit composed in the Unit Composition or referenced in Composing actions"@en ;
              rdfs:label "onLoadingUnit"@en ;
-             owl:comment "Domain owl:Thing"@en .
+             owl:comment "Domain owl:Thing"@en ;
+             :vis_inverseProperty :inUnitComposition ,
+                                  :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#locationCodes
@@ -1356,7 +1442,8 @@ TRNS - transfer or transshipment"""@en ;
                rdfs:range :Waybill ;
                rdfs:comment "Reference to the master Waybill if it is contained in one"@en ;
                rdfs:label "masterWaybill"@en ;
-               owl:comment "Domain :Waybill"@en .
+               owl:comment "Domain :Waybill"@en ;
+               :vis_inverseProperty :houseWaybills .
 
 
 ###  https://onerecord.iata.org/ns/cargo#maxTemperature
@@ -1452,7 +1539,8 @@ TRNS - transfer or transshipment"""@en ;
            rdfs:range :Product ;
            rdfs:comment "Reference to the Product describing the Item"@en ;
            rdfs:label "ofProduct"@en ;
-           owl:comment "Domain :Item"@en .
+           owl:comment "Domain :Item"@en ;
+           :vis_inverseProperty :describedObjects .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ofShipment
@@ -1460,7 +1548,8 @@ TRNS - transfer or transshipment"""@en ;
             rdfs:range :Shipment ;
             rdfs:comment "Reference to the Shipment the Piece is assigned to"@en ;
             rdfs:label "ofShipment"@en ;
-            owl:comment "Domain :Piece"@en .
+            owl:comment "Domain :Piece"@en ;
+            :vis_inverseProperty :pieces .
 
 
 ###  https://onerecord.iata.org/ns/cargo#onTransportMeans
@@ -1468,7 +1557,8 @@ TRNS - transfer or transshipment"""@en ;
                   rdfs:range :TransportMeans ;
                   rdfs:comment "Reference to the TransportMeans that is being onloaded or offloaded"@en ;
                   rdfs:label "onTransportMeans"@en ;
-                  owl:comment "Domain :Loading"@en .
+                  owl:comment "Domain :Loading"@en ;
+                  :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#onsiteActions
@@ -1476,7 +1566,8 @@ TRNS - transfer or transshipment"""@en ;
                rdfs:range :LogisticsAction ;
                rdfs:comment "References to the Actions happening at the Location"@en ;
                rdfs:label "onsiteActions"@en ;
-               owl:comment "Domain :Location"@en .
+               owl:comment "Domain :Location"@en ;
+               :vis_inverseProperty :performedAt .
 
 
 ###  https://onerecord.iata.org/ns/cargo#operatedTransportMovement
@@ -1484,7 +1575,8 @@ TRNS - transfer or transshipment"""@en ;
                            rdfs:range :TransportMovement ;
                            rdfs:comment "Transport Movement on which the Transport Means is used"@en ;
                            rdfs:label "operatedTransportMovement"@en ;
-                           owl:comment "Domain :TransportMeans"@en .
+                           owl:comment "Domain :TransportMeans"@en ;
+                           :vis_inverseProperty :operatingTransportMeans .
 
 
 ###  https://onerecord.iata.org/ns/cargo#operatingTransportMeans
@@ -1492,7 +1584,8 @@ TRNS - transfer or transshipment"""@en ;
                          rdfs:range :TransportMeans ;
                          rdfs:comment "Reference to the TransportMeans operating the TransportMovement" ;
                          rdfs:label "operatingTransportMeans" ;
-                         owl:comment "Domain :TransportMovement"@en .
+                         owl:comment "Domain :TransportMovement"@en ;
+                         :vis_inverseProperty :operatedTransportMovement .
 
 
 ###  https://onerecord.iata.org/ns/cargo#originReferencePermitTypeCode
@@ -1620,7 +1713,8 @@ TRNS - transfer or transshipment"""@en ;
                rdfs:range :PackagingType ;
                rdfs:comment "Packaging details "@en ;
                rdfs:label "packagingType"@en ;
-               owl:comment "Domain :Piece"@en .
+               owl:comment "Domain :Piece"@en ;
+               :vis_inverseProperty :appliedOnPieces .
 
 
 ###  https://onerecord.iata.org/ns/cargo#parentOrganization
@@ -1628,7 +1722,8 @@ TRNS - transfer or transshipment"""@en ;
                     rdfs:range :Organization ;
                     rdfs:comment "Reference to the parent Organization"@en ;
                     rdfs:label "parentOrganization"@en ;
-                    owl:comment "Domain :Organization"@en .
+                    owl:comment "Domain :Organization"@en ;
+                    :vis_inverseProperty :subOrganization .
 
 
 ###  https://onerecord.iata.org/ns/cargo#partOfIotDevice
@@ -1636,7 +1731,8 @@ TRNS - transfer or transshipment"""@en ;
                  rdfs:range :IotDevice ;
                  rdfs:comment "Reference to the IoT Device to which the sensor is linked"@en ;
                  rdfs:label "partOfIotDevice"@en ;
-                 owl:comment "Domain :Sensor"@en .
+                 owl:comment "Domain :Sensor"@en ;
+                 :vis_inverseProperty :connectedSensors .
 
 
 ###  https://onerecord.iata.org/ns/cargo#partyDetails
@@ -1660,7 +1756,8 @@ TRNS - transfer or transshipment"""@en ;
              rdfs:range :Location ;
              rdfs:comment "Reference to the Location the Action was performed at"@en ;
              rdfs:label "perfomedAt"@en ;
-             owl:comment "Domain :LogisticsAction"@en .
+             owl:comment "Domain :LogisticsAction"@en ;
+             :vis_inverseProperty :onsiteActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#permitTypeCode
@@ -1732,7 +1829,8 @@ TRNS - transfer or transshipment"""@en ;
         rdfs:range :Piece ;
         rdfs:comment "References to the Pieces that are part of this Shipment"@en ;
         rdfs:label "pieces"@en ;
-        owl:comment "Domain :Shipment"@en .
+        owl:comment "Domain :Shipment"@en ;
+        :vis_inverseProperty :ofShipment .
 
 
 ###  https://onerecord.iata.org/ns/cargo#postalCode
@@ -1748,7 +1846,8 @@ TRNS - transfer or transshipment"""@en ;
        rdfs:range :Price ;
        rdfs:comment "Price of the Booking (if different from the offer)"@en ;
        rdfs:label "price"@en ;
-       owl:comment "Domain :BookingOption"@en .
+       owl:comment "Domain :BookingOption"@en ;
+       :vis_inverseProperty :forBookingOption .
 
 
 ###  https://onerecord.iata.org/ns/cargo#productCode
@@ -1780,7 +1879,8 @@ TRNS - transfer or transshipment"""@en ;
           rdfs:range :Question ;
           rdfs:comment "Reference to the Question the Answer is for"@en ;
           rdfs:label "question"@en ;
-          owl:comment "Domain :Answer"@en .
+          owl:comment "Domain :Answer"@en ;
+          :vis_inverseProperty :answer .
 
 
 ###  https://onerecord.iata.org/ns/cargo#questions
@@ -1788,7 +1888,8 @@ TRNS - transfer or transshipment"""@en ;
            rdfs:range :Question ;
            rdfs:comment "References to all Questions that are part of this template"@en ;
            rdfs:label "questions"@en ;
-           owl:comment "Domain :CheckTemplate"@en .
+           owl:comment "Domain :CheckTemplate"@en ;
+           :vis_inverseProperty :checkTemplate .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ranges
@@ -1836,7 +1937,8 @@ TRNS - transfer or transshipment"""@en ;
          rdfs:range :Ratings ;
          rdfs:comment "Rating used for pricing"@en ;
          rdfs:label "ratings"@en ;
-         owl:comment "Domain :Price"@en .
+         owl:comment "Domain :Price"@en ;
+         :vis_inverseProperty :forPrices .
 
 
 ###  https://onerecord.iata.org/ns/cargo#rcp
@@ -1884,7 +1986,10 @@ TRNS - transfer or transshipment"""@en ;
                      rdfs:range :LogisticsObject ;
                      rdfs:comment "References to the LogisticsObjects referring to this external reference"@en ;
                      rdfs:label "referenceForObjects"@en ;
-                     owl:comment "Domain :ExternalReference"@en .
+                     owl:comment "Domain :ExternalReference"@en ;
+                     :vis_inverseProperty :documents ,
+                                          :externalReferences ,
+                                          :legacyTemplate .
 
 
 ###  https://onerecord.iata.org/ns/cargo#referredBookingOption
@@ -1892,7 +1997,8 @@ TRNS - transfer or transshipment"""@en ;
                        rdfs:range :Booking ;
                        rdfs:comment "Refers to the Booking"@en ;
                        rdfs:label "referredBookingOption"@en ;
-                       owl:comment "Domain :Waybill"@en .
+                       owl:comment "Domain :Waybill"@en ;
+                       :vis_inverseProperty :issuedForWaybill .
 
 
 ###  https://onerecord.iata.org/ns/cargo#regionCode
@@ -1931,7 +2037,8 @@ TRNS - transfer or transshipment"""@en ;
 :resultOfCheck rdf:type owl:ObjectProperty ;
                rdfs:range :Check ;
                rdfs:label "resultOfCheck"@en ;
-               owl:comment "Domain :CheckTotalResult"@en .
+               owl:comment "Domain :CheckTotalResult"@en ;
+               :vis_inverseProperty :checkTotalResult .
 
 
 ###  https://onerecord.iata.org/ns/cargo#resultValue
@@ -1945,15 +2052,7 @@ TRNS - transfer or transshipment"""@en ;
 ###  https://onerecord.iata.org/ns/cargo#screeningMethods
 :screeningMethods rdf:type owl:ObjectProperty ;
                   rdfs:range ccodes:ScreeningMethod ;
-                  rdfs:comment """Screening methods which have been used to secure the cargo
-PHS – Physical Inspection and/or hand search 
-VCK - Visual check 
-XRY- X-ray equipment 
-EDS - Explosive detection system 
-EDD - Explosive detection dogs
-ETD - Explosive trace detection equipment - particles or vapor 
-CMD - Cargo metal detection
-AOM - Subjected to any other means: this entry should be followed by free text specifying what other mean was used to secure the cargo"""@en ;
+                  rdfs:comment "Screening methods which have been used to secure the cargo PHS – Physical Inspection and/or hand search VCK - Visual check XRY- X-ray equipment EDS - Explosive detection system EDD - Explosive detection dogsETD - Explosive trace detection equipment - particles or vapor CMD - Cargo metal detection AOM - Subjected to any other means: this entry should be followed by free text specifying what other mean was used to secure the cargo"@en ;
                   rdfs:label "screeningMethods"@en ;
                   owl:comment "Domain :SecurityDeclaration"@en .
 
@@ -1963,7 +2062,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                       rdfs:range :SecurityDeclaration ;
                       rdfs:comment "Security details of the piece"@en ;
                       rdfs:label "securityDeclarations"@en ;
-                      owl:comment "Domain :Piece"@en .
+                      owl:comment "Domain :Piece"@en ;
+                      :vis_inverseProperty :issuedForPiece .
 
 
 ###  https://onerecord.iata.org/ns/cargo#securityStatus
@@ -1987,7 +2087,11 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                 rdfs:range :LogisticsActivity ;
                 rdfs:comment "Reference to the Activity the Action was performed for"@en ;
                 rdfs:label "servedActivity"@en ;
-                owl:comment "Domain :LogisticsAction"@en .
+                owl:comment "Domain :LogisticsAction"@en ;
+                :vis_inverseProperty :checkActions ,
+                                     :compositionActions ,
+                                     :loadingActions ,
+                                     :storingActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#servedServices
@@ -2027,7 +2131,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
           rdfs:range :Shipment ;
           rdfs:comment "Reference to the Shipment"@en ;
           rdfs:label "shipment"@en ;
-          owl:comment "Domain :Waybill"@en .
+          owl:comment "Domain :Waybill"@en ;
+          :vis_inverseProperty :waybill .
 
 
 ###  https://onerecord.iata.org/ns/cargo#signatoryCompany
@@ -2059,7 +2164,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
             rdfs:range :EpermitSignature ;
             rdfs:comment "List of all the signatures of the Epermit (applicant box 4, issuing authority box 6, issuer box 13 and examining authority box 14)"@en ;
             rdfs:label "signatures"@en ;
-            owl:comment "Domain :LiveAnimalsEpermit"@en .
+            owl:comment "Domain :LiveAnimalsEpermit"@en ;
+            :vis_inverseProperty :forEpermit .
 
 
 ###  https://onerecord.iata.org/ns/cargo#specialHandlingCodes
@@ -2107,7 +2213,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                rdfs:range :PhysicalLogisticsObject ;
                rdfs:comment "Reference to the Objects being stored in or stored out"@en ;
                rdfs:label "storedObjects"@en ;
-               owl:comment "Domain :Storing"@en .
+               owl:comment "Domain :Storing"@en ;
+               :vis_inverseProperty :involvedInActions .
 
 
 ###  https://onerecord.iata.org/ns/cargo#storingActions
@@ -2115,7 +2222,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                 rdfs:range :Storing ;
                 rdfs:comment "References to all StoringActions performed for the Storing Activity"@en ;
                 rdfs:label "storingActions"@en ;
-                owl:comment "Domain :Storage"@en .
+                owl:comment "Domain :Storage"@en ;
+                :vis_inverseProperty :servedActivity .
 
 
 ###  https://onerecord.iata.org/ns/cargo#storingType
@@ -2131,7 +2239,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                rdfs:range :Location ;
                dc:title "subLocationOf"@en ;
                rdfs:comment "Reference to the Location this is a Sublocation of"@en ;
-               owl:comment "Domain :Location"@en .
+               owl:comment "Domain :Location"@en ;
+               :vis_inverseProperty :subLocations .
 
 
 ###  https://onerecord.iata.org/ns/cargo#subLocations
@@ -2139,7 +2248,8 @@ AOM - Subjected to any other means: this entry should be followed by free text s
               rdfs:range :Location ;
               dc:title "subLocations"@en ;
               rdfs:comment "References to Sublocations that describe the Location in more detail"@en ;
-              owl:comment "Domain :Location"@en .
+              owl:comment "Domain :Location"@en ;
+              :vis_inverseProperty :subLocationOf .
 
 
 ###  https://onerecord.iata.org/ns/cargo#subOrganization
@@ -2147,14 +2257,14 @@ AOM - Subjected to any other means: this entry should be followed by free text s
                  rdfs:range :Organization ;
                  rdfs:comment "References to all sub-Organizations"@en ;
                  rdfs:label "subOrganization"@en ;
-                 owl:comment "Domain :Organization"@en .
+                 owl:comment "Domain :Organization"@en ;
+                 :vis_inverseProperty :parentOrganization .
 
 
 ###  https://onerecord.iata.org/ns/cargo#subjectCode
 :subjectCode rdf:type owl:ObjectProperty ;
              rdfs:range :CodeListElement ;
-             rdfs:comment """Information Identifier. Code identifying a piece of information/entity e.g. \"IMP\" for import, \"EXP\" for export, \"AGT\" for Agent, \"ISS\" for The Regulated Agent Issuing the Security Status for a Consignment etc. 
-Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"""@en ;
+             rdfs:comment "Information Identifier. Code identifying a piece of information/entity e.g. \"IMP\" for import, \"EXP\" for export, \"AGT\" for Agent, \"ISS\" for The Regulated Agent Issuing the Security Status for a Consignment etc. Condition: At least one of the three elements (Country Code, Information Identifier or Customs, Security and Regulatory Control Information Identifier) must be completed"@en ;
              rdfs:label "subjectCode"@en ;
              owl:comment "Domain :CustomsInformation"@en .
 
@@ -2404,7 +2514,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                              rdfs:range :BookingOptionRequest ;
                              rdfs:comment "References to BookingOptionRequests that request to update the Booking"@en ;
                              rdfs:label "updateBookingOptionRequests"@en ;
-                             owl:comment "Domain :Booking"@en .
+                             owl:comment "Domain :Booking"@en ;
+                             :vis_inverseProperty :bookingToUpdate .
 
 
 ###  https://onerecord.iata.org/ns/cargo#usedInCheck
@@ -2412,7 +2523,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
              rdfs:range :Check ;
              rdfs:comment "Reference to the Check the template was used in"@en ;
              rdfs:label "usedInCheck"@en ;
-             owl:comment "Domain :CheckTemplate"@en .
+             owl:comment "Domain :CheckTemplate"@en ;
+             :vis_inverseProperty :usedTemplate .
 
 
 ###  https://onerecord.iata.org/ns/cargo#usedTemplate
@@ -2420,7 +2532,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
               rdfs:range :CheckTemplate ;
               rdfs:comment "Reference to the Template used in the Check"@en ;
               rdfs:label "usedTemplate"@en ;
-              owl:comment "Domain :Check"@en .
+              owl:comment "Domain :Check"@en ;
+              :vis_inverseProperty :usedInCheck .
 
 
 ###  https://onerecord.iata.org/ns/cargo#vehicleType
@@ -2468,7 +2581,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
          rdfs:range :Waybill ;
          rdfs:comment "Reference to the Waybill of the shipment"@en ;
          rdfs:label "waybill"@en ;
-         owl:comment "Domain :Shipment"@en .
+         owl:comment "Domain :Shipment"@en ;
+         :vis_inverseProperty :shipment .
 
 
 ###  https://onerecord.iata.org/ns/cargo#waybillLineItems
@@ -2851,8 +2965,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
 ###  https://onerecord.iata.org/ns/cargo#commodityItemNumberForRate
 :commodityItemNumberForRate rdf:type owl:DatatypeProperty ;
                             rdfs:range xsd:string ;
-                            rdfs:comment "Indicates the specific commodity on which the rate class code is applied"@en ,
-                                         "commodityItemNumberForRate"@en ;
+                            rdfs:comment "Indicates the specific commodity on which the rate class code is applied"@en ;
+                            rdfs:label "commodityItemNumberForRate"@en ;
                             owl:comment "Domain :WaybillLineItem"@en .
 
 
@@ -4325,7 +4439,7 @@ Condition: At least one of the three elements (Country Code, Information Identif
 :waybillNumber rdf:type owl:DatatypeProperty ;
                rdfs:range [ rdf:type rdfs:Datatype ;
                             owl:onDatatype xsd:string ;
-                            owl:withRestrictions ( [ xsd:pattern "[-9]+"
+                            owl:withRestrictions ( [ xsd:pattern "[A-Z0-9]+"
                                                    ]
                                                  )
                           ] ;
@@ -4361,7 +4475,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     ] ;
                 rdfs:subClassOf :CodeListElement ;
                 rdfs:comment "Restricted code list for acceptable action times"@en ;
-                rdfs:label "ActionTimeType"@en .
+                rdfs:label "ActionTimeType"@en ;
+                :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ActivitySequence
@@ -4383,7 +4498,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "Embedded object to create a sequence of Activities in the context of a Service"@en ;
-                  rdfs:label "ActivitySequence"@en .
+                  rdfs:label "ActivitySequence"@en ;
+                  :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Actor
@@ -4398,7 +4514,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Superclass: Actors are Persons or entities acting like a single person"@en ;
-       rdfs:label "Actor"@en .
+       rdfs:label "Actor"@en ;
+       :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Address
@@ -4456,7 +4573,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Address details"@en ;
-         rdfs:label "Address"@en .
+         rdfs:label "Address"@en ;
+         :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Adjustments
@@ -4486,7 +4604,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Adjustments in the context of CASS records"@en ;
-             rdfs:label "Adjustments" .
+             rdfs:label "Adjustments" ;
+             :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Answer
@@ -4536,8 +4655,9 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           owl:onProperty :text ;
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
-        rdfs:comment "Answer holds the answer to one Question and is provided by the executioner of the check"@en ;
-        rdfs:label "Answer"@en .
+        rdfs:comment "Answer holds the answer to one Question"@en ;
+        rdfs:label "Answer"@en ;
+        :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BillingDetails
@@ -4660,7 +4780,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "In the context of CASS2. process, BillingDetails object is used to integrate specific Billing and Settlement data requirements"@en ;
-                rdfs:label "BillingDetails"@en .
+                rdfs:label "BillingDetails"@en ;
+                :vis_element "BillingSettlement"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Booking
@@ -4711,7 +4832,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Booking object refers to a confirmed booking"@en ;
-         rdfs:label "Booking"@en .
+         rdfs:label "Booking"@en ;
+         :vis_element "Service"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingOption
@@ -4826,7 +4948,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Booking details"@en ;
-               rdfs:label "BookingOption"@en .
+               rdfs:label "BookingOption"@en ;
+               :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingOptionRequest
@@ -4901,7 +5024,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                       ] ;
                       rdfs:comment "Request object, refers to the Quote request or Booking request "@en ;
-                      rdfs:label "BookingOptionRequest"@en .
+                      rdfs:label "BookingOptionRequest"@en ;
+                      :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingOptionStatus
@@ -4918,7 +5042,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                          ] ;
                      rdfs:subClassOf :CodeListElement ;
                      rdfs:comment "Restricted code list containing the statuses of a booking option"@en ;
-                     rdfs:label "BookingOptionStatus"@en .
+                     rdfs:label "BookingOptionStatus"@en ;
+                     :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingPreferences
@@ -4964,7 +5089,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ;
                     rdfs:comment "BookingPreferences details"@en ;
-                    rdfs:label "BookingPreferences"@en .
+                    rdfs:label "BookingPreferences"@en ;
+                    :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingRequest
@@ -5003,7 +5129,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "A party, usually the freight forwarder, creates the BookingRequest in order to confirm the booking to the Carrier"@en ;
-                rdfs:label "BookingRequest"@en .
+                rdfs:label "BookingRequest"@en ;
+                :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingShipment
@@ -5066,7 +5193,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Simplified shipment object that is to be used only for the distribution scope where only a subset of data is known priori to operational phase."@en ;
-                 rdfs:label "BookingShipment"@en .
+                 rdfs:label "BookingShipment"@en ;
+                 :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingStatus
@@ -5080,7 +5208,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    ] ;
                rdfs:subClassOf :CodeListElement ;
                rdfs:comment "Restricted code list containing the possible statuses of a booking"@en ;
-               rdfs:label "BookingStatus"@en .
+               rdfs:label "BookingStatus"@en ;
+               :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingTimes
@@ -5126,7 +5255,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ;
               rdfs:comment "Previsouly called Schedule. This object refers to times used for the Booking Option Request (preferences part of the request) or the Booking Option (times sur as LAT where there is a commitment from the carrier)"@en ;
-              rdfs:label "BookingTimes"@en .
+              rdfs:label "BookingTimes"@en ;
+              :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CO2Emissions
@@ -5165,7 +5295,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ;
               rdfs:comment "CO2 Calculation"@en ;
-              rdfs:label "CO2Emissions"@en .
+              rdfs:label "CO2Emissions"@en ;
+              :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Carrier
@@ -5188,7 +5319,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Company details of carriers"@en ;
-         rdfs:label "Carrier"@en .
+         rdfs:label "Carrier"@en ;
+         :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CarrierProduct
@@ -5218,7 +5350,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "Carrier product details"@en ;
-                rdfs:label "CarrierProduct"@en .
+                rdfs:label "CarrierProduct"@en ;
+                :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Characteristic
@@ -5240,7 +5373,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "Product additional details"@en ;
-                rdfs:label "Characteristic"@en .
+                rdfs:label "Characteristic"@en ;
+                :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Check
@@ -5279,7 +5413,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Action to describe a check"@en ;
-       rdfs:label "Check"@en .
+       rdfs:label "Check"@en ;
+       :vis_element "Action"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CheckTemplate
@@ -5341,9 +5476,9 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:onProperty :version ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
-               rdfs:comment """CheckTemplate is the body of a check, holding links to multiple Question LOs and is provided by the party in charge of the template that is used
-"""@en ;
-               rdfs:label "CheckTemplate"@en .
+               rdfs:comment "Body of a Check referencing various Questions"@en ;
+               rdfs:label "CheckTemplate"@en ;
+               :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CheckTotalResult
@@ -5389,8 +5524,9 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:onProperty :passed ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
-                  rdfs:comment "CheckTotalResult holds the result of a Check and should be provided by the party executing and accounting for the check result"@en ;
-                  rdfs:label "CheckTotalResult"@en .
+                  rdfs:comment "Result of a Check"@en ;
+                  rdfs:label "CheckTotalResult"@en ;
+               	  :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CodeListElement
@@ -5444,7 +5580,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Embedded object to transmit codes from non-RDF code lists in 1R in a semi-structured way. Code lists may be externally maintained codes (such as HS codes) or carrier-specific codes. If a code is present in RDF-form as Named Individual (like in the 1R core code lists ontology), it suffices to put in its IRI"@en ;
-                 rdfs:label "CodeListElement"@en .
+                 rdfs:label "CodeListElement"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Company
@@ -5467,7 +5604,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Company details"@en ;
-         rdfs:label "Company"@en .
+         rdfs:label "Company"@en ;
+         :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Composing
@@ -5498,7 +5636,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
                            ] ;
            rdfs:comment "Action to describe build-up or break-down of LoadingUnits"@en ;
-           rdfs:label "Composing"@en .
+           rdfs:label "Composing"@en ;
+           :vis_element "Action"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CompositionType
@@ -5510,7 +5649,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      ] ;
                  rdfs:subClassOf :CodeListElement ;
                  rdfs:comment "Restricted code list for Composing subtypes"@en ;
-                 rdfs:label "CompositionType"@en .
+                 rdfs:label "CompositionType"@en ;
+                 :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ContactDetail
@@ -5532,21 +5672,24 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Contact details"@en ;
-               rdfs:label "ContactDetail"@en .
+               rdfs:label "ContactDetail"@en ;
+               :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ContactDetailType
 :ContactDetailType rdf:type owl:Class ;
                    rdfs:subClassOf :CodeListElement ;
                    rdfs:comment "Open code list for types of contact details"@en ;
-                   rdfs:label "ContactDetailType"@en .
+                   rdfs:label "ContactDetailType"@en ;
+                   :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ContactRole
 :ContactRole rdf:type owl:Class ;
              rdfs:subClassOf :CodeListElement ;
              rdfs:comment "Open code list for roles of a contact"@en ;
-             rdfs:label "ContactRole"@en .
+             rdfs:label "ContactRole"@en ;
+             :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CurrencyValue
@@ -5568,7 +5711,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Embedded object to transmit currencies"@en ;
-               rdfs:label "CurrencyValue"@en .
+               rdfs:label "CurrencyValue"@en ;
+               :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CustomsInformation
@@ -5631,7 +5775,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ;
                     rdfs:comment "Customs information details"@en ;
-                    rdfs:label "CustomsInformation"@en .
+                    rdfs:label "CustomsInformation"@en ;
+                    :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#DgDeclaration
@@ -5686,7 +5831,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Dangerous goods declaration"@en ;
-               rdfs:label "DgDeclaration"@en .
+               rdfs:label "DgDeclaration"@en ;
+               :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#DgProductRadioactive
@@ -5737,7 +5883,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                       ] ;
                       rdfs:comment "Details of the radioactive products "@en ;
-                      rdfs:label "DgProductRadioactive"@en .
+                      rdfs:label "DgProductRadioactive"@en ;
+                      :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#DgRadioactiveIsotope
@@ -5808,7 +5955,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                       ] ;
                       rdfs:comment "Details of the radioactive isotope contained in the product"@en ;
-                      rdfs:label "DgRadioactiveIsotope"@en .
+                      rdfs:label "DgRadioactiveIsotope"@en ;
+                      :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Dimensions
@@ -5846,7 +5994,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                             ] ;
             rdfs:comment "Dimension details"@en ;
-            rdfs:label "Dimensions"@en .
+            rdfs:label "Dimensions"@en ;
+            :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#DirectionType
@@ -5859,7 +6008,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    ] ;
                rdfs:subClassOf :CodeListElement ;
                rdfs:comment "Restricted code list for the direction of a MovementTime"@en ;
-               rdfs:label "DirectionType"@en .
+               rdfs:label "DirectionType"@en ;
+               :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#EpermitConsignment
@@ -5898,7 +6048,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ;
                     rdfs:comment "Details of the pieces (Live animals) of the permit and specific information such as quantity measured and used to date quota"@en ;
-                    rdfs:label "EpermitConsignment"@en .
+                    rdfs:label "EpermitConsignment"@en ;
+                    :vis_element "LiveAnimals"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#EpermitSignature
@@ -5961,7 +6112,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "Signature details of the Epermit for Live Animals"@en ;
-                  rdfs:label "EpermitSignature"@en .
+                  rdfs:label "EpermitSignature"@en ;
+                  :vis_element "LiveAnimals"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#EventTimeType
@@ -5976,7 +6128,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    ] ;
                rdfs:subClassOf :CodeListElement ;
                rdfs:comment "Restricted code list for acceptable event times"@en ;
-               rdfs:label "EventTimeType"@en .
+               rdfs:label "EventTimeType"@en ;
+               :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ExecutionStatus
@@ -5990,7 +6143,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      ] ;
                  rdfs:subClassOf :CodeListElement ;
                  rdfs:comment "Restricted code list for the execution status of activities"@en ;
-                 rdfs:label "ExecutionStatus"@en .
+                 rdfs:label "ExecutionStatus"@en ;
+                 :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ExternalReference
@@ -6081,7 +6235,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                    ] ;
                    rdfs:comment "Reference documents details"@en ;
-                   rdfs:label "ExternalReference"@en .
+                   rdfs:label "ExternalReference"@en ;
+                   :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Geolocation
@@ -6111,7 +6266,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Geolocation details - e.g. for drones, automated vehicles"@en ;
-             rdfs:label "Geolocation"@en .
+             rdfs:label "Geolocation"@en ;
+             :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Insurance
@@ -6138,7 +6294,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
                            ] ;
            rdfs:comment "Insurance details"@en ;
-           rdfs:label "Insurance"@en .
+           rdfs:label "Insurance"@en ;
+           :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#IotDevice
@@ -6197,7 +6354,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
                            ] ;
            rdfs:comment "IoT Device details"@en ;
-           rdfs:label "IotDevice"@en .
+           rdfs:label "IotDevice"@en ;
+           :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Item
@@ -6312,7 +6470,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
                       ] ;
       rdfs:comment "Item details"@en ;
-      rdfs:label "Item"@en .
+      rdfs:label "Item"@en ;
+      :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ItemDg
@@ -6359,7 +6518,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
         rdfs:comment "Dangerous Goods subtype of Item"@en ;
-        rdfs:label "ItemDg"@en .
+        rdfs:label "ItemDg"@en ;
+        :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LiveAnimalsEpermit
@@ -6470,7 +6630,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ;
                     rdfs:comment "Epermit for Live Animals details"@en ;
-                    rdfs:label "LiveAnimalsEpermit"@en .
+                    rdfs:label "LiveAnimalsEpermit"@en ;
+                    :vis_element "LiveAnimals"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadType
@@ -6484,7 +6645,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                               ] ;
           rdfs:subClassOf :CodeListElement ;
           rdfs:comment "Restricted code list for the Load Type of a piece or shipment"@en ;
-          rdfs:label "LoadType"@en .
+          rdfs:label "LoadType"@en ;
+          :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Loading
@@ -6527,7 +6689,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Action to describe onloading or offloading TransportMeans"@en ;
-         rdfs:label "Loading"@en .
+         rdfs:label "Loading"@en ;
+         :vis_element "Action"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadingMaterial
@@ -6578,7 +6741,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "LoadingMaterial describes transportable, complementary non-Piece objects such as dry ice or nets"@en ;
-                 rdfs:label "LoadingMaterial"@en .
+                 rdfs:label "LoadingMaterial"@en ;
+                 :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadingType
@@ -6590,7 +6754,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ;
              rdfs:subClassOf :CodeListElement ;
              rdfs:comment "Restricted code list for Loading subtypes"@en ;
-             rdfs:label "LoadingType"@en .
+             rdfs:label "LoadingType"@en ;
+             :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadingUnit
@@ -6621,7 +6786,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Common loading unit/container details"@en ;
-             rdfs:label "LoadingUnit"@en .
+             rdfs:label "LoadingUnit"@en ;
+             :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Location
@@ -6680,7 +6846,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ;
           rdfs:comment "Location describes a physical location, e.g. an airport, a warehouse or a truck deck"@en ;
-          rdfs:label "Location"@en .
+          rdfs:label "Location"@en ;
+          :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsAction
@@ -6739,7 +6906,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Superclass: LogisticsAction is a specific task with a specific result performed on one or more physical LOs by one party in the context of an Activity"@en ;
-                 rdfs:label "LogisticsAction"@en .
+                 rdfs:label "LogisticsAction"@en ;
+                 :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsActivity
@@ -6770,14 +6938,16 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                    ] ;
                    rdfs:comment "Superclass: LogisticsActivity is a scheduled set of tasks that is executed as part of one or more Services"@en ;
-                   rdfs:label "LogisticsActivity"@en .
+                   rdfs:label "LogisticsActivity"@en ;
+                   :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsAgent
 :LogisticsAgent rdf:type owl:Class ;
                 rdfs:subClassOf :LogisticsObject ;
                 rdfs:comment "Superclass: LogisticsAgents describe acting entities in the logistics supply chain such as persons and organizations"@en ;
-                rdfs:label "LogisticsAgent"@en .
+                rdfs:label "LogisticsAgent"@en ;
+                :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsEvent
@@ -6867,7 +7037,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "Event details"@en ;
-                rdfs:label "LogisticsEvent"@en .
+                rdfs:label "LogisticsEvent"@en ;
+                :vis_element "Event"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsObject
@@ -6893,7 +7064,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Logistics Object parent class, containing all common properties for logistics objects."@en ;
-                 rdfs:label "LogisticsObject"@en .
+                 rdfs:label "LogisticsObject"@en ;
+                 :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsService
@@ -6912,7 +7084,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:allValuesFrom :Actor
                                   ] ;
                   rdfs:comment "Superclass: LogisticsService is a sequence of Activities provided by one Party to another"@en ;
-                  rdfs:label "LogisticsService"@en .
+                  rdfs:label "LogisticsService"@en ;
+                  :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoosePiece
@@ -6967,7 +7140,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                             ] ;
             rdfs:comment "LoosePiece details"@en ;
-            rdfs:label "LoosePiece"@en .
+            rdfs:label "LoosePiece"@en ;
+            :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Measurement
@@ -6997,7 +7171,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Measurements details for Sensors, either generic or geolocation measurements are recorded"@en ;
-             rdfs:label "Measurement"@en .
+             rdfs:label "Measurement"@en ;
+             :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ModeQualifier
@@ -7010,7 +7185,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    ] ;
                rdfs:subClassOf :CodeListElement ;
                rdfs:comment "Open code list for transport modes"@en ;
-               rdfs:label "ModeQualifier"@en .
+               rdfs:label "ModeQualifier"@en ;
+               :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#MovementTime
@@ -7048,7 +7224,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ;
               rdfs:comment "Times refering to Transport Movements, used to describe specfic times such as Actual Departure time, etc."@en ;
-              rdfs:label "MovementTime"@en .
+              rdfs:label "MovementTime"@en ;
+              :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#MovementTimeType
@@ -7061,14 +7238,16 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                       ] ;
                   rdfs:subClassOf :CodeListElement ;
                   rdfs:comment "Restricted code list for MovementTime subtypes"@en ;
-                  rdfs:label "MovementTimeType"@en .
+                  rdfs:label "MovementTimeType"@en ;
+                  :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#NonHumanActor
 :NonHumanActor rdf:type owl:Class ;
                rdfs:subClassOf :Actor ;
                rdfs:comment "Non-human actors are actors which are not a person, such as robots"@en ;
-               rdfs:label "NonHumanActor"@en .
+               rdfs:label "NonHumanActor"@en ;
+               :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Organization
@@ -7119,7 +7298,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                               ] ;
               rdfs:comment "Superclass: Organizations represent a kind of Agent corresponding to social instititutions such as companies, societies, etc"@en ;
-              rdfs:label "Organization"@en .
+              rdfs:label "Organization"@en ;
+              :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#OtherCharge
@@ -7157,7 +7337,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Other Charge details from AWB as per bullet point 19 - data element 23 from AWB"@en ;
-             rdfs:label "OtherCharge"@en .
+             rdfs:label "OtherCharge"@en ;
+             :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#OtherIdentifier
@@ -7179,7 +7360,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Other identifiers"@en ;
-                 rdfs:label "OtherIdentifier"@en .
+                 rdfs:label "OtherIdentifier"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PackagingType
@@ -7206,7 +7388,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Packaging details "@en ;
-               rdfs:label "PackagingType"@en .
+               rdfs:label "PackagingType"@en ;
+               :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Party
@@ -7232,7 +7415,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Refers to a Company and its role in a specific context, e.g Company A as shipper. Cargo-XML Code List 1.15 can be used as a reference with the addition of \"Notify Party\""@en ;
-       rdfs:label "Party"@en .
+       rdfs:label "Party"@en ;
+       :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Person
@@ -7311,7 +7495,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
         rdfs:comment "Person details"@en ;
-        rdfs:label "Person"@en .
+        rdfs:label "Person"@en ;
+        :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PhysicalLogisticsObject
@@ -7326,7 +7511,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                            owl:allValuesFrom :LogisticsAction
                                          ] ;
                          rdfs:comment "Superclass: PhysicalLogisticObjects represent the digital twin of an object in the logistics suppy chain that physically exist"@en ;
-                         rdfs:label "PhysicalLogisticsObject"@en .
+                         rdfs:label "PhysicalLogisticsObject"@en ;
+                         :vis_element "Abstract"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Piece
@@ -7401,6 +7587,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:allValuesFrom ccodes:SpecialHandlingCode
                        ] ,
                        [ rdf:type owl:Restriction ;
+                         owl:onProperty :temperatureInstructions ;
+                         owl:allValuesFrom :TemperatureInstructions
+                       ] ,
+                       [ rdf:type owl:Restriction ;
                          owl:onProperty :volumetricWeight ;
                          owl:allValuesFrom :VolumetricWeight
                        ] ,
@@ -7438,6 +7628,10 @@ Condition: At least one of the three elements (Country Code, Information Identif
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :packagingType ;
+                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :temperatureInstructions ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -7525,7 +7719,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Individual piece or virtual grouping of pieces"@en ;
-       rdfs:label "Piece"@en .
+       rdfs:label "Piece"@en ;
+       :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PieceDg
@@ -7588,7 +7783,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Dangerous Goods subtype of Piece"@en ;
-         rdfs:label "PieceDg"@en .
+         rdfs:label "PieceDg"@en ;
+         :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PieceGroup
@@ -7626,7 +7822,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                             ] ;
             rdfs:comment "PieceGroup details"@en ;
-            rdfs:label "PieceGroup"@en .
+            rdfs:label "PieceGroup"@en ;
+            :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PieceLiveAnimals
@@ -7749,7 +7946,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "LiveAnimals subclass of Piece"@en ;
-                  rdfs:label "PieceLiveAnimals"@en .
+                  rdfs:label "PieceLiveAnimals"@en ;
+                  :vis_element "LiveAnimals"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Price
@@ -7784,7 +7982,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Price associated to the offer/booking"@en ;
-       rdfs:label "Price"@en .
+       rdfs:label "Price"@en ;
+       :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Product
@@ -7867,7 +8066,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Product details"@en ;
-         rdfs:label "Product"@en .
+         rdfs:label "Product"@en ;
+         :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ProductDg
@@ -7962,14 +8162,16 @@ Condition: At least one of the three elements (Country Code, Information Identif
                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
                            ] ;
            rdfs:comment "Dangerous Goods subtype of Product"@en ;
-           rdfs:label "ProductDg"@en .
+           rdfs:label "ProductDg"@en ;
+           :vis_element "DG"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PublicAuthority
 :PublicAuthority rdf:type owl:Class ;
                  rdfs:subClassOf :Organization ;
                  rdfs:comment "PublicAuthorities are Organizations of the state on public interests, such as customs"@en ;
-                 rdfs:label "PublicAuthority"@en .
+                 rdfs:label "PublicAuthority"@en ;
+                 :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Question
@@ -8039,8 +8241,9 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:onProperty :shortText ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ;
-          rdfs:comment "Question holds one question and a link to an Answer The Question is provided by the party in charge of the template used"@en ;
-          rdfs:label "Question"@en .
+          rdfs:comment "Question as part of a CheckTemplate"@en ;
+          rdfs:label "Question"@en ;
+          :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Ranges
@@ -8086,7 +8289,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
         rdfs:comment "Ranges details"@en ;
-        rdfs:label "Ranges"@en .
+        rdfs:label "Ranges"@en ;
+        :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Ratings
@@ -8189,7 +8393,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Ratings details"@en ;
-         rdfs:label "Ratings"@en .
+         rdfs:label "Ratings"@en ;
+         :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#RegulatedEntity
@@ -8227,7 +8432,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Regulated Entity"@en ;
-                 rdfs:label "RegulatedEntity"@en .
+                 rdfs:label "RegulatedEntity"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#SecurityDeclaration
@@ -8314,7 +8520,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ;
                      rdfs:comment "Security declaration details"@en ;
-                     rdfs:label "SecurityDeclaration"@en .
+                     rdfs:label "SecurityDeclaration"@en ;
+                     :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Sensor
@@ -8365,14 +8572,16 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                         ] ;
         rdfs:comment "Sensor details and measurements, linked to Connected Devices"@en ;
-        rdfs:label "Sensor"@en .
+        rdfs:label "Sensor"@en ;
+        :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#SensorType
 :SensorType rdf:type owl:Class ;
             rdfs:subClassOf :CodeListElement ;
             rdfs:comment "Open code list for sensor types"@en ;
-            rdfs:label "SensorType"@en .
+            rdfs:label "SensorType"@en ;
+            :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Shipment
@@ -8397,10 +8606,6 @@ Condition: At least one of the three elements (Country Code, Information Identif
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :pieces ;
                             owl:allValuesFrom :Piece
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :specialHandlingCodes ;
-                            owl:allValuesFrom ccodes:SpecialHandlingCode
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :totalDimensions ;
@@ -8451,7 +8656,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ;
           rdfs:comment "Shipment details"@en ;
-          rdfs:label "Shipment"@en .
+          rdfs:label "Shipment"@en ;
+          :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#StationRemarks
@@ -8473,7 +8679,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "StationRemarks details"@en ;
-                rdfs:label "StationRemarks"@en .
+                rdfs:label "StationRemarks"@en ;
+                :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Storage
@@ -8492,7 +8699,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Activity to describe storing processes"@en ;
-         rdfs:label "Storage"@en .
+         rdfs:label "Storage"@en ;
+         :vis_element "Activity"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Storing
@@ -8519,7 +8727,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Action to describe store-in or store-out"@en ;
-         rdfs:label "Storing"@en .
+         rdfs:label "Storing"@en ;
+         :vis_element "Action"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#StoringType
@@ -8531,7 +8740,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ;
              rdfs:subClassOf :CodeListElement ;
              rdfs:comment "Restricted code list for Storing subtypes"@en ;
-             rdfs:label "StoringType"@en .
+             rdfs:label "StoringType"@en ;
+             :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#TemperatureInstructions
@@ -8553,7 +8763,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                          ] ;
                          rdfs:comment "TemperatureInstructions details"@en ;
-                         rdfs:label "TemperatureInstructions"@en .
+                         rdfs:label "TemperatureInstructions"@en ;
+                         :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#TransportLegs
@@ -8632,7 +8843,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "TransportLegs details"@en ;
-               rdfs:label "TransportLegs"@en .
+               rdfs:label "TransportLegs"@en ;
+               :vis_element "Distribution"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#TransportMeans
@@ -8703,7 +8915,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "Transport means details"@en ;
-                rdfs:label "TransportMeans"@en .
+                rdfs:label "TransportMeans"@en ;
+                :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#TransportMovement
@@ -8818,7 +9031,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                    ] ;
                    rdfs:comment "Activity to describe transports, replaces the TransportSegment in v1.1 and above"@en ;
-                   rdfs:label "TransportMovement"@en .
+                   rdfs:label "TransportMovement"@en ;
+                   :vis_element "Activity"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ULD
@@ -8937,7 +9151,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                      ] ;
      rdfs:comment "Unit Load Device details"@en ;
-     rdfs:label "ULD"@en .
+     rdfs:label "ULD"@en ;
+     :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ULDBasicPiece
@@ -8960,7 +9175,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "ULDBasicPiece details"@en ;
-               rdfs:label "ULDBasicPiece"@en .
+               rdfs:label "ULDBasicPiece"@en ;
+               :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ULDSpecificPiece
@@ -8999,7 +9215,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "ULDSpecificPiece details"@en ;
-                  rdfs:label "ULDSpecificPiece"@en .
+                  rdfs:label "ULDSpecificPiece"@en ;
+                  :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#UnitComposition
@@ -9034,7 +9251,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Activity to describe composition and decomposition of LoadingUnits"@en ;
-                 rdfs:label "UnitComposition"@en .
+                 rdfs:label "UnitComposition"@en ;
+                 :vis_element "Activity"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#UnitsPreference
@@ -9080,7 +9298,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "UnitsPreference details"@en ;
-                 rdfs:label "UnitsPreference"@en .
+                 rdfs:label "UnitsPreference"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Value
@@ -9102,7 +9321,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ;
        rdfs:comment "Unit of measurement details"@en ;
-       rdfs:label "Value"@en .
+       rdfs:label "Value"@en ;
+       :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#VolumePieceGroup
@@ -9125,7 +9345,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "VolumePieceGroup details"@en ;
-                  rdfs:label "VolumePieceGroup"@en .
+                  rdfs:label "VolumePieceGroup"@en ;
+                  :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#VolumetricWeight
@@ -9147,7 +9368,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                   ] ;
                   rdfs:comment "Volumetric weight details"@en ;
-                  rdfs:label "VolumetricWeight"@en .
+                  rdfs:label "VolumetricWeight"@en ;
+                  :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Waybill
@@ -9374,7 +9596,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Waybill details"@en ;
-         rdfs:label "Waybill"@en .
+         rdfs:label "Waybill"@en ;
+         :vis_element "Core"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#WaybillLineItem
@@ -9548,7 +9771,8 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Information from AWB Rate Description section as per bullet point 18 - data elements 22A - 22Z from AWB"@en ;
-                 rdfs:label "TACTRateDescription"@en .
+                 rdfs:label "WaybillLineItem"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#WaybillType
@@ -9561,227 +9785,272 @@ Condition: At least one of the three elements (Country Code, Information Identif
                                  ] ;
              rdfs:subClassOf :CodeListElement ;
              rdfs:comment "Restricted code list for Waybill types"@en ;
-             rdfs:label "WaybillType"@en .
+             rdfs:label "WaybillType"@en ;
+             :vis_element "Enum"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#AWBUseIndicator
 ccodes:AWBUseIndicator rdf:type owl:Class ;
-                       rdfs:subClassOf :CodeListElement .
+                       rdfs:subClassOf :CodeListElement ;
+                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#AircraftPossibilityCode
 ccodes:AircraftPossibilityCode rdf:type owl:Class ;
-                               rdfs:subClassOf :CodeListElement .
+                               rdfs:subClassOf :CodeListElement ;
+                               :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#BasicRateClassCode
 ccodes:BasicRateClassCode rdf:type owl:Class ;
-                          rdfs:subClassOf :CodeListElement .
+                          rdfs:subClassOf :CodeListElement ;
+                          :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ChargeCode
 ccodes:ChargeCode rdf:type owl:Class ;
-                  rdfs:subClassOf :CodeListElement .
+                  rdfs:subClassOf :CodeListElement ;
+                  :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ChargeIdentifier
 ccodes:ChargeIdentifier rdf:type owl:Class ;
-                        rdfs:subClassOf :CodeListElement .
+                        rdfs:subClassOf :CodeListElement ;
+                        :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#CommodityCode
 ccodes:CommodityCode rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#CurrencyCode
 ccodes:CurrencyCode rdf:type owl:Class ;
-                    rdfs:subClassOf :CodeListElement .
+                    rdfs:subClassOf :CodeListElement ;
+                    :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#DangerousGoodsCode
 ccodes:DangerousGoodsCode rdf:type owl:Class ;
-                          rdfs:subClassOf :CodeListElement .
+                          rdfs:subClassOf :CodeListElement ;
+                          :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#DemurrageCode
 ccodes:DemurrageCode rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#DimensionsUnitCode
 ccodes:DimensionsUnitCode rdf:type owl:Class ;
-                          rdfs:subClassOf :CodeListElement .
+                          rdfs:subClassOf :CodeListElement ;
+                          :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#EntitlementCode
 ccodes:EntitlementCode rdf:type owl:Class ;
-                       rdfs:subClassOf :CodeListElement .
+                       rdfs:subClassOf :CodeListElement ;
+                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ExplosiveCompatibilityGroupCode
 ccodes:ExplosiveCompatibilityGroupCode rdf:type owl:Class ;
-                                       rdfs:subClassOf :CodeListElement .
+                                       rdfs:subClassOf :CodeListElement ;
+                                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#GoodsTypeCode
 ccodes:GoodsTypeCode rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#GoodsTypeExtensionCode
 ccodes:GoodsTypeExtensionCode rdf:type owl:Class ;
-                              rdfs:subClassOf :CodeListElement .
+                              rdfs:subClassOf :CodeListElement ;
+                              :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#MeasurementUnitCode
 ccodes:MeasurementUnitCode rdf:type owl:Class ;
-                           rdfs:subClassOf :CodeListElement .
+                           rdfs:subClassOf :CodeListElement ;
+                           :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ModeCode
 ccodes:ModeCode rdf:type owl:Class ;
-                rdfs:subClassOf :CodeListElement .
+                rdfs:subClassOf :CodeListElement ;
+                :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#MovementIndicator
 ccodes:MovementIndicator rdf:type owl:Class ;
-                         rdfs:subClassOf :CodeListElement .
+                         rdfs:subClassOf :CodeListElement ;
+                         :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#OtherChargeCode
 ccodes:OtherChargeCode rdf:type owl:Class ;
-                       rdfs:subClassOf :CodeListElement .
+                       rdfs:subClassOf :CodeListElement ;
+                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#PackageMarkCode
 ccodes:PackageMarkCode rdf:type owl:Class ;
-                       rdfs:subClassOf :CodeListElement .
+                       rdfs:subClassOf :CodeListElement ;
+                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#PackagingDangerLevelCode
 ccodes:PackagingDangerLevelCode rdf:type owl:Class ;
-                                rdfs:subClassOf :CodeListElement .
+                                rdfs:subClassOf :CodeListElement ;
+                                :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ParticipantIdentifier
 ccodes:ParticipantIdentifier rdf:type owl:Class ;
-                             rdfs:subClassOf :CodeListElement .
+                             rdfs:subClassOf :CodeListElement ;
+                             :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#PrepaidCollectIndicator
 ccodes:PrepaidCollectIndicator rdf:type owl:Class ;
-                               rdfs:subClassOf :CodeListElement .
+                               rdfs:subClassOf :CodeListElement ;
+                               :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#RaTypeCode
 ccodes:RaTypeCode rdf:type owl:Class ;
-                  rdfs:subClassOf :CodeListElement .
+                  rdfs:subClassOf :CodeListElement ;
+                  :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#RadioactiveMaterialClassification
 ccodes:RadioactiveMaterialClassification rdf:type owl:Class ;
-                                         rdfs:subClassOf :CodeListElement .
+                                         rdfs:subClassOf :CodeListElement ;
+                                         :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#RateClassCode
 ccodes:RateClassCode rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#RatingsType
 ccodes:RatingsType rdf:type owl:Class ;
-                   rdfs:subClassOf :CodeListElement .
+                   rdfs:subClassOf :CodeListElement ;
+                   :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#RegulatedEntityCategoryCode
 ccodes:RegulatedEntityCategoryCode rdf:type owl:Class ;
-                                   rdfs:subClassOf :CodeListElement .
+                                   rdfs:subClassOf :CodeListElement ;
+                                   :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ScreeningExemption
 ccodes:ScreeningExemption rdf:type owl:Class ;
-                          rdfs:subClassOf :CodeListElement .
+                          rdfs:subClassOf :CodeListElement ;
+                          :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ScreeningMethod
 ccodes:ScreeningMethod rdf:type owl:Class ;
-                       rdfs:subClassOf :CodeListElement .
+                       rdfs:subClassOf :CodeListElement ;
+                       :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus
 ccodes:SecurityStatus rdf:type owl:Class ;
-                      rdfs:subClassOf :CodeListElement .
+                      rdfs:subClassOf :CodeListElement ;
+                      :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ServiceCode
 ccodes:ServiceCode rdf:type owl:Class ;
-                   rdfs:subClassOf :CodeListElement .
+                   rdfs:subClassOf :CodeListElement ;
+                   :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ShipmentSecurityStatus
 ccodes:ShipmentSecurityStatus rdf:type owl:Class ;
-                              rdfs:subClassOf :CodeListElement .
+                              rdfs:subClassOf :CodeListElement ;
+                              :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#SignatoryRole
 ccodes:SignatoryRole rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#SignatureTypeCode
 ccodes:SignatureTypeCode rdf:type owl:Class ;
-                         rdfs:subClassOf :CodeListElement .
+                         rdfs:subClassOf :CodeListElement ;
+                         :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode
 ccodes:SpecialHandlingCode rdf:type owl:Class ;
-                           rdfs:subClassOf :CodeListElement .
+                           rdfs:subClassOf :CodeListElement ;
+                           :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#StatusCode
 ccodes:StatusCode rdf:type owl:Class ;
-                  rdfs:subClassOf :CodeListElement .
+                  rdfs:subClassOf :CodeListElement ;
+                  :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#TemperatureUnitCode
 ccodes:TemperatureUnitCode rdf:type owl:Class ;
-                           rdfs:subClassOf :CodeListElement .
+                           rdfs:subClassOf :CodeListElement ;
+                           :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#TransactionPurposeCode
 ccodes:TransactionPurposeCode rdf:type owl:Class ;
-                              rdfs:subClassOf :CodeListElement .
+                              rdfs:subClassOf :CodeListElement ;
+                              :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#TransportMeansServiceType
 ccodes:TransportMeansServiceType rdf:type owl:Class ;
-                                 rdfs:subClassOf :CodeListElement .
+                                 rdfs:subClassOf :CodeListElement ;
+                                 :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ULDChargeCode
 ccodes:ULDChargeCode rdf:type owl:Class ;
-                     rdfs:subClassOf :CodeListElement .
+                     rdfs:subClassOf :CodeListElement ;
+                     :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ULDConditionCode
 ccodes:ULDConditionCode rdf:type owl:Class ;
-                        rdfs:subClassOf :CodeListElement .
+                        rdfs:subClassOf :CodeListElement ;
+                        :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#ULDLoadingIndicator
 ccodes:ULDLoadingIndicator rdf:type owl:Class ;
-                           rdfs:subClassOf :CodeListElement .
+                           rdfs:subClassOf :CodeListElement ;
+                           :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#VolumeUnitCode
 ccodes:VolumeUnitCode rdf:type owl:Class ;
-                      rdfs:subClassOf :CodeListElement .
+                      rdfs:subClassOf :CodeListElement ;
+                      :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/coreCodeLists#WeightUnitCode
 ccodes:WeightUnitCode rdf:type owl:Class ;
-                      rdfs:subClassOf :CodeListElement .
+                      rdfs:subClassOf :CodeListElement ;
+                      :vis_element "CodeList"@en .
 
 
 #################################################################
@@ -10193,4 +10462,4 @@ ccodes:WeightUnitCode rdf:type owl:Class ;
          rdfs:label "WEBSITE"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
