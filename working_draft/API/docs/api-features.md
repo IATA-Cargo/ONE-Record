@@ -34,6 +34,6 @@ The following features summarize all of the ONE Record API features
 | GET, POST        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
 | GET              | /logistics-objects/{logisticsObjectId}/logistics-events/{LogisticsEvent URI}                  | Retrieve a LogisticsEvent              |
 | GET, POST        | /subscriptions     | Create or retrieve Subscription information for a Logistics Object type or a specific LogisticsObjectIdentifier          |
-| GET, POST, PATCH | /action-requests   | Create, retrieve, or update Action Request (i.e. SubscriptionRequests, ChangeRequests or AccessDelegationRequests) |
+| GET, PATCH, DELETE | /action-requests   | Create, retrieve, or update Action Request (i.e. SubscriptionRequests, ChangeRequests or AccessDelegationRequests) |
 | POST             | /notifications     | Receive Notifications                  |
 | POST             | /access-delegations | Create, retrieve, or update Access Delegation Request      |
