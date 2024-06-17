@@ -5,12 +5,12 @@ Before an organization can access a LogisticsObject of another organization, it 
 Typically, when an participant creates a LogisticsObject and makes it available via its ONE Record API, the IoL participant will share the URI of that LogisticsObject with another IoL participant and grant them access by default.
 
 For example, a freight forwarder creates a [Shipment](https://onerecord.iata.org/ns/cargo#Shipment), grants read access to an airline, and then sends the URI of the Logistics Object via a ONE Record Notification or other channel to the airline.
-At this point, only the forwarder and the airline can access this specific LogisticsObject, but no one else.
 
-However, if a ground handling agent (GHA) also needs access to this logistics object, two options are considered in ONE Record:
+It might happen that the Airline needs access to additional Logistics objects linked to the [Shipment](https://onerecord.iata.org/ns/cargo#Shipment) (i.e.: [Piece](https://onerecord.iata.org/ns/cargo#Piece)). In this case, the Airline MAY request the access delegation directly from the freight forwarder ([Example A1](#example-a1))
 
-1. the GHA MAY request the access delegation directly from the freight forwarder
-2. the airline MAY request an access delegation for the GHA
+At this point, only the forwarder and the airline can access this specific LogisticsObjects, but no one else.
+
+However, if a ground handling agent (GHA) also needs access to this logistics object, the airline MAY request an access delegation for the GHA ([Example A2](#example-a2)).
 
 If, as in this presented scenario, the airline already has a delegation of access to the logistics object, the concept of [Trust Chains](#trust-chains) takes effect.
 
@@ -154,8 +154,8 @@ Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 ```
 
 !!! note
-    The `Requestor` linked the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest)
-    and the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) are different.
+    The `Requestor` associated with the [isRequestedBy](https://onerecord.iata.org/ns/api#isRequestedBy) property in the created [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest)
+    is different from the `Delegate` linked in the [isRequestedFor](https://onerecord.iata.org/ns/api#isRequestedFor) property in the [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation). The `Requestor` must be derived from the API authentication mechanism identifying who is making the request.
 
 
 # Trust Chains
