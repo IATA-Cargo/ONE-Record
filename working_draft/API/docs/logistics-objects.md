@@ -423,12 +423,12 @@ classDiagram
     Change "1" --> "1..*" Operation
 
     class Error{        
-        + hasErrorDetail[]: ErrorDetails [1..*]
+        + hasErrorDetail[]: ErrorDetail [1..*]
         + hasTitle: xsd:string
     }
-    Error "1" --> "*" ErrorDetails
+    Error "1" --> "*" ErrorDetail
     
-    class ErrorDetails{
+    class ErrorDetail{
         + hasCode: xsd:string  [0..1]
         + hasMessage: xsd:string [0..1]
         + hasProperty: xsd:anyURI [0..1]
@@ -473,7 +473,7 @@ A successful request MUST return a ``HTTP/1.1 201 Created` status code and the f
 | **Location**         | The URI of the newly created ChangeRequest          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
 | **Type**             | The type of the newly created resource as a URI | https://onerecord.iata.org/ns/api#ChangeRequest                   |
 
-Otherwise, an `Error` object with `ErrorDetails` as response body MUST be returned with the following HTTP headers:
+Otherwise, an `Error` object with `ErrorDetail` as response body MUST be returned with the following HTTP headers:
 
 | Header | Description                     | Example             |
 | -------------------- |  ----------------------------- | ------------------- |

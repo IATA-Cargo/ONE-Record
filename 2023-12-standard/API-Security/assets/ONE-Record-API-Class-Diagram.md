@@ -80,12 +80,12 @@ classDiagram
     }
 
     class Error{        
-        + hasErrorDetail[]: ErrorDetails [1..*]
+        + hasErrorDetail[]: ErrorDetail [1..*]
         + hasTitle: xsd:string
     }
-    Error "1" --> "*" ErrorDetails
+    Error "1" --> "*" ErrorDetail
     
-    class ErrorDetails{
+    class ErrorDetail{
         + hasCode: xsd:string  [0..1]
         + hasMessage: xsd:string [0..1]
         + hasProperty: xsd:anyURI [0..1]

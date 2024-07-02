@@ -262,7 +262,7 @@ A successful request MUST return a `HTTP/1.1 204 No Content` status code and the
 | **Location**         | The URI of the Action Request          | https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b |
 | **Type**             | The type of the Action Request as a URI | https://onerecord.iata.org/ns/api#ChangeRequest                   |
 
-Otherwise, an `Error` object with `ErrorDetails` as response body MUST be returned with the following HTTP headers:
+Otherwise, an `Error` object with `ErrorDetail` as response body MUST be returned with the following HTTP headers:
 
 | Header | Description                     | Example             |
 | -------------------- |  ----------------------------- | ------------------- |

@@ -248,12 +248,12 @@ classDiagram
     direction LR   
 
    class Error{        
-        + hasErrorDetails[]: ErrorDetails [1..*]
+        + hasErrorDetail[]: ErrorDetail [1..*]
         + hasTitle: xsd:string
     }
-    Error "1" --> "*" ErrorDetails
+    Error "1" --> "*" ErrorDetail
     
-    class ErrorDetails{
+    class ErrorDetail{
         + hasCode: xsd:string  [0..1] [0..1]
         + hasMessage: xsd:string [0..1]
         + hasProperty: xsd:anyURI [0..1]
@@ -266,13 +266,13 @@ The Error object has the following properties:
 | Property       | Description                      | Required     | Class       |
 | ----------- |  ------------------------------- | ------------ | ----------- |
 | **hasTitle**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | yes           | w3c:String  |
-| **hasErrorDetail**          | details of the error              | no            | api:ErrorDetails |
+| **hasErrorDetail**          | details of the error              | no            | api:ErrorDetail |
 | - hasCode               | a ONE Record application-specific error code expressed as a string value. | no            | w3c:String  |
 | - hasMessage            | Explanation specific to this problem                  | no            | w3c:String  |
 | - hasProperty          | data element to which the error applies               | no            | w3c:String  |
 | - hasResource           | URI of the object concerned       | no            | w3c:String   |
 
-[ErrorDetails](https://onerecord.iata.org/ns/api#ErrorDetails) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
+[ErrorDetail](https://onerecord.iata.org/ns/api#ErrorDetail) SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
 For example, set the property [hasMessage](https://onerecord.iata.org/ns/api#hasMessage) to `"Authenticated client could not be found in ACL for the Logistics Object"` instead of just `"Error"`.
 
 ## Synchronous Error Handling
@@ -340,8 +340,8 @@ Note that the [errors](https://onerecord.iata.org/ns/api#errors) property is a l
         "@type": "api:Error",
         "@id": "https://1r.example.com/action-requests/f74ae62b-0af3-52ca-8a83-fa756fc3fab9/errors/0da27144-fa78-5201-be5f-0f9ab3d3b3d8",
         "api:hasTitle": "Conflict with Logistics Object revision number",
-        "api:details": [{
-            "@type": "api:ErrorDetails",
+        "api:hasErrorDetail": [{
+            "@type": "api:ErrorDetail",
             "@id": "_:b1",            
             "api:hasCode": "409",
             "api:hasMessage": "The provided revision number is invalid or lower than the current Logistics Object revision",

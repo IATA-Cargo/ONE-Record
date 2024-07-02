@@ -56,13 +56,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - replaced ServerInformation#company and ServerInformation#companyId (formerly CompanyInformation) with ServerInformation#dataOwner
 - merged PatchRequest into ChangeRequest
 - renamed Operation#op enums to UPPERCASE, e.g. changed del to DELETE
-- renamed Details to ErrorDetails
+- renamed Details to ErrorDetail
 - renamed ChangeRequest#requestingParty to ChangeRequest#requestedBy
 - renamed ChangeRequest#timestamp to ChangeRequest#requestedAt
 - changed ChangeRequest#requestingParty<Branch> to ChangeRequest#requestedBy (https://onerecord.iata.org/ns/cargo#Organization)
-- renamed ErrorDetails#attribute to ErrorDetails#property
+- renamed ErrorDetail#attribute to ErrorDetail#property
 - renamed ServerInformation#supportedLogisticsObjects to ServerInformation#supportedLogisticsObjectTypes
-- changed property type of Notification#topic, Notification#changedProperties, OperationObject#datatype, ServerInformation#serverEndpoint, ServerInformation#supportedLogisticsObjects, ErrorDetails#property, ErrorDetails#resource, Subscription#callbackUrl, Subscription#topic, Subscription#subscribedTo
+- changed property type of Notification#topic, Notification#changedProperties, OperationObject#datatype, ServerInformation#serverEndpoint, ServerInformation#supportedLogisticsObjects, ErrorDetail#property, ErrorDetail#resource, Subscription#callbackUrl, Subscription#topic, Subscription#subscribedTo
 - renamed Subscription#myCompanyIdentifier to Subscription#subscriber
 - changed Subscription#cacheFor (xsd:int) to Subscription#expiresAt (xsd:dateTime)
 - renamed DelegationRequest#operations to DelegationRequest#permissions
