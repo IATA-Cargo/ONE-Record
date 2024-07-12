@@ -29,9 +29,6 @@ build:
 	echo "<!DOCTYPE html> <meta charset=\"utf-8\"> <title>Redirecting to versioned ontology</title> <meta http-equiv=\"refresh\" content=\"0; URL=./2.0.0-dev\"> <link rel=\"canonical\" href=\"2.0.0-dev\">" > $(SITE_DIR)/ns/api/index.html
 	python -m pylode ONE-Record-API-Ontology.ttl -o $(SITE_DIR)/ns/api/$(VERSION)/index.html
 
-deploy:	
-	$(MAKE) copy-assets
-	mkdocs gh-deploy --ignore-version --no-history
 
 deployGH:	
 	$(MAKE) copy-assets
@@ -43,4 +40,4 @@ clean:
 ghp-deploy: 
 	ghp-import -m "updating docs" --no-history -p site
 
-.PHONY: install upggrade copy-assets create-symlinks serve build deploy clean gh-deploy
+.PHONY: install upgrade copy-assets serve build deployGH clean ghp-deploy
