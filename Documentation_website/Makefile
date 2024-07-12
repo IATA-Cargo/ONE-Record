@@ -10,13 +10,13 @@ upgrade:
 	pip install -r requirements.txt --upgrade
 
 copy-assets:
-	rm -rf API-Security/changelog.md; cp ../working_draft/API/CHANGELOG.md API-Security/changelog.md
-	rm -rf API-Security/license.md; cp ../LICENSE API-Security/license.md
-	rm -rf API-Security/assets/ONE-Record-API-Ontology.ttl; cp ../working_draft/API/ONE-Record-API-Ontology.ttl API-Security/assets/ONE-Record-API-Ontology.ttl
-	rm -rf API-Security/assets/ONE-Record-API-Class-Diagram.md; cp ../working_draft/API/ONE-Record-API-Class-Diagram.md API-Security/assets/ONE-Record-API-Class-Diagram.md
-	rm -rf API-Security/assets/ONE-Record-API-OpenAPI.yaml; cp ../working_draft/API/ONE-Record-API-OpenAPI.yaml API-Security/assets/ONE-Record-API-OpenAPI.yaml
-	rm -rf API-Security/assets/ONE-Record-API-Ontology.csv; cp ../working_draft/API/ONE-Record-API-Ontology.csv API-Security/assets/ONE-Record-API-Ontology.csv
-	rm -rf API-Security/assets/ONE-Record-API-Collections.postman_collection; cp ../working_draft/API/ONE-Record-API-Collections.postman_collection API-Security/assets/ONE-Record-API-Collections.postman_collection
+	rm -rf docs/API-Security/changelog.md; cp ../working_draft/API/CHANGELOG.md docs/API-Security/changelog.md
+	rm -rf docs/API-Security/license.md; cp ../LICENSE docs/API-Security/license.md
+	rm -rf docs/API-Security/assets/ONE-Record-API-Ontology.ttl; cp ../working_draft/API/ONE-Record-API-Ontology.ttl docs/API-Security/assets/ONE-Record-API-Ontology.ttl
+	rm -rf docs/API-Security/assets/ONE-Record-API-Class-Diagram.md; cp ../working_draft/API/ONE-Record-API-Class-Diagram.md docs/API-Security/assets/ONE-Record-API-Class-Diagram.md
+	rm -rf docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml; cp ../working_draft/API/ONE-Record-API-OpenAPI.yaml docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml
+	rm -rf docs/API-Security/assets/ONE-Record-API-Ontology.csv; cp ../working_draft/API/ONE-Record-API-Ontology.csv docs/API-Security/assets/ONE-Record-API-Ontology.csv
+	rm -rf docs/API-Security/assets/ONE-Record-API-Collections.postman_collection; cp ../working_draft/API/ONE-Record-API-Collections.postman_collection docs/API-Security/assets/ONE-Record-API-Collections.postman_collection
 
 serve:
 	$(MAKE) copy-assets
