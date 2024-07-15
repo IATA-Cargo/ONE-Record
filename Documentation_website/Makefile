@@ -40,4 +40,12 @@ clean:
 ghp-deploy: 
 	ghp-import -m "updating docs" --no-history -p site
 
+mike-deploy:
+	$(MAKE) copy-assets
+	mike deploy --push development
+
+mike-release:
+	$(MAKE) copy-assets
+	mike deploy --push --update-aliases ${{ github.event.release.tag_name }} latest
+
 .PHONY: install upgrade copy-assets serve build deployGH clean ghp-deploy
