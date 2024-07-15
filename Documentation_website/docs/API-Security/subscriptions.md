@@ -124,10 +124,10 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/Subscriptions_example1.json"
+--8<-- "./examples/Subscriptions_example1.json"
 ```
 
-_([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
+_([Subscriptions_example1.json](./examples/Subscriptions_example1.json))_
 
 It is the responsibility of the publisher to check the response, i.e. to compare the requested topic/topicType with the topic/topicType in the returned [Subscription](https://onerecord.iata.org/ns/api#Subscription) data object.
 
@@ -139,10 +139,10 @@ The publisher MUST ensure that the subscriber gets sufficient access to the resu
 Here an example of a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest):
 
 ```bash
---8<-- "examples/SubscriptionRequest_example.json"
+--8<-- "./examples/SubscriptionRequest_example.json"
 ```
 
-_([examples/SubscriptionRequest_example.json](examples/SubscriptionRequest_example.json))_
+_([SubscriptionRequest_example.json](./examples/SubscriptionRequest_example.json))_
 
 !!! note
     The **@id** found in the subscription details provided by the Subscriber is not mandatory, but it can serve as a means for the Subscriber to manage various subscriptions. The Subscriber has the freedom to determine the format of this identifier. To access the SubscriptionRequest, both the Subscriber and the Publisher must utilize the id assigned by the Publisher for the SubscriptionRequest ([https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee) in the example), rather than the id of the Subscription.
@@ -159,9 +159,9 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Notification_example1.json"
+--8<-- "./examples/Notification_example1.json"
 ```
-_([examples/Notification_example1.json](examples/Notification_example1.json))_
+_([Notification_example1.json](./examples/Notification_example1.json))_
 
 !!! note
     Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.
@@ -237,10 +237,10 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/Subscriptions_example1.json"
+--8<-- "./examples/Subscriptions_example1.json"
 ```
 
-_([examples/Subscriptions_example1.json](examples/Subscriptions_example1.json))_
+_([Subscriptions_example1.json](./examples/Subscriptions_example1.json))_
 
 ## Example A2
 
@@ -261,10 +261,10 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/Subscriptions_example2.json"
+--8<-- "./examples/Subscriptions_example2.json"
 ```
 
-_([examples/Subscriptions_example2.json](examples/Subscriptions_example2.json))_
+_([Subscriptions_example2.json](./examples/Subscriptions_example2.json))_
 
 ## Example A3
 
@@ -285,9 +285,9 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/Subscriptions_example3_Error_400.json"
+--8<-- "./examples/Subscriptions_example3_Error_400.json"
 ```
-_([examples/Subscriptions_example3_Error_400.json](examples/Subscriptions_example3_Error_400.json))_
+_([Subscriptions_example3_Error_400.json](./examples/Subscriptions_example3_Error_400.json))_
 
 
 ## Example A4
@@ -308,9 +308,9 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/Subscriptions_example3_Error_400_example2.json"
+--8<-- "./examples/Subscriptions_example3_Error_400_example2.json"
 ```
-_([examples/Subscriptions_example3_Error_400_example2.json](examples/Subscriptions_example3_Error_400_example2.json))_
+_([Subscriptions_example3_Error_400_example2.json](./examples/Subscriptions_example3_Error_400_example2.json))_
 
 # Subscribe to Logistics Objects
 
@@ -392,9 +392,9 @@ Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Subscription_example1.json"
+--8<-- "./examples/Subscription_example1.json"
 ```
-_([examples/Subscription_example1.json](examples/Subscription_example1.json))_
+_([Subscription_example1.json](./examples/Subscription_example1.json))_
 
 Response:
 

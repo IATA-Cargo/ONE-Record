@@ -175,19 +175,19 @@ Therefore, the same `Sensor` object can be formatted as extended (see example 1)
 
 **Example 1:**
 
-```json title="examples/Sensor.expanded.json"
---8<-- "examples/Sensor.expanded.json"
+```json title="Sensor.expanded.json"
+--8<-- "./examples/Sensor.expanded.json"
 ```
 
-(see [examples/Sensor.expanded.json](examples/Sensor.expanded.json))
+(see [Sensor.expanded.json](./examples/Sensor.expanded.json))
 
 **Example 2:**
 
-```json title="examples/Sensor.compacted.json"
---8<-- "examples/Sensor.compacted.json"
+```json title="Sensor.compacted.json"
+--8<-- "./examples/Sensor.compacted.json"
 ```
 
-(see [examples/Sensor.compacted.json](examples/Sensor.compacted.json))
+(see [Sensor.compacted.json](./examples/Sensor.compacted.json))
 
 There are more forms that are equal to the example above. Copy and paste the first example on the [JSON-LD Playground](https://json-ld.org/playground/) to see this different forms.
 
