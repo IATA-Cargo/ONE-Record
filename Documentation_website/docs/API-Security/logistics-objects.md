@@ -64,7 +64,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Piece.json"
+--8<-- "API-Security/examples/Piece.json"
 ```
 
 _([Piece.json](./examples/Piece.json))_
@@ -90,7 +90,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Company.json"
+--8<-- "API-Security/examples/Company.json"
 ```
 
 _([Company.json](./examples/Company.json))_
@@ -116,7 +116,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Shipment_with_Piece.json"
+--8<-- "API-Security/examples/Shipment_with_Piece.json"
 ```
 
 _([Shipment.json](./examples/Shipment_with_Piece.json))_
@@ -235,7 +235,7 @@ Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "./examples/Piece_with_id.json"
+--8<-- "API-Security/examples/Piece_with_id.json"
 ```
 
 _([Piece_with_id.json](./examples/Piece_with_id.json))_
@@ -259,7 +259,7 @@ HTTP/1.1 403 Forbidden
 Content-Language: en-US
 Content-Type: application/ld+json
 
---8<-- "./examples/Error_403.json"
+--8<-- "API-Security/examples/Error_403.json"
 ```
 
 _([Error_403.json](./examples/Error_403.json))_
@@ -289,7 +289,7 @@ Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "./examples/Shipment_with_Piece.embedded.json"
+--8<-- "API-Security/examples/Shipment_with_Piece.embedded.json"
 ```
 
 _([Shipment_with_Piece.embedded.json](./examples/Shipment_with_Piece.embedded.json))_
@@ -515,7 +515,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "./examples/Change_example1.json"
+--8<-- "API-Security/examples/Change_example1.json"
 ```
 
 _([Change_example1.json](./examples/Change_example1.json))_
@@ -544,7 +544,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "./examples/Change_example2.json"
+--8<-- "API-Security/examples/Change_example2.json"
 ```
 
 _([Change_example2.json](./examples/Change_example2.json))_
@@ -577,7 +577,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "./examples/Change_example3.json"
+--8<-- "API-Security/examples/Change_example3.json"
 ```
 
 _([Change_example3.json](./examples/Change_example3.json))_
@@ -606,7 +606,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "./examples/Change_example4.json"
+--8<-- "API-Security/examples/Change_example4.json"
 ```
 
 _([Change_example4.json](./examples/Change_example4.json))_
@@ -636,7 +636,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/CustomsInformation.json"
+--8<-- "API-Security/examples/CustomsInformation.json"
 ```
 
 _([CustomsInformation.json](./examples/CustomsInformation.json))_
@@ -659,7 +659,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/CustomsInformation_2.json"
+--8<-- "API-Security/examples/CustomsInformation_2.json"
 ```
 
 _([CustomsInformation_2.json](./examples/CustomsInformation_2.json))_
@@ -682,7 +682,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "./examples/Change_example5.json"
+--8<-- "API-Security/examples/Change_example5.json"
 ```
 
 _([Change_example5.json](./examples/Change_example5.json))_
@@ -711,7 +711,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Change_example6.json"
+--8<-- "API-Security/examples/Change_example6.json"
 ```
 
 _([Change_example6.json](./examples/Change_example6.json))_
@@ -722,7 +722,7 @@ Response:
 HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Error_400.json"
+--8<-- "API-Security/examples/Error_400.json"
 ```
 _([Error_400.json](./examples/Error_400.json))_
 
@@ -739,7 +739,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Change_example7.json"
+--8<-- "API-Security/examples/Change_example7.json"
 ```
 
 _([Change_example7.json](./examples/Change_example7.json))_
@@ -750,7 +750,7 @@ Response:
 HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Error_400_example2.json"
+--8<-- "API-Security/examples/Error_400_example2.json"
 ```
 _([Error_400_example2.json](./examples/Error_400_example2.json))_
 
@@ -870,7 +870,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 
---8<-- "./examples/AuditTrail.json"
+--8<-- "API-Security/examples/AuditTrail.json"
 ```
 _([AuditTrail.json](./examples/AuditTrail.json))_
 
@@ -893,7 +893,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 
---8<-- "./examples/AuditTrail_example2.json"
+--8<-- "API-Security/examples/AuditTrail_example2.json"
 ```
 _([AuditTrail_example2.json](./examples/AuditTrail_example2.json))_
 
@@ -942,7 +942,7 @@ Type: https://onerecord.iata.org/ns/cargo#Piece
 Revision: 3
 Latest-Revision: 4
 
---8<-- "./examples/Piece_with_id.rev3.json"
+--8<-- "API-Security/examples/Piece_with_id.rev3.json"
 ```
 
 _([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_

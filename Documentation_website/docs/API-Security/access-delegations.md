@@ -114,7 +114,7 @@ POST /access-delegations HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/AccessDelegation_example1.json"
+--8<-- "API-Security/examples/AccessDelegation_example1.json"
 ```
 _([AccessDelegation_example1.json](./examples/AccessDelegation_example1.json))_
 
@@ -141,7 +141,7 @@ POST /access-delegations HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/AccessDelegation_example2.json"
+--8<-- "API-Security/examples/AccessDelegation_example2.json"
 ```
 _([AccessDelegation_example2.json](./examples/AccessDelegation_example2.json))_
 

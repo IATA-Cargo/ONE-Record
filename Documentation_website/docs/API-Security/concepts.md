@@ -176,7 +176,7 @@ Therefore, the same `Sensor` object can be formatted as extended (see example 1)
 **Example 1:**
 
 ```json title="Sensor.expanded.json"
---8<-- "./examples/Sensor.expanded.json"
+--8<-- "API-Security/examples/Sensor.expanded.json"
 ```
 
 (see [Sensor.expanded.json](./examples/Sensor.expanded.json))
@@ -184,7 +184,7 @@ Therefore, the same `Sensor` object can be formatted as extended (see example 1)
 **Example 2:**
 
 ```json title="Sensor.compacted.json"
---8<-- "./examples/Sensor.compacted.json"
+--8<-- "API-Security/examples/Sensor.compacted.json"
 ```
 
 (see [Sensor.compacted.json](./examples/Sensor.compacted.json))

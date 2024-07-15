@@ -86,7 +86,7 @@ Response:
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/ServerInformation.json"
+--8<-- "API-Security/examples/ServerInformation.json"
 ```
 _([ServerInformation.json](./examples/ServerInformation.json))_
 

@@ -124,7 +124,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/Subscriptions_example1.json"
+--8<-- "API-Security/examples/Subscriptions_example1.json"
 ```
 
 _([Subscriptions_example1.json](./examples/Subscriptions_example1.json))_
@@ -139,7 +139,7 @@ The publisher MUST ensure that the subscriber gets sufficient access to the resu
 Here an example of a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest):
 
 ```bash
---8<-- "./examples/SubscriptionRequest_example.json"
+--8<-- "API-Security/examples/SubscriptionRequest_example.json"
 ```
 
 _([SubscriptionRequest_example.json](./examples/SubscriptionRequest_example.json))_
@@ -159,7 +159,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example1.json"
+--8<-- "API-Security/examples/Notification_example1.json"
 ```
 _([Notification_example1.json](./examples/Notification_example1.json))_
 
@@ -237,7 +237,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/Subscriptions_example1.json"
+--8<-- "API-Security/examples/Subscriptions_example1.json"
 ```
 
 _([Subscriptions_example1.json](./examples/Subscriptions_example1.json))_
@@ -261,7 +261,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/Subscriptions_example2.json"
+--8<-- "API-Security/examples/Subscriptions_example2.json"
 ```
 
 _([Subscriptions_example2.json](./examples/Subscriptions_example2.json))_
@@ -285,7 +285,7 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/Subscriptions_example3_Error_400.json"
+--8<-- "API-Security/examples/Subscriptions_example3_Error_400.json"
 ```
 _([Subscriptions_example3_Error_400.json](./examples/Subscriptions_example3_Error_400.json))_
 
@@ -308,7 +308,7 @@ HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/Subscriptions_example3_Error_400_example2.json"
+--8<-- "API-Security/examples/Subscriptions_example3_Error_400_example2.json"
 ```
 _([Subscriptions_example3_Error_400_example2.json](./examples/Subscriptions_example3_Error_400_example2.json))_
 
@@ -392,7 +392,7 @@ Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Subscription_example1.json"
+--8<-- "API-Security/examples/Subscription_example1.json"
 ```
 _([Subscription_example1.json](./examples/Subscription_example1.json))_
 

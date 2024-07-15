@@ -159,7 +159,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example1.json"
+--8<-- "API-Security/examples/Notification_example1.json"
 ```
 _([Notification_example1.json](./examples/Notification_example1.json))_
 
@@ -178,7 +178,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example2.json"
+--8<-- "API-Security/examples/Notification_example2.json"
 ```
 _([Notification_example2.json](./examples/Notification_example2.json))_
 
@@ -197,7 +197,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example3.json"
+--8<-- "API-Security/examples/Notification_example3.json"
 ```
 _([Notification_example3.json](./examples/Notification_example3.json))_
 
@@ -218,7 +218,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example4.json"
+--8<-- "API-Security/examples/Notification_example4.json"
 ```
 _([Notification_example4.json](./examples/Notification_example4.json))_
 
@@ -236,7 +236,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Notification_example5.json"
+--8<-- "API-Security/examples/Notification_example5.json"
 ```
 _([Notification_example5.json](./examples/Notification_example5.json))_
 

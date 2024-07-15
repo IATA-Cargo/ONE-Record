@@ -135,7 +135,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/LogisticsEvent.json"
+--8<-- "API-Security/examples/LogisticsEvent.json"
 ```
 
 _([LogisticsEvent.json](./examples/LogisticsEvent.json))_
@@ -162,7 +162,7 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/LogisticsEvent.json"
+--8<-- "API-Security/examples/LogisticsEvent.json"
 ```
 
 _([LogisticsEvent.json](./examples/LogisticsEvent.json))_
@@ -174,7 +174,7 @@ HTTP/1.1 404 Not Found
 Content-Language: en-US
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "./examples/Error_404.json"
+--8<-- "API-Security/examples/Error_404.json"
 ```
 
 _([Error_404.json](./examples/Error_404.json))_
@@ -250,7 +250,7 @@ Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a41
 Type: https://onerecord.iata.org/ns/cargo#LogisticsEvent
 Last-Modified: Tue, 19 Apr 2023 07:28:00 GMT
 
---8<-- "./examples/LogisticsEvent_with_id.json"
+--8<-- "API-Security/examples/LogisticsEvent_with_id.json"
 ```
 
 _([LogisticsEvent_with_id.json](./examples/LogisticsEvent_with_id.json))_
@@ -275,7 +275,7 @@ Content-Language: en-US
 Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/api/2.0.0dev#Error
 
---8<-- "./examples/Error_404.json"
+--8<-- "API-Security/examples/Error_404.json"
 ```
 
 _([Error_404.json](./examples/Error_404.json))_
@@ -396,7 +396,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/LogisticsEvents_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_list.json"
 ```
 _([LogisticsEvents_list.json](./examples/LogisticsEvents_list.json))_
 
@@ -420,7 +420,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/LogisticsEvents_filtered_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_filtered_list.json"
 ```
 _([LogisticsEvents_filtered_list.json](./examples/LogisticsEvents_filtered_list.json))_
 
@@ -443,6 +443,6 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "./examples/LogisticsEvents_empty_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_empty_list.json"
 ```
 _([LogisticsEvents_empty_list.json](./examples/LogisticsEvents_empty_list.json))_
