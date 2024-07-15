@@ -308,9 +308,9 @@ HTTP/1.1 403 Forbidden
 Content-Language: en-US
 Content-Type: application/ld+json
 
---8<-- "examples/Error_403.json"
+--8<-- "API-Security/examples/Error_403.json"
 ```
-_([examples/Error_403.json](examples/Error_403.json))_
+_([API-Security/examples/Error_403.json](API-Security/examples/Error_403.json))_
 
 ## Asynchronous Error Handling
 
@@ -395,9 +395,9 @@ HTTP/1.1 404 Not Found
 Content-Language: de-DE
 Content-Type: application/ld+json
 
---8<-- "examples/Error_404.de-DE.json"
+--8<-- "API-Security/examples/Error_404.de-DE.json"
 ```
-_([examples/Error_404.de-DE.json](examples/Error_404.de-DE.json))_
+_([API-Security/examples/Error_404.de-DE.json](API-Security/examples/Error_404.de-DE.json))_
 
 # Caching
 
