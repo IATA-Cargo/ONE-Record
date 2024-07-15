@@ -41,7 +41,7 @@ The following HTTP header parameters MUST be present in the request:
 
 The HTTP request body must contain a valid [LogisticsEvent](https://onerecord.iata.org/ns/cargo#LogisticsEvent) in the format as specified by the Content-Type in the header.
 
-The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/ns/cargo/3.0.0).
+The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/ns/cargo).
 The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
