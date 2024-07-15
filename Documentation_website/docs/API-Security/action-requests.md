@@ -215,9 +215,9 @@ Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d
 Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "API-Security/examples/SubscriptionRequest_example2.json"
+--8<-- "examples/SubscriptionRequest_example2.json"
 ```
-_([API-Security/examples/SubscriptionRequest_example2.json](API-Security/examples/SubscriptionRequest_example2.json))_
+_([examples/SubscriptionRequest_example2.json](examples/SubscriptionRequest_example2.json))_
 
 # Update an Action Request
 
