@@ -64,10 +64,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Piece.json"
+--8<-- "API-Security/examples/Piece.json"
 ```
 
-_([examples/Piece.json](examples/Piece.json))_
+_([Piece.json](./examples/Piece.json))_
 
 Response:
 
@@ -90,10 +90,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Company.json"
+--8<-- "API-Security/examples/Company.json"
 ```
 
-_([examples/Company.json](examples/Company.json))_
+_([Company.json](./examples/Company.json))_
 
 Response:
 
@@ -116,10 +116,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Shipment_with_Piece.json"
+--8<-- "API-Security/examples/Shipment_with_Piece.json"
 ```
 
-_([examples/Shipment.json](examples/Shipment_with_Piece.json))_
+_([Shipment.json](./examples/Shipment_with_Piece.json))_
 
 Response:
 
@@ -235,10 +235,10 @@ Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "examples/Piece_with_id.json"
+--8<-- "API-Security/examples/Piece_with_id.json"
 ```
 
-_([examples/Piece_with_id.json](examples/Piece_with_id.json))_
+_([Piece_with_id.json](./examples/Piece_with_id.json))_
 
 ## Example B2
 This is an example for an unsuccessful HTTP GET request that results in an error.
@@ -259,10 +259,10 @@ HTTP/1.1 403 Forbidden
 Content-Language: en-US
 Content-Type: application/ld+json
 
---8<-- "examples/Error_403.json"
+--8<-- "API-Security/examples/Error_403.json"
 ```
 
-_([examples/Error_403.json](examples/Error_403.json))_
+_([Error_403.json](./examples/Error_403.json))_
 
 ## Example B3
 
@@ -289,10 +289,10 @@ Revision: 1
 Latest-Revision: 1
 Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 
---8<-- "examples/Shipment_with_Piece.embedded.json"
+--8<-- "API-Security/examples/Shipment_with_Piece.embedded.json"
 ```
 
-_([examples/Shipment_with_Piece.embedded.json](examples/Shipment_with_Piece.embedded.json))_
+_([Shipment_with_Piece.embedded.json](./examples/Shipment_with_Piece.embedded.json))_
 
 ## Example B4 
 This example illustrates an instance of an HTTP GET request that triggers a redirection. Various types of redirection can be employed based on requirements. The provided illustration demonstrates a 301 redirect used for indicating a permanent relocation of the resource.
@@ -515,10 +515,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/Change_example1.json"
+--8<-- "API-Security/examples/Change_example1.json"
 ```
 
-_([examples/Change_example1.json](examples/Change_example1.json))_
+_([Change_example1.json](./examples/Change_example1.json))_
 
 Response:
 
@@ -544,10 +544,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/Change_example2.json"
+--8<-- "API-Security/examples/Change_example2.json"
 ```
 
-_([examples/Change_example2.json](examples/Change_example2.json))_
+_([Change_example2.json](./examples/Change_example2.json))_
 
 Response:
 
@@ -577,10 +577,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/Change_example3.json"
+--8<-- "API-Security/examples/Change_example3.json"
 ```
 
-_([examples/Change_example3.json](examples/Change_example3.json))_
+_([Change_example3.json](./examples/Change_example3.json))_
 
 Response:
 
@@ -606,10 +606,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/Change_example4.json"
+--8<-- "API-Security/examples/Change_example4.json"
 ```
 
-_([examples/Change_example4.json](examples/Change_example4.json))_
+_([Change_example4.json](./examples/Change_example4.json))_
 
 Response:
 
@@ -636,10 +636,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/CustomsInformation.json"
+--8<-- "API-Security/examples/CustomsInformation.json"
 ```
 
-_([examples/CustomsInformation.json](examples/CustomsInformation.json))_
+_([CustomsInformation.json](./examples/CustomsInformation.json))_
 
 Response:
 
@@ -659,10 +659,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/CustomsInformation_2.json"
+--8<-- "API-Security/examples/CustomsInformation_2.json"
 ```
 
-_([examples/CustomsInformation_2.json](examples/CustomsInformation_2.json))_
+_([CustomsInformation_2.json](./examples/CustomsInformation_2.json))_
 
 Response:
 
@@ -682,10 +682,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json
 Accept: application/ld+json
 
---8<-- "examples/Change_example5.json"
+--8<-- "API-Security/examples/Change_example5.json"
 ```
 
-_([examples/Change_example5.json](examples/Change_example5.json))_
+_([Change_example5.json](./examples/Change_example5.json))_
 
 Response:
 
@@ -711,10 +711,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Change_example6.json"
+--8<-- "API-Security/examples/Change_example6.json"
 ```
 
-_([examples/Change_example6.json](examples/Change_example6.json))_
+_([Change_example6.json](./examples/Change_example6.json))_
 
 Response:
 
@@ -722,9 +722,9 @@ Response:
 HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Error_400.json"
+--8<-- "API-Security/examples/Error_400.json"
 ```
-_([examples/Error_400.json](examples/Error_400.json))_
+_([Error_400.json](./examples/Error_400.json))_
 
 ## Example C7
 
@@ -739,10 +739,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Change_example7.json"
+--8<-- "API-Security/examples/Change_example7.json"
 ```
 
-_([examples/Change_example7.json](examples/Change_example7.json))_
+_([Change_example7.json](./examples/Change_example7.json))_
 
 Response:
 
@@ -750,9 +750,9 @@ Response:
 HTTP/1.1 400 Bad Request
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Error_400_example2.json"
+--8<-- "API-Security/examples/Error_400_example2.json"
 ```
-_([examples/Error_400_example2.json](examples/Error_400_example2.json))_
+_([Error_400_example2.json](./examples/Error_400_example2.json))_
 
 # Get Audit Trail of a Logistics Object
 
@@ -870,9 +870,9 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 
---8<-- "examples/AuditTrail.json"
+--8<-- "API-Security/examples/AuditTrail.json"
 ```
-_([examples/AuditTrail.json](examples/AuditTrail.json))_
+_([AuditTrail.json](./examples/AuditTrail.json))_
 
 ## Example D2
 An example of an AuditTrail with ChangeRequests with Errors, e.g. the revision of the Logistics Object used in the submitted Change is outdated
@@ -893,9 +893,9 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json
 Content-Language: en-US
 
---8<-- "examples/AuditTrail_example2.json"
+--8<-- "API-Security/examples/AuditTrail_example2.json"
 ```
-_([examples/AuditTrail_example2.json](examples/AuditTrail_example2.json))_
+_([AuditTrail_example2.json](./examples/AuditTrail_example2.json))_
 
 
 
@@ -942,7 +942,7 @@ Type: https://onerecord.iata.org/ns/cargo#Piece
 Revision: 3
 Latest-Revision: 4
 
---8<-- "examples/Piece_with_id.rev3.json"
+--8<-- "API-Security/examples/Piece_with_id.rev3.json"
 ```
 
-_([examples/Piece_with_id.json](examples/Piece_with_id.rev3.json))_
+_([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_

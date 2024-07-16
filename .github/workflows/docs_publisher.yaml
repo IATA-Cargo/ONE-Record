@@ -1,8 +1,8 @@
-name: ONE Record Github Pages deployer (development)
+name: ONE Record new release publisher
 on:
-  push:
-    branches:
-      - master 
+  release:
+    types: [published]
+
 permissions:
   contents: write
 jobs:
@@ -21,11 +21,11 @@ jobs:
           pip install mike
       - name: Setup Docs Deploy
         run: |
-          git config --global user.name "IATA-Cargo"
-          git config --global user.email "iata-cargo@example.com"
-      - name: Build Docs Website
+          git config --global user.name "Docs Deploy"
+          git config --global user.email "docs.deploy@example.co.uk"
+      - name: Build Docs Website        
         run: |
           make copy-assets
-          mike deploy --push development
+          mike deploy --push --update-aliases ${{ github.event.release.tag_name }} stable
+          mike set-default --push stable
         working-directory: ./Documentation_website
-

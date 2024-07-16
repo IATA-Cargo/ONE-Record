@@ -4,6 +4,7 @@ site_author: IATA
 site_description: >-
   ONE Record API specification defines a standard, programming language-agnostic interface 
   for the interaction with the ONE Record Web API.
+site_url: 'https://aloccid-iata.github.io/ONE-Record/'
 
 # Copyright
 copyright: >
@@ -12,31 +13,31 @@ copyright: >
 # Content
 nav:
     - Introduction: 'index.md'
-    - Concepts: 'concepts.md'
-    - Implementation Guidelines: 'implementation-guidelines.md'
+    - Concepts: 'API-Security/concepts.md'
+    - Implementation Guidelines: 'API-Security/implementation-guidelines.md'
     - Core Resources:
-        - Overview: 'api-features.md'
-        - Server Information: 'server-information.md'
-        - Logistics Objects: 'logistics-objects.md'
-        - Logistics Events: 'logistics-events.md'
-        - Subscriptions: 'subscriptions.md'        
-        - Notifications: 'notifications.md'                
-        - Access Delegations: 'access-delegations.md'    
-        - Action Requests: 'action-requests.md'
+        - Overview: 'API-Security/api-features.md'
+        - Server Information: 'API-Security/server-information.md'
+        - Logistics Objects: 'API-Security/logistics-objects.md'
+        - Logistics Events: 'API-Security/logistics-events.md'
+        - Subscriptions: 'API-Security/subscriptions.md'        
+        - Notifications: 'API-Security/notifications.md'                
+        - Access Delegations: 'API-Security/access-delegations.md'    
+        - Action Requests: 'API-Security/action-requests.md'
     - Security:
-        - Overview: 'security/security-overview.md'
-        - Transport Layer Security: 'security/authn-transport-layer.md'              
-        - Authentication & Authorization : 'security/authn-application-layer.md'      
-        - Access Control: 'security/access-control.md'          
+        - Overview: 'API-Security/security/security-overview.md'
+        - Transport Layer Security: 'API-Security/security/authn-transport-layer.md'              
+        - Authentication & Authorization : 'API-Security/security/authn-application-layer.md'      
+        - Access Control: 'API-Security/security/access-control.md'          
     - Reference:        
-        - Glossary: 'glossary.md'
-        - Bibliography: 'bibliography.md'
+        - Glossary: 'API-Security/glossary.md'
+        - Bibliography: 'API-Security/bibliography.md'
     - Tools:
-        - Unit Test Suite: "tools/unit-tests.md"
+        - Unit Test Suite: "API-Security/tools/unit-tests.md"
     - Development:
-        - License: "license.md"
-        - Changelog: "changelog.md"        
-        - Community: 'community.md'
+        - License: "API-Security/license.md"
+        - Changelog: "API-Security/changelog.md"        
+        - Community: 'API-Security/community.md'
 
 # Theme Configuration
 theme:
@@ -65,27 +66,38 @@ theme:
     - search.suggest
     - toc.follow
     # - toc.integrate
-  palette:  
-    # Palette toggle for light mode
-    - scheme: default
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
       toggle:
-        icon: material/weather-night
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      toggle:
+        icon: material/brightness-7
         name: Switch to dark mode
 
     # Palette toggle for dark mode
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+        icon: material/brightness-4
+        name: Switch to system preference
   logo: img/logo.png
   favicon: img/favicon.ico
   
 # Extra
 extra:
-  # version:
-  #   provider: mike
-  #   default: dev
+  version:
+    provider: mike
+    alias: true
+    default: 
+    - stable
   generator: true
+
 
 # Markdown Extensions
 markdown_extensions:
@@ -113,11 +125,11 @@ markdown_extensions:
 
 extra_css:
   - css/extra.css
-  # - css/pdf-print.css
 
 extra_javascript:
   - js/extra.js
-# plugins:
-#   - with-pdf:
-#       verbose: true
-#       output_path: ../document.pdf
+
+# Github Repository Setup
+repo_name: IATA-Cargo/ONE-Record
+repo_url: https://github.com/IATA-Cargo/ONE-Record
+edit_uri: edit/master/Documentation_website/docs/

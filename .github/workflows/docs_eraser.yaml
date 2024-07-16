@@ -1,8 +1,6 @@
-name: ONE Record Github Pages deployer (development)
+name: Github Pages Eraser
 on:
-  push:
-    branches:
-      - master 
+    workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -25,7 +23,5 @@ jobs:
           git config --global user.email "iata-cargo@example.com"
       - name: Build Docs Website
         run: |
-          make copy-assets
-          mike deploy --push development
+          mike delete --push --all
         working-directory: ./Documentation_website
-

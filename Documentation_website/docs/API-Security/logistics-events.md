@@ -41,7 +41,7 @@ The following HTTP header parameters MUST be present in the request:
 
 The HTTP request body must contain a valid [LogisticsEvent](https://onerecord.iata.org/ns/cargo#LogisticsEvent) in the format as specified by the Content-Type in the header.
 
-The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/ns/cargo/3.0.0).
+The LogisticsEvent is a data class of the [ONE Record cargo ontology](https://onerecord.iata.org/ns/cargo).
 The properties and relationships to other data classes are visualized in the following class diagram.
 
 ```mermaid
@@ -135,10 +135,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/LogisticsEvent.json"
+--8<-- "API-Security/examples/LogisticsEvent.json"
 ```
 
-_([examples/LogisticsEvent.json](examples/LogisticsEvent.json))_
+_([LogisticsEvent.json](./examples/LogisticsEvent.json))_
 
 Response:
 
@@ -162,10 +162,10 @@ Host: 1r.example.com
 Content-Type: application/ld+json; version=2.0.0-dev
 Accept: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/LogisticsEvent.json"
+--8<-- "API-Security/examples/LogisticsEvent.json"
 ```
 
-_([examples/LogisticsEvent.json](examples/LogisticsEvent.json))_
+_([LogisticsEvent.json](./examples/LogisticsEvent.json))_
 
 Response:
 
@@ -174,10 +174,10 @@ HTTP/1.1 404 Not Found
 Content-Language: en-US
 Content-Type: application/ld+json; version=2.0.0-dev
 
---8<-- "examples/Error_404.json"
+--8<-- "API-Security/examples/Error_404.json"
 ```
 
-_([examples/Error_404.json](examples/Error_404.json))_
+_([Error_404.json](./examples/Error_404.json))_
 
 # Get a Logistics Event
 
@@ -250,10 +250,10 @@ Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a41
 Type: https://onerecord.iata.org/ns/cargo#LogisticsEvent
 Last-Modified: Tue, 19 Apr 2023 07:28:00 GMT
 
---8<-- "examples/LogisticsEvent_with_id.json"
+--8<-- "API-Security/examples/LogisticsEvent_with_id.json"
 ```
 
-_([examples/LogisticsEvent_with_id.json](examples/LogisticsEvent_with_id.json))_
+_([LogisticsEvent_with_id.json](./examples/LogisticsEvent_with_id.json))_
 
 ## Example B2
 
@@ -275,10 +275,10 @@ Content-Language: en-US
 Content-Type: application/ld+json; version=2.0.0-dev
 Type: https://onerecord.iata.org/ns/api/2.0.0dev#Error
 
---8<-- "examples/Error_404.json"
+--8<-- "API-Security/examples/Error_404.json"
 ```
 
-_([examples/Error_404.json](examples/Error_404.json))_
+_([Error_404.json](./examples/Error_404.json))_
 
 # Get Logistic Events of a Logistics Object
 
@@ -396,9 +396,9 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/LogisticsEvents_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_list.json"
 ```
-_([examples/LogisticsEvents_list.json](examples/LogisticsEvents_list.json))_
+_([LogisticsEvents_list.json](./examples/LogisticsEvents_list.json))_
 
 
 ## Example C2
@@ -420,9 +420,9 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/LogisticsEvents_filtered_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_filtered_list.json"
 ```
-_([examples/LogisticsEvents_filtered_list.json](examples/LogisticsEvents_filtered_list.json))_
+_([LogisticsEvents_filtered_list.json](./examples/LogisticsEvents_filtered_list.json))_
 
 ## Example C3
 
@@ -443,6 +443,6 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; version=2.0.0-dev
 Content-Language: en-US
 
---8<-- "examples/LogisticsEvents_empty_list.json"
+--8<-- "API-Security/examples/LogisticsEvents_empty_list.json"
 ```
-_([examples/LogisticsEvents_empty_list.json](examples/LogisticsEvents_empty_list.json))_
+_([LogisticsEvents_empty_list.json](./examples/LogisticsEvents_empty_list.json))_
