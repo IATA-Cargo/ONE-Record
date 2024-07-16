@@ -1,0 +1,45 @@
+{
+  "@context": {
+    "cargo": "https://onerecord.iata.org/ns/cargo#",
+    "api": "https://onerecord.iata.org/ns/api#"
+  },
+  "@type": "api:AuditTrail",
+  "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail",
+  "api:hasChangeRequest": [
+    {
+      "@type": "api:ChangeRequest",
+      "@id": "https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b",
+      "api:hasChange": {
+      ...this contains a complete Change object...
+      },
+      "api:hasError": [
+        {
+          "@type": "api:Error",
+          "@id": "https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b/errors/98843671-388c-53c6-ba79-7be266f61aa0",
+          "api:hasTitle": "LogisticsObject revision does not match",
+          "api:hasErrorDetail": [
+            {
+              "@type": "api:ErrorDetail",
+              "@id": "_:b1",
+              "api:hasCode": "409",
+              "api:hasMessage": "LogisticsObject revision does not match",
+              "api:hasResource": "http://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+            }
+          ]
+        }
+      ],
+      "api:isRequestedAt": {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2020-09-07T11:55:45.768Z"
+      },
+      "api:isRequestedBy": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
+      "api:hasRequestStatus": {
+        "@id": "api:REQUEST_STATUS_REJECTED"
+      }
+    }
+  ],
+  "api:hasLatestRevision": {
+    "@type": "http://www.w3.org/2001/XMLSchema#positiveInteger",
+    "@value": "2"
+  }
+}
