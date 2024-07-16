@@ -1,0 +1,2258 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ONE Record API specification defines a standard, programming language-agnostic interface  for the interaction with the ONE Record Web API.">
+      
+      
+        <meta name="author" content="IATA">
+      
+      
+        <link rel="canonical" href="https://aloccid-iata.github.io/ONE-Record/development/API-Security/security/authn-application-layer/">
+      
+      
+        <link rel="prev" href="../authn-transport-layer/">
+      
+      
+        <link rel="next" href="../access-control/">
+      
+      
+      <link rel="icon" href="../../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
+    
+    
+      
+        <title>Authentication & Authorization - ONE Record API Specification</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.76a95c52.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openid-connect" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="ONE Record API Specification" class="md-header__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ONE Record API Specification
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Authentication & Authorization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ONE Record API Specification" class="md-nav__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    ONE Record API Specification
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation-guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Resources
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server-information/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logistics-objects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Objects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../logistics-events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subscriptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notifications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../access-delegations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Delegations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../action-requests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Action Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authn-transport-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transport Layer Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Authentication & Authorization
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Authentication & Authorization
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenID Connect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenID Connect Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect-grant-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenId Connect Grant Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-web-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Token
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Web Token">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-web-token-claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Token Claims
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-json-web-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validate JSON Web Tokens
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-web-key-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Key Sets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-client-credential-grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example - Client Credential Grant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example - Client Credential Grant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-a-token-in-client-credential-grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request a Token in Client Credential Grant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request a Token in Client Credential Grant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-header-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Header Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-body-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Body Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reponse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reponse-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reponse Body
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Body
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identity Provider
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Identity Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onboarding-of-an-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Onboarding of an Identity Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onboarding-of-a-party" class="md-nav__link">
+    <span class="md-ellipsis">
+      Onboarding of a party
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-identity-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Identity Providers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-authentication-and-autorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Authentication and Autorization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bibliography/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bibliography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/unit-tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Suite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenID Connect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenID Connect Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openid-connect-grant-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenId Connect Grant Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json-web-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Token
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSON Web Token">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payload
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-web-token-claims" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Token Claims
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-json-web-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validate JSON Web Tokens
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-web-key-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Web Key Sets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-client-credential-grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example - Client Credential Grant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example - Client Credential Grant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flow Diagram
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-a-token-in-client-credential-grant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request a Token in Client Credential Grant
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Request a Token in Client Credential Grant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-header-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Header Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-body-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request Body Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reponse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reponse-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reponse Body
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Body
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refresh-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refresh token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identity Provider
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Identity Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onboarding-of-an-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      Onboarding of an Identity Provider
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onboarding-of-a-party" class="md-nav__link">
+    <span class="md-ellipsis">
+      Onboarding of a party
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-identity-providers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Identity Providers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-authentication-and-autorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Authentication and Autorization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/IATA-Cargo/ONE-Record/edit/master/Documentation_website/docs/API-Security/security/authn-application-layer.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/IATA-Cargo/ONE-Record/raw/master/Documentation_website/docs/API-Security/security/authn-application-layer.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+  <h1>Authentication & Authorization</h1>
+
+<p>The authentication mechanism employed by ONE Record servers adheres to the OpenID Connect standard. To authenticate successfully, a party must possess an ID Token issued by an authorized identity provider (IdP). This page provides an explanation of OpenID Connect and its application within the network of ONE Record servers (ONE Record network).</p>
+<h2 id="openid-connect">OpenID Connect<a class="headerlink" href="#openid-connect" title="Permanent link">&para;</a></h2>
+<p>OpenID Connect (OIDC) is an interoperable authentication protocol based on the OAuth 2.0 framework of specifications (IETF <a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC 6749</a> and <a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC 6750</a>). It allows third-party applications to verify the identity of the end-user and to obtain basic user profile information. OIDC uses JSON web tokens (JWTs), which you can obtain using flows conforming to the OAuth 2.0 specifications. To know more about OIDC see https://openid.net/.</p>
+<p>The ONE Record server employs the OpenID Connect standard to authenticate other servers within the network.</p>
+<h2 id="openid-connect-roles">OpenID Connect Roles<a class="headerlink" href="#openid-connect-roles" title="Permanent link">&para;</a></h2>
+<p>OpenID Connect outlines various actors that play specific and distinct roles in the authentication and authorization process. In the context of the ONE Record servers network, our focus will be on the main roles that hold significance.</p>
+<ul>
+<li>
+<p>Client Application: The client represents a ONE Record server that wants to access an external resouce (i.e a logistics object situated on a different ONE Record server). In this page, a client application is referred as ONE Record client</p>
+</li>
+<li>
+<p>Identity Provider: The Identity Provider (IdP) holds the responsibility of authenticating a ONE Record server. It verifies the server's identity and generates an ID token that the requesting server can utilize for authentication within the ONE Record network.</p>
+</li>
+<li>
+<p>Resource Server: The Resource Server is the host of protected resources that a ONE Record server aims to access. In the ONE Record context, these resources may include logistics objects, logistics events, and more. In this page, a resource server is referred as ONE Record Server.</p>
+</li>
+</ul>
+<p>It's essential to understand that OpenID Connect is built on top of OAuth 2.0, which provides the framework for token-based authentication and authorization. OpenID Connect adds an authentication layer and standardizes the exchange of identity information, making it easier for ONE Record servers to authenticate other servers in the network.</p>
+<h2 id="openid-connect-grant-types">OpenId Connect Grant Types<a class="headerlink" href="#openid-connect-grant-types" title="Permanent link">&para;</a></h2>
+<p>OpenID Connect (OIDC) defines various grant types that facilitate secure authentication and authorization processes in web and mobile applications. These grant types determine how tokens are exchanged between the involved parties. The "Authorization Code" grant type is widely used and involves the exchange of an authorization code for access tokens, enhancing security by keeping tokens away from the client. The "Implicit" grant type is suitable for browser-based applications, providing access tokens directly, while the "Client Credentials" grant type is employed by confidential clients to authenticate themselves and obtain access tokens directly from the authorization server. Lastly, the "Refresh Token" grant type enables the renewal of access tokens without requiring users to reauthenticate, improving user experience and security.</p>
+<p>It is important to node that these grants define only the authentication procedure while the authorization to access specific resources is handled with Access Contol Lists.</p>
+<p>The server's implementer holds the authority to select the preferred grant type. However, the JSON Web Token MUST follow the specifications defined in the <a href="#json-web-token">JWT section</a>. Within this page, a demonstration of the "Client Credential" grant type will be showcased, noted for its suitability in facilitating machine-to-machine interactions. </p>
+<h2 id="json-web-token">JSON Web Token<a class="headerlink" href="#json-web-token" title="Permanent link">&para;</a></h2>
+<p>A JSON Web Token (JWT), pronounced "jot," is an established standard <a href="https://datatracker.ietf.org/doc/html/rfc7519">RFC 7519</a> that defines a concise and self-contained method for securely exchanging data in the form of a JSON object between different parties. It is essential to understand that while all JWTs are tokens, not all tokens necessarily follow the JWT standard.</p>
+<p>Due to its compact nature, a JWT can be easily conveyed via a URL, as a POST parameter, or within an HTTP header, ensuring swift transmission. Within a JWT, all pertinent details about an entity are included, eliminating the need for multiple database queries. Furthermore, the recipient of a JWT can verify the token's authenticity without having to contact a server.</p>
+<p>The structure of a JWT consists of three parts separated by dots ('.'). These parts are:</p>
+<ul>
+<li>Header</li>
+<li>Payload</li>
+<li>Signature</li>
+</ul>
+<p>Example JWT Token:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xxxx.yyyy.zzzz
+</span></code></pre></div></p>
+<h3 id="header">Header<a class="headerlink" href="#header" title="Permanent link">&para;</a></h3>
+<p>The header generally consists of two components: the token type (JWT) and the cryptographic signing algorithm employed, like HMAC SHA256 or RSA SHA256. However, additional properties are allowed according to the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">JSON Web Signature (JWS) standard</a></p>
+<p>Example header:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;alg&quot;: &quot;RS256&quot;,
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &quot;typ&quot;: &quot;JWT&quot;,
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  &quot;jku&quot;: &quot;https://auth.example.com/.well-known/jwks.json&quot;,
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  &quot;kid&quot;:&quot;NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qh&quot;,
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>}
+</span></code></pre></div>
+The header in the example declares that the encoded object is a JWT and it's signed with RSA SHA256 algorithm. The optional "jku" and "kid" Header parameter contains informaion about the public key that matches the key used to digitally sign the JWS. The key is represented as a <a href="https://www.rfc-editor.org/rfc/rfc7517">JSON Web Key (JWK)</a>.</p>
+<p>In order to be compliant with ONE Record specification, the JWT token must contains the "alg" and the "typ". The other header parameter are optional but can be used to enhance the authentication process.</p>
+<h3 id="payload">Payload<a class="headerlink" href="#payload" title="Permanent link">&para;</a></h3>
+<p>The payload contains the claims, which are statements about the ONE Record client server or other data. The claims are divided into three types:</p>
+<ul>
+<li>
+<p>Registered claims: These are predefined claims that are not mandatory but recommended. They include information such as the issuer (iss), subject (sub), audience (aud) and expiration time (exp). Additional registered claims can be found in the <a href="https://tools.ietf.org/html/rfc7519#section-4.1">RFC7519 specification</a></p>
+</li>
+<li>
+<p>Public claims: JWT users have the freedom to define public claims according to their requirements. However, to prevent conflicts, it is recommended to either register these public claims in the IANA JSON Web Token Registry or define them using a URI with a namespace that can withstand collisions.</p>
+</li>
+<li>
+<p>Private claims: These are custom claims that are meant to be shared and used between specific parties. These claims are not part of registered or public claims</p>
+</li>
+</ul>
+<p>Example payload:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>{
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;sub&quot;: &quot;1234567890&quot;,
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  &quot;name&quot;: &quot;John Doe&quot;,
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  &quot;admin&quot;: true
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>}
+</span></code></pre></div>
+<h3 id="signature">Signature<a class="headerlink" href="#signature" title="Permanent link">&para;</a></h3>
+<p>The signature is generated by combining the encoded header, encoded payload, and a secret key (or private key in the case of RSA) using the signing algorithm specified in the header. The signature is used to verify that the token hasn't been tampered with during transmission and that it comes from a trusted source.</p>
+<p>Example signature:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>RSASHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload), PUBLIC_KEY, PRIVATE_KEY )
+</span></code></pre></div>
+The example shows how to generate a signature. The signature will be then encoded in base64 and added at the end of the JWT token, as explained in the section above.</p>
+<h3 id="json-web-token-claims">JSON Web Token Claims<a class="headerlink" href="#json-web-token-claims" title="Permanent link">&para;</a></h3>
+<p>JSON Web Tokens (JWTs) consist of claims, which are statements providing information about a particular subject. As explained in the previous section, claims are store in the payload of the JWT token. Despite the fact that claims are optional, in ONE Record network, a JWT token must carry the following claims:</p>
+<ul>
+<li>"iss" (Issuer) Claim : The "iss" (issuer) claim identifies the principal that issued the JWT.</li>
+<li>"exp" (Expiration Time) Claim : The "exp" (expiration time) claim identifies the expiration time on or after which the JWT MUST NOT be accepted for processing.</li>
+<li>"logistics_agent_uri" Claim : The "logistics_agent_uri" claim carries the URI of a <a href="https://onerecord.iata.org/ns/cargo#LogisticsAgent">cargo:LogisticAgent</a> and which identifies the logistics agent in the ONE Record network. </li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>{
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;iss&quot;: &quot;https://auth.example.com&quot;,
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  &quot;logistics_agent_uri&quot;: &quot;https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda&quot;,
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  &quot;exp&quot;: &quot;2023-03-031T10:38:01.000Z&quot;  
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>}
+</span></code></pre></div>
+<p>The "iss" must be present to allowed multiple IdP in the network while the "exp" is necessary to define the expiration time of the ID token. 
+The "logistics_agent_uri" is necessary for authenticate the party and it's used to fill the <code>isRequestedBy</code> property in action requests.
+Other claims can be added to the JWT Token according to the IdP configuration but might not be used by the ONE Record server.</p>
+<h3 id="validate-json-web-tokens">Validate JSON Web Tokens<a class="headerlink" href="#validate-json-web-tokens" title="Permanent link">&para;</a></h3>
+<p>Validation of JSON Web Tokens should be done using third party libraries that supports the signing algorithm of the JWT Token. It is strongly advised to avoid manually validating JWTs, as it can be error-prone and might overlook critical aspects, resulting in severe security vulnerabilities. Fortunately, there are various JWT libraries available for different platforms and programming languages that handle JWT validation automatically. To find a suitable JWT library for your specific platform and programming language, you can visit <a href="https://jwt.io">JWT.io</a>.</p>
+<h3 id="json-web-key-sets">JSON Web Key Sets<a class="headerlink" href="#json-web-key-sets" title="Permanent link">&para;</a></h3>
+<p>The JSON Web Key Set (JWKS) is a collection of keys that includes the public keys required to validate any JSON Web Token (JWT) issued by the Identity Provider (IdP) and signed using the RS256 signing algorithm. For every tenant, OIDC provides a JWKS endpoint accessible at https://{yourDomain}/.well-known/jwks.json. This endpoint contains the JSON Web Key (JWK) required to validate all JWTs issued by OIDC for that specific tenant. For more information about JWKS, please refer to the specification <a href="https://datatracker.ietf.org/doc/html/rfc7517">RFC7517</a>.</p>
+<p>IATA mantains a page with the list of authorized IdP together with:</p>
+<ul>
+<li>the url to request a token.</li>
+<li>the url to refresh a token.</li>
+<li>the location of the JSON Web Key Set. </li>
+</ul>
+<p>Any trusted IdP must immediately communicate any setup change to IATA.</p>
+<h2 id="example-client-credential-grant">Example - Client Credential Grant<a class="headerlink" href="#example-client-credential-grant" title="Permanent link">&para;</a></h2>
+<p>In this section, a example of the Client Credential grant will be demostrated in the context of ONE Record.</p>
+<p>The OIDC Client Credential Flow can be used to secure machine-to-machine (m2m) communications, where a software program, rather than a user, needs to be authenticated. In this type of grant, the client credentials are verified and an ID Token is generated. This ID token is provided in a form of a signed JSON Web Token (JWT). Any ONE Record Server can verify the authenticity of the JWT token, and so the identity of the client server, using <a href="#json-web-key-sets">JWKS</a> provided by the IdP without the need of a new API call.</p>
+<h3 id="flow-diagram">Flow Diagram<a class="headerlink" href="#flow-diagram" title="Permanent link">&para;</a></h3>
+<p>The following diagram shows a generic implementation of the Client Credential Flow :</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant CA as Client Application (One Record Client)
+    participant SA as Server Application (One Record Server)
+    participant IdP as Identity Provider (IdP)
+
+    CA-&gt;&gt;+IdP: 1. Authenticate with Client ID and Client Secret    
+    IdP-&gt;&gt;IdP: 2. Validate Client ID and Client Secret 
+    IdP-&gt;&gt;-CA: 3. ID Token
+
+
+    CA-&gt;&gt;+SA: 4. Request resource with ID token  
+    SA-&gt;&gt;SA: 5.  Validate the ID token with JWKS provided by the IdP
+    SA-&gt;&gt;-CA: 6. Response with the resource
+</code></pre>
+<ol>
+<li>The Client Application sends credentials to the Identity Provider</li>
+<li>The IdP validates the credentials</li>
+<li>The IdP generates an ID token and send it to the Client Application as response</li>
+<li>The Client Application request a resource on the Server Application attaching the ID token</li>
+<li>The Server Application validates the ID token using the JWKS provided by the IdP</li>
+<li>The Server Application responds with the requested resource</li>
+</ol>
+<p>This diagram does not shows how JWKS are shared between the IdP and the Server Application. More information can be found below in the <a href="#json-web-key-sets">JSON Web Key Sets section</a>.</p>
+<h3 id="request-a-token-in-client-credential-grant">Request a Token in Client Credential Grant<a class="headerlink" href="#request-a-token-in-client-credential-grant" title="Permanent link">&para;</a></h3>
+<p>The ONE Record server will perform a POST request in order to get an ID Token. The ID Token received can be used to authenticate towards a ONE Record server.</p>
+<h4 id="endpoint">Endpoint<a class="headerlink" href="#endpoint" title="Permanent link">&para;</a></h4>
+<p>The endpoint to request a token will be provided by the Identity Provider. 
+Example: https://auth.example.com/token</p>
+<h4 id="request-header-parameter">Request Header Parameter<a class="headerlink" href="#request-header-parameter" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Request Header</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authorization</strong></td>
+<td>Provides credentials that authenticates a ONE Record client with an IfP. This header must be set to Basic <base64 encoded "clientId:clientSecret"> if the IdP authentication method is set to Basic. The client_id and client_secret are provided when a client subscribes to an IdP.</td>
+<td>Basic b25lOnJlY29yZA==</td>
+</tr>
+<tr>
+<td><strong>Content-Type</strong></td>
+<td>Define the content type of the request</td>
+<td>application/x-www-form-urlencoded</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request-body-parameter">Request Body Parameter<a class="headerlink" href="#request-body-parameter" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Body property</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>grant_type</strong></td>
+<td>Provides the grant type of the request and must be set to "client_credentials"</td>
+<td>client_credentials</td>
+</tr>
+<tr>
+<td><strong>client_id</strong></td>
+<td>Provides the client id generated by the IdP. This property must be set if the IdP authentication method is set to POST</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>client_secret</strong></td>
+<td>Provides the client secret generated by the IdP. This property must be set if the IdP authentication method is set to POST</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="reponse">Reponse<a class="headerlink" href="#reponse" title="Permanent link">&para;</a></h4>
+<p>One of the following HTTP status codes MUST be present in the response:</p>
+<table>
+<thead>
+<tr>
+<th>Response</th>
+<th>Description</th>
+<th>Response Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>ID Token Created</td>
+<td>Return a newly created ID Token</td>
+</tr>
+<tr>
+<td><strong>400</strong></td>
+<td>Bad Request</td>
+<td>Error</td>
+</tr>
+<tr>
+<td><strong>401</strong></td>
+<td>Unauthorized</td>
+<td>Error</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reponse-body">Reponse Body<a class="headerlink" href="#reponse-body" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Body property</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>access_token</strong></td>
+<td>A JWT token representing a session</td>
+<td>sdaksmcna3249mn432mn423842....</td>
+</tr>
+<tr>
+<td><strong>expires_in</strong></td>
+<td>The number of second till session expiration</td>
+<td>600</td>
+</tr>
+<tr>
+<td><strong>token_type</strong></td>
+<td>The type of the token. This is always set to bearer</td>
+<td>bearer</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>OIDC is built upon the foundation of OAuth 2.0 (as defined in <a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC 67490</a>). It's important to note that the ID Token, which contains user identity information, is returned within the `access_token`` field as described by the OAuth specification.</p>
+</div>
+<h4 id="error-body">Error Body<a class="headerlink" href="#error-body" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Body property</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>error</strong></td>
+<td>Name of the error</td>
+<td>invalid_client_id</td>
+</tr>
+<tr>
+<td><strong>error_description</strong></td>
+<td>Description of the error</td>
+<td>the client id provided is invalid</td>
+</tr>
+</tbody>
+</table>
+<h3 id="refresh-token">Refresh token<a class="headerlink" href="#refresh-token" title="Permanent link">&para;</a></h3>
+<p>The Client Credential Grant used by ONE Record does not support refresh tokens <a href="https://www.rfc-editor.org/rfc/rfc6749#section-4.4.2">(RFC 6749 Section 4.4.2).</a>
+Refresh tokens primarily serve the purpose of allowing applications to prevent users from having to provide their username and password multiple times.
+Since ONE Record server authentication does not involve any user interaction, there is no need for refresh tokens in this scenario.</p>
+<h3 id="implementation-example">Implementation example<a class="headerlink" href="#implementation-example" title="Permanent link">&para;</a></h3>
+<p>The following section describes an example of authentication between two ONE Record servers.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant 1Rc as ONE Record Client
+    participant 1Rs as ONE Record Server
+    participant IdP as Identity Provider (IdP)
+
+    opt Get JSON Web Key Set
+        1Rs-&gt;&gt;+IdP: Request JSON Web Key Set
+        IdP--&gt;&gt;-1Rs: JSON Web Key Set
+        1Rs-&gt;&gt;1Rs: Cache JWKS
+    end
+
+    1Rc-&gt;&gt;+IdP: Authenticate with Client ID and Client Secret    
+    IdP-&gt;&gt;IdP: Validate Client ID and Client Secret 
+    IdP--&gt;&gt;-1Rc: ID Token
+
+    1Rc-&gt;&gt;+1Rs: HTTP request with ID token
+    1Rs-&gt;&gt;1Rs: Verify ID token with JSON Web Key and check Access Control Lists
+    alt is invalid or expired ID token
+        1Rs--&gt;&gt;1Rc: Error with status code 401
+    else is not authorized
+        1Rs--&gt;&gt;1Rc: Error with status code 403
+    else is valid token and authorized
+        1Rs--&gt;&gt;1Rc: Requested resource with status code 2xx
+    end
+    deactivate 1Rs</code></pre>
+<ol>
+<li>(Optional) The ONE Record server get the JWKS from the IdP
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>GET /.well-known/jwks.json
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Host: auth.example.com
+</span></code></pre></div></li>
+</ol>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Cache-Control:<span class="w"> </span>public,<span class="w"> </span>max-age<span class="o">=</span><span class="m">15</span>,<span class="w"> </span>stale-while-revalidate<span class="o">=</span><span class="m">15</span>,<span class="w"> </span>stale-if-error<span class="o">=</span><span class="m">86400</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="o">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">   </span><span class="s2">&quot;keys&quot;</span>:<span class="o">[</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="o">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">         </span><span class="s2">&quot;alg&quot;</span>:<span class="s2">&quot;RS256&quot;</span>,
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">         </span><span class="s2">&quot;kty&quot;</span>:<span class="s2">&quot;RSA&quot;</span>,
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">         </span><span class="s2">&quot;use&quot;</span>:<span class="s2">&quot;sig&quot;</span>,
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">         </span><span class="s2">&quot;x5c&quot;</span>:<span class="o">[</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">            </span><span class="s2">&quot;MIIC+DCCAeCgAwIBAgIJBIGjYW6hFpn2MA0GCSqGSIb3DQEBBQUAMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTAeFw0xNjExMjIyMjIyMDVaFw0zMDA4MDEyMjIyMDVaMCMxITAfBgNVBAMTGGN1c3RvbWVyLWRlbW9zLmF1dGgwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMnjZc5bm/eGIHq09N9HKHahM7Y31P0ul+A2wwP4lSpIwFrWHzxw88/7Dwk9QMc+orGXX95R6av4GF+Es/nG3uK45ooMVMa/hYCh0Mtx3gnSuoTavQEkLzCvSwTqVwzZ+5noukWVqJuMKNwjL77GNcPLY7Xy2/skMCT5bR8UoWaufooQvYq6SyPcRAU4BtdquZRiBT4U5f+4pwNTxSvey7ki50yc1tG49Per/0zA4O6Tlpv8x7Red6m1bCNHt7+Z5nSl3RX/QYyAEUX1a28VcYmR41Osy+o2OUCXYdUAphDaHo4/8rbKTJhlu8jEcc1KoMXAKjgaVZtG/v5ltx6AXY0CAwEAAaMvMC0wDAYDVR0TBAUwAwEB/zAdBgNVHQ4EFgQUQxFG602h1cG+pnyvJoy9pGJJoCswDQYJKoZIhvcNAQEFBQADggEBAGvtCbzGNBUJPLICth3mLsX0Z4z8T8iu4tyoiuAshP/Ry/ZBnFnXmhD8vwgMZ2lTgUWwlrvlgN+fAtYKnwFO2G3BOCFw96Nm8So9sjTda9CCZ3dhoH57F/hVMBB0K6xhklAc0b5ZxUpCIN92v/w+xZoz1XQBHe8ZbRHaP1HpRM4M7DJk2G5cgUCyu3UBvYS41sHvzrxQ3z7vIePRA4WF4bEkfX12gvny0RsPkrbVMXX1Rj9t6V7QXrbPYBAO+43JvDGYawxYVvLhz+BJ45x50GFQmHszfY3BR9TPK8xmMmQwtIvLu1PMttNCs7niCYkSiUv2sc2mlq1i3IashGkkgmo=&quot;</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">         </span><span class="o">]</span>,
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">         </span><span class="s2">&quot;n&quot;</span>:<span class="s2">&quot;yeNlzlub94YgerT030codqEztjfU_S6X4DbDA_iVKkjAWtYfPHDzz_sPCT1Axz6isZdf3lHpq_gYX4Sz-cbe4rjmigxUxr-FgKHQy3HeCdK6hNq9ASQvMK9LBOpXDNn7mei6RZWom4wo3CMvvsY1w8tjtfLb-yQwJPltHxShZq5-ihC9irpLI9xEBTgG12q5lGIFPhTl_7inA1PFK97LuSLnTJzW0bj096v_TMDg7pOWm_zHtF53qbVsI0e3v5nmdKXdFf9BjIARRfVrbxVxiZHjU6zL6jY5QJdh1QCmENoejj_ytspMmGW7yMRxzUqgxcAqOBpVm0b-_mW3HoBdjQ&quot;</span>,
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">         </span><span class="s2">&quot;e&quot;</span>:<span class="s2">&quot;AQAB&quot;</span>,
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">         </span><span class="s2">&quot;kid&quot;</span>:<span class="s2">&quot;NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qh&quot;</span>,
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">         </span><span class="s2">&quot;x5t&quot;</span>:<span class="s2">&quot;NjVBRjY5MDlCMUIwNzU4RTA2QzZFMDQ4QzQ2MDAyQjVDNjk1RTM2Qh&quot;</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">      </span><span class="o">}</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">   </span><span class="o">]</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="o">}</span>
+</span></code></pre></div>
+The IdP uses a private key to sign JWTs.
+The IdP provides the public key on a URL in the form of a JSON Web Key Set (JWKS).</p>
+<ol>
+<li>ONE Record client gets ID token from an IdP </li>
+</ol>
+<p>The ONE Record client must authenticate for this request.
+As seen in the Request token API, the IdP define the authentication method as BASIC or POST</p>
+<ul>
+<li><code>POST</code>: <code>client_id</code> and <code>client_secret</code> in the HTTP request body  </li>
+<li><code>BASIC</code>: <code>client_id</code> and <code>client_secret</code>as username and password in the HTTP Basic auth header following the encoding explained in the API description.</li>
+</ul>
+<p>Request:
+<div class="language-http highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">POST /token</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="err">Host: auth.example.com</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="err">Authorization: Basic bXljbGllbnRpZDpteWNsaWVudHNlY3JldA==</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="err">Content-Type: application/x-www-form-urlencoded</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="err">grant_type: &quot;client_credentials&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="err">client_id: &quot;secretid&quot;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="err">client_secret: &quot;secretpassword&quot;</span>
+</span></code></pre></div></p>
+<p>Response:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Content-Type:<span class="w"> </span>application/json<span class="p">;</span><span class="nv">charset</span><span class="o">=</span>UTF-8
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Cache-Control:<span class="w"> </span>no-store
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Pragma:<span class="w"> </span>no-cache
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="o">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="s2">&quot;access_token&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsImprdSI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbS8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJraWQiOiJjYmQzZDBiZi02YzIwLTRlZDMtOGFlYy1jNGFmMGI2NTdjMmEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2F1dGguZXhhbXBsZS5jb20iLCJzdWIiOiJodHRwczovLzFyLmV4YW1wbGUuY29tL2xvZ2lzdGljcy1vYmplY3RzLzk1N2UyNjIyLTlkMzEtNDkzYi04YjhmLTNjODA1MDY0ZGJkYSIsImV4cCI6IjIwMjMtMDMtMDMxVDEwOjM4OjAxLjAwMFoifQ.1mj-448srB9EEjXZWHosD79KW46Wfm7LQ6pfhrYZg4k&quot;</span>,
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="s2">&quot;token_type&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;Bearer&quot;</span>,
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="s2">&quot;expires_in&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="m">86400</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="o">}</span>
+</span></code></pre></div></p>
+<p>Using the JWT debugger to decode the ID token, returns the following JSON object:</p>
+<p>Header:
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HS256&quot;</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;jku&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://auth.example.com/.well-known/jwks.json&quot;</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;kid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cbd3d0bf-6c20-4ed3-8aec-c4af0b657c2a&quot;</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;typ&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;JWT&quot;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">}</span>
+</span></code></pre></div>
+Payload:
+<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;iss&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://auth.example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;logistics_agent_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda&quot;</span><span class="p">,</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">&quot;exp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2023-03-031T10:38:01.000Z&quot;</span><span class="w">  </span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<ol>
+<li>ONE Record client sends request to ONE Record server
+Having received an ID token, the ONE Record client can then send a request to a ONE Record server, using that token. </li>
+</ol>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nf">GET</span> <span class="nn">/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodHRwczovLzFyLmV4YW1wbGUuY29tL2xvZ2lzdGljcy1vYmplY3RzLzk1N2UyNjIyLTlkMzEtNDkzYi04YjhmLTNjODA1MDY0ZGJkYSIsImlzcyI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbSIsImV4cCI6Ijg2NDAwIn0.IDnawFcz7mfHDMasHLNN7NsnFFZIxp9mVPEF9eyQou0</span>
+</span></code></pre></div>
+<ol>
+<li>Server verifies JWT Token, checks ACLs, and returns requested Logistics Object<ul>
+<li>If present a "kid" is present, the ONE Record can use it to find the public key and verify the JWT Token.</li>
+<li>The ONE Record server MUST return a 401 Authorized Error if the token is expired or not valid.</li>
+</ul>
+</li>
+<li>ONE Record server checks access of requesting client using ACLs</li>
+<li>ONE Record server response to ONE Record client's request</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Content-Type:<span class="w"> </span>application/ld+json
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Content-Language:<span class="w"> </span>en-US
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Location:<span class="w"> </span>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>Type:<span class="w"> </span>https://onerecord.iata.org/ns/cargo#Piece
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Revision:<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>Latest-Revision:<span class="w"> </span><span class="m">1</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="o">{</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">   </span><span class="s2">&quot;@context&quot;</span>:<span class="o">{</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">     </span><span class="s2">&quot;api&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/api#&quot;</span>,
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">     </span><span class="s2">&quot;@language&quot;</span>:<span class="w"> </span><span class="s2">&quot;en-US&quot;</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">   </span><span class="o">}</span>,
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#Piece&quot;</span>,
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">    </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot; https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c&quot;</span>,
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#goodsDescription&quot;</span>:<span class="w"> </span><span class="s2">&quot;ONE Record Advertisement Materials&quot;</span>,
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#Piece#handlingInstructions&quot;</span>:<span class="w"> </span><span class="o">[</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">        </span><span class="o">{</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">            </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#HandlingInstructions&quot;</span>,
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">            </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceType&quot;</span>:<span class="w"> </span><span class="s2">&quot;SPH&quot;</span>,
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">            </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceDescription&quot;</span>:<span class="w"> </span><span class="s2">&quot;Valuable Cargo&quot;</span>,
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">            </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#HandlingInstructions#serviceTypeCode&quot;</span>:<span class="w"> </span><span class="s2">&quot;VAL&quot;</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span><span class="o">]</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="o">}</span>
+</span></code></pre></div>
+<h2 id="identity-provider">Identity Provider<a class="headerlink" href="#identity-provider" title="Permanent link">&para;</a></h2>
+<p>Identity Providers play a crucial role in the ONE Record network, responsible for authenticating parties and safeguarding the network from external threats and malicious entities.</p>
+<p>Due to their critical role, IATA consistently ensures that IdPs adhere to the highest security standards and have a stringent onboarding process for new parties in place. This ongoing monitoring and verification help maintain the integrity and security of the network.</p>
+<p>ONE Record servers have the option to place trust in Identity Providers (IdPs) that are not included in IATA's trusted list. However, in such cases, the servers themselves will be responsible for ensuring the trustworthiness of those external IdPs.</p>
+<h3 id="onboarding-of-an-identity-provider">Onboarding of an Identity Provider<a class="headerlink" href="#onboarding-of-an-identity-provider" title="Permanent link">&para;</a></h3>
+<p>The onboarding of a new Identity Provider in ONE Record network is complex procedure which establish the integrity of the IdP. For more information, please contact the <a href="../../community/">API maintainers</a>. </p>
+<h3 id="onboarding-of-a-party">Onboarding of a party<a class="headerlink" href="#onboarding-of-a-party" title="Permanent link">&para;</a></h3>
+<p>The Identity provider is responsible for the onboarding of a party in the network. A procedure to assert the identity of a new party must be in place following the industry security standard. For more information, please contact the <a href="../../community/">API maintainers</a>. </p>
+<h3 id="multiple-identity-providers">Multiple Identity Providers<a class="headerlink" href="#multiple-identity-providers" title="Permanent link">&para;</a></h3>
+<p>The ONE Record network allows for the existence of multiple Identity Providers (IdPs). Although not obligatory, different key players may choose different Identity Providers according to their preferences.</p>
+<p>Consequently, the ONE Record API must have the capability to handle multiple IdPs. Each server should be able to establish a list of trusted IdPs that ONE Record clients can use for authentication. This specification outlines how to interact with an IdP, but variations in the JWT token implementation can occur, and it is the responsibility of the IdP to provide public information about each variation.</p>
+<p>To implement multiple IdPs, a ONE Record Server utilizes the 'iss' claim to identify the issuer of the token (IdP). Once the IdP is identified, the ONE Record server can utilize the appropriate JWKS (JSON Web Key Set) to validate the ID token.</p>
+<p>IATA will maintain and publish a list of accredited Identity Providers. ONE Record nodes have the ability to communicate with IATA to obtain information about a specific IdP.</p>
+<h2 id="api-authentication-and-autorization">API Authentication and Autorization<a class="headerlink" href="#api-authentication-and-autorization" title="Permanent link">&para;</a></h2>
+<p>In the following table we summarize the authentication and authorization needed for each API defined by ONE Record API specifications.</p>
+<table>
+<thead>
+<tr>
+<th>Resource / Endpoint</th>
+<th>HTTP Action</th>
+<th>Authentication required</th>
+<th>Authorization required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>GET</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/logistics-objects</td>
+<td>POST</td>
+<td>Only Internal Service</td>
+<td>Only Interal Service</td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}</td>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}</td>
+<td>PATCH</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}/audit-trail</td>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}/logistics-events</td>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}/logistics-events</td>
+<td>POST</td>
+<td>Yes</td>
+<td>Yes <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></td>
+</tr>
+<tr>
+<td>/logistics-objects/{{logisticsObjectId}}/logistics-events/{{logisticsEventId}}</td>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>/subscriptions</td>
+<td>GET</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/subscriptions</td>
+<td>POST</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/access-delegation</td>
+<td>POST</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/action-requests/{{actionRequestId}}</td>
+<td>GET</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>/action-requests/{{actionRequestId}}</td>
+<td>PATCH</td>
+<td>Only Internal Service</td>
+<td>Only Internal Service</td>
+</tr>
+<tr>
+<td>/action-requests/{{actionRequestId}}</td>
+<td>DELETE</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>/notifications</td>
+<td>POST</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>The term "Only Internal Service" emphasizes that the service is exclusively accessible to internal actors and should be blocked for third-party ONE Record servers.</p>
+<p>More information about the authorization mechanism can be found in the <a href="../access-control/">access control page.</a></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The audit trail can inherit the authorization from the Logistics Object.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The implementor can decide to give access to all authenticated users.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../authn-transport-layer/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Transport Layer Security">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Transport Layer Security
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../access-control/" class="md-footer__link md-footer__link--next" aria-label="Next: Access Control">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Access Control
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <img alt="Made with love for Digital Cargo" style="vertical-align: bottom" src=https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational" />&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © 2023 IATA
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["stable"], "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+    
+  </body>
+</html>

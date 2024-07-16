@@ -1,0 +1,1639 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ONE Record API specification defines a standard, programming language-agnostic interface  for the interaction with the ONE Record Web API.">
+      
+      
+        <meta name="author" content="IATA">
+      
+      
+        <link rel="canonical" href="https://aloccid-iata.github.io/ONE-Record/development/API-Security/concepts/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../implementation-guidelines/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
+    
+    
+      
+        <title>Concepts - ONE Record API Specification</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.76a95c52.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#one-record-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ONE Record API Specification" class="md-header__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ONE Record API Specification
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Concepts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ONE Record API Specification" class="md-nav__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
+
+    </a>
+    ONE Record API Specification
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Data Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base URL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistics-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logistics Objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logistics Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#holder-of-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Holder of a Logistics Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-of-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      User of a Logistics Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistics-object-uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logistics Object URI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organization-uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organization URI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plug-play-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plug &amp; Play Connectivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linked Data
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation-guidelines/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Guidelines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Resources
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-information/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-objects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Objects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subscriptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access-delegations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Delegations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../action-requests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Action Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/security-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/authn-transport-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transport Layer Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/authn-application-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication & Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/access-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bibliography/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bibliography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/unit-tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Suite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Data Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Server
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#one-record-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      ONE Record Client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-url" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base URL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logistics-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logistics Objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logistics Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#holder-of-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Holder of a Logistics Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-of-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      User of a Logistics Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistics-object-uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logistics Object URI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organization-uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organization URI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plug-play-connectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plug &amp; Play Connectivity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linked Data
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/IATA-Cargo/ONE-Record/edit/master/Documentation_website/docs/API-Security/concepts.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/IATA-Cargo/ONE-Record/raw/master/Documentation_website/docs/API-Security/concepts.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+  <h1>Concepts</h1>
+
+<h3 id="one-record-api">ONE Record API<a class="headerlink" href="#one-record-api" title="Permanent link">&para;</a></h3>
+<p>The ONE Record API specifies the interface and interactions via standardized Web Application Programming Interface (API), which allows all participants in the network to connect their IT systems to the IT systems of their partners, using state of the art web technologies.
+To achieve this, the ONE Record API specifies how data exchange between logistics and transport stakeholders can be achieved over HTTP.
+The ONE Record API specification is associated with the <a href="#one-record-data-model">ONE Record Data Model</a> that specifies the models and relationships within the transport and logistics data domain as common <em>"language"</em> between all stakeholders.</p>
+<h3 id="one-record-data-model">ONE Record Data Model<a class="headerlink" href="#one-record-data-model" title="Permanent link">&para;</a></h3>
+<p>The ONE Record data model is specified as an ontology which is also referred to as a semantic model. The ONE Record standard consists of two ontologies: the <code>ONE Record cargo ontology</code> and the <code>ONE Record API ontology</code></p>
+<p>The <code>ONE Record cargo ontology</code> contains industry concepts, their properties, and their relationships between them. This ontology can be used by analysts, developers, and users to understand the data classes in ONE Record and their relationship to each other.</p>
+<p>The <code>ONE Record API ontology</code> contains the data classes and their relationship used for the ONE Record Web API.</p>
+<p>Both ontologies are maintained on <a href="https://github.com/IATA-Cargo/ONE-Record">GitHub</a>. 
+Furthermore, an online documentation based on the ontology can be found in the Tools section on the <a href="https://onerecord.iata.org/">ONE Record Developer Portal</a>.</p>
+<h3 id="one-record-node">ONE Record Node<a class="headerlink" href="#one-record-node" title="Permanent link">&para;</a></h3>
+<p>Each participant is technically represented as an ONE Record node. 
+Such node can have capabilities of a <a href="#one-record-server">ONE Record server</a> and/or a <a href="#one-record-client">ONE Record client</a>.</p>
+<p>Typically, a ONE Record node represents a single organization. 
+However, there might exist scenarios where an ONE Record node is shared between (sub-)organizations.</p>
+<p>A single organization can also operate multiple ONE Record nodes, such as IoT devices that implement ONE Record clients to transmit data to ONE Record servers using the ONE Record standard.</p>
+<h3 id="one-record-server">ONE Record Server<a class="headerlink" href="#one-record-server" title="Permanent link">&para;</a></h3>
+<p>A ONE Record server - also called a <code>ONE Record REST API implementation</code> - is a web server that provides some or all of the specified ONE Record REST API endpoints and some or all of the data model specifications.
+Technically, it could be just a simple HTTP web server or existing Web API. Therefore, the ONE Record API and data model specifications may be added to existing (server) software implementations that also provide other web services.</p>
+<p>In this document, the term ONE Record server is used when referring to an actual software implementation of the ONE Record REST API specification that responds to HTTP requests from a <a href="#one-record-client">ONE Record client</a>.</p>
+<h3 id="one-record-client">ONE Record Client<a class="headerlink" href="#one-record-client" title="Permanent link">&para;</a></h3>
+<p>A ONE Record client is a technical representation of a stakeholder using ONE Record to exchange data in the network. 
+Unlike a ONE Record server that responses to API requests, a ONE Record Client initiates interaction with a ONE Record server. </p>
+<p>Each ONE Record server can also include a ONE Record client implementation in order to interact with other ONE Record server, i.e. by sending HTTP requests.</p>
+<p>However, not every ONE Record client MUST contain a ONE Record server implementation. 
+Nevertheless, it is useful for <a href="../subscriptions/">pub-sub interactions</a>, for example.</p>
+<p>In this document, the term ONE Record client is used when referring to an software program that sends HTTP requests to a <a href="#one-record-server">ONE Record server</a>.</p>
+<h3 id="base-url">Base URL<a class="headerlink" href="#base-url" title="Permanent link">&para;</a></h3>
+<p>The term <code>Base URL</code> stands for "Base Uniform Resource Locator" in the context of web development and URLs (Uniform Resource Locators). A URL is a web address that specifies the location of a resource, such as a webpage or a file, on the internet. The base URL serves as a foundation or starting point for constructing complete URLs within a particular context.</p>
+<p>In simpler terms, the base URL provides the common part of a URL that remains consistent for a set of related web pages or resources. This can be especially useful when you're working on a website with multiple pages or dealing with resources organized in a specific directory structure.</p>
+<p>For instance, consider the ONE Record scenario where you have multiple endpoints, such as "logistics-objects" "action-requests" and "notifications." The base URL in this case might be:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>https://1r.example.com
+</span></code></pre></div>
+<p>Then, you can append specific paths to the base URL to access different ONE Record endpoints:</p>
+<ul>
+<li>Logistics Objects: <code>https://1r.example.com/logistics-objects</code></li>
+<li>Action Requests: <code>https://1r.example.com/action-requests</code></li>
+<li>Contact page: <code>https://1r.example.com/notifications</code></li>
+</ul>
+<p>Here, the base URL <code>https://1r.example.com/</code> remains constant for all the pages, and you simply extend it with the unique paths for each API.
+In every endpoint, the idea of a <code>Base URL</code> will be denoted as <code>{{baseURL}}</code>.</p>
+<h3 id="logistics-objects">Logistics Objects<a class="headerlink" href="#logistics-objects" title="Permanent link">&para;</a></h3>
+<p>The ONE Record cargo ontology is organized as a set of data classes that represent real world concepts in transport and logistics, also referred to as digital twins.
+These generic data classes are referred to as <code>Logistics Objects</code> in the world of ONE Record.
+Each digital twin is an instance of a data classes that inherits from the Logistics Object data class.
+The data exchange that is facilitated by the ONE Record API is mainly the exchange of Logistics Objects.
+This is transition from the traditional logistics and transport EDI systems that only exchanged messages and documents.
+The concept of Logistics Objects is far more extensive since Logistics Objects can be more granular and have very specific usage in different use cases within the logistics and transport domain.
+Examples of a Logistics Object are a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a>, an <a href="https://onerecord.iata.org/ns/cargo#IotDevice">IotDevice</a>, a <a href="https://onerecord.iata.org/ns/cargo#Sensor">Sensor</a> or a <a href="https://onerecord.iata.org/ns/cargo#BookingOptionRequest">BookingOptionRequest</a> and <a href="https://onerecord.iata.org/ns/cargo">many more</a>.</p>
+<h4 id="holder-of-a-logistics-object"><strong>Holder of a Logistics Object</strong><a class="headerlink" href="#holder-of-a-logistics-object" title="Permanent link">&para;</a></h4>
+<p>The holder of a Logistics Object is the one who created it and thus has control over it. The holder may also control the ONE Record server on which the Logistics Object is accessible via HTTP requests, but this is not a requirement.
+Instead, the holder may use a 3rd party IT solution provider that implements, operates, and provisions the ONE Record API and will provide suitable access to the holder to manage and control the Logistics Objects, including its creation, any changes, authorization and access rights, etc.</p>
+<p><em>In a publisher-subscriber scenario, the holder of a Logistics Object is also referred to as <code>Publisher</code>.</em> <br/>
+<em>In an access delegation scenario, the holder of a Logistics Object is also referred to as the <code>Delegator</code>.</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this ONE Record API specification document, the term <code>holder</code> describes a technical holder of a logistics object data object.
+The <code>holder</code> of a Logistics Object might be even the owner of the data. The term <code>holder</code> does not include legal topics such as data governance, ownership, data stewardship or data custodian.</p>
+</div>
+<h4 id="user-of-a-logistics-object"><strong>User of a Logistics Object</strong><a class="headerlink" href="#user-of-a-logistics-object" title="Permanent link">&para;</a></h4>
+<p>A user of a Logistics Object is anyone other than the holder and who has an interest in the Logistics Object.
+Most likely the user will have a role in the logistics and transport of a shipment.
+The user of a Logistics Objet MAY be from another organization than the holder or from the same organization but with a different function within that organization.</p>
+<p><em>In a publisher-subscriber scenario, the user of a Logistics Object is also referred to as <code>Requestor</code> or <code>Subscriber</code>.</em> <br/>
+<em>In an access delegation scenario, the user of a Logistics Object is also referred to as the <code>Requestor</code> or <code>Delegate</code>.</em> <br/>
+<em>In a PATCH scenario, the user of a Logistics Object is also referred to as the <code>Requestor</code>.</em></p>
+<h4 id="logistics-object-uri"><strong>Logistics Object URI</strong><a class="headerlink" href="#logistics-object-uri" title="Permanent link">&para;</a></h4>
+<p>Every Logistics Object MUST have a globally unique identifier, a so-called Uniform Resource Identifier (URI). This Logistics Object URI MUST NOT be changed as it is the permanent identifier of a specific Logistics Object.</p>
+<p>The actual generation of Logistics Object URIs and thus the design of a unique URI structure is left to each ONE Record API implementer as long as it complies with the valid Logistics Object URI. A valid Logistics Object URI MUST follow <a href="https://www.rfc-editor.org/rfc/rfc3986">RFC 3986</a> and MUST look like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{scheme}://{host}[:port]/[basePath]/logistics-objects/{logisticsObjectId}
+</span></code></pre></div>
+<p>The URI components are described below:</p>
+<table>
+<thead>
+<tr>
+<th>URI Component</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scheme</td>
+<td>Transfer protocol used by the API</td>
+<td><ul><li>http</li><li>https</li></ul></td>
+</tr>
+<tr>
+<td>host</td>
+<td>Host name, domain name or IP address (and port) of the host that serves the ONE Record API</td>
+<td><ul><li>127.0.0.1:8080</li><li>1r.example.com</li><li>api.airline.com</li></ul></td>
+</tr>
+<tr>
+<td>basePath</td>
+<td>Optional URL prefix for all API paths, relative to the host root. The basePath is NOT mandatory.</td>
+<td><ul><li>/tenants/</li><li>/api/</li><li>/onerecord/</li><li>/rest/public/</li></ul></td>
+</tr>
+<tr>
+<td>logisticsObjectId</td>
+<td>An identifier for the Logistics Object that is unique for this ONE Record server (and thus globally). This logisticsObjectId to identify the Logistics Object may be meaningful or obscure. A meaningful logisticsObjectId might include a reference to the type of the Logistics Object itself. An obscure logisticsObjectId could be a UUID.</td>
+<td><ul><li>e17502db-9b2d-46cc-a06c-efb24aeca49b</li><li>waybill-123-12345678</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples of valid Logistics Object URIs:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>https://api.airline.com/handling/onerecord/logistics-objects/waybill-123-12345678-1
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>https://onerecordcloud.com/organizations/airline/logistics-objects/6596bb81-f5a0-46d0-81be-c4d39531fc6a
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>https://api.airline.com/rest/public/onerecord/logistics-objects/6596bb81-f5a0-46d0-81be-c4d39531fc6a
+</span></code></pre></div>
+<h4 id="organization-uri">Organization URI<a class="headerlink" href="#organization-uri" title="Permanent link">&para;</a></h4>
+<p>In ONE Record, each party in the ONE Record network, e.g., a shipper, airline, or public authorities like customs that acts as an holder or user of Logistics Objects, requires a globally unique identifier, a so-called <code>Organization URI</code>.
+This MUST have a URI that points to a data object that inherits from <a href="https://onerecord.iata.org/ns/cargo#Organization">Organization</a> which inherits from <a href="https://onerecord.iata.org/ns/cargo#LogisticsObject">LogisticsObject</a>. Therefore, the same URI structure as for Logistics Objects MUST be applied.</p>
+<p>This data object can be a <a href="https://onerecord.iata.org/ns/cargo#Company">Company</a>, a <a href="https://onerecord.iata.org/ns/cargo#Carrier">Carrier</a>, or a <a href="https://onerecord.iata.org/ns/cargo#PublicAuthority">PublicAuthority</a>.
+It MUST uniquely identifies an organization in its data exchanges with other organizations that use ONE Record.
+As shown below, this Organization URI MAY share the same structure as a Logistics Object URI:</p>
+<p><strong>Examples of valid Organization URIs:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>https://1r.example.com/onerecord/logistics-objects/24a8a9f0-92c1-4405-8dfb-71875e8cde0a
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>https://1r.example.com/rest/public/onerecord/logistics-objects/24a8a9f0-92c1-4405-8dfb-71875e8cde0a
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>https://1r.platform.com/organizations/airline/logistics-objects/airline
+</span></code></pre></div>
+<h3 id="plug-play-connectivity">Plug &amp; Play Connectivity<a class="headerlink" href="#plug-play-connectivity" title="Permanent link">&para;</a></h3>
+<p>The implementation of ONE Record implies the implementation of Web APIs that comply with the ONE Record API and data model.
+Consequently, any compliant ONE Record client/server can connect and exchange data with any other ONE Record client/server by simply accessing each other's endpoints via URIs.</p>
+<h3 id="linked-data">Linked Data<a class="headerlink" href="#linked-data" title="Permanent link">&para;</a></h3>
+<p>A central approach of ONE Record is to enable the creation of a comprehensive network of
+data, i.e. data related to specific consignments and shipments are accessible as a
+unique and single shipment record, i.e. "one record" in that network of linked data. To achieve this, the ONE Record data model is based on a ONE Record cargo industry ontology using the Resource Description Framework (RDF) format.</p>
+<p><strong>Used Namespace Prefixes in ONE Record Context</strong></p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Namespace</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cargo</td>
+<td><a href="https://onerecord.iata.org/ns/cargo">https://onerecord.iata.org/ns/cargo</a></td>
+<td>This refers to the ONE Record cargo ontology.</td>
+</tr>
+<tr>
+<td>api</td>
+<td><a href="https://onerecord.iata.org/ns/api">https://onerecord.iata.org/ns/api</a></td>
+<td>This refers to the ONE Record API ontology.</td>
+</tr>
+<tr>
+<td>xsd</td>
+<td><a href="http://www.w3.org/2001/XMLSchema">http://www.w3.org/2001/XMLSchema</a></td>
+<td>W3C vocabulary, primarily used for primitive data types (e.g. string, dateTime)</td>
+</tr>
+<tr>
+<td>acl</td>
+<td><a href="http://www.w3.org/ns/auth/acl">http://www.w3.org/ns/auth/acl</a></td>
+<td>Ontology for WebAccessControl with Access Control Lists (ACL)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>JSON for Linking Data (JSON-LD)</strong></p>
+<p>The ONE Record API specification defines <code>JSON for Linking Data (JSON-LD)</code> as the default RDF serialization. Other RDF serializations MAY also be used, because they are interchangeable, e.g. <a href="https://www.w3.org/TeamSubmission/turtle/">Terse RDF Triple Language (TTL)</a>.</p>
+<p>To fully understand the syntax of RDF and JSON-LD, a deep dive into RDF is required. For the purpose of this document, it is sufficient to understand the example below that represents a Logistics Object of type <code>Sensor</code></p>
+<p>RDF and JSON-LD have different forms to format data that are all equivalent.
+For example, JSON-LD defines different types of transformations that can be applied to structure the data output.
+Therefore, the same <code>Sensor</code> object can be formatted as extended (see example 1) - where the URIs of the properties are explicit - or formatted as compressed (see example 2).</p>
+<p><strong>Example 1:</strong></p>
+<div class="language-json highlight"><span class="filename">Sensor.expanded.json</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#Sensor&quot;</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93&quot;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;https://onerecord.iata.org/ns/cargo#description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A data logger with a temperature sensor.&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;https://onerecord.iata.org/ns/cargo#name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TPx14-a&quot;</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&quot;https://onerecord.iata.org/ns/cargo#serialNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;142NL&quot;</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">&quot;https://onerecord.iata.org/ns/cargo#sensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#THERMOMETER&quot;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>(see <a href="../examples/Sensor.expanded.json">Sensor.expanded.json</a>)</p>
+<p><strong>Example 2:</strong></p>
+<div class="language-json highlight"><span class="filename">Sensor.compacted.json</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;cargo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93&quot;</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cargo:Sensor&quot;</span><span class="p">,</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">&quot;cargo:description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A data logger with a temperature sensor.&quot;</span><span class="p">,</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">&quot;cargo:name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TPx14-a&quot;</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nt">&quot;cargo:serialNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;142NL&quot;</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nt">&quot;cargo:sensorType&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#THERMOMETER&quot;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>(see <a href="../examples/Sensor.compacted.json">Sensor.compacted.json</a>)</p>
+<p>There are more forms that are equal to the example above. Copy and paste the first example on the <a href="https://json-ld.org/playground/">JSON-LD Playground</a> to see this different forms.</p>
+<p>A full specification of the JSON-LD 1.1 standard can be found <a href="https://www.w3.org/TR/json-ld11/">here</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Introduction
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../implementation-guidelines/" class="md-footer__link md-footer__link--next" aria-label="Next: Implementation Guidelines">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Implementation Guidelines
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <img alt="Made with love for Digital Cargo" style="vertical-align: bottom" src=https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational" />&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © 2023 IATA
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["stable"], "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../js/extra.js"></script>
+      
+    
+  </body>
+</html>

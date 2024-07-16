@@ -1,0 +1,2012 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ONE Record API specification defines a standard, programming language-agnostic interface  for the interaction with the ONE Record Web API.">
+      
+      
+        <meta name="author" content="IATA">
+      
+      
+        <link rel="canonical" href="https://aloccid-iata.github.io/ONE-Record/development/API-Security/implementation-guidelines/">
+      
+      
+        <link rel="prev" href="../concepts/">
+      
+      
+        <link rel="next" href="../api-features/">
+      
+      
+      <link rel="icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
+    
+    
+      
+        <title>Implementation Guidelines - ONE Record API Specification</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.76a95c52.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#uri-structure" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ONE Record API Specification" class="md-header__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ONE Record API Specification
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Guidelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ONE Record API Specification" class="md-nav__button md-logo" aria-label="ONE Record API Specification" data-md-component="logo">
+      
+  <img src="../../img/logo.png" alt="logo">
+
+    </a>
+    ONE Record API Specification
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IATA-Cargo/ONE-Record" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    IATA-Cargo/ONE-Record
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Implementation Guidelines
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Implementation Guidelines
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      URI Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-and-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization and Data Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Versioning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-model-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Model Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Versioning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronous Error Handling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asynchronous Error Handling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internationalization-i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internationalization (i18n)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asynchronous-job-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asynchronous Job Processing
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Core Resources
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Core Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-information/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Information
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-objects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Objects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logistics-events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Logistics Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subscriptions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subscriptions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notifications/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Notifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../access-delegations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Delegations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../action-requests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Action Requests
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Security
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/security-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/authn-transport-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Transport Layer Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/authn-application-layer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Authentication & Authorization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/access-control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Control
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bibliography/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bibliography
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/unit-tests/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unit Test Suite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Development
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Community
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      URI Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-and-data-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serialization and Data Formats
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Versioning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-model-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Model Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Versioning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synchronous-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronous Error Handling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asynchronous-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asynchronous Error Handling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internationalization-i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internationalization (i18n)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asynchronous-job-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asynchronous Job Processing
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/IATA-Cargo/ONE-Record/edit/master/Documentation_website/docs/API-Security/implementation-guidelines.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/IATA-Cargo/ONE-Record/raw/master/Documentation_website/docs/API-Security/implementation-guidelines.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+  <h1>Implementation Guidelines</h1>
+
+<p>This section lists general principles and best practices for the implementation of a ONE Record API.
+The lists are inspired by other API principles (e.g. <a href="https://schweizerischebundesbahnen.github.io/api-principles/">SBB</a>,
+<a href="https://opensource.zalando.com/restful-api-guidelines/">Zalando</a>, <a href="https://adidas.gitbook.io/api-guidelines/">adidas</a>)</p>
+<p>This section provides guidelines that MUST be followed by an implementer of the ONE Record API to ensure maximum compatibility with other ONE Record servers and clients on the ONE Record network.
+These principles MUST be followed in order to be compliant to the ONE Record standard, when implementing and publishing a ONE Record server.</p>
+<p>This section provides also common knowledge and best practices for the implementation of REST APIs in general and the ONE Record API in particular.
+When implementing a ONE Record server and publishing a ONE Record API, it is RECOMMENDED to follow these best practices.</p>
+<h2 id="uri-structure">URI Structure<a class="headerlink" href="#uri-structure" title="Permanent link">&para;</a></h2>
+<p>REST APIs use <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform Resource Identifiers</a> (URIs) to reference resources. REST API should use URIs that convey the resource model of a REST API to API consumers. When resources are well named, an API is intuitive and easy to use. If they are poorly named, the same API can be difficult to use and understand.</p>
+<p>The following are some rules and guidelines that SHOULD be followed:</p>
+<ul>
+<li>URIs SHOULD include nouns, not verbs.</li>
+<li>Use plural nouns for consistency (no singular nouns)</li>
+<li>Use HTTP methods (HTTP/1.1) to operate on resources</li>
+<li>Use HTTP response codes to communicate the outcome of operations on resources</li>
+</ul>
+<p>For the context of ONE Record, this means:</p>
+<ul>
+<li>A Logistics Object URI SHOULD be URL friendly, i.e. avoid unsafe characters that include blank/empty spaces and/or " &lt; &gt; # % { } | \ ^ ~ [ ] `.</li>
+<li>It is RECOMMENDED to avoid characters that require URL encoding.</li>
+<li>For better compatibility, a kebab-case URL naming convention SHOULD be used for the URI components , i.e. only use lower case letters, numbers, forward slashes, and dashes.
+For example, use <a href="https://1r.example.com/logistics-object/waybill-020-12345678">https://1r.example.com/logistics-object/waybill-020-12345678</a> instead of <a href="https://1r.example.com/logistics-object/Waybill_020-12345678">https://1r.example.com/logistics-object/Waybill_020-12345678</a></li>
+</ul>
+<h2 id="serialization-and-data-formats">Serialization and Data Formats<a class="headerlink" href="#serialization-and-data-formats" title="Permanent link">&para;</a></h2>
+<p><strong>JSON-LD Document Forms</strong></p>
+<p>Every ONE Record server (and every compliant ONE Record client) MUST support at least the expanded document form, the compacted document form, and the flattened document form (see <a href="https://w3c.github.io/json-ld-api/">https://w3c.github.io/json-ld-api/</a>)</p>
+<p>Furthermore, the following requirements MUST be fulfilled:</p>
+<ul>
+<li>Every JSON-LD document that is returned from a ONE Record API MUST include <code>@id</code> property</li>
+<li>A JSON-LD document MAY include an <code>@context</code> that contains namespaces, vocabularies and more that facilitate the remainder of the data elements. In this context, there is a specification of two ontologies: the ONE Record cargo ontology (<code>cargo</code>) and the ONE Record API ontology (<code>api</code>).</li>
+<li>A JSON-LD document MUST include an <code>@type</code> property that specifies the type of the data object, i.e. the ONE Record Logistics Object class (https://onerecord.iata.org/ns/cargo#Sensor in the previous example 1 and example 2).</li>
+<li>A JSON-LD document MUST include an <code>@language</code> property in the <code>@context</code> property that specifies the language of the returned data object, if the language differs from the default language <code>en-US</code>.</li>
+</ul>
+<p>During the implementation phase, it is highly recommended to utilize a JSON-LD library. Below is a compilation of libraries for the most commonly used programming languages:</p>
+<ul>
+<li>JavaScript: <ul>
+<li><a href="https://rdf.js.org">https://rdf.js.org</a></li>
+<li><a href="https://github.com/digitalbazaar/jsonld.js">jsonld.js</a></li>
+</ul>
+</li>
+<li>Java <ul>
+<li><a href="https://rdf4j.org">https://rdf4j.org</a></li>
+<li><a href="https://jena.apache.org">https://jena.apache.org</a></li>
+</ul>
+</li>
+<li>Python <ul>
+<li><a href="https://wiki.python.org/moin/RdfLibraries">https://wiki.python.org/moin/RdfLibraries</a></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="../assets/ONE-Record-API-OpenAPI.yaml">OpenAPI specification</a> includes only schemas that can be used to generate the expanded JSON-LD document form.
+Nevertheless, every ONE Record server and ONE Record client MUST support at least all three JSON-LD document forms.</p>
+</div>
+<p><strong>Blank Nodes and Embedded Objects</strong></p>
+<p>Blank node (bNode) is a concept used in the Resource Description Framework (RDF) data model. 
+They are used to represent resources that do not have a URI (Uniform Resource Identifier) associated with them.
+The resource represented by a bNode is also called an anonymous resource. </p>
+<p>In RDF, a triple consists of a subject, a predicate, and an object. 
+According to the RDF standard, a bNode can only be used as the subject or object of an RDF triple.
+When the object of a triple is a bNode, it means that the resource represented by the object has no URI, but still exists as a node in the RDF graph.</p>
+<p>bNodes are useful in creating RDF data that represents complex relationships between resources.
+bNodes are typically represented in RDF syntax with an identifier starting with an <code>_:</code> (underscore colon) followed by a unique identifier. For example: _:ded2e183. This allows to reference this bNode in several triples of the same RDF graph.</p>
+<p>In addition to logistics object types, the ONE Record data model ontology also specifies data classes that can be linked to logistics objects but do not have a publicly accessible URI (cf. <a href="../concepts/#logistics-object-uri">Logistics Object URI</a>).</p>
+<p>For the purpose of serialization, it MUST be ensured that those embedded objects also have a unique id that can be referenced in other requests.
+In this document, the ids of this embedded objects are called <code>embedded object ids</code> and can differ from Logistics Object URI.
+The structure of this embedded object id is up to the implementor of the ONE Record server.
+Nevertheless, it is RECOMMENDED to use the following structure for embedded object ids:</p>
+<p><code>internal:&lt;uuid5 using the data class name&gt;</code>, e.g. <code>internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07</code> as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It MUST be ensured that these embedded object IDs, similar to logistics object URIs, MUST be unique within the domain of the ONE Record server and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.</p>
+</div>
+<p>In the context of ONE Record, only logistics objects have public accessible URIs, while other objects, e.g., <a href="https://onerecord.iata.org/ns/cargo#Value">Value</a>, do not have public accessible URIs but must be linked.
+Nevertheless, in ONE Record each node MUST have a unique <code>@id</code> within the document that does not change. 
+If stored in an RDF database/store, this <code>@id</code> MUST also have a global unique identifier within a graph.
+Therefore, in ONE Record, a ONE Record server MUST convert bNodes to named resources with proper URIs (i.e. embedded object ids) if those blank nodes represent entities that have a stable identity and are likely to be references in other datasets, applications, or documents.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;cargo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cargo:Piece&quot;</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c&quot;</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&quot;cargo:grossWeight&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cargo:Value&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07&quot;</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">&quot;cargo:value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;20.0&quot;</span><span class="p">,</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&quot;cargo:unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KGM&quot;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Explanations:</p>
+<ul>
+<li><a href="https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c">https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</a> is the @id of the parent Logistics Object of type Piece</li>
+<li><code>internal::7fc81d1d-6c75-568b-9e47-48c947ed2a07</code> is the <code>@id</code> of the embedded object of type Value which can only exist along the parent Logistics Object</li>
+</ul>
+<p>This is particularly relevant for the <a href="../logistics-objects/#update-a-logistics-object">updating of Logistics Objects</a> when
+changes to the logistics object affect embedded objects and MUST be identifier during processing using their embedded object id.
+Thus, unlike bNodes in RDF syntaxes,embedded objet ids MUST NOT be recreated each time the document is serialized.</p>
+<p><strong>Content Encoding</strong></p>
+<p>For maximum compatibility, every request body that is returned from a ONE Record server as well as the HTTP request and response bodies MUST use <code>UTF-8 encoding</code> and MUST consist of valid Unicode strings, i.e. MUST NOT contain non-characters or surrogates.</p>
+<p>It is RECOMMENDED to implement content compression for the ONE Record API, because it improves the data transfer speed and bandwidth utilization.
+A list of supported content compressions MUST be provided to ONE Record clients via the <a href="../server-information/">Server Information</a> endpoint.</p>
+<p><strong>Date and Time</strong></p>
+<p>Date and time formats MUST follow <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC 3339</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>Dates used in JSON-LD MUST follow YYYY-MM-DD. Dates used in HTTP query parameters MUST follow: YYYYMMDD</td>
+<td>2023-03-01</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>Always UTC</td>
+<td>2023-03-031T10:38:01.000Z</td>
+</tr>
+</tbody>
+</table>
+<p>Time durations and intervals MUST be conform to ISO 8601. However, whenever possible, explicit expiry dates SHOULD be used in favor of durations and intervals.</p>
+<p><strong>Airline, Airport, Country, Currency, Language Codes</strong></p>
+<p>The following standards MUST be used:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Airline</td>
+<td>IATA Two Letter Codes</td>
+<td>LH</td>
+</tr>
+<tr>
+<td>Airport</td>
+<td>IATA Three Letter Codes</td>
+<td>FRA</td>
+</tr>
+<tr>
+<td>Country</td>
+<td>Two letter country codes. Follow ISO 3166 alpha-2</td>
+<td>CH</td>
+</tr>
+<tr>
+<td>Currency</td>
+<td>Follow ISO 4217</td>
+<td>EUR</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Follow IETF BCP 47 language tag</td>
+<td>en-US</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Collections</strong></p>
+<p>Since there MAY be a semantic difference between an empty collection and the absence of a collection property, this difference MUST also be explicitly apparent in the response body.
+For example, <a href="https://onerecord.iata.org/ns/cargo#handlingInstructions">handlingInstructions</a> = [] (explicit empty list) differs from an unset <a href="https://onerecord.iata.org/ns/cargo#handlingInstructions">handlingInstructions</a> property.</p>
+<p><strong>Null values</strong></p>
+<p>To safe bandwidth, null valued properties SHOULD not be part of the JSON-LD bodies.</p>
+<h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
+<h3 id="api-versioning">API Versioning<a class="headerlink" href="#api-versioning" title="Permanent link">&para;</a></h3>
+<p>API versioning is an important part of any API design, as it addresses the key challenge of maintaining APIs while dealing with changes over time. 
+Furthermore, it supports the communication between a client and a server by knowing which API version is supported and has to be used for interaction. 
+It is reasonable to assume that in practice an API will never be feature complete and it is accordingly important to manage these changes. 
+This is also true for the ONE Record API. </p>
+<p>Proper API versioning ensures that the ONE Record API specification can evolve without affecting existing applications that implement older ONE Record API versions.</p>
+<p>Some possible changes to the ONE Record API specification COULD be:</p>
+<ul>
+<li>Request/Response bodies changes due to the constant review of the ONE Record API specifications</li>
+<li>ONE Record ontology changes, which reflect on the request/response bodies</li>
+<li>Addition of new API endpoint</li>
+<li>Removal of an existing API endpoint</li>
+</ul>
+<p>Because the URI of a Logistics Object MUST NOT be changed (cf. <a href="../concepts/#logistics-object-uri">Logistics Object URI</a>), 
+an API versioning via URI Path is <strong>not</strong> possible, e.g. 
+<a href="http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b">http://1r.example.com/v1/logistics-objects/e17502db-9b2d-46cc-a06c-efb24aeca49b</a></p>
+<p>Instead, API versioning through content negotiation SHOULD be used. 
+More precisely, the <code>Accept</code> HTTP request header SHOULD be used by a ONE Record client to communicate the expected API version, 
+so that a ONE Record server can select one of the proposals:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">Accept: application/ld+json; version=2.0.0-dev</span>
+</span></code></pre></div>
+<p>The ONE Record server MUST inform the ONE Record client about the selected version using the <code>Content-Type</code> response header:
+<div class="language-http highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">Content-Type: application/ld+json; version=2.0.0-dev</span>
+</span></code></pre></div></p>
+<p>If no version is specified in the <code>Accept</code> request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see <a href="https://onerecord.iata.org/ns/api#supportedApiVersion">supportedApiVersion</a> in <a href="https://onerecord.iata.org/ns/api#ServerInformation">ServerInformation</a>).</p>
+<p>Every ONE Record server MUST provide information about the supported API versions. (see <a href="../server-information/">Get Server Information</a>)</p>
+<h3 id="data-model-versioning">Data Model Versioning<a class="headerlink" href="#data-model-versioning" title="Permanent link">&para;</a></h3>
+<p>With the introduction of ONE Record to the industry and subsequent adoption and dissemination, 
+it is likely that the ONE Record data model will be modified, refined, and expanded over time.
+To support this evolution of the ONE Record data model, appropriate data model versioning is required.</p>
+<p>Some examples for possible changes to the ONE Record data models (ontology):</p>
+<ul>
+<li>Addition/Removal of classes and/or properties</li>
+<li>Updates of cardinality or data types</li>
+<li>Updates of comments or labels</li>
+</ul>
+<p>The ONE Record Server MUST be independent of the version of the data model and MUST NOT require versioning. 
+This means that serialization, e.g. using the JSON-LD format, MUST NOT use versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo#Piece for the property "@type" and
+https://onerecord.iata.org./ns/cargo#hasGrossWeight for the property name.
+The ONE Record Server MUST use the latest cargo Ontology provided by IATA for data validation. Any data class and property defined in the latest Cargo Ontology is valid.
+If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a <code>400 Bad Request</code> HTTP error.
+For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.</p>
+<p>Every ONE Record server MUST provide information about the supported data model / ontologies using <a href="https://onerecord.iata.org/ns/api#supportedOntology">hasSupportedOntology</a> (see <a href="#get-server-information">Get Server Information</a>).
+This <a href="https://onerecord.iata.org/ns/api#hasSupportedOntology">hasSupportedOntology</a> property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo</p>
+<p>Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using <a href="https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion">hasSupportedOntologyVersion</a> (see <a href="../server-information/">Get Server Information</a>).
+This <a href="https://onerecord.iata.org/ns/api#supportedOntologyVersion">hasSupportedOntologyVersion</a> property MUST be a list of versioned ontology IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0</p>
+<p>This supports debugging because the ONE Record client knows if there is a difference in the data model version.</p>
+<h3 id="data-versioning">Data Versioning<a class="headerlink" href="#data-versioning" title="Permanent link">&para;</a></h3>
+<p>Whenever a change request is accepted, the data within a Logistic Object undergoes alterations. Nevertheless, clients might require access to the content of a Logistic Object at a precise moment in time. To address this need, ONE Record servers must incorporate a data versioning system.</p>
+<p>More information about data versioning can be found in the section <a href="../logistics-objects/#retrieve-a-historical-logistics-object">Historical Logistics Object</a></p>
+<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
+<p>ONE Record server must implement two type of validations:</p>
+<ul>
+<li>API validation : the payload and the headers must respect the API specification issues by IATA.</li>
+<li>Model validation : during the creation of a new object, the data provided within the request body should be complaint with the ONE Record cargo ontology.</li>
+</ul>
+<p>If an API request is malformed, the ONE Record server is expected to respond with an error.
+IATA strongly recommends validating each object against the ONE Record cargo ontology before creating it. This validation helps prevent the creation of malformed objects that could potentially hinder interoperability across the ONE Record server network. However, ONE Record servers have the option to accept additional properties for each object.</p>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>When a ONE Record client interacts with a ONE Record server, the ONE record server MUST inform the ONE Record client if the interaction was successful or not.
+With this information, the ONE Record client can proceed accordingly.</p>
+<p>The ONE Record API specifies two classes of errors, namely: (1) as a direct response to a synchronous request, or (2) as an asynchronous response submitted after a submitted request has been processed.</p>
+<p>This section describes the general Error data type definition used for error handling within the ONE Record API, and examples for both types of errors.</p>
+<p><strong>Error data model</strong></p>
+<p>Class diagram:</p>
+<pre class="mermaid"><code>classDiagram   
+    direction LR   
+
+   class Error{        
+        + hasErrorDetail[]: ErrorDetail [1..*]
+        + hasTitle: xsd:string
+    }
+    Error "1" --&gt; "*" ErrorDetail
+
+    class ErrorDetail{
+        + hasCode: xsd:string  [0..1] [0..1]
+        + hasMessage: xsd:string [0..1]
+        + hasProperty: xsd:anyURI [0..1]
+        + hasResource: xsd:anyURI [0..1]
+    }</code></pre>
+<p>The Error object has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Required</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hasTitle</strong></td>
+<td>a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.</td>
+<td>yes</td>
+<td>w3c:String</td>
+</tr>
+<tr>
+<td><strong>hasErrorDetail</strong></td>
+<td>details of the error</td>
+<td>no</td>
+<td>api:ErrorDetail</td>
+</tr>
+<tr>
+<td>- hasCode</td>
+<td>a ONE Record application-specific error code expressed as a string value.</td>
+<td>no</td>
+<td>w3c:String</td>
+</tr>
+<tr>
+<td>- hasMessage</td>
+<td>Explanation specific to this problem</td>
+<td>no</td>
+<td>w3c:String</td>
+</tr>
+<tr>
+<td>- hasProperty</td>
+<td>data element to which the error applies</td>
+<td>no</td>
+<td>w3c:String</td>
+</tr>
+<tr>
+<td>- hasResource</td>
+<td>URI of the object concerned</td>
+<td>no</td>
+<td>w3c:String</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://onerecord.iata.org/ns/api#ErrorDetail">ErrorDetail</a> SHOULD contain a human-readable error message that is expected to be read and understood by users. (see below examples)
+For example, set the property <a href="https://onerecord.iata.org/ns/api#hasMessage">hasMessage</a> to <code>"Authenticated client could not be found in ACL for the Logistics Object"</code> instead of just <code>"Error"</code>.</p>
+<h3 id="synchronous-error-handling">Synchronous Error Handling<a class="headerlink" href="#synchronous-error-handling" title="Permanent link">&para;</a></h3>
+<p>For interaction with ONE Record endpoints, the ONE Record API specification defines a an error handling as a direct response to a failed synchronous request.
+In this scenario, the property <a href="https://onerecord.iata.org/ns/api#hasCode">hasCode</a> MUST be same as the HTTP status code (see below).</p>
+<p><strong>Error HTTP Status Codes</strong></p>
+<p>The following table contains a non-exhaustive list of HTTP error statuses that require an Error response:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Response body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400</td>
+<td> Bad request</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>401</td>
+<td> Not authenticated or expired token</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>403</td>
+<td> Not authorized to perform action</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>404</td>
+<td> Not Found</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>405</td>
+<td> Method not allowed</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>415</td>
+<td> Unsupported content type</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>500</td>
+<td> Internal Server Error</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<p>There is a list of non-exhaustive JSON-LD syntax error types (relative to 400 Bad Request error family) on the official <a href="https://www.w3.org/TR/json-ld-api/#error-handling">JSON-LD API specifications website</a>.</p>
+<p><strong>Example</strong></p>
+<p>A ONE Record client requests a Logistics Object without having sufficient access and a ONE Record server responses with a HTTP error code: <code>403 Forbidden</code>. The http response body contains the Error including the error code.</p>
+<p>Response to a failed synchronous API GET Request:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>HTTP/1.1<span class="w"> </span><span class="m">403</span><span class="w"> </span>Forbidden
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Content-Language:<span class="w"> </span>en-US
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Content-Type:<span class="w"> </span>application/ld+json
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="o">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">   </span><span class="s2">&quot;@context&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="s2">&quot;api&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/api#&quot;</span>,
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">      </span><span class="s2">&quot;@language&quot;</span>:<span class="w"> </span><span class="s2">&quot;en-US&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">   </span><span class="o">}</span>,
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">   </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:Error&quot;</span>,
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">   </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;_:b0&quot;</span>,
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">   </span><span class="s2">&quot;api:hasTitle&quot;</span>:<span class="w"> </span><span class="s2">&quot;Not authorized to retrieve the Logistics Object&quot;</span>,
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">   </span><span class="s2">&quot;api:hasErrorDetail&quot;</span>:<span class="w"> </span><span class="o">[{</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">      </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:ErrorDetail&quot;</span>,
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;_:b1&quot;</span>,
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="s2">&quot;api:hasCode&quot;</span>:<span class="w"> </span><span class="s2">&quot;403&quot;</span>,
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="s2">&quot;api:hasMessage&quot;</span>:<span class="w"> </span><span class="s2">&quot;Authenticated client could not be found in ACL for the Logistics Object&quot;</span>,
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="s2">&quot;api:hasResource&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93&quot;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">   </span><span class="o">}]</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="o">}</span>
+</span></code></pre></div>
+<em>(<a href="../examples/Error_403.json">Error_403.json</a>)</em></p>
+<h3 id="asynchronous-error-handling">Asynchronous Error Handling<a class="headerlink" href="#asynchronous-error-handling" title="Permanent link">&para;</a></h3>
+<p>Errors which occur when business logic is applied to process a request, for example, while processing a ChangeRequest, a SubscriptionRequest, or a DelegationRequest.</p>
+<p><strong>Cargo Error Codes</strong></p>
+<p>See CargoXML error codes.</p>
+<p><strong>Example</strong></p>
+<p>A ONE Record client sends a ChangeRequest that refers to an outdated version of a Logistics Object. After the ONE Record server has processed the ChangeRequest and detected the error, the ONE Record server logs the error in the ChangeRequest on the ONE Record server and sends a Notification of the error to the ONE Record client.</p>
+<p>Because asynchronous errors are always part of another data object, below is an example of a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> that contains errors.
+Note that the <a href="https://onerecord.iata.org/ns/api#errors">errors</a> property is a list and there can be multiple errors.</p>
+<p><div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="nt">&quot;cargo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#&quot;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="nt">&quot;api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/api#&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nt">&quot;@language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-US&quot;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api:ChangeRequest&quot;</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://1r.example.com/action-requests/f74ae62b-0af3-52ca-8a83-fa756fc3fab9&quot;</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">&quot;api#hasError&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api:Error&quot;</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://1r.example.com/action-requests/f74ae62b-0af3-52ca-8a83-fa756fc3fab9/errors/0da27144-fa78-5201-be5f-0f9ab3d3b3d8&quot;</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="nt">&quot;api:hasTitle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Conflict with Logistics Object revision number&quot;</span><span class="p">,</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="nt">&quot;api:hasErrorDetail&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">            </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api:ErrorDetail&quot;</span><span class="p">,</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="nt">&quot;@id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_:b1&quot;</span><span class="p">,</span><span class="w">            </span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">            </span><span class="nt">&quot;api:hasCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;409&quot;</span><span class="p">,</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">            </span><span class="nt">&quot;api:hasMessage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The provided revision number is invalid or lower than the current Logistics Object revision&quot;</span><span class="p">,</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">            </span><span class="nt">&quot;api:hasResource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93&quot;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="p">}]</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="p">}]</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<em>(The properties of the actual ChangeRequest are omitted for clarity. See <a href="../action-requests/">here</a> for complete examples.)</em></p>
+<h2 id="internationalization-i18n">Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Permanent link">&para;</a></h2>
+<p>Internationalization (abbreviated i18n) enables ONE Record clients and ONE Record servers to request and return data in a given language.</p>
+<p>This i18n support is helpful exchanging of data using different languages. For example, if a shipper provides information only in Chinese characters, an English-speaking organization may not be able to use this information without preprocessing. Therefore, it is necessary to specify the language in which the data will be transmitted and SHOULD be returned.</p>
+<p>Every ONE Record server MUST provided the supported languages in the <a href="../server-information/">ServerInformation</a> using the <a href="https://onerecord.iata.org/ns/api#hasSupportedLanguages">hasSupportedLanguages</a> property.</p>
+<p>To ensure global interoperability, each ONE Record server MUST implement American English as a supported language (i.e. en-US).
+The request HTTP header <code>Accept-Language</code> SHOULD be used by the ONE Record client to specify the language of the response.</p>
+<p>In order to retrieve data in a desired language, the following HTTP header parameter MUST be present in the request:</p>
+<table>
+<thead>
+<tr>
+<th>Request Header</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accept-Language</strong></td>
+<td>Standard language tag. If no language is set, the ONE Record server MUST assume that the default language is requested, i.e. American English (en-US). See https://datatracker.ietf.org/doc/html/rfc5646</td>
+<td><ul><li>en-US</li><li>de-DE</li><li>zh-HK</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p>The following HTTP headers parameters MUST be present for every response:</p>
+<table>
+<thead>
+<tr>
+<th>Response Header</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content-Language</strong></td>
+<td>Describes the language(s) for which the requested resource is intended.</td>
+<td>en-US</td>
+</tr>
+</tbody>
+</table>
+<p>Furthermore, in JSON-LD, the language can be set in the <a href="https://www.w3.org/TR/json-ld11/#dfn-context">context</a> using the <code>@language</code> key whose value must be a <a href="https://infra.spec.whatwg.org/#javascript-string">string</a> representing a <a href="https://www.w3.org/TR/json-ld11/#bib-bcp47">BCP47</a> region language tag.</p>
+<p><strong>Example of a translated error</strong></p>
+<p>Request:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">GET</span> <span class="nn">/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="na">Accept-Language</span><span class="o">:</span> <span class="l">de-DE</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json</span>
+</span></code></pre></div>
+<p>Response:</p>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>HTTP/1.1<span class="w"> </span><span class="m">404</span><span class="w"> </span>Not<span class="w"> </span>Found
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Content-Language:<span class="w"> </span>de-DE
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Content-Type:<span class="w"> </span>application/ld+json
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="o">{</span><span class="w">   </span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">   </span><span class="s2">&quot;@context&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">     </span><span class="s2">&quot;api&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/api#&quot;</span>,
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">     </span><span class="s2">&quot;@language&quot;</span>:<span class="s2">&quot;de-DE&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">   </span><span class="o">}</span>,
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">   </span><span class="s2">&quot;@type&quot;</span>:<span class="s2">&quot;api:Error&quot;</span>,
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">   </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;_:b0&quot;</span>,
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">   </span><span class="s2">&quot;api:hasTitle&quot;</span>:<span class="s2">&quot;Logistics Object nicht gefunden&quot;</span>,
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">   </span><span class="s2">&quot;api:hasErrorDetail&quot;</span>:<span class="o">[</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">      </span><span class="o">{</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">         </span><span class="s2">&quot;@type&quot;</span>:<span class="s2">&quot;api:ErrorDetail&quot;</span>,<span class="w">        </span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">         </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;_:b1&quot;</span>,<span class="w"> </span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">         </span><span class="s2">&quot;api:hasCode&quot;</span>:<span class="s2">&quot;404&quot;</span>,
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">         </span><span class="s2">&quot;api:hasMessage&quot;</span>:<span class="s2">&quot;Es konnte kein Logistics Object mit der angegebenen URI in der Datenbank gefunden werden.&quot;</span>,
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">         </span><span class="s2">&quot;api:hasResource&quot;</span>:<span class="s2">&quot;https://1r.example.com/1a8ded38-1804-467c-a369-81a411416b7c&quot;</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">      </span><span class="o">}</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">   </span><span class="o">]</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="o">}</span>
+</span></code></pre></div>
+<em>(<a href="../examples/Error_404.de-DE.json">Error_404.de-DE.json</a>)</em></p>
+<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
+<p>Caching MAY be useful to inform a ONE Record client that a response can be cached locally and does not need to be requested again before a Time to Live (TTL) expires. <code>Subscription</code> information are an example.</p>
+<p>It is RECOMMENDED to provide caching information via response HTTP header <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>.
+For example, setting the <code>"Cache-Control: max-age=86400"</code> header in a HTTP response to indicate that the requested resource has a time to live of 86400 seconds (= 24 hours).</p>
+<p>Decisions about architecture, technology as well as its implementation are up to the implementor of the ONE Record server.</p>
+<h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
+<p>In general, API monitoring helps to detect failures and performance issues with API calls and gain insights into API usage.
+In particular, it MAY also help identify ONE Record clients that interact with functions and data model components that are marked as deprecated.</p>
+<p>Decisions about architecture, technology as well as its implementation are up to the implementor of the ONE Record server.</p>
+<h2 id="api-documentation">API Documentation<a class="headerlink" href="#api-documentation" title="Permanent link">&para;</a></h2>
+<p>It is RECOMMENDED to provide a technical documentation of the implemented and released API endpoints. One way is to publish an OpenAPI specification and grant partners access to it. See <a href="../assets/ONE-Record-API-OpenAPI.yaml">ONE-Record-API-OpenAPI.yaml</a> as an example.</p>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+<p>The ONE Record API specification prescribes only the minimum security requirements that enable secure communication in the IONE Record network. 
+This involves securing the communication channel, authentication (verifying the identity of a requestor) and authorization (checking the access right of the requestor). 
+More information on authentication and authorization in the ONE Record context is described in the <a href="../security/security-overview/">Security section</a>.</p>
+<p>Although ONE Record is intended for use in a secured environment only, this cannot be guaranteed. Therefore, it is RECOMMENDED to follow best practices for Web API security. For example, topics include rate limiting/throttling, web application firewalls (WAF), security scanning, data exposure in HTTP headers, logging, etc.</p>
+<h2 id="asynchronous-job-processing">Asynchronous Job Processing<a class="headerlink" href="#asynchronous-job-processing" title="Permanent link">&para;</a></h2>
+<p>To enable scalability of the ONE Record server, it is RECOMMENDED to use job queue systems to process asynchronous workloads that result from incoming ChangeRequests, DelegationRequests, or SubscriptionRequests.
+For example, it can be useful to decouple Notification queuing and actual sending of Notifications.</p>
+<p>Decisions about architecture, technology as well as its implementation are up to the implementor of the ONE Record server.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Concepts">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Concepts
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../api-features/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <img alt="Made with love for Digital Cargo" style="vertical-align: bottom" src=https://img.shields.io/badge/Made%20with%20%E2%9D%A4%20for-Digital%20Cargo-informational" />&nbsp;&nbsp;|&nbsp;&nbsp;Copyright © 2023 IATA
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["stable"], "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../js/extra.js"></script>
+      
+    
+  </body>
+</html>
