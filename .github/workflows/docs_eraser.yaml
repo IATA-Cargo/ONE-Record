@@ -1,0 +1,27 @@
+name: Document Eraser
+on:
+    workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+      - name: Install Dependencies
+        run: |
+          pip install mkdocs-material
+          pip install mike
+      - name: Setup Docs Deploy
+        run: |
+          git config --global user.name "IATA-Cargo"
+          git config --global user.email "iata-cargo@example.com"
+      - name: Build Docs Website
+        run: |
+          mike delete --push --all
+        working-directory: ./Documentation_website
