@@ -1,6 +1,6 @@
 <img src="./img/ONE-Record_API-Logo.png" style="scale: 80%">
 
-# Purpose
+# Purpose ONE Record
 
 This ONE Record API specification is part of the ONE Record standard.
 It defines a standard, programming language-agnostic interface for the interaction with the ONE Record Web API.
