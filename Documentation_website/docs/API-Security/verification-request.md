@@ -248,7 +248,6 @@ To engage with the "Verification" endpoint, a client needs proper authentication
 ## Examples A1: 
 
 A carrier identifies an issue on a Piece with the URI https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
-A carrier identifies an issue requests an access delegation for itself for the Piece with the URI https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
 
 Request: 
 
@@ -273,6 +272,7 @@ Type: https://onerecord.iata.org/ns/api#VerificationRequest
 The response server replies with the *location* of a Verification Request which is built as following:
 
 ```http
+
 --8<-- "API-Security/examples/VerificationRequest.json"
 ```
 _([VerificationRequest.json](./examples/VerificationRequest.json))_
