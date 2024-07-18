@@ -22,12 +22,12 @@ sequenceDiagram
     Forwarder->>Carrier: Notify the update of the shipment 
 ```
 
-## Verification Request object
+## Verification Request Object
 
-The [Verification Request](https://onerecord.iata.org/ns/api#VerificationRequest) is a subclass of the [Action Request](https://onerecord.iata.org/ns/api#ActionRequest), inheriting all properties except for *hasVerification*, which connects to the [Verification](https://onerecord.iata.org/ns/api#Verification) object.\
+The [Verification Request](https://onerecord.iata.org/ns/api#VerificationRequest) is a subclass of the [Action Request](https://onerecord.iata.org/ns/api#ActionRequest), inheriting all properties except for *hasVerification*, which connects to the [Verification](https://onerecord.iata.org/ns/api#Verification) object.
 
 
-## Verification object
+## Verification Object
 
 The [Verification](https://onerecord.iata.org/ns/api#Verification) contains details regarding anomalies detected within a particular Logistics Object.
 It has four properties:
