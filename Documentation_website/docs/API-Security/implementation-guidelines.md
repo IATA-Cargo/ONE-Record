@@ -206,7 +206,7 @@ The ONE Record Server MUST use the latest cargo Ontology provided by IATA for da
 If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.
 
-Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api#supportedOntology) (see [Get Server Information](#get-server-information)).
+Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api#supportedOntology) (see [Get Server Information](./server-information.md#get-server-information)).
 This [hasSupportedOntology](https://onerecord.iata.org/ns/api#hasSupportedOntology) property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo
 
 Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion) (see [Get Server Information](server-information.md)).

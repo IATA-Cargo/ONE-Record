@@ -19,6 +19,7 @@ If, as in this presented scenario, the airline already has a delegation of acces
     The party requesting access is referred to as the `Requestor`.
 
 **Guidelines for Access Delegations in ONE Record:**
+
 - Only the Holder of a Logistics Object MAY delegate access to logistics objects.
 - Any authenticated User of a Logistics Object CAN request a [AccessDelegation](https://onerecord.iata.org/ns/api#AccessDelegation) on a Logistics Object, which result in a [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) with the status [REQUEST_PENDING](https://onerecord.iata.org/ns/api#REQUEST_PENDING).
 - The implementer of the ONE record server MUST ensure that the requestor gets sufficient access to the resulting [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) to query the status of the [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) and revoke the [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) (see also section on [revoking Action Requests](./action-requests.md#revoke-action-request)

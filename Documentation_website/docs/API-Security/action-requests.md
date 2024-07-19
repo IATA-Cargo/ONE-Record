@@ -9,13 +9,16 @@ This enables users and holders to view and revoke action requests, and enables h
 
 - An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST be accessible via the URI of the [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) (requires sufficient permissions)
 - An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST only be accepted or reject by the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
+- A [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) MUST only be acknowledged by the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
 - An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) where [isRequestedBy](https://onerecord.iata.org/ns/api#requestedBy) is the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object) SHOULD be accepted and processed directly.
-- A [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) MUST only be revoked as long as it is in `REQUEST_PENDING` status
+- An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST only be revoked as long as it is in `REQUEST_PENDING` status.
 - An [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) MUST only be revoked by the `Delegator` or the `Delegate`
 - A [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) MUST only be revoked by the `Requestor`/`Subscriber` or the `Publisher`
+- A [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) MUST only be revoked by the `Requestor` or the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
 - If errors occur while processing an accepted [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest), the [hasRequestStatus](https://onerecord.iata.org/ns/api#hasRequestStatus) of this [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST be changed to [REQUEST_FAILED](https://onerecord.iata.org/ns/api#REQUEST_FAILED)
 
-**ActionRequest state diagram**
+
+**ActionRequest state diagram for AccessDelegationRequest, ChangeRequest, and SubscriptionRequest**
 
 ```mermaid
     stateDiagram-v2
@@ -36,6 +39,30 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_FAILED --> [*]
 
     REQUEST_REJECTED --> [*]    
+```
+
+**ActionRequest state diagram for VerificationRequest**
+
+
+```mermaid
+    stateDiagram-v2
+
+    direction LR   
+
+    [*] --> REQUEST_PENDING
+
+    REQUEST_PENDING --> REQUEST_ACKNOWLEDGED: acknowledged by holder
+    REQUEST_PENDING --> REQUEST_REJECTED: rejected by holder
+    REQUEST_PENDING --> REQUEST_REVOKED: revocation requested
+    REQUEST_PENDING --> REQUEST_FAILED: revocation requested
+
+    REQUEST_REVOKED --> [*]      
+
+    REQUEST_FAILED --> [*]
+
+    REQUEST_REJECTED --> [*]    
+
+    REQUEST_ACKNOWLEDGED --> [*]
 ```
 
 **ActionRequest data model**
@@ -100,6 +127,11 @@ The properties and relationships to other data classes are visualized in the fol
     }   
     SubscriptionRequest "1" --> "1" Subscription
 
+    class VerificationRequest{
+        + hasVerification: Verification
+    }   
+    VerificationRequest"1" --> "1" Verification
+
     class Change{    
         + hasDescription: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
@@ -125,10 +157,20 @@ The properties and relationships to other data classes are visualized in the fol
     Subscription --> TopicType
     Subscription "1" --> "1..*" SubscriptionEventType
 
+    class Verification{      
+        + hasLogisticsObject: LogisticsObject
+        + hasError[]: Error[1..*]        
+        + hasRevision: xsd:positiveInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
+    }
+    Verification "1" --> "1" LogisticsObject
+    Verification "1" --> "1..*" Error
+
     class RequestStatus{
         <<Enumeration>>
         REQUEST_PENDING
         REQUEST_ACCEPTED
+        REQUEST_ACKNOWLEDGED
         REQUEST_REJECTED
         REQUEST_FAILED
         REQUEST_REVOKED        
@@ -218,6 +260,26 @@ Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
 --8<-- "API-Security/examples/SubscriptionRequest_example2.json"
 ```
 _([SubscriptionRequest_example2.json](./examples/SubscriptionRequest_example2.json))_
+
+
+## Example A2
+After requesting a [Verification](https://onerecord.iata.org/ns/api#Verification) of a LogisticsObject (see [Example A1 in Verifications](./verifications.md#example-a1)), the requestor can retrieve the [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) to check the status.
+
+Request:
+```http
+GET /action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200 HTTP/1.1
+Host: 1r.example.com
+Accept: application/ld+json; version=2.0.0-dev
+```
+
+Response:
+
+```http
+
+--8<-- "API-Security/examples/VerificationRequest.json"
+```
+_([VerificationRequest.json](./examples/VerificationRequest.json))_
+
 
 # Update an Action Request
 
