@@ -2,7 +2,7 @@
 site_name: ONE Record Specification
 site_author: IATA
 site_description: >-
-  ONE Record specification defines a standard, programming language-agnostic interface 
+  ONE Record specification defines a standard, programming language-agnostic interface
   for the interaction with the ONE Record Web API and Data Model.
 site_url: 'https://iata-cargo.github.io/ONE-Record/'
 
@@ -12,6 +12,9 @@ copyright: >
 
 # Content
 nav:
+    - General information:
+      - Introduction: 'index.md'
+      - Resources: 'General/resources.md'
     - API Specification:
       - Introduction: 'index.md'
       - Concepts: 'API-Security/concepts.md'
@@ -21,31 +24,64 @@ nav:
           - Server Information: 'API-Security/server-information.md'
           - Logistics Objects: 'API-Security/logistics-objects.md'
           - Logistics Events: 'API-Security/logistics-events.md'
-          - Subscriptions: 'API-Security/subscriptions.md'        
-          - Notifications: 'API-Security/notifications.md'                
+          - Subscriptions: 'API-Security/subscriptions.md'
+          - Notifications: 'API-Security/notifications.md'
           - Action Requests: 'API-Security/action-requests.md'
-          - Access Delegations: 'API-Security/access-delegations.md'    
-          - Verification Request: 'API-Security/verification-request.md'    
+          - Access Delegations: 'API-Security/access-delegations.md'
+          - Verification Request: 'API-Security/verification-request.md'
       - Security:
           - Overview: 'API-Security/security/security-overview.md'
-          - Transport Layer Security: 'API-Security/security/authn-transport-layer.md'              
-          - Authentication & Authorization : 'API-Security/security/authn-application-layer.md'      
-          - Access Control: 'API-Security/security/access-control.md'          
-      - Reference:        
+          - Transport Layer Security: 'API-Security/security/authn-transport-layer.md'
+          - Authentication & Authorization : 'API-Security/security/authn-application-layer.md'
+          - Access Control: 'API-Security/security/access-control.md'
+      - Reference:
           - Glossary: 'API-Security/glossary.md'
           - Bibliography: 'API-Security/bibliography.md'
       - Tools:
           - Unit Test Suite: "API-Security/tools/unit-tests.md"
       - Development:
           - License: "API-Security/license.md"
-          - Changelog: "API-Security/changelog.md"        
+          - Changelog: "API-Security/changelog.md"
           - Community: 'API-Security/community.md'
     - Data Model:
       - Introduction: 'Data-Model/index.md'
-
+      - Concepts: 'Data-Model/concepts.md'
+      - Design Principles: 'Data-Model/designprinciples.md'
+      - Implementation Guidelines: 'Data-Model/implementation-guidelines.md'
+      - Core Resources:
+        - Overview: 'Data-Model/features.md'
+        - Activity Model: 'Data-Model/activity-model.md'
+        - Code Lists: 'Data-Model/code-lists.md'
+        - Data Model Visualizer: 'Data-Model/visualizer.md'
+      - Business requirements:
+        - Overview: 'Data-Model/businessrequirements.md'
+        - Shipper letter of instriction: 'Data-Model/sli.md'
+        - ULD Tracking: 'Data-Model/uldtracking.md'
+        - CO2 Emission: 'Data-Model/co2emissions.md'
+        - Interactive Cargo: 'Data-Model/ic.md'
+        - Dangerous Goods: 'Data-Model/dg.md'
+        - Pharmaceutical Products: 'Data-Model/pharma.md'
+        - Live Animals: 'Data-Model/la.md'
+        - Air Waybill: 'Data-Model/waybill.md'
+        - Distribution: 'Data-Model/distribution.md'
+    - Data Orchestration:
+      - Introduction: 'Orchestration/index.md'
+      - CargoXML Mapping: 'Orchestration/cxml.md'
+      - MOP mapping:
+        - Introduction: 'Orchestration/mop.md'
+        - P01 - Book Shipment: 'Orchestration/01.md'
+        - P02 - Arrange handover from Shipper: 'Orchestration/02.md'
+        - Movement: 'Orchestration/mvt01.md'
+        - P03 - Receive freight at forwarder warehouse: 'Orchestration/03.md'
+        - P04 - Prepare transfer to forwarder - Downstream warehouse or airline: 'Orchestration/04.md'
+        - Movement: 'Orchestration/mvt02.md'
+        - P05 - Prepare export shipments: 'Orchestration/05.md'
+        - P06 - Prepare receipt into carrier domain: 'Orchestration/06.md'
+        - Movement: 'Orchestration/mvt03.md'
+        - P07 - Receive shipment at carrier domain: 'Orchestration/07.md'
 # Theme Configuration
 theme:
-  name: material      
+  name: material
   features:
     - announce.dismiss
     - content.action.edit
@@ -79,7 +115,7 @@ theme:
 
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      scheme: default 
+      scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -92,13 +128,13 @@ theme:
         name: Switch to system preference
   logo: img/logo.png
   favicon: img/favicon.ico
-  
+
 # Extra
 extra:
   version:
     provider: mike
     alias: true
-    default: 
+    default:
     - stable
   generator: true
 
@@ -107,7 +143,7 @@ extra:
 markdown_extensions:
   - toc:
       permalink: true
-      baselevel: 2    
+      baselevel: 2
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
