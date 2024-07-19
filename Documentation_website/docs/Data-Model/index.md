@@ -13,20 +13,13 @@ It is assumed that the reader is familiar with air cargo vocabulary and the conc
 
 # Supporting Documents
 
-For this release the Data Model documentation is described in markdown directly in IATA's GitHub repository as follows:
-
-* [Design Principles](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1RDM-DesignPrinciples.md)
-* [Object Structure](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1R-DM-ObjectsStructure.md)
-* [Vizualisation of the Data Model](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/1R%20Data%20Model%20-%20December%202023%20-%203.0.0.pdf)
-* [Core Ontology](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1R-DM-Ontology.ttl)
-* [Code List Ontology](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl)
-* [Scope Extension document](https://github.com/IATA-Cargo/ONE-Record/blob/master/2023-12-standard/Data-Model/IATA-1RDM-ScopeExtension.md)
+- TDB
 
 # Document Version
 
-**Version:** 1.0
+**Version:** 0.0.1
 
-**Status:** Endorsed by COTB on December 2023
+**Status:** Not endorsed
 
 !!! note
     Discussion on the data model is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
