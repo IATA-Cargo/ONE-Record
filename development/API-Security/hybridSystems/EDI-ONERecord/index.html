@@ -2483,18 +2483,24 @@
 <p>This page does not explore the specifics of information mapping between the various standards but provides an overview of how to integrate EDI messages and ONE Record.</p>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
 <p>In aiming to align ONE Record with EDI messaging systems, we consider a scenario where an airline, adopting the ONE Record standard, seeks to communicate with a forwarder still reliant on EDI messaging systems. </p>
-<p>The high-level architecture is delineated by three distinct components: 
-1. The ONE Record Server for Airlines 
-2. The EDI Messaging Server for Forwarders 
-3. The intermediary connector facilitating communication between the ONE Record Server and the EDI messaging system </p>
+<p>The high-level architecture is delineated by three distinct components: </p>
+<ol>
+<li>The ONE Record Server for Airlines </li>
+<li>The EDI Messaging Server for Forwarders </li>
+<li>The intermediary connector facilitating communication between the ONE Record Server and the EDI messaging system </li>
+</ol>
 <p>The central component of the architecture is the connector linking the ONE Record API-based systems with the EDI messaging realm. </p>
 <p>To streamline the scenario, the airline establishes a connector for each third-party company seeking to connect with EDI messages. Nevertheless, there is no restriction preventing a company from configuring a connector capable of managing connections with multiple third-party companies. </p>
-<p>The connector must possess the capability to: 
-1. Receive EDI messages and based on the content of the message:
-    - Generate Change Requests
-    - Add Logistics Objects 
-    - Create Logistics Events
-2. Receive ONE Record notifications and generate a corresponding EDI message </p>
+<p>The connector must possess the capability to: </p>
+<ol>
+<li>Receive EDI messages and based on the content of the message:<ul>
+<li>Generate Change Requests</li>
+<li>Add Logistics Objects </li>
+<li>Create Logistics Events</li>
+</ul>
+</li>
+<li>Receive ONE Record notifications and generate a corresponding EDI message </li>
+</ol>
 <p>From the ONE Record perspective, the connector serves as a proxy for the third-party company, representing it within the ONE Record network. It executes ONE Record API calls defined by the company through the transmission of EDI messages. Conversely, when seen from the EDI perspective, the connector represents the airline EDI messages endpoint and is triggered by notifications sent by the ONE Record server of the airline.</p>
 <p>It's important to emphasize that a company still using EDI messages can be represented multiple times in ONE Record. Each ONE Record-enabled company that interacts with a company via legacy EDI messaging will have a separate ONE Record representation of that company.</p>
 <h3 id="hybrid-scenarios">Hybrid Scenarios<a class="headerlink" href="#hybrid-scenarios" title="Permanent link">&para;</a></h3>
