@@ -15,7 +15,7 @@ Issues on the ONE Record API specification are tracked in GitHub:
 > A maintainer is a person who is responsible for the ongoing development of the ONE Record API specification and has commit access to the ONE Record main repository.
 
 - [Henk Mulder](https://github.com/edesignextended), IATA
-- [Daniel A. Döppner](https://github.com/ddoeppner), Lufthansa Industry Solutions
+- [Daniel A. Döppner](https://github.com/ddoeppner), Lufthansa Cargo
 - [Davide Alocci](https://github.com/aloccid-iata), IATA
 
 # Contributors
