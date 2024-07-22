@@ -34,33 +34,33 @@ It features the following properties if a custom instance as embedded object is 
 In the following example, a named individual defined in the cargo ontology is used to set the [loadType](https://onerecord.iata.org/ns/cargo#loadType) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) to [LOOSE](https://onerecord.iata.org/ns/cargo#UNIT_LOAD_DEVICE).
 
 ```http
---8<-- "examples-dm/code-lists-enumberation.json"
+--8<-- "Data-Model/examples-dm/code-lists-enumberation.json"
 ```
 
-_([examples-dm/code-lists-enumberation.json](examples-dm/code-lists-enumberation.json))_
+_([examples-dm/code-lists-enumberation.json](./examples-dm/code-lists-enumberation.json))_
 
 ## Example 2: Closed Code List
 
 In the following example, a named individual defined in the coreCodeLists ontology is used to set the [securityStatus](https://onerecord.iata.org/ns/cargo#securityStatus) of a [SecurityDeclaration](https://onerecord.iata.org/ns/cargo#SecurityDeclaration) to [NSC](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC).
 
 ```http
---8<-- "examples-dm/code-lists-closed-code-list.json"
+--8<-- "Data-Model/examples-dm/code-lists-closed-code-list.json"
 ```
 
 !!! note
     This code list is defined in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists).
 
-_([examples-dm/code-lists-closed-code-list.json](examples-dm/code-lists-closed-code-list.json))_
+_([examples-dm/code-lists-closed-code-list.json](./examples-dm/code-lists-closed-code-list.json))_
 
 ## Example 3: Open Code List, defined Code
 
 In the following example, named individuals are used to set the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) as [EAW](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW) and [NSC](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC).
 
 ```http
---8<-- "examples-dm/code-lists-open-code-list-1.json"
+--8<-- "Data-Model/examples-dm/code-lists-open-code-list-1.json"
 ```
 
-_([examples-dm/code-lists-open-code-list-1.json](examples-dm/code-lists-open-code-list-1.json))_
+_([examples-dm/code-lists-open-code-list-1.json](./examples-dm/code-lists-open-code-list-1.json))_
 
 !!! note
     Both code lists are defined in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists). Note that a [SecurityStatus](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus) is also an acceptable Special Handling Code.
@@ -70,10 +70,10 @@ _([examples-dm/code-lists-open-code-list-1.json](examples-dm/code-lists-open-cod
 In the following example, a named individual defined is used to set the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) as [EAW](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW). Additionally, a new embedded object is created to set CUS, a custom organization-specific special handling code, using the properties of the [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement).
 
 ```http
---8<-- "examples-dm/code-lists-open-code-list-2.json"
+--8<-- "Data-Model/examples-dm/code-lists-open-code-list-2.json"
 ```
 
-_([examples-dm/code-lists-open-code-list-2.json](examples-dm/code-lists-open-code-list-2.json))_
+_([examples-dm/code-lists-open-code-list-2.json](./examples-dm/code-lists-open-code-list-2.json))_
 
 !!! note
     The code instanced SHOULD be of type required by the property, in this case as [SpecialHandlingCode](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode) for property [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes).
@@ -83,17 +83,17 @@ _([examples-dm/code-lists-open-code-list-2.json](examples-dm/code-lists-open-cod
 In the following example, a new embedded object of type [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) is created to set the [hsCode](https://onerecord.iata.org/ns/cargo#hsCode) of a [Product](https://onerecord.iata.org/ns/cargo#Product).
 
 ```http
---8<-- "examples-dm/code-lists-code-list-element.json"
+--8<-- "Data-Model/examples-dm/code-lists-code-list-element.json"
 ```
 
-_([examples-dm/code-lists-code-list-element.json](examples-dm/code-lists-code-list-element.json))_
+_([examples-dm/code-lists-code-list-element.json](./examples-dm/code-lists-code-list-element.json))_
 
 ## Example 6: Code List defined in other Vocabulary
 
 In the following example, a named individual defined in the [UN/CEFACT Web Vocabulary](https://vocabulary.uncefact.org/) is used to set the [currencyUnit](https://onerecord.iata.org/ns/cargo#currencyUnit) of a [CurrencyValue](https://onerecord.iata.org/ns/cargo#CurrencyValue) describing the [declaredValueForCarriage](https://onerecord.iata.org/ns/cargo#declaredValueForCarriage) of a [Waybill](https://onerecord.iata.org/ns/cargo#Waybill) to [CHF](https://vocabulary.uncefact.org/CurrencyCodeList#CHF).
 
 ```http
---8<-- "examples-dm/code-lists-other-linked-data-code-list.json"
+--8<-- "Data-Model/examples-dm/code-lists-other-linked-data-code-list.json"
 ```
 
-_([examples-dm/code-lists-other-linked-data-code-list.json](examples-dm/code-lists-other-linked-data-code-list.json))_
+_([examples-dm/code-lists-other-linked-data-code-list.json](./examples-dm/code-lists-other-linked-data-code-list.json))_
