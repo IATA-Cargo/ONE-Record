@@ -12,6 +12,7 @@ This page does not explore the specifics of information mapping between the vari
 In aiming to align ONE Record with EDI messaging systems, we consider a scenario where an airline, adopting the ONE Record standard, seeks to communicate with a forwarder still reliant on EDI messaging systems. 
 
 The high-level architecture is delineated by three distinct components: 
+
 1. The ONE Record Server for Airlines 
 2. The EDI Messaging Server for Forwarders 
 3. The intermediary connector facilitating communication between the ONE Record Server and the EDI messaging system 
@@ -21,10 +22,11 @@ The central component of the architecture is the connector linking the ONE Recor
 To streamline the scenario, the airline establishes a connector for each third-party company seeking to connect with EDI messages. Nevertheless, there is no restriction preventing a company from configuring a connector capable of managing connections with multiple third-party companies. 
 
 The connector must possess the capability to: 
+
 1. Receive EDI messages and based on the content of the message:
 	- Generate Change Requests
 	- Add Logistics Objects 
-	- Create Logistics Events
+  	- Create Logistics Events
 2. Receive ONE Record notifications and generate a corresponding EDI message 
  
 From the ONE Record perspective, the connector serves as a proxy for the third-party company, representing it within the ONE Record network. It executes ONE Record API calls defined by the company through the transmission of EDI messages. Conversely, when seen from the EDI perspective, the connector represents the airline EDI messages endpoint and is triggered by notifications sent by the ONE Record server of the airline.
