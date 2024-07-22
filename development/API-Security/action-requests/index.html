@@ -863,6 +863,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example A2
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1025,11 +1034,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../verification-request/" class="md-nav__link">
+      <a href="../verifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Verification Request
+    Verifications
   </span>
   
 
@@ -2542,6 +2551,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-a2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example A2
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2709,13 +2727,15 @@ This enables users and holders to view and revoke action requests, and enables h
 <ul>
 <li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> (requires sufficient permissions)</li>
 <li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be accepted or reject by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
+<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be acknowledged by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
 <li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> where <a href="https://onerecord.iata.org/ns/api#requestedBy">isRequestedBy</a> is the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a> SHOULD be accepted and processed directly.</li>
-<li>A <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status</li>
+<li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status.</li>
 <li>An <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> MUST only be revoked by the <code>Delegator</code> or the <code>Delegate</code></li>
 <li>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MUST only be revoked by the <code>Requestor</code>/<code>Subscriber</code> or the <code>Publisher</code></li>
+<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
 <li>If errors occur while processing an accepted <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>, the <a href="https://onerecord.iata.org/ns/api#hasRequestStatus">hasRequestStatus</a> of this <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be changed to <a href="https://onerecord.iata.org/ns/api#REQUEST_FAILED">REQUEST_FAILED</a></li>
 </ul>
-<p><strong>ActionRequest state diagram</strong></p>
+<p><strong>ActionRequest state diagram for AccessDelegationRequest, ChangeRequest, and SubscriptionRequest</strong></p>
 <pre class="mermaid"><code>    stateDiagram-v2
 
     direction LR   
@@ -2734,6 +2754,25 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_FAILED --&gt; [*]
 
     REQUEST_REJECTED --&gt; [*]    </code></pre>
+<p><strong>ActionRequest state diagram for VerificationRequest</strong></p>
+<pre class="mermaid"><code>    stateDiagram-v2
+
+    direction LR   
+
+    [*] --&gt; REQUEST_PENDING
+
+    REQUEST_PENDING --&gt; REQUEST_ACKNOWLEDGED: acknowledged by holder
+    REQUEST_PENDING --&gt; REQUEST_REJECTED: rejected by holder
+    REQUEST_PENDING --&gt; REQUEST_REVOKED: revocation requested
+    REQUEST_PENDING --&gt; REQUEST_FAILED: revocation requested
+
+    REQUEST_REVOKED --&gt; [*]      
+
+    REQUEST_FAILED --&gt; [*]
+
+    REQUEST_REJECTED --&gt; [*]    
+
+    REQUEST_ACKNOWLEDGED --&gt; [*]</code></pre>
 <p><strong>ActionRequest data model</strong></p>
 <p>The <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> is a data class of the <a href="../assets/ONE-Record-API-Ontology.ttl">ONE Record API ontology</a>.
 The properties and relationships to other data classes are visualized in the following class diagram.</p>
@@ -2792,6 +2831,11 @@ The properties and relationships to other data classes are visualized in the fol
     }   
     SubscriptionRequest "1" --&gt; "1" Subscription
 
+    class VerificationRequest{
+        + hasVerification: Verification
+    }   
+    VerificationRequest"1" --&gt; "1" Verification
+
     class Change{    
         + hasDescription: xsd:string [0..1]    
         + hasOperation[]: Operation [1..*]        
@@ -2817,10 +2861,20 @@ The properties and relationships to other data classes are visualized in the fol
     Subscription --&gt; TopicType
     Subscription "1" --&gt; "1..*" SubscriptionEventType
 
+    class Verification{      
+        + hasLogisticsObject: LogisticsObject
+        + hasError[]: Error[1..*]        
+        + hasRevision: xsd:positiveInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
+    }
+    Verification "1" --&gt; "1" LogisticsObject
+    Verification "1" --&gt; "1..*" Error
+
     class RequestStatus{
         &lt;&lt;Enumeration&gt;&gt;
         REQUEST_PENDING
         REQUEST_ACCEPTED
+        REQUEST_ACKNOWLEDGED
         REQUEST_REJECTED
         REQUEST_FAILED
         REQUEST_REVOKED        
@@ -3005,6 +3059,57 @@ and the publisher to obtain the current status of the request and subscription d
 </span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="o">}</span>
 </span></code></pre></div>
 <em>(<a href="../examples/SubscriptionRequest_example2.json">SubscriptionRequest_example2.json</a>)</em></p>
+<h3 id="example-a2">Example A2<a class="headerlink" href="#example-a2" title="Permanent link">&para;</a></h3>
+<p>After requesting a <a href="https://onerecord.iata.org/ns/api#Verification">Verification</a> of a LogisticsObject (see <a href="../verifications/#example-a1">Example A1 in Verifications</a>), the requestor can retrieve the <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> to check the status.</p>
+<p>Request:
+<div class="language-http highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nf">GET</span> <span class="nn">/action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
+</span></code></pre></div></p>
+<p>Response:</p>
+<p><div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">    &quot;@context&quot;:{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">       &quot;api&quot;:&quot;https://onerecord.iata.org/ns/api#&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">    },</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">    &quot;@type&quot;:&quot;api:VerificationRequest&quot;,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">    &quot;@id&quot;:&quot;https://1r.example.com/action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200&quot;,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">    &quot;api:hasVerification&quot;:{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">       &quot;@type&quot;:&quot;api:Verification&quot;,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">       &quot;api:hasLogisticsObject&quot;:{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">          &quot;@id&quot;:&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">       },</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">       &quot;api:hasError&quot;:[</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">          {</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">             &quot;@type&quot;:&quot;api:Error&quot;,</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">             &quot;api:hasTitle&quot;:&quot;Empty goodsDescription. Please use goodsDescription to specify the description of the cargo&quot;,</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">             &quot;api:hasErrorDetail&quot;:{</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">                &quot;@type&quot;:&quot;api:ErrorDetail&quot;,</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="err">                &quot;api:hasProperty&quot;:{</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="err">                   &quot;@value&quot;:&quot;https: //onerecord.iata.org/ns/cargo#goodsDescription&quot;,</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="err">                   &quot;@type&quot;:&quot;xsd:anyURI&quot;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="err">                }</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="err">             }</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="err">          }</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="err">       ],</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="err">       &quot;api:hasRevision&quot;:{</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="err">          &quot;@type&quot;:&quot;http: //www.w3.org/2001/XMLSchema#positiveInteger&quot;,</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="err">          &quot;@value&quot;:&quot;1&quot;</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="err">       },</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="err">       &quot;api:notifyRequestStatusChange&quot;:true</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="err">    },</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="err">    &quot;api:isRequestedBy&quot;:{</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="err">       &quot;@id&quot;:&quot;https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda&quot;</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="err">    },</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="err">    &quot;api:hasRequestStatus&quot;:{</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="err">       &quot;@id&quot;:&quot;api:REQUEST_PENDING&quot;</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="err">    },</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="err">    &quot;api:isRequestedAt&quot;:{</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="err">       &quot;@type&quot;:&quot;http://www.w3.org/2001/XMLSchema#dateTime&quot;,</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="err">       &quot;@value&quot;:&quot;2024-01-20T10:38:01.000Z&quot;</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="err">    }</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="err"> }</span>
+</span></code></pre></div>
+<em>(<a href="../examples/VerificationRequest.json">VerificationRequest.json</a>)</em></p>
 <h2 id="update-an-action-request">Update an Action Request<a class="headerlink" href="#update-an-action-request" title="Permanent link">&para;</a></h2>
 <p>This API action can be used the holder/publisher of a Logistics Object to approve or reject a pending <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>.</p>
 <p>For example, as a publisher, this API action is used to change the status of a received Subscription Request on a ONE Record server using the PATCH HTTP method. </p>
@@ -3015,7 +3120,7 @@ The reason for this is that <em>only the holder of the logistics object</em> MAY
 <p>Nevertheless, this API action specification is included for reference, because in many cases, the use of HTTP PATCH is the preferred solution to update resources with REST APIs.</p>
 </div>
 <h3 id="endpoint_1">Endpoint<a class="headerlink" href="#endpoint_1" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a> PATCH {{baseURL}}/action-requests/{{actionRequestId}}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> PATCH {{baseURL}}/action-requests/{{actionRequestId}}
 </span></code></pre></div>
 <h3 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h3>
 <p>The following query parameters MUST be supported:</p>
@@ -3158,21 +3263,21 @@ The reason for this is that <em>only the holder of the logistics object</em> MAY
 <p>Access to the Action Request update endpoint should be restricted to internal usage only, and it must not be made available to external entities.</p>
 <h3 id="example-b1">Example B1<a class="headerlink" href="#example-b1" title="Permanent link">&para;</a></h3>
 <p>Request:</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nf">PATCH</span> <span class="nn">/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28?status=https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nf">PATCH</span> <span class="nn">/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28?status=https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
 </span></code></pre></div>
 <p>Response:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>HTTP/1.1<span class="w"> </span><span class="m">204</span><span class="w"> </span>No<span class="w"> </span>Content
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Content-Type:<span class="w"> </span>application/ld+json<span class="p">;</span><span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">2</span>.0.0-dev
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Type:<span class="w"> </span>https://onerecord.iata.org/ns/api#SubscriptionRequest
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Location:<span class="w"> </span>https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>HTTP/1.1<span class="w"> </span><span class="m">204</span><span class="w"> </span>No<span class="w"> </span>Content
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Content-Type:<span class="w"> </span>application/ld+json<span class="p">;</span><span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">2</span>.0.0-dev
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Type:<span class="w"> </span>https://onerecord.iata.org/ns/api#SubscriptionRequest
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Location:<span class="w"> </span>https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28
 </span></code></pre></div>
 <h2 id="revoke-action-request">Revoke Action Request<a class="headerlink" href="#revoke-action-request" title="Permanent link">&para;</a></h2>
 <p>This API action MUST be used to revoke an Action Request MUST be revoked only by the original requestor of the ActionRequest or the holder/publisher of the Logistics Object.</p>
 <h3 id="endpoint_2">Endpoint<a class="headerlink" href="#endpoint_2" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a> DELETE {{baseURL}}/action-requests/{{actionRequestId}}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a> DELETE {{baseURL}}/action-requests/{{actionRequestId}}
 </span></code></pre></div>
 <h3 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h3>
 <p>Revoking an Action Rquest does not require any mandatory HTTP headers.</p>
@@ -3219,11 +3324,11 @@ The reason for this is that <em>only the holder of the logistics object</em> MAY
 <p>To engage with the "Revoke Action Request" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status. Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided.</p>
 <h3 id="example-c1">Example C1<a class="headerlink" href="#example-c1" title="Permanent link">&para;</a></h3>
 <p>Request:
-<div class="language-http highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nf">DELETE</span> <span class="nn">/action-requests/449661ee-fecf-465d-8eae-15bdaccb7080</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nf">DELETE</span> <span class="nn">/action-requests/449661ee-fecf-465d-8eae-15bdaccb7080</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
 </span></code></pre></div></p>
 <p>Response:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>HTTP/1.1<span class="w"> </span><span class="m">204</span><span class="w"> </span>No<span class="w"> </span>Content
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>HTTP/1.1<span class="w"> </span><span class="m">204</span><span class="w"> </span>No<span class="w"> </span>Content
 </span></code></pre></div></p>
 
 

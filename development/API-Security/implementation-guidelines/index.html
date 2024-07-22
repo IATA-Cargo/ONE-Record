@@ -1001,11 +1001,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../verification-request/" class="md-nav__link">
+      <a href="../verifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Verification Request
+    Verifications
   </span>
   
 
@@ -2866,7 +2866,7 @@ https://onerecord.iata.org./ns/cargo#hasGrossWeight for the property name.
 The ONE Record Server MUST use the latest cargo Ontology provided by IATA for data validation. Any data class and property defined in the latest Cargo Ontology is valid.
 If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a <code>400 Bad Request</code> HTTP error.
 For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.</p>
-<p>Every ONE Record server MUST provide information about the supported data model / ontologies using <a href="https://onerecord.iata.org/ns/api#supportedOntology">hasSupportedOntology</a> (see <a href="#get-server-information">Get Server Information</a>).
+<p>Every ONE Record server MUST provide information about the supported data model / ontologies using <a href="https://onerecord.iata.org/ns/api#supportedOntology">hasSupportedOntology</a> (see <a href="../server-information/#get-server-information">Get Server Information</a>).
 This <a href="https://onerecord.iata.org/ns/api#hasSupportedOntology">hasSupportedOntology</a> property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo</p>
 <p>Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using <a href="https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion">hasSupportedOntologyVersion</a> (see <a href="../server-information/">Get Server Information</a>).
 This <a href="https://onerecord.iata.org/ns/api#supportedOntologyVersion">hasSupportedOntologyVersion</a> property MUST be a list of versioned ontology IRIs which MUST includes the version of the data model, e.g. https://onerecord.iata.org/ns/cargo/3.0.0</p>

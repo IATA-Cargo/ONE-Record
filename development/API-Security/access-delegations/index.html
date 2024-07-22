@@ -18,7 +18,7 @@
         <link rel="prev" href="../action-requests/">
       
       
-        <link rel="next" href="../verification-request/">
+        <link rel="next" href="../verifications/">
       
       
       <link rel="icon" href="../../img/favicon.ico">
@@ -923,11 +923,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../verification-request/" class="md-nav__link">
+      <a href="../verifications/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Verification Request
+    Verifications
   </span>
   
 
@@ -2510,11 +2510,13 @@ Typically, when an participant creates a LogisticsObject and makes it available 
 <p>The party granting access is referred to as the <code>Delegator</code> and the party receiving access is the <code>Delegate</code>. 
 The party requesting access is referred to as the <code>Requestor</code>.</p>
 </div>
-<p><strong>Guidelines for Access Delegations in ONE Record:</strong>
-- Only the Holder of a Logistics Object MAY delegate access to logistics objects.
-- Any authenticated User of a Logistics Object CAN request a <a href="https://onerecord.iata.org/ns/api#AccessDelegation">AccessDelegation</a> on a Logistics Object, which result in a <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> with the status <a href="https://onerecord.iata.org/ns/api#REQUEST_PENDING">REQUEST_PENDING</a>.
-- The implementer of the ONE record server MUST ensure that the requestor gets sufficient access to the resulting <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> to query the status of the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and revoke the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> (see also section on <a href="../action-requests/#revoke-action-request">revoking Action Requests</a>
-- The Holder of a Logistics Object decides about the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and changes the requestor's permissions to a Logistics Object unless there is a business or technical reason to reject it.</p>
+<p><strong>Guidelines for Access Delegations in ONE Record:</strong></p>
+<ul>
+<li>Only the Holder of a Logistics Object MAY delegate access to logistics objects.</li>
+<li>Any authenticated User of a Logistics Object CAN request a <a href="https://onerecord.iata.org/ns/api#AccessDelegation">AccessDelegation</a> on a Logistics Object, which result in a <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> with the status <a href="https://onerecord.iata.org/ns/api#REQUEST_PENDING">REQUEST_PENDING</a>.</li>
+<li>The implementer of the ONE record server MUST ensure that the requestor gets sufficient access to the resulting <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> to query the status of the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and revoke the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> (see also section on <a href="../action-requests/#revoke-action-request">revoking Action Requests</a></li>
+<li>The Holder of a Logistics Object decides about the <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and changes the requestor's permissions to a Logistics Object unless there is a business or technical reason to reject it.</li>
+</ul>
 <h2 id="request-access-delegation">Request Access Delegation<a class="headerlink" href="#request-access-delegation" title="Permanent link">&para;</a></h2>
 <h3 id="endpoint">Endpoint<a class="headerlink" href="#endpoint" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> POST {{baseURL}}/access-delegations
@@ -2771,13 +2773,13 @@ The forwarder will grant the access on the basis that they trust the airline who
         
         
           
-          <a href="../verification-request/" class="md-footer__link md-footer__link--next" aria-label="Next: Verification Request">
+          <a href="../verifications/" class="md-footer__link md-footer__link--next" aria-label="Next: Verifications">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Verification Request
+                Verifications
               </div>
             </div>
             <div class="md-footer__button md-icon">
