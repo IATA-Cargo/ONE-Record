@@ -29,7 +29,7 @@ It features the following properties if a custom instance as embedded object is 
 
 # Examples
 
-## Example 1: Enumberation
+## Example 1: Enumeration
 
 In the following example, a named individual defined in the cargo ontology is used to set the [loadType](https://onerecord.iata.org/ns/cargo#loadType) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) to [LOOSE](https://onerecord.iata.org/ns/cargo#UNIT_LOAD_DEVICE).
 
