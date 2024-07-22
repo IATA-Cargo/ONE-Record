@@ -274,7 +274,13 @@ Accept: application/ld+json; version=2.0.0-dev
 
 Response:
 
-```http
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; version=2.0.0-dev
+Content-Language: en-US
+Location: https://1r.example.com/action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200
+Type: https://onerecord.iata.org/ns/api#VerificationRequest
+Last-Modified: Tue, 02 Jul 2024 10:45:00 GMT
 
 --8<-- "API-Security/examples/VerificationRequest.json"
 ```
