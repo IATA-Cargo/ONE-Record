@@ -31,7 +31,7 @@ The connector must possess the capability to:
  
 From the ONE Record perspective, the connector serves as a proxy for the third-party company, representing it within the ONE Record network. It executes ONE Record API calls defined by the company through the transmission of EDI messages. Conversely, when seen from the EDI perspective, the connector represents the airline EDI messages endpoint and is triggered by notifications sent by the ONE Record server of the airline.
 
-It's important to emphasize that a company still using EDI messages can be represented multiple times in ONE Record. Each ONE Record-enabled company that interacts with a company via legacy EDI messaging will have a separate ONE Record representation of that company.
+Each ONE Record-enabled company that interacts with a company via legacy EDI messaging will have a separate ONE Record representation of that company.
 
 ## Hybrid Scenarios
 
@@ -48,7 +48,7 @@ The following tables present a list of possible scenarios and the corresponding 
 
 ## Sequence Diagram
 
-The following sequence diagram represent the communication in case of scenario 3 of the previous table.
+The following sequence diagram represent an example of communication in case of scenario 3 of the previous table.
 
 ```mermaid
 sequenceDiagram
@@ -61,7 +61,6 @@ sequenceDiagram
     C->>S: Publishes xFWB as LOs
     C-->>F: Responds with FMA
     S->>G: Notifies about LOs-Created
-    G->>S: Sends LogisticsEvent to LO
     F->>C: Sends updated FWB
     C->>S: Creates ChangeRequest on behalf of the Forwarder
     S->>S: Accepts Fowarder ChangeRequest
