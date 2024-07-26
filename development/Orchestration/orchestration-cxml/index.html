@@ -2137,6 +2137,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#other-specific-mapping-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other specific mapping guidelines
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3054,6 +3063,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#other-specific-mapping-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other specific mapping guidelines
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3259,6 +3277,7 @@ The selected messages for mapping are the following:</p>
 <ul>
 <li>01 - Business rules and local regulatory requirements prevail over data properties technical restrictions (data length, pattern) expressed in the ontology if relevant.</li>
 <li>02 - When converting from ONE Record to CXML/CIMP there is no specific general guideline on the truncation of data properties. In CXML to CIMP conversion, such rules are expressed in IATA CXML Toolkit.</li>
+<li>03 - In ONE Record we try to avoid duplicate data as much as possible, especially <strong>totals</strong> are usually not in ONE Record data model if all detailed data are already available. This applies for instance for the total or summary values of charges.</li>
 </ul>
 <h3 id="xfwb-mapping">XFWB Mapping<a class="headerlink" href="#xfwb-mapping" title="Permanent link">&para;</a></h3>
 <h4 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h4>
@@ -3271,6 +3290,21 @@ The selected messages for mapping are the following:</p>
 <h4 id="usage-of-othercharge-object">Usage of OtherCharge object<a class="headerlink" href="#usage-of-othercharge-object" title="Permanent link">&para;</a></h4>
 <p>The <code>OtherCharge</code> object is used to record all charges, it refers to <code>&lt;ram:ApplicableLogisticsAllowanceCharge&gt;</code> grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.</p>
 <p>Totals are not directly recorded in ONE Record as they can be directly calculated based on the existing data (e.g. filtering by type of charge and prepaid/collect indicator).</p>
+<h4 id="other-specific-mapping-guidelines">Other specific mapping guidelines<a class="headerlink" href="#other-specific-mapping-guidelines" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><code>DensityGroupCode</code> field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales &amp; Booking process part.</p>
+</li>
+<li>
+<p><code>Special Service Request</code> and <code>Other Shipping Instructions</code> code fields are not in ONE Record as there is no evidence of an actual referential and standard used for those. Moreover it seems stakeholders use SSR or OSI for the same purposes. Thus we have merged into <code>textualHandlingInstructions</code> property in ONE Record.</p>
+</li>
+<li>
+<p>In the <code>ApplicableRating</code> grouping, the <code>TypeCode</code> field is set to F (Facial) by default as it is the only value used with CXML.</p>
+</li>
+<li>
+<p>In the <code>ApplicalbeFreightRateServiceCharge</code> grouping, the <code>AppliedAmount</code> is not directly mapped as it is a total that needs to be derived from either the <strong>Rate</strong> or the multiplication of <strong>Rate</strong> and <strong>Chargeable weight</strong> depending on the type of charge. Refer to CSC Resolution 600a for further explanations.</p>
+</li>
+</ul>
 <h3 id="xfzb-mapping">XFZB Mapping<a class="headerlink" href="#xfzb-mapping" title="Permanent link">&para;</a></h3>
 <h3 id="xfhl-mapping">XFHL Mapping<a class="headerlink" href="#xfhl-mapping" title="Permanent link">&para;</a></h3>
 <h3 id="xsdg-mapping">XSDG Mapping<a class="headerlink" href="#xsdg-mapping" title="Permanent link">&para;</a></h3>
