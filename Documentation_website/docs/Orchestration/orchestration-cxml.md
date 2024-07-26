@@ -44,6 +44,7 @@ When first versions of ONE Record data model were created, restrictions **coming
 
 - 01 - Business rules and local regulatory requirements prevail over data properties technical restrictions (data length, pattern) expressed in the ontology if relevant.
 - 02 - When converting from ONE Record to CXML/CIMP there is no specific general guideline on the truncation of data properties. In CXML to CIMP conversion, such rules are expressed in IATA CXML Toolkit.
+- 03 - In ONE Record we try to avoid duplicate data as much as possible, especially **totals** are usually not in ONE Record data model if all detailed data are already available. This applies for instance for the total or summary values of charges.
 
 ## XFWB Mapping
 ### Proposed mechanism
@@ -62,6 +63,16 @@ It is important to note that the `WaybillLineItem` has been added **only in the 
 The `OtherCharge` object is used to record all charges, it refers to `<ram:ApplicableLogisticsAllowanceCharge>` grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.
 
 Totals are not directly recorded in ONE Record as they can be directly calculated based on the existing data (e.g. filtering by type of charge and prepaid/collect indicator).
+
+### Other specific mapping guidelines
+
+- `DensityGroupCode` field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales & Booking process part.
+
+- `Special Service Request` and `Other Shipping Instructions` code fields are not in ONE Record as there is no evidence of an actual referential and standard used for those. Moreover it seems stakeholders use SSR or OSI for the same purposes. Thus we have merged into `textualHandlingInstructions` property in ONE Record.
+
+- In the `ApplicableRating` grouping, the `TypeCode` field is set to F (Facial) by default as it is the only value used with CXML.
+
+- In the `ApplicalbeFreightRateServiceCharge` grouping, the `AppliedAmount` is not directly mapped as it is a total that needs to be derived from either the **Rate** or the multiplication of **Rate** and **Chargeable weight** depending on the type of charge. Refer to CSC Resolution 600a for further explanations.
 
 ## XFZB Mapping
 
