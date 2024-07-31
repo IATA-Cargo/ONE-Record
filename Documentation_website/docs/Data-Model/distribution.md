@@ -59,4 +59,10 @@ Details of the objects and their data properties can be found in the Ontology or
 The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
 
  <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208690795-fd4ad4d6-ea82-49f9-8104-54a074d36e61.png"></p>
- 
+
+ # API mechanism
+
+ Based on the Data Model, a standard API workflow has been designed. The use case shows an interaction between a Customer (Freight Forwarder) and a Carrier where both stakeholders have their own ONE Record servers. Using a 3rd-party service provider would be the same workflow.
+
+
+![Sales Booking-1](https://github.com/user-attachments/assets/6dc546a9-8b10-4c8b-a942-3ac05432d0b8)
