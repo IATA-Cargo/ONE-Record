@@ -701,6 +701,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#business-data-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Data Error handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#internationalization-i18n" class="md-nav__link">
     <span class="md-ellipsis">
       Internationalization (i18n)
@@ -3014,6 +3023,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#business-data-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Data Error handling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#internationalization-i18n" class="md-nav__link">
     <span class="md-ellipsis">
       Internationalization (i18n)
@@ -3481,11 +3499,10 @@ In this scenario, the property <a href="https://onerecord.iata.org/ns/api#hasCod
 </span></code></pre></div>
 <em>(<a href="../examples/Error_403.json">Error_403.json</a>)</em></p>
 <h3 id="asynchronous-error-handling">Asynchronous Error Handling<a class="headerlink" href="#asynchronous-error-handling" title="Permanent link">&para;</a></h3>
-<p>Errors which occur when business logic is applied to process a request, for example, while processing a ChangeRequest, a SubscriptionRequest, or a DelegationRequest.</p>
-<p><strong>Cargo Error Codes</strong></p>
-<p>See CargoXML error codes.</p>
+<p>ONE Record utilizes a standardized action request pattern to facilitate one organization requesting an action that requires approval from another organization. This process often involves asynchronous error handling to manage potential issues that arise during the approval and execution of the <a href="../action-requests/">action requests</a>.</p>
+<p>When approving action requests, the responsible entity must evaluate security and business logic, which may lead to errors. If such errors occur, the entity should mark the action request as failed and provide a detailed description of the error in the relevant section of the action request. In the error definition, the entity can utilize Cargo-XML error codes.</p>
 <p><strong>Example</strong></p>
-<p>A ONE Record client sends a ChangeRequest that refers to an outdated version of a Logistics Object. After the ONE Record server has processed the ChangeRequest and detected the error, the ONE Record server logs the error in the ChangeRequest on the ONE Record server and sends a Notification of the error to the ONE Record client.</p>
+<p>A ONE Record client submits a ChangeRequest referencing an outdated version of a Logistics Object. Upon processing the ChangeRequest, the ONE Record server identifies the error, logs it in the ChangeRequest, and marks it as failed. The server then sends a notification of the error to the ONE Record client.</p>
 <p>Because asynchronous errors are always part of another data object, below is an example of a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> that contains errors.
 Note that the <a href="https://onerecord.iata.org/ns/api#errors">errors</a> property is a list and there can be multiple errors.</p>
 <p><div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
@@ -3511,6 +3528,11 @@ Note that the <a href="https://onerecord.iata.org/ns/api#errors">errors</a> prop
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p">}</span>
 </span></code></pre></div>
 <em>(The properties of the actual ChangeRequest are omitted for clarity. See <a href="../action-requests/">here</a> for complete examples.)</em></p>
+<h2 id="business-data-error-handling">Business Data Error handling<a class="headerlink" href="#business-data-error-handling" title="Permanent link">&para;</a></h2>
+<p>The previous two sections explain how to handle errors in synchronous and asynchronous processes. However, when obtaining a logistics object, a third party might discover an issue with the provided information.</p>
+<p>For such situations, ONE Record specifies two specific action requests to signal the error: <a href="../logistics-objects/#update-a-logistics-object">Change Request</a> and <a href="../verifications/">Verification Request</a>.</p>
+<p>If a third party identifies a discrepancy between a value in the logistics object and the actual measure (e.g., the weight of a shipment), they can create a Change Request to provide the correct value. The holder of the object can then accept or reject the change.</p>
+<p>On the other hand, if the third party detects an issue in a logistics object, such as a typo in a code or missing information, they can use the <a href="../verifications/">Verification Request</a> to notify the holder of the logistics object. With a Verification Request, the third party is not required to propose a new value but simply to signal the issue.</p>
 <h2 id="internationalization-i18n">Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Permanent link">&para;</a></h2>
 <p>Internationalization (abbreviated i18n) enables ONE Record clients and ONE Record servers to request and return data in a given language.</p>
 <p>This i18n support is helpful exchanging of data using different languages. For example, if a shipper provides information only in Chinese characters, an English-speaking organization may not be able to use this information without preprocessing. Therefore, it is necessary to specify the language in which the data will be transmitted and SHOULD be returned.</p>
