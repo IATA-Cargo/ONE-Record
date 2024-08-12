@@ -1,19 +1,27 @@
-ONE Record data model 3.0.0 introduced code lists for type safety. These replaced data properties holding enumerations and strings referencing a particular code list.
-
-Code lists are built on using custom objects. Many code lists are published as named individuals in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists).
-
-For unpublished or open code lists, the embedded object [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) is used. A code list is `open` when it is not  restricted to standard values.
-
-The approach also allows to refer codes defined as linked data outside of ONE Record. This includes, for example, [code lists published as part of the UN/CEFACT Web Vocabulary
-](https://vocabulary.uncefact.org/code-lists).
+ONE Record data model 3.0.0 introduced code lists for type safety. These replaced data properties holding enumerations and strings referencing a particular code list. The approach is aligned with good practices in linked data.
 
 This page provides guidance on how to use code lists in practical use cases.
 
-# CodeListElement
+!!! note
+    Instances where code lists are used are indicated by (three stripes-Icon) in the [ontology visualizer](https://iata-cargo.github.io/ontology_visualizer/).
 
-The `CodeListElement` is an embedded object. It is the superclass of all other code lists in ONE Record.
+Code lists are built on using custom objects. Many code lists are published as named individuals in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists).
+
+For unpublished or open code lists, the object [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) is used.A code list is `open` when it is not restricted to standard values. It allows putting in a custom code.
+
+Whenever a [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) is referenced, it SHOULD feature a searchable, human-readable URI (@id in JSON-LD), such as https://mycodelist.org/handlingCodes#ABC. It SHOULD NOT be embedded. However, the URI does NOT need to be resolvable either.
+
+The URI can point towards an existing ontology such as the [code lists published as part of the UN/CEFACT Web Vocabulary](https://vocabulary.uncefact.org/code-lists). If hosted as a [Logistics Object](https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/), it SHOULD include the properties as indicated in the ontology in addition to a searchable, human-readable URI.
+
+# Recommended URI structure
+
+
+
+# Hosting a CodeListElement as Logistics Object
+
+The `CodeListElement` is a logistics object. It is the superclass of all other code lists in ONE Record.
 As such, all codes defined as named individuals are viewed as instances of the `CodeListElement`.
-It features the following properties if a custom instance as embedded object is required:
+It features the following properties if hosted as an [Logistics Object](https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/):
 
 | Property| Description               |
 | ------- |  ----------------------- |
