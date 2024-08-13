@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#codelistelement" class="md-skip">
+        <a href="#recommended-uri-structure" class="md-skip">
           Skip to content
         </a>
       
@@ -1627,9 +1627,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#codelistelement" class="md-nav__link">
+  <a href="#recommended-uri-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      CodeListElement
+      Recommended URI structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-a-codelistelement-as-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosting a CodeListElement as Logistics Object
     </span>
   </a>
   
@@ -2822,9 +2831,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#codelistelement" class="md-nav__link">
+  <a href="#recommended-uri-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      CodeListElement
+      Recommended URI structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-a-codelistelement-as-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hosting a CodeListElement as Logistics Object
     </span>
   </a>
   
@@ -2932,16 +2950,21 @@
 
   <h1>Code Lists</h1>
 
-<p>ONE Record data model 3.0.0 introduced code lists for type safety. These replaced data properties holding enumerations and strings referencing a particular code list.</p>
-<p>Code lists are built on using custom objects. Many code lists are published as named individuals in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
-<p>For unpublished or open code lists, the embedded object <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is used. A code list is <code>open</code> when it is not  restricted to standard values.</p>
-<p>The approach also allows to refer codes defined as linked data outside of ONE Record. This includes, for example, <a href="https://vocabulary.uncefact.org/code-lists">code lists published as part of the UN/CEFACT Web Vocabulary
-</a>.</p>
+<p>ONE Record data model 3.0.0 introduced code lists for type safety. These replaced data properties holding enumerations and strings referencing a particular code list. The approach is aligned with good practices in linked data.</p>
 <p>This page provides guidance on how to use code lists in practical use cases.</p>
-<h2 id="codelistelement">CodeListElement<a class="headerlink" href="#codelistelement" title="Permanent link">&para;</a></h2>
-<p>The <code>CodeListElement</code> is an embedded object. It is the superclass of all other code lists in ONE Record.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instances where code lists are used are indicated by (three stripes-Icon) in the <a href="https://iata-cargo.github.io/ontology_visualizer/">ontology visualizer</a>.</p>
+</div>
+<p>Code lists are built on using custom objects. Many code lists are published as named individuals in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
+<p>For unpublished or open code lists, the object <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is used.A code list is <code>open</code> when it is not restricted to standard values. It allows putting in a custom code.</p>
+<p>Whenever a <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is referenced, it SHOULD feature a searchable, human-readable URI (@id in JSON-LD), such as https://mycodelist.org/handlingCodes#ABC. It SHOULD NOT be embedded. However, the URI does NOT need to be resolvable either.</p>
+<p>The URI can point towards an existing ontology such as the <a href="https://vocabulary.uncefact.org/code-lists">code lists published as part of the UN/CEFACT Web Vocabulary</a>. If hosted as a <a href="https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/">Logistics Object</a>, it SHOULD include the properties as indicated in the ontology in addition to a searchable, human-readable URI.</p>
+<h2 id="recommended-uri-structure">Recommended URI structure<a class="headerlink" href="#recommended-uri-structure" title="Permanent link">&para;</a></h2>
+<h2 id="hosting-a-codelistelement-as-logistics-object">Hosting a CodeListElement as Logistics Object<a class="headerlink" href="#hosting-a-codelistelement-as-logistics-object" title="Permanent link">&para;</a></h2>
+<p>The <code>CodeListElement</code> is a logistics object. It is the superclass of all other code lists in ONE Record.
 As such, all codes defined as named individuals are viewed as instances of the <code>CodeListElement</code>.
-It features the following properties if a custom instance as embedded object is required:</p>
+It features the following properties if hosted as an <a href="https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/">Logistics Object</a>:</p>
 <table>
 <thead>
 <tr>
@@ -3040,14 +3063,10 @@ It features the following properties if a custom instance as embedded object is 
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">    &quot;cargo:specialHandlingCodes&quot;: &quot;ccodes:SpecialHandlingCode_EAW&quot;,</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">    &quot;cargo:specialHandlingCodes&quot;: [</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">        {</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">            &quot;@type&quot;: &quot;ccodes:SpecialHandlingCode&quot;,            </span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">            &quot;cargo:code&quot;: &quot;CUS&quot;,</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">            &quot;cargo:codeDescription&quot;: &quot;Custom Special Handling Code&quot;,</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">            &quot;cargo:codeListName&quot;: &quot;Some Airline Custom Handling Codes&quot;,</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="err">            &quot;cargo:codeListVersion&quot;: &quot;2024-04&quot;</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="err">        }</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="err">    ]</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="err">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">            &quot;@id&quot;: &quot;https://1r.example.com/logistics-objects/specialHandlingCodes#CUS&quot;        </span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">        }</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">    ]</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-open-code-list-2.json">examples-dm/code-lists-open-code-list-2.json</a>)</em></p>
 <div class="admonition note">
@@ -3064,15 +3083,10 @@ It features the following properties if a custom instance as embedded object is 
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">    &quot;cargo:hsCode&quot;: [</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">        {</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">            &quot;@type&quot;: &quot;cargo:CodeListElement&quot;,            </span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">            &quot;cargo:code&quot;: &quot;9023&quot;,</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">            &quot;cargo:codeDescription&quot;: &quot;Instruments, apparatus, models&quot;,</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">            &quot;cargo:codeLevel&quot;: 4,</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">            &quot;cargo:codeListName&quot;: &quot;Harmonized System&quot;,</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">            &quot;cargo:codeListVersion&quot;: &quot;Nomenclature 2024&quot;</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">        }</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="err">    ]</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="err">}</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">            &quot;@id:&quot;: &quot;https://1r.example.com/hsCodes#9023&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">        }</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">    ]</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-code-list-element.json">examples-dm/code-lists-code-list-element.json</a>)</em></p>
 <h3 id="example-6-code-list-defined-in-other-vocabulary">Example 6: Code List defined in other Vocabulary<a class="headerlink" href="#example-6-code-list-defined-in-other-vocabulary" title="Permanent link">&para;</a></h3>
