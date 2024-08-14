@@ -111,6 +111,9 @@ The `starting point` of the manifest is the flight, or the `TransportMovement` i
 
 In the end, `Shipment` and `Waybill` accessed via the `Piece` objects.
 
+![image](https://github.com/user-attachments/assets/a493192c-163e-4b90-a9c6-adc370911de4)
+
+
 ## XFBL Mapping
 
 ## XTMV Mapping
