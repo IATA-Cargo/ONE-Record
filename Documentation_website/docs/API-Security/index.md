@@ -41,4 +41,4 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # License
 
-This document is licensed under MIT license (see [License](license.md) for details).
+This document is licensed under MIT license (see [License](../General/license.md) for details).
