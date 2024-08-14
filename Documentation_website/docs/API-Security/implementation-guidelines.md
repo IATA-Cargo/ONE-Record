@@ -206,7 +206,7 @@ The ONE Record Server MUST use the latest cargo Ontology provided by IATA for da
 If a ONE Record client submits a request with a request body containing invalid data according to the ontology, the ONE Record server MUST return a `400 Bad Request` HTTP error.
 For example, if a ONE Record client requests a LogisticsObject created with an ontology that contains IRIs that are not part of the current ontology, the ONE Record server MUST ignore the data classes and properties for serialization.
 
-Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api#supportedOntology) (see [Get Server Information](#get-server-information)).
+Every ONE Record server MUST provide information about the supported data model / ontologies using [hasSupportedOntology](https://onerecord.iata.org/ns/api#supportedOntology) (see [Get Server Information](./server-information.md#get-server-information)).
 This [hasSupportedOntology](https://onerecord.iata.org/ns/api#hasSupportedOntology) property MUST be a list of non-versioned IRIs, e.g. https://onerecord.iata.org/ns/cargo
 
 Because it might be possible that a ONE Record server caches a copy of the ontologies and is not up-to-date, every ONE Record server MUST provide information about the latest supported data model / ontologies using [hasSupportedOntologyVersion](https://onerecord.iata.org/ns/api#hasSupportedOntologyVersion) (see [Get Server Information](server-information.md)).
@@ -314,15 +314,13 @@ _([Error_403.json](./examples/Error_403.json))_
 
 ## Asynchronous Error Handling
 
-Errors which occur when business logic is applied to process a request, for example, while processing a ChangeRequest, a SubscriptionRequest, or a DelegationRequest.
+ONE Record utilizes a standardized action request pattern to facilitate one organization requesting an action that requires approval from another organization. This process often involves asynchronous error handling to manage potential issues that arise during the approval and execution of the [action requests](./action-requests.md).
 
-**Cargo Error Codes**
-
-See CargoXML error codes.
+When approving action requests, the responsible entity must evaluate security and business logic, which may lead to errors. If such errors occur, the entity should mark the action request as failed and provide a detailed description of the error in the relevant section of the action request. In the error definition, the entity can utilize Cargo-XML error codes.
 
 **Example**
 
-A ONE Record client sends a ChangeRequest that refers to an outdated version of a Logistics Object. After the ONE Record server has processed the ChangeRequest and detected the error, the ONE Record server logs the error in the ChangeRequest on the ONE Record server and sends a Notification of the error to the ONE Record client.
+A ONE Record client submits a ChangeRequest referencing an outdated version of a Logistics Object. Upon processing the ChangeRequest, the ONE Record server identifies the error, logs it in the ChangeRequest, and marks it as failed. The server then sends a notification of the error to the ONE Record client.
 
 Because asynchronous errors are always part of another data object, below is an example of a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) that contains errors.
 Note that the [errors](https://onerecord.iata.org/ns/api#errors) property is a list and there can be multiple errors.
@@ -351,6 +349,18 @@ Note that the [errors](https://onerecord.iata.org/ns/api#errors) property is a l
 }
 ```
 *(The properties of the actual ChangeRequest are omitted for clarity. See [here](action-requests.md) for complete examples.)*
+
+# Business Data Error handling
+
+The previous two sections explain how to handle errors in synchronous and asynchronous processes. However, when obtaining a logistics object, a third party might discover an issue with the provided information.
+
+For such situations, ONE Record specifies two specific action requests to signal the error: [Change Request](./logistics-objects.md#update-a-logistics-object) and [Verification Request](./verifications.md).
+
+If a third party identifies a discrepancy between a value in the logistics object and the actual measure (e.g., the weight of a shipment), they can create a Change Request to provide the correct value. The holder of the object can then accept or reject the change.
+
+On the other hand, if the third party detects an issue in a logistics object, such as a typo in a code or missing information, they can use the [Verification Request](./verifications.md) to notify the holder of the logistics object. With a Verification Request, the third party is not required to propose a new value but simply to signal the issue.
+
+
 
 # Internationalization (i18n)
 

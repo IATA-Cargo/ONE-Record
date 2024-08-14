@@ -106,7 +106,7 @@ Type: https://onerecord.iata.org/ns/cargo#Company
 
 ## Example A3
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Shipment](https://onerecord.iata.org/ns/cargo#Shipment) that links the previously created Piece (see [Example 1](#example-1))
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Shipment](https://onerecord.iata.org/ns/cargo#Shipment) that links the previously created Piece (see [Example 1](#example-a1))
 
 Request:
 

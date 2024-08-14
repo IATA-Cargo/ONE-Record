@@ -34,22 +34,10 @@ INFO     -  [09:59:34] Serving on http://127.0.0.1:8000/
 ```
 
 
-**(3) Resolve symlinks, and publish documentation to GitHub Pages**
+**(3) Build the full website**
 ```bash
-$ rm -rf docs/changelog.md; cp CHANGELOG.md docs/changelog.md
-$ rm -rf docs/license.md; cp ../../LICENSE docs/license.md
-$ rm -rf docs/assets/ONE-Record-API-Ontology.ttl; cp ONE-Record-API-Ontology.ttl docs/assets/ONE-Record-API-Ontology.ttl
-$ rm -rf docs/assets/ONE-Record-API-Class-Diagram.md; cp ONE-Record-API-Class-Diagram.md docs/assets/ONE-Record-API-Class-Diagram.md
-$ rm -rf docs/assets/ONE-Record-API-OpenAPI.yaml; cp ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
-$ rm -rf docs/assets/ONE-Record-API-Ontology.csv; cp ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
-$ mkdocs gh-deploy --ignore-version
-$ ln -fs ../CHANGELOG.md docs/changelog.md
-$ ln -fs ../../../LICENSE docs/license.md
-$ mkdir -p docs/assets
-$ ln -fs ../../ONE-Record-API-Ontology.ttl docs/assets/ONE-Record-API-Ontology.ttl
-$ ln -fs ../../ONE-Record-API-Class-Diagram.md docs/assets/ONE-Record-API-Class-Diagram.md
-$ ln -fs ../../ONE-Record-API-OpenAPI.yaml docs/assets/ONE-Record-API-OpenAPI.yaml
-$ ln -fs ../../ONE-Record-API-Ontology.csv docs/assets/ONE-Record-API-Ontology.csv
+$  make build
+
 ```
 *This creates / uses the branch gh-pages to deploy the documentation and make it available as GitHub page*
 
