@@ -397,11 +397,11 @@ ONE Record servers have the option to place trust in Identity Providers (IdPs) t
 
 ## Onboarding of an Identity Provider
 
-The onboarding of a new Identity Provider in ONE Record network is complex procedure which establish the integrity of the IdP. For more information, please contact the [API maintainers](../community.md). 
+The onboarding of a new Identity Provider in ONE Record network is complex procedure which establish the integrity of the IdP. For more information, please contact the [API maintainers](../../General/community.md). 
 
 ## Onboarding of a party
 
-The Identity provider is responsible for the onboarding of a party in the network. A procedure to assert the identity of a new party must be in place following the industry security standard. For more information, please contact the [API maintainers](../community.md). 
+The Identity provider is responsible for the onboarding of a party in the network. A procedure to assert the identity of a new party must be in place following the industry security standard. For more information, please contact the [API maintainers](../../General/community.md). 
 
 ## Multiple Identity Providers
 The ONE Record network allows for the existence of multiple Identity Providers (IdPs). Although not obligatory, different key players may choose different Identity Providers according to their preferences.
