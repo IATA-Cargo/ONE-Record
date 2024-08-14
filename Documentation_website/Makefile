@@ -11,7 +11,7 @@ upgrade:
 
 copy-assets:
 	rm -rf docs/API-Security/changelog.md; cp ../working_draft/API/CHANGELOG.md docs/API-Security/changelog.md
-	rm -rf docs/General/license.md; cp ../LICENSE docs/API-Security/license.md
+	rm -rf docs/General/license.md; cp ../LICENSE docs/General/license.md
 	rm -rf docs/API-Security/assets/ONE-Record-API-Ontology.ttl; cp ../working_draft/API/ONE-Record-API-Ontology.ttl docs/API-Security/assets/ONE-Record-API-Ontology.ttl
 	rm -rf docs/API-Security/assets/ONE-Record-API-Class-Diagram.md; cp ../working_draft/API/ONE-Record-API-Class-Diagram.md docs/API-Security/assets/ONE-Record-API-Class-Diagram.md
 	rm -rf docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml; cp ../working_draft/API/ONE-Record-API-OpenAPI.yaml docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml
