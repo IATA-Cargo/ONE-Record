@@ -10,6 +10,6 @@ You can find further information about ONE Record standard on the [IATA dedicate
 
 # Structure of the documentation
 
-- **API Specifications**: xxx
-- **Data Model specifications**: xxx
-- **Data Orchestration**: xxx
+- **API Specifications**: API & Security Specifications
+- **Data Model specifications**: Data Model and Ontology specifications, including design principles, proposed approaches per business scope
+- **Data Orchestration**: Data Orchestration as a proposed guidelines on how to use ONE Record for transportation of goods based on standard practices like the Indsutry MOP
