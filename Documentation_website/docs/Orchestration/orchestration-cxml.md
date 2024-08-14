@@ -19,11 +19,11 @@ The selected messages for mapping are the following:
 | Message | Message name | Message version | Comments |
 | --- | --- | --- | --- |
 | XFWB | XML Waybill Message | 5.00 | 1st draft available |
-| XFZB | XML HouseWaybill Message | 4.00 | - |
+| XFZB | XML HouseWaybill Message | 4.00 | 1st draft available |
 | XFHL | XML House Manifest Message | 3.00 | - |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | - |
 | XFSU | XML Status Message | 6.00 | Ongoing |
-| XFFM | XML Flight Manifest Message | 4.00 | - |
+| XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
 | XFBL | XML Freight Booked List Message | 3.00 | - |
 | XTMV | XML Transport Movement Message | 2.00 | ? |
 
@@ -50,8 +50,6 @@ When first versions of ONE Record data model were created, restrictions **coming
 ### Proposed mechanism
 XFWB data fields are mostly a mix of `Waybill`, `WaybillLineItem`, `Shipment`, `Pieces` and `TransportMovement` data in ONE Record realm.
 
-[Auth, Security in progress]
-
 ### Usage of WaybillLineItem object
 At first it was proposed to use the `Shipment` and `Piece` objects to populate the Waybill line items. However examples have shown that the line items do not necessarily correlate to actual Pieces transported, for instance Dry Ice can be interpreted as a specific line item due to a specific rate while on the operations the package, containing dry ice and transported goods, are equivalent to one `Piece`.
 
@@ -75,25 +73,43 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 - In the `ApplicalbeFreightRateServiceCharge` grouping, the `AppliedAmount` is not directly mapped as it is a total that needs to be derived from either the **Rate** or the multiplication of **Rate** and **Chargeable weight** depending on the type of charge. Refer to CSC Resolution 600a for further explanations.
 
 ## XFZB Mapping
+In its essence, XFZB is very similar to XFWB. The major distinction is the usage of `Waybill#waybillType = House`.
 
 ## XFHL Mapping
+To be done
 
 ## XSDG Mapping
+XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record (link). The necessity of an actual mapping of XSDG needs to be assessed.
 
 ## XFSU Mapping
 ### Proposed mechanism
 XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
-In most cases, the Status updates is based on the usage of LogisticsEvents on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
+In most cases, the Status updates is based on the usage of `LogisticsEvents` on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
 
-In case of **full shipment** status update, the LogisticsEvents can be added on the Shipment or on all the Pieces. Both scenarios are valid.
+In case of **full shipment** status update, the `LogisticsEvents` can be added on the Shipment or on all the Pieces. Both scenarios are valid.
 
 **Specific case of split shipment**:
 With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
 To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
-* If pieces cannot be properly identified, recommendation would be to use LogisticsEvent on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
-* If pieces can be properly identified, it is recommended to use LogisticsEvent on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+* If pieces cannot be properly identified, recommendation would be to use `LogisticsEvent` on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
+* If pieces can be properly identified, it is recommended to use `LogisticsEvent` on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
 
 ## XFFM Mapping
+The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.
+
+ONE Record by essence contains all the required data, Flight details, Piece and ULD details and so on.
+
+Multi-destination usecases will require the aggregation of data starting form multiple `TransportMovement` objects if required for the generation of an XFFM equivalent.
+
+### Proposed mechanism
+The `starting point` of the manifest is the flight, or the `TransportMovement` in ONE Record. The Manifest requires information from `Piece`, `ULD`, `Shipment` and `Waybill` objects mainly.
+
+`Piece` details are central and from the `TransportMovement` there are two possiblities:
+
+- ULDs are used: `ULD` objects is linked to the `TransportMovement` via a `Loading` action. Then the ULD is loaded with Pieces, the linkage is made through the `UnitComposition` activity and the respective `Composing` action.
+- Cargo is bulk (BLK): `Piece` objects are directly linked to the `TransportMovement` via a `Loading` action.
+
+In the end, `Shipment` and `Waybill` accessed via the `Piece` objects.
 
 ## XFBL Mapping
 
