@@ -2229,6 +2229,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="XFFM Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proposed-mechanism_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3243,6 +3258,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="XFFM Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proposed-mechanism_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3332,7 +3362,7 @@ The selected messages for mapping are the following:</p>
 <td>XFZB</td>
 <td>XML HouseWaybill Message</td>
 <td>4.00</td>
-<td>-</td>
+<td>1st draft available</td>
 </tr>
 <tr>
 <td>XFHL</td>
@@ -3356,7 +3386,7 @@ The selected messages for mapping are the following:</p>
 <td>XFFM</td>
 <td>XML Flight Manifest Message</td>
 <td>4.00</td>
-<td>-</td>
+<td>Ongoing</td>
 </tr>
 <tr>
 <td>XFBL</td>
@@ -3390,7 +3420,6 @@ The selected messages for mapping are the following:</p>
 <h3 id="xfwb-mapping">XFWB Mapping<a class="headerlink" href="#xfwb-mapping" title="Permanent link">&para;</a></h3>
 <h4 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h4>
 <p>XFWB data fields are mostly a mix of <code>Waybill</code>, <code>WaybillLineItem</code>, <code>Shipment</code>, <code>Pieces</code> and <code>TransportMovement</code> data in ONE Record realm.</p>
-<p>[Auth, Security in progress]</p>
 <h4 id="usage-of-waybilllineitem-object">Usage of WaybillLineItem object<a class="headerlink" href="#usage-of-waybilllineitem-object" title="Permanent link">&para;</a></h4>
 <p>At first it was proposed to use the <code>Shipment</code> and <code>Piece</code> objects to populate the Waybill line items. However examples have shown that the line items do not necessarily correlate to actual Pieces transported, for instance Dry Ice can be interpreted as a specific line item due to a specific rate while on the operations the package, containing dry ice and transported goods, are equivalent to one <code>Piece</code>.</p>
 <p>It was decided to introduce the <code>WaybillLineItem</code> object to properly share rate data as required in the Air Waybill. The <code>WaybillLineItem</code> has a n-to-1 relationship with a <code>Waybill</code> object and represents the different line items on the paper waybill with all their specifities based on the type of rating used.</p>
@@ -3414,19 +3443,33 @@ The selected messages for mapping are the following:</p>
 </li>
 </ul>
 <h3 id="xfzb-mapping">XFZB Mapping<a class="headerlink" href="#xfzb-mapping" title="Permanent link">&para;</a></h3>
+<p>In its essence, XFZB is very similar to XFWB. The major distinction is the usage of <code>Waybill#waybillType = House</code>.</p>
 <h3 id="xfhl-mapping">XFHL Mapping<a class="headerlink" href="#xfhl-mapping" title="Permanent link">&para;</a></h3>
+<p>To be done</p>
 <h3 id="xsdg-mapping">XSDG Mapping<a class="headerlink" href="#xsdg-mapping" title="Permanent link">&para;</a></h3>
+<p>XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record (link). The necessity of an actual mapping of XSDG needs to be assessed.</p>
 <h3 id="xfsu-mapping">XFSU Mapping<a class="headerlink" href="#xfsu-mapping" title="Permanent link">&para;</a></h3>
 <h4 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h4>
 <p>XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
-In most cases, the Status updates is based on the usage of LogisticsEvents on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.</p>
-<p>In case of <strong>full shipment</strong> status update, the LogisticsEvents can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
+In most cases, the Status updates is based on the usage of <code>LogisticsEvents</code> on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.</p>
+<p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
 <p><strong>Specific case of split shipment</strong>:
 With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
 To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
-* If pieces cannot be properly identified, recommendation would be to use LogisticsEvent on the Shipment, using the <em>LogisticsEvent#partialEventIndicator</em> to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
-* If pieces can be properly identified, it is recommended to use LogisticsEvent on the identified Pieces. The <em>LogisticsEvent#partialEventIndicator</em> can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.</p>
+* If pieces cannot be properly identified, recommendation would be to use <code>LogisticsEvent</code> on the Shipment, using the <em>LogisticsEvent#partialEventIndicator</em> to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
+* If pieces can be properly identified, it is recommended to use <code>LogisticsEvent</code> on the identified Pieces. The <em>LogisticsEvent#partialEventIndicator</em> can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.</p>
 <h3 id="xffm-mapping">XFFM Mapping<a class="headerlink" href="#xffm-mapping" title="Permanent link">&para;</a></h3>
+<p>The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.</p>
+<p>ONE Record by essence contains all the required data, Flight details, Piece and ULD details and so on.</p>
+<p>Multi-destination usecases will require the aggregation of data starting form multiple <code>TransportMovement</code> objects if required for the generation of an XFFM equivalent.</p>
+<h4 id="proposed-mechanism_2">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_2" title="Permanent link">&para;</a></h4>
+<p>The <code>starting point</code> of the manifest is the flight, or the <code>TransportMovement</code> in ONE Record. The Manifest requires information from <code>Piece</code>, <code>ULD</code>, <code>Shipment</code> and <code>Waybill</code> objects mainly.</p>
+<p><code>Piece</code> details are central and from the <code>TransportMovement</code> there are two possiblities:</p>
+<ul>
+<li>ULDs are used: <code>ULD</code> objects is linked to the <code>TransportMovement</code> via a <code>Loading</code> action. Then the ULD is loaded with Pieces, the linkage is made through the <code>UnitComposition</code> activity and the respective <code>Composing</code> action.</li>
+<li>Cargo is bulk (BLK): <code>Piece</code> objects are directly linked to the <code>TransportMovement</code> via a <code>Loading</code> action.</li>
+</ul>
+<p>In the end, <code>Shipment</code> and <code>Waybill</code> accessed via the <code>Piece</code> objects.</p>
 <h3 id="xfbl-mapping">XFBL Mapping<a class="headerlink" href="#xfbl-mapping" title="Permanent link">&para;</a></h3>
 <h3 id="xtmv-mapping">XTMV Mapping<a class="headerlink" href="#xtmv-mapping" title="Permanent link">&para;</a></h3>
 <p>(To be discussed)</p>
