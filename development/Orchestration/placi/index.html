@@ -12,13 +12,13 @@
         <meta name="author" content="IATA">
       
       
-        <link rel="canonical" href="https://iata-cargo.github.io/ONE-Record/development/Orchestration/orchestration-09/">
+        <link rel="canonical" href="https://iata-cargo.github.io/ONE-Record/development/Orchestration/placi/">
       
       
-        <link rel="prev" href="../orchestration-08/">
+        <link rel="prev" href="../orchestration-cxml/">
       
       
-        <link rel="next" href="../orchestration-10/">
+        <link rel="next" href="../orchestration-mop/">
       
       
       <link rel="icon" href="../../img/favicon.ico">
@@ -26,7 +26,7 @@
     
     
       
-        <title>P09 - Prepare freight for transport - ONE Record Specification</title>
+        <title>PLACI implementation - ONE Record Specification</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#01-transshipment-cargo-received-from-process-13" class="md-skip">
+        <a href="#placi-programs" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              P09 - Prepare freight for transport
+              PLACI implementation
             
           </span>
         </div>
@@ -2000,10 +2000,28 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../placi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    PLACI implementation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2012,6 +2030,66 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#placi-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLACI programs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#placi-and-one-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      PLACI and ONE Record
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PLACI and ONE Record">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-comments-applying-to-all-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      General comments applying to all processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2021,8 +2099,6 @@
                 
   
   
-    
-  
   
   
     
@@ -2093,11 +2169,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
         
           
           <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
@@ -2111,7 +2189,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             MOP mapping
@@ -2374,28 +2452,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    P09 - Prepare freight for transport
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../orchestration-09/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2404,210 +2464,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#01-transshipment-cargo-received-from-process-13" class="md-nav__link">
-    <span class="md-ellipsis">
-      01. Transshipment Cargo received from Process 13
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#02-transshipment-cargo-security-cleared" class="md-nav__link">
-    <span class="md-ellipsis">
-      02. Transshipment Cargo security cleared
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="02. Transshipment Cargo security cleared">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#03-plan-flight-and-send-booking-list-to-warehouse" class="md-nav__link">
-    <span class="md-ellipsis">
-      03. Plan flight and send booking list to warehouse
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="03. Plan flight and send booking list to warehouse">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#04-move-shipment-to-storage-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      04. Move shipment to storage location
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="04. Move shipment to storage location">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#05-collect-freight-and-unitize-as-planned" class="md-nav__link">
-    <span class="md-ellipsis">
-      05. Collect freight and unitize as planned
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="05. Collect freight and unitize as planned">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#06-consolidate-information-and-send-final-manifest-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      06. Consolidate information and send final manifest data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="06. Consolidate information and send final manifest data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#07-create-aircraft-load-planning-by-load-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      07. Create aircraft load planning by Load control
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="07. Create aircraft load planning by Load control">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#07-process-placi-customs-status-notification" class="md-nav__link">
-    <span class="md-ellipsis">
-      07. Process PLACI customs status notification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#08-send-placi-status-notification-to-airline" class="md-nav__link">
-    <span class="md-ellipsis">
-      08. Send PLACI status notification to airline
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="08. Send PLACI status notification to airline">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3035,181 +2891,37 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#01-transshipment-cargo-received-from-process-13" class="md-nav__link">
+  <a href="#placi-programs" class="md-nav__link">
     <span class="md-ellipsis">
-      01. Transshipment Cargo received from Process 13
+      PLACI programs
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#02-transshipment-cargo-security-cleared" class="md-nav__link">
+  <a href="#placi-and-one-record" class="md-nav__link">
     <span class="md-ellipsis">
-      02. Transshipment Cargo security cleared
+      PLACI and ONE Record
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="02. Transshipment Cargo security cleared">
+    <nav class="md-nav" aria-label="PLACI and ONE Record">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#api-interaction" class="md-nav__link">
+  <a href="#general-comments-applying-to-all-processes" class="md-nav__link">
     <span class="md-ellipsis">
-      API interaction
+      General comments applying to all processes
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#03-plan-flight-and-send-booking-list-to-warehouse" class="md-nav__link">
-    <span class="md-ellipsis">
-      03. Plan flight and send booking list to warehouse
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="03. Plan flight and send booking list to warehouse">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#api-interaction_1" class="md-nav__link">
+  <a href="#use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment" class="md-nav__link">
     <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#04-move-shipment-to-storage-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      04. Move shipment to storage location
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="04. Move shipment to storage location">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#05-collect-freight-and-unitize-as-planned" class="md-nav__link">
-    <span class="md-ellipsis">
-      05. Collect freight and unitize as planned
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="05. Collect freight and unitize as planned">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#06-consolidate-information-and-send-final-manifest-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      06. Consolidate information and send final manifest data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="06. Consolidate information and send final manifest data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#07-create-aircraft-load-planning-by-load-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      07. Create aircraft load planning by Load control
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="07. Create aircraft load planning by Load control">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#07-process-placi-customs-status-notification" class="md-nav__link">
-    <span class="md-ellipsis">
-      07. Process PLACI customs status notification
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#08-send-placi-status-notification-to-airline" class="md-nav__link">
-    <span class="md-ellipsis">
-      08. Send PLACI status notification to airline
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="08. Send PLACI status notification to airline">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#api-interaction_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      API interaction
+      Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment
     </span>
   </a>
   
@@ -3235,7 +2947,7 @@
                   
 
   
-    <a href="https://github.com/IATA-Cargo/ONE-Record/edit/master/Documentation_website/docs/Orchestration/orchestration-09.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/IATA-Cargo/ONE-Record/edit/master/Documentation_website/docs/Orchestration/placi.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -3244,231 +2956,66 @@
     
       
     
-    <a href="https://github.com/IATA-Cargo/ONE-Record/raw/master/Documentation_website/docs/Orchestration/orchestration-09.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/IATA-Cargo/ONE-Record/raw/master/Documentation_website/docs/Orchestration/placi.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
   
 
 
-  <h1>P09 - Prepare freight for transport</h1>
+  <h1>PLACI implementation</h1>
 
-<p>Process where the Airline/GHA prepares the freight for it transportation</p>
-<h2 id="01-transshipment-cargo-received-from-process-13">01. Transshipment Cargo received from Process 13<a class="headerlink" href="#01-transshipment-cargo-received-from-process-13" title="Permanent link">&para;</a></h2>
-<p>1st Airline makes sure that 2nd Airline has proper access (data and/or delegated access) to the shipment record.</p>
-<h2 id="02-transshipment-cargo-security-cleared">02. Transshipment Cargo security cleared<a class="headerlink" href="#02-transshipment-cargo-security-cleared" title="Permanent link">&para;</a></h2>
-<p>GHA checks the Security status of the pieces and updates the SecurityDeclaration on the Pieces if relevant.</p>
-<p>An Event is added on the Pieces if relevant to record the check results</p>
-<h3 id="api-interaction">API interaction<a class="headerlink" href="#api-interaction" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>PATCH</td>
-<td>SecurityDeclaration</td>
-<td>Update accordingly</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Event on Pieces</td>
-<td>Create Event: eventFor (Pieces), eventLocation (carrier domain?), eventName (Security Status checked), eventDate, recordingActor</td>
-</tr>
-</tbody>
-</table>
-<h2 id="03-plan-flight-and-send-booking-list-to-warehouse">03. Plan flight and send booking list to warehouse<a class="headerlink" href="#03-plan-flight-and-send-booking-list-to-warehouse" title="Permanent link">&para;</a></h2>
-<p>Most of XFBL data should already be in ONE Record at that stage. Refer to mapping XFBL to 1R for further details.</p>
-<p>The Airline needs to make sure that GHA has access to all relevant data related to the freight booked list.</p>
-<p>UnitComposition Activity can be created for conslidations made by GHA. Respective Composing actions (Planned) can be created to link Pieces and ULDs Loading Action (Planned) is created by GHA to link Pieces/ULD and TransportMeans (Aircraft) via the TransportMovement (flight). This is either a direct Post via delegated access or request to create objects on Airline system</p>
-<p><strong>Message:</strong> <code>(X)FBL</code></p>
-<h3 id="api-interaction_1">API interaction<a class="headerlink" href="#api-interaction_1" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>UnitComposition</td>
-<td>Create UnitComposition activity</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Composing (Planned)</td>
-<td>Create Composing: servedActivity (UnitComposition), loadingUnit (ULD or Pallet), composedPieces (Pieces), compositionType (Composition), actionTimeType (Planned)</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>TransportMovement (Flight)</td>
-<td>Create TM-Flight if not created before</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Loading (planned)</td>
-<td>Loading action (planned): servedActivity (TM-Flight), loadedPieces (Pieces) and/or loadingUnits (ULD/Pallet), loadingType (loading), actionTimeType (planned)</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Event on TM-Flight</td>
-<td>Create Event: eventFor (TM-Flight), eventLocation (not relevant), eventName (Freight booked List available), eventDate, recordingActor</td>
-</tr>
-</tbody>
-</table>
-<h2 id="04-move-shipment-to-storage-location">04. Move shipment to storage location<a class="headerlink" href="#04-move-shipment-to-storage-location" title="Permanent link">&para;</a></h2>
-<p>Storage Activity is created with Storing Action (actuals) to link the Pieces/ULD to a storage place if relevant</p>
-<p><strong>Milestone:</strong> <code>STO</code></p>
-<h3 id="api-interaction_2">API interaction<a class="headerlink" href="#api-interaction_2" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Storage</td>
-<td>Create Storage activty</td>
-</tr>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Storing (actual)</td>
-<td>Storing action (actual): servedActivity (Storage), storingtype (STORE_IN). storedObjects (Pieces/ULDs), storagePlaceIdentifier</td>
-</tr>
-</tbody>
-</table>
-<h2 id="05-collect-freight-and-unitize-as-planned">05. Collect freight and unitize as planned<a class="headerlink" href="#05-collect-freight-and-unitize-as-planned" title="Permanent link">&para;</a></h2>
-<p>UnitComposition Activity is created with Composing Action (Actuals) to link Pieces and ULDs</p>
-<p><strong>Milestone:</strong> <code>MAN</code> / <code>FUM</code></p>
-<h3 id="api-interaction_3">API interaction<a class="headerlink" href="#api-interaction_3" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>POST</td>
-<td>Composing (Actual)</td>
-<td>Create Composing: servedActivity (UnitComposition), loadingUnit (ULD or Pallet), composedPieces (Pieces), compositionType (Composition), actionTimeType (Actual)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="06-consolidate-information-and-send-final-manifest-data">06. Consolidate information and send final manifest data<a class="headerlink" href="#06-consolidate-information-and-send-final-manifest-data" title="Permanent link">&para;</a></h2>
-<p>Loading Action (Planned) is updated if relevant by GHA to link Pieces/ULD and TransportMeans (Aircraft) via the TransportMovement (flight). This is either a direct Post via delegated access or request to create objects on Airline system</p>
-<p><strong>Milestone:</strong> <code>UWS</code></p>
-<h3 id="api-interaction_4">API interaction<a class="headerlink" href="#api-interaction_4" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>PATCH</td>
-<td>Loading (planned)</td>
-<td>Update loading (planned) if required</td>
-</tr>
-</tbody>
-</table>
-<h2 id="07-create-aircraft-load-planning-by-load-control">07. Create aircraft load planning by Load control<a class="headerlink" href="#07-create-aircraft-load-planning-by-load-control" title="Permanent link">&para;</a></h2>
-<p>Loading Actions (Planned) can be updated by Airline if relevant. This is either a Change request (if GHA has the data) or direct Patch.</p>
-<h3 id="api-interaction_5">API interaction<a class="headerlink" href="#api-interaction_5" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Airline</td>
-<td>Airline / GHA</td>
-<td>PATCH</td>
-<td>Loading (planned)</td>
-<td>Update loading (planned) if required</td>
-</tr>
-</tbody>
-</table>
-<h2 id="07-process-placi-customs-status-notification">07. Process PLACI customs status notification<a class="headerlink" href="#07-process-placi-customs-status-notification" title="Permanent link">&para;</a></h2>
-<p>Customs assesses the PLACI status based on data shared. As a prerequisite, data needs to be made accessible to Authorities by Airline and/or Forwarder.</p>
-<p>A dedicated Event on the Waybill can be created to notify Customs that PLACI data can be processed.</p>
-<h2 id="08-send-placi-status-notification-to-airline">08. Send PLACI status notification to airline<a class="headerlink" href="#08-send-placi-status-notification-to-airline" title="Permanent link">&para;</a></h2>
-<p>Event is added on Shipment/MAWB by Authorities for PLACI status.</p>
-<h3 id="api-interaction_6">API interaction<a class="headerlink" href="#api-interaction_6" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>1R Server</th>
-<th>Stakeholder</th>
-<th>API Calls</th>
-<th>LogiticsObject</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Forwarder</td>
-<td>Authorities</td>
-<td>POST</td>
-<td>Event on Waybill</td>
-<td>Create Event: eventFor (Waybill), eventName and/or eventCode (PLACI status), eventDate, recordingActor</td>
-</tr>
-</tbody>
-</table>
+<h2 id="placi-programs">PLACI programs<a class="headerlink" href="#placi-programs" title="Permanent link">&para;</a></h2>
+<p>PreLoading Advance Cargo Information (PLACI) programs are being implemented throughout the world and impact operations of the industry stakeholders.</p>
+<p>​IATA's Preloading Advance Cargo Information (PLACI) Guidelines provides harmonized and standardized procedures for advance cargo information filing in a unique, comprehensive manual. It enables users to improve procedural efficiency and empowers their compliance with the preloading advance cargo information regulatory requirements applicable in the United States, Europe, United Kingdom, United Arab Emirates and Canada.</p>
+<p>Find out more on PLACI guidelines here: <a href="https://www.iata.org/en/publications/manuals/placi-standard-procedures-for-preloading-advance-cargo-information">https://www.iata.org/en/publications/manuals/placi-standard-procedures-for-preloading-advance-cargo-information</a></p>
+<h2 id="placi-and-one-record">PLACI and ONE Record<a class="headerlink" href="#placi-and-one-record" title="Permanent link">&para;</a></h2>
+<p>ONE Record as an IATA standard supports PLACI programs and aims to replace messaging standards to share relevant data with Customs and Authorities.</p>
+<p>Business processes guidelines are detailed in the PLACI manual, the objective of this page is to give a version of the processes based on ONE Record.</p>
+<h3 id="general-comments-applying-to-all-processes">General comments applying to all processes<a class="headerlink" href="#general-comments-applying-to-all-processes" title="Permanent link">&para;</a></h3>
+<p>Current processes are based on messaging standards, more specifically on usage of XFWB, XFZB, XFHL and XCSN. These 4 messages provide details on the Master Waybill (XFWB), House Waybill (XFZB), the list of House contained within a Master (XFHL) and to convey details on Customs notifications (XCSN). In terms of data, ONE Record already has the capability to share all relevant information related to those 3 messages, what will differ is the way data is shared/exchanged.</p>
+<ul>
+<li>
+<ol>
+<li><strong>No OCI!</strong> The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the <code>CustomsInformation</code> object, it should not be necessary for theses processes.</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>PLACI processes we will mostly rely on the fact that <strong>Events</strong> can be used on different objects and that notifications can be automatically triggered to selected stakeholders.</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)</li>
+</ol>
+</li>
+</ul>
+<h3 id="use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment">Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment<a class="headerlink" href="#use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment" title="Permanent link">&para;</a></h3>
+<p>Specificity of this process is that:
+- Freight forwarder has an agreement with Airline to file data on its behalf
+- Data is filed at House level for consolidated shipment</p>
+<p><code>mermaid
+graph LR
+  A[Freight Forwarder notifies that HAWB content is ready (*Event on Shipment*)] --&gt; B[Customs validates content];
+  B --&gt; C{Validation succesful?};
+  C --&gt;|Yes| D[Customs notifies that Shipment is OK (*Event on Shipment `SR`*)];
+  C --&gt;|No| E[Customs notifies that there is an error (*Event on Shipment `Error`*)];
+  C --&gt;|RFI/RFS| F{Additional information or screening needed?};
+  F --&gt;|Yes| G[Customs notifies RFI or RFS (*Event on Shipment `RFI` or `RFS`*)];
+  F --&gt;|No| H{Risk assessment completed?};
+  H --&gt;|Yes| I{Assessment outcome};
+  I --&gt;|Blocked - RFI/RFS| J[CB (7H, 7J, 8H, 8J)];
+  I --&gt;|Customs Hold - DNL| K[CD (6H, 6J)];
+  I --&gt;|Customs Release - OK| L[CO (SF, 6I, 7I, 8I)];
+  D --&gt; M[Freight Forwarder notified automatically];
+  E --&gt; M;
+  G --&gt; M;
+  J --&gt; M;
+  K --&gt; M;
+  L --&gt; M;
+  M --&gt; N{MAWB# available?};
+  N --&gt;|Yes| O[Carrier notified automatically via the MAWB object];</code></p>
 
 
 
@@ -3498,7 +3045,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../orchestration-08/" class="md-footer__link md-footer__link--prev" aria-label="Previous: P08 - Accept shipment as ready for carriage">
+          <a href="../orchestration-cxml/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CargoXML Mapping">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -3508,20 +3055,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                P08 - Accept shipment as ready for carriage
+                CargoXML Mapping
               </div>
             </div>
           </a>
         
         
           
-          <a href="../orchestration-10/" class="md-footer__link md-footer__link--next" aria-label="Next: P10 - Shipment to flight, load and depart">
+          <a href="../orchestration-mop/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                P10 - Shipment to flight, load and depart
+                Introduction
               </div>
             </div>
             <div class="md-footer__button md-icon">
