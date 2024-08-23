@@ -54,13 +54,9 @@ Like all Logistic Objects, **Shipments** can have **Events**. An **Event** can r
 The Audit Trail specified in ONE Record API can be used to recover older versions of the objects based on, for instance, a specific date and time.
 
 # Data model
-Details of the objects and their data properties can be found in the Ontology or the PDF version of the data model.
+Details of the objects and their data properties can be found in the Ontology file or the Ontology Visualizer. High level overview is presented in the figure above.
 
-The impacts on the conceptual data model and the way these objects are supposed to interact with each other are quite straightforward and explained in the figure below.
-
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/208690795-fd4ad4d6-ea82-49f9-8104-54a074d36e61.png"></p>
-
- # API mechanism
+# API mechanism
 
  Based on the Data Model, a standard API workflow has been designed. The use case shows an interaction between a Customer (Freight Forwarder) and a Carrier where both stakeholders have their own ONE Record servers. Using a 3rd-party service provider would be the same workflow.
 

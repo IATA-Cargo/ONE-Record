@@ -6,7 +6,7 @@ Our objective is to have an automated tool that allows to transcribe the ontolog
 # Data Model Visualizer
 The tool is based on the open-source SQL Schema Visualizer available here: [https://github.com/sqlhabit/sql_schema_visualizer](https://github.com/sqlhabit/sql_schema_visualizer)
 
-We host the tool on GitHub: [https://iata-cargo.github.io/ontology_visualizer/](https://iata-cargo.github.io/ontology_visualizer/) (temporary repository)
+We host the tool on GitHub: [https://iata-cargo.github.io/ontology_visualizer/](https://iata-cargo.github.io/ontology_visualizer/)
 
 The tool has been customized to fit our needs in terms of visual and features.
 
