@@ -2997,17 +2997,17 @@
 - Data is filed at House level for consolidated shipment</p>
 <p><code>mermaid
 graph LR
-  A[Freight Forwarder notifies that HAWB content is ready (*Event on Shipment*)] --&gt; B[Customs validates content];
+  A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --&gt; B[Customs validates content];
   B --&gt; C{Validation succesful?};
-  C --&gt;|Yes| D[Customs notifies that Shipment is OK (*Event on Shipment `SR`*)];
-  C --&gt;|No| E[Customs notifies that there is an error (*Event on Shipment `Error`*)];
-  C --&gt;|RFI/RFS| F{Additional information or screening needed?};
-  F --&gt;|Yes| G[Customs notifies RFI or RFS (*Event on Shipment `RFI` or `RFS`*)];
+  C --&gt;|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
+  C --&gt;|No| E[Customs notifies that there is an error - Event on Shipment Error];
+  D --&gt; F{Additional information or screening needed?};
+  F --&gt;|Yes| G[Customs notifies RFI or RFS - Event on Shipment RFI or RFS];
   F --&gt;|No| H{Risk assessment completed?};
   H --&gt;|Yes| I{Assessment outcome};
-  I --&gt;|Blocked - RFI/RFS| J[CB (7H, 7J, 8H, 8J)];
-  I --&gt;|Customs Hold - DNL| K[CD (6H, 6J)];
-  I --&gt;|Customs Release - OK| L[CO (SF, 6I, 7I, 8I)];
+  I --&gt;|Blocked - RFI or RFS| J[CB - 7H, 7J, 8H, 8J];
+  I --&gt;|Customs Hold - DNL| K[CD - 6H, 6J];
+  I --&gt;|Customs Release - OK| L[CO - SF, 6I, 7I, 8I];
   D --&gt; M[Freight Forwarder notified automatically];
   E --&gt; M;
   G --&gt; M;
