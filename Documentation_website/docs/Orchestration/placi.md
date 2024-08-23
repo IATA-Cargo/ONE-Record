@@ -22,31 +22,51 @@ Current processes are based on messaging standards, more specifically on usage o
 
 3. It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)
 
-## Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment
+## Process #1: Freight forwarder filing pre-loading data for Consolidation shipment
 
 Specificity of this process is that:
 - Freight forwarder has an agreement with Airline to file data on its behalf.
 - Data is filed at House level for consolidated shipment.
 
-```mermaid
-graph TD
-  A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
-  B --> C{Validation succesful?};
-  C -->|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
-  C -->|No| E[Customs notifies that there is an error - Event on Shipment Error];
-  D --> F{Additional information or screening needed?};
-  F -->|Yes| G[Customs notifies RFI or RFS - Event on Shipment RFI or RFS];
-  F -->|No| H{Risk assessment completed?};
-  H -->|Yes| I{Assessment outcome};
-  I -->|Blocked - RFI or RFS| J[CB - 7H, 7J, 8H, 8J];
-  I -->|Customs Hold - DNL| K[CD - 6H, 6J];
-  I -->|Customs Release - OK| L[CO - SF, 6I, 7I, 8I];
-  D --> M[Freight Forwarder notified automatically];
-  E --> M;
-  G --> M;
-  J --> M;
-  K --> M;
-  L --> M;
-  M --> N{MAWB# available?};
-  N -->|Yes| O[Carrier notified automatically via the MAWB object];
-  ```
+![image](https://github.com/user-attachments/assets/14d8db94-1d47-4672-b2e4-050da5bb5e23)
+
+In this scenario, the Freight Forwarder notifies the Customs that data is ready to be processed via an Event on the Shipment object. Then based on Customs validation and risk assessment, different Events are added on the Shipment **by the Customs** via the Change Request mechanism.
+
+If there is a MAWB number available, usually the Waybill objects of the House and the Master are already linked and the Airline can get notified automatically if Events are created.
+
+## Process #2: Freight forwarder filing pre-loading data for non-consolidation shipment
+
+Specificity of this process is that:
+- Freight forwarder has an agreement with Airline to file data on its behalf.
+- Data is filed at Master level.
+
+![image](https://github.com/user-attachments/assets/68765f13-c8c0-419d-877f-d881d8c9cc56)
+
+In this scenario the mechanism is very similar, main difference is that information is shared on Master level. Notifications happen with the same mechanisms.
+
+## Process #3: Associate Master with already filed HAWB
+
+This process represents the scenario when House Waybill have been filed and the Freight Forwarder or the Airline provides sufficient information to Customs to make the link betweem House(s) and the Master.
+
+With messaging standards, 2 scenarios are outlined based on XFZB update (addition of MAWB number) or XFHL (List of House(s) linked to one Master). 
+
+With ONE Record, those messages are not necessary and updating the HAWB and/or MAWB objects should be sufficient. An Event on the Shipment or Waybill objects can also be used for more clarity.
+
+We can have 4 different methods, or starting points for the process, depending on the stakeholder notifying the association of Master and House(s) or depending on the fact that the House or the Master is the starting point.
+
+![image](https://github.com/user-attachments/assets/26b00fda-a450-46b2-ab41-cb47debe0634)
+
+Below processes #3.1 and #3.3 can be equivalent to sending an update of XFZB while processes #3.2 and #3.4 are equivalent to generating and sending an XFHL message.
+
+### Process #3.1: Freight forwarder updates HAWB with MAWB links
+The Freight Forwarder updates HAWB objects by adding a link to the MAWB object. Customs get notified of the change OR and Event can be added on the HAWB to notify the association has been made.
+
+### Process #3.2: Airline updates the HAWB with MAWB links
+Difference with #3.1 is that the Airline initiates the change. A Change Request mechanism is started as the Freight Forwarder is the owner of the HAWB object. Once the HAWB objects are notified, process is the same to go through Customs.
+
+### Process #3.3: Freight forwarder updates the MAWB with HAWB links
+The Freight Forwarder updates the MAWB object with links to all HAWB objects. Customs get notified of the change OR and Event can be added on the MAWB to notify the association has been made.
+
+### Process #3.4: Airline updates the MAWB with HAWB links
+Difference with #3.1 is that the Airline initiates the change. A Change Request mechanism is started as the Freight Forwarder is the owner of the HAWB object. Once the HAWB objects are notified, process is the same to go through Customs.
+
