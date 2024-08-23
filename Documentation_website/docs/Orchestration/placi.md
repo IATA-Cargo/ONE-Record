@@ -30,17 +30,17 @@ Specificity of this process is that:
 
 ``` mermaid
 graph LR
-  A[Freight Forwarder notifies that HAWB content is ready (*Event on Shipment*)] --> B[Customs validates content];
+  A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
   B --> C{Validation succesful?};
-  C -->|Yes| D[Customs notifies that Shipment is OK (*Event on Shipment `SR`*)];
-  C -->|No| E[Customs notifies that there is an error (*Event on Shipment `Error`*)];
-  C -->|RFI/RFS| F{Additional information or screening needed?};
-  F -->|Yes| G[Customs notifies RFI or RFS (*Event on Shipment `RFI` or `RFS`*)];
+  C -->|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
+  C -->|No| E[Customs notifies that there is an error - Event on Shipment Error];
+  D --> F{Additional information or screening needed?};
+  F -->|Yes| G[Customs notifies RFI or RFS - Event on Shipment RFI or RFS];
   F -->|No| H{Risk assessment completed?};
   H -->|Yes| I{Assessment outcome};
-  I -->|Blocked - RFI/RFS| J[CB (7H, 7J, 8H, 8J)];
-  I -->|Customs Hold - DNL| K[CD (6H, 6J)];
-  I -->|Customs Release - OK| L[CO (SF, 6I, 7I, 8I)];
+  I -->|Blocked - RFI or RFS| J[CB - 7H, 7J, 8H, 8J];
+  I -->|Customs Hold - DNL| K[CD - 6H, 6J];
+  I -->|Customs Release - OK| L[CO - SF, 6I, 7I, 8I];
   D --> M[Freight Forwarder notified automatically];
   E --> M;
   G --> M;
