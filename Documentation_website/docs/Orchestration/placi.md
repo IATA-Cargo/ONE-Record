@@ -16,17 +16,17 @@ Business processes guidelines are detailed in the PLACI manual, the objective of
 
 Current processes are based on messaging standards, more specifically on usage of XFWB, XFZB, XFHL and XCSN. These 4 messages provide details on the Master Waybill (XFWB), House Waybill (XFZB), the list of House contained within a Master (XFHL) and to convey details on Customs notifications (XCSN). In terms of data, ONE Record already has the capability to share all relevant information related to those 3 messages, what will differ is the way data is shared/exchanged.
 
-- 1. **No OCI!** The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the `CustomsInformation` object, it should not be necessary for theses processes.
+1. **No OCI!** The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the `CustomsInformation` object, it should not be necessary for theses processes.
 
-- 2.  PLACI processes we will mostly rely on the fact that **Events** can be used on different objects and that notifications can be automatically triggered to selected stakeholders.
+2.  PLACI processes we will mostly rely on the fact that **Events** can be used on different objects and that notifications can be automatically triggered to selected stakeholders.
 
-- 3. It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)
+3. It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)
 
 ## Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment
 
 Specificity of this process is that:
-- Freight forwarder has an agreement with Airline to file data on its behalf
-- Data is filed at House level for consolidated shipment
+- Freight forwarder has an agreement with Airline to file data on its behalf.
+- Data is filed at House level for consolidated shipment.
 
 ```mermaid
 graph TD
