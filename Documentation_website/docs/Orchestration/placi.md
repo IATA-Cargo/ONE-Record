@@ -28,7 +28,7 @@ Specificity of this process is that:
 - Freight forwarder has an agreement with Airline to file data on its behalf
 - Data is filed at House level for consolidated shipment
 
-``` mermaid
+```mermaid
 graph LR
   A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
   B --> C{Validation succesful?};
