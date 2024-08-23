@@ -29,7 +29,7 @@ Specificity of this process is that:
 - Data is filed at House level for consolidated shipment
 
 ```mermaid
-graph LR
+graph TD
   A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
   B --> C{Validation succesful?};
   C -->|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
