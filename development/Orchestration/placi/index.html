@@ -2974,27 +2974,21 @@
 <p>Business processes guidelines are detailed in the PLACI manual, the objective of this page is to give a version of the processes based on ONE Record.</p>
 <h3 id="general-comments-applying-to-all-processes">General comments applying to all processes<a class="headerlink" href="#general-comments-applying-to-all-processes" title="Permanent link">&para;</a></h3>
 <p>Current processes are based on messaging standards, more specifically on usage of XFWB, XFZB, XFHL and XCSN. These 4 messages provide details on the Master Waybill (XFWB), House Waybill (XFZB), the list of House contained within a Master (XFHL) and to convey details on Customs notifications (XCSN). In terms of data, ONE Record already has the capability to share all relevant information related to those 3 messages, what will differ is the way data is shared/exchanged.</p>
-<ul>
-<li>
 <ol>
-<li><strong>No OCI!</strong> The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the <code>CustomsInformation</code> object, it should not be necessary for theses processes.</li>
-</ol>
+<li>
+<p><strong>No OCI!</strong> The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the <code>CustomsInformation</code> object, it should not be necessary for theses processes.</p>
 </li>
 <li>
-<ol>
-<li>PLACI processes we will mostly rely on the fact that <strong>Events</strong> can be used on different objects and that notifications can be automatically triggered to selected stakeholders.</li>
-</ol>
+<p>PLACI processes we will mostly rely on the fact that <strong>Events</strong> can be used on different objects and that notifications can be automatically triggered to selected stakeholders.</p>
 </li>
 <li>
-<ol>
-<li>It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)</li>
-</ol>
+<p>It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)</p>
 </li>
-</ul>
+</ol>
 <h3 id="use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment">Use case #1: Freight forwarder filing pre-loading data for Consolidation shipment<a class="headerlink" href="#use-case-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment" title="Permanent link">&para;</a></h3>
 <p>Specificity of this process is that:
-- Freight forwarder has an agreement with Airline to file data on its behalf
-- Data is filed at House level for consolidated shipment</p>
+- Freight forwarder has an agreement with Airline to file data on its behalf.
+- Data is filed at House level for consolidated shipment.</p>
 <p><code>mermaid
 graph TD
   A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --&gt; B[Customs validates content];
