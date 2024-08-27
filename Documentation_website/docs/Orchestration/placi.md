@@ -70,3 +70,26 @@ The Freight Forwarder updates the MAWB object with links to all HAWB objects. Cu
 ### Process #3.4: Airline updates the MAWB with HAWB links
 Difference with #3.1 is that the Airline initiates the change. A Change Request mechanism is started as the Freight Forwarder is the owner of the HAWB object. Once the HAWB objects are notified, process is the same to go through Customs.
 
+## Process #4: Airline filing Pre-Loading data for Consolidation shipments
+
+The process is overall similar to Process #1 except the MAWB number needs to be available for the Airline to initiate the process. 
+
+Freight Forwarder is still the owner of HAWB and MAWB objects in ONE Record so all Events associated with any of these objects need to go through a Change Request.
+
+As the Airline wants to notify Customs that HAWB data is ready for risk assessment, they create an Event on the House Shipment through a Change Request. Once the Event is created Customs are notified.
+
+![image](https://github.com/user-attachments/assets/9d36e02c-e263-48af-ace1-90e9ed170e47)
+
+## Process #5: Airline filing Pre-Loading data for non-consolidation shipments
+
+This process is overall similar to Process #2 except that the Airline initiates the process.
+
+Freight Forwarder is still the owner of HAWB and MAWB objects in ONE Record so all Events associated with any of these objects need to go through a Change Request.
+
+As the Airline wants to notify Customs that HAWB data is ready for risk assessment, they create an Event on the Master Shipment through a Change Request. Once the Event is created Customs are notified.
+
+![image](https://github.com/user-attachments/assets/b0804421-4abf-4057-81a0-2c5d16fa6096)
+
+## Process #6: Airline filing Pre-Arrival data (including Pre-Loading data) at Pre-Loading
+
+In this process the Airline transmits HAWB and MAWB data to Customs. First part of the process depicted below represents the assessment the Airline needs to make in order to share the right data to Customs. The second part of the process which is not depicted below is similar to previous processes where Customs validates data and provides the suitable status.
