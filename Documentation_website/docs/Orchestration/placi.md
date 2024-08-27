@@ -103,3 +103,7 @@ In this process the Airline transmits HAWB and MAWB data to Customs. First part 
 This process is based on usage of XCSN message towards the most relevant stakeholder (from Customs to Airline, Freight Forwarder or Notify party). 
 
 With ONE Record the process is simplified as the Customs status is conveyed using an `Event` on the relevant `Shipment` object. By default the Freight forwader, owner of the `Shipment` object is notified and other stakeholders can be notified automatically according to chosen setup.
+
+![image](https://github.com/user-attachments/assets/7c1a5f88-18d6-486c-8576-59f3b542d08e)
+
+At the end of the process, action may be required depending on the Customs Status and who is the targeted stakeholder. Defining that in details requires identifying statuses and relevant actions.
