@@ -16,11 +16,13 @@ Business processes guidelines are detailed in the PLACI manual, the objective of
 
 Current processes are based on messaging standards, more specifically on usage of XFWB, XFZB, XFHL and XCSN. These 4 messages provide details on the Master Waybill (XFWB), House Waybill (XFZB), the list of House contained within a Master (XFHL) and to convey details on Customs notifications (XCSN). In terms of data, ONE Record already has the capability to share all relevant information related to those 3 messages, what will differ is the way data is shared/exchanged.
 
-1. **No OCI!** The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the `CustomsInformation` object, it should not be necessary for theses processes.
+1. **No OCI!** The OCI segment in CIMP and CXML standards is used to convey various Customs and Security information that are not included in the core of those messages. While we have kept a similar structure in ONE Record with the `CustomsInformation` object which is to be used for ONE Record <> CXML conversion only, it is not necessary for theses processes.
 
-2.  PLACI processes we will mostly rely on the fact that **Events** can be used on different objects and that notifications can be automatically triggered to selected stakeholders.
+2.  PLACI processes we will mostly rely on the fact that **`Events`** can be used on different objects and that notifications can be automatically triggered to selected stakeholders.
 
 3. It is considered that required information for PLACI purposes is already defined in ONE Record realm as House and Master Waybill data should already be recorded and shared between upstream stakeholders (Shipper, Freight Forwarder, Airline, GHA at least)
+
+4. By design principle, the Freight Forwarder is the `Shipment` object owner (House and Master level). This means that any stakeholder that needs to create an `Event` will go through a Change Request (see ONE Record API Specifications for further explanations)
 
 ## Process #1: Freight forwarder filing pre-loading data for Consolidation shipment
 
@@ -93,3 +95,11 @@ As the Airline wants to notify Customs that HAWB data is ready for risk assessme
 ## Process #6: Airline filing Pre-Arrival data (including Pre-Loading data) at Pre-Loading
 
 In this process the Airline transmits HAWB and MAWB data to Customs. First part of the process depicted below represents the assessment the Airline needs to make in order to share the right data to Customs. The second part of the process which is not depicted below is similar to previous processes where Customs validates data and provides the suitable status.
+
+![image](https://github.com/user-attachments/assets/531f691f-61ca-476b-9af2-f1f62eaace83)
+
+## Process #7: Customs status notification to Airline, Freight forwarder and Notify party
+
+This process is based on usage of XCSN message towards the most relevant stakeholder (from Customs to Airline, Freight Forwarder or Notify party). 
+
+With ONE Record the process is simplified as the Customs status is conveyed using an `Event` on the relevant `Shipment` object. By default the Freight forwader, owner of the `Shipment` object is notified and other stakeholders can be notified automatically according to chosen setup.
