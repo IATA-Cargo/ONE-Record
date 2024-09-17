@@ -11,12 +11,11 @@ Ontologies are ttl file describing all classes, data properties and how all of t
 ### Ontology - Data Model
 
 - The simplest representation provides a very simple view of all classes and properties: [https://onerecord.iata.org/ns/cargo/index-en.html](https://onerecord.iata.org/ns/cargo/index-en.html)
-- We developed the Ontology Visualizer to replace old pdf versions of the ontology: [Ontology Visualizer](*/ontology-visualizer.md)
+- We developed the Ontology Visualizer to replace old pdf versions of the ontology: [Ontology Visualizer](./ontology-visualizer.md)
 
 ### Ontology - API
 
 - Similarly to the Data Model, we also have a simple representation of the API ontology: [https://onerecord.iata.org/ns/api/index-en.html](https://onerecord.iata.org/ns/api/index-en.html)
-- Swagger API documentation: [https://onerecord.iata.org/swagger-ui.html](https://onerecord.iata.org/swagger-ui.html)
 
 # Third party tools
 
