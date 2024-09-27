@@ -701,7 +701,7 @@ Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453
     Removing a bNode, the ONE Record server implementors should handle the cleansing of the triples.
 
 ## Example C6
-In the example below, the [referencesLogisticsObject](https://onerecord.iata.org/ns/api#referencesLogisticsObject) in the [Change](https://onerecord.iata.org/ns/api#Change) object differs from the Logistics URI that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
+In the example below, the [hasLogisticsObject](https://onerecord.iata.org/ns/api#hasLogisticsObject) property in the [Change](https://onerecord.iata.org/ns/api#Change) object differs from the [Logistics Object URI](concepts/#logistics-object-uri) that is used as the endpoint for the PATCH request. The ONE Record server returns a `400 Bad Request`.
 
 Request:
 
