@@ -29,7 +29,10 @@ Additions:
 - Added new property accountingNoteIdentifier to AccountingNote (#231)
 - Added new property accountingNoteText to AccountingNote (#231)
 - Added new property accountingNotes to Waybill (#231)
-- Added new property taxAmount to Waybill (#247) - max 1
+- Added new property taxAmount to Waybill (#247) - max 1, CurrencyValue
+- Added new property locationIndicator to OtherCharge (#247) - max 1, Location
+- Added new property reasonDescription to OtherCharge (#247) - max 1, string
+- Added new property chargeQuantity to OtherCharge (#247) - max 1, double
 
 Removals:
 - Deprecated postalCode in favor of textualPostalCode (#221)
@@ -40,7 +43,7 @@ Changes:
 - Changed value of partyDetails from Organization to LogisticsAgent (#222)
 - Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
 
-Visualization:
+Visualization (#223, #224):
 - Added vis_ annotation properties for ontology visualizer
 - Annotated as per business logic inverse properties by vis_inverseProperty
 
@@ -48,7 +51,6 @@ Bugfixes:
 - Removed line breaks in descriptions
 - Simplified descriptions of Check and related objects
 - Fixed labels (commodityItemNumber and WaybillLineItem) (#234)
-
 - Fixed RegEx pattern for waybillNumber to allow alphanumeric sequences (used in House Air Waybills)
 - Fixes to descriptions"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
@@ -2925,6 +2927,14 @@ owl:thing rdf:type rdfs:Datatype .
                    owl:comment "Domain :Ratings"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#chargeQuantity
+:chargeQuantity rdf:type owl:DatatypeProperty ;
+                rdfs:range xsd:double ;
+                rdfs:comment "Double describing the time or item basis quantity of a charge"@en ;
+                rdfs:label "chargeQuantity"@en ;
+                owl:comment "Domain :OtherCharge"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#checkRemark
 :checkRemark rdf:type owl:DatatypeProperty ;
              rdfs:range xsd:string ;
@@ -3996,6 +4006,14 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:comment "Section of the CheckTemplate this Question is part of"@en ;
                  rdfs:label "questionSection"@en ;
                  owl:comment "Domain :Question"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#reasonDescription
+:reasonDescription rdf:type owl:DatatypeProperty ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "String describing the reason for a charge"@en ;
+                   rdfs:label "reasonDescription"@en ;
+                   owl:comment "Domain :OtherCharge"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#reasonsForAdjustments
@@ -7448,6 +7466,22 @@ owl:thing rdf:type rdfs:Datatype .
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :otherChargeCode ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :chargeQuantity ;
+                               owl:allValuesFrom xsd:double
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :reasonDescription ;
+                               owl:allValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :chargeQuantity ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :reasonDescription ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ;
              rdfs:comment "Other Charge details from AWB as per bullet point 19 - data element 23 from AWB"@en ;
