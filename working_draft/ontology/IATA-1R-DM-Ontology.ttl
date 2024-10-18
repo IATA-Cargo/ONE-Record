@@ -10,7 +10,7 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.1> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.3> ;
                                        owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
@@ -22,18 +22,35 @@
 Version 3.1.0 (ongoing)
 
 Additions:
-- Added temperatureInstructions to Piece
+- Added temperatureInstructions to Piece (#227)
+- Added new property textualPostalCode to Address (#221)
+- Added new property operatingParties to TransportMovement (#229)
+- Added new class AccountingNote (#231)
+- Added new property accountingNoteIdentifier to AccountingNote (#231)
+- Added new property accountingNoteText to AccountingNote (#231)
+- Added new property accountingNotes to Waybill (#231)
+- Added new property taxAmount to Waybill (#247) - max 1
 
-Additions: Visualization
+Removals:
+- Deprecated postalCode in favor of textualPostalCode (#221)
+- Deprecated accountingInformation in favor of AccountingNote and included properties (#231)
+- Removed specialHandlingCodes from Shipment (#228)
+
+Changes:
+- Changed value of partyDetails from Organization to LogisticsAgent (#222)
+- Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
+
+Visualization:
 - Added vis_ annotation properties for ontology visualizer
 - Annotated as per business logic inverse properties by vis_inverseProperty
 
-Bugfixes
+Bugfixes:
 - Removed line breaks in descriptions
 - Simplified descriptions of Check and related objects
-- Fixed labels (commodityItemNumber and WaybillLineItem)
-- Removed specialHandlingCodes from Shipment
-- Fixed RegEx pattern for waybillNumber to allow alphanumeric sequences (used in House Air Waybills."""@en ;
+- Fixed labels (commodityItemNumber and WaybillLineItem) (#234)
+
+- Fixed RegEx pattern for waybillNumber to allow alphanumeric sequences (used in House Air Waybills)
+- Fixes to descriptions"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
                                        owl:versionInfo "3.0.0"@en .
@@ -121,6 +138,14 @@ owl:thing rdf:type rdfs:Datatype .
 #################################################################
 #    Object Properties
 #################################################################
+
+###  https://onerecord.iata.org/ns/cargo#accountingNotes
+:accountingNotes rdf:type owl:ObjectProperty ;
+                 rdfs:range :AccountingNote ;
+                 rdfs:comment "Information about accounting notes (AWB box 10)" ;
+                 rdfs:label "accountingNotes"@en ;
+                 owl:comment "Domain :Waybill"@en .
+
 
 ###  https://onerecord.iata.org/ns/cargo#actionTimeType
 :actionTimeType rdf:type owl:ObjectProperty ;
@@ -1429,6 +1454,14 @@ owl:thing rdf:type rdfs:Datatype .
                owl:comment "Domain :Location"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#locationIndicator
+:locationIndicator rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Location ;
+                   rdfs:comment "Information about the Location of a charge"@en ;
+                   rdfs:label "locationIndicator"@en ;
+                   owl:comment "Domain :OtherCharge"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#manufacturer
 :manufacturer rdf:type owl:ObjectProperty ;
               rdfs:range :Organization ;
@@ -1577,6 +1610,14 @@ owl:thing rdf:type rdfs:Datatype .
                            rdfs:label "operatedTransportMovement"@en ;
                            owl:comment "Domain :TransportMeans"@en ;
                            :vis_inverseProperty :operatingTransportMeans .
+
+
+###  https://onerecord.iata.org/ns/cargo#operatingParties
+:operatingParties rdf:type owl:ObjectProperty ;
+                  rdfs:range :Party ;
+                  rdfs:comment "Information about the parties operating this TransportMovement, for example pilot and co-pilot; can also refer to organizations through Party" ;
+                  rdfs:label "operatingParties"@en ;
+                  owl:comment "Domain :TransportMovement"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#operatingTransportMeans
@@ -1838,7 +1879,8 @@ owl:thing rdf:type rdfs:Datatype .
             rdfs:range :CodeListElement ;
             rdfs:comment "Postal / ZIP code"@en ;
             rdfs:label "postalCode"@en ;
-            owl:comment "Domain :Address"@en .
+            owl:comment "Domain :Address"@en ;
+            owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#price
@@ -2285,6 +2327,14 @@ owl:thing rdf:type rdfs:Datatype .
                owl:comment "Domain :Item"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#taxAmount
+:taxAmount rdf:type owl:ObjectProperty ;
+           rdfs:range :CurrencyValue ;
+           rdfs:comment "Information about taxes"@en ;
+           rdfs:label "taxAmount"@en ;
+           owl:comment "Domain :Waybill"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#taxDueAgent
 :taxDueAgent rdf:type owl:ObjectProperty ;
              rdfs:range :CurrencyValue ;
@@ -2642,7 +2692,24 @@ owl:thing rdf:type rdfs:Datatype .
                        rdfs:range xsd:string ;
                        rdfs:comment "Indicates the details of accounting information. Free text e.g. PAYMENT BY CERTIFIED CHEQUE etc."@en ;
                        rdfs:label "accountingInformation"@en ;
-                       owl:comment "Domain :Waybill"@en .
+                       owl:comment "Domain :Waybill"@en ;
+                       owl:deprecated "true"^^xsd:boolean .
+
+
+###  https://onerecord.iata.org/ns/cargo#accountingNoteIdentifier
+:accountingNoteIdentifier rdf:type owl:DatatypeProperty ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "String holding accounting information (AWB box 10)"@en ;
+                          rdfs:label "accountingNoteIdentifier"@en ;
+                          owl:comment "Domain :AccountingNote"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#accountingNoteText
+:accountingNoteText rdf:type owl:DatatypeProperty ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "String holding the identifier in an accounting note (AWB box 10)" ;
+                    rdfs:label "accountingNoteText"@en ;
+                    owl:comment "Domain :AccountingNote"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#acquisitionDateTime
@@ -4267,6 +4334,14 @@ owl:thing rdf:type rdfs:Datatype .
                              owl:comment "Domain owl:Thing"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#textualPostCode
+:textualPostCode rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Postal / ZIP code"@en ;
+                 rdfs:label "textualPostCode"@en ;
+                 owl:comment "Domain :Address"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#textualValue
 :textualValue rdf:type owl:DatatypeProperty ;
               rdfs:range xsd:string ;
@@ -4465,6 +4540,29 @@ owl:thing rdf:type rdfs:Datatype .
 #    Classes
 #################################################################
 
+###  https://onerecord.iata.org/ns/cargo#AccountingNote
+:AccountingNote rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :accountingNoteIdentifier ;
+                                  owl:allValuesFrom xsd:string
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :accountingNoteText ;
+                                  owl:allValuesFrom xsd:string
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :accountingNoteIdentifier ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :accountingNoteText ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ;
+                rdfs:comment "Embedded object used for AWB mapping (box 10)"@en ;
+                rdfs:label "AccountingNote"@en ;
+                :vis_element "Embedded"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#ActionTimeType
 :ActionTimeType rdf:type owl:Class ;
                 owl:equivalentClass [ rdf:type owl:Class ;
@@ -4569,7 +4667,15 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :textualPostCode ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :postOfficeBox ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :textualPostCode ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ;
          rdfs:comment "Address details"@en ;
@@ -5526,7 +5632,7 @@ owl:thing rdf:type rdfs:Datatype .
                                   ] ;
                   rdfs:comment "Result of a Check"@en ;
                   rdfs:label "CheckTotalResult"@en ;
-               	  :vis_element "Common"@en .
+                  :vis_element "Common"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CodeListElement
@@ -7313,6 +7419,10 @@ owl:thing rdf:type rdfs:Datatype .
                                owl:allValuesFrom ccodes:EntitlementCode
                              ] ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty :locationIndicator ;
+                               owl:allValuesFrom :Location
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty :otherChargeAmount ;
                                owl:allValuesFrom :CurrencyValue
                              ] ,
@@ -7326,6 +7436,10 @@ owl:thing rdf:type rdfs:Datatype .
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :entitlement ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :locationIndicator ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
@@ -8488,10 +8602,6 @@ owl:thing rdf:type rdfs:Datatype .
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty :regulatedEntityAcceptor ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty :regulatedEntityIssuer ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
@@ -8967,6 +9077,10 @@ owl:thing rdf:type rdfs:Datatype .
                                      owl:allValuesFrom :MovementTime
                                    ] ,
                                    [ rdf:type owl:Restriction ;
+                                     owl:onProperty :operatingParties ;
+                                     owl:allValuesFrom :Party
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
                                      owl:onProperty :operatingTransportMeans ;
                                      owl:allValuesFrom :TransportMeans
                                    ] ,
@@ -9376,6 +9490,10 @@ owl:thing rdf:type rdfs:Datatype .
 :Waybill rdf:type owl:Class ;
          rdfs:subClassOf :LogisticsObject ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :accountingNotes ;
+                           owl:allValuesFrom :AccountingNote
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :arrivalLocation ;
                            owl:allValuesFrom :Location
                          ] ,
@@ -9444,6 +9562,10 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:allValuesFrom :Shipment
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :taxAmount ;
+                           owl:allValuesFrom :CurrencyValue
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :waybillLineItems ;
                            owl:allValuesFrom :WaybillLineItem
                          ] ,
@@ -9505,6 +9627,10 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :shipment ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :taxAmount ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -10462,4 +10588,4 @@ ccodes:WeightUnitCode rdf:type owl:Class ;
          rdfs:label "WEBSITE"@en .
 
 
-###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
