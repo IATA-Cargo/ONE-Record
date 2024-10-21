@@ -101,11 +101,11 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 :hasError rdf:type owl:ObjectProperty ;
           rdfs:domain [ rdf:type owl:Class ;
                         owl:unionOf ( :ActionRequest
-                                      :FieldVerification
+                                      :VerificationRequest
                                     )
                       ] ;
           rdfs:range :Error ;
-          rdfs:comment "Error object(s) if the processing was not successful"@en ;
+          rdfs:comment "The Error Object is used in the Verification Request to signal issues in a Logistics Object or if the processing of an action was not successful"@en ;
           rdfs:label "has Error"@en .
 
 
@@ -122,15 +122,6 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
               rdfs:domain :Notification ;
               rdfs:range :NotificationEventType ;
               rdfs:label "has Event Type"@en .
-
-
-###  https://onerecord.iata.org/ns/api#hasFieldVerification
-:hasFieldVerification rdf:type owl:ObjectProperty ;
-                      rdfs:subPropertyOf owl:topObjectProperty ;
-                      rdfs:domain :Verification ;
-                      rdfs:range :FieldVerification ;
-                      rdfs:label "Contains a list of FieldVerification objects" ,
-                                 "has Field Verification" .
 
 
 ###  https://onerecord.iata.org/ns/api#hasItem
@@ -343,11 +334,7 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 
 ###  https://onerecord.iata.org/ns/api#hasProperty
 :hasProperty rdf:type owl:DatatypeProperty ;
-             rdfs:domain [ rdf:type owl:Class ;
-                           owl:unionOf ( :ErrorDetail
-                                         :FieldVerification
-                                       )
-                         ] ;
+             rdfs:domain :ErrorDetail ;
              rdfs:range xsd:anyURI ;
              rdfs:comment "Property of the object for which the error applies in IRI format, i.e. https://onerecord.iata.org/ns/cargo#hasVolumetricWeight"@en ;
              rdfs:label "Property"@en .
@@ -848,30 +835,6 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
              rdfs:label "Error Detail"@en .
 
 
-###  https://onerecord.iata.org/ns/api#FieldVerification
-:FieldVerification rdf:type owl:Class ;
-                   rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasError ;
-                                     owl:allValuesFrom :Error
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasError ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :Error
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasProperty ;
-                                     owl:allValuesFrom xsd:anyURI
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasProperty ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onDataRange xsd:anyURI
-                                   ] ;
-                   rdfs:comment "FieldVerification encapsulate an issue or anomaly on a specific Logistics Object property" ;
-                   rdfs:label "Field Verification" .
-
-
 ###  https://onerecord.iata.org/ns/api#Notification
 :Notification rdf:type owl:Class ;
               rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -1199,17 +1162,12 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/api#Verification
 :Verification rdf:type owl:Class ;
               rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasFieldVerification ;
-                                owl:allValuesFrom :FieldVerification
+                                owl:onProperty :hasError ;
+                                owl:allValuesFrom :Error
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasLogisticsObject ;
                                 owl:allValuesFrom cargo:LogisticsObject
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty :hasFieldVerification ;
-                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onClass :FieldVerification
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasLogisticsObject ;
@@ -1221,9 +1179,18 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                 owl:allValuesFrom xsd:positiveInteger
                               ] ,
                               [ rdf:type owl:Restriction ;
+                                owl:onProperty :notifyRequestStatusChange ;
+                                owl:allValuesFrom xsd:boolean
+                              ] ,
+                              [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasRevision ;
                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                 owl:onDataRange xsd:positiveInteger
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :notifyRequestStatusChange ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange xsd:boolean
                               ] ;
               rdfs:comment "Verification contains details regarding anomalies detected within a particular Logistics Object." ;
               rdfs:label "Verification" .
@@ -1457,13 +1424,13 @@ cargo:Organization rdf:type owl:Class .
                               rdfs:label "SUBSCRIPTION_REQUEST_REVOKED"@en .
 
 
-[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
 [ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
-[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 [ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
