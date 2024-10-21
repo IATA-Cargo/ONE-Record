@@ -10,7 +10,7 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.3> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.4> ;
                                        owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
@@ -29,18 +29,17 @@ Additions:
 - Added new property accountingNoteIdentifier to AccountingNote (#231)
 - Added new property accountingNoteText to AccountingNote (#231)
 - Added new property accountingNotes to Waybill (#231)
-- Added new property taxAmount to Waybill (#247) - max 1, CurrencyValue
-- Added new property locationIndicator to OtherCharge (#247) - max 1, Location
-- Added new property reasonDescription to OtherCharge (#247) - max 1, string
-- Added new property chargeQuantity to OtherCharge (#247) - max 1, double
-
+- Added new property taxAmount to Waybill (#247)
+ - Added new property locationIndicator to OtherCharge (#247)
+- Added new property reasonDescription to OtherCharge (#247)
+- Added new property chargeQuantity to OtherCharge (#247)
 Removals:
 - Deprecated postalCode in favor of textualPostalCode (#221)
 - Deprecated accountingInformation in favor of AccountingNote and included properties (#231)
 - Removed specialHandlingCodes from Shipment (#228)
 
 Changes:
-- Changed value of partyDetails from Organization to LogisticsAgent (#222)
+- Changed range of partyDetails from Organization to LogisticsAgent (#222)
 - Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
 
 Visualization (#223, #224):
@@ -55,7 +54,7 @@ Bugfixes:
 - Fixes to descriptions"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.0"@en .
+                                       owl:versionInfo "3.0.4"@en .
 
 #################################################################
 #    Annotation properties
@@ -1454,14 +1453,6 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:comment "Location code of airport, freight terminal, seaport, rail station. UN/LOCODE city code (5 letter) or IATA airport code (3 letter)"@en ;
                rdfs:label "locationCodes"@en ;
                owl:comment "Domain :Location"@en .
-
-
-###  https://onerecord.iata.org/ns/cargo#locationIndicator
-:locationIndicator rdf:type owl:ObjectProperty ;
-                   rdfs:domain :Location ;
-                   rdfs:comment "Information about the Location of a charge"@en ;
-                   rdfs:label "locationIndicator"@en ;
-                   owl:comment "Domain :OtherCharge"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#manufacturer
@@ -3523,6 +3514,13 @@ owl:thing rdf:type rdfs:Datatype .
                            rdfs:comment "Short text stating the loading position in the TransportMeans"@en ;
                            rdfs:label "loadingPositionIdentifier"@en ;
                            owl:comment "Domain :Loading"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#locationIndicator
+:locationIndicator rdf:type owl:DatatypeProperty ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "String indicating if the Other Charge Location is Origin (O) or Transit (T) or Destination(D)"@en ;
+                   rdfs:label "locationIndicator"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#locationName
@@ -7437,10 +7435,6 @@ owl:thing rdf:type rdfs:Datatype .
                                owl:allValuesFrom ccodes:EntitlementCode
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty :locationIndicator ;
-                               owl:allValuesFrom :Location
-                             ] ,
-                             [ rdf:type owl:Restriction ;
                                owl:onProperty :otherChargeAmount ;
                                owl:allValuesFrom :CurrencyValue
                              ] ,
@@ -7457,10 +7451,6 @@ owl:thing rdf:type rdfs:Datatype .
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty :locationIndicator ;
-                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                             ] ,
-                             [ rdf:type owl:Restriction ;
                                owl:onProperty :otherChargeAmount ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
@@ -7473,11 +7463,19 @@ owl:thing rdf:type rdfs:Datatype .
                                owl:allValuesFrom xsd:double
                              ] ,
                              [ rdf:type owl:Restriction ;
+                               owl:onProperty :locationIndicator ;
+                               owl:allValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
                                owl:onProperty :reasonDescription ;
                                owl:allValuesFrom xsd:string
                              ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :chargeQuantity ;
+                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :locationIndicator ;
                                owl:maxCardinality "1"^^xsd:nonNegativeInteger
                              ] ,
                              [ rdf:type owl:Restriction ;
