@@ -72,6 +72,8 @@ Master the creation and management of Logistics Objects to support operations:
 
 \- **Implementing a use case**: Consider implementating a use case involving multiple Logistics Objects. Refer to orchestration below.
 
+*Please refer to documentation on the* [API](https://iata-cargo.github.io/ONE-Record/development/API-Security/)
+
 ## 3. Understanding and Implementing Data Orchestration
 
 Data orchestration is key to maximizing the potential of ONE Record:
