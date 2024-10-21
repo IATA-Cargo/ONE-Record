@@ -58,11 +58,9 @@ For first timers, it is *strongly* recommended to work with the NE:ONE server. I
 
 Developed by the [DTAC]( https://www.digital-testbed-air-cargo.com/), the **NE:ONE** server is a “data hub” based on the IATA ONE Record standard for air freight. The project has developed an open source server software package, which implements the data model and API specifications of the IATA ONE Record standard for air freight.
 
-NE:ONE repository is: [here](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one).
-
 To deploy a NE:ONE stack in few minutes clone the repository [ONE Record first steps](https://github.com/IATA-Cargo/one-record-first-steps/tree/main).
  
-If you are interested in a multi node environment, use the repository [ONE Record two nodes](https://github.com/IATA-Cargo/one-record-two-nodes).
+If you are interested in a multi node environment to facilitate data exchange (pub-sub) between two nodes, use the repository [ONE Record two nodes](https://github.com/IATA-Cargo/one-record-two-nodes).
 
 ### Creating and Managing Logistics Objects
 
