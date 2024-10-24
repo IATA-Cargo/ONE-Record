@@ -115,6 +115,15 @@ In the end, `Shipment` and `Waybill` accessed via the `Piece` objects.
 
 
 ## XFBL Mapping
+(To be discussed)
 
 ## XTMV Mapping
-(To be discussed)
+The XTMV message is intended to dispatch departure and arrival notification in XML immediately after departure or arrival of a surface transportation. Delay, cancellation and diversion of an aircraft will also be dispatched using XTMV as soon as it is known. (cf. Cargo-XML Toolkit definition).
+
+The need to do a full mapping of XTMV message with ONE Record needs to be properly assessed based on the necessity and the actual usage of the message currently.
+
+### Proposed mechanism
+XTMV is structured in two main parts:
+
+- Transport Movement Header contains information about Origin and Destination, Type of Transport, Transport Means and Operator details. These details are available with usage of `TransportMovement`, `TransportMeans` and `TransportMovement#operatingParties` objects.
+- Transport Movement Details contains infrmation about the type of time reported (Movement Indicator based on Code List 1.92) and a few additional fields if there is a delay, cancellation or diversion. For that purpose we have the `MovementTime` object linked to `TransportMovement`, it can be complemented with a `LogisticsEvent` in case of delay or cancellation/diversion to provide more details or the `MovementTime` can be extended (to be discussed)
