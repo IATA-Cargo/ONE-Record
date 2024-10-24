@@ -2264,6 +2264,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="XTMV Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proposed-mechanism_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3314,6 +3329,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="XTMV Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proposed-mechanism_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3495,8 +3525,16 @@ To cope with that there are multiple possibilities to map XFSU with ONE Record, 
 <p>In the end, <code>Shipment</code> and <code>Waybill</code> accessed via the <code>Piece</code> objects.</p>
 <p><img alt="image" src="https://github.com/user-attachments/assets/a493192c-163e-4b90-a9c6-adc370911de4" /></p>
 <h3 id="xfbl-mapping">XFBL Mapping<a class="headerlink" href="#xfbl-mapping" title="Permanent link">&para;</a></h3>
-<h3 id="xtmv-mapping">XTMV Mapping<a class="headerlink" href="#xtmv-mapping" title="Permanent link">&para;</a></h3>
 <p>(To be discussed)</p>
+<h3 id="xtmv-mapping">XTMV Mapping<a class="headerlink" href="#xtmv-mapping" title="Permanent link">&para;</a></h3>
+<p>The XTMV message is intended to dispatch departure and arrival notification in XML immediately after departure or arrival of a surface transportation. Delay, cancellation and diversion of an aircraft will also be dispatched using XTMV as soon as it is known. (cf. Cargo-XML Toolkit definition).</p>
+<p>The need to do a full mapping of XTMV message with ONE Record needs to be properly assessed based on the necessity and the actual usage of the message currently.</p>
+<h4 id="proposed-mechanism_3">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_3" title="Permanent link">&para;</a></h4>
+<p>XTMV is structured in two main parts:</p>
+<ul>
+<li>Transport Movement Header contains information about Origin and Destination, Type of Transport, Transport Means and Operator details. These details are available with usage of <code>TransportMovement</code>, <code>TransportMeans</code> and <code>TransportMovement#operatingParties</code> objects.</li>
+<li>Transport Movement Details contains infrmation about the type of time reported (Movement Indicator based on Code List 1.92) and a few additional fields if there is a delay, cancellation or diversion. For that purpose we have the <code>MovementTime</code> object linked to <code>TransportMovement</code>, it can be complemented with a <code>LogisticsEvent</code> in case of delay or cancellation/diversion to provide more details or the <code>MovementTime</code> can be extended (to be discussed)</li>
+</ul>
 
 
 
