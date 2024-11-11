@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -1677,9 +1677,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recommended-uri-structure" class="md-nav__link">
+  <a href="#uri-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended URI structure
+      URI structure
     </span>
   </a>
   
@@ -2971,9 +2971,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recommended-uri-structure" class="md-nav__link">
+  <a href="#uri-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      Recommended URI structure
+      URI structure
     </span>
   </a>
   
@@ -3081,21 +3081,24 @@
 
   <h1>Code Lists</h1>
 
-<p>ONE Record data model 3.0.0 introduced code lists for type safety. These replaced data properties holding enumerations and strings referencing a particular code list.</p>
-<p>This page provides guidance on how to use code lists in practical use cases.</p>
+<p>The ONE Record data model version 3.0.0 introduced code lists to enhance type safety. This update replaces the use of generic enumerations and strings that previously referenced specific code lists, ensuring more structured data properties.</p>
+<p>This page offers practical guidance on applying code lists effectively in real-world scenarios.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Instances where code lists are used are indicated by (three stripes-Icon) in the <a href="https://iata-cargo.github.io/ontology_visualizer/">ontology visualizer</a>.</p>
+<p>Code lists are visually marked by a triple-stripe icon in the <a href="https://iata-cargo.github.io/ontology_visualizer/">ontology visualizer</a>.</p>
 </div>
-<p>Code lists are built on using custom objects. Many code lists are published as named individuals in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
-<p>For unpublished or open code lists, the object <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is used. A code list is <code>open</code> when it is not restricted to standard values. It allows putting in a custom code.</p>
-<p>Whenever a <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is referenced, it MUST feature a unique URI/@id such as https://mycodelist.org/handlingCodes#ABC. It MUST NOT be embedded. However, the URI does NOT need to be resolvable either.</p>
-<p>The URI can point towards an existing ontology such as the <a href="https://vocabulary.uncefact.org/code-lists">code lists published as part of the UN/CEFACT Web Vocabulary</a>. </p>
-<p>If hosted as a <a href="https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/">Logistics Object</a>, it SHOULD include the properties as indicated in the ontology in addition to a searchable, human-readable URI.</p>
+<p>Code lists are implemented using custom objects, with many predefined as named individuals within the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
+<p>For code lists that are not predefined or are open-ended, the <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> object is used. A code list is considered "open" when it allows custom entries rather than restricting input to a fixed set of values.</p>
+<p>Whenever a <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is referenced, it MUST have a unique URI/@id following the structure defined below. This URI MUST NOT be embedded but does not need to be directly accessible.</p>
+<p>This URI can reference an existing ontology, such as <a href="https://vocabulary.uncefact.org/code-lists">code lists published by the UN/CEFACT Web Vocabulary</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>Code lists element cannot be hosted as Logistics Objects. A new code list element definition MUST be accessible with its human-readable URI. The code list element MUST specify the properties defined in the <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> object. For internal use, a unique URI in the format {{baseURL}}/{{codeListName}}#{{code}} is sufficient.</p>
 <h2 id="codelistelement">CodeListElement<a class="headerlink" href="#codelistelement" title="Permanent link">&para;</a></h2>
-<p>The <code>CodeListElement</code> is a logistics object. It is the superclass of all other code lists in ONE Record.
+<p>The <code>CodeListElement</code> is a custom object specifically defined for code lists. It is the superclass of all other code lists in ONE Record.
 As such, all codes defined as named individuals are viewed as instances of the <code>CodeListElement</code>.
-It features the following properties if hosted as an <a href="https://iata-cargo.github.io/ONE-Record/stable/API-Security/logistics-objects/">Logistics Object</a>:</p>
+It features the following properties:</p>
 <table>
 <thead>
 <tr>
@@ -3132,54 +3135,52 @@ It features the following properties if hosted as an <a href="https://iata-cargo
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When instanced as a Logistics Object, you MUST define a reusable and unique URI for the CodeListElement.</p>
+<p>When creating a CodeListElement instance, it is essential to assign a reusable and unique URI.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The properties <a href="https://onerecord.iata.org/ns/cargo#code">code</a> and either <a href="https://onerecord.iata.org/ns/cargo#codeListName">codeListName</a> or <a href="https://onerecord.iata.org/ns/cargo#codeListReference">codeListReference</a> at least SHOULD be used if instanced.</p>
 </div>
-<h2 id="recommended-uri-structure">Recommended URI structure<a class="headerlink" href="#recommended-uri-structure" title="Permanent link">&para;</a></h2>
-<p>To filter and search for codes, the URI SHOULD be understandable if parsed as a string. The URI does NOT need to be resolvable. It is RECOMMENDED to use the following structure:</p>
+<h2 id="uri-structure">URI structure<a class="headerlink" href="#uri-structure" title="Permanent link">&para;</a></h2>
+<p>For effective filtering and searching, the URI SHOULD be readable when parsed as a string and does need to be resolvable for retrieving additional information. 
+The URI MUST follow the following structure:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> @id: {{baseURL}}/{{codeListName}}#{{code}}
 </span></code></pre></div>
-<p>As a practical example, an URI CAN look like this:</p>
+<p>As a practical example, an URI can look like this:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a> @id: https://mycodelist.org/handlingCodes#ABC
-</span></code></pre></div>
-<p>Alternatively, if hosted as logistics object:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a> @id: https://data_holder.org/logistics-objects/handlingCodes#ABC
 </span></code></pre></div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-enumeration">Example 1: Enumeration<a class="headerlink" href="#example-1-enumeration" title="Permanent link">&para;</a></h3>
 <p>In the following example, a named individual defined in the cargo ontology is used to set the <a href="https://onerecord.iata.org/ns/cargo#loadType">loadType</a> of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> to <a href="https://onerecord.iata.org/ns/cargo#UNIT_LOAD_DEVICE">LOOSE</a>.</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">{</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    &quot;@context&quot;: {</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">    },</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Piece&quot;,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="err">    &quot;cargo:loadType&quot;: [</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">        {</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">            &quot;@id&quot;: &quot;cargo:LOOSE&quot;</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">        }</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">    ]</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">}</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="err">    &quot;@context&quot;: {</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="err">    },</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Piece&quot;,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="err">    &quot;cargo:loadType&quot;: [</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">        {</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="err">            &quot;@id&quot;: &quot;cargo:LOOSE&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="err">        }</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="err">    ]</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-enumberation.json">examples-dm/code-lists-enumberation.json</a>)</em></p>
 <h3 id="example-2-closed-code-list">Example 2: Closed Code List<a class="headerlink" href="#example-2-closed-code-list" title="Permanent link">&para;</a></h3>
 <p>In the following example, a named individual defined in the coreCodeLists ontology is used to set the <a href="https://onerecord.iata.org/ns/cargo#securityStatus">securityStatus</a> of a <a href="https://onerecord.iata.org/ns/cargo#SecurityDeclaration">SecurityDeclaration</a> to <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC">NSC</a>.</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">{</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">    &quot;@context&quot;: {</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">        &quot;ccodes&quot;: &quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">    },</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">    &quot;@type&quot;: &quot;cargo:SecurityDeclaration&quot;,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">    &quot;cargo:securityStatus&quot;: [</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">        {</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">            &quot;@id&quot;: &quot;ccodes:SecurityStatus_NSC&quot;</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">        }</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">    ]</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">}</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    &quot;@context&quot;: {</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="err">        &quot;ccodes&quot;: &quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="err">    },</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="err">    &quot;@type&quot;: &quot;cargo:SecurityDeclaration&quot;,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="err">    &quot;cargo:securityStatus&quot;: [</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="err">        {</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="err">            &quot;@id&quot;: &quot;ccodes:SecurityStatus_NSC&quot;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="err">        }</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="err">    ]</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="err">}</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3188,6 +3189,30 @@ It features the following properties if hosted as an <a href="https://iata-cargo
 <p><em>(<a href="../examples-dm/code-lists-closed-code-list.json">examples-dm/code-lists-closed-code-list.json</a>)</em></p>
 <h3 id="example-3-open-code-list-defined-code">Example 3: Open Code List, defined Code<a class="headerlink" href="#example-3-open-code-list-defined-code" title="Permanent link">&para;</a></h3>
 <p>In the following example, named individuals are used to set the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> as <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a> and <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC">NSC</a>.</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">   &quot;@context&quot;:{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">      &quot;cargo&quot;:&quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">      &quot;ccodes&quot;:&quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">   },</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">   &quot;@type&quot;:&quot;cargo:Piece&quot;,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">   &quot;cargo:specialHandlingCodes&quot;:[</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">      {</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">         &quot;@id&quot;:&quot;ccodes:SpecialHandlingCode_EAW&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">      },</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">      {</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">         &quot;@id&quot;:&quot;ccodes:SecurityStatus_NSC&quot;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="err">      }</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="err">   ]</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="err">}</span>
+</span></code></pre></div>
+<p><em>(<a href="../examples-dm/code-lists-open-code-list-1.json">examples-dm/code-lists-open-code-list-1.json</a>)</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both code lists are defined in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>. Note that a <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus">SecurityStatus</a> is also an acceptable Special Handling Code.</p>
+</div>
+<h3 id="example-4-open-code-list-custom-code">Example 4: Open Code List, custom Code<a class="headerlink" href="#example-4-open-code-list-custom-code" title="Permanent link">&para;</a></h3>
+<p>In the example below, a named individual is used to assign the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> property of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> to <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a>. Additionally, a custom code, "CUS," is introduced as an organization-specific special handling code. </p>
+<p>For custom codes, the URI MUST be resolvable. The organization that manages the custom code may publish it within an ontology that extends the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> section of the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>. Alternatively, the organization can publish detailed information about the code directly at the defined URI without using an ontology.</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="err">{</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">   &quot;@context&quot;:{</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">      &quot;cargo&quot;:&quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
@@ -3199,93 +3224,75 @@ It features the following properties if hosted as an <a href="https://iata-cargo
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">         &quot;@id&quot;:&quot;ccodes:SpecialHandlingCode_EAW&quot;</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">      },</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">      {</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">         &quot;@id&quot;:&quot;ccodes:SecurityStatus_NSC&quot;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">         &quot;@id&quot;:&quot;https://1r.example.com/specialHandlingCodes#CUS&quot;</span>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="err">      }</span>
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="err">   ]</span>
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">}</span>
 </span></code></pre></div>
-<p><em>(<a href="../examples-dm/code-lists-open-code-list-1.json">examples-dm/code-lists-open-code-list-1.json</a>)</em></p>
+<p><em>(<a href="../examples-dm/code-lists-open-code-list-2.json">examples-dm/code-lists-open-code-list-2.json</a>)</em></p>
+<p>If resolved, the URI should all information regarding the custom code as any code define in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a> (i.e.:<a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a>). An alternative approach is to return the CodeListElement in JSON format, as demonstrated in the example below:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">    &quot;@context&quot;: {</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="err">        &quot;ccodes&quot;: &quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="err">    },</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">    &quot;@id&quot;: &quot;https://1r.example.com/specialHandlingCodes#CUS&quot;,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="err">    &quot;@type&quot;: &quot;ccodes:SpecialHandlingCode&quot;,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">    &quot;cargo:code&quot;: &quot;CUS&quot;,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="err">    &quot;cargo:codeDescription&quot;: &quot;Custom Special Handling Code&quot;,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="err">    &quot;cargo:codeListName&quot;: &quot;Some Airline Custom Handling Codes&quot;,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="err">    &quot;cargo:codeListVersion&quot;: &quot;2024-04&quot;</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">}</span>
+</span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Both code lists are defined in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>. Note that a <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus">SecurityStatus</a> is also an acceptable Special Handling Code.</p>
+<p>It is recommended to follow the CodeListElement structure. However, the holder of the element can decide its own structure as far as all the information from the CodeListElement object are present. 
+Only the structure of the IRI is mandatory and MUST follow the guidelines from the URI Structure section (#)</p>
 </div>
-<h3 id="example-4-open-code-list-custom-code">Example 4: Open Code List, custom Code<a class="headerlink" href="#example-4-open-code-list-custom-code" title="Permanent link">&para;</a></h3>
-<p>In the following example, a named individual defined is used to set the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> as <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a>. Additionally, CUS, a custom organization-specific special handling code, is used. The URI is  resolvable like a normal Logistics Object.</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">   &quot;@context&quot;:{</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">      &quot;cargo&quot;:&quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="err">      &quot;ccodes&quot;:&quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="err">   },</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="err">   &quot;@type&quot;:&quot;cargo:Piece&quot;,</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="err">   &quot;cargo:specialHandlingCodes&quot;:[</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="err">      {</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="err">         &quot;@id&quot;:&quot;ccodes:SpecialHandlingCode_EAW&quot;</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="err">      },</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="err">      {</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="err">         &quot;@id&quot;:&quot;https://1r.example.com/logistics-objects/specialHandlingCodes#CUS&quot;</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="err">      }</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="err">   ]</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="err">}</span>
-</span></code></pre></div>
-<p><em>(<a href="../examples-dm/code-lists-open-code-list-2.json">examples-dm/code-lists-open-code-list-2.json</a>)</em></p>
-<p>If resolved, the returned logistics object may look like this:</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">{</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="err">    &quot;@context&quot;: {</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="err">        &quot;ccodes&quot;: &quot;https://onerecord.iata.org/ns/coreCodeLists#&quot;</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="err">    },</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="err">    &quot;@id&quot;: &quot;https://1r.example.com/logistics-objects/specialHandlingCodes#CUS&quot;,</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="err">    &quot;@type&quot;: &quot;ccodes:SpecialHandlingCode&quot;,</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="err">    &quot;cargo:code&quot;: &quot;CUS&quot;,</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="err">    &quot;cargo:codeDescription&quot;: &quot;Custom Special Handling Code&quot;,</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">    &quot;cargo:codeListName&quot;: &quot;Some Airline Custom Handling Codes&quot;,</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">    &quot;cargo:codeListVersion&quot;: &quot;2024-04&quot;</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="err">}</span>
-</span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-open-code-list-2-lo-example.json">examples-dm/code-lists-open-code-list-2-lo-example.json</a>)</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The code instanced SHOULD be of type required by the property, in this case as <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode">SpecialHandlingCode</a> for property <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a>.</p>
 </div>
 <h3 id="example-5-codelistelement-undefined-code-list">Example 5: CodeListElement, undefined Code List<a class="headerlink" href="#example-5-codelistelement-undefined-code-list" title="Permanent link">&para;</a></h3>
-<p>In the following example, a new object of type <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is created as a LogisticsObject to transmit the <a href="https://onerecord.iata.org/ns/cargo#hsCode">hsCode</a> of a <a href="https://onerecord.iata.org/ns/cargo#Product">Product</a>.</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="err">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="err">    &quot;@context&quot;: {</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="err">    },</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Product&quot;,</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="err">    &quot;cargo:hsCode&quot;: [</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="err">        {</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="err">            &quot;@id:&quot;: &quot;https://1r.example.com/hsCodes#9023&quot;</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="err">        }</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="err">    ]</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="err">}</span>
+<p>In the example below, a new object of type <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is hosted at <code>https://1r.example.com/</code> to convey the <a href="https://onerecord.iata.org/ns/cargo#hsCode">hsCode</a> for a <a href="https://onerecord.iata.org/ns/cargo#Product">Product</a>.</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="err">    &quot;@context&quot;: {</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="err">    },</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Product&quot;,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="err">    &quot;cargo:hsCode&quot;: [</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="err">        {</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="err">            &quot;@id:&quot;: &quot;https://1r.example.com/hsCodes#9023&quot;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="err">        }</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="err">    ]</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-code-list-element.json">examples-dm/code-lists-code-list-element.json</a>)</em></p>
 <h3 id="example-6-code-list-defined-in-other-vocabulary">Example 6: Code List defined in other Vocabulary<a class="headerlink" href="#example-6-code-list-defined-in-other-vocabulary" title="Permanent link">&para;</a></h3>
 <p>In the following example, a named individual defined in the <a href="https://vocabulary.uncefact.org/">UN/CEFACT Web Vocabulary</a> is used to set the <a href="https://onerecord.iata.org/ns/cargo#currencyUnit">currencyUnit</a> of a <a href="https://onerecord.iata.org/ns/cargo#CurrencyValue">CurrencyValue</a> describing the <a href="https://onerecord.iata.org/ns/cargo#declaredValueForCarriage">declaredValueForCarriage</a> of a <a href="https://onerecord.iata.org/ns/cargo#Waybill">Waybill</a> to <a href="https://vocabulary.uncefact.org/CurrencyCodeList#CHF">CHF</a>.</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="err">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="err">    &quot;@context&quot;: {</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="err">        &quot;unece&quot;: &quot;https://vocabulary.uncefact.org/&quot;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="err">    },</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Waybill&quot;,</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="err">    &quot;cargo:waybillType&quot;: &quot;cargo:MASTER&quot;,</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="err">    &quot;cargo:declaredValueForCarriage&quot;: [</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="err">        {</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="err">            &quot;@type&quot;: &quot;cargo:CurrencyValue&quot;,            </span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="err">            &quot;cargo:numericalValue&quot;: 5000.00,</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="err">            &quot;cargo:currencyUnit&quot;: [</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="err">                {</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="err">                    &quot;@id:&quot;: &quot;unece:CurrencyCodeList#CHF&quot;</span>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="err">                }</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="err">            ]</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="err">        }</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="err">    ]</span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="err">}</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="err">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="err">    &quot;@context&quot;: {</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="err">        &quot;unece&quot;: &quot;https://vocabulary.uncefact.org/&quot;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="err">    },</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="err">    &quot;@type&quot;: &quot;cargo:Waybill&quot;,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="err">    &quot;cargo:waybillType&quot;: &quot;cargo:MASTER&quot;,</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="err">    &quot;cargo:declaredValueForCarriage&quot;: [</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="err">        {</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="err">            &quot;@type&quot;: &quot;cargo:CurrencyValue&quot;,            </span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="err">            &quot;cargo:numericalValue&quot;: 5000.00,</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="err">            &quot;cargo:currencyUnit&quot;: [</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="err">                {</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="err">                    &quot;@id:&quot;: &quot;unece:CurrencyCodeList#CHF&quot;</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="err">                }</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="err">            ]</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="err">        }</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="err">    ]</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-other-linked-data-code-list.json">examples-dm/code-lists-other-linked-data-code-list.json</a>)</em></p>
 
