@@ -10,12 +10,12 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.4> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.0.5> ;
                                        owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/master/2023-12-standard/Data-Model/IATA-1R-CCL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "02-05-2024" ;
+                                       terms:modified "14-11-2024" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
@@ -30,17 +30,35 @@ Additions:
 - Added new property accountingNoteText to AccountingNote (#231)
 - Added new property accountingNotes to Waybill (#231)
 - Added new property taxAmount to Waybill (#247)
- - Added new property locationIndicator to OtherCharge (#247)
+- Added new property locationIndicator to OtherCharge (#247)
 - Added new property reasonDescription to OtherCharge (#247)
 - Added new property chargeQuantity to OtherCharge (#247)
+- Added new property pieceReferences to WaybillLineItem (#265)
+- Added new property uldReferences to WaybillLineItem (#265)
+
 Removals:
 - Deprecated postalCode in favor of textualPostalCode (#221)
 - Deprecated accountingInformation in favor of AccountingNote and included properties (#231)
 - Removed specialHandlingCodes from Shipment (#228)
+- Deprecated and removed chargeableWeightForRate from WaybillLineItem (#265)
+- Deprecated and removed commodityItemNumberForRate from WaybillLineItem (#265)
+- Deprecated and removed dimensionsForRate from WaybillLineItem (#265)
+- Deprecated and removed goodsDescriptionForRate from WaybillLineItem (#265)
+- Deprecated and removed grossWeightForRate from WaybillLineItem (#265)
+- Deprecated and removed hsCodeForRate from WaybillLineItem (#265)
+- Deprecated and removed pieceCountForRate from WaybillLineItem (#265)
+- Deprecated and removed productionCountryForRate from WaybillLineItem (#265)
+- Deprecated and removed slacForRate from WaybillLineItem (#265)
+- Deprecated and removed uldTareWeightForRate from WaybillLineItem (#265)
+- Deprecated and removed volumetricWeightForRate from WaybillLineItem (#265)
+- Removed uldOwnerCode from WaybillLineItem (#265)
+- Removed uldSerialNumber from WaybillLineItem (#265)
+- Removed uldType from WaybillLineItem (#265)
 
 Changes:
 - Changed range of partyDetails from Organization to LogisticsAgent (#222)
 - Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
+- Lifted cardinality restriction on ofShipment in Piece (#244)
 
 Visualization (#223, #224):
 - Added vis_ annotation properties for ontology visualizer
@@ -54,7 +72,7 @@ Bugfixes:
 - Fixes to descriptions"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.0.4"@en .
+                                       owl:versionInfo "3.0.5"@en .
 
 #################################################################
 #    Annotation properties
@@ -478,7 +496,8 @@ owl:thing rdf:type rdfs:Datatype .
                          rdfs:range :Value ;
                          rdfs:comment "Chargeable weight for which the rate description details apply"@en ;
                          rdfs:label "chargeableWeightForRate"@en ;
-                         owl:comment "Domain :WaybillLineItem"@en .
+                         owl:comment "Domain :WaybillLineItem"@en ;
+                         owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checkActions
@@ -862,7 +881,8 @@ owl:thing rdf:type rdfs:Datatype .
                    rdfs:range :Dimensions ;
                    rdfs:comment "Information about the Dimensions used for the rate described by the Line Item"@en ;
                    rdfs:label "dimensionsForRate"@en ;
-                   owl:comment "Domain :WaybillLineItem"@en .
+                   owl:comment "Domain :WaybillLineItem"@en ;
+                   owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#dimensionsUnit
@@ -1177,7 +1197,8 @@ owl:thing rdf:type rdfs:Datatype .
                     rdfs:range :Value ;
                     rdfs:comment "Gross weight for which the rate description details apply"@en ;
                     rdfs:label "grossWeightForRate"@en ;
-                    owl:comment "Domain :WaybillLineItem"@en .
+                    owl:comment "Domain :WaybillLineItem"@en ;
+                    owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#groundsForExemption
@@ -1218,7 +1239,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:range :CodeListElement ;
                rdfs:comment "Harmonized Commodity code, refer to hsType used. 6 minimum digits are expected."@en ;
                rdfs:label "hsCodeForRate"@en ;
-               owl:comment "Domain :WaybillLineItem"@en .
+               owl:comment "Domain :WaybillLineItem"@en ;
+               owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#inPiece
@@ -1842,6 +1864,14 @@ owl:thing rdf:type rdfs:Datatype .
              owl:comment "Domain :LoosePiece"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#pieceReferences
+:pieceReferences rdf:type owl:ObjectProperty ;
+                 rdfs:range :Piece ;
+                 rdfs:comment "References to Pieces for which a rate applies"@en ;
+                 rdfs:label "pieceReferences"@en ;
+                 owl:comment "Domain :WaybillLineItem"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#pieceWeight
 :pieceWeight rdf:type owl:ObjectProperty ;
              rdfs:range :Value ;
@@ -1906,7 +1936,8 @@ owl:thing rdf:type rdfs:Datatype .
                           rdfs:range :CodeListElement ;
                           rdfs:comment "Production country for the rate described by this Line Item. Refer ISO 3166-2"@en ;
                           rdfs:label "productionCountryForRate"@en ;
-                          owl:comment "Domain :WaybillLineItem"@en .
+                          owl:comment "Domain :WaybillLineItem"@en ;
+                          owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#question
@@ -2504,12 +2535,21 @@ owl:thing rdf:type rdfs:Datatype .
                   owl:comment "Domain owl:Thing"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#uldReferences
+:uldReferences rdf:type owl:ObjectProperty ;
+               rdfs:range :ULD ;
+               rdfs:comment "References to ULDs for which the rate applies"@en ;
+               rdfs:label "uldReferences"@en ;
+               owl:comment "Domain: WaybillLineItem"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#uldTareWeightForRate
 :uldTareWeightForRate rdf:type owl:ObjectProperty ;
                       rdfs:range :Value ;
                       rdfs:comment "Information about the ULD tare weight used for the rate described by the Line Item"@en ;
                       rdfs:label "uldTareWeightForRate"@en ;
-                      owl:comment "Domain :WaybillLineItem"@en .
+                      owl:comment "Domain :WaybillLineItem"@en ;
+                      owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#uldType
@@ -2616,7 +2656,8 @@ owl:thing rdf:type rdfs:Datatype .
                          rdfs:range :VolumetricWeight ;
                          rdfs:comment "Volumetric weight used for the rate described by this line item"@en ;
                          rdfs:label "volumetricWeightForRate"@en ;
-                         owl:comment "Domain :WaybillLineItem"@en .
+                         owl:comment "Domain :WaybillLineItem"@en ;
+                         owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#waybill
@@ -3035,7 +3076,8 @@ owl:thing rdf:type rdfs:Datatype .
                             rdfs:range xsd:string ;
                             rdfs:comment "Indicates the specific commodity on which the rate class code is applied"@en ;
                             rdfs:label "commodityItemNumberForRate"@en ;
-                            owl:comment "Domain :WaybillLineItem"@en .
+                            owl:comment "Domain :WaybillLineItem"@en ;
+                            owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#complianceDeclarationText
@@ -3331,7 +3373,8 @@ owl:thing rdf:type rdfs:Datatype .
                          rdfs:range xsd:string ;
                          rdfs:comment "Goods description used in the rate described by the Line Item"@en ;
                          rdfs:label "goodsDescriptionForRate"@en ;
-                         owl:comment "Domain :WaybillLineItem"@en .
+                         owl:comment "Domain :WaybillLineItem"@en ;
+                         owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#grandTotal
@@ -3864,7 +3907,8 @@ owl:thing rdf:type rdfs:Datatype .
                    rdfs:range xsd:integer ;
                    rdfs:comment "Number of pieces for which the rate description details apply"@en ;
                    rdfs:label "pieceCountForRate"@en ;
-                   owl:comment "Domain :WaybillLineItem"@en .
+                   owl:comment "Domain :WaybillLineItem"@en ;
+                   owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#pieceGroupCount
@@ -4203,7 +4247,8 @@ owl:thing rdf:type rdfs:Datatype .
              rdfs:range xsd:integer ;
              rdfs:comment "Slac used for the rate described by the Line item"@en ;
              rdfs:label "slacForRate"@en ;
-             owl:comment "Domain :WaybillLineItem"@en .
+             owl:comment "Domain :WaybillLineItem"@en ;
+             owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#specialConditions
@@ -7765,10 +7810,6 @@ owl:thing rdf:type rdfs:Datatype .
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :ofShipment ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty :packageMarkCoded ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
@@ -9761,24 +9802,8 @@ owl:thing rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/cargo#WaybillLineItem
 :WaybillLineItem rdf:type owl:Class ;
                  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                   owl:onProperty :chargeableWeightForRate ;
-                                   owl:allValuesFrom :Value
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :dimensionsForRate ;
-                                   owl:allValuesFrom :Dimensions
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :grossWeightForRate ;
-                                   owl:allValuesFrom :Value
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :hsCodeForRate ;
-                                   owl:allValuesFrom :CodeListElement
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :productionCountryForRate ;
-                                   owl:allValuesFrom :CodeListElement
+                                   owl:onProperty :pieceReferences ;
+                                   owl:allValuesFrom :Piece
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateCharge ;
@@ -9801,44 +9826,12 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:allValuesFrom :CodeListElement
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldOwnerCode ;
-                                   owl:allValuesFrom :CodeListElement
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :uldRateClassType ;
                                    owl:allValuesFrom :CodeListElement
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldTareWeightForRate ;
-                                   owl:allValuesFrom :Value
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldType ;
-                                   owl:allValuesFrom :CodeListElement
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :volumetricWeightForRate ;
-                                   owl:allValuesFrom :VolumetricWeight
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :chargeableWeightForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :dimensionsForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :grossWeightForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :hsCodeForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :productionCountryForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   owl:onProperty :uldReferences ;
+                                   owl:allValuesFrom :ULD
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateCharge ;
@@ -9861,74 +9854,18 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldOwnerCode ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :uldRateClassType ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldTareWeightForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldType ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :volumetricWeightForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :commodityItemNumberForRate ;
-                                   owl:allValuesFrom xsd:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :goodsDescriptionForRate ;
-                                   owl:allValuesFrom xsd:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :lineItemNumber ;
                                    owl:allValuesFrom xsd:integer
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :pieceCountForRate ;
-                                   owl:allValuesFrom xsd:integer
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :slacForRate ;
-                                   owl:allValuesFrom xsd:integer
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldSerialNumber ;
-                                   owl:allValuesFrom xsd:string
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :commodityItemNumberForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :goodsDescriptionForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :lineItemNumber ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :pieceCountForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :slacForRate ;
-                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :uldSerialNumber ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
-                 rdfs:comment "Information from AWB Rate Description section as per bullet point 18 - data elements 22A - 22Z from AWB"@en ;
+                 rdfs:comment "Information from AWB Rate Description section as per bullet point 18 - data elements 22A - 22Z from AWB. Data describing Piece and Package parameters to be transmitted per Piece object using pieceReferences; Data describing ULD parameters to be transmitted per ULD object using uldReference."@en ;
                  rdfs:label "WaybillLineItem"@en ;
                  :vis_element "Embedded"@en .
 
