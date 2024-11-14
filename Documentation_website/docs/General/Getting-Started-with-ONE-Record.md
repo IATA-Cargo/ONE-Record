@@ -50,33 +50,17 @@ Ensuring secure and efficient data exchange is paramount in ONE Record:
 
 ### Setting Up an Environment
 
-To initiate a ONE Record implementation, set up a conducive development environment. There are two approaches.
-
-1. Use open source implemenation of ONE Record, known as NE:ONE
-2. Set up your own ONE Record server
+To initiate a ONE Record implementation, set up a conducive development environment.
 
 For first timers, it is *strongly* recommended to work with the NE:ONE server. It can be deployed in less than an hour and provides 100% ONE Record capabilities out-of-the-box.
 
-##### 1. Open source implementation of ONE Record (NE:ONE)
+##### Open source implementation of ONE Record (NE:ONE)
 
 Developed by the [DTAC]( https://www.digital-testbed-air-cargo.com/), the **NE:ONE** server is a “data hub” based on the IATA ONE Record standard for air freight. The project has developed an open source server software package, which implements the data model and API specifications of the IATA ONE Record standard for air freight.
 
-NE:ONE repository is: [here](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one).
-
 To deploy a NE:ONE stack in few minutes clone the repository [ONE Record first steps](https://github.com/IATA-Cargo/one-record-first-steps/tree/main).
  
-If you are interested in a multi node environment, use the repository [ONE Record two nodes](https://github.com/IATA-Cargo/one-record-two-nodes).
-
-
-##### 2. Set up your own ONE Record server (harder to do)
-
-Establish a foundational API setup with the following steps:
-
-1. **Software Installation**: Deploy a reliable HTTP server capable of managing RESTful web service requests. Ensure it supports key languages and libraries relevant to ONE Record.
-
-2. **API Configuration**: Configure the server and client with ONE Record specifications, setting up necessary endpoints, data routes, and setting default security protocols.
-
-3. **Environment Testing**: Validate the setup using test logistics objects and sample data. Ensure endpoints are functional, and the server can handle expected traffic loads.
+If you are interested in a multi node environment to facilitate data exchange (pub-sub) between two nodes, use the repository [ONE Record two nodes](https://github.com/IATA-Cargo/one-record-two-nodes).
 
 ### Creating and Managing Logistics Objects
 
@@ -87,6 +71,8 @@ Master the creation and management of Logistics Objects to support operations:
 \- **Data Management**: Implement PATCH and GET requests to update and retrieve logistics objects. Use appropriate data validation mechanisms to maintain data integrity across operations.
 
 \- **Implementing a use case**: Consider implementating a use case involving multiple Logistics Objects. Refer to orchestration below.
+
+*Please refer to documentation on the* [API](https://iata-cargo.github.io/ONE-Record/development/API-Security/)
 
 ## 3. Understanding and Implementing Data Orchestration
 
