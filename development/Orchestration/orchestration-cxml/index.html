@@ -3455,19 +3455,19 @@ The selected messages for mapping are the following:</p>
 <td>XFWB</td>
 <td>XML Waybill Message</td>
 <td>5.00</td>
-<td>1st draft available</td>
+<td>1st version</td>
 </tr>
 <tr>
 <td>XFZB</td>
 <td>XML HouseWaybill Message</td>
 <td>4.00</td>
-<td>1st draft available</td>
+<td>1st version</td>
 </tr>
 <tr>
 <td>XFHL</td>
 <td>XML House Manifest Message</td>
 <td>3.00</td>
-<td>-</td>
+<td>1st draft</td>
 </tr>
 <tr>
 <td>XSDG</td>
@@ -3485,7 +3485,7 @@ The selected messages for mapping are the following:</p>
 <td>XFFM</td>
 <td>XML Flight Manifest Message</td>
 <td>4.00</td>
-<td>Ongoing</td>
+<td>1st draft</td>
 </tr>
 <tr>
 <td>XFBL</td>
@@ -3520,8 +3520,7 @@ The selected messages for mapping are the following:</p>
 <h4 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h4>
 <p>XFWB data fields are mostly a mix of <code>Waybill</code>, <code>WaybillLineItem</code>, <code>Shipment</code>, <code>Pieces</code> and <code>TransportMovement</code> data in ONE Record realm.</p>
 <h4 id="usage-of-waybilllineitem-object">Usage of WaybillLineItem object<a class="headerlink" href="#usage-of-waybilllineitem-object" title="Permanent link">&para;</a></h4>
-<p>At first it was proposed to use the <code>Shipment</code> and <code>Piece</code> objects to populate the Waybill line items. However examples have shown that the line items do not necessarily correlate to actual Pieces transported, for instance Dry Ice can be interpreted as a specific line item due to a specific rate while on the operations the package, containing dry ice and transported goods, are equivalent to one <code>Piece</code>.</p>
-<p>It was decided to introduce the <code>WaybillLineItem</code> object to properly share rate data as required in the Air Waybill. The <code>WaybillLineItem</code> has a n-to-1 relationship with a <code>Waybill</code> object and represents the different line items on the paper waybill with all their specifities based on the type of rating used.</p>
+<p>The <code>WaybillLineItem</code> object was introduced to properly share rate data as required in the Air Waybill. The <code>WaybillLineItem</code> has a n-to-1 relationship with a <code>Waybill</code> object and represents the different line items on the paper waybill with all their specifities based on the type of rating used. In order to stick to reality as much as possible, some data at line item level are taken from <code>Pieces</code> and <code>LoadingUnits</code> directly (dimensions, volume, ...). The <code>WaybillLineItem</code> object itself shall only contain <strong>rate</strong> specific data.</p>
 <p>It is important to note that the <code>WaybillLineItem</code> has been added <strong>only in the context of sharing Air Waybill data</strong>. When looking at Operations, digital twins shall be used (<code>Piece</code>, <code>Item</code>, <code>Product</code>, etc.)</p>
 <h4 id="usage-of-othercharge-object">Usage of OtherCharge object<a class="headerlink" href="#usage-of-othercharge-object" title="Permanent link">&para;</a></h4>
 <p>The <code>OtherCharge</code> object is used to record all charges, it refers to <code>&lt;ram:ApplicableLogisticsAllowanceCharge&gt;</code> grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.</p>
@@ -3529,7 +3528,7 @@ The selected messages for mapping are the following:</p>
 <h4 id="other-specific-mapping-guidelines">Other specific mapping guidelines<a class="headerlink" href="#other-specific-mapping-guidelines" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
-<p><code>DensityGroupCode</code> field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales &amp; Booking process part.</p>
+<p><code>DensityGroupCode</code> field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales &amp; Booking process part. It is then found on the <code>BookingShipment</code> object if required.</p>
 </li>
 <li>
 <p><code>Special Service Request</code> and <code>Other Shipping Instructions</code> code fields are not in ONE Record as there is no evidence of an actual referential and standard used for those. Moreover it seems stakeholders use SSR or OSI for the same purposes. Thus we have merged into <code>textualHandlingInstructions</code> property in ONE Record.</p>
