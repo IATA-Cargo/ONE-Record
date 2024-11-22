@@ -18,12 +18,12 @@ The selected messages for mapping are the following:
 
 | Message | Message name | Message version | Comments |
 | --- | --- | --- | --- |
-| XFWB | XML Waybill Message | 5.00 | 1st draft available |
-| XFZB | XML HouseWaybill Message | 4.00 | 1st draft available |
-| XFHL | XML House Manifest Message | 3.00 | - |
+| XFWB | XML Waybill Message | 5.00 | 1st version |
+| XFZB | XML HouseWaybill Message | 4.00 | 1st version |
+| XFHL | XML House Manifest Message | 3.00 | 1st draft |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | - |
 | XFSU | XML Status Message | 6.00 | Ongoing |
-| XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
+| XFFM | XML Flight Manifest Message | 4.00 | 1st draft |
 | XFBL | XML Freight Booked List Message | 3.00 | - |
 | XTMV | XML Transport Movement Message | 2.00 | ? |
 
@@ -51,9 +51,7 @@ When first versions of ONE Record data model were created, restrictions **coming
 XFWB data fields are mostly a mix of `Waybill`, `WaybillLineItem`, `Shipment`, `Pieces` and `TransportMovement` data in ONE Record realm.
 
 ### Usage of WaybillLineItem object
-At first it was proposed to use the `Shipment` and `Piece` objects to populate the Waybill line items. However examples have shown that the line items do not necessarily correlate to actual Pieces transported, for instance Dry Ice can be interpreted as a specific line item due to a specific rate while on the operations the package, containing dry ice and transported goods, are equivalent to one `Piece`.
-
-It was decided to introduce the `WaybillLineItem` object to properly share rate data as required in the Air Waybill. The `WaybillLineItem` has a n-to-1 relationship with a `Waybill` object and represents the different line items on the paper waybill with all their specifities based on the type of rating used.
+The `WaybillLineItem` object was introduced to properly share rate data as required in the Air Waybill. The `WaybillLineItem` has a n-to-1 relationship with a `Waybill` object and represents the different line items on the paper waybill with all their specifities based on the type of rating used. In order to stick to reality as much as possible, some data at line item level are taken from `Pieces` and `LoadingUnits` directly (dimensions, volume, ...). The `WaybillLineItem` object itself shall only contain **rate** specific data.
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
@@ -64,7 +62,7 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 
 ### Other specific mapping guidelines
 
-- `DensityGroupCode` field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales & Booking process part.
+- `DensityGroupCode` field will be linked to Distribution phase as the feedback received from the industry shows that it's not an operational data but used for the Sales & Booking process part. It is then found on the `BookingShipment` object if required.
 
 - `Special Service Request` and `Other Shipping Instructions` code fields are not in ONE Record as there is no evidence of an actual referential and standard used for those. Moreover it seems stakeholders use SSR or OSI for the same purposes. Thus we have merged into `textualHandlingInstructions` property in ONE Record.
 
