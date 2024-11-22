@@ -3323,24 +3323,28 @@
 The activity model is developed based the design principles Single Source of Truth and Physics-orientation. Further emphasis lays on practicality over abstractation.
 This page details the core concepts including examples.</p>
 <h2 id="logisticsservices">LogisticsServices<a class="headerlink" href="#logisticsservices" title="Permanent link">&para;</a></h2>
-<p>A <code>LogisticsService</code> (a subtype of <code>LogisticsObject</code>) describes a set of scheduled and sequenced <code>LogisticsActivities</code> provided by one party to another.
-The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsService">here</a>.</p>
+<p>A <code>LogisticsService</code> (a subtype of <code>LogisticsObject</code>) describes a set of scheduled and sequenced <code>LogisticsActivities</code> provided by one party to another.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsService">here</a>.</p>
 <figure>
 <p><img alt="LogisticsService" src="../img/DM-ActivityModel-LogisticsService.jpg" />
   </p>
 <figcaption>LogisticsService and connected objects</figcaption>
 </figure>
 <h3 id="booking">Booking<a class="headerlink" href="#booking" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p><code>Booking</code> is the first and main <code>LogisticsService</code> in Air Cargo context. It represents the Transportation service between a carrier and its customer (usually the Freight forwarder) and is the main outcome of Distribution scope.</p>
+<p>The main <code>LogisticsActivity</code> linked to the <code>Booking</code> will be the <code>TransportMovement</code>(s) representing the flight legs and potential truck movements, warehouse movements or other kinds of movements.</p>
+<figure>
+<p><img alt="LogisticsService" src="../img/DM-ActivityModel-Booking.jpg" />
+  </p>
+<figcaption>Booking object and connection to Distribution scope and TransportMovements</figcaption>
+</figure>
 <h2 id="logisticsactivities">LogisticsActivities<a class="headerlink" href="#logisticsactivities" title="Permanent link">&para;</a></h2>
 <p>A <code>LogisticsActivity</code> (a subtype of <code>LogisticsObject</code>) describes an activity or process state which is scheduled and executed by an orchestrating party.
 It involves a set of dedicated tasks in the form of specific <code>LogisticsActions</code> to be performed on <code>PhysicalLogisticsObjects</code>.
 Some activities are directly bound to a specific <code>PhysicalLogisticsObject</code>.
 It can be part of one or multiple <code>LogisticsServices</code>.
-It has an execution status that is actively maintained.
-The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsActivity">here</a>.</p>
+It has an execution status that is actively maintained.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsActivity">here</a>.</p>
 <figure>
 <p><img alt="LogisticsActivity" src="../img/DM-ActivityModel-LogisticsActivity.jpg" />
   </p>
@@ -3350,17 +3354,29 @@ The properties are described <a href="https://onerecord.iata.org/ns/cargo#Logist
 <p>An <code>UnitComposition</code> (a subtype of <code>LogisticsActivity</code>) describes the process state of a packed/loaded LoadingUnit (Container, ULD, Pallet, ...).
 It requires a 1:1 connection to a <code>LoadingUnit</code> as long as its execution status is Active.
 Composing (a <code>LogisticsAction</code>) is used to model the tasks of composing (cargo:Composition) or decomposing (cargo:Decomposition) Pieces for the UnitComposition.
-An <code>UnitComposition</code> typically begins with a Composition at one location (eg. warehouse of origin) and ends with a Decomposition at another location (eg. warehouse of departure).
-The properties are described <a href="https://onerecord.iata.org/ns/cargo#UnitComposition">here</a>.</p>
+An <code>UnitComposition</code> typically begins with a Composition at one location (eg. warehouse of origin) and ends with a Decomposition at another location (eg. warehouse of departure).</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#UnitComposition">here</a>.</p>
 <figure>
 <p><img alt="UnitComposition" src="../img/DM-ActivityModel-UnitComposition.jpg" />
   </p>
 <figcaption>UnitComposition and connected objects</figcaption>
 </figure>
+<p>The Buildup and Breakdown of a ULD will be represented by a <code>UnitComposition</code> activity and Composing/Decomposing actions that link the ULD and the Pieces.</p>
+<figure>
+<p><img alt="UnitComposition" src="../img/DM-ActivityModel-Composing.jpg" />
+  </p>
+<figcaption>Buildup of a ULD using Composing action</figcaption>
+</figure>
 <h3 id="transportmovement">TransportMovement<a class="headerlink" href="#transportmovement" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p>A <code>TransportMovement</code> (subtype of <code>LogisticsActivity</code>) describes a physical movement in which some object can be transported.
+It is operated by a <code>Party</code> (Organization or a Person such as a Pilot or Driver) and uses a <code>TransportMeans</code> (Aircraft, Truck, ...).
+It contains various information relevant to operations such as departure and arrival locations and <code>MovementTimes</code> that include Scheduled, Planned and Actual times.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#TransportMovement">here</a>.</p>
+<figure>
+<p><img alt="UnitComposition" src="../img/DM-ActivityModel-TransportMovement.jpg" />
+  </p>
+<figcaption>TransportMovement</figcaption>
+</figure>
 <h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
 <ul>
 <li>TBD</li>
@@ -3368,21 +3384,20 @@ The properties are described <a href="https://onerecord.iata.org/ns/cargo#UnitCo
 <h2 id="logisticsactions">LogisticsActions<a class="headerlink" href="#logisticsactions" title="Permanent link">&para;</a></h2>
 <p>A <code>LogisticsAction</code> (a subtype of <code>LogisticsObject</code>) describes a specific task performed on one or a set of <code>PhysicalLogisticsObjects</code> in the context of a <code>LogisticsActivity</code>.
 <code>LogisticsActions</code> serve the purpose of connecting different <code>PhysicalLogisticsObjects</code> to each other and to an <code>LogisticsActivity</code>.
-It is set at a specific point in time. This can also be a time frame (start and end time). The time type can be either requested, planned or actual.
-The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsAction">here</a>.</p>
+It is set at a specific point in time. This can also be a time frame (start and end time). The time type can be either requested, planned or actual.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsAction">here</a>.</p>
 <figure>
 <p><img alt="LogisticsAction" src="../img/DM-ActivityModel-LogisticsAction.jpg" />
   </p>
 <figcaption>LogisticsAction and connected objects</figcaption>
 </figure>
 <h3 id="composing">Composing<a class="headerlink" href="#composing" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p><code>Composing</code> action describes the operation of buildup and breakdown of a loading unit. Much common case in Air Cargo will be the buildup and breakdown of a ULD or a Pallet with some Pieces. It has then some restrictions on its properties as it needs to be linked to a <code>LoadingUnit</code> and some <code>Piece</code>(s) to be complete. a <code>LoadingMaterial</code> can be used as well to describe further what material has been used (e.g. Nets for pallets).</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#Composing">here</a>.</p>
 <h3 id="loading">Loading<a class="headerlink" href="#loading" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p><code>Loading</code> action describes et operation of loading and unloading <code>Piece</code>(s) or <code>LoadingUnit</code>(s) on a <code>LogisticsActivty</code> that is usually a <code>TransportMovement</code>.
+It can be used for Load Planning when the <code>actionTimeType</code> is <em>planned</em> or <em>requested</em>.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#Loading">here</a>.</p>
 <h3 id="storing">Storing<a class="headerlink" href="#storing" title="Permanent link">&para;</a></h3>
 <ul>
 <li>TBD</li>
@@ -3394,25 +3409,19 @@ The properties are described <a href="https://onerecord.iata.org/ns/cargo#Logist
 <h2 id="physicallogisticsobjects">PhysicalLogisticsObjects<a class="headerlink" href="#physicallogisticsobjects" title="Permanent link">&para;</a></h2>
 <p>A <code>PhysicalLogisticsObject</code> (a subtype of <code>LogisticsObject</code>) is the digital twin of a physically distinguishable object in the air cargo supply chain.
 It interacts with other <code>PhysicalLogisticsObjects</code> and <code>LogisticsActivities</code> through <code>LogisticsActions</code>.
-Some <code>PhysicalLogisticsObjects</code> are directly connected to an <code>LogisticsActivity</code> describing its state.
-The properties are described <a href="https://onerecord.iata.org/ns/cargo#PhysicalLogisticsObject">here</a>.</p>
+Some <code>PhysicalLogisticsObjects</code> are directly connected to an <code>LogisticsActivity</code> describing its state.</p>
+<p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#PhysicalLogisticsObject">here</a>.</p>
 <figure>
 <p><img alt="PhysicalLogisticsObject" src="../img/DM-ActivityModel-PhysicalLogisticsObject.jpg" />
   </p>
 <figcaption>PhysicalLogisticsObject and connected objects</figcaption>
 </figure>
 <h3 id="piece">Piece<a class="headerlink" href="#piece" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p>A <code>Piece</code> (a subtype of <code>PhysicalLogisticsObject</code>) is the digital twin of a piece, or package in the air cargo supply chain. It can be described as a uniquely identified physical single unit which may form all or a part of a shipment.</p>
 <h3 id="loadingunit">LoadingUnit<a class="headerlink" href="#loadingunit" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p>A <code>LoadingUnit</code> (a subtype of <code>PhysicalLogisticsObject</code>) is the digital twin of any Unit used to transport cargo. Most common cases in air cargo are the ULD (Unit Load Device) or Pallets that are used for consolidation and optimization of cargo space usage.</p>
 <h3 id="transportmeans">TransportMeans<a class="headerlink" href="#transportmeans" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p>A <code>TransportMeans</code> (a subtype of <code>PhysicalLogisticsObject</code>) is the digital twin of any vehicle used for a <code>TransportMovement</code>. Most common cases in air cargo are aircrafts or trucks. They can alos represent forklifts if warehouse or ramp movements are considered.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="booking-with-2-loose-and-1-palletized-pieces-on-one-flight">Booking with 2 loose and 1 palletized pieces on one flight<a class="headerlink" href="#booking-with-2-loose-and-1-palletized-pieces-on-one-flight" title="Permanent link">&para;</a></h3>
 <figure>
