@@ -34,6 +34,7 @@ The SpecialRequest object is used to capture the shipper requirements. Either th
 - Product temperature range
 
 The SpecialHandling object aims to capture all the special handling codes. For pharma product, the use of the below codes have been identified:
+
 - PIL: Pharmaceuticals
 - ACT: Active Temperature Controlled System
 - PIP: Passive Insulated Packaging
