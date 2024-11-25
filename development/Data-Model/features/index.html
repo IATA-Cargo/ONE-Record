@@ -79,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#high-level-data-model" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1586,6 +1591,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1595,6 +1611,32 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level data model
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2881,6 +2923,23 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      High level data model
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2912,7 +2971,19 @@
 
   <h1>Overview</h1>
 
-<p>TBD</p>
+<h2 id="high-level-data-model">High level data model<a class="headerlink" href="#high-level-data-model" title="Permanent link">&para;</a></h2>
+<p>ONE Record Data Model aims to support air cargo operations and needs to ensure that every piece of data required exists. Starting from existing legacy standards and business use cases, we have defined an extensive data model. </p>
+<p>The high level data model, or conceptual data model, can be seen in details using our <a href="https://iata-cargo.github.io/ontology_visualizer/databases/cargo_core">Visualizer tool</a>.</p>
+<p>The essential objects for air cargo operations are displayed, they make the core of ONE Record Data Model.</p>
+<ul>
+<li><code>Piece</code> is at the center of the model, it represents transported goods</li>
+<li><code>Item</code> and <code>Product</code> are used to describe further de <code>Piece</code></li>
+<li><code>ULD</code> or <code>LoadingUnit</code>(s) are the common loading devices used to carry freight into aircrafts' bellies. They are linked to <code>Piece</code>(s) via the <code>UnitComposition</code> activity (see further in the Activity Model part)</li>
+<li><code>TransportMovement</code> represent the flight legs or any other means of transport movement such as truck movements.</li>
+<li><code>Shipment</code> represent the consignments</li>
+<li><code>Waybill</code> is the digital twin of the Air waybill and represents the contract of carriage between the airline and the freight forwarder</li>
+<li>The <code>LogisticsEvent</code> is an essential part of ONE Record, it represents any ocurring event that is worth recording, like a status update for a <code>Piece</code></li>
+</ul>
 
 
 
