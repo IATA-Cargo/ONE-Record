@@ -77,7 +77,9 @@ In its essence, XFZB is very similar to XFWB. The major distinction is the usage
 To be done
 
 ## XSDG Mapping
-XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record (link). The necessity of an actual mapping of XSDG needs to be assessed.
+XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".
+
+Fro the time being, there seems to be no need to map XSDG considering its implementation within the industry.
 
 ## XFSU Mapping
 ### Proposed mechanism
