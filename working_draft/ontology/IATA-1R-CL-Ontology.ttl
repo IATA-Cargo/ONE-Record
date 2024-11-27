@@ -13,15 +13,15 @@
                                             dc:description "ONE Record code lists, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                             dc:title "ONE Record Code Lists Ontology"@en ;
                                             terms:abstract "The code lists ontology of the ONE Record standard covers the code lists used in the standard, currently corresponding to cXML code lists, IATA Resolutions, CITES, UN recommended codes and 1R-specific codes."@en ;
-                                            terms:modified "26-11-2024" ;
+                                            terms:modified "27-11-2024" ;
                                             terms:title "ONE Record Code Lists Ontology"@en ;
-                                            rdfs:comment """Attention: Note that each Individual has a code list-specific prefix in their IRI which is not shown in the labels (default view in tools such as Protege). 
-
-Furthermore, DGR and Security Status codes have the respective DangerousGoodsCode and SecurityStatus prefix, even though they are part of the Special Handling Code List, too."""@en ,
+                                            rdfs:comment "Attention: Note that each Individual has a code list-specific prefix in their IRI which is not shown in the labels (default view in tools such as Protege)."@en ,
                                                          """Details availalble on GitHub https://github.com/IATA-Cargo/ONE-Record
 
 Version 1.0.0
-- Refactored all code lists from deprecated core code lists ontology (#268)"""@en ;
+- Refactored all code lists from deprecated core code lists ontology (#268)
+- Added cXML code list 2 Density Group Codes (#248)
+- Mirrored DGR and Security Status Codes to the Special Handling Codes namespace for simplification as part of code list review (#268)"""@en ;
                                             rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                             rdfs:label "ONE Record Code Lists Ontology"@en ;
                                             owl:versionInfo "1.0.0"@en .
@@ -899,10 +899,10 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/code-lists/DimensionsUnitCode
 :DimensionsUnitCode rdf:type owl:Class ;
                     owl:equivalentClass [ rdf:type owl:Class ;
-                                          owl:oneOf ( :MeasurementUnitCode_FOT
-                                                      :MeasurementUnitCode_INH
-                                                      :MeasurementUnitCode_MTR
-                                                      <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CMT>
+                                          owl:oneOf ( <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CMT>
+                                                      <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#FOT>
+                                                      <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#INH>
+                                                      <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#MTR>
                                                     )
                                         ] ;
                     rdfs:comment "Restricted sub-code list of length units from MeasurementUnitCode"@en ;
@@ -1462,9 +1462,9 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/code-lists/TemperatureUnitCode
 :TemperatureUnitCode rdf:type owl:Class ;
                      owl:equivalentClass [ rdf:type owl:Class ;
-                                           owl:oneOf ( :MeasurementUnitCode_FAH
-                                                       :MeasurementUnitCode_KEL
-                                                       <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CEL>
+                                           owl:oneOf ( <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CEL>
+                                                       <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#FAH>
+                                                       <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KEL>
                                                      )
                                          ] ;
                      rdfs:comment "Restricted sub-code list of temperature units from MeasurementUnitCode"@en ;
@@ -1553,12 +1553,12 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/code-lists/VolumeUnitCode
 :VolumeUnitCode rdf:type owl:Class ;
                 owl:equivalentClass [ rdf:type owl:Class ;
-                                      owl:oneOf ( :MeasurementUnitCode_FTQ
-                                                  :MeasurementUnitCode_GLL
-                                                  :MeasurementUnitCode_INQ
-                                                  :MeasurementUnitCode_LTR
-                                                  :MeasurementUnitCode_MTQ
-                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CMQ>
+                                      owl:oneOf ( <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#CMQ>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#FTQ>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#GLL>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#INQ>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#LTR>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#MTQ>
                                                 )
                                     ] ;
                 rdfs:comment "Restricted sub-code list of volume units from MeasurementUnitCode"@en ;
@@ -1568,9 +1568,9 @@ terms:title rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/code-lists/WeightUnitCode
 :WeightUnitCode rdf:type owl:Class ;
                 owl:equivalentClass [ rdf:type owl:Class ;
-                                      owl:oneOf ( :MeasurementUnitCode_LBR
-                                                  :MeasurementUnitCode_ONZ
-                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM>
+                                      owl:oneOf ( <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#LBR>
+                                                  <https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#ONZ>
                                                 )
                                     ] ;
                 rdfs:comment "Restricted sub-code list of weight units from MeasurementUnitCode"@en ;
@@ -1580,54 +1580,6 @@ terms:title rdf:type owl:AnnotationProperty .
 #################################################################
 #    Individuals
 #################################################################
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_FAH
-:MeasurementUnitCode_FAH rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_FOT
-:MeasurementUnitCode_FOT rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_FTQ
-:MeasurementUnitCode_FTQ rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_GLL
-:MeasurementUnitCode_GLL rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_INH
-:MeasurementUnitCode_INH rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_INQ
-:MeasurementUnitCode_INQ rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_KEL
-:MeasurementUnitCode_KEL rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_LBR
-:MeasurementUnitCode_LBR rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_LTR
-:MeasurementUnitCode_LTR rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_MTQ
-:MeasurementUnitCode_MTQ rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_MTR
-:MeasurementUnitCode_MTR rdf:type owl:NamedIndividual .
-
-
-###  https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode_ONZ
-:MeasurementUnitCode_ONZ rdf:type owl:NamedIndividual .
-
 
 ###  https://onerecord.iata.org/ns/code-lists/AWBUseIndicator#R
 <https://onerecord.iata.org/ns/code-lists/AWBUseIndicator#R> rdf:type owl:NamedIndividual ,
@@ -6489,298 +6441,446 @@ terms:title rdf:type owl:AnnotationProperty .
 
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#CAO
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#CAO> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAO> ;
                                                                   rdfs:comment "Cargo Aircraft Only"@en ;
                                                                   rdfs:label "CAO"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAO
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAO> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#EBI
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#EBI> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBI> ;
                                                                   rdfs:comment "Lithium ion batteries excepted as per Section II of PI 965"@en ;
                                                                   rdfs:label "EBI"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBI> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#EBM
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#EBM> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBM> ;
                                                                   rdfs:comment "Lithium metal batteries excepted as per Section II of PI 968"@en ;
                                                                   rdfs:label "EBM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBM> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ELI
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ELI> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI> ;
                                                                   rdfs:comment "Lithium Ion Batteries otherwise excepted from the IATA DGR"@en ;
                                                                   rdfs:label "ELI"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ELM
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ELM> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELM> ;
                                                                   rdfs:comment "Lithium Metal Batteries otherwise excepted from the IATA DGR"@en ;
                                                                   rdfs:label "ELM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELM> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ICE
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ICE> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI> ;
                                                                   rdfs:comment "Dry Ice"@en ;
                                                                   rdfs:label "ICE"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#MAG
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#MAG> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAG> ;
                                                                   rdfs:comment "Magnetized Material"@en ;
                                                                   rdfs:label "MAG"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAG> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RBI
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RBI> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBI> ;
                                                                   rdfs:comment "Fully regulated lithium ion batteries (Class 9, UN 3480) as per Section IA and IB of PI 965"@en ;
                                                                   rdfs:label "RBI"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBI> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RBM
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RBM> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBM> ;
                                                                   rdfs:comment "Fully regulated lithium metal batteries (Class 9, UN 3090) as per Section IA and IB of PI 968"@en ;
                                                                   rdfs:label "RBM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBM> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCL
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCL> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCL> ;
                                                                   rdfs:comment "Cryogenic Liquids"@en ;
                                                                   rdfs:label "RCL"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCL
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCL> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCM
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCM> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCM> ;
                                                                   rdfs:comment "Corrosive"@en ;
                                                                   rdfs:label "RCM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCM> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCX
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RCX> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCX> ;
                                                                   rdfs:comment "Explosives 1.3C"@en ;
                                                                   rdfs:label "RCX"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCX> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#REX
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#REX> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#REX> ;
                                                                   rdfs:comment "To be reserved for normally forbidden Explosives, Divisions 1.1, 1.2, 1.3, 1.4F, 1.5 and 1.6"@en ;
                                                                   rdfs:label "REX"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#REX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#REX> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFG
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFG> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFG> ;
                                                                   rdfs:comment "Flammable Gas"@en ;
                                                                   rdfs:label "RFG"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFG> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFL
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFL> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFL> ;
                                                                   rdfs:comment "Flammable Liquid"@en ;
                                                                   rdfs:label "RFL"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFL
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFL> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFS
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFS> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFS> ;
                                                                   rdfs:comment "Flammable Solid"@en ;
                                                                   rdfs:label "RFS"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFS> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFW
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RFW> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFW> ;
                                                                   rdfs:comment "Dangerous When Wet"@en ;
                                                                   rdfs:label "RFW"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFW
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFW> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RGX
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RGX> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RGX> ;
                                                                   rdfs:comment "Explosives 1.3G"@en ;
                                                                   rdfs:label "RGX"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RGX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RGX> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RIS
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RIS> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RIS> ;
                                                                   rdfs:comment "Infectious Substance"@en ;
                                                                   rdfs:label "RIS"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RIS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RIS> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RLI
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RLI> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLI> ;
                                                                   rdfs:comment "Fully Regulated Lithium Ion Batteries (Class 9)"@en ;
                                                                   rdfs:label "RLI"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLI> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RLM
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RLM> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLM> ;
                                                                   rdfs:comment "Fully Regulated Lithium Metal Batteries (Class 9)"@en ;
                                                                   rdfs:label "RLM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLM> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RMD
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RMD> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RMD> ;
                                                                   rdfs:comment "Miscellaneous Dangerous Goods"@en ;
                                                                   rdfs:label "RMD"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RMD
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RMD> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RNG
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RNG> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RNG> ;
                                                                   rdfs:comment "Non-Flammable Non-Toxic Gas"@en ;
                                                                   rdfs:label "RNG"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RNG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RNG> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ROP
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ROP> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROP> ;
                                                                   rdfs:comment "Organic Peroxide"@en ;
                                                                   rdfs:label "ROP"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROP
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROP> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ROX
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#ROX> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROX> ;
                                                                   rdfs:comment "Oxidizer"@en ;
                                                                   rdfs:label "ROX"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROX> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RPB
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RPB> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPB> ;
                                                                   rdfs:comment "Toxic Substance"@en ;
                                                                   rdfs:label "RPB"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPB> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RPG
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RPG> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPG> ;
                                                                   rdfs:comment "Toxic Gas"@en ;
                                                                   rdfs:label "RPG"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPG> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RRW
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RRW> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRW> ;
                                                                   rdfs:comment "Radioactive Material Category I-White"@en ;
                                                                   rdfs:label "RRW"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRW
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRW> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RRY
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RRY> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRY> ;
                                                                   rdfs:comment "Radioactive Material Categories II-Yellow and III-Yellow"@en ;
                                                                   rdfs:label "RRY"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRY
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRY> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RSB
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RSB> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSB> ;
                                                                   rdfs:comment "Polymeric Beads"@en ;
                                                                   rdfs:label "RSB"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSB> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RSC
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RSC> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSC> ;
                                                                   rdfs:comment "Spontaneously Combustible"@en ;
                                                                   rdfs:label "RSC"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSC> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXB
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXB> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXB> ;
                                                                   rdfs:comment "Explosives 1.4B"@en ;
                                                                   rdfs:label "RXB"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXB> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXC
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXC> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXC> ;
                                                                   rdfs:comment "Explosives 1.4C"@en ;
                                                                   rdfs:label "RXC"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXC> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXD
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXD> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXD> ;
                                                                   rdfs:comment "Explosives 1.4D"@en ;
                                                                   rdfs:label "RXD"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXD
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXD> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXE
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXE> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXE> ;
                                                                   rdfs:comment "Explosives 1.4E"@en ;
                                                                   rdfs:label "RXE"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXE
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXE> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXG
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXG> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXG> ;
                                                                   rdfs:comment "Explosives 1.4G"@en ;
                                                                   rdfs:label "RXG"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXG> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXS
 <https://onerecord.iata.org/ns/code-lists/DangerousGoodsCode#RXS> rdf:type owl:NamedIndividual ,
-                                                                           :DangerousGoodsCode ,
-                                                                           :SpecialHandlingCode ;
+                                                                           :DangerousGoodsCode ;
+                                                                  owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXS> ;
                                                                   rdfs:comment "Explosives 1.4S"@en ;
                                                                   rdfs:label "RXS"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXS> rdf:type owl:NamedIndividual .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/DemurrageCode#BCC
@@ -9046,34 +9146,50 @@ terms:title rdf:type owl:AnnotationProperty .
 
 ###  https://onerecord.iata.org/ns/code-lists/SecurityStatus#NSC
 <https://onerecord.iata.org/ns/code-lists/SecurityStatus#NSC> rdf:type owl:NamedIndividual ,
-                                                                       :SecurityStatus ,
-                                                                       :SpecialHandlingCode ;
+                                                                       :SecurityStatus ;
+                                                              owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NSC> ;
                                                               rdfs:comment "Cargo Has Not Been Secured Yet for Passenger or All-Cargo Aircraft"@en ;
                                                               rdfs:label "NSC"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NSC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NSC> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SecurityStatus#SCO
 <https://onerecord.iata.org/ns/code-lists/SecurityStatus#SCO> rdf:type owl:NamedIndividual ,
-                                                                       :SecurityStatus ,
-                                                                       :SpecialHandlingCode ;
+                                                                       :SecurityStatus ;
+                                                              owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SCO> ;
                                                               rdfs:comment "Cargo Secure for All-Cargo Aircraft Only"@en ;
                                                               rdfs:label "SCO"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SCO
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SCO> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SecurityStatus#SHR
 <https://onerecord.iata.org/ns/code-lists/SecurityStatus#SHR> rdf:type owl:NamedIndividual ,
-                                                                       :SecurityStatus ,
-                                                                       :SpecialHandlingCode ;
+                                                                       :SecurityStatus ;
+                                                              owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHR> ;
                                                               rdfs:comment "Secure for Passenger, All-Cargo and All-Mail Aircraft in Accordance with High Risk Requirements"@en ;
                                                               rdfs:label "SHR"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHR
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHR> rdf:type owl:NamedIndividual .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SecurityStatus#SPX
 <https://onerecord.iata.org/ns/code-lists/SecurityStatus#SPX> rdf:type owl:NamedIndividual ,
-                                                                       :SecurityStatus ,
-                                                                       :SpecialHandlingCode ;
+                                                                       :SecurityStatus ;
+                                                              owl:sameAs <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPX> ;
                                                               rdfs:comment "Cargo Secure for Passenger and All-Cargo Aircraft"@en ;
                                                               rdfs:label "SPX"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPX> rdf:type owl:NamedIndividual .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/ServiceCode#A
@@ -9293,6 +9409,13 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "BUP"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAO
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAO> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Cargo Aircraft Only"@en ;
+                                                                   rdfs:label "CAO"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAT
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#CAT> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
@@ -9356,6 +9479,20 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "EAW"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBI> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Lithium ion batteries excepted as per Section II of PI 965"@en ;
+                                                                   rdfs:label "EBI"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EBM> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Lithium metal batteries excepted as per Section II of PI 968"@en ;
+                                                                   rdfs:label "EBM"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ECC
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ECC> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
@@ -9368,6 +9505,20 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                             :SpecialHandlingCode ;
                                                                    rdfs:comment "Consignment established with a paper air waybill contract being printed under an e-AWB agreement"@en ;
                                                                    rdfs:label "ECP"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELI> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Lithium Ion Batteries otherwise excepted from the IATA DGR"@en ;
+                                                                   rdfs:label "ELI"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ELM> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Lithium Metal Batteries otherwise excepted from the IATA DGR"@en ;
+                                                                   rdfs:label "ELM"@en .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#EMD
@@ -9433,6 +9584,13 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "HUM"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ICE
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ICE> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Dry Ice"@en ;
+                                                                   rdfs:label "ICE"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#LHO
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#LHO> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
@@ -9447,6 +9605,13 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "LIC"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAG> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Magnetized Material"@en ;
+                                                                   rdfs:label "MAG"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAL
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#MAL> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
@@ -9459,6 +9624,13 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                             :SpecialHandlingCode ;
                                                                    rdfs:comment "Munitions of War"@en ;
                                                                    rdfs:label "MUW"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NSC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NSC> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Cargo Has Not Been Secured Yet for Passenger or All-Cargo Aircraft"@en ;
+                                                                   rdfs:label "NSC"@en .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#NST
@@ -9580,6 +9752,41 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "RAC"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBI> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Fully regulated lithium ion batteries (Class 9, UN 3480) as per Section IA and IB of PI 965"@en ;
+                                                                   rdfs:label "RBI"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RBM> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Fully regulated lithium metal batteries (Class 9, UN 3090) as per Section IA and IB of PI 968"@en ;
+                                                                   rdfs:label "RBM"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCL
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCL> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Cryogenic Liquids"@en ;
+                                                                   rdfs:label "RCL"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCM> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Corrosive"@en ;
+                                                                   rdfs:label "RCM"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RCX> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.3C"@en ;
+                                                                   rdfs:label "RCX"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RDS
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RDS> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
@@ -9594,11 +9801,193 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "REQ"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#REX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#REX> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "To be reserved for normally forbidden Explosives, Divisions 1.1, 1.2, 1.3, 1.4F, 1.5 and 1.6"@en ;
+                                                                   rdfs:label "REX"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFG> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Flammable Gas"@en ;
+                                                                   rdfs:label "RFG"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFL
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFL> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Flammable Liquid"@en ;
+                                                                   rdfs:label "RFL"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFS> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Flammable Solid"@en ;
+                                                                   rdfs:label "RFS"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFW
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RFW> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Dangerous When Wet"@en ;
+                                                                   rdfs:label "RFW"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RGX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RGX> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.3G"@en ;
+                                                                   rdfs:label "RGX"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RIS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RIS> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Infectious Substance"@en ;
+                                                                   rdfs:label "RIS"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLI
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLI> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Fully Regulated Lithium Ion Batteries (Class 9)"@en ;
+                                                                   rdfs:label "RLI"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLM
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RLM> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Fully Regulated Lithium Metal Batteries (Class 9)"@en ;
+                                                                   rdfs:label "RLM"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RMD
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RMD> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Miscellaneous Dangerous Goods"@en ;
+                                                                   rdfs:label "RMD"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RNG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RNG> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Non-Flammable Non-Toxic Gas"@en ;
+                                                                   rdfs:label "RNG"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROP
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROP> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Organic Peroxide"@en ;
+                                                                   rdfs:label "ROP"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#ROX> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Oxidizer"@en ;
+                                                                   rdfs:label "ROX"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPB> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Toxic Substance"@en ;
+                                                                   rdfs:label "RPB"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RPG> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Toxic Gas"@en ;
+                                                                   rdfs:label "RPG"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRE
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRE> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
                                                                    rdfs:comment "Excepted Quantities of Radioactive Material"@en ;
                                                                    rdfs:label "RRE"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRW
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRW> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Radioactive Material Category I-White"@en ;
+                                                                   rdfs:label "RRW"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRY
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RRY> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Radioactive Material Categories II-Yellow and III-Yellow"@en ;
+                                                                   rdfs:label "RRY"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSB> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Polymeric Beads"@en ;
+                                                                   rdfs:label "RSB"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RSC> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Spontaneously Combustible"@en ;
+                                                                   rdfs:label "RSC"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXB
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXB> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4B"@en ;
+                                                                   rdfs:label "RXB"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXC
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXC> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4C"@en ;
+                                                                   rdfs:label "RXC"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXD
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXD> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4D"@en ;
+                                                                   rdfs:label "RXD"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXE
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXE> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4E"@en ;
+                                                                   rdfs:label "RXE"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXG
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXG> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4G"@en ;
+                                                                   rdfs:label "RXG"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXS
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#RXS> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Explosives 1.4S"@en ;
+                                                                   rdfs:label "RXS"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SCO
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SCO> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Cargo Secure for All-Cargo Aircraft Only"@en ;
+                                                                   rdfs:label "SCO"@en .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHL
@@ -9608,11 +9997,25 @@ terms:title rdf:type owl:AnnotationProperty .
                                                                    rdfs:label "SHL"@en .
 
 
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHR
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SHR> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Secure for Passenger, All-Cargo and All-Mail Aircraft in Accordance with High Risk Requirements"@en ;
+                                                                   rdfs:label "SHR"@en .
+
+
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPF
 <https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPF> rdf:type owl:NamedIndividual ,
                                                                             :SpecialHandlingCode ;
                                                                    rdfs:comment "Laboratory Animals"@en ;
                                                                    rdfs:label "SPF"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPX
+<https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SPX> rdf:type owl:NamedIndividual ,
+                                                                            :SpecialHandlingCode ;
+                                                                   rdfs:comment "Cargo Secure for Passenger and All-Cargo Aircraft"@en ;
+                                                                   rdfs:label "SPX"@en .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#SUR
