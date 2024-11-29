@@ -31,6 +31,21 @@ Detailed changelog can be read directly in the following Pull Requests on GitHub
 
 # API 2.1.0
 
+## Scope of the release
+
+API 2.1.0 primarily addresses inconsistencies encountered during the implementation of version 2.0.0. In addition, it introduces a new action request, VerificationRequest, enabling the signaling of errors and inconsistencies in logistics objects. 
+
+## Change
+
+The API 2.1.0 implements the following changes:
+
+- [Add Revision and Latest Revision in the JSON object response](https://github.com/IATA-Cargo/ONE-Record/issues/257)
+- [hasError and hasErrorDetails ontology and documentation alignment](https://github.com/IATA-Cargo/ONE-Record/issues/260)
+- [Review Logistics Event filter parameter](https://github.com/IATA-Cargo/ONE-Record/issues/256)
+- [Introduction of VerificationRequest](https://github.com/IATA-Cargo/ONE-Record/issues/218)
+
+More information can be found in the API Changelog page or directly on the change page.
+
 # Data Orchestration 1.0.0
 ## Scope of the release
 
