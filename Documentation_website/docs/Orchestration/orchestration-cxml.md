@@ -9,8 +9,9 @@ We dedicate this section to the mapping between CXML messages (as per the last v
 The transition from EDI to Data Sharing is highly dependent on the mapping between messages and ONE Record. Messaging standards (Cargo IMP and then Cargo XML) have been used extensively for the past decades by the industry. However messages in their current form have shown to be limited in terms of scalability with regards to upcoming regulations such as ACI/PLACI regimes.
 
 In the mapping between CXML messages and ONE Record, two main aspects need to be considered:
-* Mechanism: Some guidelines are usually required to understand how a message can be converted to ONE Record and vice versa. Some use cases and business rules cannot be directly translated as we need to consider a shift of mindset between EDI and Data sharing as well as a transition to Piece level tracking that ONE Record allows.
-* Data field mapping: A direct mapping between CXML fields and ONE Record data model is inevitable, it goes with the Mechanism part to properly understand what objects are impacted.
+
+- Mechanism: Some guidelines are usually required to understand how a message can be converted to ONE Record and vice versa. Some use cases and business rules cannot be directly translated as we need to consider a shift of mindset between EDI and Data sharing as well as a transition to Piece level tracking that ONE Record allows.
+- Data field mapping: A direct mapping between CXML fields and ONE Record data model is inevitable, it goes with the Mechanism part to properly understand what objects are impacted.
 
 ### Messages selected
 As CIMP standard has been sunset since 31st December 2024, we focus on CXML messages in their latest version (currently CXML Toolkit Edition 12)
@@ -20,18 +21,18 @@ The selected messages for mapping are the following:
 | --- | --- | --- | --- |
 | XFWB | XML Waybill Message | 5.00 | 1st version |
 | XFZB | XML HouseWaybill Message | 4.00 | 1st version |
-| XFHL | XML House Manifest Message | 3.00 | 1st draft |
-| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | - |
+| XFHL | XML House Manifest Message | 3.00 | 1st version |
+| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Ongoing |
-| XFFM | XML Flight Manifest Message | 4.00 | 1st draft |
-| XFBL | XML Freight Booked List Message | 3.00 | - |
-| XTMV | XML Transport Movement Message | 2.00 | ? |
+| XFFM | XML Flight Manifest Message | 4.00 | 1st version |
+| XFBL | XML Freight Booked List Message | 3.00 | 1st version |
+| XTMV | XML Transport Movement Message | 2.00 | To be assessed |
 
 ## General conversion guidelines
 
 ### Note on data types and patterns
 
-Data elements as defined in CIMP have:
+Data elements as defined in CIMP and CXML have:
 
 - **Length recommendations** usually based on business rules such as the Waybill number
 - Limited **data types** based on business rules or common sense
@@ -43,8 +44,9 @@ When first versions of ONE Record data model were created, restrictions **coming
 ### General guidelines
 
 - 01 - Business rules and local regulatory requirements prevail over data properties technical restrictions (data length, pattern) expressed in the ontology if relevant.
-- 02 - When converting from ONE Record to CXML/CIMP there is no specific general guideline on the truncation of data properties. In CXML to CIMP conversion, such rules are expressed in IATA CXML Toolkit.
-- 03 - In ONE Record we try to avoid duplicate data as much as possible, especially **totals** are usually not in ONE Record data model if all detailed data are already available. This applies for instance for the total or summary values of charges.
+- 02 - When converting from ONE Record to CXML the general rule is to truncate data to fit CXML length restrictions. In CXML to CIMP conversion, the rules is expressed in CXML toolkit.
+- 03 - In ONE Record there is no restrictions regarding the number of decimals that can be used (E.g. for Weight). When there is such a restriction with CXML (business recommendation or technical restriction) it is common practice to **round up** number to the nearer decimal allowed. From an operation perspective it also makes no sense to have data with too many decimals, e.g. a weight with more than 4 decimals.
+- 04 - In ONE Record we try to avoid duplicate data as much as possible, especially **totals** are usually not in ONE Record data model if all detailed data are already available. This applies for instance for the total or summary values of charges.
 
 ## XFWB Mapping
 ### Proposed mechanism
@@ -115,7 +117,20 @@ In the end, `Shipment` and `Waybill` accessed via the `Piece` objects.
 
 
 ## XFBL Mapping
-(To be discussed)
+### Definition from CXML toolkit
+
+To supply a complete list of consignments for which space has been reserved in a particular flight, including details of the agent/airline from which the consignments will be received and, if known, inward flight details as well.
+
+When a carrier is controlling his own flight but the physical handling of consignments is carried out by a handling party (agent/airline), the former will issue an XFBL message to the latter to provide him with a complete list of consignments for which space has been booked and any other relevant information
+
+### Proposed mechanism
+
+The XFBL data requirements are similar to XFFM however the mapping changes as XFBL refers to freight **booked** on a flight while XFFM refers to freight **loaded** on a flight.
+
+There are two possible mapping depending on the usage of ONE Record by the Airline/GHA.
+
+- 1 - The airlines uses the `Loading` Action with the `actionTimeType` = Planned, then the mapping is similar to XFFM with a difference `Loading` action.
+- 2 - The airline doesn't use the `Loading` action with the `actionTimeType` = Planned, then the mapping will follow the path: `TransportMovement` >> `Booking` >> `Waybill` >> `Shipment` >> `Piece`.
 
 ## XTMV Mapping
 The XTMV message is intended to dispatch departure and arrival notification in XML immediately after departure or arrival of a surface transportation. Delay, cancellation and diversion of an aircraft will also be dispatched using XTMV as soon as it is known. (cf. Cargo-XML Toolkit definition).
