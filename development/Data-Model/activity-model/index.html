@@ -3455,12 +3455,11 @@ It contains various information relevant to operations such as departure and arr
 <figcaption>TransportMovement</figcaption>
 </figure>
 <h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p>A <code>Storage</code> (subtype of <code>LogisticsActivity</code>) describes the activity where a <code>PhysicalLogisticsObject</code> such as a <code>Piece</code> or a <code>LoadingUnit</code> is stored in and out of a storage facility or a warehouse.
+It uses the <code>Storing</code> action to record a store-in or store-out of the <code>PhysicalLogisticsObject</code>.</p>
 <h2 id="logisticsactions">LogisticsActions<a class="headerlink" href="#logisticsactions" title="Permanent link">&para;</a></h2>
-<p>A <code>LogisticsAction</code> (a subtype of <code>LogisticsObject</code>) describes a specific task performed on one or a set of <code>PhysicalLogisticsObjects</code> in the context of a <code>LogisticsActivity</code>.
-<code>LogisticsActions</code> serve the purpose of connecting different <code>PhysicalLogisticsObjects</code> to each other and to an <code>LogisticsActivity</code>.
+<p>A <code>LogisticsAction</code> (a subtype of <code>LogisticsObject</code>) describes a specific task performed on one or a set of <code>PhysicalLogisticsObject</code>(s) in the context of a <code>LogisticsActivity</code>.
+<code>LogisticsActions</code> serve the purpose of connecting different <code>PhysicalLogisticsObject</code>(s) to each other and to an <code>LogisticsActivity</code>.
 It is set at a specific point in time. This can also be a time frame (start and end time). The time type can be either requested, planned or actual.</p>
 <p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#LogisticsAction">here</a>.</p>
 <figure>
@@ -3472,17 +3471,22 @@ It is set at a specific point in time. This can also be a time frame (start and 
 <p><code>Composing</code> action describes the operation of buildup and breakdown of a loading unit. Much common case in Air Cargo will be the buildup and breakdown of a ULD or a Pallet with some Pieces. It has then some restrictions on its properties as it needs to be linked to a <code>LoadingUnit</code> and some <code>Piece</code>(s) to be complete. a <code>LoadingMaterial</code> can be used as well to describe further what material has been used (e.g. Nets for pallets).</p>
 <p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#Composing">here</a>.</p>
 <h3 id="loading">Loading<a class="headerlink" href="#loading" title="Permanent link">&para;</a></h3>
-<p><code>Loading</code> action describes et operation of loading and unloading <code>Piece</code>(s) or <code>LoadingUnit</code>(s) on a <code>LogisticsActivty</code> that is usually a <code>TransportMovement</code>.
+<p><code>Loading</code> action describes the operation of loading and unloading <code>Piece</code>(s) or <code>LoadingUnit</code>(s) on a <code>LogisticsActivty</code> that is usually a <code>TransportMovement</code>.
 It can be used for Load Planning when the <code>actionTimeType</code> is <em>planned</em> or <em>requested</em>.</p>
 <p>The properties are described <a href="https://onerecord.iata.org/ns/cargo#Loading">here</a>.</p>
 <h3 id="storing">Storing<a class="headerlink" href="#storing" title="Permanent link">&para;</a></h3>
-<ul>
-<li>TBD</li>
-</ul>
+<p><code>Storing</code> action describes the operation of storing in and out <code>PhysicalLogisticsObject</code>(s) from a storage place that can be described as a <code>Location</code> with more details using the <em>Storing#storagePlaceIdentifier</em> data property.</p>
 <h3 id="check">Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h3>
+<p>Checks have a very broad definition here. It can include:</p>
 <ul>
-<li>TBD</li>
+<li>Checks of single physical objects, like the manual check of a ULD temperature as displayed on the outside or a countour check for a pallet.</li>
+<li>Checks of non-physical objects, like manual or automatic data content checks on AWB-relevant data.</li>
+<li>Acceptance checks including a mixed setting of physical and non-physical objects, like the Ready-for-carriage export acceptance check.</li>
+<li>Specialized commodity checks like the DG acceptance check.</li>
+<li>Any other check related with physical or data objects.</li>
+<li>Checks can be performed manually and automatically.</li>
 </ul>
+<p>More details on the Check can be found on the Good Practive developed by Lufthansa <a href="https://github.com/DrPhilippBillion/Checks-in-ONE-Record/blob/main/Checks%20in%20ONE%20Record.md">here</a>.</p>
 <h2 id="physicallogisticsobjects">PhysicalLogisticsObjects<a class="headerlink" href="#physicallogisticsobjects" title="Permanent link">&para;</a></h2>
 <p>A <code>PhysicalLogisticsObject</code> (a subtype of <code>LogisticsObject</code>) is the digital twin of a physically distinguishable object in the air cargo supply chain.
 It interacts with other <code>PhysicalLogisticsObjects</code> and <code>LogisticsActivities</code> through <code>LogisticsActions</code>.
