@@ -76,12 +76,13 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Transpor
 
 ## Storage
 
-- TBD
+A `Storage` (subtype of `LogisticsActivity`) describes the activity where a `PhysicalLogisticsObject` such as a `Piece` or a `LoadingUnit` is stored in and out of a storage facility or a warehouse.
+It uses the `Storing` action to record a store-in or store-out of the `PhysicalLogisticsObject`.
 
 # LogisticsActions
 
-A `LogisticsAction` (a subtype of `LogisticsObject`) describes a specific task performed on one or a set of `PhysicalLogisticsObjects` in the context of a `LogisticsActivity`.
-`LogisticsActions` serve the purpose of connecting different `PhysicalLogisticsObjects` to each other and to an `LogisticsActivity`.
+A `LogisticsAction` (a subtype of `LogisticsObject`) describes a specific task performed on one or a set of `PhysicalLogisticsObject`(s) in the context of a `LogisticsActivity`.
+`LogisticsActions` serve the purpose of connecting different `PhysicalLogisticsObject`(s) to each other and to an `LogisticsActivity`.
 It is set at a specific point in time. This can also be a time frame (start and end time). The time type can be either requested, planned or actual.
 
 The properties are described [here](https://onerecord.iata.org/ns/cargo#LogisticsAction).
@@ -99,18 +100,27 @@ The properties are described [here](https://onerecord.iata.org/ns/cargo#Composin
 
 ## Loading
 
-`Loading` action describes et operation of loading and unloading `Piece`(s) or `LoadingUnit`(s) on a `LogisticsActivty` that is usually a `TransportMovement`.
+`Loading` action describes the operation of loading and unloading `Piece`(s) or `LoadingUnit`(s) on a `LogisticsActivty` that is usually a `TransportMovement`.
 It can be used for Load Planning when the `actionTimeType` is _planned_ or _requested_.
 
 The properties are described [here](https://onerecord.iata.org/ns/cargo#Loading).
 
 ## Storing
 
-- TBD
+`Storing` action describes the operation of storing in and out `PhysicalLogisticsObject`(s) from a storage place that can be described as a `Location` with more details using the _Storing#storagePlaceIdentifier_ data property.
 
 ## Check
 
-- TBD
+Checks have a very broad definition here. It can include:
+
+- Checks of single physical objects, like the manual check of a ULD temperature as displayed on the outside or a countour check for a pallet.
+- Checks of non-physical objects, like manual or automatic data content checks on AWB-relevant data.
+- Acceptance checks including a mixed setting of physical and non-physical objects, like the Ready-for-carriage export acceptance check.
+- Specialized commodity checks like the DG acceptance check.
+- Any other check related with physical or data objects.
+- Checks can be performed manually and automatically.
+
+More details on the Check can be found on the Good Practive developed by Lufthansa [here](https://github.com/DrPhilippBillion/Checks-in-ONE-Record/blob/main/Checks%20in%20ONE%20Record.md).
 
 # PhysicalLogisticsObjects
 
