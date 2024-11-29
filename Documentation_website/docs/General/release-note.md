@@ -26,7 +26,7 @@ Main changes include:
 
 ## Changelog
 
-Detailed changelog is directly visible in the following Pull Requests on GitHub:
+Detailed changelog can be read directly in the following Pull Requests on GitHub or in the detailed page:
 
 - https://github.com/IATA-Cargo/ONE-Record/pull/242
 - https://github.com/IATA-Cargo/ONE-Record/pull/243
@@ -34,6 +34,7 @@ Detailed changelog is directly visible in the following Pull Requests on GitHub:
 - https://github.com/IATA-Cargo/ONE-Record/pull/261
 - https://github.com/IATA-Cargo/ONE-Record/pull/273
 - https://github.com/IATA-Cargo/ONE-Record/pull/278
+- https://github.com/IATA-Cargo/ONE-Record/pull/279
 
 # API 2.1.0
 
@@ -44,4 +45,4 @@ The Data Orchestration is a work that was intitiated in September 2023. Industry
 
 With 1.0.0 version the focus has been on:
 - Identifying ONE Record actions linked to the Master Operating Plan (MOP) as it is being re-designed by Cargo iQ. This includes review of all processes and associated milestones used by the industry.
-- Proposing a mapping between ONE Record and main CXML messages (XFWB, XFZB, ...)
+- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0, XFHL 3.0.0 and XFBL 2.1.0)
