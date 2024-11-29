@@ -44,7 +44,7 @@ The API 2.1.0 implements the following changes:
 - [Review Logistics Event filter parameter](https://github.com/IATA-Cargo/ONE-Record/issues/256)
 - [Introduction of VerificationRequest](https://github.com/IATA-Cargo/ONE-Record/issues/218)
 
-More information can be found in the API Changelog page or directly on the change page.
+More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
 
 # Data Orchestration 1.0.0
 ## Scope of the release
