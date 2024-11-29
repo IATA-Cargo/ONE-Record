@@ -3,9 +3,7 @@
 For this release, all changes have been tracked using GitHub project view: [https://github.com/users/IATA-Cargo/projects/2](https://github.com/users/IATA-Cargo/projects/2). All issues are linked to a pull request to properly follow all changes.
 
 ## Detailed changelog
-Below is the detailed changelog per pull request.
-
-https://github.com/IATA-Cargo/ONE-Record/pull/242
+Below is the detailed changelog:
 
 - Added custom annotations for WIP visualisation: Inverse and Element ([https://github.com/IATA-Cargo/ONE-Record/issues/236](https://github.com/IATA-Cargo/ONE-Record/issues/236)) 
 - Added TemperatureInstructions to Piece ([ #Add temperatureInstructons at Piece level #227](https://github.com/IATA-Cargo/ONE-Record/issues/227))
@@ -14,21 +12,9 @@ https://github.com/IATA-Cargo/ONE-Record/pull/242
 - Changed partyDetails to LogisticsAgent ([Change partyDetails type #222](https://github.com/IATA-Cargo/ONE-Record/issues/222))
 - Fixed regex pattern of waybillNumber ([waybillNumber xsd:pattern "[-9]+" incorrect, could be "[-0-9]+" #213](https://github.com/IATA-Cargo/ONE-Record/issues/213))
 - Removed line breaks in rdfs:comment annotations
-
-https://github.com/IATA-Cargo/ONE-Record/pull/243
-
-Reassignment of Agents, LoadingUnit for visualization
-
-https://github.com/IATA-Cargo/ONE-Record/pull/258
-
-Updated Code List Element documentation
-
-https://github.com/IATA-Cargo/ONE-Record/pull/261
-
-Fixes to Code List md and examples
-
-https://github.com/IATA-Cargo/ONE-Record/pull/273
-
+- Reassignment of Agents, LoadingUnit for visualization
+- Updated Code List Element documentation
+- Fixes to Code List md and examples
 - Added temperatureInstructions to Piece ([ #Add temperatureInstructons at Piece level #227](https://github.com/IATA-Cargo/ONE-Record/issues/227))
 - Added new property textualPostalCode to Address ([Change Address#postalCode type #221](https://github.com/IATA-Cargo/ONE-Record/issues/221))
 - Added new property operatingParties to TransportMovement (https://github.com/IATA-Cargo/ONE-Record/issues/229)
@@ -44,8 +30,11 @@ https://github.com/IATA-Cargo/ONE-Record/pull/273
 - Removed specialHandlingCodes from Shipment [(Remove Shipment#specialHandlingcodes #228)](https://github.com/IATA-Cargo/ONE-Record/issues/228)
 - Changed value of partyDetails from Organization to LogisticsAgent [(Change partyDetails type #222)](https://github.com/IATA-Cargo/ONE-Record/issues/222)
 - Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration [(Set securityDeclaration#regulatedEntityAcceptor as an array #244)](https://github.com/IATA-Cargo/ONE-Record/issues/244)
-
-https://github.com/IATA-Cargo/ONE-Record/pull/278
+- Added new code-lists ontology [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
+- Deprecated coreCodeLists ontology [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
+- Added new code list DensityGroupCodes [(CXML Mapping XFWB - Add Code List 2 to ontology #248)](https://github.com/IATA-Cargo/ONE-Record/issues/248)
+- Added property densityGroupCode to BookingShipment [(Add Density Group Code data property #230)](https://github.com/IATA-Cargo/ONE-Record/issues/230)
+- Mirrored DGR and Security Status Codes to the Special Handling Codes namespace for simplification as part of code list review [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
 
 Rework to WaybillLineItem (#265) as agreed on in DMWG 17/10 and CXML 12/11.
 
@@ -66,11 +55,3 @@ Rework to WaybillLineItem (#265) as agreed on in DMWG 17/10 and CXML 12/11.
 - Removed uldSerialNumber from WaybillLineItem (#265)
 - Removed uldType from WaybillLineItem (#265)
 - Lifted cardinality restriction on ofShipment in Piece [(DM: Piece can be part of multiple shipments, change from n:1 to n:n #275)](https://github.com/IATA-Cargo/ONE-Record/issues/275)
-
-https://github.com/IATA-Cargo/ONE-Record/pull/279
-
-- Added new code-lists ontology [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
-- Deprecated coreCodeLists ontology [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
-- Added new code list DensityGroupCodes [(CXML Mapping XFWB - Add Code List 2 to ontology #248)](https://github.com/IATA-Cargo/ONE-Record/issues/248)
-- Added property densityGroupCode to BookingShipment [(Add Density Group Code data property #230)](https://github.com/IATA-Cargo/ONE-Record/issues/230)
-- Mirrored DGR and Security Status Codes to the Special Handling Codes namespace for simplification as part of code list review [(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)](https://github.com/IATA-Cargo/ONE-Record/issues/268)
