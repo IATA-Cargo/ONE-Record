@@ -26,15 +26,7 @@ Main changes include:
 
 ## Changelog
 
-Detailed changelog can be read directly in the following Pull Requests on GitHub or in the detailed page:
-
-- [Pull request #242](https://github.com/IATA-Cargo/ONE-Record/pull/242)
-- [Pull request #243](https://github.com/IATA-Cargo/ONE-Record/pull/243)
-- [Pull request #258](https://github.com/IATA-Cargo/ONE-Record/pull/258)
-- [Pull request #261](https://github.com/IATA-Cargo/ONE-Record/pull/261)
-- [Pull request #273](https://github.com/IATA-Cargo/ONE-Record/pull/273)
-- [Pull request #278](https://github.com/IATA-Cargo/ONE-Record/pull/278)
-- [Pull request #279](https://github.com/IATA-Cargo/ONE-Record/pull/279)
+Detailed changelog can be read directly in the following Pull Requests on GitHub or in the detailed page after.
 
 # API 2.1.0
 
