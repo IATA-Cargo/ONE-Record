@@ -22,7 +22,8 @@ Main changes include:
 - Addition of data properties on `Waybill` to ease mappping with CXML messages
 - Re-design of `WaybillLineItem` object and link to `Piece` and `ULD` objects to use actual data (dimensions, volume, ...) instead of duplicating data
 - Addition of operatingParties property on `TransportMovement` to indicate the operating organization or driver/pilot
-- Adjustment of ONE Record Visualizer 
+- Adjustment of ONE Record Visualizer
+- Refactor of the Code List ontology: alignment with API ontology and best practices, addition of Code List 2 density group codes
 
 ## Changelog
 
