@@ -304,11 +304,18 @@ The following HTTP query parameters MUST be supported:
 
 | Query parameter               | Description                                                                           | Valid values                       |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------- |
-| **eventType** (optional)      | Optional parameter that can be used to filter the logistics events by event type, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
-| **created_after** (optional)  | Optional parameter that can be used to filter the logistics events           | <ul><li>20190926T075830Z</li></ul> |
-| **created_before** (optional) | Optional parameter that can be used to filter the the logistics events           | <ul><li>20190926T075830Z</li></ul> |
-| **occurred_after** (optional) | Optional parameter that can be used to filter the the logistics events           | <ul><li>20190926T075830Z</li></ul> |
-| **occurred_before** (optional)| Optional parameter that can be used to filter the the logistics events           | <ul><li>20190926T075830Z</li></ul> |
+| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
+| **created-after** (optional)  | Filters the logistics events to only include those created after the specified timestamp                              | <ul><li>20190926T075830Z</li></ul> |
+| **created-before** (optional) | Filters the logistics events to only include those created before the specified timestamp                             | <ul><li>20190926T075830Z</li></ul> |
+| **occurred-after** (optional) | Filters the logistics events to only include those that occurred after the specified timestamp                        | <ul><li>20190926T075830Z</li></ul> |
+| **occurred-before** (optional)| Filters the logistics events to only include those that occurred before the specified timestamp                       | <ul><li>20190926T075830Z</li></ul> |
+| **sort** (optional)           | Specifies the sorting order of the logistics events. This parameter expects a timestamp indicating the starting point| <ul><li>ASC-creationDate</li><li>DESC-creationDate</li><li>ASC-eventDate</li><li>DESC-eventDate</li></ul> |
+| **limit** (optional)          | Limits the number of logistics events returned. The value is an integer specifying the maximum number of results       | <ul><li>2</li></ul> |
+| **skip** (optional)          | Skips a specified number of logistics events before beginning to return results. This is useful for pagination         | <ul><li>5</li></ul> |
+
+!!! note
+
+The `event-code` query parameter of the API corresponds to the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) defined in the logistic event class within the [cargo ontology](https://onerecord.iata.org/ns/cargo#). To implement filtering correctly, the implementor MUST retrieve all logistics events where the `@id` of the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) contains the text specified in the `event-code` query parameter. The `@id` of a code list element is specifically structured to include the code list name and the code itself. For more details on handling code list elements, refer to the [Code Lists page](../Data-Model/code-lists.md).
 
 ## Response
 
@@ -403,12 +410,12 @@ _([LogisticsEvents_list.json](./examples/LogisticsEvents_list.json))_
 
 ## Example C2
 
-Get a filtered list of events. Filtered by eventType that needs to be DEP.
+Get a filtered list of events. Filtered by event-code that needs to be DEP.
 
 Request:
 
 ```http
-GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events?eventType=DEP HTTP/1.1
+GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events?event-code=DEP HTTP/1.1
 Host: 1r.example.com
 Accept: application/ld+json; version=2.0.0-dev
 ```
