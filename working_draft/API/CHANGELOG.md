@@ -39,6 +39,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - hasActionRequest object property
 - hasVerificationRequest object property
 - ChangeRequest has an additional opetion property hasVerificationRequest
+- Verification class
+- VerificationRequest class
+- hasVerification object property
 
 # 2.0.0
 
