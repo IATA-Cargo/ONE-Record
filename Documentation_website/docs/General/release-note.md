@@ -51,4 +51,4 @@ The Data Orchestration is a work that was intitiated in September 2023. Industry
 
 With 1.0.0 version the focus has been on:
 - Identifying ONE Record actions linked to the Master Operating Plan (MOP) as it is being re-designed by Cargo iQ. This includes review of all processes and associated milestones used by the industry.
-- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0, XFHL 3.0.0 and XFBL 2.1.0)
+- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0 and XFHL 3.0.0)
