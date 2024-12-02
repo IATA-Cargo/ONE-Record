@@ -2989,7 +2989,7 @@
   <h1>ONE Record API Class Diagram</h1>
 
 <h2 id="one-record-api-class-diagram">ONE Record API Class Diagram<a class="headerlink" href="#one-record-api-class-diagram" title="Permanent link">&para;</a></h2>
-<p><strong>Version:</strong> 2.0.0 <strong>Status:</strong> Endorsed by COTB on December 2023</p>
+<p><strong>Version:</strong> 2.1.0 <strong>Status:</strong> Submitted to COTB</p>
 <pre class="mermaid"><code>classDiagram   
     direction LR   
 
@@ -3023,6 +3023,8 @@
     ActionRequest &lt;|-- AccessDelegationRequest
     ActionRequest &lt;|-- ChangeRequest
     ActionRequest &lt;|-- SubscriptionRequest
+    ActionRequest &lt;|-- VerificationRequest
+
 
     ActionRequest "1" --&gt; "0..*" Error     
     ActionRequest "1" --&gt; "1..*" Organization : requestedBy    
@@ -3046,7 +3048,7 @@
     SubscriptionRequest "1" --&gt; "1" Subscription
 
     class AuditTrail{                
-        + hasChangeRequest[]: ChangeRequest [*]                
+        + hasActionRequest[]: ActionRequest [*]                
         + hasLatestRevision: xsd:positiveInteger       
     }
     AuditTrail "1" --&gt; "*" ChangeRequest
@@ -3057,6 +3059,7 @@
         + hasLogisticsObject: LogisticsObject
         + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
+        + hasVerificationRequest[]: VerificationRequest [0..*] 
     }
     Change "1" --&gt; "1" LogisticsObject
     Change "1" --&gt; "1..*" Operation
@@ -3188,7 +3191,21 @@
         LOGISTICS_OBJECT_UPDATED
 
         LOGISTICS_EVENT_RECEIVED
-    }</code></pre>
+    }
+
+    class VerificationRequest{
+        + hasVerification: Verification
+    }   
+    VerificationRequest"1" --&gt; "1" Verification
+
+    class Verification{      
+        + hasLogisticsObject: LogisticsObject
+        + hasError[]: Error[1..*]        
+        + hasRevision: xsd:positiveInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
+    }
+    Verification "1" --&gt; "1" LogisticsObject
+    Verification "1" --&gt; "1..*" Error</code></pre>
 
 
 

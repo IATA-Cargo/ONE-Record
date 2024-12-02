@@ -1287,6 +1287,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#signal-an-issue-in-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal an issue in a Logistics Object
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3753,6 +3762,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#signal-an-issue-in-a-logistics-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Signal an issue in a Logistics Object
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5094,14 +5112,15 @@ Before a ChangeRequest is processed by the holder of a Logistics Object, the sta
 <p>The ChangeRequest data class object details about the success or failure of this request, e.g. timestamps, any errors that occurred, in addition to the operations to be applied to a LogisticsObject.</p>
 <p>The AuditTrail is a data class of the <a href="../assets/ONE-Record-API-Ontology.ttl">ONE Record API ontology</a>.
 The properties and relationships to other data classes are visualized in the following class diagram.</p>
+<p>The AuditTrail contains not only ChangeRequest but even VerificationRequest which are used to signal issues or errors in logististics objects. More information about VerificationRequest are present in the <a href="../verifications/">Verification page</a></p>
 <pre class="mermaid"><code>classDiagram
     direction RL
 
     class AuditTrail{                
-        + hasChangeRequest[]: ChangeRequest [*]                
+        + hasActionRquest[]: ActionRequest [*]                
         + hasLatestRevision: xsd:positiveInteger       
     }
-    AuditTrail "1" --&gt; "*" ChangeRequest</code></pre>
+    AuditTrail "1" --&gt; "*" ActionRequest</code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>Users of the Logistics Object</code> can retrieve the AuditTrail of the LogisticsObject. 
@@ -5289,7 +5308,7 @@ The response body follows the API <a href="https://onerecord.iata.org/ns/api#Aud
 </span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="w">  </span><span class="o">}</span>,
 </span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="w">  </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:AuditTrail&quot;</span>,
 </span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="w">  </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail&quot;</span>,
-</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="w">  </span><span class="s2">&quot;api:hasChangeRequest&quot;</span>:<span class="w"> </span><span class="o">[</span>
+</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="w">  </span><span class="s2">&quot;api:hasActionRequest&quot;</span>:<span class="w"> </span><span class="o">[</span>
 </span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a><span class="w">    </span><span class="o">{</span>
 </span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="w">      </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:ChangeRequest&quot;</span>,
 </span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b&quot;</span>,
@@ -5334,7 +5353,7 @@ The response body follows the API <a href="https://onerecord.iata.org/ns/api#Aud
 </span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="w">  </span><span class="o">}</span>,
 </span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="w">  </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:AuditTrail&quot;</span>,
 </span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="w">  </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/audit-trail&quot;</span>,
-</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="w">  </span><span class="s2">&quot;api:hasChangeRequest&quot;</span>:<span class="w"> </span><span class="o">[</span>
+</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="w">  </span><span class="s2">&quot;api:hasActionRequest&quot;</span>:<span class="w"> </span><span class="o">[</span>
 </span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="w">    </span><span class="o">{</span>
 </span><span id="__span-39-14"><a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="w">      </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:ChangeRequest&quot;</span>,
 </span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b&quot;</span>,
@@ -5438,6 +5457,8 @@ If this parameter is in the future, <code>400 Bad Request</code> is returned.</p
 </span><span id="__span-41-39"><a id="__codelineno-41-39" name="__codelineno-41-39" href="#__codelineno-41-39"></a><span class="o">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples/Piece_with_id.rev3.json">Piece_with_id.json</a>)</em></p>
+<h2 id="signal-an-issue-in-a-logistics-object">Signal an issue in a Logistics Object<a class="headerlink" href="#signal-an-issue-in-a-logistics-object" title="Permanent link">&para;</a></h2>
+<p>To signal an issue in a Logistics Object, third parties can use a specific action request called VerificationRequest. More information on how to use these specific action request can be found in the <a href="../verifications/">Verification page</a></p>
 
 
 
