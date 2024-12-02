@@ -196,6 +196,9 @@ The following HTTP headers parameters MUST be present in the response:
 | **Latest-Revision**  | The latest revision number of the Logistics Object as non-negative numerical value.                      | 3         |
 | **Last-Modified**    | Date and time when the Logistics Object was last time changed. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
 
+!!! note:
+The JSON payload of the logistics object MUST include the **Revision** and **Latest-Revision** properties, represented by [`hasRevision`](https://onerecord.iata.org/ns/api#hasRevision) and [`hasLatestRevision`](https://onerecord.iata.org/ns/api#hasLatestRevision). When the query parameter `embedded` is set to `true`, each nested returned logistics object MUST contain the **Revision** and **Latest-Revision**. For an example, refer to the ["Get a Logistics Object"](#get-a-logistics-object) section.
+
 The following HTTP status codes MUST be supported:
 
 | Code    | Description              | Response body    |
