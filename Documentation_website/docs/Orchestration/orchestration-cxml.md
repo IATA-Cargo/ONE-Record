@@ -76,12 +76,17 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 In its essence, XFZB is very similar to XFWB. The major distinction is the usage of `Waybill#waybillType = House`.
 
 ## XFHL Mapping
-To be done
+XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.
+
+## Proposed mechanism
+The starting point is a Master `Waybill` and we are interested in all the House `Waybill`(s) linked to the Master via the `Waybill#houseWaybills` object property. 
+
+![image](https://github.com/user-attachments/assets/b05edd3e-13d1-48bb-9c6b-dab457b47106)
 
 ## XSDG Mapping
 XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".
 
-Fro the time being, there seems to be no need to map XSDG considering its implementation within the industry.
+For the time being, there seems to be no need to map XSDG considering its implementation within the industry.
 
 ## XFSU Mapping
 ### Proposed mechanism
@@ -114,7 +119,6 @@ The `starting point` of the manifest is the flight, or the `TransportMovement` i
 In the end, `Shipment` and `Waybill` accessed via the `Piece` objects.
 
 ![image](https://github.com/user-attachments/assets/a493192c-163e-4b90-a9c6-adc370911de4)
-
 
 ## XFBL Mapping
 ### Definition from CXML toolkit
