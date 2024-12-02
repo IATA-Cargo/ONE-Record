@@ -2336,6 +2336,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#proposed-mechanism_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#xsdg-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       XSDG Mapping
@@ -2355,7 +2364,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_1" class="md-nav__link">
+  <a href="#proposed-mechanism_2" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -2379,7 +2388,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_2" class="md-nav__link">
+  <a href="#proposed-mechanism_3" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -2412,7 +2421,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_3" class="md-nav__link">
+  <a href="#proposed-mechanism_4" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -2436,7 +2445,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_4" class="md-nav__link">
+  <a href="#proposed-mechanism_5" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -3404,6 +3413,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#proposed-mechanism_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposed mechanism
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#xsdg-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       XSDG Mapping
@@ -3423,7 +3441,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_1" class="md-nav__link">
+  <a href="#proposed-mechanism_2" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -3447,7 +3465,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_2" class="md-nav__link">
+  <a href="#proposed-mechanism_3" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -3480,7 +3498,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_3" class="md-nav__link">
+  <a href="#proposed-mechanism_4" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -3504,7 +3522,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#proposed-mechanism_4" class="md-nav__link">
+  <a href="#proposed-mechanism_5" class="md-nav__link">
     <span class="md-ellipsis">
       Proposed mechanism
     </span>
@@ -3671,12 +3689,15 @@ The selected messages for mapping are the following:</p>
 <h3 id="xfzb-mapping">XFZB Mapping<a class="headerlink" href="#xfzb-mapping" title="Permanent link">&para;</a></h3>
 <p>In its essence, XFZB is very similar to XFWB. The major distinction is the usage of <code>Waybill#waybillType = House</code>.</p>
 <h3 id="xfhl-mapping">XFHL Mapping<a class="headerlink" href="#xfhl-mapping" title="Permanent link">&para;</a></h3>
-<p>To be done</p>
+<p>XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.</p>
+<h3 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h3>
+<p>The starting point is a Master <code>Waybill</code> and we are interested in all the House <code>Waybill</code>(s) linked to the Master via the <code>Waybill#houseWaybills</code> object property. </p>
+<p><img alt="image" src="https://github.com/user-attachments/assets/b05edd3e-13d1-48bb-9c6b-dab457b47106" /></p>
 <h3 id="xsdg-mapping">XSDG Mapping<a class="headerlink" href="#xsdg-mapping" title="Permanent link">&para;</a></h3>
 <p>XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".</p>
-<p>Fro the time being, there seems to be no need to map XSDG considering its implementation within the industry.</p>
+<p>For the time being, there seems to be no need to map XSDG considering its implementation within the industry.</p>
 <h3 id="xfsu-mapping">XFSU Mapping<a class="headerlink" href="#xfsu-mapping" title="Permanent link">&para;</a></h3>
-<h4 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h4>
+<h4 id="proposed-mechanism_2">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_2" title="Permanent link">&para;</a></h4>
 <p>XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
 In most cases, the Status updates is based on the usage of <code>LogisticsEvents</code> on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.</p>
 <p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
@@ -3689,7 +3710,7 @@ To cope with that there are multiple possibilities to map XFSU with ONE Record, 
 <p>The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.</p>
 <p>ONE Record by essence contains all the required data, Flight details, Piece and ULD details and so on.</p>
 <p>Multi-destination usecases will require the aggregation of data starting form multiple <code>TransportMovement</code> objects if required for the generation of an XFFM equivalent.</p>
-<h4 id="proposed-mechanism_2">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_2" title="Permanent link">&para;</a></h4>
+<h4 id="proposed-mechanism_3">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_3" title="Permanent link">&para;</a></h4>
 <p>The <code>starting point</code> of the manifest is the flight, or the <code>TransportMovement</code> in ONE Record. The Manifest requires information from <code>Piece</code>, <code>ULD</code>, <code>Shipment</code> and <code>Waybill</code> objects mainly.</p>
 <p><code>Piece</code> details are central and from the <code>TransportMovement</code> there are two possiblities:</p>
 <ul>
@@ -3702,7 +3723,7 @@ To cope with that there are multiple possibilities to map XFSU with ONE Record, 
 <h4 id="definition-from-cxml-toolkit">Definition from CXML toolkit<a class="headerlink" href="#definition-from-cxml-toolkit" title="Permanent link">&para;</a></h4>
 <p>To supply a complete list of consignments for which space has been reserved in a particular flight, including details of the agent/airline from which the consignments will be received and, if known, inward flight details as well.</p>
 <p>When a carrier is controlling his own flight but the physical handling of consignments is carried out by a handling party (agent/airline), the former will issue an XFBL message to the latter to provide him with a complete list of consignments for which space has been booked and any other relevant information</p>
-<h4 id="proposed-mechanism_3">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_3" title="Permanent link">&para;</a></h4>
+<h4 id="proposed-mechanism_4">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_4" title="Permanent link">&para;</a></h4>
 <p>The XFBL data requirements are similar to XFFM however the mapping changes as XFBL refers to freight <strong>booked</strong> on a flight while XFFM refers to freight <strong>loaded</strong> on a flight.</p>
 <p>There are two possible mapping depending on the usage of ONE Record by the Airline/GHA.</p>
 <ul>
@@ -3712,7 +3733,7 @@ To cope with that there are multiple possibilities to map XFSU with ONE Record, 
 <h3 id="xtmv-mapping">XTMV Mapping<a class="headerlink" href="#xtmv-mapping" title="Permanent link">&para;</a></h3>
 <p>The XTMV message is intended to dispatch departure and arrival notification in XML immediately after departure or arrival of a surface transportation. Delay, cancellation and diversion of an aircraft will also be dispatched using XTMV as soon as it is known. (cf. Cargo-XML Toolkit definition).</p>
 <p>The need to do a full mapping of XTMV message with ONE Record needs to be properly assessed based on the necessity and the actual usage of the message currently.</p>
-<h4 id="proposed-mechanism_4">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_4" title="Permanent link">&para;</a></h4>
+<h4 id="proposed-mechanism_5">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_5" title="Permanent link">&para;</a></h4>
 <p>XTMV is structured in two main parts:</p>
 <ul>
 <li>Transport Movement Header contains information about Origin and Destination, Type of Transport, Transport Means and Operator details. These details are available with usage of <code>TransportMovement</code>, <code>TransportMeans</code> and <code>TransportMovement#operatingParties</code> objects.</li>
