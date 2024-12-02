@@ -1,6 +1,6 @@
 # ONE Record API Class Diagram
 
-**Version:** 2.0.0 **Status:** Endorsed by COTB on December 2023
+**Version:** 2.1.0 **Status:** Submitted to COTB
 
 ```mermaid
 classDiagram   
@@ -36,6 +36,8 @@ classDiagram
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
     ActionRequest <|-- SubscriptionRequest
+    ActionRequest <|-- VerificationRequest
+
 
     ActionRequest "1" --> "0..*" Error     
     ActionRequest "1" --> "1..*" Organization : requestedBy    
@@ -59,7 +61,7 @@ classDiagram
     SubscriptionRequest "1" --> "1" Subscription
        
     class AuditTrail{                
-        + hasChangeRequest[]: ChangeRequest [*]                
+        + hasActionRequest[]: ActionRequest [*]                
         + hasLatestRevision: xsd:positiveInteger       
     }
     AuditTrail "1" --> "*" ChangeRequest
@@ -70,6 +72,7 @@ classDiagram
         + hasLogisticsObject: LogisticsObject
         + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
+        + hasVerificationRequest[]: VerificationRequest [0..*] 
     }
     Change "1" --> "1" LogisticsObject
     Change "1" --> "1..*" Operation
@@ -202,4 +205,18 @@ classDiagram
 
         LOGISTICS_EVENT_RECEIVED
     }
+
+    class VerificationRequest{
+        + hasVerification: Verification
+    }   
+    VerificationRequest"1" --> "1" Verification
+
+    class Verification{      
+        + hasLogisticsObject: LogisticsObject
+        + hasError[]: Error[1..*]        
+        + hasRevision: xsd:positiveInteger        
+        + notifyRequestStatusChange: xsd:boolean = FALSE
+    }
+    Verification "1" --> "1" LogisticsObject
+    Verification "1" --> "1..*" Error
 ```

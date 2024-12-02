@@ -767,15 +767,17 @@ The ChangeRequest data class object details about the success or failure of this
 The AuditTrail is a data class of the [ONE Record API ontology](assets/ONE-Record-API-Ontology.ttl).
 The properties and relationships to other data classes are visualized in the following class diagram.
 
+The AuditTrail contains not only ChangeRequest but even VerificationRequest which are used to signal issues or errors in logististics objects. More information about VerificationRequest are present in the [Verification page](./verifications.md)
+
 ```mermaid
 classDiagram
     direction RL
 
     class AuditTrail{                
-        + hasChangeRequest[]: ChangeRequest [*]                
+        + hasActionRquest[]: ActionRequest [*]                
         + hasLatestRevision: xsd:positiveInteger       
     }
-    AuditTrail "1" --> "*" ChangeRequest
+    AuditTrail "1" --> "*" ActionRequest
 ```
 
 !!! note
@@ -949,3 +951,8 @@ Latest-Revision: 4
 ```
 
 _([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_
+
+
+# Signal an issue in a Logistics Object
+
+To signal an issue in a Logistics Object, third parties can use a specific action request called VerificationRequest. More information on how to use these specific action request can be found in the [Verification page](./verifications.md)

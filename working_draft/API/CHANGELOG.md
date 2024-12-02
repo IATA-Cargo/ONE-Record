@@ -3,16 +3,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# 2.1.0-dev
+# 2.2.0-dev
 
 ## Ideas
-- Sorting/Pagination Logistics Events list
 - Add filters/triggers to Subscription information for server-side Notifications filtering
+- Define API for stream data from sensor
+
+# 2.1.0
+
+
 
 ## ONE Record API Specification
 
 ### Changed
+
 - Align documentation and ontology using always hasErrorDetail/ErrorDetail.
+- Align LogisticsEvent filtering option to Kebab case
+- Rename eventType into event-code for LogisticsEvent filtering option
+
+### Added
+
+- Sort, limit and skip parameters in Get logistics events of a logistics object 
+- hasRevision and hasLastRevision for each logistics object body
+- Verification request to signal error or anomalies in a logistics object
+
+## ONE Record API Ontology
+
+### Changed
+
+- in the AuditTrail, the AuditTrail#hasChangeRequest changes to AuditTrail#hasActionRequest
+
+
+### Added 
+
+- hasActionRequest object property
+- hasVerificationRequest object property
+- ChangeRequest has an additional opetion property hasVerificationRequest
 
 # 2.0.0
 

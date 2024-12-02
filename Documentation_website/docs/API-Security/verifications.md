@@ -37,15 +37,15 @@ sequenceDiagram
 - Each issue or anomaly on a specific logistics object will be incapsulated into a [Error](https://onerecord.iata.org/ns/api#Error) object which contains two attributes: *HasTitle* and *HasErrorDetail*. 
 - Should users need to convey a specific message, indicate a particular property, or transmit an error code, they can utilize the [ErrorDetail](https://onerecord.iata.org/ns/api#ErrorDetail) object for this purpose.
 
-## Request Verification
+# Request a Verification
 
-### Endpoint
+## Endpoint
 
 ``` 
 POST {{baseURL}}/logistics-objects/{{logisticsObjectId}}
 ``` 
 
-### Request
+## Request
 
 The following HTTP header parameters MUST be present in the POST request:
 
@@ -91,7 +91,7 @@ The properties and relationships to other data classes are visualized in the fol
     Verification "1" --> "1..*" Error
 ```
 
-### Response
+## Response
 
 A successful request MUST return a ``HTTP/1.1 201 Created` status code and the following HTTP headers parameters MUST be present in the response:
 
@@ -120,11 +120,11 @@ The following HTTP status codes MUST be supported:
 | **422** | Unprocessable request, when the server understands the POST document and the syntax of the POST document appears to be valid, but the server is incapable of processing the request. | Error            |
 
 
-### Security
+## Security
 
 To engage with the "Verification" endpoint, a client needs proper authentication. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
 
-### Example A1
+## Example A1
 
 A carrier identifies an issue on a Piece with the URI https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
 
@@ -150,24 +150,15 @@ Type: https://onerecord.iata.org/ns/api#VerificationRequest
 
 see also [Example A2 in Action Requests](./action-requests.md#example-a2) for an example of a Verification Request.
 
-## Open Issues & Discussions
 
-### Audit Trail update
+# VerificationRequest in Audit Trail 
 
-!!! note
-    (under discussion). see [Introduction of VerificationRequest #218](https://github.com/IATA-Cargo/ONE-Record/issues/218)
-
-For full transparency, all [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) objects MUST be linked in the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail). For this reason the *hasChangeRequest* in the audit trail should be renamed into *hasActionRequest* and it should contains both **Verification Requests** and **Change Requests**.
+To ensure full transparency, all [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) objects MUST be linked in the [AuditTrail](https://onerecord.iata.org/ns/api#AuditTrail) under the *hasActionRequest* object property.
 
 
-### ChangeRequest update
+# Link a VerificationRequest within a Change
 
-!!! note 
-    (under discussion). see [Introduction of VerificationRequest #218](https://github.com/IATA-Cargo/ONE-Record/issues/218)
-
-In order to reference a [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) while requesting a Change (see [Update a Logistics Object](./logistics-objects.md#update-a-logistics-object), we would like to add a new optional property in the [Change](https://onerecord.iata.org/ns/api#Change) object:
-- *hasVerificationRequest* : link to the VerificationRequest that caused the change.
-
+To reference a [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) while requesting a Change (see [Update a Logistics Object](./logistics-objects.md#update-a-logistics-object), the party can use the optional property *hasVerificationRequest* present in the [Change](https://onerecord.iata.org/ns/api#Change) object.
 
 
 

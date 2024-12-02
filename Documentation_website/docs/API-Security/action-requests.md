@@ -106,6 +106,7 @@ The properties and relationships to other data classes are visualized in the fol
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
     ActionRequest <|-- SubscriptionRequest
+    ActionRequest <|-- VerificationRequest
 
     ActionRequest "1" --> "0..*" Error     
     ActionRequest "1" --> "1..*" Organization : requestedBy    
@@ -138,6 +139,7 @@ The properties and relationships to other data classes are visualized in the fol
         + hasLogisticsObject: LogisticsObject
         + hasRevision: xsd:positiveInteger        
         + notifyRequestStatusChange: xsd:boolean = FALSE
+        + hasVerificationRequest[]: VerificationRequest [0..*] 
     }
     Change "1" --> "1" LogisticsObject
     Change "1" --> "1..*" Operation
