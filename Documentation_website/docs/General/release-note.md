@@ -18,16 +18,14 @@ The working groups mentioned above are still actively operating and all feedback
 
 Ontology 3.1.0 brings many changes compared to 3.0.0. Those changes do not alter the overall object structure but many properties were adjusted based on discussions that have happened in 2024 among the Data Model taskforce and the sub-group dedicated to the mapping between ONE Record and CXML messages.
 
-Main changes include:
+## Change
 - Addition of data properties on `Waybill` to ease mappping with CXML messages
 - Re-design of `WaybillLineItem` object and link to `Piece` and `ULD` objects to use actual data (dimensions, volume, ...) instead of duplicating data
 - Addition of operatingParties property on `TransportMovement` to indicate the operating organization or driver/pilot
 - Adjustment of ONE Record Visualizer
 - Refactor of the Code List ontology: alignment with API ontology and best practices, addition of Code List 2 density group codes
 
-## Changelog
-
-Detailed changelog can be read directly in the following Pull Requests on GitHub or in the detailed page after.
+Detailed changelog can be read directly in the following Pull Requests on GitHub or in the [Detailed Changelog page](../General/changelog.md).
 
 # API 2.1.0
 
@@ -53,4 +51,4 @@ The Data Orchestration is a work that was intitiated in September 2023. Industry
 
 With 1.0.0 version the focus has been on:
 - Identifying ONE Record actions linked to the Master Operating Plan (MOP) as it is being re-designed by Cargo iQ. This includes review of all processes and associated milestones used by the industry.
-- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0, XFHL 3.0.0 and XFBL 2.1.0)
+- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0 and XFHL 3.0.0)
