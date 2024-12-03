@@ -2333,7 +2333,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="XFHL Mapping">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#proposed-mechanism_1" class="md-nav__link">
@@ -2341,6 +2342,11 @@
       Proposed mechanism
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3410,7 +3416,8 @@
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="XFHL Mapping">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#proposed-mechanism_1" class="md-nav__link">
@@ -3418,6 +3425,11 @@
       Proposed mechanism
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3636,7 +3648,7 @@ The selected messages for mapping are the following:</p>
 <td>XFBL</td>
 <td>XML Freight Booked List Message</td>
 <td>3.00</td>
-<td>1st version</td>
+<td>Ongoing</td>
 </tr>
 <tr>
 <td>XTMV</td>
@@ -3690,22 +3702,25 @@ The selected messages for mapping are the following:</p>
 <p>In its essence, XFZB is very similar to XFWB. The major distinction is the usage of <code>Waybill#waybillType = House</code>.</p>
 <h3 id="xfhl-mapping">XFHL Mapping<a class="headerlink" href="#xfhl-mapping" title="Permanent link">&para;</a></h3>
 <p>XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.</p>
-<h3 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h3>
+<h4 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h4>
 <p>The starting point is a Master <code>Waybill</code> and we are interested in all the House <code>Waybill</code>(s) linked to the Master via the <code>Waybill#houseWaybills</code> object property. </p>
 <p><img alt="image" src="https://github.com/user-attachments/assets/b05edd3e-13d1-48bb-9c6b-dab457b47106" /></p>
 <h3 id="xsdg-mapping">XSDG Mapping<a class="headerlink" href="#xsdg-mapping" title="Permanent link">&para;</a></h3>
 <p>XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".</p>
-<p>For the time being, there seems to be no need to map XSDG considering its implementation within the industry.</p>
+<p>The need for a proper XDSG mapping still needs to be assessed.</p>
 <h3 id="xfsu-mapping">XFSU Mapping<a class="headerlink" href="#xfsu-mapping" title="Permanent link">&para;</a></h3>
 <h4 id="proposed-mechanism_2">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_2" title="Permanent link">&para;</a></h4>
-<p>XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
+<p>XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
 In most cases, the Status updates is based on the usage of <code>LogisticsEvents</code> on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.</p>
 <p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
 <p><strong>Specific case of split shipment</strong>:
 With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
-To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
-* If pieces cannot be properly identified, recommendation would be to use <code>LogisticsEvent</code> on the Shipment, using the <em>LogisticsEvent#partialEventIndicator</em> to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
-* If pieces can be properly identified, it is recommended to use <code>LogisticsEvent</code> on the identified Pieces. The <em>LogisticsEvent#partialEventIndicator</em> can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.</p>
+To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.</p>
+<ul>
+<li>If pieces <strong>cannot be</strong> properly identified, recommendation would be to use <code>LogisticsEvent</code> on the Shipment, using the <em>LogisticsEvent#partialEventIndicator</em> to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema.</li>
+<li>If pieces <strong>can be</strong> properly identified, it is recommended to use <code>LogisticsEvent</code> on the identified Pieces. The <em>LogisticsEvent#partialEventIndicator</em> can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.</li>
+</ul>
+<p>The mapping of XFSU message still needs to be fine tuned to take into account multiple scenarios.</p>
 <h3 id="xffm-mapping">XFFM Mapping<a class="headerlink" href="#xffm-mapping" title="Permanent link">&para;</a></h3>
 <p>The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.</p>
 <p>ONE Record by essence contains all the required data, Flight details, Piece and ULD details and so on.</p>
