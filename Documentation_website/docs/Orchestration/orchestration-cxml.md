@@ -25,7 +25,7 @@ The selected messages for mapping are the following:
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Ongoing |
 | XFFM | XML Flight Manifest Message | 4.00 | 1st version |
-| XFBL | XML Freight Booked List Message | 3.00 | 1st version |
+| XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
 
 ## General conversion guidelines
@@ -78,7 +78,7 @@ In its essence, XFZB is very similar to XFWB. The major distinction is the usage
 ## XFHL Mapping
 XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.
 
-## Proposed mechanism
+### Proposed mechanism
 The starting point is a Master `Waybill` and we are interested in all the House `Waybill`(s) linked to the Master via the `Waybill#houseWaybills` object property. 
 
 ![image](https://github.com/user-attachments/assets/b05edd3e-13d1-48bb-9c6b-dab457b47106)
@@ -86,11 +86,11 @@ The starting point is a Master `Waybill` and we are interested in all the House 
 ## XSDG Mapping
 XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".
 
-For the time being, there seems to be no need to map XSDG considering its implementation within the industry.
+The need for a proper XDSG mapping still needs to be assessed.
 
 ## XFSU Mapping
 ### Proposed mechanism
-XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
+XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
 In most cases, the Status updates is based on the usage of `LogisticsEvents` on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
 
 In case of **full shipment** status update, the `LogisticsEvents` can be added on the Shipment or on all the Pieces. Both scenarios are valid.
@@ -98,8 +98,11 @@ In case of **full shipment** status update, the `LogisticsEvents` can be added o
 **Specific case of split shipment**:
 With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
 To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
-* If pieces cannot be properly identified, recommendation would be to use `LogisticsEvent` on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
-* If pieces can be properly identified, it is recommended to use `LogisticsEvent` on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+
+- If pieces **cannot be** properly identified, recommendation would be to use `LogisticsEvent` on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema.
+- If pieces **can be** properly identified, it is recommended to use `LogisticsEvent` on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+
+The mapping of XFSU message still needs to be fine tuned to take into account multiple scenarios.
 
 ## XFFM Mapping
 The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.
