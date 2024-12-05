@@ -57,6 +57,9 @@ The `WaybillLineItem` object was introduced to properly share rate data as requi
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
+### TransportMovement information
+XFWB movement and routing details are mapped to `TransportMovement` objects. The proper linkage, starting from the `Waybill` is to to go through the `Booking` object which refers to the contractual engagements between a carrier and the freight forwarder. The various `TransportMovement`(s) planned for the transportation of the goods need to be linked to the `Booking` as an `ActivitySequence`. 
+
 ### Usage of OtherCharge object
 The `OtherCharge` object is used to record all charges, it refers to `<ram:ApplicableLogisticsAllowanceCharge>` grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.
 
@@ -73,7 +76,11 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 - In the `ApplicalbeFreightRateServiceCharge` grouping, the `AppliedAmount` is not directly mapped as it is a total that needs to be derived from either the **Rate** or the multiplication of **Rate** and **Chargeable weight** depending on the type of charge. Refer to CSC Resolution 600a for further explanations.
 
 ## XFZB Mapping
-In its essence, XFZB is very similar to XFWB. The major distinction is the usage of `Waybill#waybillType = House`.
+In its essence, XFZB is very similar to XFWB. `Waybill` object is the main focus and many details are from the `Shipment`(s) linked to it as well as the `TransportMovement`.
+
+The major distinction in the `Waybill` object for XFZB is the usage of `Waybill#waybillType = House`.
+
+Another major distinction with XFWB is that for the time being we recommend a mapping of the `TransportMovement` through the `Loading` action with a Planned or Scheduled state. Since the `Booking` object has been mainly designed for the Carrier to Freight Forwarder contractual agreement, there is no specific `LogisticsService` reflecting the House Waybill contractual agreement yet.
 
 ## XFHL Mapping
 XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.
