@@ -2295,6 +2295,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transportmovement-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      TransportMovement information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage-of-othercharge-object" class="md-nav__link">
     <span class="md-ellipsis">
       Usage of OtherCharge object
@@ -3378,6 +3387,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transportmovement-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      TransportMovement information
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage-of-othercharge-object" class="md-nav__link">
     <span class="md-ellipsis">
       Usage of OtherCharge object
@@ -3680,6 +3698,8 @@ The selected messages for mapping are the following:</p>
 <h4 id="usage-of-waybilllineitem-object">Usage of WaybillLineItem object<a class="headerlink" href="#usage-of-waybilllineitem-object" title="Permanent link">&para;</a></h4>
 <p>The <code>WaybillLineItem</code> object was introduced to properly share rate data as required in the Air Waybill. The <code>WaybillLineItem</code> has a n-to-1 relationship with a <code>Waybill</code> object and represents the different line items on the paper waybill with all their specifities based on the type of rating used. In order to stick to reality as much as possible, some data at line item level are taken from <code>Pieces</code> and <code>LoadingUnits</code> directly (dimensions, volume, ...). The <code>WaybillLineItem</code> object itself shall only contain <strong>rate</strong> specific data.</p>
 <p>It is important to note that the <code>WaybillLineItem</code> has been added <strong>only in the context of sharing Air Waybill data</strong>. When looking at Operations, digital twins shall be used (<code>Piece</code>, <code>Item</code>, <code>Product</code>, etc.)</p>
+<h4 id="transportmovement-information">TransportMovement information<a class="headerlink" href="#transportmovement-information" title="Permanent link">&para;</a></h4>
+<p>XFWB movement and routing details are mapped to <code>TransportMovement</code> objects. The proper linkage, starting from the <code>Waybill</code> is to to go through the <code>Booking</code> object which refers to the contractual engagements between a carrier and the freight forwarder. The various <code>TransportMovement</code>(s) planned for the transportation of the goods need to be linked to the <code>Booking</code> as an <code>ActivitySequence</code>. </p>
 <h4 id="usage-of-othercharge-object">Usage of OtherCharge object<a class="headerlink" href="#usage-of-othercharge-object" title="Permanent link">&para;</a></h4>
 <p>The <code>OtherCharge</code> object is used to record all charges, it refers to <code>&lt;ram:ApplicableLogisticsAllowanceCharge&gt;</code> grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.</p>
 <p>Totals are not directly recorded in ONE Record as they can be directly calculated based on the existing data (e.g. filtering by type of charge and prepaid/collect indicator).</p>
@@ -3699,7 +3719,9 @@ The selected messages for mapping are the following:</p>
 </li>
 </ul>
 <h3 id="xfzb-mapping">XFZB Mapping<a class="headerlink" href="#xfzb-mapping" title="Permanent link">&para;</a></h3>
-<p>In its essence, XFZB is very similar to XFWB. The major distinction is the usage of <code>Waybill#waybillType = House</code>.</p>
+<p>In its essence, XFZB is very similar to XFWB. <code>Waybill</code> object is the main focus and many details are from the <code>Shipment</code>(s) linked to it as well as the <code>TransportMovement</code>.</p>
+<p>The major distinction in the <code>Waybill</code> object for XFZB is the usage of <code>Waybill#waybillType = House</code>.</p>
+<p>Another major distinction with XFWB is that for the time being we recommend a mapping of the <code>TransportMovement</code> through the <code>Loading</code> action with a Planned or Scheduled state. Since the <code>Booking</code> object has been mainly designed for the Carrier to Freight Forwarder contractual agreement, there is no specific <code>LogisticsService</code> reflecting the House Waybill contractual agreement yet.</p>
 <h3 id="xfhl-mapping">XFHL Mapping<a class="headerlink" href="#xfhl-mapping" title="Permanent link">&para;</a></h3>
 <p>XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.</p>
 <h4 id="proposed-mechanism_1">Proposed mechanism<a class="headerlink" href="#proposed-mechanism_1" title="Permanent link">&para;</a></h4>
