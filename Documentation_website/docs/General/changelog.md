@@ -55,3 +55,4 @@ Rework to WaybillLineItem (#265) as agreed on in DMWG 17/10 and CXML 12/11.
 - Removed uldSerialNumber from WaybillLineItem (#265)
 - Removed uldType from WaybillLineItem (#265)
 - Lifted cardinality restriction on ofShipment in Piece [(DM: Piece can be part of multiple shipments, change from n:1 to n:n #275)](https://github.com/IATA-Cargo/ONE-Record/issues/275)
+- Lifted cardinality restriction on issuedForPiece in SecurityDeclaration [#280](https://github.com/IATA-Cargo/ONE-Record/issues/280)
