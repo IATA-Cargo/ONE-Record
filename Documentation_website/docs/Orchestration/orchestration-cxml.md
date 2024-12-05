@@ -19,12 +19,12 @@ The selected messages for mapping are the following:
 
 | Message | Message name | Message version | Comments |
 | --- | --- | --- | --- |
-| XFWB | XML Waybill Message | 5.00 | 1st version |
-| XFZB | XML HouseWaybill Message | 4.00 | 1st version |
-| XFHL | XML House Manifest Message | 3.00 | 1st version |
+| XFWB | XML Waybill Message [Download here](../Orchestration/assets/XFWB 5.0.0 mapping.xslx) | 5.00 | 1st version |
+| XFZB | XML HouseWaybill Message [Download here](../Orchestration/assets/XFZB 4.0.0 mapping.xslx) | 4.00 | 1st version |
+| XFHL | XML House Manifest Message [Download here](../Orchestration/assets/XFHL 3.0.0 mapping.xslx) | 3.00 | 1st version |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Ongoing |
-| XFFM | XML Flight Manifest Message | 4.00 | 1st version |
+| XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
 | XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
 
