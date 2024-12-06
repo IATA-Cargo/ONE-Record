@@ -9,6 +9,8 @@ The following features summarize all of the ONE Record API features
 
 **Update a Logistics Object** - As a fundamental principle, _only_ the Holder of a Logistics Object can make changes to it. Therefore, changes required by other parties are expressed as `Change Requests` that needs to be approved and executed by the actual holder.
 
+**Verify a Logistics Object** - The ONE Record standard enables third parties to not only propose modifications to LogisticsObjects but also flag anomalies, missing properties, or errors using a process called `Verification Request`. This action request follow the same approval process as the `Change Requests`.
+
 **Subscribe to a Logistics Object for updates** - Once a Logistics Object has been created, the holder can propose subscriptions to other parties who will then be notified of any changes. Other parties may also request such a subscription at the discretion of the holder.
 
 **Create Logistics Event linked with Logistics Objects** - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.
@@ -29,7 +31,7 @@ The following features summarize all of the ONE Record API features
 | ---------------- | -------------------------------------- |   -------- |
 | GET              | /                  | Retrieve ServerInformation             |
 | POST              | /logistics-objects/ | Create Logistics Object. This endpoint could be either internal or not implemented.             |
-| GET, PATCH       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object and links to related resources                       |
+| GET, PATCH, POST       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object, Change Logistics object and Create a new Verification Request                       |
 | GET              | /logistics-objects/{logisticsObjectId}/audit-trail      | Retrieve Audit Trail of a Logistics Object                 |
 | GET, POST        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
 | GET              | /logistics-objects/{logisticsObjectId}/logistics-events/{LogisticsEvent URI}                  | Retrieve a LogisticsEvent              |
