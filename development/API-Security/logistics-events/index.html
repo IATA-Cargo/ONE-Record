@@ -3559,6 +3559,9 @@ The properties and relationships to other data classes are visualized in the fol
     class ExternalReference{        
     }  
 
+    class CodeListElement{        
+    }  
+
     class EventTimeType{   
         &lt;&lt;Enumeration&gt;&gt;
         ACTUAL
@@ -3571,7 +3574,7 @@ The properties and relationships to other data classes are visualized in the fol
     class LogisticsEvent{
         + partialEventIndicator: xsd:boolean [0..1]
         + creationDate: xsd:dateTime [0..1]
-        + eventCode: xsd:string [0..1]
+        + eventCode: CodeListElement [0..1]
         + eventDate: xsd:dateTime [0..1]
         + eventName: xsd:string [0..1]
         + eventTimeType: EventTimeType [0..1]
@@ -3587,7 +3590,8 @@ The properties and relationships to other data classes are visualized in the fol
     LogisticsEvent "1" --&gt; "0..1" Location
     LogisticsEvent "1" --&gt; "0..1" Organization
     LogisticsEvent "1" --&gt; "0..1" Actor
-    LogisticsEvent "1" --&gt; "0..1" EventTimeType</code></pre>
+    LogisticsEvent "1" --&gt; "0..1" EventTimeType
+    LogisticsEvent "1" --&gt; "0..1" CodeListElement</code></pre>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
 <p>One of the following HTTP response codes MUST be present in the response:</p>
 <table>
