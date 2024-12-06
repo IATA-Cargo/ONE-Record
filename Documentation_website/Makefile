@@ -15,7 +15,6 @@ copy-assets:
 	rm -rf docs/API-Security/assets/ONE-Record-API-Ontology.ttl; cp ../working_draft/API/ONE-Record-API-Ontology.ttl docs/API-Security/assets/ONE-Record-API-Ontology.ttl
 	rm -rf docs/API-Security/assets/ONE-Record-API-Class-Diagram.md; cp ../working_draft/API/ONE-Record-API-Class-Diagram.md docs/API-Security/assets/ONE-Record-API-Class-Diagram.md
 	rm -rf docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml; cp ../working_draft/API/ONE-Record-API-OpenAPI.yaml docs/API-Security/assets/ONE-Record-API-OpenAPI.yaml
-	rm -rf docs/API-Security/assets/ONE-Record-API-Ontology.csv; cp ../working_draft/API/ONE-Record-API-Ontology.csv docs/API-Security/assets/ONE-Record-API-Ontology.csv
 	rm -rf docs/API-Security/assets/ONE-Record-API-Collections.postman_collection; cp ../working_draft/API/ONE-Record-API-Collections.postman_collection docs/API-Security/assets/ONE-Record-API-Collections.postman_collection
 
 serve:

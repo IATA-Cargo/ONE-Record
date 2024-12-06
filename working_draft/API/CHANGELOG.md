@@ -27,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - hasRevision and hasLastRevision for each logistics object body
 - Verification request to signal error or anomalies in a logistics object
 
+### Removed
+
+- overview of data classes and properties as CSV file to supporting documents, all information can be found in the ontology or in the data model page
+
 ## ONE Record API Ontology
 
 ### Changed
