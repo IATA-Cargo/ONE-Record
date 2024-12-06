@@ -13,13 +13,13 @@ It is assumed that the reader is familiar with air cargo vocabulary and the conc
 
 # Supporting Documents
 
-- TDB
+N/A
 
 # Document Version
 
-**Version:** 0.0.1
+**Version:** 1.0.0
 
-**Status:** Not endorsed
+**Status:** Endorsed by COTB on XXX
 
 !!! note
     Discussion on the data model is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
