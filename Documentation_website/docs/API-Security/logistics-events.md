@@ -63,6 +63,9 @@ classDiagram
     class ExternalReference{        
     }  
     
+    class CodeListElement{        
+    }  
+
     class EventTimeType{   
         <<Enumeration>>
         ACTUAL
@@ -75,7 +78,7 @@ classDiagram
     class LogisticsEvent{
         + partialEventIndicator: xsd:boolean [0..1]
         + creationDate: xsd:dateTime [0..1]
-        + eventCode: xsd:string [0..1]
+        + eventCode: CodeListElement [0..1]
         + eventDate: xsd:dateTime [0..1]
         + eventName: xsd:string [0..1]
         + eventTimeType: EventTimeType [0..1]
@@ -92,6 +95,7 @@ classDiagram
     LogisticsEvent "1" --> "0..1" Organization
     LogisticsEvent "1" --> "0..1" Actor
     LogisticsEvent "1" --> "0..1" EventTimeType
+    LogisticsEvent "1" --> "0..1" CodeListElement
 ```
 
 ## Response
@@ -314,7 +318,6 @@ The following HTTP query parameters MUST be supported:
 | **skip** (optional)          | Skips a specified number of logistics events before beginning to return results. This is useful for pagination         | <ul><li>5</li></ul> |
 
 !!! note
-
 The `event-code` query parameter of the API corresponds to the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) defined in the logistic event class within the [cargo ontology](https://onerecord.iata.org/ns/cargo#). To implement filtering correctly, the implementor MUST retrieve all logistics events where the `@id` of the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) contains the text specified in the `event-code` query parameter. The `@id` of a code list element is specifically structured to include the code list name and the code itself. For more details on handling code list elements, refer to the [Code Lists page](../Data-Model/code-lists.md).
 
 ## Response
