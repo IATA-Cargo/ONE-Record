@@ -3084,6 +3084,7 @@
 <p><strong>Create and publish a Logistics Object</strong> - Anyone who controls a ONE Record server can create a new Logistics Object based on the ONE Record data model specification. Once created the Logistics Object is associated with a unique URI that makes the Logistics Object available on the network.</p>
 <p><strong>Read a Logistics Object</strong> - Logistics Objects can be retrieved by calling the URI of that Logistics Object - its Logistics Object URI. Access rights to that Logistics Object URI is managed by the Holder of the Logistics Object.</p>
 <p><strong>Update a Logistics Object</strong> - As a fundamental principle, <em>only</em> the Holder of a Logistics Object can make changes to it. Therefore, changes required by other parties are expressed as <code>Change Requests</code> that needs to be approved and executed by the actual holder.</p>
+<p><strong>Verify a Logistics Object</strong> - The ONE Record standard enables third parties to not only propose modifications to LogisticsObjects but also flag anomalies, missing properties, or errors using a process called <code>Verification Request</code>. This action request follow the same approval process as the <code>Change Requests</code>.</p>
 <p><strong>Subscribe to a Logistics Object for updates</strong> - Once a Logistics Object has been created, the holder can propose subscriptions to other parties who will then be notified of any changes. Other parties may also request such a subscription at the discretion of the holder.</p>
 <p><strong>Create Logistics Event linked with Logistics Objects</strong> - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.</p>
 <p><strong>Read Logistics Event linked to a Logistics Object</strong> - Every participant of the network with sufficient permissions, can also query the Logistics Events associated with a Logistics Object.</p>
@@ -3112,9 +3113,9 @@
 <td>Create Logistics Object. This endpoint could be either internal or not implemented.</td>
 </tr>
 <tr>
-<td>GET, PATCH</td>
+<td>GET, PATCH, POST</td>
 <td>/logistics-objects/{logisticsObjectId}</td>
-<td>Retrieve Logistics Object and links to related resources</td>
+<td>Retrieve Logistics Object, Change Logistics object and Create a new Verification Request</td>
 </tr>
 <tr>
 <td>GET</td>
