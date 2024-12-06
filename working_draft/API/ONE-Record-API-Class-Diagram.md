@@ -172,6 +172,12 @@ classDiagram
         SUBSCRIPTION_REQUEST_REJECTED
         SUBSCRIPTION_REQUEST_FAILED
         SUBSCRIPTION_REQUEST_REVOKED
+
+        VERIFICATION_REQUEST_PENDING
+        VERIFICATION_REQUEST_ACKNOWLEDGED              
+        VERIFICATION_REQUEST_REJECTED
+        VERIFICATION_REQUEST_FAILED
+        VERIFICATION_REQUEST_REVOKED
     }
     class PatchOperation{
         <<Enumeration>>
@@ -196,7 +202,8 @@ classDiagram
         REQUEST_ACCEPTED
         REQUEST_REJECTED
         REQUEST_FAILED
-        REQUEST_REVOKED        
+        REQUEST_REVOKED     
+        REQUEST_ACKNOWLEDGED   
     }
     class SubscriptionEventType{
         <<Enumeration>>

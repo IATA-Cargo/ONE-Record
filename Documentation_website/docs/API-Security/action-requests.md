@@ -182,7 +182,6 @@ The properties and relationships to other data classes are visualized in the fol
         <<Enumeration>>
         LOGISTICS_OBJECT_CREATED
         LOGISTICS_OBJECT_UPDATED
-
         LOGISTICS_EVENT_RECEIVED
     }
 ```
