@@ -19,13 +19,13 @@ The selected messages for mapping are the following:
 
 | Message | Message name | Message version | Comments |
 | --- | --- | --- | --- |
-| XFWB | XML Waybill Message | 5.00 | 1st version |
-| XFZB | XML HouseWaybill Message | 4.00 | 1st version |
-| XFHL | XML House Manifest Message | 3.00 | 1st version |
+| XFWB | XML Waybill Message [Download here](../Orchestration/assets/XFWB 5.0.0 mapping.xslx) | 5.00 | 1st version |
+| XFZB | XML HouseWaybill Message [Download here](../Orchestration/assets/XFZB 4.0.0 mapping.xslx) | 4.00 | 1st version |
+| XFHL | XML House Manifest Message [Download here](../Orchestration/assets/XFHL 3.0.0 mapping.xslx) | 3.00 | 1st version |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Ongoing |
-| XFFM | XML Flight Manifest Message | 4.00 | 1st version |
-| XFBL | XML Freight Booked List Message | 3.00 | 1st version |
+| XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
+| XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
 
 ## General conversion guidelines
@@ -57,6 +57,9 @@ The `WaybillLineItem` object was introduced to properly share rate data as requi
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
+### TransportMovement information
+XFWB movement and routing details are mapped to `TransportMovement` objects. The proper linkage, starting from the `Waybill` is to to go through the `Booking` object which refers to the contractual engagements between a carrier and the freight forwarder. The various `TransportMovement`(s) planned for the transportation of the goods need to be linked to the `Booking` as an `ActivitySequence`. 
+
 ### Usage of OtherCharge object
 The `OtherCharge` object is used to record all charges, it refers to `<ram:ApplicableLogisticsAllowanceCharge>` grouping in XFWB message. Code List 1.2 "Other Charge Code" is used to properly identify the charges associated with the Prepaid/Collect indicator.
 
@@ -73,12 +76,16 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 - In the `ApplicalbeFreightRateServiceCharge` grouping, the `AppliedAmount` is not directly mapped as it is a total that needs to be derived from either the **Rate** or the multiplication of **Rate** and **Chargeable weight** depending on the type of charge. Refer to CSC Resolution 600a for further explanations.
 
 ## XFZB Mapping
-In its essence, XFZB is very similar to XFWB. The major distinction is the usage of `Waybill#waybillType = House`.
+In its essence, XFZB is very similar to XFWB. `Waybill` object is the main focus and many details are from the `Shipment`(s) linked to it as well as the `TransportMovement`.
+
+The major distinction in the `Waybill` object for XFZB is the usage of `Waybill#waybillType = House`.
+
+Another major distinction with XFWB is that for the time being we recommend a mapping of the `TransportMovement` through the `Loading` action with a Planned or Scheduled state. Since the `Booking` object has been mainly designed for the Carrier to Freight Forwarder contractual agreement, there is no specific `LogisticsService` reflecting the House Waybill contractual agreement yet.
 
 ## XFHL Mapping
 XFHL message is used to communicate the list of House Waybills associated to a Master Waybill. This message is not focused on details at House level, only high level information is shared.
 
-## Proposed mechanism
+### Proposed mechanism
 The starting point is a Master `Waybill` and we are interested in all the House `Waybill`(s) linked to the Master via the `Waybill#houseWaybills` object property. 
 
 ![image](https://github.com/user-attachments/assets/b05edd3e-13d1-48bb-9c6b-dab457b47106)
@@ -86,11 +93,11 @@ The starting point is a Master `Waybill` and we are interested in all the House 
 ## XSDG Mapping
 XSDG specifications, aligned with the Dangerous Goods Declaration (DGD) requirements have been integrated into ONE Record, the details can be found on the Data Model section, under "Dangerous Goods".
 
-For the time being, there seems to be no need to map XSDG considering its implementation within the industry.
+The need for a proper XDSG mapping still needs to be assessed.
 
 ## XFSU Mapping
 ### Proposed mechanism
-XFSU message is mostly used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
+XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information.
 In most cases, the Status updates is based on the usage of `LogisticsEvents` on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
 
 In case of **full shipment** status update, the `LogisticsEvents` can be added on the Shipment or on all the Pieces. Both scenarios are valid.
@@ -98,8 +105,11 @@ In case of **full shipment** status update, the `LogisticsEvents` can be added o
 **Specific case of split shipment**:
 With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
 To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.
-* If pieces cannot be properly identified, recommendation would be to use `LogisticsEvent` on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema. (dig deeper on that aspect).
-* If pieces can be properly identified, it is recommended to use `LogisticsEvent` on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+
+- If pieces **cannot be** properly identified, recommendation would be to use `LogisticsEvent` on the Shipment, using the *LogisticsEvent#partialEventIndicator* to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema.
+- If pieces **can be** properly identified, it is recommended to use `LogisticsEvent` on the identified Pieces. The *LogisticsEvent#partialEventIndicator* can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.
+
+The mapping of XFSU message still needs to be fine tuned to take into account multiple scenarios.
 
 ## XFFM Mapping
 The Flight Manifest represents an essential set of data that is today either a Paper document or a message (FFM or XFFM). It contains the details of cargo that is transported.

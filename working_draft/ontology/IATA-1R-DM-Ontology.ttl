@@ -57,10 +57,12 @@ Removals:
 - Removed uldSerialNumber from WaybillLineItem (#265)
 - Removed uldType from WaybillLineItem (#265)
 
+
 Changes:
 - Changed range of partyDetails from Organization to LogisticsAgent (#222)
 - Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
 - Lifted cardinality restriction on ofShipment in Piece (#244)
+- ifted cadinality restriction on SecurityDeclaration#issuedForPiece (#280)
 
 Visualization
  (#223, #224):
@@ -8685,10 +8687,6 @@ owl:thing rdf:type rdfs:Datatype .
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :issuedBy ;
-                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty :issuedForPiece ;
                                        owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                      ] ,
                                      [ rdf:type owl:Restriction ;
