@@ -10,20 +10,6 @@ We host the tool on GitHub: [https://iata-cargo.github.io/ontology_visualizer/](
 
 The tool has been customized to fit our needs in terms of visual and features.
 
-# Data Mdodel Visualizer in details
-## Preparing the ontology
-
-The ontology in its TTL format cannot be used directly in the Visualizer, it needs to be  transcribed in the format used by the SQL Schema Visualizer.
-
-// to be further documented
-
-## Main technical aspects
-
-// to be further documented
-
-## Additional features
-Additional features have been added to enhance the user experience and facilitate the understanding of the data model.
-
 ### Navigation between objects
 When looking at an object, you can click on the data type of a property if it's another object. The interface will directly zoom on that object to facilitate navigation among objects.
 
@@ -36,3 +22,11 @@ Descriptions of objects and properties are within the ontology, along with some 
 Search is possible within the visualizer. When text is entered, all objects and properties containing the text are displayed. When clicking on a result the relevant oject is displayed. Note that clicking on a property will display the object containing that property.
 
 ![search](https://github.com/lambertciata/ONE-Record/assets/58464775/b99dc784-7f33-47bb-a07d-5c051bbd5e45)
+
+### Change Database
+
+The Ontology Visualizer includes several datasets that are aligned with various versions of the data model. Users can click on the database icon located in the bottom left corner to choose the dataset they wish to visualize.
+
+### Property names
+
+To copy the name of a property, press Control and click on the property's name. This shortcut will save the property name to the clipboard.
