@@ -1,5 +1,5 @@
 SITE_DIR := $(CURDIR)/site
-VERSION  := 2.0.0-dev
+VERSION  := 2.1.0-dev
 
 install:
 	pip install pip --upgrade
