@@ -28,7 +28,7 @@ Use the following link to reach the API documentation website: [Link to API docu
 
 # Document Version
 
-**Version:** 2.0.0-dev 
+**Version:** 2.1.0-dev 
 
 **Status:** Draft; not yet approved by the COTB / CSC
 
@@ -40,7 +40,7 @@ The version of the ONE Record API specification is incremented when the API spec
 ## Dependencies
 
 The ontology of the ONE Record API uses data classes defined in the ONE Record cargo ontology. 
-Therefore, this ONE Record API version 2.0.0-dev requires the ONE Record cargo ontology 3.0.0 or later.
+Therefore, this ONE Record API version 2.1.0-dev requires the ONE Record cargo ontology 3.1.0 or later.
 
 # Conventions
 
