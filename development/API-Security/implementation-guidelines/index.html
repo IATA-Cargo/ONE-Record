@@ -3563,10 +3563,10 @@ an API versioning via URI Path is <strong>not</strong> possible, e.g.
 <p>Instead, API versioning through content negotiation SHOULD be used. 
 More precisely, the <code>Accept</code> HTTP request header SHOULD be used by a ONE Record client to communicate the expected API version, 
 so that a ONE Record server can select one of the proposals:</p>
-<div class="language-http highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">Accept: application/ld+json; version=2.0.0-dev</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="err">Accept: application/ld+json; version=2.1.0</span>
 </span></code></pre></div>
 <p>The ONE Record server MUST inform the ONE Record client about the selected version using the <code>Content-Type</code> response header:
-<div class="language-http highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">Content-Type: application/ld+json; version=2.0.0-dev</span>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="err">Content-Type: application/ld+json; version=2.1.0</span>
 </span></code></pre></div></p>
 <p>If no version is specified in the <code>Accept</code> request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see <a href="https://onerecord.iata.org/ns/api#supportedApiVersion">supportedApiVersion</a> in <a href="https://onerecord.iata.org/ns/api#ServerInformation">ServerInformation</a>).</p>
 <p>Every ONE Record server MUST provide information about the supported API versions. (see <a href="../server-information/">Get Server Information</a>)</p>
