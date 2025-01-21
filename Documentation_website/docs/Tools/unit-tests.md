@@ -30,29 +30,29 @@ Every section is crafted to assess a distinct segment of the ONE Record API, ope
 As a prerequisite for utilizing the Unit Test suite, it is necessary to install Postman or a compatible software.
 Once Postman is installed, please adhere to the subsequent steps to execute the Unit Tests suite.
 
-- [Download the Postman Collection here.](../assets/unit-tests/1R_Unit_Tests.postman_collection) 
+- [Download the Postman Collection here.](./assets/unit-tests/1R_Unit_Tests.postman_collection) 
 
-- [Download the Postman Environment here](../assets/unit-tests/Unit_Test_Setup.postman_environment)  
+- [Download the Postman Environment here](./assets/unit-tests/Unit_Test_Setup.postman_environment)  
 
 - Import the Unit Test Step Environment in Postman
 
-![Postman Environment](../img/unit-tests/postmanEnv.png)
+![Postman Environment](./img/unit-tests/postmanEnv.png)
 
 - Import the Collection in Postman
 
-![Postman Collection](../img/unit-tests/postmanColl.png)
+![Postman Collection](./img/unit-tests/postmanColl.png)
 
 - Navigate to the Environments tab, choose the **Unit Test Setup** environment, and configure the baseUrl to point to the API server under test.
 
-![Environment Configuration](../img/unit-tests/envConfig.png)
+![Environment Configuration](./img/unit-tests/envConfig.png)
 
 - Access the Collections in the right menu and open the previously imported **ONE Record API Unit Tests** collection.
 
-![Unit Test suite](../img/unit-tests/testCollection.png)
+![Unit Test suite](./img/unit-tests/testCollection.png)
 
 - Utilize the Authorization tab to configure the authorization method implemented in your server.
 
-![Authorization setup](../img/unit-tests/authSetup.png)
+![Authorization setup](./img/unit-tests/authSetup.png)
 
 - Once the authorization is configured, you have the option to either execute the calls individually or employ the Collection Run feature. 
 
