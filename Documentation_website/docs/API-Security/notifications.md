@@ -163,8 +163,8 @@ Request:
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.0.0-dev
-Accept: application/ld+json; version=2.0.0-dev
+Content-Type: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.1.0
 
 --8<-- "API-Security/examples/Notification_example1.json"
 ```
@@ -182,8 +182,8 @@ because `sendLogisticsObjectBody` in Subscription is set to `True`.
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.0.0-dev
-Accept: application/ld+json; version=2.0.0-dev
+Content-Type: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.1.0
 
 --8<-- "API-Security/examples/Notification_example2.json"
 ```
@@ -201,8 +201,8 @@ The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification without th
 because `sendLogisticsObjectBody` in Subscription is set to `False`.
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.0.0-dev
-Accept: application/ld+json; version=2.0.0-dev
+Content-Type: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.1.0
 
 --8<-- "API-Security/examples/Notification_example3.json"
 ```
@@ -222,8 +222,8 @@ The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a Lo
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.0.0-dev
-Accept: application/ld+json; version=2.0.0-dev
+Content-Type: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.1.0
 
 --8<-- "API-Security/examples/Notification_example4.json"
 ```
@@ -240,8 +240,8 @@ The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the C
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.0.0-dev
-Accept: application/ld+json; version=2.0.0-dev
+Content-Type: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.1.0
 
 --8<-- "API-Security/examples/Notification_example5.json"
 ```

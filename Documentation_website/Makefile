@@ -25,7 +25,7 @@ build:
 	$(MAKE) copy-assets
 	mkdocs build
 	mkdir -p $(SITE_DIR)/ns/api/$(VERSION)
-	echo "<!DOCTYPE html> <meta charset=\"utf-8\"> <title>Redirecting to versioned ontology</title> <meta http-equiv=\"refresh\" content=\"0; URL=./2.0.0-dev\"> <link rel=\"canonical\" href=\"2.0.0-dev\">" > $(SITE_DIR)/ns/api/index.html
+	echo "<!DOCTYPE html> <meta charset=\"utf-8\"> <title>Redirecting to versioned ontology</title> <meta http-equiv=\"refresh\" content=\"0; URL=./2.1.0-dev\"> <link rel=\"canonical\" href=\"2.1.0-dev\">" > $(SITE_DIR)/ns/api/index.html
 	python -m pylode ONE-Record-API-Ontology.ttl -o $(SITE_DIR)/ns/api/$(VERSION)/index.html
 
 

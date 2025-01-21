@@ -347,7 +347,7 @@ Having received an ID token, the ONE Record client can then send a request to a 
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.1.0
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodHRwczovLzFyLmV4YW1wbGUuY29tL2xvZ2lzdGljcy1vYmplY3RzLzk1N2UyNjIyLTlkMzEtNDkzYi04YjhmLTNjODA1MDY0ZGJkYSIsImlzcyI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbSIsImV4cCI6Ijg2NDAwIn0.IDnawFcz7mfHDMasHLNN7NsnFFZIxp9mVPEF9eyQou0
 ```
 
