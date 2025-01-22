@@ -6,7 +6,7 @@ The vision for ONE Record is an end-to-end digital logistics and transport suppl
 
 ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API.
 
-You can find further information about ONE Record standard on the [IATA dedicated webpage](https://www.iata.org/en/programs/cargo/e/one-record/) and on the [ONE Record Developer Portal](https://onerecord.iata.org/).
+You can find further information about ONE Record standard on the [IATA dedicated webpage](https://www.iata.org/en/programs/cargo/e/one-record/).
 
 # Structure of the documentation
 
