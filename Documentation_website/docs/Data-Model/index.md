@@ -19,7 +19,7 @@ N/A
 
 **Version:** 1.0.0
 
-**Status:** Endorsed by COTB on January 17th, 2024.
+**Status:** Endorsed by COTB on January 17th, 2025.
 
 !!! note
     Discussion on the data model is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
