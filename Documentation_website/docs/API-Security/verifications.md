@@ -1,5 +1,5 @@
 In addition to allowing third parties to propose modifications to specific properties of a LogisticsObject 
-([See Update a Logistics Object](https://iata-cargo.github.io/ONE-Record/logistics-objects/#update-a-logistics-object)), 
+([See Update a Logistics Object](./logistics-objects.md#update-a-logistics-object)), 
 the ONE Record standard provides a solution for flagging anomalies, missing properties, or errors within these objects 
 through a procedure called `VerificationRequest`.
 
