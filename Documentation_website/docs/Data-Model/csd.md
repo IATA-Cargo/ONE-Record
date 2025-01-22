@@ -4,7 +4,7 @@ The Consignment Security Declaration (CSD) is a mandatory requirement that is de
 # Requirements
 The e-CSD requirements follow the initial paper document CSD with a set of 15 different data fields to provide. More details can be found on iata.org dedicated page here: [https://www.iata.org/en/programs/security/cargo-security/csd/](https://www.iata.org/en/programs/security/cargo-security/csd/)
 
-In particular, the CSD layout is available on iata.org webiste [https://www.iata.org/contentassets/4bb3450ef9a2447493a132b38fac1d26/e-consignment-security-declaration.pdf](here).
+In particular, the CSD layout is available on iata.org webiste [here](https://www.iata.org/contentassets/4bb3450ef9a2447493a132b38fac1d26/e-consignment-security-declaration.pdf).
 
 # Chosen approach
 In legacy messaging standards (CIMP and CXML) the eCSD data is provided through the OCI grouping and guidelines are provided in the OCI Composition Rules Table.
