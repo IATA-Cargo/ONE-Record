@@ -6,7 +6,7 @@ A Notification of Amendment (NoA) will be issued to all Members of IATA and to t
 
 # Status
 
-Approved by COTB on 17 Jan 2025
+Approved by COTB on 17 January 2025
 
 # Content
 
