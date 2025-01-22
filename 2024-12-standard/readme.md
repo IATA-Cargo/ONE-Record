@@ -6,7 +6,7 @@ A Notification of Amendment (NoA) will be issued to all Members of IATA and to t
 
 # Status
 
-Status - Pending COTB endorsement
+Approved by COTB on 17 Jan 2025
 
 # Content
 
