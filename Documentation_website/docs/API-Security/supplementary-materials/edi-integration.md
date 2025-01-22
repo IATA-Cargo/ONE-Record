@@ -1,6 +1,3 @@
-!!! note
-    This page is a Draft and it's not approved by the COTB
-
 Accepting the coexistence and integration of various communication channels between stakeholders along the supply chain, 
 this section provides an overview of integrating legacy EDI messages (e.g., Cargo-IMP / Cargo-XML) and ONE Record Web APIs.
 
