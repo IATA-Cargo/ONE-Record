@@ -21,7 +21,9 @@ The sequence of the steps may slightly differ from the MOP v1.2 and few addition
 
 ## MOP structure
 
-### x
+### Process structure
+
+The MOP maps the processes and sub-processes typically involved in the planning and movement of air cargo from shipper to final consignee.
 
 ### Based on messaging and associated milestones
 
