@@ -1,5 +1,5 @@
 # Introduction
-As of January 17th, 2024 the endorsed ONE Record version is:
+As of January 17th, 2025 the endorsed ONE Record version is:
 - Ontology 3.1.0
 - API 2.1.0
 - Data Orchestration 1.0.0
