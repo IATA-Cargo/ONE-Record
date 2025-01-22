@@ -58,4 +58,4 @@ Once Postman is installed, please adhere to the subsequent steps to execute the 
 
 Each call comprises a set of tests that will be applied to both the response payload and response headers during execution. It's crucial to emphasize that the presentation of test results may vary depending on the tool being used.
 
-In case of issues with the Unit Test Suite, please contact the IATA Digital Cargo team (see [Community page](../../docs/General/community.md)).
+In case of issues with the Unit Test Suite, please contact the IATA Digital Cargo team (see [Community page](../General/community.md)).
