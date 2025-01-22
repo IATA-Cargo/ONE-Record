@@ -16,12 +16,12 @@ When looking at an object, you can click on the data type of a property if it's 
 ### Descriptions and comments
 Descriptions of objects and properties are within the ontology, along with some comments when relevant. These can be also found in the visualizer by hovering over a property pressing shift.
 
-![hover](https://github.com/lambertciata/ONE-Record/assets/58464775/3243253e-343c-4625-9ce1-c22e0dd6c6f3)
+![Visualizer 1](https://github.com/user-attachments/assets/620dc677-2b62-4b55-aefa-92755e698446)
 
 ### Search
 Search is possible within the visualizer. When text is entered, all objects and properties containing the text are displayed. When clicking on a result the relevant oject is displayed. Note that clicking on a property will display the object containing that property.
 
-![search](https://github.com/lambertciata/ONE-Record/assets/58464775/b99dc784-7f33-47bb-a07d-5c051bbd5e45)
+![Visualizer 2](https://github.com/user-attachments/assets/9e2fcf3c-bfb2-48f4-b859-3e31d38e1c0d)
 
 ### Change Database
 
