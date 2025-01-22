@@ -1,3 +1,5 @@
+
+
 # Ontology 3.1.0
 
 For this release, all changes have been tracked using GitHub project view: [https://github.com/users/IATA-Cargo/projects/2](https://github.com/users/IATA-Cargo/projects/2). All issues are linked to a pull request to properly follow all changes.
@@ -56,3 +58,16 @@ Rework to WaybillLineItem (#265) as agreed on in DMWG 17/10 and CXML 12/11.
 - Removed uldType from WaybillLineItem (#265)
 - Lifted cardinality restriction on ofShipment in Piece [(DM: Piece can be part of multiple shipments, change from n:1 to n:n #275)](https://github.com/IATA-Cargo/ONE-Record/issues/275)
 - Lifted cardinality restriction on issuedForPiece in SecurityDeclaration [#280](https://github.com/IATA-Cargo/ONE-Record/issues/280)
+
+# API 2.1.0
+For this release, all changes have been tracked using GitHub project view: [API Changes](https://github.com/users/IATA-Cargo/projects/4).
+
+## Detailed changelog
+Below is the detailed changelog:
+
+- [Add Revision and Latest Revision in the JSON object response](https://github.com/IATA-Cargo/ONE-Record/issues/257)
+- [hasError and hasErrorDetails ontology and documentation alignment](https://github.com/IATA-Cargo/ONE-Record/issues/260)
+- [Review Logistics Event filter parameter](https://github.com/IATA-Cargo/ONE-Record/issues/256)
+- [Introduction of VerificationRequest](https://github.com/IATA-Cargo/ONE-Record/issues/218)
+
+More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
