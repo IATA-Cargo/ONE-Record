@@ -31,6 +31,9 @@ To achieve the data model objectives, four core design principles have been iden
 As defined by the IATA Recommended Practice 1689, a piece is a uniquely identified physical single unit. A Piece may form all or a part of a shipment in the logistics supply chain.
 As a basic architectural principle, the ONE Record data model is built around the logistic object “piece”. Having the piece at the center of the data model encourages all parties in the supply chain to deliver detailed data at a high level of granularity.
 
+!!! note
+    a Piece is defined as A uniquely identified physical single unit which may form all or a part of a shipment.
+
 ### Physics oriented
 The data model intends to reflect as much as possible the actual operational data, it has been designed around the concept of **Digital Twin**: the main objects of the data model represent either physical assets or the physical journey within the logistics supply chain.
 For instance, the objects Item, Pieces or ULD are easily identified in operations and they bear the same meaning in the data model.
