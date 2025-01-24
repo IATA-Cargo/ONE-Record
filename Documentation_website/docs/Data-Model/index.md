@@ -1,5 +1,5 @@
 
-<img src="https://github.com/lambertciata/ONE-Record/assets/58464775/8144ae8c-7378-4ef9-ae67-de6924212367" width="450">
+<img src="./img/DM-logo.png" width="450">
 
 # Purpose
 
