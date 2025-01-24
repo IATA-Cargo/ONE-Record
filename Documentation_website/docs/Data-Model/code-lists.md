@@ -14,7 +14,7 @@ Whenever a [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement
 This URI can reference an existing ontology, such as [code lists published by the UN/CEFACT Web Vocabulary](https://vocabulary.uncefact.org/code-lists).
 
 !!! note
- Code lists element cannot be hosted as Logistics Objects. A new code list element definition MUST be accessible with its human-readable URI. The code list element MUST specify the properties defined in the [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) object. For internal use, a unique URI in the format {{baseURL}}/{{codeListName}}#{{code}} is sufficient.
+    Code lists element cannot be hosted as Logistics Objects. A new code list element definition MUST be accessible with its human-readable URI. The code list element MUST specify the properties defined in the [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) object. For internal use, a unique URI in the format {{baseURL}}/{{codeListName}}#{{code}} is sufficient.
 
 # CodeListElement
 
