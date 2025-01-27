@@ -1,0 +1,26 @@
+{
+    "@context": {
+        "cargo": "https://onerecord.iata.org/ns/cargo#",
+        "api": "https://onerecord.iata.org/ns/api#"
+    },
+    "@type": "api:Notification",
+    "api:hasEventType": {
+        "@id": "api:LOGISTICS_OBJECT_CREATED"
+    },
+    "api:hasLogisticsObject": {
+        "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c",
+        "@type": "cargo:Shipment",
+        "cargo:goodsDescription": "Lots of awesome ONE Record information materials",
+        "cargo:pieces": [{
+            "@type": "cargo:Piece",
+            "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
+        }]
+    }, 
+    "api:hasLogisticsObjectType": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://onerecord.iata.org/ns/cargo#Shipment"
+    },   
+    "api:isTriggeredBy": {
+        "@id": "https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed"
+    }
+}
