@@ -958,9 +958,9 @@ _([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_
 !!! note
     This section is under review and it's not approved by COTB
 
-A logistics object holds a significant amount of information, making a GET request inefficient when the objective is merely to check for updates, as it retrieves the entire payload. To enhance efficiency, the HTTP HEAD method is implemented on logistics object endpoints, enabling clients to confirm existence and access key metadata without downloading the full object. By providing the same HTTP headers as a GET request but without the response body, HEAD facilitates efficient cache validation and change detection, minimizing unnecessary data transfer and optimizing overall performance.
+A logistics object holds a significant amount of information, making a `GET` request inefficient when the objective is merely to check for updates, as it retrieves the entire payload. To enhance efficiency, the `HTTP HEAD` method is implemented on logistics object endpoints, enabling clients to confirm existence and access key metadata without downloading the full object. 
 
-The HTTP HEAD method plays a crucial role in streamlining interactions with logistics objects by allowing clients to verify their presence and obtain metadata without the overhead of transferring the full payload. This approach reduces network congestion, enhances performance, and strengthens cache validation by enabling clients to inspect headers like Last-Modified and Latest-Revision to determine if an object has changed. With no response body included, HEAD requests execute more quickly and require fewer server resources, making them particularly advantageous for large logistics objects or frequent status verifications.
+The `HTTP HEAD` method plays a crucial role in streamlining interactions with logistics objects by allowing clients to verify their presence and obtain metadata without the overhead of transferring the full payload. This approach reduces network congestion, enhances performance, and strengthens cache validation by enabling clients to inspect headers like `Last-Modified` and `Latest-Revision` to determine if an object has changed. With no response body included, `HEAD` requests execute more quickly and require fewer server resources, making them particularly advantageous for large logistics objects or frequent status verifications.
 
 ## Endpoint
 
@@ -1005,11 +1005,11 @@ The following HTTP status codes MUST be supported:
 | **415** | Unsupported Content Type                                           | No response body |
 | **500** | Internal Server Error                                              | No response body |
 
-The HEAD method is identical to the GET but the server MUST NOT return a message/body in the response.
+The `HEAD` method is identical to the `GET` but the server MUST NOT return a message/body in the response.
 
 
 ## Security
-To engage with the endpoint using the HEAD method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+To engage with the endpoint using the `HEAD` method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
 
 
 ## Example F1
