@@ -953,7 +953,7 @@ Latest-Revision: 4
 
 _([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_
 
-# Retrieve Logistics Object information
+# Retrieve Logistics Object metadata
 
 !!! note
     This section is under review and it's not approved by COTB
