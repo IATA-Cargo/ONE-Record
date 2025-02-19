@@ -379,8 +379,8 @@
 										"exec": [
 											"// Inject jsonld.js\r",
 											"var self = {}\r",
-											"async function frame(json) {\r",
-											"    return await jsonld.frame(json, {});\r",
+											"async function frame(piece) {\r",
+											"    return await jsonld.frame(piece, {});\r",
 											"}\r",
 											"eval(pm.collectionVariables.get('jsonCode'));\r",
 											"\r",
@@ -426,6 +426,7 @@
 											"    } else {\r",
 											"        jsonData = result;\r",
 											"    }\r",
+											"    console.log(result)\r",
 											"    var handlingInstructions = \"https://onerecord.iata.org/ns/cargo#handlingInstructions\"\r",
 											"    pm.test(\"Response contains @id \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(\"@id\");\r",
@@ -444,10 +445,19 @@
 											"    pm.test(\"Response contains coload\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(coload);\r",
 											"    });\r",
-											"    pm.test(\"Response value coload \", () => {\r",
-											"        pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
-											"        pm.expect(jsonData[coload]['@value']).to.eql('false');\r",
-											"    });\r",
+											"    \r",
+											"    if (jsonData[coload] instanceof Object){\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
+											"            pm.expect(jsonData[coload]['@value'].toString()).to.eql('false')\r",
+											"        });\r",
+											"    } else {\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]).to.eql(false);\r",
+											"            pm.expect(jsonData[coload]).to.be.a('boolean');       \r",
+											"        });\r",
+											"    }\r",
+											"    \r",
 											"    pm.test(\"Response contains handlingInstructions \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
 											"    });\r",
@@ -487,7 +497,8 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -496,7 +507,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -743,10 +755,19 @@
 											"    pm.test(\"Response contains shipmentOfPieces-coload\", () => {\r",
 											"        pm.expect(piece).to.have.property(coload);\r",
 											"    });\r",
-											"    pm.test(\"Response value shipmentOfPieces-coload \", () => {\r",
-											"        pm.expect(piece[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
-											"        pm.expect(piece[coload]['@value']).to.eql('false');\r",
-											"    });\r",
+											"\r",
+											"    if (piece[coload] instanceof Object){\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(piece[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
+											"            pm.expect(piece[coload]['@value'].toString()).to.eql('false')\r",
+											"        });\r",
+											"    } else {\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(piece[coload]).to.eql(false);\r",
+											"            pm.expect(piece[coload]).to.be.a('boolean');       \r",
+											"        });\r",
+											"    }\r",
+											"\r",
 											"    var handlingInstructions = \"https://onerecord.iata.org/ns/cargo#handlingInstructions\"\r",
 											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions \", () => {\r",
 											"        pm.expect(piece).to.have.property(handlingInstructions);\r",
@@ -783,7 +804,8 @@
 											"//Update revision\r",
 											"pm.collectionVariables.set(\"shipmentRevision\", pm.response.headers.get(\"Latest-Revision\"));"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -792,7 +814,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -1773,7 +1796,6 @@
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
 											"if (pm.response.code == 201 ) {\r",
-											"    pm.collectionVariables.set(\"patchRequest1\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"patchPieceId\"))){\r",
 											"        pm.collectionVariables.set(\"patchPieceRevision\", Number(pm.collectionVariables.get(\"patchPieceRevision\"))+1);\r",
@@ -1781,7 +1803,8 @@
 											"    pm.collectionVariables.set(\"addWeightCR\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -1790,7 +1813,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -1800,7 +1824,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2113,10 +2136,20 @@
 											"    pm.test(\"Response contains coload\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(coload);\r",
 											"    });\r",
-											"    pm.test(\"Response value coload \", () => {\r",
-											"        pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
-											"        pm.expect(jsonData[coload]['@value']).to.eql('true');\r",
-											"    });\r",
+											"\r",
+											"    if (jsonData[coload] instanceof Object){\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
+											"            pm.expect(jsonData[coload]['@value'].toString()).to.eql('false')\r",
+											"        });\r",
+											"    } else {\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]).to.eql(false);\r",
+											"            pm.expect(jsonData[coload]).to.be.a('boolean');       \r",
+											"        });\r",
+											"    }\r",
+											"\r",
+											"\r",
 											"    pm.test(\"Response contains handlingInstructions \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
 											"    });\r",
@@ -2973,10 +3006,19 @@
 											"    pm.test(\"Response contains coload\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(coload);\r",
 											"    });\r",
-											"    pm.test(\"Response value coload \", () => {\r",
-											"        pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
-											"        pm.expect(jsonData[coload]['@value']).to.eql('true');\r",
-											"    });\r",
+											"\r",
+											"    if (jsonData[coload] instanceof Object){\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
+											"            pm.expect(jsonData[coload]['@value'].toString()).to.eql('false')\r",
+											"        });\r",
+											"    } else {\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]).to.eql(false);\r",
+											"            pm.expect(jsonData[coload]).to.be.a('boolean');       \r",
+											"        });\r",
+											"    }\r",
+											"\r",
 											"    pm.test(\"Response contains handlingInstructions \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
 											"    });\r",
@@ -3015,7 +3057,8 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -3024,7 +3067,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -3434,7 +3478,7 @@
 					]
 				}
 			],
-			"description": "This folder contains all unit tests for Logistics Objects endpoint. For more information visit : [ONE Record Logistics Objects](https://iata-cargo.github.io/ONE-Record/)\n\n**Important**: Tests should be run using the defined order as each test saves variable for the next one."
+			"description": "This folder contains all unit tests for Logistics Objects endpoint. For more information visit : [ONE Record Logistics Objects](https://iata-cargo.github.io/ONE-Record/logistics-objects/)\n\n**Important**: Tests should be run using the defined order as each test saves variable for the next one."
 		},
 		{
 			"name": "Logistics Events",
@@ -4419,9 +4463,9 @@
 											"    var eventCode = 'https://onerecord.iata.org/ns/cargo#eventCode';\r",
 											"    var code = 'https://onerecord.iata.org/ns/cargo#code';\r",
 											"    //The following test can fail according on how the return body is implemented.\r",
-											"    //The test checks that the only returned event has eventCode=DEP.\r",
+											"    //The test checks that the only returned event has event-code=DEP.\r",
 											"    //Please check the error and adjust the test.\r",
-											"    pm.test(\"Eventcode=DEP inside hasItem\", () => {\r",
+											"    pm.test(\"event-code=DEP inside hasItem\", () => {\r",
 											"        pm.expect(jsonData[hasItem][eventCode][code]).to.eql('DEP');\r",
 											"    });\r",
 											"});\r",
@@ -4464,7 +4508,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/logistics-events/?eventType=DEP",
+									"raw": "{{baseUrl}}/logistics-objects/:logisticsObjectId/logistics-events/?event-code=DEP",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -4476,7 +4520,7 @@
 									],
 									"query": [
 										{
-											"key": "eventType",
+											"key": "event-code",
 											"value": "DEP"
 										}
 									],
@@ -6025,6 +6069,7 @@
 											"pm.test(\"Check type header\",() => {\r",
 											"    pm.expect(pm.response.headers.get(\"Type\")).to.be.oneOf(actionTypes);  \r",
 											"});\r",
+											"\r",
 											"//Test Location header\r",
 											"pm.test(\"Check Location contains {{baseUrl}}/action-requests/ \", () => {\r",
 											"    var expectedValue = pm.variables.get(\"baseUrl\")+ \"/action-requests/\";\r",
@@ -6032,7 +6077,8 @@
 											"});\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -6041,7 +6087,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -6155,7 +6202,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGYzdaSHZUNGozbldNenZkX2xuYUsySGZWWnUtYWtBLTB0TGMwLVgwc1BZIn0.eyJleHAiOjE3MzY1NjIzNzgsImlhdCI6MTczNjUyNjM3OCwianRpIjoiZjgxZjg3OWEtOWQ5OS00N2FmLWFkMmEtNmU0MTg2ZjA4NjMxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4OTg5L3JlYWxtcy9uZW9uZSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwYWU4OThmMy1kMjQ4LTRlYWMtODY4MS1iMDM4MWM4MmQ2YzAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJuZW9uZS1jbGllbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1uZW9uZSIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImxvZ2lzdGljc19hZ2VudF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvbG9naXN0aWNzLW9iamVjdHMvX2RhdGEtaG9sZGVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW5lb25lLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibmVvbmUtY2xpZW50In0.JK7HRn5T2BVvSq6wVRBtCbg_L4ldhKLaGGQNMt0iCl24kpz3VhXgLPQcalKYqPUNWFBUCWxG3BfbTzFeI_a8OxudoZTR4bKUSZHSoHkWICeNLvMF9to2TK_TdAQzmcn0EyMIrBlODrZz6PTPU-DbkSI0sCzUXXLAYpCt9hJ1Ds2z6sUy3_2Dylw-vEuqVvtisrU621A4CaQ5L1ljxMVpELQJaoRBAIHODHnV_qSq9SBTlYHfLz2q0XiVcsQqR3D5xooRvWRnVnYibvbdyfOa2AxCy-SrFvzuw6DFZFvuZd5BjyFBKGrvODWgqRAm5_MJ9gneoIcZCwXWF7d7uuEeFw",
 				"type": "string"
 			}
 		]
