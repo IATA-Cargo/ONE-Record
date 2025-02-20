@@ -1302,6 +1302,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#retrieve-logistics-object-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retrieve Logistics Object metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrieve Logistics Object metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example F1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-f2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example F2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#signal-an-issue-in-a-logistics-object" class="md-nav__link">
     <span class="md-ellipsis">
       Signal an issue in a Logistics Object
@@ -3794,6 +3863,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#retrieve-logistics-object-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Retrieve Logistics Object metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Retrieve Logistics Object metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example F1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-f2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example F2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#signal-an-issue-in-a-logistics-object" class="md-nav__link">
     <span class="md-ellipsis">
       Signal an issue in a Logistics Object
@@ -5492,6 +5630,162 @@ If this parameter is in the future, <code>400 Bad Request</code> is returned.</p
 </span><span id="__span-41-39"><a id="__codelineno-41-39" name="__codelineno-41-39" href="#__codelineno-41-39"></a><span class="o">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples/Piece_with_id.rev3.json">Piece_with_id.json</a>)</em></p>
+<h2 id="retrieve-logistics-object-metadata">Retrieve Logistics Object metadata<a class="headerlink" href="#retrieve-logistics-object-metadata" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is under review and it's not approved by COTB</p>
+</div>
+<p>A logistics object holds a significant amount of information, making a <code>GET</code> request inefficient when the objective is merely to check for updates, as it retrieves the entire payload. To enhance efficiency, the <code>HTTP HEAD</code> method is implemented on logistics object endpoints, enabling clients to confirm existence and access key metadata without downloading the full object. </p>
+<p>The <code>HTTP HEAD</code> method plays a crucial role in streamlining interactions with logistics objects by allowing clients to verify their presence and obtain metadata without the overhead of transferring the full payload. This approach reduces network congestion, enhances performance, and strengthens cache validation by enabling clients to inspect headers like <code>Last-Modified</code> and <code>Latest-Revision</code> to determine if an object has changed. With no response body included, <code>HEAD</code> requests execute more quickly and require fewer server resources, making them particularly advantageous for large logistics objects or frequent status verifications.</p>
+<h3 id="endpoint_4">Endpoint<a class="headerlink" href="#endpoint_4" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a> HEAD {{baseURL}}/logistics-objects/{{logisticsObjectId}}
+</span></code></pre></div>
+<h3 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h3>
+<p>The following HTTP header parameters MUST be present in the request:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accept</strong></td>
+<td>The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied.</td>
+<td><ul><li>application/ld+json</li><li>application/ld+json; version=2.1.0</li><li>application/ld+json; version=1.2</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h3 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h3>
+<p>A successful request MUST return a <code>HTTP/1.1 200 OK</code> status code. </p>
+<p>The following HTTP headers parameters MUST be present in the response:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content-Type</strong></td>
+<td>The content type that is contained with the HTTP body.</td>
+<td>application/ld+json</td>
+</tr>
+<tr>
+<td><strong>Content-Language</strong></td>
+<td>Describes the language(s) for which the requested resource is intended.</td>
+<td>en-US</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>The type of the requested Logistics Object as a URI</td>
+<td>https://onerecord.iata.org/ns/cargo#Piece</td>
+</tr>
+<tr>
+<td><strong>Revision</strong></td>
+<td>The revision of the requested Logistics Object as a positive numerical value. This is particularly relevant if the query parameter <code>at=</code> is set to request a historical version of the Logistics Object.</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Latest-Revision</strong></td>
+<td>The latest revision number of the Logistics Object as non-negative numerical value.</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>Last-Modified</strong></td>
+<td>Date and time when the Logistics Object was last time changed. Syntax: <code>Last-Modified: &lt;day-name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</code>. See https://developer.mozilla.org/en-US/docs/Web/</td>
+<td>Tue, 21 Feb 2023 07:28:00 GMT</td>
+</tr>
+</tbody>
+</table>
+<p>The following HTTP status codes MUST be supported:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Response body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>The request to retrieve the Logistics Object has been successful</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>301</strong></td>
+<td>The URI of the Logistics Object has permanently changed.</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>302</strong></td>
+<td>The URI of the Logistics Object has temporarily moved.</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>401</strong></td>
+<td>Not authenticated</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>Not authorized to retrieve the Logistics Object</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>Logistics Object not found</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>415</strong></td>
+<td>Unsupported Content Type</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>No response body</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>HEAD</code> method is identical to the <code>GET</code> but the server MUST NOT return a message/body in the response.</p>
+<h3 id="security_4">Security<a class="headerlink" href="#security_4" title="Permanent link">&para;</a></h3>
+<p>To engage with the endpoint using the <code>HEAD</code> method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status. Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided.</p>
+<h3 id="example-f1">Example F1<a class="headerlink" href="#example-f1" title="Permanent link">&para;</a></h3>
+<p>Request:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nf">HEAD</span> <span class="nn">/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.1.0-dev</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer &lt;token&gt;</span>
+</span></code></pre></div>
+<p>Response:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/ld+json</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="na">Content-Language</span><span class="o">:</span> <span class="l">en-US</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="na">Location</span><span class="o">:</span> <span class="l">https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="na">Type</span><span class="o">:</span> <span class="l">https://onerecord.iata.org/ns/cargo#Piece</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="na">Revision</span><span class="o">:</span> <span class="l">1</span>
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="na">Latest-Revision</span><span class="o">:</span> <span class="l">1</span>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="na">Last-Modified</span><span class="o">:</span> <span class="l">Tue, 21 Feb 2023 07:28:00 GMT</span>
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="na">Content-Length</span><span class="o">:</span> <span class="l">526</span>
+</span></code></pre></div>
+<h3 id="example-f2">Example F2<a class="headerlink" href="#example-f2" title="Permanent link">&para;</a></h3>
+<p>Request:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nf">HEAD</span> <span class="nn">/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7d</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">1r.example.com</span>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">application/ld+json; version=2.0.0-dev</span>
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer &lt;token&gt;</span>
+</span></code></pre></div>
+<p>Response:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">404</span> <span class="ne">Not Found</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/ld+json</span>
+</span></code></pre></div>
 <h2 id="signal-an-issue-in-a-logistics-object">Signal an issue in a Logistics Object<a class="headerlink" href="#signal-an-issue-in-a-logistics-object" title="Permanent link">&para;</a></h2>
 <p>To signal an issue in a Logistics Object, third parties can use a specific action request called VerificationRequest. More information on how to use these specific action request can be found in the <a href="../verifications/">Verification page</a></p>
 
