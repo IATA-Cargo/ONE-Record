@@ -1,0 +1,32 @@
+# IMPORTANT: USE THIS ACTION ONLY TO FIX OLD RELEASE
+# BEFORE RUNNING YOU MUST UPDATE LINE 30 -> mike deploy --push --update-aliases 2024-12 stable WITH THE CORRECT ALIAS NAME (I.E 2024-12)
+name: ONE Record release fix
+on:
+    workflow_dispatch:
+
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+      - name: Install Dependencies
+        run: |
+          pip install mkdocs-material
+          pip install mike
+      - name: Setup Docs Deploy
+        run: |
+          git config --global user.name "Docs Deploy"
+          git config --global user.email "docs.deploy@example.co.uk"
+      - name: Build Docs Website        
+        run: |
+          make copy-assets
+          mike deploy --push --update-aliases 2024-12 stable
+          mike set-default --push stable
+        working-directory: ./Documentation_website
