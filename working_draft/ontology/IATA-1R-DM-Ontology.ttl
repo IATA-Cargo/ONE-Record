@@ -10,76 +10,35 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.1> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.1.1> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "26-11-2024" ;
+                                       terms:modified "20-02-2025" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
-Version 3.1.0 (ongoing)
+Version 3.1.1 (ongoing)
 
 Additions:
-- Added temperatureInstructions to Piece
- (#227)
-- Added new property textualPostalCode to Address (#221)
-- Added new property operatingParties to TransportMovement (#229)
-- Added new class AccountingNote (#231)
-- Added new property accountingNoteIdentifier to AccountingNote (#231)
-- Added new property accountingNoteText to AccountingNote (#231)
-- Added new property accountingNotes to Waybill (#231)
-- Added new property taxAmount to Waybill (#247)
-- Added new property locationIndicator to OtherCharge (#247)
-- Added new property reasonDescription to OtherCharge (#247)
-- Added new property chargeQuantity to OtherCharge (#247)
-- Added new property pieceReferences to WaybillLineItem (#265)
-- Added new property uldReferences to WaybillLineItem (#265)
-- Added new property densityGroupCode to BookingShipment (#248, #230)
-
+- Added chargeableWeight to WaybillLineItem (#276)
+- Added conversionFactor to WaybillLineItem (#276)
 
 Removals:
-- Deprecated postalCode in favor of textualPostalCode (#221)
-- Deprecated accountingInformation in favor of AccountingNote and included properties (#231)
-- Removed specialHandlingCodes from Shipment (#228)
-- Deprecated and removed chargeableWeightForRate from WaybillLineItem (#265)
-- Deprecated and removed commodityItemNumberForRate from WaybillLineItem (#265)
-- Deprecated and removed dimensionsForRate from WaybillLineItem (#265)
-- Deprecated and removed goodsDescriptionForRate from WaybillLineItem (#265)
-- Deprecated and removed grossWeightForRate from WaybillLineItem (#265)
-- Deprecated and removed hsCodeForRate from WaybillLineItem (#265)
-- Deprecated and removed pieceCountForRate from WaybillLineItem (#265)
-- Deprecated and removed productionCountryForRate from WaybillLineItem (#265)
-- Deprecated and removed slacForRate from WaybillLineItem (#265)
-- Deprecated and removed uldTareWeightForRate from WaybillLineItem (#265)
-- Deprecated and removed volumetricWeightForRate from WaybillLineItem (#265)
-- Removed uldOwnerCode from WaybillLineItem (#265)
-- Removed uldSerialNumber from WaybillLineItem (#265)
-- Removed uldType from WaybillLineItem (#265)
-
+- Removed volumetricWeight from Piece (#276)
+- Removed totalVolumetricWeight from Shipment (#276)
+- Deprecated VolumetricWeight (#276)
+- Deprecated volumetricWeight (#276)
+- Deprecated totalVolumetricWeight (#276)
 
 Changes:
-- Changed range of partyDetails from Organization to LogisticsAgent (#222)
-- Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration (#244)
-- Lifted cardinality restriction on ofShipment in Piece (#244)
-- ifted cadinality restriction on SecurityDeclaration#issuedForPiece (#280)
 
-Visualization
- (#223, #224):
-- Added vis_ annotation properties for ontology visualizer
-- Annotated as per business logic inverse properties by vis_inverseProperty
+Visualization:
 
-Bugfixes
-:
-- Removed line breaks in descriptions
-- Simplified descriptions of Check and related objects
-- Fixed labels (commodityItemNumber and WaybillLineItem)
- (#234)
-- Fixed RegEx pattern for waybillNumber to allow alphanumeric sequences (used in House Air Waybills)
-- Fixes to descriptions"""@en ;
+Bugfixes:"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.1 RC1"@en .
+                                       owl:versionInfo "3.1.1"@en .
 
 #################################################################
 #    Annotation properties
@@ -2443,7 +2402,8 @@ owl:thing rdf:type rdfs:Datatype .
                        rdfs:range :VolumetricWeight ;
                        rdfs:comment "Volumetric weight of the whole shipment"@en ;
                        rdfs:label "totalVolumetricWeight"@en ;
-                       owl:comment "Domain owl:Thing"@en .
+                       owl:comment "Domain owl:Thing"@en ;
+                       owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#transactionPurposeCode
@@ -2663,7 +2623,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :VolumetricWeight ;
                   rdfs:comment "Volumetric weight details"@en ;
                   rdfs:label "volumetricWeight"@en ;
-                  owl:comment "Domain :Piece"@en .
+                  owl:comment "Domain :Piece"@en ;
+                  owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#volumetricWeightForRate
@@ -7805,10 +7766,6 @@ owl:thing rdf:type rdfs:Datatype .
                          owl:allValuesFrom :TemperatureInstructions
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :volumetricWeight ;
-                         owl:allValuesFrom :VolumetricWeight
-                       ] ,
-                       [ rdf:type owl:Restriction ;
                          owl:onProperty :contentProductionCountry ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
@@ -7842,10 +7799,6 @@ owl:thing rdf:type rdfs:Datatype .
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :temperatureInstructions ;
-                         owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                       ] ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty :volumetricWeight ;
                          owl:maxCardinality "1"^^xsd:nonNegativeInteger
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -8818,10 +8771,6 @@ owl:thing rdf:type rdfs:Datatype .
                             owl:allValuesFrom :Value
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :totalVolumetricWeight ;
-                            owl:allValuesFrom :VolumetricWeight
-                          ] ,
-                          [ rdf:type owl:Restriction ;
                             owl:onProperty :waybill ;
                             owl:allValuesFrom :Waybill
                           ] ,
@@ -8835,10 +8784,6 @@ owl:thing rdf:type rdfs:Datatype .
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :totalGrossWeight ;
-                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :totalVolumetricWeight ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -9575,6 +9520,7 @@ owl:thing rdf:type rdfs:Datatype .
                                   ] ;
                   rdfs:comment "Volumetric weight details"@en ;
                   rdfs:label "VolumetricWeight"@en ;
+                  owl:deprecated "true"^^xsd:boolean ;
                   :vis_element "Embedded"@en .
 
 
@@ -9821,6 +9767,10 @@ owl:thing rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/cargo#WaybillLineItem
 :WaybillLineItem rdf:type owl:Class ;
                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :chargeableWeight ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :pieceReferences ;
                                    owl:allValuesFrom :Piece
                                  ] ,
@@ -9853,6 +9803,10 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:allValuesFrom :ULD
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :chargeableWeight ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateCharge ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
@@ -9877,8 +9831,16 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :conversionFactor ;
+                                   owl:allValuesFrom xsd:double
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :lineItemNumber ;
                                    owl:allValuesFrom xsd:integer
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :conversionFactor ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :lineItemNumber ;
