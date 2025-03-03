@@ -3489,7 +3489,7 @@ This enables users and holders to view and revoke action requests, and enables h
 
     REQUEST_REJECTED --&gt; [*]    </code></pre>
 <p><strong>ActionRequest state diagram for VerificationRequest</strong></p>
-<pre class="mermaid"><code>    stateDiagram-v2
+<p><pre class="mermaid"><code>    stateDiagram-v2
 
     direction LR   
 
@@ -3507,6 +3507,7 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_REJECTED --&gt; [*]    
 
     REQUEST_ACKNOWLEDGED --&gt; [*]</code></pre>
+For a Verification Request, the request may result in REQUEST_FAILED if the version is not the latest or if the property is not defined in the logistics object as per the data model.</p>
 <p><strong>ActionRequest data model</strong></p>
 <p>The <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> is a data class of the <a href="../assets/ONE-Record-API-Ontology.ttl">ONE Record API ontology</a>.
 The properties and relationships to other data classes are visualized in the following class diagram.</p>
