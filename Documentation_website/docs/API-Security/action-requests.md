@@ -54,7 +54,7 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_PENDING --> REQUEST_ACKNOWLEDGED: acknowledged by holder
     REQUEST_PENDING --> REQUEST_REJECTED: rejected by holder
     REQUEST_PENDING --> REQUEST_REVOKED: revocation requested
-    REQUEST_PENDING --> REQUEST_FAILED: revocation requested
+    REQUEST_PENDING --> REQUEST_FAILED: an error has occurred
 
     REQUEST_REVOKED --> [*]      
 
