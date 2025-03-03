@@ -64,6 +64,7 @@ This enables users and holders to view and revoke action requests, and enables h
 
     REQUEST_ACKNOWLEDGED --> [*]
 ```
+For a Verification Request, the request may result in REQUEST_FAILED if the version is not the latest or if the property is not defined in the logistics object as per the data model.
 
 **ActionRequest data model**
 
