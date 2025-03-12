@@ -382,7 +382,7 @@ Location: https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee79
 
 # Revoke Action Request
 
-This API action MUST be used to revoke an Action Request MUST be revoked only by the original requestor of the ActionRequest or the holder/publisher of the Logistics Object.
+This API action must be used to revoke an Action Request, which can only be done by the original requester of the ActionRequest or by the holder/publisher of the Logistics Object.
 
 ## Endpoint
 
