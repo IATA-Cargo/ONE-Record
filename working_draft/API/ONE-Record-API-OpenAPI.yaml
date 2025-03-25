@@ -362,6 +362,84 @@ paths:
             application/ld+json:
               schema:
                 $ref: '#/components/schemas/Error'                  
+    post:
+      tags:
+      - Logistics Objects
+      summary: Request a verification for a given logistics object
+      description: Allow a third party to propose a verification on a logistics object
+      operationId: verifyLogisticsObject
+      parameters:
+      - name: logisticsObjectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Verification'
+        required: true
+      responses:
+        "201":
+          description: The verification request was successfully requested
+          headers:
+            Type:
+              description: The type of the newly created resource as a URI
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri
+            Location:
+              description: The URI of the submitted ChangeRequest
+              required: true
+              style: simple
+              schema:
+                type: string
+                format: uri     
+        "400":
+          description: The verification request body is invalid
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "401":
+          description: Not authenticated
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+        "403":
+          description: Not authorized
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'                                  
+        "404":
+          description: Logistics Object not found
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "415":
+          description: Unsupported Content Type
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "422":
+          description: Unprocessable Request
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Error'  
   /logistics-objects/{logisticsObjectId}/audit-trail:
     get:
       tags:
@@ -463,7 +541,7 @@ paths:
         required: true
         schema:
           type: string
-      - name: eventType
+      - name: event-code
         in: query
         required: false
         schema:
@@ -471,30 +549,48 @@ paths:
           items:
               type: string    
           example: [FOF,DEP]
-      - name: created_after
+      - name: created-after
         in: query
         required: false
         schema:
           type: string
           format: date-time                    
-      - name: created_before
+      - name: created-before
         in: query
         required: false
         schema:
           type: string
           format: date-time  
-      - name: occurred_after
+      - name: occurred-after
         in: query
         required: false
         schema:
           type: string
           format: date-time  
-      - name: occurred_before
+      - name: occurred-before
         in: query
         required: false
         schema:
           type: string
-          format: date-time                                
+          format: date-time 
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+              type: string    
+          example: [ASC-creationDate,DESC-creationDate,ASC-eventDate,DESC-eventDate]
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         "200":
           description: The request to retrieve the Logistics Events has been successful
