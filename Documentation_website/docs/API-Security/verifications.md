@@ -108,7 +108,7 @@ The following HTTP status codes MUST be supported:
 
 | Code    | Description | Response body    |
 | ------- | ----------- | ---------------- |
-| **201** | The change request was correctly created | No body required |
+| **201** | The verification request was correctly created | No body required |
 | **400** | The verification request body is invalid                             | Error            |
 | **401** | Not authenticated                          | Error            |
 | **403** | Not authorized to update the Logistics Object                  | Error            |
