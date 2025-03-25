@@ -109,12 +109,13 @@ The following HTTP status codes MUST be supported:
 | Code    | Description | Response body    |
 | ------- | ----------- | ---------------- |
 | **201** | The verification request was correctly created | No body required |
-| **400** | The verification request body is invalid                             | Error            |
+| **400** | The verification request body is invalid   | Error            |
 | **401** | Not authenticated                          | Error            |
-| **403** | Not authorized to update the Logistics Object                  | Error            |
+| **403** | Not authorized                             | Error            |
 | **404** | Logistics Object not found                 | Error            |
 | **415** | Unsupported Content Type, response when the client sends a POST document format that the server does not support for the resource identified by the Request-URI.  | Error            |
 | **422** | Unprocessable request, when the server understands the POST document and the syntax of the POST document appears to be valid, but the server is incapable of processing the request. | Error            |
+| **500** | Internal server error | Error            |
 
 
 ## Security
