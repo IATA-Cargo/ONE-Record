@@ -4,10 +4,10 @@ Effective governance ensures the model remains robust, up-to-date, and aligned w
 #  Community Involvement
 The ONE Record model is governed with transparency and inclusiveness:
 
-- Industry participants are encouraged to contribute through **GitHub**, where the data model is publicly available. Contributions can be made by [**creating a new issue**](https://github.com/IATA-Cargo/ONE-Record/issues/new), which will then be reviewed and assessed by the dedicated ONE Record Data Model taskforce.
+- Industry participants are encouraged to contribute through **GitHub**, where the data model is publicly available. Contributions can be made by [**creating a new issue**](https://github.com/IATA-Cargo/ONE-Record/issues/new), which will then be reviewed and assessed by the dedicated ONE Record Data Model taskforce who is meeting (online) regularly.
 - Open discussions and collaborative documentation foster innovation and ensure practical applicability.
 
-You can access the GitHub dashboard through this link: [Data Model Changes](https://github.com/users/IATA-Cargo/projects/2/views/1).
+You can access the GitHub dashboard through this link: [Data Model Changes](https://github.com/users/IATA-Cargo/projects/2/views/1). Please note that GitHub issues are closed and archived once they have been added in the latest release.
 
 # Change Management Process
 A simple change request process is in place to propose updates or extensions to the model:
@@ -19,7 +19,16 @@ A simple change request process is in place to propose updates or extensions to 
 # Versioning and Backward Compatibility
 Each release of our data model follows **semantic versioning**, clearly differentiating between major, minor, and patch updates to ensure transparency and consistency in how changes are communicated.
 
-While we place strong emphasis on maintaining backward compatibility to promote system stability and interoperability, there are instances where breaking changes are necessary to support innovation or correct fundamental issues.
+While we place strong emphasis on maintaining backward compatibility to promote system stability and interoperability, there are instances where **breaking changes** are necessary to support innovation or correct fundamental issues.
+
+A **breaking change** can be:
+
+- Addition of new **mandatory** data properties or objects, usually requirements coming from business processes or regulatory changes
+- Removal of **mandatory** data properties or objects, usually coming from simplification of the Data Model, changes on the best practices
+- Change of an object's name
+
+!!! note
+    When data properties or objects are removed, they are actually set as **deprecated** and could still be used, however they are permanently deleted when next **major version** is released.
 
 Whenever a breaking change is introduced, it is accompanied by an increment in the **major version** number and the creation of a **new namespace** within the cargo ontology. For example, a breaking change would shift the version to 4 and introduce a corresponding namespace such as `http://onerecord.iata.org/ns/2025/cargo`.
 
