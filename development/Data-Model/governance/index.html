@@ -3277,10 +3277,10 @@ Effective governance ensures the model remains robust, up-to-date, and aligned w
 <h2 id="community-involvement">Community Involvement<a class="headerlink" href="#community-involvement" title="Permanent link">&para;</a></h2>
 <p>The ONE Record model is governed with transparency and inclusiveness:</p>
 <ul>
-<li>Industry participants are encouraged to contribute through <strong>GitHub</strong>, where the data model is publicly available. Contributions can be made by <a href="https://github.com/IATA-Cargo/ONE-Record/issues/new"><strong>creating a new issue</strong></a>, which will then be reviewed and assessed by the dedicated ONE Record Data Model taskforce.</li>
+<li>Industry participants are encouraged to contribute through <strong>GitHub</strong>, where the data model is publicly available. Contributions can be made by <a href="https://github.com/IATA-Cargo/ONE-Record/issues/new"><strong>creating a new issue</strong></a>, which will then be reviewed and assessed by the dedicated ONE Record Data Model taskforce who is meeting (online) regularly.</li>
 <li>Open discussions and collaborative documentation foster innovation and ensure practical applicability.</li>
 </ul>
-<p>You can access the GitHub dashboard through this link: <a href="https://github.com/users/IATA-Cargo/projects/2/views/1">Data Model Changes</a>.</p>
+<p>You can access the GitHub dashboard through this link: <a href="https://github.com/users/IATA-Cargo/projects/2/views/1">Data Model Changes</a>. Please note that GitHub issues are closed and archived once they have been added in the latest release.</p>
 <h2 id="change-management-process">Change Management Process<a class="headerlink" href="#change-management-process" title="Permanent link">&para;</a></h2>
 <p>A simple change request process is in place to propose updates or extensions to the model:</p>
 <ul>
@@ -3290,7 +3290,17 @@ Effective governance ensures the model remains robust, up-to-date, and aligned w
 </ul>
 <h2 id="versioning-and-backward-compatibility">Versioning and Backward Compatibility<a class="headerlink" href="#versioning-and-backward-compatibility" title="Permanent link">&para;</a></h2>
 <p>Each release of our data model follows <strong>semantic versioning</strong>, clearly differentiating between major, minor, and patch updates to ensure transparency and consistency in how changes are communicated.</p>
-<p>While we place strong emphasis on maintaining backward compatibility to promote system stability and interoperability, there are instances where breaking changes are necessary to support innovation or correct fundamental issues.</p>
+<p>While we place strong emphasis on maintaining backward compatibility to promote system stability and interoperability, there are instances where <strong>breaking changes</strong> are necessary to support innovation or correct fundamental issues.</p>
+<p>A <strong>breaking change</strong> can be:</p>
+<ul>
+<li>Addition of new <strong>mandatory</strong> data properties or objects, usually requirements coming from business processes or regulatory changes</li>
+<li>Removal of <strong>mandatory</strong> data properties or objects, usually coming from simplification of the Data Model, changes on the best practices</li>
+<li>Change of an object's name</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When data properties or objects are removed, they are actually set as <strong>deprecated</strong> and could still be used, however they are permanently deleted when next <strong>major version</strong> is released.</p>
+</div>
 <p>Whenever a breaking change is introduced, it is accompanied by an increment in the <strong>major version</strong> number and the creation of a <strong>new namespace</strong> within the cargo ontology. For example, a breaking change would shift the version to 4 and introduce a corresponding namespace such as <code>http://onerecord.iata.org/ns/2025/cargo</code>.</p>
 <p>This versioned namespace not only helps maintain clarity and traceability as the model evolves but also enables users to easily identify the major version used to create a given logistics object. This information is essential for aligning data across systems and for mapping against other industry standards, ensuring smoother integration and interoperability.</p>
 <h2 id="how-to-deal-with-multiple-version-of-the-data-model">How to deal with multiple version of the Data model<a class="headerlink" href="#how-to-deal-with-multiple-version-of-the-data-model" title="Permanent link">&para;</a></h2>
