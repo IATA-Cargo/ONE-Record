@@ -33,7 +33,7 @@ Specificity of this process is that:
 ![image](https://github.com/user-attachments/assets/14d8db94-1d47-4672-b2e4-050da5bb5e23)
 
 ```mermaid
-graph TD
+graph LR
   A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
   B --> C{Validation succesful?};
   C -->|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
