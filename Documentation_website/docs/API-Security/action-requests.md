@@ -54,7 +54,7 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_PENDING --> REQUEST_ACKNOWLEDGED: acknowledged by holder
     REQUEST_PENDING --> REQUEST_REJECTED: rejected by holder
     REQUEST_PENDING --> REQUEST_REVOKED: revocation requested
-    REQUEST_PENDING --> REQUEST_FAILED: revocation requested
+    REQUEST_PENDING --> REQUEST_FAILED: an error has occurred
 
     REQUEST_REVOKED --> [*]      
 
@@ -64,6 +64,7 @@ This enables users and holders to view and revoke action requests, and enables h
 
     REQUEST_ACKNOWLEDGED --> [*]
 ```
+For a Verification Request, the request may result in REQUEST_FAILED if the version is not the latest or if the property is not defined in the logistics object as per the data model.
 
 **ActionRequest data model**
 
@@ -381,7 +382,7 @@ Location: https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee79
 
 # Revoke Action Request
 
-This API action MUST be used to revoke an Action Request MUST be revoked only by the original requestor of the ActionRequest or the holder/publisher of the Logistics Object.
+This API action must be used to revoke an Action Request, which can only be done by the original requester of the ActionRequest or by the holder/publisher of the Logistics Object.
 
 ## Endpoint
 

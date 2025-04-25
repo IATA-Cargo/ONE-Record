@@ -32,6 +32,30 @@ Specificity of this process is that:
 
 ![image](https://github.com/user-attachments/assets/14d8db94-1d47-4672-b2e4-050da5bb5e23)
 
+```mermaid
+graph LR
+  A[Freight Forwarder notifies that HAWB content is ready - Event on Shipment] --> B[Customs validates content];
+  B --> C{Validation succesful?};
+  C -->|Yes| D[Customs notifies that Shipment is OK - Event on Shipment SR];
+  C -->|No| E[Customs notifies that there is an error - Event on Shipment Error];
+  D --> F{Additional information or screening needed?};
+  F -->|Yes| G[Customs notifies RFI or RFS - Event on Shipment RFI or RFS];
+  F -->|No| H{Risk assessment completed?};
+  H -->|Yes| I{Assessment outcome};
+  I -->|Blocked - RFI or RFS| J[CB - 7H, 7J, 8H, 8J];
+  I -->|Customs Hold - DNL| K[CD - 6H, 6J];
+  I -->|Customs Release - OK| L[CO - SF, 6I, 7I, 8I];
+  D --> M[Freight Forwarder notified automatically];
+  E --> M;
+  G --> M;
+  J --> M;
+  K --> M;
+  L --> M;
+  M --> N{MAWB# available?};
+  N -->|Yes| O[Carrier notified automatically via the MAWB object];
+
+```
+
 In this scenario, the Freight Forwarder notifies the Customs that data is ready to be processed via an Event on the Shipment object. Then based on Customs validation and risk assessment, different Events are added on the Shipment **by the Customs** via the Change Request mechanism.
 
 If there is a MAWB number available, usually the Waybill objects of the House and the Master are already linked and the Airline can get notified automatically if Events are created.
