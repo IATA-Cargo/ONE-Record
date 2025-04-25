@@ -10,7 +10,8 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.1.1> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.1.2> ;
+                                       owl:imports <https://onerecord.iata.org/ns/code-lists/1.0.0> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
@@ -18,18 +19,22 @@
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
-Version 3.1.1 (ongoing)
+Version 3.2 (ongoing)
 
 Additions:
-- Added chargeableWeight to WaybillLineItem (#276)
-- Added conversionFactor to WaybillLineItem (#276)
+- Added cityName to Address (#287)
+- Added open AccountType code list (with FF, CONSIGNEE, CONSIGNOR as NamedIndividuals) (#277)
+- Added AccountNumber object (#277)
+- Added textualValue to AccountNumber (#277)
+- Added new accountNumberType property (#277)
+- Added new accountNumbers property to Party (#277)
+- Added HandlingService object (#271)
+- Added new serviceProvider property to HandlingService (#271)
+- Added new serviceRequestor property to HandlingService (#271)
+- Added new serviceForWaybills property to HandlingService (#271)
+- Added new handlingServiceFor property to HandlingService (#271)
 
 Removals:
-- Removed volumetricWeight from Piece (#276)
-- Removed totalVolumetricWeight from Shipment (#276)
-- Deprecated VolumetricWeight (#276)
-- Deprecated volumetricWeight (#276)
-- Deprecated totalVolumetricWeight (#276)
 
 Changes:
 
@@ -123,6 +128,20 @@ owl:thing rdf:type rdfs:Datatype .
 #################################################################
 #    Object Properties
 #################################################################
+
+###  https://onerecord.iata.org/ns/cargo#accountNumberType
+:accountNumberType rdf:type owl:ObjectProperty ;
+                   rdfs:range :AccountType ;
+                   rdfs:comment "Type of the account of the account number" ;
+                   rdfs:label "accountNumberType" .
+
+
+###  https://onerecord.iata.org/ns/cargo#accountNumbers
+:accountNumbers rdf:type owl:ObjectProperty ;
+                rdfs:range :AccountNumber ;
+                rdfs:comment "Information about account numbers" ;
+                rdfs:label "accountNumbers" .
+
 
 ###  https://onerecord.iata.org/ns/cargo#accountingNotes
 :accountingNotes rdf:type owl:ObjectProperty ;
@@ -1183,6 +1202,13 @@ owl:thing rdf:type rdfs:Datatype .
                      owl:comment "Domain :SecurityDeclaration"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#handlingServiceFor
+:handlingServiceFor rdf:type owl:ObjectProperty ;
+                    rdfs:range :PhysicalLogisticsObject ;
+                    rdfs:label "handlingServiceFor" ;
+                    owl:comment "Reference to the physical objects this Handling Service is performed on. To be used if a Service is performed for a Location, TransportMeans, ULD or specific Piece or set of" .
+
+
 ###  https://onerecord.iata.org/ns/cargo#height
 :height rdf:type owl:ObjectProperty ;
         rdfs:range :Value ;
@@ -2150,12 +2176,33 @@ owl:thing rdf:type rdfs:Datatype .
              owl:comment "Domain :Waybill"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#serviceForWaybills
+:serviceForWaybills rdf:type owl:ObjectProperty ;
+                    rdfs:range :Waybill ;
+                    rdfs:comment "Reference to the Waybills this service is to be performed for. To be used if a service is to be performed for a specific shipment or set of" ;
+                    rdfs:label "serviceForWaybills" .
+
+
 ###  https://onerecord.iata.org/ns/cargo#serviceLevelCode
 :serviceLevelCode rdf:type owl:ObjectProperty ;
                   rdfs:range :CodeListElement ;
                   rdfs:comment "Service level code"@en ;
                   rdfs:label "serviceLevelCode"@en ;
                   owl:comment "Domain :CarrierProduct"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#serviceProvider
+:serviceProvider rdf:type owl:ObjectProperty ;
+                 rdfs:range :Party ;
+                 rdfs:comment "Reference to the Party providing the service" ;
+                 rdfs:label "serviceProvider" .
+
+
+###  https://onerecord.iata.org/ns/cargo#serviceRequestor
+:serviceRequestor rdf:type owl:ObjectProperty ;
+                  rdfs:range :Party ;
+                  rdfs:comment "Reference to the Party requesting the service" ;
+                  rdfs:label "serviceRequestor" .
 
 
 ###  https://onerecord.iata.org/ns/cargo#serviceabilityCode
@@ -2957,6 +3004,13 @@ owl:thing rdf:type rdfs:Datatype .
           rdfs:comment "Checksum of the document to validate its integrity"@en ;
           rdfs:label "checksum"@en ;
           owl:comment "Domain :ExternalReference"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#cityName
+:cityName rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:string ;
+          rdfs:comment "String holding a city name" ;
+          rdfs:label "cityName" .
 
 
 ###  https://onerecord.iata.org/ns/cargo#code
@@ -4577,6 +4631,44 @@ owl:thing rdf:type rdfs:Datatype .
 #    Classes
 #################################################################
 
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :serviceProvider ;
+                            owl:allValuesFrom :Party
+                          ] .
+
+
+###  https://onerecord.iata.org/ns/cargo#AccountNumber
+:AccountNumber rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :accountNumberType ;
+                                 owl:allValuesFrom :AccountType
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :accountNumberType ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :textualValue ;
+                                 owl:allValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :textualValue ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
+               rdfs:label "AccountNumber" ;
+               owl:comment "Account type and number of a Party" ;
+               :vis_element "Embedded" .
+
+
+###  https://onerecord.iata.org/ns/cargo#AccountType
+:AccountType rdf:type owl:Class ;
+             rdfs:subClassOf :CodeListElement ;
+             rdfs:comment "Open code list for Account types" ;
+             rdfs:label "AccountType" ;
+             :vis_element "Enum" .
+
+
 ###  https://onerecord.iata.org/ns/cargo#AccountingNote
 :AccountingNote rdf:type owl:Class ;
                 rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -4696,6 +4788,10 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :cityName ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :postOfficeBox ;
                            owl:allValuesFrom xsd:string
                          ] ,
@@ -4706,6 +4802,10 @@ owl:thing rdf:type rdfs:Datatype .
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :textualPostCode ;
                            owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :cityName ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :postOfficeBox ;
@@ -6421,6 +6521,35 @@ owl:thing rdf:type rdfs:Datatype .
              :vis_element "Embedded"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#HandlingService
+:HandlingService rdf:type owl:Class ;
+                 rdfs:subClassOf :LogisticsService ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :handlingServiceFor ;
+                                   owl:allValuesFrom :PhysicalLogisticsObject
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :serviceForWaybills ;
+                                   owl:allValuesFrom :Waybill
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :serviceProvider ;
+                                   owl:allValuesFrom :Party
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :serviceRequestor ;
+                                   owl:allValuesFrom :Party
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :serviceProvider ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :serviceRequestor ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] .
+
+
 ###  https://onerecord.iata.org/ns/cargo#Insurance
 :Insurance rdf:type owl:Class ;
            rdfs:subClassOf :LogisticsObject ,
@@ -7570,6 +7699,10 @@ owl:thing rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/cargo#Party
 :Party rdf:type owl:Class ;
        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :accountNumbers ;
+                         owl:allValuesFrom :AccountNumber
+                       ] ,
+                       [ rdf:type owl:Restriction ;
                          owl:onProperty :otherIdentifiers ;
                          owl:allValuesFrom :OtherIdentifier
                        ] ,
@@ -10225,6 +10358,20 @@ codes:WeightUnitCode rdf:type owl:Class ;
            rdfs:label "CONFIRMED"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#CONSIGNEE
+:CONSIGNEE rdf:type owl:NamedIndividual ,
+                    :AccountType ;
+           rdfs:comment "Consignee's Account" ;
+           rdfs:label "CONSIGNEE" .
+
+
+###  https://onerecord.iata.org/ns/cargo#CONSIGNOR
+:CONSIGNOR rdf:type owl:NamedIndividual ,
+                    :AccountType ;
+           rdfs:comment "Consignor" ;
+           rdfs:label "CONSIGNOR" .
+
+
 ###  https://onerecord.iata.org/ns/cargo#CUSTOMER_CONTACT
 :CUSTOMER_CONTACT rdf:type owl:NamedIndividual ,
                            :ContactRole ;
@@ -10301,6 +10448,13 @@ codes:WeightUnitCode rdf:type owl:Class ;
                      :ContactDetailType ;
             rdfs:comment "Indicates a contact detail as fax number"@en ;
             rdfs:label "FAX_NUMBER"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#FF
+:FF rdf:type owl:NamedIndividual ,
+             :AccountType ;
+    rdfs:comment "Freight Forwarder Account" ;
+    rdfs:label "FF" .
 
 
 ###  https://onerecord.iata.org/ns/cargo#GEOLOCATION
