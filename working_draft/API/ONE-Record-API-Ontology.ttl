@@ -136,13 +136,6 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
          rdfs:label "has Item"@en .
 
 
-###  https://onerecord.iata.org/ns/api#hasLogisticsAgent
-:hasLogisticsAgent rdf:type owl:ObjectProperty ;
-                   rdfs:domain :AccessPermissions ;
-                   rdfs:range cargo:LogisticsAgent ;
-                   rdfs:label "has Logistics Agent" .
-
-
 ###  https://onerecord.iata.org/ns/api#hasLogisticsObject
 :hasLogisticsObject rdf:type owl:ObjectProperty ;
                     rdfs:range cargo:LogisticsObject ;
@@ -208,7 +201,7 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/api#hasVerificationRequest
 :hasVerificationRequest rdf:type owl:ObjectProperty ;
                         rdfs:subPropertyOf owl:topObjectProperty ;
-                        rdfs:domain :ChangeRequest ;
+                        rdfs:domain :Change ;
                         rdfs:range :VerificationRequest ;
                         rdfs:comment "Link to the Verification Request" ;
                         rdfs:label "has Verification Request" .
@@ -587,39 +580,6 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                          ] ;
                          rdfs:comment "Delegation Request to 3rd parties"@en ;
                          rdfs:label "Access Delegation Request"@en .
-
-
-###  https://onerecord.iata.org/ns/api#AccessPermissions
-:AccessPermissions rdf:type owl:Class ;
-                   rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasLogisticsAgent ;
-                                     owl:allValuesFrom cargo:LogisticsAgent
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasLogisticsObject ;
-                                     owl:allValuesFrom cargo:LogisticsObject
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasPermission ;
-                                     owl:allValuesFrom :Permission
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasPermission ;
-                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :Permission
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasLogisticsAgent ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass cargo:LogisticsAgent
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasLogisticsObject ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass cargo:LogisticsObject
-                                   ] ;
-                   rdfs:comment "Access permissions granted to a logistics agent for a logistics object"@en ;
-                   rdfs:label "Access Permissions"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#ActionRequest
