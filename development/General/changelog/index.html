@@ -3298,58 +3298,19 @@
 <h3 id="detailed-changelog">Detailed changelog<a class="headerlink" href="#detailed-changelog" title="Permanent link">&para;</a></h3>
 <p>Below is the detailed changelog:</p>
 <ul>
-<li>Added custom annotations for WIP visualisation: Inverse and Element (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/236">https://github.com/IATA-Cargo/ONE-Record/issues/236</a>) </li>
-<li>Added TemperatureInstructions to Piece (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/227"> #Add temperatureInstructons at Piece level #227</a>)</li>
-<li>Removed Shipment#specialHandlingcodes (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/228">Remove Shipment#specialHandlingcodes #228</a>)</li>
-<li>Renamed label of WaybillLineItem properly (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/234">Rename label of WaybillLineItem properly #234</a>)</li>
-<li>Changed partyDetails to LogisticsAgent (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/222">Change partyDetails type #222</a>)</li>
-<li>Fixed regex pattern of waybillNumber (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/213">waybillNumber xsd:pattern "[-9]+" incorrect, could be "[-0-9]+" #213</a>)</li>
-<li>Removed line breaks in rdfs:comment annotations</li>
-<li>Reassignment of Agents, LoadingUnit for visualization</li>
-<li>Updated Code List Element documentation</li>
-<li>Fixes to Code List md and examples</li>
-<li>Added temperatureInstructions to Piece (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/227"> #Add temperatureInstructons at Piece level #227</a>)</li>
-<li>Added new property textualPostalCode to Address (<a href="https://github.com/IATA-Cargo/ONE-Record/issues/221">Change Address#postalCode type #221</a>)</li>
-<li>Added new property operatingParties to TransportMovement (https://github.com/IATA-Cargo/ONE-Record/issues/229)</li>
-<li>Added new class AccountingNote <a href="https://github.com/IATA-Cargo/ONE-Record/issues/231">(Review of Waybill#accountingInformation #231)</a></li>
-<li>Added new property accountingNoteIdentifier to AccountingNote <a href="https://github.com/IATA-Cargo/ONE-Record/issues/231">(Review of Waybill#accountingInformation #231)</a></li>
-<li>Added new property accountingNoteText to AccountingNote <a href="https://github.com/IATA-Cargo/ONE-Record/issues/231">(Review of Waybill#accountingInformation #231)</a></li>
-<li>Added new property accountingNotes to Waybill <a href="https://github.com/IATA-Cargo/ONE-Record/issues/231">(Review of Waybill#accountingInformation #231)</a></li>
-<li>Added new property locationIndicator to OtherCharge <a href="https://github.com/IATA-Cargo/ONE-Record/issues/247">(CXML Mapping XFWB - Add missing fields #247)</a> - max 1, Location</li>
-<li>Added new property reasonDescription to OtherCharge <a href="https://github.com/IATA-Cargo/ONE-Record/issues/247">(CXML Mapping XFWB - Add missing fields #247)</a> - max 1, string</li>
-<li>Added new property chargeQuantity to OtherCharge <a href="https://github.com/IATA-Cargo/ONE-Record/issues/247">(CXML Mapping XFWB - Add missing fields #247)</a> - max 1, double</li>
-<li>Deprecated postalCode in favor of textualPostalCode <a href="https://github.com/IATA-Cargo/ONE-Record/issues/221">(Change Address#postalCode type #221)</a></li>
-<li>Deprecated accountingInformation in favor of AccountingNote and included properties <a href="https://github.com/IATA-Cargo/ONE-Record/issues/231">(Review of Waybill#accountingInformation #231)</a></li>
-<li>Removed specialHandlingCodes from Shipment <a href="https://github.com/IATA-Cargo/ONE-Record/issues/228">(Remove Shipment#specialHandlingcodes #228)</a></li>
-<li>Changed value of partyDetails from Organization to LogisticsAgent <a href="https://github.com/IATA-Cargo/ONE-Record/issues/222">(Change partyDetails type #222)</a></li>
-<li>Lifted cardinality restriction on regulatedEntityAcceptor in SecurityDeclaration <a href="https://github.com/IATA-Cargo/ONE-Record/issues/244">(Set securityDeclaration#regulatedEntityAcceptor as an array #244)</a></li>
-<li>Added new code-lists ontology <a href="https://github.com/IATA-Cargo/ONE-Record/issues/268">(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)</a></li>
-<li>Deprecated coreCodeLists ontology <a href="https://github.com/IATA-Cargo/ONE-Record/issues/268">(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)</a></li>
-<li>Added new code list DensityGroupCodes <a href="https://github.com/IATA-Cargo/ONE-Record/issues/248">(CXML Mapping XFWB - Add Code List 2 to ontology #248)</a></li>
-<li>Added property densityGroupCode to BookingShipment <a href="https://github.com/IATA-Cargo/ONE-Record/issues/230">(Add Density Group Code data property #230)</a></li>
-<li>Mirrored DGR and Security Status Codes to the Special Handling Codes namespace for simplification as part of code list review <a href="https://github.com/IATA-Cargo/ONE-Record/issues/268">(DM: Refactor core code list ontology URIs to adhere to linked data best practices #268)</a></li>
+<li>Added cityName to Address (Add cityName to Address #287)</li>
+<li>Added open AccountType code list (with FF, CONSIGNEE, CONSIGNOR as NamedIndividuals) ([CXML Mapping] DM: add property Party#accountNumber #277)</li>
+<li>Added AccountNumber object ([CXML Mapping] DM: add property Party#accountNumber #277)</li>
+<li>Added textualValue to AccountNumber ([CXML Mapping] DM: add property Party#accountNumber #277)</li>
+<li>Added new accountNumberType property ([CXML Mapping] DM: add property Party#accountNumber #277)</li>
+<li>Added new accountNumbers property to Party ([CXML Mapping] DM: add property Party#accountNumber #277)</li>
+<li>Added HandlingService object (DM: Add more generic "HandlingService" LO as sub-class of LogisticsService to transmit LogisticsActivities not part of the Carrier-Forwarder Booking #271)</li>
+<li>Added new serviceProvider property to HandlingService (DM: Add more generic "HandlingService" LO as sub-class of LogisticsService to transmit LogisticsActivities not part of the Carrier-Forwarder Booking #271)</li>
+<li>Added new serviceRequestor property to HandlingService (DM: Add more generic "HandlingService" LO as sub-class of LogisticsService to transmit LogisticsActivities not part of the Carrier-Forwarder Booking #271)</li>
+<li>Added new serviceForWaybills property to HandlingService (DM: Add more generic "HandlingService" LO as sub-class of LogisticsService to transmit LogisticsActivities not part of the Carrier-Forwarder Booking #271)</li>
+<li>Added new handlingServiceFor property to HandlingService (DM: Add more generic "HandlingService" LO as sub-class of LogisticsService to transmit LogisticsActivities not part of the Carrier-Forwarder Booking #271)</li>
 </ul>
-<p>Rework to WaybillLineItem (#265) as agreed on in DMWG 17/10 and CXML 12/11.</p>
-<ul>
-<li>Added new property pieceReferences to WaybillLineItem <a href="https://github.com/IATA-Cargo/ONE-Record/issues/265">(CXML Mapping XFWB - Multiple dimensions for TransportLogisticsPackage grouping #265)</a></li>
-<li>Added new property uldReferences to WaybillLineItem (#265)</li>
-<li>Deprecated and removed chargeableWeightForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed commodityItemNumberForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed dimensionsForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed goodsDescriptionForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed grossWeightForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed hsCodeForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed pieceCountForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed productionCountryForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed slacForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed uldTareWeightForRate from WaybillLineItem (#265)</li>
-<li>Deprecated and removed volumetricWeightForRate from WaybillLineItem (#265)</li>
-<li>Removed uldOwnerCode from WaybillLineItem (#265)</li>
-<li>Removed uldSerialNumber from WaybillLineItem (#265)</li>
-<li>Removed uldType from WaybillLineItem (#265)</li>
-<li>Lifted cardinality restriction on ofShipment in Piece <a href="https://github.com/IATA-Cargo/ONE-Record/issues/275">(DM: Piece can be part of multiple shipments, change from n:1 to n:n #275)</a></li>
-<li>Lifted cardinality restriction on issuedForPiece in SecurityDeclaration <a href="https://github.com/IATA-Cargo/ONE-Record/issues/280">#280</a></li>
-</ul>
+<p>to be finished with commits</p>
 <h2 id="api-210">API 2.1.0<a class="headerlink" href="#api-210" title="Permanent link">&para;</a></h2>
 <p>For this release, all changes have been tracked using GitHub project view: <a href="https://github.com/users/IATA-Cargo/projects/4">API Changes</a>.</p>
 <h3 id="detailed-changelog_1">Detailed changelog<a class="headerlink" href="#detailed-changelog_1" title="Permanent link">&para;</a></h3>
