@@ -1,6 +1,7 @@
 # Introduction
-As of January 17th, 2025 the endorsed ONE Record version is:
-- Ontology 3.1.0
+As of xxx the endorsed ONE Record version is:
+
+- Ontology 3.2.0
 - API 2.1.0
 - Data Orchestration 1.0.0
 
@@ -13,17 +14,19 @@ We believe this release, as the previous one, is production-ready and is an esse
 
 The working groups mentioned above are still actively operating and all feedbacks and inputs will be highly appreciated to help us improve further the standard.
 
-# Ontology 3.1.0
+# Ontology 3.2.0
 ## Scope of the release
 
-Ontology 3.1.0 brings many changes compared to 3.0.0. Those changes do not alter the overall object structure but many properties were adjusted based on discussions that have happened in 2024 among the Data Model taskforce and the sub-group dedicated to the mapping between ONE Record and CXML messages.
+ Feedbacks were shared from the industry after multiple pilots were run under 3.0.0 and 3.1.0. Ontology 3.2.0 brings some improvements in order to faciliate mapping with CXML messages while preserving the piece-centricity and allowing for an "hybrid" usage of both piece-level management and shipment-level management.
 
 ## Change
-- Addition of data properties on `Waybill` to ease mappping with CXML messages
-- Re-design of `WaybillLineItem` object and link to `Piece` and `ULD` objects to use actual data (dimensions, volume, ...) instead of duplicating data
-- Addition of operatingParties property on `TransportMovement` to indicate the operating organization or driver/pilot
-- Adjustment of ONE Record Visualizer
-- Refactor of the Code List ontology: alignment with API ontology and best practices, addition of Code List 2 density group codes
+- Addition of `cityName` to *Address* object
+- Addition of `accountNumber` to *Party* object with a dedicated open code list for acccount numbers to be mapped with XFWB requirements
+- Addition of a *HandlingService* object, subtype of *LogisticsService*
+- Addition of `involvedParty` to *LogisticsEvent* object to record additional parties such as receiving party, notify party
+- Addition of `ociLineNumber` to *CustomsInformation* object to ensure the OCI line structure remains the same as in messages (required for Customs part)
+- Addition of data properties and data objects to *Booking* object to simplify the linkage of data when Distribution is out of scope
+- Addition of a few data properties to *DgDeclaration* object to complete the mapping with DG requirements
 
 Detailed changelog can be read directly in the following Pull Requests on GitHub or in the [Detailed Changelog page](../General/changelog.md).
 
@@ -31,16 +34,11 @@ Detailed changelog can be read directly in the following Pull Requests on GitHub
 
 ## Scope of the release
 
-API 2.1.0 primarily addresses inconsistencies encountered during the implementation of version 2.0.0. In addition, it introduces a new action request, VerificationRequest, enabling the signaling of errors and inconsistencies in logistics objects. 
+xxx
 
 ## Change
 
-The API 2.1.0 implements the following changes:
-
-- [Add Revision and Latest Revision in the JSON object response](https://github.com/IATA-Cargo/ONE-Record/issues/257)
-- [hasError and hasErrorDetails ontology and documentation alignment](https://github.com/IATA-Cargo/ONE-Record/issues/260)
-- [Review Logistics Event filter parameter](https://github.com/IATA-Cargo/ONE-Record/issues/256)
-- [Introduction of VerificationRequest](https://github.com/IATA-Cargo/ONE-Record/issues/218)
+xxx
 
 More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
 
