@@ -30,6 +30,9 @@ The properties and relationships to other data classes are visualized in the fol
     class LogisticsObject{                
     }
 
+    class LogisticsEvent{                
+    }
+
     class Organization{        
     }  
 
@@ -55,11 +58,13 @@ The properties and relationships to other data classes are visualized in the fol
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]
-        + hasLogisticsObjectType: xsd:anyURI [0..1]     
+        + hasLogisticsObjectType: xsd:anyURI [0..1] 
+        + hasLogisticsEvent[]: LogisticsEvent [*]    
     }
     Notification "1"--> "0..1" LogisticsObject
     Notification "1" --> "1" NotificationEventType
-    Notification "1" --> "0..1" ActionRequest  
+    Notification "1" --> "0..1" ActionRequest 
+    Notification "1"--> "0..*" LogisticsEvent 
 
     class NotificationEventType{
         <<Enumeration>>
@@ -125,7 +130,7 @@ The following HTTP header parameters MUST be present in the request:
 The HTTP body must contain a valid [Notification](https://onerecord.iata.org/ns/api#Notification) in the format as specified by the Content-Type in the header.
 
 The publisher sends a notification request to the subscriber when a logistics object is created or updated. 
-If the subscriber chose to receive the entire logistics object body via sendLogisticsObjectBody=true field, then the whole object is sent.
+If the subscriber chose to receive the entire logistics object body via `sendLogisticsObjectBody=true` field, then the whole object is sent.
 
 !!! note
     If the embedded object of a LogisticsObject changed, the Notification#[hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) will contain the IRI of the embeddedObject, for example: 
@@ -215,7 +220,8 @@ HTTP/1.1 204 No Content
 
 ## Example 1D
 
-The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted.  
+The following example shows a `LOGISTICS_EVENT_RECEIVED` Notification after a LogisticsEvent is submitted. 
+The notification will include a link to the Logistics Event via the defined [hasEventType](https://onerecord.iata.org/ns/api#hasEventType) property, which SHOULD be used only in case the [hasEventType](https://onerecord.iata.org/ns/api#hasEventType) is equal to `LOGISTICS_EVENT_RECEIVED`.
 
 !!! note
     Notifications will be triggered for the creation of a new Logistics Event on a Logistics Object solely when the subscription property ['includeSubscriptionEventType'](https://onerecord.iata.org/ns/api#includeSubscriptionEventType) contains the value ['LOGISTICS_EVENT_RECEIVED'](https://onerecord.iata.org/ns/api#LOGISTICS_EVENT_RECEIVED). On the contrary, this notification will be omitted.

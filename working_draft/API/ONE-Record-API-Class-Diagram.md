@@ -1,12 +1,15 @@
 # ONE Record API Class Diagram
 
-**Version:** 2.1.0 **Status:** Submitted to COTB
+**Version:** 2.2.0 **Status:** Submitted to COTB
 
 ```mermaid
 classDiagram   
     direction LR   
 
     class LogisticsObject{                
+    }
+
+    class LogisticsEvent{                
     }
 
     class Organization{        
@@ -100,12 +103,14 @@ classDiagram
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]
-        + hasLogisticsObjectType: xsd:anyURI [0..1]            
+        + hasLogisticsObjectType: xsd:anyURI [0..1]
+        + hasLogisticsEvent[]: LogisticsEvent [*]               
     }
     Notification "1"--> "0..1" LogisticsObject
     Notification "1" --> "1" NotificationEventType
     Notification "1" --> "0..1" ActionRequest    
-
+    Notification "1"--> "0..*" LogisticsEvent 
+    
     class Operation{
         + o: OperationObject
         + op: PatchOperation
