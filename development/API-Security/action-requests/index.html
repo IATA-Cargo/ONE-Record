@@ -3597,11 +3597,16 @@ This enables users and holders to view and revoke action requests, and enables h
 <li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> (requires sufficient permissions)</li>
 <li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be accepted or reject by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
 <li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be acknowledged by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
-<li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> where <a href="https://onerecord.iata.org/ns/api#requestedBy">isRequestedBy</a> is the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a> SHOULD be accepted and processed directly.</li>
-<li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status.</li>
+<li>
+<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> where <a href="https://onerecord.iata.org/ns/api#requestedBy">isRequestedBy</a> is the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a> SHOULD be accepted and processed directly.</p>
+</li>
+<li>
+<p><a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> and <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status.</p>
+</li>
+<li><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> can be revoked as long as they are in <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status.</li>
 <li>An <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> MUST only be revoked by the <code>Delegator</code> or the <code>Delegate</code></li>
 <li>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MUST only be revoked by the <code>Requestor</code>/<code>Subscriber</code> or the <code>Publisher</code></li>
-<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
+<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> or a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
 <li>If errors occur while processing an accepted <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>, the <a href="https://onerecord.iata.org/ns/api#hasRequestStatus">hasRequestStatus</a> of this <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be changed to <a href="https://onerecord.iata.org/ns/api#REQUEST_FAILED">REQUEST_FAILED</a></li>
 </ul>
 <p><strong>ActionRequest state diagram for AccessDelegationRequest, ChangeRequest, and SubscriptionRequest</strong></p>
@@ -3618,11 +3623,16 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_REVOKED --&gt; [*]
 
     REQUEST_ACCEPTED --&gt; [*]        
-    REQUEST_ACCEPTED --&gt; REQUEST_FAILED:  an error has occurred        
+    REQUEST_ACCEPTED --&gt; REQUEST_FAILED:  an error has occurred
+    REQUEST_ACCEPTED --&gt; REQUEST_REVOKED: revocation requested      
 
     REQUEST_FAILED --&gt; [*]
 
     REQUEST_REJECTED --&gt; [*]    </code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> may be revoked while in the <code>REQUEST_ACCEPTED</code> status. In contrast, once <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> and <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> are accepted, they cannot be revoked; a new action request must be submitted instead.</p>
+</div>
 <p><strong>ActionRequest state diagram for VerificationRequest</strong></p>
 <p><pre class="mermaid"><code>    stateDiagram-v2
 
