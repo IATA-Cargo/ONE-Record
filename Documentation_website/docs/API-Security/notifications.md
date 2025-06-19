@@ -70,6 +70,8 @@ The properties and relationships to other data classes are visualized in the fol
         <<Enumeration>>
         LOGISTICS_OBJECT_CREATED
         LOGISTICS_OBJECT_UPDATED
+        LOGISTICS_OBJECT_AVAILABLE
+        LOGISTICS_OBJECT_ACCESS_GRANTED
 
         LOGISTICS_EVENT_RECEIVED
 

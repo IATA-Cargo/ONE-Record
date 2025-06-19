@@ -110,7 +110,7 @@ classDiagram
     Notification "1" --> "1" NotificationEventType
     Notification "1" --> "0..1" ActionRequest    
     Notification "1"--> "0..*" LogisticsEvent 
-    
+
     class Operation{
         + o: OperationObject
         + op: PatchOperation
@@ -156,7 +156,9 @@ classDiagram
         <<Enumeration>>
         LOGISTICS_OBJECT_CREATED
         LOGISTICS_OBJECT_UPDATED
-
+        LOGISTICS_OBJECT_AVAILABLE
+        LOGISTICS_OBJECT_ACCESS_GRANTED
+        
         LOGISTICS_EVENT_RECEIVED
 
         CHANGE_REQUEST_PENDING
