@@ -3157,11 +3157,14 @@
   <h1>ONE Record API Class Diagram</h1>
 
 <h2 id="one-record-api-class-diagram">ONE Record API Class Diagram<a class="headerlink" href="#one-record-api-class-diagram" title="Permanent link">&para;</a></h2>
-<p><strong>Version:</strong> 2.1.0 <strong>Status:</strong> Submitted to COTB</p>
+<p><strong>Version:</strong> 2.2.0 <strong>Status:</strong> Submitted to COTB</p>
 <pre class="mermaid"><code>classDiagram   
     direction LR   
 
     class LogisticsObject{                
+    }
+
+    class LogisticsEvent{                
     }
 
     class Organization{        
@@ -3255,11 +3258,13 @@
         + hasEventType: NotificationEventType
         + isTriggeredBy: ActionRequest [0..1]  
         + hasLogisticsObject: LogisticsObject [0..1]
-        + hasLogisticsObjectType: xsd:anyURI [0..1]            
+        + hasLogisticsObjectType: xsd:anyURI [0..1]
+        + hasLogisticsEvent[]: LogisticsEvent [*]               
     }
     Notification "1"--&gt; "0..1" LogisticsObject
     Notification "1" --&gt; "1" NotificationEventType
     Notification "1" --&gt; "0..1" ActionRequest    
+    Notification "1"--&gt; "0..*" LogisticsEvent 
 
     class Operation{
         + o: OperationObject
