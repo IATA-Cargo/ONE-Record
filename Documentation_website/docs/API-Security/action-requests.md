@@ -11,10 +11,12 @@ This enables users and holders to view and revoke action requests, and enables h
 - An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST only be accepted or reject by the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
 - A [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) MUST only be acknowledged by the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
 - An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) where [isRequestedBy](https://onerecord.iata.org/ns/api#requestedBy) is the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object) SHOULD be accepted and processed directly.
-- An [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST only be revoked as long as it is in `REQUEST_PENDING` status.
+
+- [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) and [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) MUST only be revoked as long as it is in `REQUEST_PENDING` status.
+- [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) and [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) can be revoked as long as they are in `REQUEST_PENDING` or `REQUEST_ACCEPTED` status.
 - An [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) MUST only be revoked by the `Delegator` or the `Delegate`
 - A [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) MUST only be revoked by the `Requestor`/`Subscriber` or the `Publisher`
-- A [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) MUST only be revoked by the `Requestor` or the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
+- A [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) or a [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) MUST only be revoked by the `Requestor` or the [`Holder of the LogisticsObject`](./concepts.md#holder-of-a-logistics-object)
 - If errors occur while processing an accepted [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest), the [hasRequestStatus](https://onerecord.iata.org/ns/api#hasRequestStatus) of this [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest) MUST be changed to [REQUEST_FAILED](https://onerecord.iata.org/ns/api#REQUEST_FAILED)
 
 
@@ -34,12 +36,15 @@ This enables users and holders to view and revoke action requests, and enables h
     REQUEST_REVOKED --> [*]
 
     REQUEST_ACCEPTED --> [*]        
-    REQUEST_ACCEPTED --> REQUEST_FAILED:  an error has occurred        
+    REQUEST_ACCEPTED --> REQUEST_FAILED:  an error has occurred
+    REQUEST_ACCEPTED --> REQUEST_REVOKED: revocation requested      
 
     REQUEST_FAILED --> [*]
 
     REQUEST_REJECTED --> [*]    
 ```
+!!! note 
+    [AccessDelegationRequest](https://onerecord.iata.org/ns/api#AccessDelegationRequest) and [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) may be revoked while in the `REQUEST_ACCEPTED` status. In contrast, once [ChangeRequest](https://onerecord.iata.org/ns/api#ChangeRequest) and [VerificationRequest](https://onerecord.iata.org/ns/api#VerificationRequest) are accepted, they cannot be revoked; a new action request must be submitted instead.
 
 **ActionRequest state diagram for VerificationRequest**
 
