@@ -10,16 +10,16 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.1.2> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.2-rc1> ;
                                        owl:imports <https://onerecord.iata.org/ns/code-lists/1.0.0> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "20-02-2025" ;
+                                       terms:modified "20-06-2025" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
-Version 3.2 (ongoing)
+Version 3.2
 
 Additions:
 - Added cityName to Address (#287)
@@ -33,6 +33,33 @@ Additions:
 - Added new serviceRequestor property to HandlingService (#271)
 - Added new serviceForWaybills property to HandlingService (#271)
 - Added new handlingServiceFor property to HandlingService (#271)
+- Added involvedParties to LogisticsEvent (#301)
+- Added property ociLineNumber (#296)
+- Added ociLineNumber to CustomsInformation (#296)
+- Added property declarationPlace (#316)
+- Added property declarationDate (#316)
+- Added declarationPlace to DgDeclaration (#316)
+- Added declarationDate to DgDeclaration (#316)
+- Added shippingRefNo to DgDeclaration (#316)
+- Added departureLocation to DgDeclaration (#316)
+- Added arrivalLocation to DgDeclaration (#316)
+- Added carrier to Booking (#302)
+- Added carrierProduct to Booking (#302)
+- Added transportLegs to Booking (#302)
+- Added stationRemarks to Booking (#302)
+- Added bookingTimes to Booking (#302)
+- Added additionalInformation to Booking (#302)
+- Added bookingShipmentDetails to Booking (#302)
+- Added shippingInfo to Booking (#319)
+- Added shippingRefNo to Booking (#319)
+- Added departureLocation to Booking (#319)
+- Added arrivalLocation to Booking (#319)
+- Added chargeableWeight to BookingShipment (#319)
+- Added totalGrossWeight to BookingShipment (#319)
+- Added totalDimensions to BookingShipment (#319)
+- Added customsInformation to BookingShipment (#319)
+- Added totalVolume to PieceGroup (#319)
+- Added operatingTransportMeans to TransportLeg (#319)
 
 Removals:
 
@@ -43,7 +70,7 @@ Visualization:
 Bugfixes:"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.1.1"@en .
+                                       owl:versionInfo "3.2-rc1"@en .
 
 #################################################################
 #    Annotation properties
@@ -767,6 +794,13 @@ owl:thing rdf:type rdfs:Datatype .
                    rdfs:comment "Code indicating the origin of goods for Customs purposes (e.g. For goods in free circulation in the EU) List to be provided by local authorities"@en ;
                    rdfs:label "customsOriginCode"@en ;
                    owl:comment "Domain :Waybill"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#declarationPlace
+:declarationPlace rdf:type owl:ObjectProperty ;
+                  rdfs:range :Location ;
+                  rdfs:comment "Reference to the Location the DgDeclaration was declared at"@en ;
+                  rdfs:label "declarationPlace"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#declaredValueForCarriage
@@ -3206,6 +3240,13 @@ owl:thing rdf:type rdfs:Datatype .
       owl:comment "Domain :CheckTemplate"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#declarationDate
+:declarationDate rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:dateTime ;
+                 rdfs:comment "Date and time at which the DgDeclaration was declared"@en ;
+                 rdfs:label "declarationDate"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#department
 :department rdf:type owl:DatatypeProperty ;
             rdfs:range xsd:string ;
@@ -3810,6 +3851,13 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:comment "When no value is declared for Customs, this field may be completed with the value TRUE otherwise FALSE"@en ;
                rdfs:label "nvdForCustoms"@en ;
                owl:comment "Domain :Piece"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#ociLineNumber
+:ociLineNumber rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "Integer holding the oci line number when upcasting multi-line oci structures from CIMP/CXML"@en ;
+               rdfs:label "ociLineNumber"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#offerValidFrom
@@ -4631,13 +4679,6 @@ owl:thing rdf:type rdfs:Datatype .
 #    Classes
 #################################################################
 
-###  http://www.w3.org/2002/07/owl#Thing
-owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
-                            owl:onProperty :serviceProvider ;
-                            owl:allValuesFrom :Party
-                          ] .
-
-
 ###  https://onerecord.iata.org/ns/cargo#AccountNumber
 :AccountNumber rdf:type owl:Class ;
                rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -5031,23 +5072,63 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
 :Booking rdf:type owl:Class ;
          rdfs:subClassOf :LogisticsService ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :arrivalLocation ;
+                           owl:allValuesFrom :Location
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :bookingRequest ;
                            owl:allValuesFrom :BookingRequest
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :bookingShipmentDetails ;
+                           owl:allValuesFrom :BookingShipment
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :bookingStatus ;
                            owl:allValuesFrom :BookingStatus
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :bookingTimes ;
+                           owl:allValuesFrom :BookingTimes
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :carrier ;
+                           owl:allValuesFrom :Carrier
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :carrierProduct ;
+                           owl:allValuesFrom :CarrierProduct
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :departureLocation ;
+                           owl:allValuesFrom :Location
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :issuedForWaybill ;
                            owl:allValuesFrom :Waybill
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :stationRemarks ;
+                           owl:allValuesFrom :StationRemarks
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :transportLegs ;
+                           owl:allValuesFrom :TransportLegs
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :updateBookingOptionRequests ;
                            owl:allValuesFrom :BookingOptionRequest
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :arrivalLocation ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :bookingRequest ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :bookingShipmentDetails ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -5055,8 +5136,32 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :carrier ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :carrierProduct ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :departureLocation ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :issuedForWaybill ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :additionalInformation ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :shippingInfo ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :shippingRefNo ;
+                           owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :waybillNumber ;
@@ -5065,6 +5170,14 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :waybillPrefix ;
                            owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :shippingInfo ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :shippingRefNo ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :waybillNumber ;
@@ -5380,6 +5493,14 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
 :BookingShipment rdf:type owl:Class ;
                  rdfs:subClassOf :LogisticsObject ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :chargeableWeight ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :customsInformation ;
+                                   owl:allValuesFrom :CustomsInformation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :densityGroupCode ;
                                    owl:allValuesFrom codes:DensityGroupCode
                                  ] ,
@@ -5408,6 +5529,18 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                    owl:allValuesFrom :TemperatureInstructions
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :totalDimensions ;
+                                   owl:allValuesFrom :Dimensions
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :totalGrossWeight ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :chargeableWeight ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :densityGroupCode ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
@@ -5425,6 +5558,14 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :temperatureInstructions ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :totalDimensions ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :totalGrossWeight ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -6014,11 +6155,19 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                       owl:allValuesFrom xsd:string
                                     ] ,
                                     [ rdf:type owl:Restriction ;
+                                      owl:onProperty :ociLineNumber ;
+                                      owl:allValuesFrom xsd:integer
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
                                       owl:onProperty :otherCustomsInformation ;
                                       owl:allValuesFrom xsd:string
                                     ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty :note ;
+                                      owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :ociLineNumber ;
                                       owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                     ] ,
                                     [ rdf:type owl:Restriction ;
@@ -6034,8 +6183,32 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
 :DgDeclaration rdf:type owl:Class ;
                rdfs:subClassOf :LogisticsObject ,
                                [ rdf:type owl:Restriction ;
+                                 owl:onProperty :arrivalLocation ;
+                                 owl:allValuesFrom :Location
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :declarationPlace ;
+                                 owl:allValuesFrom :Location
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :departureLocation ;
+                                 owl:allValuesFrom :Location
+                               ] ,
+                               [ rdf:type owl:Restriction ;
                                  owl:onProperty :issuedForPiece ;
                                  owl:allValuesFrom :PieceDg
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :arrivalLocation ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :declarationPlace ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :departureLocation ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :issuedForPiece ;
@@ -6048,6 +6221,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :complianceDeclarationText ;
                                  owl:allValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :declarationDate ;
+                                 owl:allValuesFrom xsd:dateTime
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :exclusiveUseIndicator ;
@@ -6062,11 +6239,19 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                  owl:allValuesFrom xsd:string
                                ] ,
                                [ rdf:type owl:Restriction ;
+                                 owl:onProperty :shippingRefNo ;
+                                 owl:allValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
                                  owl:onProperty :aircraftLimitationInformation ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :complianceDeclarationText ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :declarationDate ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
@@ -6079,6 +6264,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :shipperDeclarationText ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :shippingRefNo ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
                rdfs:comment "Dangerous goods declaration"@en ;
@@ -7253,6 +7442,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                   owl:allValuesFrom :ExternalReference
                                 ] ,
                                 [ rdf:type owl:Restriction ;
+                                  owl:onProperty :involvedParties ;
+                                  owl:allValuesFrom :Party
+                                ] ,
+                                [ rdf:type owl:Restriction ;
                                   owl:onProperty :recordingActor ;
                                   owl:allValuesFrom :Actor
                                 ] ,
@@ -7388,6 +7581,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                               owl:allValuesFrom :Value
                             ] ,
                             [ rdf:type owl:Restriction ;
+                              owl:onProperty :totalVolume ;
+                              owl:allValuesFrom :Value
+                            ] ,
+                            [ rdf:type owl:Restriction ;
                               owl:onProperty :pieceHeight ;
                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                             ] ,
@@ -7401,6 +7598,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :pieceWidth ;
+                              owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :totalVolume ;
                               owl:maxCardinality "1"^^xsd:nonNegativeInteger
                             ] ,
                             [ rdf:type owl:Restriction ;
@@ -9063,6 +9264,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                  owl:allValuesFrom :Location
                                ] ,
                                [ rdf:type owl:Restriction ;
+                                 owl:onProperty :operatingTransportMeans ;
+                                 owl:allValuesFrom :TransportMeans
+                               ] ,
+                               [ rdf:type owl:Restriction ;
                                  owl:onProperty :transportMeansServiceType ;
                                  owl:allValuesFrom codes:TransportMeansServiceType
                                ] ,
@@ -9080,6 +9285,10 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :departureLocation ;
+                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :operatingTransportMeans ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ,
                                [ rdf:type owl:Restriction ;
@@ -9612,14 +9821,6 @@ owl:Thing rdfs:subClassOf [ rdf:type owl:Restriction ;
 ###  https://onerecord.iata.org/ns/cargo#VolumePieceGroup
 :VolumePieceGroup rdf:type owl:Class ;
                   rdfs:subClassOf :PieceGroup ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :totalVolume ;
-                                    owl:allValuesFrom :Value
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty :totalVolume ;
-                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                  ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :stackable ;
                                     owl:allValuesFrom xsd:boolean
