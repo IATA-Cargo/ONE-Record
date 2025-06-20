@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - State diagram for Subscription and Access delegation requests. Now a REQUEST_ACCEPTED can move to REQUEST_REVOKED but only in case of subscription and access delegation requests.
+- Reviewed all examples according to the API ontology
 
 ## ONE Record API Ontology
 
