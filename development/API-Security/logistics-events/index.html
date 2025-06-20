@@ -1208,6 +1208,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get-logistics-events-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Logistics Events metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get Logistics Events metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3700,6 +3751,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#get-logistics-events-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Logistics Events metadata
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get Logistics Events metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4288,8 +4390,8 @@ In addition, only a subset of all linked logistics events can optionally be retr
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>The <code>event-code</code> query parameter of the API corresponds to the <a href="https://onerecord.iata.org/ns/cargo#eventCode">eventCode</a> defined in the logistic event class within the <a href="https://onerecord.iata.org/ns/cargo#">cargo ontology</a>. To implement filtering correctly, the implementor MUST retrieve all logistics events where the <code>@id</code> of the <a href="https://onerecord.iata.org/ns/cargo#eventCode">eventCode</a> contains the text specified in the <code>event-code</code> query parameter. The <code>@id</code> of a code list element is specifically structured to include the code list name and the code itself. For more details on handling code list elements, refer to the <a href="../../Data-Model/code-lists/">Code Lists page</a>.</p>
+</div>
 <h3 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h3>
 <p>A successful request MUST return a <code>HTTP/1.1 200 OK</code> status code. 
 The response body is formatted accordingly to the format that has been requested in the <code>Accept</code> request header.
@@ -4344,8 +4446,17 @@ To discover JSON-LD libraries for various programming languages, consult the <a 
 <td>Describes the language(s) for which the requested resource is intended.</td>
 <td>en-US</td>
 </tr>
+<tr>
+<td><strong>Last-Modified</strong></td>
+<td>Date and time when the Logistics event list was last time changed. Syntax: <code>Last-Modified: &lt;day-name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</code>. See https://developer.mozilla.org/en-US/docs/Web/</td>
+<td>Tue, 21 Feb 2023 07:28:00 GMT</td>
+</tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>Last-Modified</code> header included in the response when fetching all logistics events associated with a logistics object MUST be updated each time a new event is added to the collection. This ensures that clients can reliably use the <code>HEAD</code> method, as outlined in the <a href="#get-logistics-events-metadata">Get Logistics Events metadata</a> section, to determine whether the event list has changed and avoid unnecessary downloads.</p>
+</div>
 <p>The following HTTP status codes MUST be supported:</p>
 <table>
 <thead>
@@ -4549,6 +4660,176 @@ To discover JSON-LD libraries for various programming languages, consult the <a 
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">  </span><span class="o">}</span>
 </span></code></pre></div>
 <em>(<a href="../examples/LogisticsEvents_empty_list.json">LogisticsEvents_empty_list.json</a>)</em></p>
+<h2 id="get-logistics-events-metadata">Get Logistics Events metadata<a class="headerlink" href="#get-logistics-events-metadata" title="Permanent link">&para;</a></h2>
+<p>A logistics event often contains a substantial amount of data, making a <code>GET</code> request inefficient when the sole intention is to check for updates or confirm existence, as it results in transferring the entire payload. To improve efficiency, the <code>HTTP HEAD</code> method is supported on logistics event endpoints, allowing clients to access essential metadata without downloading the full event data.</p>
+<p>The <code>HTTP HEAD</code> method serves as a key optimization for interacting with logistics events by enabling clients to verify event availability and examine headers without incurring the cost of a complete data transfer. This helps reduce network load, improve response times, and support effective cache validation by utilizing headers such as Last-Modified to determine if an event has changed. Since <code>HEAD</code> requests return no body, they execute faster and consume fewer server resources—making them particularly useful for high-volume event tracking and periodic update checks.</p>
+<p>The <code>HTTP HEAD</code> method is available exclusively for retrieving all logistics events associated with a logistics object. For individual logistics events, the method is not applicable, as such events are immutable and their content remains constant over time.</p>
+<h3 id="endpoint_3">Endpoint<a class="headerlink" href="#endpoint_3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a> HEAD {{baseURL}}/logistics-objects/{{logisticsObjectId}}/logistics-events/
+</span></code></pre></div>
+<h3 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h3>
+<p>The following HTTP header parameters MUST be present in the request:</p>
+<table>
+<thead>
+<tr>
+<th>Request Header</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accept</strong></td>
+<td>The content type that the ONE Record client wants the HTTP response to be formatted in.</td>
+<td>application/ld+json</td>
+</tr>
+<tr>
+<td><strong>Content-Type</strong></td>
+<td>The content type that is contained with the HTTP body. Valid content types.</td>
+<td>application/ld+json</td>
+</tr>
+</tbody>
+</table>
+<p>The following HTTP query parameters MUST be supported:</p>
+<table>
+<thead>
+<tr>
+<th>Query parameter</th>
+<th>Description</th>
+<th>Valid values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>event-code</strong> (optional)</td>
+<td>Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated</td>
+<td><ul><li>FOH</li><li>DEP</li></ul></td>
+</tr>
+<tr>
+<td><strong>created-after</strong> (optional)</td>
+<td>Filters the logistics events to only include those created after the specified timestamp</td>
+<td><ul><li>20190926T075830Z</li></ul></td>
+</tr>
+<tr>
+<td><strong>created-before</strong> (optional)</td>
+<td>Filters the logistics events to only include those created before the specified timestamp</td>
+<td><ul><li>20190926T075830Z</li></ul></td>
+</tr>
+<tr>
+<td><strong>occurred-after</strong> (optional)</td>
+<td>Filters the logistics events to only include those that occurred after the specified timestamp</td>
+<td><ul><li>20190926T075830Z</li></ul></td>
+</tr>
+<tr>
+<td><strong>occurred-before</strong> (optional)</td>
+<td>Filters the logistics events to only include those that occurred before the specified timestamp</td>
+<td><ul><li>20190926T075830Z</li></ul></td>
+</tr>
+<tr>
+<td><strong>sort</strong> (optional)</td>
+<td>Specifies the sorting order of the logistics events. This parameter expects a timestamp indicating the starting point</td>
+<td><ul><li>ASC-creationDate</li><li>DESC-creationDate</li><li>ASC-eventDate</li><li>DESC-eventDate</li></ul></td>
+</tr>
+<tr>
+<td><strong>limit</strong> (optional)</td>
+<td>Limits the number of logistics events returned. The value is an integer specifying the maximum number of results</td>
+<td><ul><li>2</li></ul></td>
+</tr>
+<tr>
+<td><strong>skip</strong> (optional)</td>
+<td>Skips a specified number of logistics events before beginning to return results. This is useful for pagination</td>
+<td><ul><li>5</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h3 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h3>
+<p>A successful request MUST return a <code>HTTP/1.1 200 OK</code> status code. </p>
+<p>The following HTTP headers parameters MUST be present in the response:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Content-Type</strong></td>
+<td>The content type that is contained with the HTTP body.</td>
+<td>application/ld+json</td>
+</tr>
+<tr>
+<td><strong>Content-Language</strong></td>
+<td>Describes the language(s) for which the requested resource is intended.</td>
+<td>en-US</td>
+</tr>
+<tr>
+<td><strong>Content-Language</strong></td>
+<td>Describes the language(s) for which the requested resource is intended.</td>
+<td>en-US</td>
+</tr>
+<tr>
+<td><strong>Last-Modified</strong></td>
+<td>Date and time when the Logistics event list was last time changed. Syntax: <code>Last-Modified: &lt;day-name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</code>. See https://developer.mozilla.org/en-US/docs/Web/</td>
+<td>Tue, 21 Feb 2023 07:28:00 GMT</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>Last-Modified</code> header included in the response when fetching all logistics events associated with a logistics object MUST be updated each time a new event is added to the collection. This ensures that clients can reliably use the <code>HEAD</code> method to determine whether the event list has changed and avoid unnecessary downloads.</p>
+</div>
+<p>The following HTTP status codes MUST be supported:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Response body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>The request to retrieve all Logistics Events has been successful</td>
+<td>List of Logistics Event</td>
+</tr>
+<tr>
+<td><strong>301</strong></td>
+<td>The URI of the Logistics Object has permanently changed.</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>302</strong></td>
+<td>The URI of the Logistics Object has temporarily moved.</td>
+<td>No response body</td>
+</tr>
+<tr>
+<td><strong>401</strong></td>
+<td>Not authenticated</td>
+<td>Error</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>Not authorized to retrieve the Logistics Object</td>
+<td>Error</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>Logistics Object not found</td>
+<td>Error</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>Internal Server Error</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security_3">Security<a class="headerlink" href="#security_3" title="Permanent link">&para;</a></h3>
+<p>To engage with the "Get Logistics Events of a Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status. Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided.</p>
+<p>The authorization to access the logistics events should be derived from the logistics objects. However, the implementor of a ONE Record server can decide to separate the control access between a logistics object and its logistics events.</p>
 
 
 

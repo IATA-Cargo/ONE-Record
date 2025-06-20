@@ -5844,10 +5844,6 @@ If this parameter is in the future, <code>400 Bad Request</code> is returned.</p
 </span></code></pre></div>
 <p><em>(<a href="../examples/Piece_with_id.rev3.json">Piece_with_id.json</a>)</em></p>
 <h2 id="retrieve-logistics-object-metadata">Retrieve Logistics Object metadata<a class="headerlink" href="#retrieve-logistics-object-metadata" title="Permanent link">&para;</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section is under review and it's not approved by COTB</p>
-</div>
 <p>A logistics object holds a significant amount of information, making a <code>GET</code> request inefficient when the objective is merely to check for updates, as it retrieves the entire payload. To enhance efficiency, the <code>HTTP HEAD</code> method is implemented on logistics object endpoints, enabling clients to confirm existence and access key metadata without downloading the full object. </p>
 <p>The <code>HTTP HEAD</code> method plays a crucial role in streamlining interactions with logistics objects by allowing clients to verify their presence and obtain metadata without the overhead of transferring the full payload. This approach reduces network congestion, enhances performance, and strengthens cache validation by enabling clients to inspect headers like <code>Last-Modified</code> and <code>Latest-Revision</code> to determine if an object has changed. With no response body included, <code>HEAD</code> requests execute more quickly and require fewer server resources, making them particularly advantageous for large logistics objects or frequent status verifications.</p>
 <h3 id="endpoint_4">Endpoint<a class="headerlink" href="#endpoint_4" title="Permanent link">&para;</a></h3>
