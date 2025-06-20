@@ -955,9 +955,6 @@ _([Piece_with_id.json](./examples/Piece_with_id.rev3.json))_
 
 # Retrieve Logistics Object metadata
 
-!!! note
-    This section is under review and it's not approved by COTB
-
 A logistics object holds a significant amount of information, making a `GET` request inefficient when the objective is merely to check for updates, as it retrieves the entire payload. To enhance efficiency, the `HTTP HEAD` method is implemented on logistics object endpoints, enabling clients to confirm existence and access key metadata without downloading the full object. 
 
 The `HTTP HEAD` method plays a crucial role in streamlining interactions with logistics objects by allowing clients to verify their presence and obtain metadata without the overhead of transferring the full payload. This approach reduces network congestion, enhances performance, and strengthens cache validation by enabling clients to inspect headers like `Last-Modified` and `Latest-Revision` to determine if an object has changed. With no response body included, `HEAD` requests execute more quickly and require fewer server resources, making them particularly advantageous for large logistics objects or frequent status verifications.
@@ -1054,7 +1051,6 @@ Response:
 HTTP/1.1 404 Not Found
 Content-Type: application/ld+json
 ```
-
 # Signal an issue in a Logistics Object
 
 To signal an issue in a Logistics Object, third parties can use a specific action request called VerificationRequest. More information on how to use these specific action request can be found in the [Verification page](./verifications.md)

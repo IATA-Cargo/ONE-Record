@@ -293,7 +293,6 @@ Last-Modified: Tue, 02 Jul 2024 10:45:00 GMT
 ```
 _([VerificationRequest.json](./examples/VerificationRequest.json))_
 
-
 # Update an Action Request
 
 This API action can be used the holder/publisher of a Logistics Object to approve or reject a pending [ActionRequest](https://onerecord.iata.org/ns/api#ActionRequest).
@@ -433,5 +432,85 @@ Response:
 HTTP/1.1 204 No Content
 ```
 
+# Get Action Request Metadata
+
+After successfully retrieving an action request with a `GET` request, clients can use the `HEAD` method to request the same resource's metadata without transferring the response body. This allows applications to assess headers such as Last-Modified efficiently, optimizing bandwidth usage and supporting features like cache validation.
+
+The HTTP `HEAD` method is used to retrieve the headers of a resource without transferring the response body. It functions similarly to a `GET` request, but returns only the metadata, making it ideal for scenarios where downloading the full content is unnecessary.
+Benefits:
+- Efficiency: Reduces bandwidth usage and improves performance by omitting the response body.
+- Availability Checks: Verifies whether a resource exists or has been modified using headers like Last-Modified.
+- Link Validation: Enables automated tools to check link health without fetching entire pages.
+
+This method allows applications to inspect content attributes in a lightweight manner, analogous to reading a package label without opening the box.
+
+!!! note 
+    Any update in an action request of any type MUST trigger a change in the `Last-Modified`
+
+## Endpoint
+
+``` 
+ HEAD {{baseURL}}/action-requests/{{actionRequestId}}
+
+```
+## Request
+
+The following HTTP header parameters MUST be present in the request:
+
+| Header    | Description                                  | Examples                |
+| ----------------- |    -------------------------------- |   ------------- |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.1.0</li><li>application/ld+json; version=1.2</li></ul> |
+
+## Response
+
+A successful request MUST return a `HTTP/1.1 200 OK` status code. 
+
+The following HTTP headers parameters MUST be present in the response:
+
+| Header                | Description                                  | Example   |
+| -------------------- |    ---------- | ----------------------------- |
+| **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
+| **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+| **Type**  | The type of the Action Request as a URI                     | https://onerecord.iata.org/ns/api#SubscriptionRequest         |
+| **Last-Modified**    | he date and time of the most recent change to the Action Request. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
+
+The following HTTP status codes MUST be supported:
+
+| Code    | Description              | Response body    |
+| ------- |  ---------------------- | ---------------- |
+| **200** | The request to retrieve the Action Request has been successful       | Action Request   |
+| **301** | The URI of the Action Request has permanently changed.               | No response body |
+| **302** | The URI of the Action Request has temporarily moved.                 | No response body |
+| **401** | Not authenticated                                                    | Error            |
+| **403** | Not authorized to retrieve the Action Request                        | Error            |
+| **404** | Action Request not found                                             | Error            |
+| **415** | Unsupported Content Type                                             | Error            |
+| **500** | Internal Server Error                                                | Error            |
+
+
+## Security
+To engage with the "Get Action Request Metadata" endpoint, a client needs proper authentication and authorization to access the designated resource (same as the HTTP GET method). If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+
+## Example D1
+
+Request:
+
+```http
+HEAD /action-requests/599fea49-7287-42af-b441-1fa618d2aaed HTTP/1.1
+Host: 1r.example.com
+Accept: application/ld+json; version=2.1.0
+```
+
+Response:
+
+```bash
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; version=2.1.0
+Content-Language: en-US
+Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed
+Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
+Last-Modified: Tue, 21 Feb 2023 07:28:00 GMT
+```
 
 

@@ -318,7 +318,8 @@ The following HTTP query parameters MUST be supported:
 | **skip** (optional)          | Skips a specified number of logistics events before beginning to return results. This is useful for pagination         | <ul><li>5</li></ul> |
 
 !!! note
-The `event-code` query parameter of the API corresponds to the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) defined in the logistic event class within the [cargo ontology](https://onerecord.iata.org/ns/cargo#). To implement filtering correctly, the implementor MUST retrieve all logistics events where the `@id` of the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) contains the text specified in the `event-code` query parameter. The `@id` of a code list element is specifically structured to include the code list name and the code itself. For more details on handling code list elements, refer to the [Code Lists page](../Data-Model/code-lists.md).
+
+    The `event-code` query parameter of the API corresponds to the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) defined in the logistic event class within the [cargo ontology](https://onerecord.iata.org/ns/cargo#). To implement filtering correctly, the implementor MUST retrieve all logistics events where the `@id` of the [eventCode](https://onerecord.iata.org/ns/cargo#eventCode) contains the text specified in the `event-code` query parameter. The `@id` of a code list element is specifically structured to include the code list name and the code itself. For more details on handling code list elements, refer to the [Code Lists page](../Data-Model/code-lists.md).
 
 ## Response
 
@@ -351,7 +352,6 @@ The ONE Record API employs the [Collection](https://onerecord.iata.org/ns/api#Co
 In this particular case, @id property in the response body MUST be equal to the Endpoint defined in the [Endpoint section](#endpoint_2) (i.e.: https://1r.example.com/logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events). 
 
 
-
 !!! note
 
     The ONE Record standard fully adopts the JSON-LD specification, and as a result, the presence of the [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) property of [Collection](https://onerecord.iata.org/ns/api#Collection) is contingent on the number of Logistics Events returned byt the specified query. Specifically:
@@ -369,6 +369,14 @@ The following HTTP headers parameters MUST be present in the response:
 | -------------------- |    ---------- | ----------------------------- |
 | **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
 | **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+| **Last-Modified**    | Date and time when the Logistics event list was last time changed. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
+
+
+!!! note
+
+    The `Last-Modified` header included in the response when fetching all logistics events associated with a logistics object MUST be updated each time a new event is added to the collection. This ensures that clients can reliably use the `HEAD` method, as outlined in the [Get Logistics Events metadata](#get-logistics-events-metadata) section, to determine whether the event list has changed and avoid unnecessary downloads.
+
+
 
 The following HTTP status codes MUST be supported:
 
@@ -456,3 +464,76 @@ Content-Language: en-US
 --8<-- "API-Security/examples/LogisticsEvents_empty_list.json"
 ```
 _([LogisticsEvents_empty_list.json](./examples/LogisticsEvents_empty_list.json))_
+
+# Get Logistics Events metadata
+
+A logistics event often contains a substantial amount of data, making a `GET` request inefficient when the sole intention is to check for updates or confirm existence, as it results in transferring the entire payload. To improve efficiency, the `HTTP HEAD` method is supported on logistics event endpoints, allowing clients to access essential metadata without downloading the full event data.
+
+The `HTTP HEAD` method serves as a key optimization for interacting with logistics events by enabling clients to verify event availability and examine headers without incurring the cost of a complete data transfer. This helps reduce network load, improve response times, and support effective cache validation by utilizing headers such as Last-Modified to determine if an event has changed. Since `HEAD` requests return no body, they execute faster and consume fewer server resources—making them particularly useful for high-volume event tracking and periodic update checks.
+
+The `HTTP HEAD` method is available exclusively for retrieving all logistics events associated with a logistics object. For individual logistics events, the method is not applicable, as such events are immutable and their content remains constant over time.
+
+## Endpoint 
+
+``` 
+ HEAD {{baseURL}}/logistics-objects/{{logisticsObjectId}}/logistics-events/
+```
+
+## Request
+
+The following HTTP header parameters MUST be present in the request:
+
+| Request Header   | Description                         | Examples            |
+| ---------------- |  --------------------------------- | ------------------- |
+| **Accept**       | The content type that the ONE Record client wants the HTTP response to be formatted in.        | application/ld+json |
+| **Content-Type** | The content type that is contained with the HTTP body. Valid content types. | application/ld+json |
+
+The following HTTP query parameters MUST be supported:
+
+| Query parameter               | Description                                                                           | Valid values                       |
+| ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------- |
+| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
+| **created-after** (optional)  | Filters the logistics events to only include those created after the specified timestamp                              | <ul><li>20190926T075830Z</li></ul> |
+| **created-before** (optional) | Filters the logistics events to only include those created before the specified timestamp                             | <ul><li>20190926T075830Z</li></ul> |
+| **occurred-after** (optional) | Filters the logistics events to only include those that occurred after the specified timestamp                        | <ul><li>20190926T075830Z</li></ul> |
+| **occurred-before** (optional)| Filters the logistics events to only include those that occurred before the specified timestamp                       | <ul><li>20190926T075830Z</li></ul> |
+| **sort** (optional)           | Specifies the sorting order of the logistics events. This parameter expects a timestamp indicating the starting point| <ul><li>ASC-creationDate</li><li>DESC-creationDate</li><li>ASC-eventDate</li><li>DESC-eventDate</li></ul> |
+| **limit** (optional)          | Limits the number of logistics events returned. The value is an integer specifying the maximum number of results       | <ul><li>2</li></ul> |
+| **skip** (optional)          | Skips a specified number of logistics events before beginning to return results. This is useful for pagination         | <ul><li>5</li></ul> |
+
+
+## Response
+
+A successful request MUST return a `HTTP/1.1 200 OK` status code. 
+
+The following HTTP headers parameters MUST be present in the response:
+
+| Header                | Description                                  | Example   |
+| -------------------- |    ---------- | ----------------------------- |
+| **Content-Type**     | The content type that is contained with the HTTP body.                               | application/ld+json           |
+| **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+| **Content-Language** | Describes the language(s) for which the requested resource is intended.              | en-US     |
+| **Last-Modified**    | Date and time when the Logistics event list was last time changed. Syntax: `Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`. See https://developer.mozilla.org/en-US/docs/Web/               | Tue, 21 Feb 2023 07:28:00 GMT |
+
+!!! note
+
+    The `Last-Modified` header included in the response when fetching all logistics events associated with a logistics object MUST be updated each time a new event is added to the collection. This ensures that clients can reliably use the `HEAD` method to determine whether the event list has changed and avoid unnecessary downloads.
+
+The following HTTP status codes MUST be supported:
+
+| Code    | Description              | Response body    |
+| ------- |  ---------------------- | ---------------- |
+| **200** | The request to retrieve all Logistics Events has been successful    | List of Logistics Event |
+| **301** | The URI of the Logistics Object has permanently changed.            | No response body |
+| **302** | The URI of the Logistics Object has temporarily moved.              | No response body |
+| **401** | Not authenticated                                                   | Error            |
+| **403** | Not authorized to retrieve the Logistics Object                     | Error            |
+| **404** | Logistics Object not found                                          | Error            |
+| **500** | Internal Server Error                                               | Error            |
+
+
+## Security
+
+To engage with the "Get Logistics Events of a Logistics Object" endpoint, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+
+The authorization to access the logistics events should be derived from the logistics objects. However, the implementor of a ONE Record server can decide to separate the control access between a logistics object and its logistics events.
