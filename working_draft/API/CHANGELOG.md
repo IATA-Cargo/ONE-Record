@@ -3,11 +3,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# 2.1.0-dev
+# 2.3.0-dev
 
 ## Ideas
 - Add filters/triggers to Subscription information for server-side Notifications filtering
 - Define API for stream data from sensor
+
+# 2.2.0
+
+## ONE Record API Specification
+
+### Added
+
+- Support for HTTP HEAD methods on logistics objects, action requests and list of logistics events
+- Add hasLogisticsEvent in notification
+- Add two new type of notifications: LOGISTICS_OBJECT_AVAILABLE and LOGISTICS_OBJECT_ACCESS_GRANTED
+
+### Changed
+
+- State diagram for Subscription and Access delegation requests. Now a REQUEST_ACCEPTED can move to REQUEST_REVOKED but only in case of subscription and access delegation requests.
+
+## ONE Record API Ontology
+
+### Added
+- Add hasLogisticsEvent in notification
+- Add LOGISTICS_OBJECT_AVAILABLE and LOGISTICS_OBJECT_ACCESS_GRANTED as notification types
 
 # 2.1.0
 
