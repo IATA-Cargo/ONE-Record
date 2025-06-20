@@ -28,7 +28,7 @@ Use the following link to reach the API documentation website: [Link to API docu
 
 # Document Version
 
-**Version:** 2.1.0-dev 
+**Version:** 2.3.0-dev
 
 **Status:** Draft; not yet approved by the COTB / CSC
 
