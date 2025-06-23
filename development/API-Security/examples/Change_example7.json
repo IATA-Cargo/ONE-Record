@@ -1,7 +1,14 @@
 {
     "@context": {
         "cargo": "https://onerecord.iata.org/ns/cargo#",
-        "api": "https://onerecord.iata.org/ns/api#"
+        "api": "https://onerecord.iata.org/ns/api#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "api:hasDatatype": {
+            "@type": "xsd:anyURI"
+        },
+        "api:p": {
+            "@type": "xsd:anyURI"
+        }
     },
     "@type": "api:Change",
     "api:hasLogisticsObject": [
@@ -9,12 +16,14 @@
             "@type": "cargo:LogisticsObject",
             "@id": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c"
         }
-    ],    
+    ],
     "api:hasDescription": "add LogisticsEvent",
     "api:hasOperation": [
         {
             "@type": "api:Operation",
-            "api:op": { "@id": "api:ADD" },
+            "api:op": {
+                "@id": "api:ADD"
+            },
             "api:s": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c",
             "api:p": "https://onerecord.iata.org/ns/cargo#hasLogisticsEvent",
             "api:o": [
@@ -24,8 +33,8 @@
                     "api:hasValue": "https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events/c9ab534e-3246-48d3-b34d-bb380bd98af7"
                 }
             ]
-        }             
-    ],    
+        }
+    ],
     "api:hasRevision": {
         "@type": "http://www.w3.org/2001/XMLSchema#positiveInteger",
         "@value": "4"
