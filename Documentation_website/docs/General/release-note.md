@@ -2,8 +2,8 @@
 As of xxx the endorsed ONE Record version is:
 
 - Ontology 3.2.0
-- API 2.1.0
-- Data Orchestration 1.0.0
+- API 2.2.0
+- Data Orchestration 1.1.0
 
 Following IATA governance, this ONE Record release has been endorsed by COTB and by the CSC.
 
@@ -17,16 +17,21 @@ The working groups mentioned above are still actively operating and all feedback
 # Ontology 3.2.0
 ## Scope of the release
 
- Feedbacks were shared from the industry after multiple pilots were run under 3.0.0 and 3.1.0. Ontology 3.2.0 brings some improvements in order to faciliate mapping with CXML messages while preserving the piece-centricity and allowing for an "hybrid" usage of both piece-level management and shipment-level management.
+Feedbacks were shared from the industry after multiple pilots were run under 3.0.0 and 3.1.0. Ontology 3.2.0 brings some improvements in order to faciliate mapping with CXML messages while preserving the piece-centricity and allowing for an "hybrid" usage of both piece-level management and shipment-level management.
 
 ## Change
+
+Below is an overview of changes on 3.2.0:
+
 - Addition of `cityName` to *Address* object
 - Addition of `accountNumber` to *Party* object with a dedicated open code list for acccount numbers to be mapped with XFWB requirements
 - Addition of a *HandlingService* object, subtype of *LogisticsService*
 - Addition of `involvedParty` to *LogisticsEvent* object to record additional parties such as receiving party, notify party
 - Addition of `ociLineNumber` to *CustomsInformation* object to ensure the OCI line structure remains the same as in messages (required for Customs part)
-- Addition of data properties and data objects to *Booking* object to simplify the linkage of data when Distribution is out of scope
+- Addition of data properties and data objects to *Booking* and *BookingShipment* objects to simplify the linkage of data when Distribution is out of scope
+- Addition of *BookingSegment* to suport Split bookings scenarios
 - Addition of a few data properties to *DgDeclaration* object to complete the mapping with DG requirements
+- Some data properties added back to *WaybillLineItem*, addition of a *LineItemPackage* to *WaybillLineItem*
 
 Detailed changelog can be read directly in the following Pull Requests on GitHub or in the [Detailed Changelog page](../General/changelog.md).
 
