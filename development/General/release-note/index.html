@@ -3492,8 +3492,8 @@
 <p>As of xxx the endorsed ONE Record version is:</p>
 <ul>
 <li>Ontology 3.2.0</li>
-<li>API 2.1.0</li>
-<li>Data Orchestration 1.0.0</li>
+<li>API 2.2.0</li>
+<li>Data Orchestration 1.1.0</li>
 </ul>
 <p>Following IATA governance, this ONE Record release has been endorsed by COTB and by the CSC.</p>
 <h2 id="general-comments">General comments<a class="headerlink" href="#general-comments" title="Permanent link">&para;</a></h2>
@@ -3504,14 +3504,17 @@
 <h3 id="scope-of-the-release">Scope of the release<a class="headerlink" href="#scope-of-the-release" title="Permanent link">&para;</a></h3>
 <p>Feedbacks were shared from the industry after multiple pilots were run under 3.0.0 and 3.1.0. Ontology 3.2.0 brings some improvements in order to faciliate mapping with CXML messages while preserving the piece-centricity and allowing for an "hybrid" usage of both piece-level management and shipment-level management.</p>
 <h3 id="change">Change<a class="headerlink" href="#change" title="Permanent link">&para;</a></h3>
+<p>Below is an overview of changes on 3.2.0:</p>
 <ul>
 <li>Addition of <code>cityName</code> to <em>Address</em> object</li>
 <li>Addition of <code>accountNumber</code> to <em>Party</em> object with a dedicated open code list for acccount numbers to be mapped with XFWB requirements</li>
 <li>Addition of a <em>HandlingService</em> object, subtype of <em>LogisticsService</em></li>
 <li>Addition of <code>involvedParty</code> to <em>LogisticsEvent</em> object to record additional parties such as receiving party, notify party</li>
 <li>Addition of <code>ociLineNumber</code> to <em>CustomsInformation</em> object to ensure the OCI line structure remains the same as in messages (required for Customs part)</li>
-<li>Addition of data properties and data objects to <em>Booking</em> object to simplify the linkage of data when Distribution is out of scope</li>
+<li>Addition of data properties and data objects to <em>Booking</em> and <em>BookingShipment</em> objects to simplify the linkage of data when Distribution is out of scope</li>
+<li>Addition of <em>BookingSegment</em> to suport Split bookings scenarios</li>
 <li>Addition of a few data properties to <em>DgDeclaration</em> object to complete the mapping with DG requirements</li>
+<li>Some data properties added back to <em>WaybillLineItem</em>, addition of a <em>LineItemPackage</em> to <em>WaybillLineItem</em></li>
 </ul>
 <p>Detailed changelog can be read directly in the following Pull Requests on GitHub or in the <a href="../changelog/">Detailed Changelog page</a>.</p>
 <h2 id="api-210">API 2.1.0<a class="headerlink" href="#api-210" title="Permanent link">&para;</a></h2>
