@@ -1,8 +1,15 @@
 {
-    "@context": {        
-        "api": "https://onerecord.iata.org/ns/api#"
+    "@context": {
+        "api": "https://onerecord.iata.org/ns/api#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "api:hasDatatype": {
+            "@type": "xsd:anyURI"
+        },
+        "api:p": {
+            "@type": "xsd:anyURI"
+        }
     },
-    "@type": "api:ActionRequestChange",    
+    "@type": "api:ActionRequestChange",
     "api:referencesActionRequest": {
         "@type": "api:ActionRequest",
         "@id": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28"
@@ -11,7 +18,9 @@
     "api:hasOperation": [
         {
             "@type": "api:Operation",
-            "api:op": { "@id": "api:DELETE" },
+            "api:op": {
+                "@id": "api:DELETE"
+            },
             "api:s": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28",
             "api:p": "https://onerecord.iata.org/ns/api#hasRequestStatus",
             "api:o": [
@@ -24,7 +33,9 @@
         },
         {
             "@type": "api:Operation",
-            "api:op": { "@id": "api:ADD" },
+            "api:op": {
+                "@id": "api:ADD"
+            },
             "api:s": "https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28",
             "api:p": "https://onerecord.iata.org/ns/api#hasRequestStatus",
             "api:o": [
@@ -34,8 +45,6 @@
                     "api:hasValue": "https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED"
                 }
             ]
-        }                 
+        }
     ]
 }
-    
-    
