@@ -10,12 +10,12 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.2-rc1> ;
-                                       owl:imports <https://onerecord.iata.org/ns/code-lists/1.0.0> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.2-rc2> ;
+                                       owl:imports <https://onerecord.iata.org/ns/code-lists/1.1.0> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "20-06-2025" ;
+                                       terms:modified "24-06-2025" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
@@ -60,8 +60,33 @@ Additions:
 - Added customsInformation to BookingShipment (#319)
 - Added totalVolume to PieceGroup (#319)
 - Added operatingTransportMeans to TransportLeg (#319)
+- Added rateGrossWeight property (#303)
+- Added rateVolume property (#303)
+- Added rateSlac property (#303)
+- Added lineItemPackages property (#303)
+- Added packageGrossWeight property (#303)
+- Added packageVolume property (#303)
+- Added packageSlac property (#303)
+- Added LineItemPackage object (#303)
+- Added rateGrossWeight to WaybillLineItem (#303)
+- Added rateVolume to WaybillLineItem (#303)
+- Added rateSlac to WaybillLineItem (#303)
+- Added lineItemPackages to WaybillLineItem (#303)
+- Added packageGrossWeight to LineItemPackage (#303)
+- Added packageVolume to LineItemPackage (#303)
+- Added packageSlac to LineItemPackage (#303)
+- Added bookingSegment property (#321)
+- Added spaceAllocationCode property (#321)
+- Added allotmentCode property (#321)
+- Added BookingSegment object (#321)
+- Added bookingSegments to Booking (#321)
+- Added spaceAllocationCode to BookingSegment (#321)
+- Added allotmentCode to BookingSegment (#321)
+- Added pieceGroups to BookingSegment (#321)
+- Added transportLegs to BookingSegment (#321)
 
 Removals:
+- Removed pieceReferences from WaybillLineItem (#303)
 
 Changes:
 
@@ -70,7 +95,7 @@ Visualization:
 Bugfixes:"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.2-rc1"@en .
+                                       owl:versionInfo "3.2-rc2"@en .
 
 #################################################################
 #    Annotation properties
@@ -379,6 +404,13 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:label "bookingRequest"@en ;
                 owl:comment "Domain :Booking"@en ;
                 :vis_inverseProperty :booking .
+
+
+###  https://onerecord.iata.org/ns/cargo#bookingSegments
+:bookingSegments rdf:type owl:ObjectProperty ;
+                 rdfs:range :BookingSegment ;
+                 rdfs:comment "Information about booking segments - physics allocated to a specific transport leg"@en ;
+                 rdfs:label "bookingSegments"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#bookingShipmentDetails
@@ -1433,6 +1465,13 @@ owl:thing rdf:type rdfs:Datatype .
         owl:comment "Domain :Dimensions"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#lineItemPackages
+:lineItemPackages rdf:type owl:ObjectProperty ;
+                  rdfs:range :LineItemPackage ;
+                  rdfs:comment "References to piece groupings for rating"@en ;
+                  rdfs:label "lineItemPackages"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#loadType
 :loadType rdf:type owl:ObjectProperty ;
           rdfs:range :LoadType ;
@@ -1782,12 +1821,26 @@ owl:thing rdf:type rdfs:Datatype .
                     owl:comment "Domain :RegulatedEntity"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#packageGrossWeight
+:packageGrossWeight rdf:type owl:ObjectProperty ;
+                    rdfs:range :Value ;
+                    rdfs:comment "Information about the total weight of a grouping of pieces"@en ;
+                    rdfs:label "packageGrossWeight"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#packageMarkCoded
 :packageMarkCoded rdf:type owl:ObjectProperty ;
                   rdfs:range codes:PackageMarkCode ;
                   rdfs:comment "Reference identifying how the package is marked. Field is hardcode to \"SSCC-18\", \"UPC\" or \"Other\""@en ;
                   rdfs:label "packageMarkCoded"@en ;
                   owl:comment "Domain :Piece"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#packageVolume
+:packageVolume rdf:type owl:ObjectProperty ;
+               rdfs:range :Value ;
+               rdfs:comment "Information about the total volume of a grouping of pieces"@en ;
+               rdfs:label "packageVolume"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#packagingDangerLevelCode
@@ -2024,12 +2077,26 @@ owl:thing rdf:type rdfs:Datatype .
                     owl:comment "Domain :WaybillLineItem"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#rateGrossWeight
+:rateGrossWeight rdf:type owl:ObjectProperty ;
+                 rdfs:range :Value ;
+                 rdfs:comment "Information about the total gross weight considered for a rate"@en ;
+                 rdfs:label "rateGrossWeight"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#ratePercentage
 :ratePercentage rdf:type owl:ObjectProperty ;
                 rdfs:range :Value ;
                 rdfs:comment "Rate Surcharge/Reduction - Percentage of  red. / surcharge"@en ;
                 rdfs:label "ratePercentage"@en ;
                 owl:comment "Domain :WaybillLineItem"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#rateVolume
+:rateVolume rdf:type owl:ObjectProperty ;
+            rdfs:range :Value ;
+            rdfs:comment "Information about the total volume considered for a rate"@en ;
+            rdfs:label "rateVolume"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ratings
@@ -2287,6 +2354,13 @@ owl:thing rdf:type rdfs:Datatype .
             rdfs:label "signatures"@en ;
             owl:comment "Domain :LiveAnimalsEpermit"@en ;
             :vis_inverseProperty :forEpermit .
+
+
+###  https://onerecord.iata.org/ns/cargo#spaceAllocationCode
+:spaceAllocationCode rdf:type owl:ObjectProperty ;
+                     rdfs:range codes:SpaceAllocationCode ;
+                     rdfs:comment "Current status of the space allocation of the booking segment"@en ;
+                     rdfs:label "spaceAllocationCode"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#specialHandlingCodes
@@ -2886,6 +2960,13 @@ owl:thing rdf:type rdfs:Datatype .
                          rdfs:comment "A statement identifying that the dangerous goods listed above are all contained in the same outer packaging. Takes the form All packed in one aaaa (description of packaging type) x nn (number of packages). Applies to air transport only. (Air) "@en ;
                          rdfs:label "allPackedInOneIndicator"@en ;
                          owl:comment "Domain :PieceDg"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#allotmentCode
+:allotmentCode rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:string ;
+               rdfs:comment "String holding an allotment code of a booking segment"@en ;
+               rdfs:label "allotmentCode"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#alternatives
@@ -3940,6 +4021,13 @@ owl:thing rdf:type rdfs:Datatype .
             owl:comment "Domain :PieceDg"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#packageSlac
+:packageSlac rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "Integer holding the total slac of a grouping of pieces"@en ;
+             rdfs:label "packageSlac"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#packagedeIdentifier
 :packagedeIdentifier rdf:type owl:DatatypeProperty ;
                      rdfs:range xsd:string ;
@@ -4126,6 +4214,13 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:comment "Section of the CheckTemplate this Question is part of"@en ;
                  rdfs:label "questionSection"@en ;
                  owl:comment "Domain :Question"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#rateSlac
+:rateSlac rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:integer ;
+          rdfs:comment "Integer holding the total slac considered for a rate"@en ;
+          rdfs:label "rateSlac"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#reasonDescription
@@ -5080,6 +5175,10 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:allValuesFrom :BookingRequest
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :bookingSegments ;
+                           owl:allValuesFrom :BookingSegment
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :bookingShipmentDetails ;
                            owl:allValuesFrom :BookingShipment
                          ] ,
@@ -5487,6 +5586,40 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:comment "A party, usually the freight forwarder, creates the BookingRequest in order to confirm the booking to the Carrier"@en ;
                 rdfs:label "BookingRequest"@en ;
                 :vis_element "Distribution"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#BookingSegment
+:BookingSegment rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty :pieceGroups ;
+                                  owl:allValuesFrom :PieceGroup
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :spaceAllocationCode ;
+                                  owl:allValuesFrom codes:SpaceAllocationCode
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :transportLegs ;
+                                  owl:allValuesFrom :TransportLegs
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :spaceAllocationCode ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :transportLegs ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :allotmentCode ;
+                                  owl:allValuesFrom xsd:string
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :allotmentCode ;
+                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                ] ;
+                rdfs:comment "Information about the booking status on segment level, assigning pieces and ULDs to a TransportLeg with a Space Allocation Code"@en ;
+                rdfs:label "BookingSegment"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingShipment
@@ -6736,7 +6869,9 @@ owl:thing rdf:type rdfs:Datatype .
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :serviceRequestor ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
-                                 ] .
+                                 ] ;
+                 rdfs:comment "Generic handling service for non main carriage activities"@en ;
+                 rdfs:label "HandlingService"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Insurance
@@ -6989,6 +7124,40 @@ owl:thing rdf:type rdfs:Datatype .
         rdfs:comment "Dangerous Goods subtype of Item"@en ;
         rdfs:label "ItemDg"@en ;
         :vis_element "DG"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#LineItemPackage
+:LineItemPackage rdf:type owl:Class ;
+                 rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageGrossWeight ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageVolume ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :pieceReferences ;
+                                   owl:allValuesFrom :Piece
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageGrossWeight ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageVolume ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageSlac ;
+                                   owl:allValuesFrom xsd:integer
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :packageSlac ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ;
+                 rdfs:comment "Grouping of pieces for rating information as per Waybill box 22I"@en ;
+                 rdfs:label "LineItemPackage"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LiveAnimalsEpermit
@@ -10105,8 +10274,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:allValuesFrom :Value
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty :pieceReferences ;
-                                   owl:allValuesFrom :Piece
+                                   owl:onProperty :lineItemPackages ;
+                                   owl:allValuesFrom :LineItemPackage
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :rateCharge ;
@@ -10121,7 +10290,15 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:allValuesFrom codes:BasicRateClassCode
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateGrossWeight ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :ratePercentage ;
+                                   owl:allValuesFrom :Value
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateVolume ;
                                    owl:allValuesFrom :Value
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -10153,7 +10330,15 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateGrossWeight ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :ratePercentage ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateVolume ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
@@ -10173,11 +10358,19 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:allValuesFrom xsd:integer
                                  ] ,
                                  [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateSlac ;
+                                   owl:allValuesFrom xsd:integer
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
                                    owl:onProperty :conversionFactor ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :lineItemNumber ;
+                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :rateSlac ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Information from AWB Rate Description section as per bullet point 18 - data elements 22A - 22Z from AWB. Data describing Piece and Package parameters to be transmitted per Piece object using pieceReferences; Data describing ULD parameters to be transmitted per ULD object using uldReference."@en ;
@@ -10407,6 +10600,10 @@ codes:SignatoryRole rdf:type owl:Class ;
 codes:SignatureTypeCode rdf:type owl:Class ;
                         rdfs:subClassOf :CodeListElement ;
                         :vis_element "CodeList"@en .
+
+
+###  https://onerecord.iata.org/ns/code-lists/SpaceAllocationCode
+codes:SpaceAllocationCode rdfs:subClassOf :CodeListElement .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode
