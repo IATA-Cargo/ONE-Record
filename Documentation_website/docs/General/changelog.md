@@ -9,18 +9,20 @@ Detailed changelog can be found in the associated GitHub commits:
 
 - [Pullrequest #307](https://github.com/IATA-Cargo/ONE-Record/pull/307)
 - [Pullrequest #322](https://github.com/IATA-Cargo/ONE-Record/pull/322)
+- [Pullrequest #323](https://github.com/IATA-Cargo/ONE-Record/pull/323)
 
 
-
-# API 2.1.0
+# API 2.2.0
 For this release, all changes have been tracked using GitHub project view: [API Changes](https://github.com/users/IATA-Cargo/projects/4).
 
 ## Detailed changelog
 Below is the detailed changelog:
 
-- [Add Revision and Latest Revision in the JSON object response](https://github.com/IATA-Cargo/ONE-Record/issues/257)
-- [hasError and hasErrorDetails ontology and documentation alignment](https://github.com/IATA-Cargo/ONE-Record/issues/260)
-- [Review Logistics Event filter parameter](https://github.com/IATA-Cargo/ONE-Record/issues/256)
-- [Introduction of VerificationRequest](https://github.com/IATA-Cargo/ONE-Record/issues/218)
+- [Notification for Logistics Event creation](https://github.com/IATA-Cargo/ONE-Record/issues/272)
+- [Add Support for HTTP HEAD Method for Logistics Objects](https://github.com/IATA-Cargo/ONE-Record/issues/281)
+- [Add NotificationEventType for access granted and Logistics Object availability](https://github.com/IATA-Cargo/ONE-Record/issues/282)
+- [Add provision to revoke Active Action Requests in ONE Record](https://github.com/IATA-Cargo/ONE-Record/issues/295)
+- [Add data model version to ONE Record API headers](https://github.com/IATA-Cargo/ONE-Record/issues/294)
+- [Updating JSON-LD examples in API documentation for non-literal properties](https://github.com/IATA-Cargo/ONE-Record/issues/313)
 
 More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
