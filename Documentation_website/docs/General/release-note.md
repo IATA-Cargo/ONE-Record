@@ -47,11 +47,10 @@ xxx
 
 More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
 
-# Data Orchestration 1.0.0
+# Data Orchestration 1.1.0
 ## Scope of the release
 
 The Data Orchestration is a work that was intitiated in September 2023. Industry stakeholders (Airline, Freight Forwarders, IT Service Providers, Cargo iQ) have worked to propose a way to use the ONE Record standard to support the operations and business processes.
 
-With 1.0.0 version the focus has been on:
-- Identifying ONE Record actions linked to the Master Operating Plan (MOP) as it is being re-designed by Cargo iQ. This includes review of all processes and associated milestones used by the industry.
-- Proposing a mapping between ONE Record and main CXML messages (XFWB 5.0.0, XFZB 4.0.0 and XFHL 3.0.0)
+With 1.1.0 version the focus has been on updating the XFWB/XFZB mapping based on changes introduced by Ontology 3.2.0.
+A dedicated page for XFWB mapping has been added with complete XFWB examples.
