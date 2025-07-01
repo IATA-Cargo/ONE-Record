@@ -175,12 +175,12 @@ More precisely, the `Accept` HTTP request header SHOULD be used by a ONE Record 
 so that a ONE Record server can select one of the proposals:
 
 ```http
-Accept: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.2.0
 ```
 
 The ONE Record server MUST inform the ONE Record client about the selected version using the `Content-Type` response header:
 ```http
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 ```
 
 If no version is specified in the `Accept` request header by the ONE Record client, the ONE Record server SHOULD use the highest supported API version (see [supportedApiVersion](https://onerecord.iata.org/ns/api#supportedApiVersion) in [ServerInformation](https://onerecord.iata.org/ns/api#ServerInformation)).

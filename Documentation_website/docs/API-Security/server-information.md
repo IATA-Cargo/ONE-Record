@@ -76,15 +76,15 @@ Request:
 
 GET / HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/ServerInformation.json"
 ```
@@ -97,7 +97,7 @@ Request:
 ```http
 GET / HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.2.0
 ```
 
 Response:

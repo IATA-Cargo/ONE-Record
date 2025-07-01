@@ -61,8 +61,8 @@ Request:
 ```http
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Piece.json"
 ```
@@ -74,7 +74,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 Type: https://onerecord.iata.org/ns/cargo#Piece
 ```
 
@@ -87,8 +87,8 @@ Request:
 ```http
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Company.json"
 ```
@@ -100,7 +100,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 Type: https://onerecord.iata.org/ns/cargo#Company
 ```
 
@@ -113,8 +113,8 @@ Request:
 ```http
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Shipment_with_Piece.json"
 ```
@@ -126,7 +126,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 Type: https://onerecord.iata.org/ns/cargo#Shipment
 ```
 
@@ -178,7 +178,7 @@ The following HTTP header parameters MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.1.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -223,7 +223,7 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.1.0
+Accept: application/ld+json; version=2.2.0
 ```
 
 Response:
@@ -637,8 +637,8 @@ Request:
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
 
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/CustomsInformation.json"
 ```
@@ -650,7 +650,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/4d73acf0-3073-4ec9-8aee-b82d64ba3805
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 Type: https://onerecord.iata.org/ns/cargo#CustomsInformation
 ```
 
@@ -660,8 +660,8 @@ Request:
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
 
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/CustomsInformation_2.json"
 ```
@@ -673,7 +673,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/ba1c2194-2442-400b-b26b-466a01dda8b5
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 Type: https://onerecord.iata.org/ns/cargo#CustomsInformation
 ```
 
@@ -712,8 +712,8 @@ Request:
 ```http
 PATCH /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Change_example6.json"
 ```
@@ -724,7 +724,7 @@ Response:
 
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Error_400.json"
 ```
@@ -740,8 +740,8 @@ Request:
 ```http
 PATCH /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.1.0
-Accept: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Change_example7.json"
 ```
@@ -752,7 +752,7 @@ Response:
 
 ```bash
 HTTP/1.1 400 Bad Request
-Content-Type: application/ld+json; version=2.1.0
+Content-Type: application/ld+json; version=2.2.0
 
 --8<-- "API-Security/examples/Error_400_example2.json"
 ```
@@ -971,7 +971,7 @@ The following HTTP header parameters MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.1.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -1016,7 +1016,7 @@ Request:
 ```http
 HEAD /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.1.0-dev
+Accept: application/ld+json; version=2.2.0
 Authorization: Bearer <token>
 ```
 
