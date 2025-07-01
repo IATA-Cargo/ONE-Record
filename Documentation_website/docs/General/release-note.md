@@ -35,15 +35,30 @@ Below is an overview of changes on 3.2.0:
 
 Detailed changelog can be read directly in the following Pull Requests on GitHub or in the [Detailed Changelog page](../General/changelog.md).
 
-# API 2.1.0
+# API 2.2.0
 
 ## Scope of the release
 
-xxx
+The API 2.2.0 release enhances efficiency by introducing HEAD methods and enabling asynchronous subscriptions through two new types of notifications. It also addresses several industry-identified bugs.
 
-## Change
+## ONE Record API Specification
 
-xxx
+### Added
+
+- Support for HTTP HEAD methods on logistics objects, action requests and list of logistics events
+- Add hasLogisticsEvent in notification
+- Add two new type of notifications: LOGISTICS_OBJECT_AVAILABLE and LOGISTICS_OBJECT_ACCESS_GRANTED
+
+### Changed
+
+- State diagram for Subscription and Access delegation requests. Now a REQUEST_ACCEPTED can move to REQUEST_REVOKED but only in case of subscription and access delegation requests.
+- Reviewed all examples according to the API ontology
+
+## ONE Record API Ontology
+
+### Added
+- Add hasLogisticsEvent in notification
+- Add LOGISTICS_OBJECT_AVAILABLE and LOGISTICS_OBJECT_ACCESS_GRANTED as notification types
 
 More information can be found in the [API Changelog page](../API-Security/changelog.md) or directly on the change page.
 
