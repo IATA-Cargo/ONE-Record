@@ -3570,7 +3570,7 @@
 <tr>
 <td>15A/15B</td>
 <td>Other Charges at Origin</td>
-<td>Waybill#otherChargesIndicator</td>
+<td>Waybill#chargePaymentType</td>
 <td></td>
 </tr>
 <tr>
@@ -3594,31 +3594,31 @@
 <tr>
 <td>21</td>
 <td>Handling information</td>
-<td>Shipment#specialHandlingCodes + textualHandlingInstructions</td>
+<td>Piece#specialHandlingCodes + Shipment#textualHandlingInstructions</td>
 <td>Retrieve Handling Information captured for each piece of the shipment</td>
 </tr>
 <tr>
 <td>21A</td>
 <td>Special Customs Information (SCI)</td>
-<td>Shipment#customsInformation</td>
+<td>Shipment#customsInformation (or Piece)</td>
 <td></td>
 </tr>
 <tr>
 <td>22A</td>
 <td>Number of pieces and RCP</td>
-<td>WaybillLineItem#pieceCountforRate</td>
-<td>Manual data capture</td>
+<td>LineItemPackages#pieceReferences</td>
+<td>Couting the number of Pieces</td>
 </tr>
 <tr>
 <td>22B</td>
 <td>Gross Weight</td>
-<td>WaybillLineItem#grossWeightForRate</td>
+<td>WaybillLineItem#rateGrossWeight</td>
 <td>Manual data capture</td>
 </tr>
 <tr>
 <td>22C</td>
 <td>Kg/Lb</td>
-<td>WaybillLineItem#grossWeightForRate</td>
+<td>WaybillLineItem#rateGrossWeight</td>
 <td>Unit of measurement to be specified in unit of Value (see table 1.48 Measureement Unit Code)</td>
 </tr>
 <tr>
@@ -3636,13 +3636,13 @@
 <tr>
 <td>22E</td>
 <td>Commodity Item Number</td>
-<td>WaybillLineItem#commodityItemNumberForRate</td>
-<td></td>
+<td>Product#commodityItemNumber</td>
+<td>Product through the Piece(s)</td>
 </tr>
 <tr>
 <td>22F</td>
 <td>Chargeable Weight</td>
-<td>WaybillLineItem#chargeableWeightForRate</td>
+<td>WaybillLineItem#chargeableWeight</td>
 <td></td>
 </tr>
 <tr>
@@ -3660,7 +3660,7 @@
 <tr>
 <td>22I</td>
 <td>Nature and Quantity of Goods</td>
-<td>WaybillLineItem#goodsDescriptionForRate + dimensionsForRate</td>
+<td>WaybillLineItem#lineItemPackages or WaybillLineItem#uldReferences</td>
 <td></td>
 </tr>
 <tr>
