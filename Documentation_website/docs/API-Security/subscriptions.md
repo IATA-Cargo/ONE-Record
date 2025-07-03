@@ -378,7 +378,7 @@ The following HTTP status codes MUST be supported:
 
 ## Security
 
-To engage with the "Get Subscription" endpoint, a client needs proper authentication. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
+To engage with the "Subscribe to Logistics Objects" endpoint, a client needs proper authentication. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
 
 ## Example B1
 
