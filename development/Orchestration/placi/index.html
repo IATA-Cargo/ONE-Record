@@ -15,10 +15,6 @@
         <link rel="canonical" href="https://iata-cargo.github.io/ONE-Record/development/Orchestration/placi/">
       
       
-        <link rel="prev" href="../orchestration-oci/">
-      
-      
-        <link rel="next" href="../orchestration-mop/">
       
       
       <link rel="icon" href="../../img/favicon.ico">
@@ -26,7 +22,7 @@
     
     
       
-        <title>PLACI implementation - ONE Record Specification</title>
+        <title>Placi - ONE Record Specification</title>
       
     
     
@@ -119,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PLACI implementation
+              Placi
             
           </span>
         </div>
@@ -305,12 +301,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../" class="md-tabs__link">
           
   
@@ -2183,8 +2177,6 @@
       
   
   
-    
-  
   
   
     
@@ -2202,25 +2194,22 @@
       
         
       
-        
-      
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -2237,13 +2226,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Data Orchestration
@@ -2325,205 +2314,6 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    PLACI implementation
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    PLACI implementation
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#placi-programs" class="md-nav__link">
-    <span class="md-ellipsis">
-      PLACI programs
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#placi-and-one-record" class="md-nav__link">
-    <span class="md-ellipsis">
-      PLACI and ONE Record
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="PLACI and ONE Record">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#general-comments-applying-to-all-processes" class="md-nav__link">
-    <span class="md-ellipsis">
-      General comments applying to all processes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-1-freight-forwarder-filing-pre-loading-data-for-consolidation-shipment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #1: Freight forwarder filing pre-loading data for Consolidation shipment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-2-freight-forwarder-filing-pre-loading-data-for-non-consolidation-shipment" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #2: Freight forwarder filing pre-loading data for non-consolidation shipment
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-3-associate-master-with-already-filed-hawb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #3: Associate Master with already filed HAWB
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Process #3: Associate Master with already filed HAWB">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#process-31-freight-forwarder-updates-hawb-with-mawb-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #3.1: Freight forwarder updates HAWB with MAWB links
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-32-airline-updates-the-hawb-with-mawb-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #3.2: Airline updates the HAWB with MAWB links
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-33-freight-forwarder-updates-the-mawb-with-hawb-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #3.3: Freight forwarder updates the MAWB with HAWB links
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-34-airline-updates-the-mawb-with-hawb-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #3.4: Airline updates the MAWB with HAWB links
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-4-airline-filing-pre-loading-data-for-consolidation-shipments" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #4: Airline filing Pre-Loading data for Consolidation shipments
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-5-airline-filing-pre-loading-data-for-non-consolidation-shipments" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #5: Airline filing Pre-Loading data for non-consolidation shipments
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-6-airline-filing-pre-arrival-data-including-pre-loading-data-at-pre-loading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #6: Airline filing Pre-Arrival data (including Pre-Loading data) at Pre-Loading
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#process-7-customs-status-notification-to-airline-freight-forwarder-and-notify-party" class="md-nav__link">
-    <span class="md-ellipsis">
-      Process #7: Customs status notification to Airline, Freight forwarder and Notify party
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     
@@ -2589,22 +2379,19 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
@@ -2617,8 +2404,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             MOP mapping
           </label>
@@ -3571,7 +3358,7 @@
   
 
 
-  <h1>PLACI implementation</h1>
+  <h1>Placi</h1>
 
 <h2 id="placi-programs">PLACI programs<a class="headerlink" href="#placi-programs" title="Permanent link">&para;</a></h2>
 <p>PreLoading Advance Cargo Information (PLACI) programs are being implemented throughout the world and impact operations of the industry stakeholders.</p>
@@ -3687,44 +3474,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../orchestration-oci/" class="md-footer__link md-footer__link--prev" aria-label="Previous: OCI line Mapping">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                OCI line Mapping
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../orchestration-mop/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Introduction
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
