@@ -2,7 +2,7 @@
 
 ONE Record Data Model aims to support air cargo operations and needs to ensure that every piece of data required exists. Starting from existing legacy standards and business use cases, we have defined an extensive data model. 
 
-The high level data model, or conceptual data model, can be seen in details using our [Visualizer tool](https://iata-cargo.github.io/ontology_visualizer/databases/cargo_core).
+The high level data model, or conceptual data model, can be seen in details using our [Visualizer tool](https://iata-cargo.github.io/ontology_visualizer/databases/cargo_3_2).
 
 The essential objects for air cargo operations are displayed, they make the core of ONE Record Data Model.
 
