@@ -37,7 +37,7 @@ This enables users and holders to view and revoke action requests, and enables h
 
     REQUEST_ACCEPTED --> [*]        
     REQUEST_ACCEPTED --> REQUEST_FAILED:  an error has occurred
-    REQUEST_ACCEPTED --> REQUEST_REVOKED: revocation requested      
+    REQUEST_ACCEPTED --> REQUEST_REVOKED: revocation requested (check note below)      
 
     REQUEST_FAILED --> [*]
 
