@@ -3912,11 +3912,13 @@ To cope with that there are multiple possibilities to map XFSU with ONE Record, 
 <h5 id="involved-parties">Involved parties<a class="headerlink" href="#involved-parties" title="Permanent link">&para;</a></h5>
 <p>When using XFSU, depending on the Status Code some parties need to be identified. By default the <code>LogisticsEvent</code> has the <em>recordActor</em>/<em>recordingOrganization</em> data object to identify the party creating the <code>LogisticsEvent</code>.</p>
 <p>With Ontology 3.2.0 an <em>involvedParty</em> data object (data type: <code>Party</code>) has been added to <code>LogisticsEvent</code> to allow for a proper mapping.</p>
-<p>Let's have a look at the various parties required for XFSU status codes and the proposed mapping:
-- Transferring party: usage of <em>recordActor</em>/<em>recordingOrganization</em>
-- receivingParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "FX" (Current receiver)
-- notifiedParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "NI" (Notify party)
-- deliveredToParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "ST" (Ship to)</p>
+<p>Let's have a look at the various parties required for XFSU status codes and the proposed mapping:</p>
+<ul>
+<li>Transferring party: usage of <em>recordActor</em>/<em>recordingOrganization</em></li>
+<li>receivingParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "FX" (Current receiver)</li>
+<li>notifiedParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "NI" (Notify party)</li>
+<li>deliveredToParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "ST" (Ship to)</li>
+</ul>
 <p>Note that the Code List used refers to the <a href="https://vocabulary.uncefact.org/PartyRoleCodeList">UN/CEFACT Party Role Code List</a>.</p>
 <p>The mapping of XFSU message still needs to be fine tuned to take into account multiple scenarios.</p>
 <h3 id="xffm-mapping">XFFM Mapping<a class="headerlink" href="#xffm-mapping" title="Permanent link">&para;</a></h3>
