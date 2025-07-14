@@ -92,6 +92,7 @@ When using XFSU, depending on the Status Code some parties need to be identified
 With Ontology 3.2.0 an *involvedParty* data object (data type: `Party`) has been added to `LogisticsEvent` to allow for a proper mapping.
 
 Let's have a look at the various parties required for XFSU status codes and the proposed mapping:
+
 - Transferring party: usage of *recordActor*/*recordingOrganization*
 - receivingParty: usage of *involedParty* with *PartyRole* = "FX" (Current receiver)
 - notifiedParty: usage of *involedParty* with *PartyRole* = "NI" (Notify party)
