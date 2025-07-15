@@ -38,3 +38,7 @@ The OCI Table is available in CXML Toolkit publication as well as published in I
 The OCI Table presents all the recognized combinations of the OCI data properties in order to convey the right information.
 
 With ONE Record all requirements on Security Declaration are already taken care of with the usage of dedicated `SecurityDeclaration` object and a few specific data properties at `Piece` level, more details can be found on the Data Model part of the specifications.
+
+## OCI Mapping (Draft)
+
+There is a draft OCI mapping available: [Here](./assets/OCI-Mapping-3.2.xlsx){:download="OCI-Mapping-3.2.xlsx"}. The file contains 2 sheets, one for eCSD and one for Customs.
