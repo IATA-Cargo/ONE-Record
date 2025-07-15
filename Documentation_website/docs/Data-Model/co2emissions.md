@@ -1,5 +1,6 @@
 # Requirements
-CO2 Emissions transparency is an essential topic in order to move toward a more sustainable industry. IATA has been addressing CO2 Emissions measurement methodology, joint with ICAO, in the Recommended Practice 1678, more details can be found on IATA’s website dedicated page: https://www.iata.org/en/programs/cargo/sustainability/carbon-footprint/  
+CO2 Emissions transparency is an essential topic in order to move toward a more sustainable industry. IATA has been addressing CO2 Emissions measurement methodology, joint with ICAO, in the Recommended Practice 1678, more details can be found on IATA’s website dedicated page: [Cargo CO2 Emissions Measurement](https://www.iata.org/en/programs/cargo/sustainability/carbon-footprint/)
+
 Our objective is to provide necessary information in the data model to be able to calculate or predict CO2 emissions for transport movements. Required information relate to:
 - Typical CO2 coefficient
 - Distance of the transport movement, calculated and measured
