@@ -32,3 +32,7 @@ The objective is that current release becomes the next stable version for the in
 - Improvements as a result of feedback from live implementations of ONE Record
 
 While this list is not exhaustive it is representative of the reasons why the standard will evolve in the future.
+
+# Data Model
+
+For more details on the governance around the Data Model part, please refer to the [dedicated page](./../Data-Model/governance.md).
