@@ -4141,6 +4141,7 @@ This list of subscriptions MAY also be empty.</p>
 <p>In the second scenario, the subscriber initiates the subscription process by actively sending subscription information to the publisher. 
 The subscription information can either specify a type of Logistics Object or a specific Logistics Object.
 The publisher creates a <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> from the submitted <a href="https://onerecord.iata.org/ns/api#Subscription">Subscription</a>.</p>
+<p>To subscribe to a specific Logistics Object, the subscriber must already know the URL of that object. This URL is typically obtained through a notification of type <code>LOGISTICS_OBJECT_AVAILABLE</code> from the publisher, which is the official mechanism for announcing the presence of a new Logistics Object and sharing its location.</p>
 <pre class="mermaid"><code>  sequenceDiagram
 
   participant SUB as Subscriber
