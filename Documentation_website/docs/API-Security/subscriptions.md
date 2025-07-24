@@ -318,6 +318,10 @@ In the second scenario, the subscriber initiates the subscription process by act
 The subscription information can either specify a type of Logistics Object or a specific Logistics Object.
 The publisher creates a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) from the submitted [Subscription](https://onerecord.iata.org/ns/api#Subscription).
 
+To subscribe to a specific Logistics Object, the subscriber must already know the URL of that object. This URL is typically obtained through a notification of type `LOGISTICS_OBJECT_AVAILABLE` from the publisher, which is the official mechanism for announcing the presence of a new Logistics Object and sharing its location.
+
+
+
 ```mermaid
   sequenceDiagram
 

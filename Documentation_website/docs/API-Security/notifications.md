@@ -259,3 +259,21 @@ Response:
 ```http
 HTTP/1.1 204 No Content
 ```
+
+## Example 1F
+
+The following example demonstrates how to notify the availability of a new Logistics Object using the `LOGISTICS_OBJECT_AVAILABLE` notification type. This is the official method for announcing the presence of a new object and sharing its corresponding URL.
+
+```http
+POST /notifications HTTP/1.1
+Content-Type: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.2.0
+
+--8<-- "API-Security/examples/Notification_example5.json"
+```
+_([Notification_example6.json](./examples/Notification_example6.json))_
+
+Response:
+```http
+HTTP/1.1 204 No Content
+```
