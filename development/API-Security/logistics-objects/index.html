@@ -4968,7 +4968,8 @@ The properties and relationships to other data classes are visualized in the fol
 </tbody>
 </table>
 <h3 id="security_2">Security<a class="headerlink" href="#security_2" title="Permanent link">&para;</a></h3>
-<p>To engage with the "Update Logistics Object" endpoint, a client needs only to be authenticated. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status.</p>
+<p>To engage with the "Update Logistics Object" endpoint, a client needs only to be authenticated. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status.
+Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided.</p>
 <h3 id="example-c1">Example C1<a class="headerlink" href="#example-c1" title="Permanent link">&para;</a></h3>
 <p>In the example below, a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> is modified by setting the property <a href="https://onerecord.iata.org/ns/cargo#goodsDescription">goodsDescription</a> to <code>"BOOKS"</code> and change the property <a href="https://onerecord.iata.org/ns/cargo#coload">coload</a> from <code>false</code> to <code>true</code>.
 This results in the following operations that MUST be part of the <a href="https://onerecord.iata.org/ns/api#Change">Change</a>:</p>
@@ -6095,7 +6096,7 @@ If this parameter is in the future, <code>400 Bad Request</code> is returned.</p
 </table>
 <p>The <code>HEAD</code> method is identical to the <code>GET</code> but the server MUST NOT return a message/body in the response.</p>
 <h3 id="security_4">Security<a class="headerlink" href="#security_4" title="Permanent link">&para;</a></h3>
-<p>To engage with the endpoint using the <code>HEAD</code> method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status. Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided.</p>
+<p>To engage with the endpoint using the <code>HEAD</code> method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a <code>401 "Not Authenticated"</code> status. Conversely, for requests without proper authorization, a <code>403 "Not Authorized"</code> response should be provided. The <code>HEAD</code> method uses the same authorization as the <code>GET</code> methods  </p>
 <h3 id="example-f1">Example F1<a class="headerlink" href="#example-f1" title="Permanent link">&para;</a></h3>
 <p>Request:</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nf">HEAD</span> <span class="nn">/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
