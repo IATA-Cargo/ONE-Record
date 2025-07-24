@@ -500,7 +500,7 @@ The following HTTP status codes MUST be supported:
 ## Security
 
 To engage with the "Update Logistics Object" endpoint, a client needs only to be authenticated. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status.
-
+Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
 
 ## Example C1
 
@@ -1006,7 +1006,7 @@ The `HEAD` method is identical to the `GET` but the server MUST NOT return a mes
 
 
 ## Security
-To engage with the endpoint using the `HEAD` method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided.
+To engage with the endpoint using the `HEAD` method, a client needs proper authentication and authorization to access the designated resource. If requests lack proper authentication, the ONE Record server should respond with a `401 "Not Authenticated"` status. Conversely, for requests without proper authorization, a `403 "Not Authorized"` response should be provided. The `HEAD` method uses the same authorization as the `GET` methods  
 
 
 ## Example F1
