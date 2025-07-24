@@ -4213,6 +4213,14 @@
 <p>This API action is used to create a Logistics Object on a ONE Record server using the POST HTTP method.
 This particular Logistics Object MUST be a type of Logistics Object, i.e. data classes that inherit from the class Logistics Object, that is specified in the ONE Record data model.
 A list of all possible data classes that inherit from Logistics Object can be found <a href="https://onerecord.iata.org/ns/cargo#LogisticsObject">here</a>.</p>
+<p>At creation:</p>
+<ul>
+<li>The revision and latestRevision properties must be set to 1 by default.</li>
+<li>The lastModified property must be set to the current timestamp at the time of creation.</li>
+<li>The type of the Logistics Object must be assigned according to the @type value provided in the payload.</li>
+<li>The Content-Type header must be set to the content-type provided in the header.</li>
+<li>The Content-Language header must be set to the content language of the system.</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
