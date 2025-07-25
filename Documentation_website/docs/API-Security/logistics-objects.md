@@ -6,11 +6,10 @@ A list of all possible data classes that inherit from Logistics Object can be fo
 
 At creation:
 
-- The revision and latestRevision properties must be set to 1 by default.
-- The lastModified property must be set to the current timestamp at the time of creation.
-- The type of the Logistics Object must be assigned according to the @type value provided in the payload.
-- The Content-Type header must be set to the content-type provided in the header.
-- The Content-Language header must be set to the content language of the system.
+- The `revision` and `latestRevision` properties must be set to 1 by default.
+- The `lastModified` property must be set to the current timestamp at the time of creation.
+- The `type` of the Logistics Object must be assigned according to the `@type` value provided in the payload.
+- The `Content-Type` must be set to the `content-type` provided in the header.
 
 !!! note 
     Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
