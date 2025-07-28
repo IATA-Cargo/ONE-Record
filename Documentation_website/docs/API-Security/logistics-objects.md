@@ -11,6 +11,8 @@ At creation:
 - The `type` of the Logistics Object must be assigned according to the `@type` value provided in the payload.
 - The `Content-Type` must be set to the `content-type` provided in the header.
 
+The JSON-LD payload in the `POST` request body must not include the `@graph` property, as its presence can complicate the identification of the root object.
+
 !!! note 
     Although the creation of a Logistics Object is specified in the ONE Record API specification, it is not required to expose an API endpoint for this API action to be compliant with the ONE Record standard. 
     The reason for this is that _only the holder of the logistics object_ MAY create a logistics object with any business logic or technology. 
