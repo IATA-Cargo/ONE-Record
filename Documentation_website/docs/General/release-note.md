@@ -1,5 +1,5 @@
 # Introduction
-As of xxx the endorsed ONE Record version is:
+As of 28th July 2025 the endorsed ONE Record version is:
 
 - Ontology 3.2.0
 - API 2.2.0
