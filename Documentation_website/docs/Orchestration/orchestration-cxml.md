@@ -3,7 +3,7 @@
 # Mapping CXML messages with ONE Record
 
 ## Introduction
-We dedicate this section to the mapping between CXML messages (as per the last version on CXMl Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.2.0)
+We dedicate this section to the mapping between CXML messages (as per the last version on CXML Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.2.0)
 
 ### Objectives
 The transition from EDI to Data Sharing is highly dependent on the mapping between messages and ONE Record. Messaging standards (Cargo IMP and then Cargo XML) have been used extensively for the past decades by the industry. However messages in their current form have shown to be limited in terms of scalability with regards to upcoming regulations such as ACI/PLACI regimes.
