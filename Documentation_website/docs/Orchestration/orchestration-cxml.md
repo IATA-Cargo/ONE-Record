@@ -14,7 +14,7 @@ In the mapping between CXML messages and ONE Record, two main aspects need to be
 - Data field mapping: A direct mapping between CXML fields and ONE Record data model is inevitable, it goes with the Mechanism part to properly understand what objects are impacted.
 
 ### Messages selected
-As CIMP standard has been sunset since 31st December 2024, we focus on CXML messages in their latest version (currently CXML Toolkit Edition 12)
+As CIMP standard has been sunset since 31st December 2014, we focus on CXML messages from CXML Toolkit 12th Edition.
 The selected messages for mapping are the following:
 
 | Message | Message name | Message version | Comments |
@@ -27,6 +27,8 @@ The selected messages for mapping are the following:
 | XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
 | XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
+
+Note that evolutions since 12th Edition have been insignificant to the mapping.
 
 ## General conversion guidelines
 
