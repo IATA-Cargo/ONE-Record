@@ -3358,31 +3358,43 @@
 <p>The Shipper's Letter of Instruction (SLI) is a document in which the shipper gives handling instructions for the freight forwarder. It also allows the freight forwarder to act on the shipper’s behalf.</p>
 <p>The SLI is part of CSC Recommended Practice 1650 and should refer to the United Nations Layout Key for Trade Documents in its paper form.</p>
 <p>The requirements expressed in this document are based on the XSLI Cargo-XML message, 8th Edition, they can be summarized as follows:</p>
-<p><strong>XSLI Header:</strong>
-- Letter of instruction number / customs reference
-- Consignor details, including contact information, tax/customs information
-- Consignee details, including contact information, tax/customs information
-- Freight forwarder details, including contact information, tax/customs information
-- Other parties details
-- Transport and booking details, including terms of delivery and transport equipment details
-- Special handling information, special service request, reference documents
-- Currency details</p>
-<p><strong>Packaging detail:</strong>
-- Complete packages details, including weights, volumes, etc.</p>
-<p><strong>Commodity details:</strong>
-- Complete commodity details, including dangerous goods specific data elements</p>
+<p><strong>XSLI Header:</strong></p>
+<ul>
+<li>Letter of instruction number / customs reference</li>
+<li>Consignor details, including contact information, tax/customs information</li>
+<li>Consignee details, including contact information, tax/customs information</li>
+<li>Freight forwarder details, including contact information, tax/customs information</li>
+<li>Other parties details</li>
+<li>Transport and booking details, including terms of delivery and transport equipment details</li>
+<li>Special handling information, special service request, reference documents</li>
+<li>Currency details</li>
+</ul>
+<p><strong>Packaging detail:</strong></p>
+<ul>
+<li>Complete packages details, including weights, volumes, etc.</li>
+</ul>
+<p><strong>Commodity details:</strong></p>
+<ul>
+<li>Complete commodity details, including dangerous goods specific data elements</li>
+</ul>
 <h2 id="chosen-approach">Chosen approach<a class="headerlink" href="#chosen-approach" title="Permanent link">&para;</a></h2>
-<p>The SLI details are mainly at Piece level.
-- On the <code>Piece</code>: Declared values for customs and for carriage as well as package marks information.
+<p>The SLI details are mainly at Piece and Shipment level.
+- On the <code>Piece</code>: Package marks information.
 - On the <code>Shipment</code>: Terms of delivery (expected delivery date and location, incoterms), indicators for Weight valuation and Other charges (Prepaid or Collect).
-- On the <code>TransportMovement</code>: Mode Qualifier to indicate Pre-Carriage, Main-Carriage or On-Carriage.</p>
+- On the <code>TransportMovement</code>: Mode Qualifier to indicate Pre-Carriage, Main-Carriage or On-Carriage.
+- On the <code>Waybill</code>: Declared values for Carriage, Customs</p>
 <p>The overall idea is that the SLI document in itself does not exist in the Data Model but can be recreated using existing objects and their data properties. It is then a matter of mapping the right information, essentially:
 - Parties are represented by Company objects
 - Packaging and handling details are data properties of Pieces and Shipment objects
 - Commodity details are data properties of Item and Product objects
 - Transport details are data properties of Transport movement linked to the pieces</p>
 <h2 id="data-model">Data model<a class="headerlink" href="#data-model" title="Permanent link">&para;</a></h2>
-<p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543289-2992fd26-4ef5-4e35-aad1-2c9b26b3b9db.png"></p>
+<p align="center"><img width="1585" height="180" alt="image" src="https://github.com/user-attachments/assets/8046bfcf-a470-40ec-a197-e6a1f51109af" /></p>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This SLI requirements and mapping need to be further reviewed</p>
+</div>
 
 
 
