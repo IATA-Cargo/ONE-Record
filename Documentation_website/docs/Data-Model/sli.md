@@ -6,6 +6,7 @@ The SLI is part of CSC Recommended Practice 1650 and should refer to the United 
 The requirements expressed in this document are based on the XSLI Cargo-XML message, 8th Edition, they can be summarized as follows:
 
 **XSLI Header:**
+
 - Letter of instruction number / customs reference
 - Consignor details, including contact information, tax/customs information
 - Consignee details, including contact information, tax/customs information
@@ -17,18 +18,21 @@ The requirements expressed in this document are based on the XSLI Cargo-XML mess
 
 
 **Packaging detail:**
+
 - Complete packages details, including weights, volumes, etc.
 
 **Commodity details:**
+
 - Complete commodity details, including dangerous goods specific data elements
 
 
 # Chosen approach
 
-The SLI details are mainly at Piece level.
-- On the `Piece`: Declared values for customs and for carriage as well as package marks information.
+The SLI details are mainly at Piece and Shipment level.
+- On the `Piece`: Package marks information.
 - On the `Shipment`: Terms of delivery (expected delivery date and location, incoterms), indicators for Weight valuation and Other charges (Prepaid or Collect).
 - On the `TransportMovement`: Mode Qualifier to indicate Pre-Carriage, Main-Carriage or On-Carriage.
+- On the `Waybill`: Declared values for Carriage, Customs
 
 The overall idea is that the SLI document in itself does not exist in the Data Model but can be recreated using existing objects and their data properties. It is then a matter of mapping the right information, essentially:
 - Parties are represented by Company objects
@@ -38,4 +42,7 @@ The overall idea is that the SLI document in itself does not exist in the Data M
 
 # Data model
 
- <p align="center"><img src="https://user-images.githubusercontent.com/58464775/161543289-2992fd26-4ef5-4e35-aad1-2c9b26b3b9db.png"></p>
+ <p align="center"><img width="1585" height="180" alt="image" src="https://github.com/user-attachments/assets/8046bfcf-a470-40ec-a197-e6a1f51109af" /></p>
+
+!!! note
+    This SLI requirements and mapping need to be further reviewed
