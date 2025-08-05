@@ -1050,7 +1050,7 @@ Request:
 ```http
 HEAD /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7d HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.0.0-dev
+Accept: application/ld+json; version=2.2.0
 Authorization: Bearer <token>
 ```
 
