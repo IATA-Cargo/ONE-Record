@@ -1,11 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d63160fd-dd69-453d-ac8e-64296de37007",
-		"name": "ONE Record API Unit Tests",
+		"_postman_id": "d44ff80f-7233-4128-8d65-16ad8e8069ee",
+		"name": "ONE Record API Unit Tests 2025-07",
 		"description": "# ONE Record Example Collection\n\nThis collection contains all the examples described in the ONE Record API specification website([https://iata-cargo.github.io/ONE-Record/](https://))\n\n# Collection Variables\n\nA set of variables has been designed to ease the use of this collections. In order to run any call, please create an Environment and add the following variable:\n\n- baseUrl : the url of the ONE Record server (i.e. [https://1r.example.com](https://1r.example.com))\n    \n\n# Authentication\n\nIf ONE Record Server implements the authentication, you should add a bearer token for each API call. For more information check the Security section on [https://iata-cargo.github.io/ONE-Record/](https://iata-cargo.github.io/ONE-Record/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28309429",
-		"_collection_link": "https://crimson-crescent-500945.postman.co/workspace/One-Record-workspace~090d2458-3b0b-4449-8278-184b7711961d/collection/28309429-d63160fd-dd69-453d-ac8e-64296de37007?action=share&source=collection_link&creator=28309429"
+		"_exporter_id": "38950925"
 	},
 	"item": [
 		{
@@ -76,7 +75,8 @@
 									"});\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -85,7 +85,8 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -190,7 +191,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": false,\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:handlingInstructionsType\": \"SPH\",\n            \"cargo:description\": \"Valuable Cargo\",\n            \"cargo:handlingInstructionsTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n        \"@value\": \"false\"\n    },\n    \"cargo:specialHandlingCodes\": [\n        {\n            \"@id\": \"https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -268,7 +269,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\"\n    ],\n    \"cargo:name\": \"Acme Corporation\",\n    \"cargo:shortName\": \"ACME\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\",\n        \"cargo:Organization\",\n        \"cargo:LogisticsAgent\",\n        \"cargo:LogisticsObject\"\n    ],\n    \"cargo:name\": \"Acme Corporation\",\n    \"cargo:shortName\": \"ACME\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -346,7 +347,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\",\n    \"cargo:shipmentOfPieces\": [{\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\"\n    }]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\",\n    \"cargo:pieces\": [{\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{pieceId}}\"\n    }]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -427,7 +428,7 @@
 											"        jsonData = result;\r",
 											"    }\r",
 											"    console.log(result)\r",
-											"    var handlingInstructions = \"https://onerecord.iata.org/ns/cargo#handlingInstructions\"\r",
+											"    var specialHandlingCodes = \"https://onerecord.iata.org/ns/cargo#specialHandlingCodes\"\r",
 											"    pm.test(\"Response contains @id \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(\"@id\");\r",
 											"    });\r",
@@ -458,36 +459,15 @@
 											"        });\r",
 											"    }\r",
 											"    \r",
-											"    pm.test(\"Response contains handlingInstructions \", () => {\r",
-											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
+											"    pm.test(\"Response contains specialHandlingCodes \", () => {\r",
+											"        pm.expect(jsonData).to.have.property(specialHandlingCodes);\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains handlingInstructions-@id\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@id\");\r",
+											"    pm.test(\"Response contains specialHandlingCodes-@id\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes]).to.have.property(\"@id\");\r",
 											"    });\r",
-											"    pm.test(\"Response contains handlingInstructions-@type\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@type\");\r",
-											"    });\r",
-											"    var description = 'https://onerecord.iata.org/ns/cargo#description'\r",
-											"    pm.test(\"Response contains handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(description);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][description]).to.eql('Valuable Cargo');\r",
-											"    });\r",
-											"    var handlingInstructionsType = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsType'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsType);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsType]).to.eql('SPH');\r",
-											"    });\r",
-											"    var handlingInstructionsTypeCode = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsTypeCode);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsTypeCode]).to.eql('VAL');\r",
+											"    pm.test(\"Response value specialHandlingCodes-VAL\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes][\"@id\"]).to.eql('https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL');\r",
 											"    });\r",
 											"})\r",
 											"\r",
@@ -497,8 +477,7 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -507,8 +486,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -560,8 +538,18 @@
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
+											"\r",
 											"//Test Error response payload\r",
-											"var responseJson = pm.response.json();\r",
+											"var responseJson;\r",
+											"if (pm.response.text()) {\r",
+											"    responseJson = pm.response.json();\r",
+											"} else {\r",
+											"    responseJson = {}; // Handle the case where there is no response\r",
+											"}\r",
+											"\r",
 											"const framedJson = frame(responseJson);\r",
 											"\r",
 											"framedJson.then(function (result) {\r",
@@ -600,7 +588,8 @@
 											"    });\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -609,7 +598,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -728,26 +718,26 @@
 											"        pm.expect(jsonData[goodsDesc]).to.eql(\"Lots of awesome ONE Record information materials\");\r",
 											"    });\r",
 											"\r",
-											"    var shipmentOfPieces = 'https://onerecord.iata.org/ns/cargo#shipmentOfPieces'\r",
-											"    pm.test(\"Response contains shipmentOfPieces\", () => {\r",
-											"        pm.expect(jsonData).to.have.property(shipmentOfPieces);\r",
+											"    var pieces = 'https://onerecord.iata.org/ns/cargo#pieces'\r",
+											"    pm.test(\"Response contains pieces\", () => {\r",
+											"        pm.expect(jsonData).to.have.property(pieces);\r",
 											"    });\r",
 											"\r",
 											"    var piece = ''\r",
-											"    if (Array.isArray(jsonData[shipmentOfPieces])) {\r",
-											"        piece = jsonData[shipmentOfPieces][0]\r",
+											"    if (Array.isArray(jsonData[pieces])) {\r",
+											"        piece = jsonData[pieces][0]\r",
 											"    } else {\r",
-											"        piece = jsonData[shipmentOfPieces]\r",
+											"        piece = jsonData[pieces]\r",
 											"    }\r",
-											"    pm.test(\"Response contains shipmentOfPieces-@id\", () => {\r",
+											"    pm.test(\"Response contains pieces-@id\", () => {\r",
 											"        pm.expect(piece).to.have.property('@id');\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains shipmentOfPieces-@type\", () => {\r",
+											"    pm.test(\"Response contains pieces-@type\", () => {\r",
 											"        pm.expect(piece).to.have.property('@type');\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response value shipmentOfPieces-@type \", () => {\r",
+											"    pm.test(\"Response value pieces-@type \", () => {\r",
 											"        pm.expect(piece['@type']).to.contains('https://onerecord.iata.org/ns/cargo#Piece');\r",
 											"    });\r",
 											"\r",
@@ -768,44 +758,22 @@
 											"        });\r",
 											"    }\r",
 											"\r",
-											"    var handlingInstructions = \"https://onerecord.iata.org/ns/cargo#handlingInstructions\"\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions \", () => {\r",
-											"        pm.expect(piece).to.have.property(handlingInstructions);\r",
+											"    var specialHandlingCodes = \"https://onerecord.iata.org/ns/cargo#specialHandlingCodes\"\r",
+											"    pm.test(\"Response contains pieces-specialHandlingCodes \", () => {\r",
+											"        pm.expect(piece).to.have.property(specialHandlingCodes);\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions-@id\", () => {\r",
-											"        pm.expect(piece[handlingInstructions]).to.have.property(\"@id\");\r",
+											"    pm.test(\"Response contains pieces-specialHandlingCodes-@id\", () => {\r",
+											"        pm.expect(piece[specialHandlingCodes]).to.have.property(\"@id\");\r",
 											"    });\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions-@type\", () => {\r",
-											"        pm.expect(piece[handlingInstructions]).to.have.property(\"@type\");\r",
-											"    });\r",
-											"    var description = 'https://onerecord.iata.org/ns/cargo#description'\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions-description\", () => {\r",
-											"        pm.expect(piece[handlingInstructions]).to.have.property(description);\r",
-											"    });\r",
-											"    pm.test(\"Response value shipmentOfPieces-handlingInstructions-description\", () => {\r",
-											"        pm.expect(piece[handlingInstructions][description]).to.eql('Valuable Cargo');\r",
-											"    });\r",
-											"    var handlingInstructionsType = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsType'\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(piece[handlingInstructions]).to.have.property(handlingInstructionsType);\r",
-											"    });\r",
-											"    pm.test(\"Response value shipmentOfPieces-handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(piece[handlingInstructions][handlingInstructionsType]).to.eql('SPH');\r",
-											"    });\r",
-											"    var handlingInstructionsTypeCode = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode'\r",
-											"    pm.test(\"Response contains shipmentOfPieces-handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(piece[handlingInstructions]).to.have.property(handlingInstructionsTypeCode);\r",
-											"    });\r",
-											"    pm.test(\"Response value shipmentOfPieces-handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(piece[handlingInstructions][handlingInstructionsTypeCode]).to.eql('VAL');\r",
+											"    pm.test(\"Response value pieces-specialHandlingCodes-VAL\", () => {\r",
+											"        pm.expect(piece[specialHandlingCodes][\"@id\"]).to.eql('https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL');\r",
 											"    });\r",
 											"});\r",
 											"//Update revision\r",
 											"pm.collectionVariables.set(\"shipmentRevision\", pm.response.headers.get(\"Latest-Revision\"));"
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -814,8 +782,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -939,9 +906,9 @@
 											"        pm.expect(jsonData[goodsDesc]).to.eql(\"Lots of awesome ONE Record information materials\");\r",
 											"    });\r",
 											"\r",
-											"    var shipmentOfPieces = 'https://onerecord.iata.org/ns/cargo#shipmentOfPieces'\r",
-											"    pm.test(\"Response contains shipmentOfPieces\", () => {\r",
-											"        pm.expect(jsonData).to.have.property(shipmentOfPieces);\r",
+											"    var pieces = 'https://onerecord.iata.org/ns/cargo#pieces'\r",
+											"    pm.test(\"Response contains pieces\", () => {\r",
+											"        pm.expect(jsonData).to.have.property(pieces);\r",
 											"    });\r",
 											"\r",
 											"    var piece = ''\r",
@@ -1212,7 +1179,7 @@
 											"\r",
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
-											"if (pm.response.code == 201 ) {\r",
+											"if (pm.response.to.be.success) {\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"pieceId\"))){\r",
 											"        pm.collectionVariables.set(\"pieceRevision\", Number(pm.collectionVariables.get(\"pieceRevision\"))+1);\r",
@@ -1225,7 +1192,8 @@
 											"    pm.collectionVariables.set(\"historicalChange\",date);\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -1234,7 +1202,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -1474,7 +1443,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -1497,9 +1467,18 @@
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
 											"});\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
 											"\r",
 											"//Test Error response payload\r",
-											"var responseJson = pm.response.json();\r",
+											"var responseJson;\r",
+											"if (pm.response.text()) {\r",
+											"    responseJson = pm.response.json();\r",
+											"} else {\r",
+											"    responseJson = {}; // Handle the case where there is no response\r",
+											"}\r",
+											"\r",
 											"const framedJson = frame(responseJson);\r",
 											"\r",
 											"framedJson.then(function (result) {\r",
@@ -1543,7 +1522,8 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -1751,7 +1731,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": true,\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:handlingInstructionsType\": \"SPH\",\n            \"cargo:description\": \"Important Piece\",\n            \"cargo:handlingInstructionsTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n        \"@value\": \"false\"\n    },\n    \"cargo:goodsDescription\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#string\",\n        \"@value\": \"Important piece\"\n    },\n    \"cargo:specialHandlingCodes\": [\n        {\n            \"@id\": \"https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1795,7 +1775,7 @@
 											"\r",
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
-											"if (pm.response.code == 201 ) {\r",
+											"if (pm.response.to.be.success) {\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"patchPieceId\"))){\r",
 											"        pm.collectionVariables.set(\"patchPieceRevision\", Number(pm.collectionVariables.get(\"patchPieceRevision\"))+1);\r",
@@ -1834,7 +1814,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\"\n    },\n    \"api:hasDescription\": \"Add grossWeight\",\n    \"api:hasOperation\": [\n                {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"_:b0\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#numericalValue\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#double\",\n                    \"api:hasValue\": \"20.0\"\n                }\n            ]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"_:b0\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#unit\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\n                    \"api:hasValue\": \"KGM\"\n                }\n            ]\n        },\n                {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#grossWeight\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Value\",\n                    \"api:hasValue\": \"_:b0\"\n                }\n            ]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"{{patchPieceRevision}}\"\n    }\n}\n",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\"\n    },\n    \"api:hasDescription\": \"Add grossWeight\",\n    \"api:hasOperation\": [\n                {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"_:b0\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#numericalValue\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#double\",\n                    \"api:hasValue\": \"20.0\"\n                }\n            ]\n        },\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"_:b0\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#unit\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode\",\n                    \"api:hasValue\": \"https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM\"\n                }\n            ]\n        },\n                {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#grossWeight\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Value\",\n                    \"api:hasValue\": \"_:b0\"\n                }\n            ]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"{{patchPieceRevision}}\"\n    }\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2154,32 +2134,15 @@
 											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains handlingInstructions-@id\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@id\");\r",
+											"    pm.test(\"Response contains specialHandlingCodes \", () => {\r",
+											"        pm.expect(jsonData).to.have.property(specialHandlingCodes);\r",
 											"    });\r",
-											"    pm.test(\"Response contains handlingInstructions-@type\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@type\");\r",
+											"\r",
+											"    pm.test(\"Response contains specialHandlingCodes-@id\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes]).to.have.property(\"@id\");\r",
 											"    });\r",
-											"    var description = 'https://onerecord.iata.org/ns/cargo#description'\r",
-											"    pm.test(\"Response contains handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(description);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][description]).to.eql('Important Piece');\r",
-											"    });\r",
-											"    var handlingInstructionsType = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsType'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsType);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsType]).to.eql('SPH');\r",
-											"    });\r",
-											"    var handlingInstructionsTypeCode = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsTypeCode);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsTypeCode]).to.eql('VAL');\r",
+											"    pm.test(\"Response value specialHandlingCodes-VAL\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes][\"@id\"]).to.eql('https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL');\r",
 											"    });\r",
 											"\r",
 											"    pm.test(\"Response contains grossWeight \", () => {\r",
@@ -2213,7 +2176,7 @@
 											"        pm.expect(jsonData[grossWeight]).to.have.property(unit);\r",
 											"    });\r",
 											"    pm.test(\"Response value grossWeight-unit\", () => {\r",
-											"        pm.expect(jsonData[grossWeight][unit]).to.eql(\"KGM\");\r",
+											"        pm.expect(jsonData[grossWeight][unit]).to.eql('https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM');\r",
 											"    });\r",
 											"    if (jsonData[grossWeight] != null && jsonData[grossWeight]['@id'] != null) {\r",
 											"        pm.collectionVariables.set(\"internalNodeId\", jsonData[grossWeight]['@id']);\r",
@@ -2225,8 +2188,7 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -2235,8 +2197,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2298,7 +2259,7 @@
 											"});\r",
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
-											"if (pm.response.code == 201 ) {\r",
+											"if (pm.response.to.be.success) {\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"patchPieceId\"))){\r",
 											"        pm.collectionVariables.set(\"patchPieceRevision\", Number(pm.collectionVariables.get(\"patchPieceRevision\"))+1);\r",
@@ -2307,7 +2268,8 @@
 											"\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -2316,7 +2278,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -2326,7 +2289,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2523,32 +2485,15 @@
 											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains handlingInstructions-@id\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@id\");\r",
+											"    pm.test(\"Response contains specialHandlingCodes \", () => {\r",
+											"        pm.expect(jsonData).to.have.property(specialHandlingCodes);\r",
 											"    });\r",
-											"    pm.test(\"Response contains handlingInstructions-@type\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@type\");\r",
+											"\r",
+											"    pm.test(\"Response contains specialHandlingCodes-@id\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes]).to.have.property(\"@id\");\r",
 											"    });\r",
-											"    var description = 'https://onerecord.iata.org/ns/cargo#description'\r",
-											"    pm.test(\"Response contains handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(description);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][description]).to.eql('Important Piece');\r",
-											"    });\r",
-											"    var handlingInstructionsType = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsType'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsType);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsType]).to.eql('SPH');\r",
-											"    });\r",
-											"    var handlingInstructionsTypeCode = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsTypeCode);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsTypeCode]).to.eql('VAL');\r",
+											"    pm.test(\"Response value specialHandlingCodes-VAL\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes][\"@id\"]).to.eql('https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL');\r",
 											"    });\r",
 											"\r",
 											"    pm.test(\"Response contains grossWeight \", () => {\r",
@@ -2582,7 +2527,7 @@
 											"        pm.expect(jsonData[grossWeight]).to.have.property(unit);\r",
 											"    });\r",
 											"    pm.test(\"Response value grossWeight-unit\", () => {\r",
-											"        pm.expect(jsonData[grossWeight][unit]).to.eql(\"KGM\");\r",
+											"        pm.expect(jsonData[grossWeight][unit]).to.eql('https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM');\r",
 											"    });\r",
 											"    if (jsonData[grossWeight] != null && jsonData[grossWeight]['@id'] != null) {\r",
 											"        pm.collectionVariables.set(\"internalNodeId\", jsonData[grossWeight]['@id']);\r",
@@ -2594,8 +2539,7 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -2604,8 +2548,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2667,7 +2610,7 @@
 											"});\r",
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
-											"if (pm.response.code == 201 ) {\r",
+											"if (pm.response.to.be.success) {\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"patchPieceId\"))){\r",
 											"        pm.collectionVariables.set(\"patchPieceRevision\", Number(pm.collectionVariables.get(\"patchPieceRevision\"))+1);\r",
@@ -2676,7 +2619,8 @@
 											"\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -2685,7 +2629,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -2706,7 +2651,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\r\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\r\n    },\r\n    \"@type\": \"api:Change\",\r\n    \"api:hasLogisticsObject\": {\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\"\r\n    },\r\n    \"api:hasDescription\": \"delete grossWeight\",\r\n    \"api:hasOperation\": [\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{internalNodeId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#unit\",\r\n            \"api:o\": [{\r\n                \"@type\": \"api:OperationObject\",\r\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\r\n                \"api:hasValue\": \"KGM\"\r\n            }]\r\n        },\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{internalNodeId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#numericalValue\",\r\n            \"api:o\": [{\r\n                \"@type\": \"api:OperationObject\",\r\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#double\",\r\n                \"api:hasValue\": \"25.0\"\r\n            }]\r\n        },\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#grossWeight\",\r\n            \"api:o\": [{\r\n                \"@type\": \"api:OperationObject\",\r\n                \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Value\",\r\n                \"api:hasValue\": \"{{internalNodeId}}\"\r\n            }]\r\n        }\r\n    ],\r\n    \"api:hasRevision\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\r\n        \"@value\": \"{{patchPieceRevision}}\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\r\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\r\n    },\r\n    \"@type\": \"api:Change\",\r\n    \"api:hasLogisticsObject\": {\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\"\r\n    },\r\n    \"api:hasDescription\": \"delete grossWeight\",\r\n    \"api:hasOperation\": [\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{internalNodeId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#unit\",\r\n            \"api:o\": [\r\n                {\r\n                    \"@type\": \"api:OperationObject\",\r\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode\",\r\n                    \"api:hasValue\": \"https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{internalNodeId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#numericalValue\",\r\n            \"api:o\": [{\r\n                \"@type\": \"api:OperationObject\",\r\n                \"api:hasDatatype\": \"http://www.w3.org/2001/XMLSchema#double\",\r\n                \"api:hasValue\": \"25.0\"\r\n            }]\r\n        },\r\n        {\r\n            \"@type\": \"api:Operation\",\r\n            \"api:op\": {\r\n                \"@id\": \"api:DELETE\"\r\n            },\r\n            \"api:s\": \"{{baseUrl}}/logistics-objects/{{patchPieceId}}\",\r\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#grossWeight\",\r\n            \"api:o\": [{\r\n                \"@type\": \"api:OperationObject\",\r\n                \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Value\",\r\n                \"api:hasValue\": \"{{internalNodeId}}\"\r\n            }]\r\n        }\r\n    ],\r\n    \"api:hasRevision\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\r\n        \"@value\": \"{{patchPieceRevision}}\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2832,11 +2777,22 @@
 											"    pm.response.to.have.header(\"Content-Type\");\r",
 											"});\r",
 											"\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
 											"//Test response payload\r",
 											"\r",
-											"if (pm.response.code == 400) {\r",
-											"    var jsonData = pm.response.json()\r",
-											"        console.log(jsonData)\r",
+											"if (pm.response.to.be.badRequest) {\r",
+											"    //Test Error response payload\r",
+											"var jsonData;\r",
+											"if (pm.response.text()) {\r",
+											"    jsonData = pm.response.json();\r",
+											"} else {\r",
+											"    jsonData = {}; // Handle the case where there is no response\r",
+											"}\r",
 											"\r",
 											"    const framedJson = frame(jsonData)\r",
 											"    console.log(framedJson)\r",
@@ -3019,36 +2975,15 @@
 											"        });\r",
 											"    }\r",
 											"\r",
-											"    pm.test(\"Response contains handlingInstructions \", () => {\r",
-											"        pm.expect(jsonData).to.have.property(handlingInstructions);\r",
+											"    pm.test(\"Response contains specialHandlingCodes \", () => {\r",
+											"        pm.expect(jsonData).to.have.property(specialHandlingCodes);\r",
 											"    });\r",
 											"\r",
-											"    pm.test(\"Response contains handlingInstructions-@id\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@id\");\r",
+											"    pm.test(\"Response contains specialHandlingCodes-@id\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes]).to.have.property(\"@id\");\r",
 											"    });\r",
-											"    pm.test(\"Response contains handlingInstructions-@type\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(\"@type\");\r",
-											"    });\r",
-											"    var description = 'https://onerecord.iata.org/ns/cargo#description'\r",
-											"    pm.test(\"Response contains handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(description);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-description\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][description]).to.eql('Important Piece');\r",
-											"    });\r",
-											"    var handlingInstructionsType = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsType'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsType);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsType\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsType]).to.eql('SPH');\r",
-											"    });\r",
-											"    var handlingInstructionsTypeCode = 'https://onerecord.iata.org/ns/cargo#handlingInstructionsTypeCode'\r",
-											"    pm.test(\"Response contains handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions]).to.have.property(handlingInstructionsTypeCode);\r",
-											"    });\r",
-											"    pm.test(\"Response value handlingInstructions-handlingInstructionsTypeCode\", () => {\r",
-											"        pm.expect(jsonData[handlingInstructions][handlingInstructionsTypeCode]).to.eql('VAL');\r",
+											"    pm.test(\"Response value specialHandlingCodes-VAL\", () => {\r",
+											"        pm.expect(jsonData[specialHandlingCodes][\"@id\"]).to.eql('https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL');\r",
 											"    });\r",
 											"});\r",
 											"//Update variables\r",
@@ -3057,8 +2992,7 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -3067,8 +3001,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -3206,7 +3139,7 @@
 											"\r",
 											"\r",
 											"var reqUrl = pm.variables.replaceIn(pm.request.url.toString());\r",
-											"if (pm.response.code == 201 ) {\r",
+											"if (pm.response.to.be.success) {\r",
 											"    pm.collectionVariables.set(\"patchRequestShipment\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
 											"    // Update revisions\r",
 											"    if (reqUrl.includes(pm.collectionVariables.get(\"patchShipmentId\"))){\r",
@@ -3432,8 +3365,7 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -3442,8 +3374,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -3547,7 +3478,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\"\n    ],\n    \"cargo:name\": \"Acme Corporation\",\n    \"cargo:shortName\": \"ACME\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\",\n        \"cargo:Organization\",\n        \"cargo:LogisticsAgent\",\n        \"cargo:LogisticsObject\"\n    ],\n    \"cargo:name\": \"Acme Corporation\",\n    \"cargo:shortName\": \"ACME\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3625,7 +3556,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "//Create a company to be used in the Logistics Events Test\n{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\"\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Lots of awesome ONE Record information materials\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3700,7 +3631,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-10-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-10-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@type\": \"cargo:CodeListElement\",\r\n        \"cargo:code\": \"TEST\",\r\n        \"cargo:codeListName\": \"Test\"\r\n    },\r\n    \"cargo:eventName\": \"Test Event on shipment record\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-10-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-10-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@id\": \"https://1r.example.com/ns/eventCodes#TEST\"\r\n    },\r\n    \"cargo:eventName\": \"Test Event on shipment record\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3781,7 +3712,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@type\": \"cargo:CodeListElement\",\r\n        \"cargo:code\": \"DEP\",\r\n        \"cargo:codeListName\": \"Departure\"\r\n    },\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },\r\n    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@id\": \"https://onerecord.iata.org/ns/code-lists/StatusCode#DEP\"\r\n    },\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },\r\n    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3828,8 +3759,18 @@
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
+											"\r",
 											"//Test Error response payload\r",
-											"var responseJson = pm.response.json();\r",
+											"var responseJson;\r",
+											"if (pm.response.text()) {\r",
+											"    responseJson = pm.response.json();\r",
+											"} else {\r",
+											"    responseJson = {}; // Handle the case where there is no response\r",
+											"}\r",
+											"\r",
 											"const framedJson = frame(responseJson);\r",
 											"\r",
 											"framedJson.then(function (result) {\r",
@@ -3898,7 +3839,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@type\": \"cargo:CodeListElement\",\r\n        \"cargo:code\": \"DEP\",\r\n        \"cargo:codeListName\": \"Departure\"\r\n    },\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
+									"raw": "{\r\n    \"@context\": {\r\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\r\n    },\r\n    \"@type\": \"cargo:LogisticsEvent\",\r\n    \"cargo:creationDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventDate\": {\r\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\r\n        \"@value\": \"2023-04-01T10:38:01.000Z\"\r\n    },\r\n    \"cargo:eventCode\": {\r\n        \"@id\": \"https://onerecord.iata.org/ns/code-lists/StatusCode#DEP\"\r\n    },\r\n    \"cargo:eventName\": \"Consignment departed on a specific flight\",\r\n    \"cargo:eventTimeType\": {\r\n        \"@type\": \"cargo:EventTimeType\",\r\n        \"@id\": \"cargo:ACTUAL\"\r\n    },    \"cargo:partialEventIndicator\": false,\r\n    \"cargo:eventFor\": {\r\n        \"@type\": \"cargo:Shipment\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{shipmentId}}\"\r\n    },\r\n    \"cargo:recordingOrganization\": {\r\n        \"@type\": \"cargo:Company\",\r\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{companyId}}\"\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4017,14 +3958,11 @@
 											"    pm.test(\"Response contains eventCode\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(eventCode);\r",
 											"    });\r",
-											"    pm.test(\"Response value eventCode\", () => {\r",
-											"        if ('@type' in jsonData[eventCode]) {\r",
-											"            pm.expect(jsonData[eventCode]['@type']).to.eql('https://onerecord.iata.org/ns/cargo#CodeListElement');\r",
-											"        }\r",
-											"        pm.expect(jsonData[eventCode]['https://onerecord.iata.org/ns/cargo#code']).to.eql('DEP');\r",
-											"        pm.expect(jsonData[eventCode]['https://onerecord.iata.org/ns/cargo#codeListName']).to.eql('Departure');\r",
 											"\r",
+											"    pm.test(\"Response value eventCode\", () => {\r",
+											"        pm.expect(jsonData[eventCode]['@id']).to.eql('https://onerecord.iata.org/ns/code-lists/StatusCode#DEP');\r",
 											"    });\r",
+											"\r",
 											"    var eventName = 'https://onerecord.iata.org/ns/cargo#eventName';\r",
 											"    pm.test(\"Response contains eventName\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(eventName);\r",
@@ -4146,8 +4084,17 @@
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
+											"\r",
 											"//Test Error response payload\r",
-											"var responseJson = pm.response.json();\r",
+											"var responseJson;\r",
+											"if (pm.response.text()) {\r",
+											"    responseJson = pm.response.json();\r",
+											"} else {\r",
+											"    responseJson = {}; // Handle the case where there is no response\r",
+											"}\r",
 											"const framedJson = frame(responseJson);\r",
 											"\r",
 											"framedJson.then(function (result) {\r",
@@ -4186,7 +4133,8 @@
 											"    });\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -4195,7 +4143,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -4461,18 +4410,16 @@
 											"\r",
 											"    var hasItem = 'https://onerecord.iata.org/ns/api#hasItem';\r",
 											"    var eventCode = 'https://onerecord.iata.org/ns/cargo#eventCode';\r",
-											"    var code = 'https://onerecord.iata.org/ns/cargo#code';\r",
 											"    //The following test can fail according on how the return body is implemented.\r",
-											"    //The test checks that the only returned event has event-code=DEP.\r",
+											"    //The test checks that the only returned event has event-code=https://onerecord.iata.org/ns/code-lists/StatusCode#DEP.\r",
 											"    //Please check the error and adjust the test.\r",
 											"    pm.test(\"event-code=DEP inside hasItem\", () => {\r",
-											"        pm.expect(jsonData[hasItem][eventCode][code]).to.eql('DEP');\r",
+											"        pm.expect(jsonData[hasItem][eventCode]['@id']).to.eql('https://onerecord.iata.org/ns/code-lists/StatusCode#DEP');\r",
 											"    });\r",
 											"});\r",
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								},
 								{
@@ -4481,8 +4428,7 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript",
-										"packages": {}
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4603,7 +4549,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\"\n    ],\n    \"cargo:name\": \"GHA Company\",\n    \"cargo:shortName\": \"GHA\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": [\n        \"cargo:Company\",\n        \"cargo:Organization\",\n        \"cargo:LogisticsAgent\",\n        \"cargo:LogisticsObject\"\n    ],\n    \"cargo:name\": \"Ground Handling Agent\",\n    \"cargo:shortName\": \"GHA\",\n    \"cargo:contactPersons\": [\n        {\n            \"@type\": [\n                \"cargo:Person\",\n                \"cargo:Actor\",\n                \"cargo:LogisticsAgent\",\n                \"cargo:LogisticsObject\"\n            ],\n            \"cargo:firstName\": \"Jane\",\n            \"cargo:lastName\": \"Doe\",\n            \"cargo:salutation\": \"Ms\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4676,7 +4622,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -4687,7 +4632,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": false,\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:handlingInstructionsType\": \"SPH\",\n            \"cargo:description\": \"Valuable Cargo\",\n            \"cargo:handlingInstructionsTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n        \"@value\": \"false\"\n    },\n    \"cargo:goodsDescription\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#string\",\n        \"@value\": \"Important piece\"\n    },\n    \"cargo:specialHandlingCodes\": [\n        {\n            \"@id\": \"https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5031,8 +4976,17 @@
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
 											"\r",
+											"pm.test(\"Response must have a error body\", () => {\r",
+											"    pm.response.to.be.withBody;\r",
+											"});\r",
+											"\r",
 											"//Test Error response payload\r",
-											"var responseJson = pm.response.json();\r",
+											"var responseJson;\r",
+											"if (pm.response.text()) {\r",
+											"    responseJson = pm.response.json();\r",
+											"} else {\r",
+											"    responseJson = {}; // Handle the case where there is no response\r",
+											"}\r",
 											"const framedJson = frame(responseJson);\r",
 											"\r",
 											"framedJson.then(function (result) {\r",
@@ -5071,7 +5025,8 @@
 											"    });\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -5080,7 +5035,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -5544,7 +5500,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": false,\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:handlingInstructionsType\": \"SPH\",\n            \"cargo:description\": \"Valuable Cargo\",\n            \"cargo:handlingInstructionsTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n        \"@value\": \"false\"\n    },\n    \"cargo:goodsDescription\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#string\",\n        \"@value\": \"Valuable piece\"\n    },\n    \"cargo:specialHandlingCodes\": [\n        {\n            \"@id\": \"https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5789,7 +5745,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": false,\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:handlingInstructionsType\": \"SPH\",\n            \"cargo:description\": \"Valuable Cargo\",\n            \"cargo:handlingInstructionsTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#boolean\",\n        \"@value\": \"false\"\n    },\n    \"cargo:goodsDescription\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#string\",\n        \"@value\": \"Valuable piece\"\n    },\n    \"cargo:specialHandlingCodes\": [\n        {\n            \"@id\": \"https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode#VAL\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6202,7 +6158,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGYzdaSHZUNGozbldNenZkX2xuYUsySGZWWnUtYWtBLTB0TGMwLVgwc1BZIn0.eyJleHAiOjE3MzY1NjIzNzgsImlhdCI6MTczNjUyNjM3OCwianRpIjoiZjgxZjg3OWEtOWQ5OS00N2FmLWFkMmEtNmU0MTg2ZjA4NjMxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4OTg5L3JlYWxtcy9uZW9uZSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwYWU4OThmMy1kMjQ4LTRlYWMtODY4MS1iMDM4MWM4MmQ2YzAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJuZW9uZS1jbGllbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1uZW9uZSIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImxvZ2lzdGljc19hZ2VudF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvbG9naXN0aWNzLW9iamVjdHMvX2RhdGEtaG9sZGVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LW5lb25lLWNsaWVudCIsImNsaWVudEFkZHJlc3MiOiIxNzIuMTguMC4xIiwiY2xpZW50X2lkIjoibmVvbmUtY2xpZW50In0.JK7HRn5T2BVvSq6wVRBtCbg_L4ldhKLaGGQNMt0iCl24kpz3VhXgLPQcalKYqPUNWFBUCWxG3BfbTzFeI_a8OxudoZTR4bKUSZHSoHkWICeNLvMF9to2TK_TdAQzmcn0EyMIrBlODrZz6PTPU-DbkSI0sCzUXXLAYpCt9hJ1Ds2z6sUy3_2Dylw-vEuqVvtisrU621A4CaQ5L1ljxMVpELQJaoRBAIHODHnV_qSq9SBTlYHfLz2q0XiVcsQqR3D5xooRvWRnVnYibvbdyfOa2AxCy-SrFvzuw6DFZFvuZd5BjyFBKGrvODWgqRAm5_MJ9gneoIcZCwXWF7d7uuEeFw",
+				"value": "eyJhbGciOiJSUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRU15dDJ0bGVyVlhVYVlVTXRjeWZPbldnZ09PcVBKTXhQTGhBUkU5enJnIn0.eyJleHAiOjE3ODU5MTc0MTYsImlhdCI6MTc1NDM4MTQxNiwianRpIjoiZTg4NzBjMGItYTUyMS00MGE1LTg0ZjQtNWEzYmVjOGE0NTUwIiwiaXNzIjoiaHR0cDovL29uZXJlY29yZC1kZXYuY2hhbXAuYWVybzo4MDgwL3JlYWxtcy9vbmVyZWNvcmQiLCJzdWIiOiJlMTUzNjY4Mi01OWZjLTRiYzYtYjM4YS0xM2VlNTc1YmFlMTAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvbmVyZWNvcmQtYWlybGluZSIsInNjb3BlIjoiIiwiY2xpZW50SG9zdCI6IjE3Mi4yOC4xNTcuMTI1IiwibG9naXN0aWNzX2FnZW50X3VyaSI6Imh0dHA6Ly9vbmVyZWNvcmQtZGV2LmNoYW1wLmFlcm86ODE4MC9BSVJMSU5FL2xvZ2lzdGljcy1vYmplY3RzL0RBVEFfSE9MREVSIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4yOC4xNTcuMTI1IiwiY2xpZW50X2lkIjoib25lcmVjb3JkLWFpcmxpbmUifQ.WpsTAQnXZfK2_Az7jWkr4HNYELt2qj-lESTmo7r8p3YePGNa-svaBqqTHvN_CNoWlArXKtvlwK04-mYhZGORNbNuf-aPofHd7MrCJgsXj9R1CGhKjMA_LE5kc8ysRwyhUdah5Wf9J0abpS6rKNVHUzvSC5ixgYSO0T78IdGsmgnUxf31gLQne-Ctenxua1bnc22D71M4DWp72wZxBHYCNPF4uneRpkRSLVecYhUwQt5XboVCN-lA4aMFdPAGghB5-ugzjCI5JS0_-65wAFpem-C_RAfSoK7ouARm-P0SL-lcu5hxB7TnS3wbq8_8oXakMxVHMSXQu57JpilsnZ3yxRDvCUI5Nmbyb-ENTSrwu9T_-Huz-9PmwpzqZd1_r1v9OZVNH7iopZfRMd5of75UFvx2WMO6W-OXDsmVBcCG1xzAzbAK6QS5iC2ENN-XoOAXZINFlIkcfZ7PYOaU-MLwhpq2A_n9QC2NPGdIdSqK5XliTGhpSCkgPGOe5B4vbN6Sn2QP42NqP8eXq8NnAgSwsEiVRjF-5HP2jGRK_alGtcazW8ldbE9vssDiIQcikEEmSVDG1GHbl7587q_BP3dqeDVuJGv3mLuLdjW4mElb9AbTLI1jSpcTwcuFLv6QNHQWXeqS-td70pv-But3dA6nWO5SW-bSATweV0GftsMANSs",
 				"type": "string"
 			}
 		]
