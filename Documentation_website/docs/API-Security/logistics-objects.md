@@ -536,7 +536,7 @@ _([Change_example1.json](./examples/Change_example1.json))_
 Response:
 
 ```bash
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 Content-Type: application/ld+json
 Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b
@@ -565,7 +565,7 @@ _([Change_example2.json](./examples/Change_example2.json))_
 Response:
 
 ```bash
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 Content-Type: application/ld+json
 Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99c
@@ -598,7 +598,7 @@ _([Change_example3.json](./examples/Change_example3.json))_
 Response:
 
 ```bash
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 Content-Type: application/ld+json
 Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
@@ -627,7 +627,7 @@ _([Change_example4.json](./examples/Change_example4.json))_
 Response:
 
 ```bash
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 Content-Type: application/ld+json
 Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99d
@@ -703,7 +703,7 @@ _([Change_example5.json](./examples/Change_example5.json))_
 Response:
 
 ```bash
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 Content-Type: application/ld+json
 Type: https://onerecord.iata.org/ns/api#ChangeRequest
 Location: https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99e
