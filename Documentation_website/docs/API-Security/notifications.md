@@ -269,7 +269,7 @@ POST /notifications HTTP/1.1
 Content-Type: application/ld+json; version=2.2.0
 Accept: application/ld+json; version=2.2.0
 
---8<-- "API-Security/examples/Notification_example5.json"
+--8<-- "API-Security/examples/Notification_example6.json"
 ```
 _([Notification_example6.json](./examples/Notification_example6.json))_
 
