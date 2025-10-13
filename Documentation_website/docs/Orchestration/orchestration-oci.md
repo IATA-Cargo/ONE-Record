@@ -15,7 +15,15 @@ Within one message multiple OCI segments can be used to convey as enough informa
 
 ## Structure of the OCI in ONE Record
 
-In order to simplify the mapping between messaging standards and ONE Record, it was decided that the `CustomsInformation` object replicates the OCI segment structure.
+In order to simplify the mapping between messaging standards and ONE Record, it was decided that the `CustomsInformation` object replicates the OCI segment structure and can be used to provide **Customs** information. 
+
+### Security information (e-CSD) in ONE Record
+
+With ONE Record all requirements on Security Declaration are already taken care of with the usage of dedicated `SecurityDeclaration` object and a few specific data properties at `Piece` level, more details can be found on the Data Model part of the specifications.
+
+### Customs information in ONE Record
+
+Customs requirements that are not handled by existing LogisticsObjects and their data properties can be provided using the `CustomsInformation` the same way the OCI is used in messaging standads.
 
 The `CustomsInformation` object contains the following data properties (in addition to the ones inherited by the superclass LogisticsObject):
 
@@ -36,8 +44,6 @@ The _ociLineNumber_ data property is then used to replicate the order from messa
 The OCI Table is available in CXML Toolkit publication as well as published in IATA website [here](https://www.iata.org/contentassets/4bb3450ef9a2447493a132b38fac1d26/oci-composition-rule-table-2023---12-april-2023.pdf).
 
 The OCI Table presents all the recognized combinations of the OCI data properties in order to convey the right information.
-
-With ONE Record all requirements on Security Declaration are already taken care of with the usage of dedicated `SecurityDeclaration` object and a few specific data properties at `Piece` level, more details can be found on the Data Model part of the specifications.
 
 ## OCI Mapping (Draft)
 
