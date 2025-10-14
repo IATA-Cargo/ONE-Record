@@ -3,7 +3,7 @@
 # Mapping CXML messages with ONE Record
 
 ## Introduction
-We dedicate this section to the mapping between CXML messages (as per the last version on CXML Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.2.0)
+We dedicate this section to the mapping between CXML messages (as per the last version on CXML Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.2.0) (**To be changed if and when new version is created in the Data Model**)
 
 ### Objectives
 The transition from EDI to Data Sharing is highly dependent on the mapping between messages and ONE Record. Messaging standards (Cargo IMP and then Cargo XML) have been used extensively for the past decades by the industry. However messages in their current form have shown to be limited in terms of scalability with regards to upcoming regulations such as ACI/PLACI regimes.
@@ -19,9 +19,9 @@ The selected messages for mapping are the following:
 
 | Message | Message name | Message version | Comments |
 | --- | --- | --- | --- |
-| XFWB | XML Waybill Message [Download here](./assets/XFWB-5.0.0-mapping-3.2.xlsx){:download="XFWB-5.0.0-mapping-3.2.xlsx"} | 5.00 | 1st version |
-| XFZB | XML HouseWaybill Message [Download here](./assets/XFZB-4.0.0-mapping-3.2.xlsx){:download="XFZB-4.0.0-mapping-3.2.xlsx"} | 4.00 | 1st version |
-| XFHL | XML House Manifest Message [Download here](./assets/XFHL-3.0.0-mapping-3.2.xlsx){:download="XFHL-3.0.0-mapping-3.2.xlsx"} | 3.00 | 1st version |
+| XFWB | XML Waybill Message [Download here](./assets/Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx"} | 5.00 | 1st version |
+| XFZB | XML HouseWaybill Message [Download here](./assets/Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx"} | 4.00 | 1st version |
+| XFHL | XML House Manifest Message [Download here](./assets/Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx"} | 3.00 | 1st version |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Ongoing |
 | XFFM | XML Flight Manifest Message | 4.00 | Ongoing |

@@ -31,11 +31,11 @@ The following features summarize all of the ONE Record API features
 | ---------------- | -------------------------------------- |   -------- |
 | GET              | /                  | Retrieve ServerInformation             |
 | POST              | /logistics-objects/ | Create Logistics Object. This endpoint could be either internal or not implemented.             |
-| GET, PATCH, POST       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object, Change Logistics object and Create a new Verification Request                       |
+| GET, PATCH, POST, HEAD       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object, Change Logistics object and Create a new Verification Request                       |
 | GET              | /logistics-objects/{logisticsObjectId}/audit-trail      | Retrieve Audit Trail of a Logistics Object                 |
-| GET, POST        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
+| GET, POST, HEAD        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
 | GET              | /logistics-objects/{logisticsObjectId}/logistics-events/{LogisticsEvent URI}                  | Retrieve a LogisticsEvent              |
 | GET, POST        | /subscriptions     | Create or retrieve Subscription information for a Logistics Object type or a specific LogisticsObjectIdentifier          |
-| GET, PATCH, DELETE | /action-requests   | Create, retrieve, or update Action Request (i.e. SubscriptionRequests, ChangeRequests or AccessDelegationRequests) |
+| GET, PATCH, DELETE, HEAD | /action-requests/{actionRequestId}   | Create, retrieve, or update Action Request (i.e. SubscriptionRequests, ChangeRequests or AccessDelegationRequests) |
 | POST             | /notifications     | Receive Notifications                  |
 | POST             | /access-delegations | Create, retrieve, or update Access Delegation Request      |
