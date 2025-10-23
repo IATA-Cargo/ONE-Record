@@ -3243,6 +3243,39 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#shipment-level-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shipment-level status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-status-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of status updates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of status updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-updates-based-on-logisticsevents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status updates based on LogisticsEvents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#specific-case-of-split-shipment" class="md-nav__link">
     <span class="md-ellipsis">
       Specific case of split shipment:
@@ -3309,8 +3342,20 @@
 <h2 id="xfsu-mapping">XFSU Mapping<a class="headerlink" href="#xfsu-mapping" title="Permanent link">&para;</a></h2>
 <p>FSU and XFSU messages are Shipment level messages, the entry point is the AWB number but it can also be used to provide status updates on part or split shipments. </p>
 <h3 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h3>
-<p>XFSU is used to provide Status updates or updates of specific information related to the Shipment. With </p>
-<p>In most cases, the Status updates is based on the usage of <code>LogisticsEvents</code> on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.</p>
+<h4 id="shipment-level-status">Shipment-level status<a class="headerlink" href="#shipment-level-status" title="Permanent link">&para;</a></h4>
+<p>In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individial pieces within a shipment. This solves the issues with part or split shipments. However it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.</p>
+<p>For the sake of XFSU mapping with ONE Record, everything needs to be made at Shipment level, meaning linked to <code>Shipment</code> object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is essential to note that these guidelines are only effective in the context of mapping between (X)FSU and ONE Record. ONE Record is by design Piece-centric and is ready for Piece level management.</p>
+</div>
+<h4 id="types-of-status-updates">Types of status updates<a class="headerlink" href="#types-of-status-updates" title="Permanent link">&para;</a></h4>
+<p>The mapping with ONE Record differs based on the kind of Status update. We identify 2 main use cases:</p>
+<ul>
+<li>Shipment status updates (e.g. RCS, FOH, etc.) are based on the usage of <code>LogisticsEvents</code> on the Shipment. <strong>(Will most likely be <code>StatusEvents</code> or something similar)</strong></li>
+<li>Providing additional information such as Security or Customs details, reffered to as (X)FSU-OCI. These do not require usage of <code>LogisticsEvents</code> but the update of relevant obejcts.</li>
+</ul>
+<h5 id="status-updates-based-on-logisticsevents">Status updates based on <code>LogisticsEvents</code><a class="headerlink" href="#status-updates-based-on-logisticsevents" title="Permanent link">&para;</a></h5>
 <p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
 <h4 id="specific-case-of-split-shipment">Specific case of split shipment:<a class="headerlink" href="#specific-case-of-split-shipment" title="Permanent link">&para;</a></h4>
 <p>With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
