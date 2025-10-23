@@ -8,9 +8,23 @@ FSU and XFSU messages are Shipment level messages, the entry point is the AWB nu
 
 ## Proposed mechanism
 
-XFSU is used to provide Status updates or updates of specific information related to the Shipment. With 
+### Shipment-level status
 
-In most cases, the Status updates is based on the usage of `LogisticsEvents` on the Shipment and/or the Pieces. The XFSU data fields are then a mix of Waybill, Shipment, Pieces and LogisticsEvent data in ONE Record realm.
+In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individial pieces within a shipment. This solves the issues with part or split shipments. However it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.
+
+For the sake of XFSU mapping with ONE Record, everything needs to be made at Shipment level, meaning linked to `Shipment` object.
+
+!!! note
+    It is essential to note that these guidelines are only effective in the context of mapping between (X)FSU and ONE Record. ONE Record is by design Piece-centric and is ready for Piece level management.
+
+### Types of status updates
+
+The mapping with ONE Record differs based on the kind of Status update. We identify 2 main use cases:
+
+- Shipment status updates (e.g. RCS, FOH, etc.) are based on the usage of `LogisticsEvents` on the Shipment. **(Will most likely be `StatusEvents` or something similar)**
+- Providing additional information such as Security or Customs details, reffered to as (X)FSU-OCI. These do not require usage of `LogisticsEvents` but the update of relevant obejcts.
+
+#### Status updates based on `LogisticsEvents`
 
 In case of **full shipment** status update, the `LogisticsEvents` can be added on the Shipment or on all the Pieces. Both scenarios are valid.
 
