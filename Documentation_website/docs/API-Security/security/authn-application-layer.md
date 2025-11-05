@@ -176,7 +176,7 @@ Example: https://auth.example.com/token
 
 | Request Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Authorization** | Provides credentials that authenticates a ONE Record client with an IfP. This header must be set to Basic <base64 encoded "clientId:clientSecret"> if the IdP authentication method is set to Basic. The client_id and client_secret are provided when a client subscribes to an IdP.  | Basic b25lOnJlY29yZA==     
+| **Authorization** | Provides credentials that authenticates a ONE Record client with an IdP. This header must be set to Basic <base64 encoded "clientId:clientSecret"> if the IdP authentication method is set to Basic. The client_id and client_secret are provided when a client subscribes to an IdP.  | Basic b25lOnJlY29yZA==     
 | **Content-Type** | Define the content type of the request | application/x-www-form-urlencoded
 
 ### Request Body Parameter
