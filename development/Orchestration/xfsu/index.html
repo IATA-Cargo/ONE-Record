@@ -3892,36 +3892,147 @@
 </ul>
 <h5 id="status-updates-based-on-logisticsevents">Status updates based on <code>LogisticsEvents</code><a class="headerlink" href="#status-updates-based-on-logisticsevents" title="Permanent link">&para;</a></h5>
 <p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
-<p>Outer pipes  Cell padding 
-No sorting
-| Code | Description                                                                                                                                                                               | ONE Record mapping                                                                                                                         |
-| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| DIS  | An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation, which is further clarified by the accompanying discrepancy code | StatusUpdateEvent on Shipment                                                                                                              |
-| AWD  | The arrival documentation has been physically delivered to the consignee or the consignee’s agent on this date at this location                                                           | StatusUpdateEvent on Shipment                                                                                                              |
-| AWR  | The arrival documentation has been physically received from a scheduled flight at this location                                                                                           | StatusUpdateEvent on Shipment                                                                                                              |
-| NFD  | The consignee or the consignee’s agent has been notified, on this date at this location, of the arrival of the consignment                                                                | StatusUpdateEvent on Shipment                                                                                                              |
-| ARR  | The consignment has arrived on a scheduled flight at this location                                                                                                                        | StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement                                                          |
-| BKD  | The consignment has been booked for transport between these locations on this scheduled date and this flight                                                                              | StatusUpdateEvent on Shipment or Waybill                                                                                                   |
-| CCD  | The consignment has been cleared by the Customs authorities on this date at this location                                                                                                 | StatusUpdateEvent on Shipment                                                                                                              |
-| TRM  | The consignment has been manifested and/or will be physically transferred to this carrier at this location                                                                                | StatusUpdateEvent on Shipment                                                                                                              |
-| MAN  | The consignment has been manifested for this flight on this scheduled date for transport between these locations                                                                          |                                                                                                                                            |
-| DLV  | The consignment has been physically delivered to the consignee or the Consignee’s agent on this date at this location                                                                     | StatusUpdateEvent on Shipment                                                                                                              |
-| DDL  | The consignment has been physically delivered to the consignee’s door on this date at this location                                                                                       | StatusUpdateEvent on Shipment                                                                                                              |
-| DPU  | The consignment has been physically picked up from the shipper’s door on this date at this location                                                                                       | StatusUpdateEvent on Shipment                                                                                                              |
-| RCF  | The consignment has been physically received from a given flight or surface transport of the given airline                                                                                | StatusUpdateEvent on Shipment                                                                                                              |
-| RCS  | The consignment has been physically received from the shipper or the shipper’s agent and is considered by the carrier as ready for carriage on this date at this location                 | StatusUpdateEvent on Shipment                                                                                                              |
-| RCT  | The consignment has been physically received from this carrier on this date at this location                                                                                              | StatusUpdateEvent on Shipment                                                                                                              |
-| TFD  | The consignment has been physically transferred to this carrier on this date at this location                                                                                             | StatusUpdateEvent on Shipment                                                                                                              |
-| PRE  | The consignment has been prepared for loading on this flight for transport between these locations on this scheduled date                                                                 | StatusUpdateEvent on Shipment                                                                                                              |
-| CRC  | The consignment has been reported to the Customs authorities on this date at this location                                                                                                | StatusUpdateEvent on Shipment                                                                                                              |
-| TGC  | The consignment has been transferred to Customs/Government control                                                                                                                        | StatusUpdateEvent on Shipment                                                                                                              |
-| DEP  | The consignment has physically departed this location on this scheduled date and flight for transport to the arrival location                                                             | StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement                                                          |
-| FOH  | The consignment is on hand on this date at this location pending “ready for carriage” determination                                                                                       | StatusUpdateEvent on Shipment                                                                                                              |
-| DOC  | Documents Received by Handling Party                                                                                                                                                      | StatusUpdateEvent on Shipment                                                                                                              |
-| FIW  | Freight Into Warehouse Control                                                                                                                                                            | StatusUpdateEvent on Shipment                                                                                                              |
-| FOW  | Freight Out of Warehouse Control                                                                                                                                                          | StatusUpdateEvent on Shipment                                                                                                              |
-| OSI  | Other Service Information                                                                                                                                                                 |                                                                                                                                            |
-| OCI  |                                                                                                                                                                                           | Update of:<br>- SecurityDeclaration for eCSD information<br>- CustomsInformation or other relevant data property for Customs information |</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>ONE Record mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIS</td>
+<td>An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation, which is further clarified by the accompanying discrepancy code</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>AWD</td>
+<td>The arrival documentation has been physically delivered to the consignee or the consignee’s agent on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>AWR</td>
+<td>The arrival documentation has been physically received from a scheduled flight at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>NFD</td>
+<td>The consignee or the consignee’s agent has been notified, on this date at this location, of the arrival of the consignment</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>ARR</td>
+<td>The consignment has arrived on a scheduled flight at this location</td>
+<td>StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement</td>
+</tr>
+<tr>
+<td>BKD</td>
+<td>The consignment has been booked for transport between these locations on this scheduled date and this flight</td>
+<td>StatusUpdateEvent on Shipment or Waybill</td>
+</tr>
+<tr>
+<td>CCD</td>
+<td>The consignment has been cleared by the Customs authorities on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>TRM</td>
+<td>The consignment has been manifested and/or will be physically transferred to this carrier at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>MAN</td>
+<td>The consignment has been manifested for this flight on this scheduled date for transport between these locations</td>
+<td></td>
+</tr>
+<tr>
+<td>DLV</td>
+<td>The consignment has been physically delivered to the consignee or the Consignee’s agent on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>DDL</td>
+<td>The consignment has been physically delivered to the consignee’s door on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>DPU</td>
+<td>The consignment has been physically picked up from the shipper’s door on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>RCF</td>
+<td>The consignment has been physically received from a given flight or surface transport of the given airline</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>RCS</td>
+<td>The consignment has been physically received from the shipper or the shipper’s agent and is considered by the carrier as ready for carriage on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>RCT</td>
+<td>The consignment has been physically received from this carrier on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>TFD</td>
+<td>The consignment has been physically transferred to this carrier on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>PRE</td>
+<td>The consignment has been prepared for loading on this flight for transport between these locations on this scheduled date</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>CRC</td>
+<td>The consignment has been reported to the Customs authorities on this date at this location</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>TGC</td>
+<td>The consignment has been transferred to Customs/Government control</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>DEP</td>
+<td>The consignment has physically departed this location on this scheduled date and flight for transport to the arrival location</td>
+<td>StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement</td>
+</tr>
+<tr>
+<td>FOH</td>
+<td>The consignment is on hand on this date at this location pending “ready for carriage” determination</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>DOC</td>
+<td>Documents Received by Handling Party</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>FIW</td>
+<td>Freight Into Warehouse Control</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>FOW</td>
+<td>Freight Out of Warehouse Control</td>
+<td>StatusUpdateEvent on Shipment</td>
+</tr>
+<tr>
+<td>OSI</td>
+<td>Other Service Information</td>
+<td></td>
+</tr>
+<tr>
+<td>OCI</td>
+<td></td>
+<td>Update of:<br>- SecurityDeclaration for eCSD information<br>- CustomsInformation or other relevant data property for Customs information</td>
+</tr>
+</tbody>
+</table>
 <h4 id="specific-case-of-split-shipment">Specific case of split shipment:<a class="headerlink" href="#specific-case-of-split-shipment" title="Permanent link">&para;</a></h4>
 <p>With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
 To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.</p>
