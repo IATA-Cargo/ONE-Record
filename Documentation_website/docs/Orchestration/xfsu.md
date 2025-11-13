@@ -28,8 +28,7 @@ The mapping with ONE Record differs based on the kind of Status update. We ident
 
 In case of **full shipment** status update, the `LogisticsEvents` can be added on the Shipment or on all the Pieces. Both scenarios are valid.
 
- Outer pipes  Cell padding 
-No sorting
+
 | Code | Description                                                                                                                                                                               | ONE Record mapping                                                                                                                         |
 | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | DIS  | An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation, which is further clarified by the accompanying discrepancy code | StatusUpdateEvent on Shipment                                                                                                              |
