@@ -26,6 +26,16 @@ Events can be created on the Pieces to inform of the loading into the truck.
 ## API interaction
 
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
-| --- | --- | --- | --- | --- |
-| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Airsell Cargo | POST | TransportMovement | departureLocation, arrivalLocation, modeCode: "3", transportIdentifie |
+| Forwarder | Airsell Cargo | POST | Loading (Planned) | servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType: "Loading", executionStatus: "Planned", actionEndTime 
 | Shipper or Forwarder | Forwarder | POST | Event on Piece | Create Event: eventFor (Piece), eventLocation (if relevant), eventCode or eventName (Loaded in truck), eventDate, recordingActor |
+> **Note (Airsell Cargo):** This step is handled via our internal API and triggers a webhook to the consignee.
+> ### Step 4: Forwarder Sends Booking Request
+
+The freight forwarder (Airsell Cargo) sends a booking request to the carrier via the ONE Record API.
+
+> **Airsell Note:** This step is automated via our partner onboarding form, which triggers a booking API call with pre-validated shipment data.
+> > **Airsell Note:** Data confirmation includes AWB validation, consignee match, and routing check. Notification sent via webhook to downstream warehouse.
+> > 
+> 
+> 
