@@ -75,5 +75,6 @@ When flight details are required, the corresponding `TransportMovement` needs to
 
 ### Usage of (X)FSU for OCI segment
 
-With current messaging standards, (X)FSU is sometimes used to provide udpated Security information or Customs information. With ONE Record it is recommended to update the relevant objects instead (`SecurityDeclaration` or `CustomsInformation`). More details can be found on the [OCI Mapping detailed page](./orchestration-oci.md)
+With current messaging standards, (X)FSU is sometimes used to provide udpated Security information or Customs information. With ONE Record it is recommended to update the relevant objects instead (`SecurityDeclaration` or `CustomsInformation`). 
+More details can be found on the [OCI Mapping detailed page](./orchestration-oci.md)
 
