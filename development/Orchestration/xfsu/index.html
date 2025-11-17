@@ -3786,30 +3786,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Types of status updates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#status-updates-based-on-logisticsevents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Status updates based on LogisticsEvents
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
-  <a href="#specific-case-of-split-shipment" class="md-nav__link">
+  <a href="#status-updates-based-on-statusupdateevent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Specific case of split shipment:
+        Status updates based on StatusUpdateEvent
       
     </span>
   </a>
@@ -3817,10 +3800,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#involved-parties" class="md-nav__link">
+  <a href="#usage-of-xfsu-for-oci-segment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Involved parties
+        Usage of (X)FSU for OCI segment
       
     </span>
   </a>
@@ -3878,8 +3861,56 @@
 <p>FSU and XFSU messages are Shipment level messages, the entry point is the AWB number but it can also be used to provide status updates on part or split shipments. </p>
 <h3 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h3>
 <h4 id="shipment-level-status">Shipment-level status<a class="headerlink" href="#shipment-level-status" title="Permanent link">&para;</a></h4>
-<p>In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individial pieces within a shipment. This solves the issues with part or split shipments. However it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.</p>
-<p>For the sake of XFSU mapping with ONE Record, everything needs to be made at Shipment level, meaning linked to <code>Shipment</code> object.</p>
+<p>With messaging standards, status updates are at Shipment level, even when the update is about a split or part shipment. As a matter of fact it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.</p>
+<p>In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individial pieces within a shipment. This solves the issues with part or split shipments </p>
+<p><strong>For the sake of (X)FSU mapping with ONE Record</strong>, statuses are at Shipment level, meaning linked to a <code>Shipment</code> object. For that purpose we have added a new type of event, called <code>StatusUpdateEvent</code>.</p>
+<p>The <code>StatusUpdateEvent</code> is a subtype of <code>LogisticsEvent</code>, thus it inherits all of <code>LogisticsEvent</code> properties and has additional properties listed below:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Data type</th>
+<th>Description / Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>partialPieceCount</td>
+<td>int</td>
+<td>Number of piece for the status, differs from total piece count of shipment in case of Part/Split shipment status</td>
+</tr>
+<tr>
+<td>partialWeight</td>
+<td>Value</td>
+<td>Weight of the pieces for the status, differs from total weight of shipment in case of Part/Split shipment status</td>
+</tr>
+<tr>
+<td>partialVolume</td>
+<td>Value</td>
+<td>Volume of the pieces for the status, differs from total weight of shipment in case of Part/Split shipment status</td>
+</tr>
+<tr>
+<td>transferredFrom</td>
+<td>Organization</td>
+<td>Idenfities the Organization transferring the shipment, especially for RCT and TFD statuses</td>
+</tr>
+<tr>
+<td>transferredTo</td>
+<td>Organization</td>
+<td>Identifies the Organization receiving the shipment, especially for TRM status</td>
+</tr>
+<tr>
+<td>notifiedOrganization</td>
+<td>Organization</td>
+<td>Identifies the Organization notified, especially for NFD status</td>
+</tr>
+<tr>
+<td>transportMovementReference</td>
+<td>TransportMovement</td>
+<td>Link to the TransportMovement to convey flight information when required</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is essential to note that these guidelines are only effective in the context of mapping between (X)FSU and ONE Record. ONE Record is by design Piece-centric and is ready for Piece level management.</p>
@@ -3887,11 +3918,9 @@
 <h4 id="types-of-status-updates">Types of status updates<a class="headerlink" href="#types-of-status-updates" title="Permanent link">&para;</a></h4>
 <p>The mapping with ONE Record differs based on the kind of Status update. We identify 2 main use cases:</p>
 <ul>
-<li>Shipment status updates (e.g. RCS, FOH, etc.) are based on the usage of <code>LogisticsEvents</code> on the Shipment. <strong>(Will most likely be <code>StatusEvents</code> or something similar)</strong></li>
-<li>Providing additional information such as Security or Customs details, reffered to as (X)FSU-OCI. These do not require usage of <code>LogisticsEvents</code> but the update of relevant obejcts.</li>
+<li>Shipment status updates (e.g. RCS, FOH, etc.) are based on the usage of <code>StatusUpdateEvent</code> on the Shipment. </li>
+<li>Providing additional information such as Security or Customs details, reffered to as (X)FSU-OCI. These do not require usage of <code>LogisticsEvent</code> but the update of relevant obejcts.</li>
 </ul>
-<h5 id="status-updates-based-on-logisticsevents">Status updates based on <code>LogisticsEvents</code><a class="headerlink" href="#status-updates-based-on-logisticsevents" title="Permanent link">&para;</a></h5>
-<p>In case of <strong>full shipment</strong> status update, the <code>LogisticsEvents</code> can be added on the Shipment or on all the Pieces. Both scenarios are valid.</p>
 <table>
 <thead>
 <tr>
@@ -3924,7 +3953,7 @@
 <tr>
 <td>ARR</td>
 <td>The consignment has arrived on a scheduled flight at this location</td>
-<td>StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement</td>
+<td>StatusUpdateEvent on Shipment Details of Flight times on the TransportMovement</td>
 </tr>
 <tr>
 <td>BKD</td>
@@ -3944,7 +3973,7 @@
 <tr>
 <td>MAN</td>
 <td>The consignment has been manifested for this flight on this scheduled date for transport between these locations</td>
-<td></td>
+<td>StatusUpdateEvent on Shipment</td>
 </tr>
 <tr>
 <td>DLV</td>
@@ -3999,7 +4028,7 @@
 <tr>
 <td>DEP</td>
 <td>The consignment has physically departed this location on this scheduled date and flight for transport to the arrival location</td>
-<td>StatusUpdateEvent on Shipment<br>Details of Flight times on the TransportMovement</td>
+<td>StatusUpdateEvent on Shipment Details of Flight times on the TransportMovement</td>
 </tr>
 <tr>
 <td>FOH</td>
@@ -4029,29 +4058,15 @@
 <tr>
 <td>OCI</td>
 <td></td>
-<td>Update of:<br>- SecurityDeclaration for eCSD information<br>- CustomsInformation or other relevant data property for Customs information</td>
+<td>Update of SecurityDeclaration for eCSD information and CustomsInformation or other relevant data property for Customs information</td>
 </tr>
 </tbody>
 </table>
-<h4 id="specific-case-of-split-shipment">Specific case of split shipment:<a class="headerlink" href="#specific-case-of-split-shipment" title="Permanent link">&para;</a></h4>
-<p>With messaging standard, it is possible to transmit status update on a split shipment without the need to identify properly the pieces impacted. In this case the data transmitted can only be kept at Shipment level, however this pratice is contradictory with the piece level management design principle of ONE Record.
-To cope with that there are multiple possibilities to map XFSU with ONE Record, depending on stakeholder's capabilities on the operations side to identify impacted pieces of a shipment.</p>
-<ul>
-<li>If pieces <strong>cannot be</strong> properly identified, recommendation would be to use <code>LogisticsEvent</code> on the Shipment, using the <em>LogisticsEvent#partialEventIndicator</em> to notify it applies to a split shipment. In this scenario it becomes complicated to provide the right level of information at the "AssociatedStatusConsignment" level as per the XFSU schema.</li>
-<li>If pieces <strong>can be</strong> properly identified, it is recommended to use <code>LogisticsEvent</code> on the identified Pieces. The <em>LogisticsEvent#partialEventIndicator</em> can be used to notify it applies only to selected pieces and not to the whole shipment but all details at "AssociatedStatusConsignment" level are at Piece level in ONE Record realm.</li>
-</ul>
-<h4 id="involved-parties">Involved parties<a class="headerlink" href="#involved-parties" title="Permanent link">&para;</a></h4>
-<p>When using XFSU, depending on the Status Code some parties need to be identified. By default the <code>LogisticsEvent</code> has the <em>recordActor</em>/<em>recordingOrganization</em> data object to identify the party creating the <code>LogisticsEvent</code>.</p>
-<p>With Ontology 3.2.0 an <em>involvedParty</em> data object (data type: <code>Party</code>) has been added to <code>LogisticsEvent</code> to allow for a proper mapping.</p>
-<p>Let's have a look at the various parties required for XFSU status codes and the proposed mapping:</p>
-<ul>
-<li>Transferring party: usage of <em>recordActor</em>/<em>recordingOrganization</em></li>
-<li>receivingParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "FX" (Current receiver)</li>
-<li>notifiedParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "NI" (Notify party)</li>
-<li>deliveredToParty: usage of <em>involedParty</em> with <em>PartyRole</em> = "ST" (Ship to)</li>
-</ul>
-<p>Note that the Code List used refers to the <a href="https://vocabulary.uncefact.org/PartyRoleCodeList">UN/CEFACT Party Role Code List</a>.</p>
-<p>The mapping of XFSU message still needs to be fine tuned to take into account multiple scenarios.</p>
+<h4 id="status-updates-based-on-statusupdateevent">Status updates based on <code>StatusUpdateEvent</code><a class="headerlink" href="#status-updates-based-on-statusupdateevent" title="Permanent link">&para;</a></h4>
+<p>As shown in the table above, most status updates can be made via a <code>StatusUpdateEvent</code> linked to <code>Shipment</code> object. In case of Split or Part shipment, the partial* properties need to be used.</p>
+<p>When flight details are required, the corresponding <code>TransportMovement</code> needs to be linked. It will contain information such as flight identifier and movement times.</p>
+<h4 id="usage-of-xfsu-for-oci-segment">Usage of (X)FSU for OCI segment<a class="headerlink" href="#usage-of-xfsu-for-oci-segment" title="Permanent link">&para;</a></h4>
+<p>With current messaging standards, (X)FSU is sometimes used to provide udpated Security information or Customs information. With ONE Record it is recommended to update the relevant objects instead (<code>SecurityDeclaration</code> or <code>CustomsInformation</code>). More details can be found on the <a href="../orchestration-oci/">OCI Mapping detailed page</a></p>
 
 
 
