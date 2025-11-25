@@ -4,12 +4,15 @@
 # Introduction
 The Data Orchestration is a work that was intitiated in September 2023, under COTB and DCWG governance. Industry stakeholders (Airline, Freight Forwarders, IT Service Providers, Cargo iQ) have worked to propose a way to use the ONE Record standard to support the operations and business processes.
 
-##Objectives
+## Objectives
 As a response to the industry for guidance with ONE Record, we figured the Data Orchestration is the answer to make the link between processes and ONE Record standard. It includes:
 * Review of the Industry and Cargo iQ Master Operating Plans (MOP)
 * Identification of key industry use cases
 * Identification of ONE Record workflow that supports the processes and use cases
 * Provide tools to check compliance with the standard and illustrate the Data Orchestration
+
+## Version
+Current version of the Orchestration is **1.1.0**.
 
 # How did we operate?
 The MOP is an overall standard process that defines steps, activities and specific milestones in the transportation supply chain. All stakeholders operate differently thus the MOP should be seen as a general guideline and reference but not an absolute standard. The Data Orchestration decided to use the MOP as a starting point to cover most of the required steps and milestones while transporting general cargo.
