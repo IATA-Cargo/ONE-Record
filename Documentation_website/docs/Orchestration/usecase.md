@@ -4,4 +4,7 @@ The Orchestration's purpose is not to cover all possible use cases within the in
 
 # Scope
 
-This section focuses on use cases that are more specific than the processes covered by the MOP. It includes processes derived from business requirements linked to IATA CSC Resolutions or Recommended Practices.
+This section focuses on use cases that are more specific than the processes covered by the MOP. It includes:
+
+- Business requirements linked to IATA CSCRM Resolutions or Recommended Practices
+- IATA Working Groups specific outcomes that fall under IATA Boards governance
