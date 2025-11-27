@@ -1,7 +1,7 @@
 # Requirements
-From a *paper* perspective the Air Waybill requirements are described in Cargo Services Conference Resolutions Manual (CSCRM) in Resolution 600a. Especially all boxes of the paper Waybill are identified with details on how to properly fill in information.
+The *paper* Air Waybill requirements are described in the Cargo Services Conference Resolutions Manual (CSCRM) in Resolution 600a. Especially all boxes of the paper Waybill are identified with guidelines and rules to fill in the requested information.
 
-From an *electronic* perspective the Air Waybill relies on (deprecated) Cargo-IMP FWB message and Cargo-XML XFWB message. Discrepancies exist between FWB and XFWB essentially because Cargo-IMP was discontinued in 2014 and context has evolved.
+From an *electronic* perspective the Air Waybill relies on (deprecated) Cargo-IMP FWB message and Cargo-XML XFWB message. Discrepancies exist between FWB and XFWB essentially because Cargo-IMP was discontinued in 2014 - Context has evolved and XML doesn't have same technical restrictions as Cargo-IMP.
 
  <p align="center">
 <img src="https://user-images.githubusercontent.com/58464775/161540275-fd1d910c-4c5e-420c-a47a-be118ee1ab2e.png"></p>
@@ -102,3 +102,5 @@ Naturally the `Waybill` object is at the center of the data model when the Air W
 The `WaybillLineItem` object is also necessary, linked to `Waybill` object, to properly record the information at Air Waybill level. The line items as used in the Air Waybill cannot always be linked to actual `Piece` objects as the level of information required does not always reflect the physical goods. This is because we can have discrepancy between actual goods transported and rates as they are defined.
 
 Also it is possible that all accurate piece details are available at the the Waybill.
+
+Further details can be found in the dedicated page for [XFWB Mapping](./Orchestration/xfwb.md).
