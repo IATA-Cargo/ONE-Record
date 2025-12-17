@@ -347,7 +347,7 @@ classDiagram
 The ONE Record API employs the [Collection](https://onerecord.iata.org/ns/api#Collection) class to return an array of objects. This class encompasses two properties:
 
 - [api:hasItem](https://onerecord.iata.org/ns/api#hasItem) returns the array of objects.
-- [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) returns the count of elements within the returned array.
+- [api:hasTotalItem](https://onerecord.iata.org/ns/api#hasTotalItem) returns the count of elements for the defined filter without taking into account pagination (i.e. skip or limit parameter).
 
 In this particular case, @id property in the response body MUST be equal to the Endpoint defined in the [Endpoint section](#endpoint_2) (i.e.: https://1r.example.com/logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events). 
 
