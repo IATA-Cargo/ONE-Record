@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d44ff80f-7233-4128-8d65-16ad8e8069ee",
+		"_postman_id": "9c1f43f2-3f22-44cf-955f-ec4836550faf",
 		"name": "ONE Record API Unit Tests 2025-07",
 		"description": "# ONE Record Example Collection\n\nThis collection contains all the examples described in the ONE Record API specification website([https://iata-cargo.github.io/ONE-Record/](https://))\n\n# Collection Variables\n\nA set of variables has been designed to ease the use of this collections. In order to run any call, please create an Environment and add the following variable:\n\n- baseUrl : the url of the ONE Record server (i.e. [https://1r.example.com](https://1r.example.com))\n    \n\n# Authentication\n\nIf ONE Record Server implements the authentication, you should add a bearer token for each API call. For more information check the Security section on [https://iata-cargo.github.io/ONE-Record/](https://iata-cargo.github.io/ONE-Record/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38950925"
+		"_exporter_id": "28309429"
 	},
 	"item": [
 		{
@@ -180,7 +180,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -258,7 +257,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -336,7 +334,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -395,7 +392,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -477,7 +474,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -486,7 +485,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -664,7 +665,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -773,7 +774,9 @@
 											"//Update revision\r",
 											"pm.collectionVariables.set(\"shipmentRevision\", pm.response.headers.get(\"Latest-Revision\"));"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -782,7 +785,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -852,7 +857,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -929,7 +934,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -938,7 +945,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -1002,7 +1011,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Company\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Company\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -1105,7 +1114,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -1114,7 +1125,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -1213,7 +1226,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -1283,7 +1295,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -1378,8 +1389,8 @@
 											"    });\r",
 											"\r",
 											"    if (jsonData['https://onerecord.iata.org/ns/api#hasLatestRevision']['@value'] != \"1\") {\r",
-											"        pm.test(\"Response contains hasChangeRequest \", () => {\r",
-											"            pm.expect(jsonData).to.have.property(\"https://onerecord.iata.org/ns/api#hasChangeRequest\");\r",
+											"        pm.test(\"Response contains hasActionRequest \", () => {\r",
+											"            pm.expect(jsonData).to.have.property(\"https://onerecord.iata.org/ns/api#hasActionRequest\");\r",
 											"        });\r",
 											"    }\r",
 											"});\r",
@@ -1387,7 +1398,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -1396,7 +1409,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -1444,13 +1459,16 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
+											"// IMPORTANT - Known issue: this test fails if the @id starts with \"_\" (i.e.: _:1234). \r",
+											"// In order to work please use something different like \"internal\" (i.e.: internal:1234). \r",
 											"// Inject jsonld.js\r",
 											"const apiNS = 'https://onerecord.iata.org/ns/api#';\r",
 											"var self = {};\r",
@@ -1523,7 +1541,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -1578,7 +1597,9 @@
 											"    date = isoTimestamp.replaceAll('-','').replaceAll(':',\"\").split(\".\").shift() + \"Z\";\r",
 											"    pm.collectionVariables.set(\"historicalChange\",date);"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -1595,7 +1616,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -1623,7 +1644,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -1720,7 +1743,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -1997,7 +2019,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2358,7 +2379,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2425,7 +2445,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -2539,7 +2559,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -2548,7 +2570,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -2640,7 +2664,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2710,7 +2733,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2849,7 +2871,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -2910,7 +2931,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Piece\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -2992,7 +3013,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -3001,7 +3024,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -3084,7 +3109,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -3168,7 +3192,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -3238,7 +3261,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -3305,7 +3327,7 @@
 											"});\r",
 											"//Test type header\r",
 											"pm.test(\"Check type header\", () => {\r",
-											"    pm.expect(pm.response.headers.filter(header=>header.key.includes(\"Type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
+											"    pm.expect(pm.response.headers.filter(header => header.key.toLowerCase().includes(\"type\")).map(header=>header.value)).to.include(\"https://onerecord.iata.org/ns/cargo#Shipment\");\r",
 											"});\r",
 											"pm.test(\"Content-Type header is present\", () => {\r",
 											"    pm.response.to.have.header(\"Content-Type\");\r",
@@ -3365,7 +3387,9 @@
 											"\r",
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -3374,7 +3398,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -3467,7 +3493,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -3545,7 +3570,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -3625,7 +3649,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -3706,7 +3729,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -3833,7 +3855,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									}
 								],
@@ -4519,7 +4540,9 @@
 											"    pm.collectionVariables.set(\"extCompany\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
 											"}"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -4528,7 +4551,9 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -4538,7 +4563,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -4755,7 +4779,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -4765,7 +4790,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
@@ -5237,7 +5263,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5316,7 +5341,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5405,7 +5429,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5489,7 +5512,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5570,7 +5592,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5646,7 +5667,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5734,7 +5754,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -5814,7 +5833,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
@@ -6054,7 +6072,6 @@
 									{
 										"key": "Content-Type",
 										"value": "application/ld+json; version=2.0.0-dev",
-										"name": "Content-Type",
 										"type": "text"
 									},
 									{
