@@ -1,0 +1,36 @@
+# AirsellCargo Integration with ONE Record
+
+## Purpose
+This module defines how Airsell Cargo logistics workflows align with the IATA ONE Record standard. It supports shipment visibility, data exchange, and operational guidance for freight forwarding.
+
+## Logistics Objects Used
+- **Shipment**: Represents the overall cargo movement.
+- **Piece**: Individual items within a shipment.
+- **TransportSegment**: Movement stages (e.g., truck, air).
+- **Location**: Pickup, transit, and delivery points.
+
+## Workflow Overview
+1. **Create Shipment LO** via POST with unique URI.
+2. **Link Pieces** to Shipment using RDF relationships.
+3. **Assign TransportSegment** for each movement phase.
+4. **Update Status** using PATCH (e.g., “Ready for Pickup”, “Delivered”).
+5. **Retrieve Data** via GET for customer tracking and internal dashboards.
+
+## API Endpoints (Example)
+- `POST /shipment`
+- `PATCH /shipment/{id}`
+- `GET /shipment/{id}`
+- `POST /piece`
+- `GET /transportsegment/{id}`
+
+## Use Case Example
+Shipment from Hargeisa to Nairobi:
+- Shipment LO created with URI `https://airsellcargo.com/shipment/12345`
+- Linked to 3 Piece LOs
+- TransportSegment includes truck (Hargeisa → Berbera) and air (Berbera → Nairobi)
+- Status updates pushed to customer via Airsell Cargo app
+
+## Notes
+- This module is tested using the NE:ONE server.
+- Future versions will support multi-node pub-sub exchange.
+- All URIs follow Airsell Cargo’s naming convention for traceability.
