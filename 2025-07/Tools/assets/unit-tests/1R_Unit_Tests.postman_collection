@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9c1f43f2-3f22-44cf-955f-ec4836550faf",
+		"_postman_id": "76acdc49-ac81-4ab6-9a62-eb9216960c54",
 		"name": "ONE Record API Unit Tests 2025-07",
 		"description": "# ONE Record Example Collection\n\nThis collection contains all the examples described in the ONE Record API specification website([https://iata-cargo.github.io/ONE-Record/](https://))\n\n# Collection Variables\n\nA set of variables has been designed to ease the use of this collections. In order to run any call, please create an Environment and add the following variable:\n\n- baseUrl : the url of the ONE Record server (i.e. [https://1r.example.com](https://1r.example.com))\n    \n\n# Authentication\n\nIf ONE Record Server implements the authentication, you should add a bearer token for each API call. For more information check the Security section on [https://iata-cargo.github.io/ONE-Record/](https://iata-cargo.github.io/ONE-Record/)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -2498,10 +2498,19 @@
 											"    pm.test(\"Response contains coload\", () => {\r",
 											"        pm.expect(jsonData).to.have.property(coload);\r",
 											"    });\r",
-											"    pm.test(\"Response value coload \", () => {\r",
-											"        pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
-											"        pm.expect(jsonData[coload]['@value']).to.false;\r",
-											"    });    \r",
+											"      \r",
+											"    if (jsonData[coload] instanceof Object){\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]['@type']).to.eql('http://www.w3.org/2001/XMLSchema#boolean');\r",
+											"            pm.expect(jsonData[coload]['@value'].toString()).to.eql('false')\r",
+											"        });\r",
+											"    } else {\r",
+											"        pm.test(\"Response value coload \", () => {\r",
+											"            pm.expect(jsonData[coload]).to.eql(false);\r",
+											"            pm.expect(jsonData[coload]).to.be.a('boolean');       \r",
+											"        });\r",
+											"    }\r",
+											"\r",
 											"    let specialHandlingCodes = \"https://onerecord.iata.org/ns/cargo#specialHandlingCodes\";\r",
 											"    pm.test(\"Response contains specialHandlingCodes \", () => {\r",
 											"        pm.expect(jsonData).to.have.property(specialHandlingCodes);\r",
@@ -6182,7 +6191,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"type": "text/javascript",				
+				"type": "text/javascript",
 				"exec": [
 					""
 				]
