@@ -437,8 +437,16 @@ classDiagram
     class Error{        
         + hasErrorDetail[]: ErrorDetail [1..*]
         + hasTitle: xsd:string
+        + hasSeverity: Severity[0..1]
     }
+
     Error "1" --> "*" ErrorDetail
+
+    class Severity{
+        <<Enumeration>>
+        WARNING
+        ERROR
+    }
     
     class ErrorDetail{
         + hasCode: xsd:string  [0..1]

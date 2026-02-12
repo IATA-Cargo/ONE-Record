@@ -5,9 +5,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # 2.3.0-dev
 
-## Ideas
-- Add filters/triggers to Subscription information for server-side Notifications filtering
-- Define API for stream data from sensor
+## ONE Record API Specification
+
+### Added
+
+- Add HasSeverity in Error
+
+
+
+
+
+## ONE Record API Ontology
+
+### Added
+- HasSeverity as new property of Error
+- Severity class as named individuals with value ERROR and WARNING
+
 
 # 2.2.0
 

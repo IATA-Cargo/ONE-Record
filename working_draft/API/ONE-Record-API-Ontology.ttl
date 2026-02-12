@@ -21,7 +21,7 @@
 For a detailed Changelog, see https://iata-cargo.github.io/ONE-Record/development/General/release-note/"""@en ;
                                      rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                      rdfs:label "ONE Record API Ontology"@en ;
-                                     owl:versionInfo "2.2.0" .
+                                     owl:versionInfo "2.3.0" .
 
 #################################################################
 #    Annotation properties
@@ -172,6 +172,13 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                   rdfs:domain :ActionRequest ;
                   rdfs:range :RequestStatus ;
                   rdfs:label "has Request Status" .
+
+
+###  https://onerecord.iata.org/ns/api#hasSeverity
+:hasSeverity rdf:type owl:ObjectProperty ;
+             rdfs:domain :Error ;
+             rdfs:range :Severity ;
+             rdfs:label "has Severity"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasSubscriber
@@ -759,9 +766,18 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                          owl:allValuesFrom :ErrorDetail
                        ] ,
                        [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasSeverity ;
+                         owl:allValuesFrom :Severity
+                       ] ,
+                       [ rdf:type owl:Restriction ;
                          owl:onProperty :hasErrorDetail ;
                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                          owl:onClass :ErrorDetail
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasSeverity ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :Severity
                        ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :hasTitle ;
@@ -967,7 +983,7 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                                   :DELETE
                                                 )
                                     ] ;
-                rdfs:label "Patch Operation" .
+                rdfs:label "Patch Operation"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#Permission
@@ -1042,6 +1058,16 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                    ] ;
                    rdfs:comment "Information about the ONE Record server"@en ;
                    rdfs:label "Server Information"@en .
+
+
+###  https://onerecord.iata.org/ns/api#Severity
+:Severity rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :ERROR
+                                            :WARNING
+                                          )
+                              ] ;
+          rdfs:label "Severity"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#Subscription
@@ -1147,7 +1173,8 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                  owl:oneOf ( :LOGISTICS_OBJECT_IDENTIFIER
                                              :LOGISTICS_OBJECT_TYPE
                                            )
-                               ] .
+                               ] ;
+           rdfs:label "Topic Type"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#Verification
@@ -1180,7 +1207,7 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                 owl:onDataRange xsd:integer
                               ] ;
               dc:description "Verification encapulates any anomalies or errors related to logistics objects" ;
-              rdfs:label "Verification" .
+              rdfs:label "Verification"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#VerificationRequest
@@ -1293,6 +1320,12 @@ cargo:Organization rdf:type owl:Class .
 :DELETE rdf:type owl:NamedIndividual ,
                  :PatchOperation ;
         rdfs:label "DELETE"@en .
+
+
+###  https://onerecord.iata.org/ns/api#ERROR
+:ERROR rdf:type owl:NamedIndividual ,
+                :Severity ;
+       rdfs:label "ERROR" .
 
 
 ###  https://onerecord.iata.org/ns/api#GET_LOGISTICS_EVENT
@@ -1463,10 +1496,16 @@ cargo:Organization rdf:type owl:Class .
                               rdfs:label "VERIFICATION_REQUEST_REVOKED"@en .
 
 
-[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
-] .
+###  https://onerecord.iata.org/ns/api#WARNING
+:WARNING rdf:type owl:NamedIndividual ,
+                  :Severity ;
+         rdfs:label "WARNING" .
+
 
 [ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+] .
+
+[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 [ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
