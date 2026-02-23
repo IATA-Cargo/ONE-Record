@@ -889,6 +889,11 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                                          :SUBSCRIPTION_REQUEST_PENDING
                                                          :SUBSCRIPTION_REQUEST_REJECTED
                                                          :SUBSCRIPTION_REQUEST_REVOKED
+                                                         :VERIFICATION_REQUEST_ACKNOWLEDGED
+                                                         :VERIFICATION_REQUEST_FAILED
+                                                         :VERIFICATION_REQUEST_PENDING
+                                                         :VERIFICATION_REQUEST_REJECTED
+                                                         :VERIFICATION_REQUEST_REVOKED
                                                        )
                                            ] ;
                        rdfs:label "Notification Event Type"@en .
@@ -1280,7 +1285,7 @@ cargo:Organization rdf:type owl:Class .
 ###  https://onerecord.iata.org/ns/api#CHANGE_REQUEST_REJECTED
 :CHANGE_REQUEST_REJECTED rdf:type owl:NamedIndividual ,
                                   :NotificationEventType ;
-                         rdfs:label "CHANGE_REQUEST_PENDING" .
+                         rdfs:label "CHANGE_REQUEST_REJECTED" .
 
 
 ###  https://onerecord.iata.org/ns/api#CHANGE_REQUEST_REVOKED
@@ -1463,10 +1468,10 @@ cargo:Organization rdf:type owl:Class .
                               rdfs:label "VERIFICATION_REQUEST_REVOKED"@en .
 
 
-[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
 ] .
 
-[ owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
 
 [ owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger
