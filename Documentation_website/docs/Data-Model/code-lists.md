@@ -5,7 +5,7 @@ This page offers practical guidance on applying code lists effectively in real-w
 !!! note
     Code lists are visually marked by a triple-stripe icon in the [ontology visualizer](https://iata-cargo.github.io/ontology_visualizer/).
 
-Code lists are implemented using custom objects, with many predefined as named individuals within the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists).
+Code lists are implemented using custom objects, with many predefined as named individuals within the [ONE Record Code Lists ontology](https://onerecord.iata.org/ns/code-lists).
 
 For code lists that are not predefined or are open-ended, the [CodeListElement](https://onerecord.iata.org/ns/cargo#CodeListElement) object is used. A code list is considered "open" when it allows custom entries rather than restricting input to a fixed set of values.
 
@@ -66,20 +66,20 @@ _([examples-dm/code-lists-enumberation.json](./examples-dm/code-lists-enumberati
 
 ## Example 2: Closed Code List
 
-In the following example, a named individual defined in the coreCodeLists ontology is used to set the [securityStatus](https://onerecord.iata.org/ns/cargo#securityStatus) of a [SecurityDeclaration](https://onerecord.iata.org/ns/cargo#SecurityDeclaration) to [NSC](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC).
+In the following example, a named individual defined in the Code Lists ontology is used to set the [securityStatus](https://onerecord.iata.org/ns/cargo#securityStatus) of a [SecurityDeclaration](https://onerecord.iata.org/ns/cargo#SecurityDeclaration) to [NSC](https://onerecord.iata.org/ns/code-lists#SecurityStatus_NSC).
 
 ```http
 --8<-- "Data-Model/examples-dm/code-lists-closed-code-list.json"
 ```
 
 !!! note
-    This code list is defined in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists).
+    This code list is defined in the [ONE Record Code Lists ontology](https://onerecord.iata.org/ns/code-lists).
 
 _([examples-dm/code-lists-closed-code-list.json](./examples-dm/code-lists-closed-code-list.json))_
 
 ## Example 3: Open Code List, defined Code
 
-In the following example, named individuals are used to set the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) as [EAW](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW) and [NSC](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC).
+In the following example, named individuals are used to set the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) as [EAW](https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW) and [NSC](https://onerecord.iata.org/ns/code-lists#SecurityStatus_NSC).
 
 ```http
 --8<-- "Data-Model/examples-dm/code-lists-open-code-list-1.json"
@@ -88,13 +88,13 @@ In the following example, named individuals are used to set the [specialHandling
 _([examples-dm/code-lists-open-code-list-1.json](./examples-dm/code-lists-open-code-list-1.json))_
 
 !!! note
-    Both code lists are defined in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists). Note that a [SecurityStatus](https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus) is also an acceptable Special Handling Code.
+    Both code lists are defined in the [ONE Record Code Lists ontology](https://onerecord.iata.org/ns/code-lists). Note that a [SecurityStatus](https://onerecord.iata.org/ns/code-lists#SecurityStatus) is also an acceptable Special Handling Code.
 
 ## Example 4: Open Code List, custom Code
 
-In the example below, a named individual is used to assign the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) property of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) to [EAW](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW). Additionally, a custom code, "CUS," is introduced as an organization-specific special handling code. 
+In the example below, a named individual is used to assign the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) property of a [Piece](https://onerecord.iata.org/ns/cargo#Piece) to [EAW](https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW). Additionally, a custom code, "CUS," is introduced as an organization-specific special handling code. 
 
-For custom codes, the URI MUST be resolvable. The organization that manages the custom code may publish it within an ontology that extends the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) section of the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists). Alternatively, the organization can publish detailed information about the code directly at the defined URI without using an ontology.
+For custom codes, the URI MUST be resolvable. The organization that manages the custom code may publish it within an ontology that extends the [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes) section of the [ONE Record Code Lists ontology](https://onerecord.iata.org/ns/code-lists). Alternatively, the organization can publish detailed information about the code directly at the defined URI without using an ontology.
 
 ```http
 --8<-- "Data-Model/examples-dm/code-lists-open-code-list-2.json"
@@ -102,7 +102,7 @@ For custom codes, the URI MUST be resolvable. The organization that manages the 
 
 _([examples-dm/code-lists-open-code-list-2.json](./examples-dm/code-lists-open-code-list-2.json))_
 
-If resolved, the URI should all information regarding the custom code as any code define in the [ONE Record coreCodeLists ontology](https://onerecord.iata.org/ns/coreCodeLists) (i.e.:[EAW](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW)). An alternative approach is to return the CodeListElement in JSON format, as demonstrated in the example below:
+If resolved, the URI should all information regarding the custom code as any code define in the [ONE Record Code Lists ontology](https://onerecord.iata.org/ns/code-lists) (i.e.:[EAW](https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW)). An alternative approach is to return the CodeListElement in JSON format, as demonstrated in the example below:
 
 ```http
 --8<-- "Data-Model/examples-dm/code-lists-open-code-list-2-lo-example.json"
@@ -114,7 +114,7 @@ If resolved, the URI should all information regarding the custom code as any cod
 _([examples-dm/code-lists-open-code-list-2-lo-example.json](./examples-dm/code-lists-open-code-list-2-lo-example.json))_
 
 !!! note
-    The code instanced SHOULD be of type required by the property, in this case as [SpecialHandlingCode](https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode) for property [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes).
+    The code instanced SHOULD be of type required by the property, in this case as [SpecialHandlingCode](https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode) for property [specialHandlingCodes](https://onerecord.iata.org/ns/cargo#specialHandlingCodes).
 
 ## Example 5: CodeListElement, undefined Code List
 
