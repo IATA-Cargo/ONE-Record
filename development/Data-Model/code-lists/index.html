@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -4133,7 +4133,7 @@
 <p class="admonition-title">Note</p>
 <p>Code lists are visually marked by a triple-stripe icon in the <a href="https://iata-cargo.github.io/ontology_visualizer/">ontology visualizer</a>.</p>
 </div>
-<p>Code lists are implemented using custom objects, with many predefined as named individuals within the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
+<p>Code lists are implemented using custom objects, with many predefined as named individuals within the <a href="https://onerecord.iata.org/ns/code-lists">ONE Record Code Lists ontology</a>.</p>
 <p>For code lists that are not predefined or are open-ended, the <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> object is used. A code list is considered "open" when it allows custom entries rather than restricting input to a fixed set of values.</p>
 <p>Whenever a <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is referenced, it MUST have a unique URI/@id following the structure defined below. This URI MUST NOT be embedded but does not need to be directly accessible.</p>
 <p>This URI can reference an existing ontology, such as <a href="https://vocabulary.uncefact.org/code-lists">code lists published by the UN/CEFACT Web Vocabulary</a>.</p>
@@ -4213,7 +4213,7 @@ The URI MUST follow the following structure:</p>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-enumberation.json">examples-dm/code-lists-enumberation.json</a>)</em></p>
 <h3 id="example-2-closed-code-list">Example 2: Closed Code List<a class="headerlink" href="#example-2-closed-code-list" title="Permanent link">&para;</a></h3>
-<p>In the following example, a named individual defined in the coreCodeLists ontology is used to set the <a href="https://onerecord.iata.org/ns/cargo#securityStatus">securityStatus</a> of a <a href="https://onerecord.iata.org/ns/cargo#SecurityDeclaration">SecurityDeclaration</a> to <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC">NSC</a>.</p>
+<p>In the following example, a named individual defined in the Code Lists ontology is used to set the <a href="https://onerecord.iata.org/ns/cargo#securityStatus">securityStatus</a> of a <a href="https://onerecord.iata.org/ns/cargo#SecurityDeclaration">SecurityDeclaration</a> to <a href="https://onerecord.iata.org/ns/code-lists#SecurityStatus_NSC">NSC</a>.</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="err">{</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="err">    &quot;@context&quot;: {</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
@@ -4230,11 +4230,11 @@ The URI MUST follow the following structure:</p>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This code list is defined in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>.</p>
+<p>This code list is defined in the <a href="https://onerecord.iata.org/ns/code-lists">ONE Record Code Lists ontology</a>.</p>
 </div>
 <p><em>(<a href="../examples-dm/code-lists-closed-code-list.json">examples-dm/code-lists-closed-code-list.json</a>)</em></p>
 <h3 id="example-3-open-code-list-defined-code">Example 3: Open Code List, defined Code<a class="headerlink" href="#example-3-open-code-list-defined-code" title="Permanent link">&para;</a></h3>
-<p>In the following example, named individuals are used to set the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> as <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a> and <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus_NSC">NSC</a>.</p>
+<p>In the following example, named individuals are used to set the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> as <a href="https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW">EAW</a> and <a href="https://onerecord.iata.org/ns/code-lists#SecurityStatus_NSC">NSC</a>.</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="err">{</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="err">   &quot;@context&quot;:{</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="err">      &quot;cargo&quot;:&quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
@@ -4255,11 +4255,11 @@ The URI MUST follow the following structure:</p>
 <p><em>(<a href="../examples-dm/code-lists-open-code-list-1.json">examples-dm/code-lists-open-code-list-1.json</a>)</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Both code lists are defined in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>. Note that a <a href="https://onerecord.iata.org/ns/coreCodeLists#SecurityStatus">SecurityStatus</a> is also an acceptable Special Handling Code.</p>
+<p>Both code lists are defined in the <a href="https://onerecord.iata.org/ns/code-lists">ONE Record Code Lists ontology</a>. Note that a <a href="https://onerecord.iata.org/ns/code-lists#SecurityStatus">SecurityStatus</a> is also an acceptable Special Handling Code.</p>
 </div>
 <h3 id="example-4-open-code-list-custom-code">Example 4: Open Code List, custom Code<a class="headerlink" href="#example-4-open-code-list-custom-code" title="Permanent link">&para;</a></h3>
-<p>In the example below, a named individual is used to assign the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> property of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> to <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a>. Additionally, a custom code, "CUS," is introduced as an organization-specific special handling code. </p>
-<p>For custom codes, the URI MUST be resolvable. The organization that manages the custom code may publish it within an ontology that extends the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> section of the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a>. Alternatively, the organization can publish detailed information about the code directly at the defined URI without using an ontology.</p>
+<p>In the example below, a named individual is used to assign the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> property of a <a href="https://onerecord.iata.org/ns/cargo#Piece">Piece</a> to <a href="https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW">EAW</a>. Additionally, a custom code, "CUS," is introduced as an organization-specific special handling code. </p>
+<p>For custom codes, the URI MUST be resolvable. The organization that manages the custom code may publish it within an ontology that extends the <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a> section of the <a href="https://onerecord.iata.org/ns/code-lists">ONE Record Code Lists ontology</a>. Alternatively, the organization can publish detailed information about the code directly at the defined URI without using an ontology.</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="err">{</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="err">   &quot;@context&quot;:{</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="err">      &quot;cargo&quot;:&quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
@@ -4277,7 +4277,7 @@ The URI MUST follow the following structure:</p>
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="err">}</span>
 </span></code></pre></div>
 <p><em>(<a href="../examples-dm/code-lists-open-code-list-2.json">examples-dm/code-lists-open-code-list-2.json</a>)</em></p>
-<p>If resolved, the URI should all information regarding the custom code as any code define in the <a href="https://onerecord.iata.org/ns/coreCodeLists">ONE Record coreCodeLists ontology</a> (i.e.:<a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode_EAW">EAW</a>). An alternative approach is to return the CodeListElement in JSON format, as demonstrated in the example below:</p>
+<p>If resolved, the URI should all information regarding the custom code as any code define in the <a href="https://onerecord.iata.org/ns/code-lists">ONE Record Code Lists ontology</a> (i.e.:<a href="https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode_EAW">EAW</a>). An alternative approach is to return the CodeListElement in JSON format, as demonstrated in the example below:</p>
 <div class="language-http highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="err">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="err">    &quot;@context&quot;: {</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="err">        &quot;cargo&quot;: &quot;https://onerecord.iata.org/ns/cargo#&quot;,</span>
@@ -4300,7 +4300,7 @@ Only the structure of the IRI is mandatory and MUST follow the guidelines from t
 <p><em>(<a href="../examples-dm/code-lists-open-code-list-2-lo-example.json">examples-dm/code-lists-open-code-list-2-lo-example.json</a>)</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The code instanced SHOULD be of type required by the property, in this case as <a href="https://onerecord.iata.org/ns/coreCodeLists#SpecialHandlingCode">SpecialHandlingCode</a> for property <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a>.</p>
+<p>The code instanced SHOULD be of type required by the property, in this case as <a href="https://onerecord.iata.org/ns/code-lists#SpecialHandlingCode">SpecialHandlingCode</a> for property <a href="https://onerecord.iata.org/ns/cargo#specialHandlingCodes">specialHandlingCodes</a>.</p>
 </div>
 <h3 id="example-5-codelistelement-undefined-code-list">Example 5: CodeListElement, undefined Code List<a class="headerlink" href="#example-5-codelistelement-undefined-code-list" title="Permanent link">&para;</a></h3>
 <p>In the example below, a new object of type <a href="https://onerecord.iata.org/ns/cargo#CodeListElement">CodeListElement</a> is hosted at <code>https://1r.example.com/</code> to convey the <a href="https://onerecord.iata.org/ns/cargo#hsCode">hsCode</a> for a <a href="https://onerecord.iata.org/ns/cargo#Product">Product</a>.</p>
