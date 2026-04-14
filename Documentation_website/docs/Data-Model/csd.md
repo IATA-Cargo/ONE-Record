@@ -1,4 +1,4 @@
-<img width="336" height="376" alt="image" src="https://github.com/user-attachments/assets/c1b04932-1a2b-45bd-a7b2-e3d17de3ff1b" /># Introduction
+# Introduction
 The Consignment Security Declaration (CSD) is a mandatory security document defined by **ICAO Annex 17** and the **ICAO Aviation Security Manual (Doc. 8973)**. It certifies that a consignment has been secured in accordance with applicable aviation security requirements before being loaded onto an aircraft.
 
 The CSD must be issued by a **Regulated Agent (RA)**, **Known Consignor (KC)**, or **Aircraft Operator (AO)** — the three categories of regulated entities authorised under national civil aviation security programmes to apply and declare security measures on cargo.
