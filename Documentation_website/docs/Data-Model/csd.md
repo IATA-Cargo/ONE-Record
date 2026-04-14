@@ -1,4 +1,4 @@
-# Introduction
+<img width="336" height="376" alt="image" src="https://github.com/user-attachments/assets/c1b04932-1a2b-45bd-a7b2-e3d17de3ff1b" /># Introduction
 The Consignment Security Declaration (CSD) is a mandatory security document defined by **ICAO Annex 17** and the **ICAO Aviation Security Manual (Doc. 8973)**. It certifies that a consignment has been secured in accordance with applicable aviation security requirements before being loaded onto an aircraft.
 
 The CSD must be issued by a **Regulated Agent (RA)**, **Known Consignor (KC)**, or **Aircraft Operator (AO)** — the three categories of regulated entities authorised under national civil aviation security programmes to apply and declare security measures on cargo.
@@ -277,6 +277,82 @@ OCI/NL/ISS/RA/00100-01
 }
 ```
 
+## #2 **Regulated Agent** issued a security declaration for a shipment originating from a **Known Consignor** (KC)
+
+```
+OCI/NL/ISS/RA/00100-01
+///ED/0527
+///SN/JOHN SMITH
+///SD/08AUG231230
+///SS/SPX
+///ST/<addl. sec. info>
+/NL//KC/00200-01
+///ED/0326
+///ST/<addl. sec. info>
+```
+
+``` json
+{
+  "@context": {
+    "cargo": "https://onerecord.iata.org/ns/cargo#",
+    "ccodes": "https://onerecord.iata.org/ns/coreCodeLists#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "https://1r.example.com/logistics-objects/security-declaration-001",
+      "@type": "cargo:SecurityDeclaration",
+      "cargo:securityStatus": {
+        "@id": "ccodes:SecurityStatus_SPX"
+      },
+      "cargo:additionalSecurityInformation": "FYI",
+      "cargo:issuedOn": {
+        "@value": "2023-08-08T12:30:00Z",
+        "@type": "xsd:dateTime"
+      },
+      "cargo:issuedBy": {
+        "@id": "https://1r.example.com/logistics-objects/person-john-smith"
+      },
+      "cargo:regulatedEntityIssuer": {
+        "@id": "https://1r.example.com/logistics-objects/regulated-entity-issuer-001"
+      },
+      "cargo:receivedFrom": {
+        "@id": "https://1r.example.com/logistics-objects/regulated-entity-received-from-001"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/person-john-smith",
+      "@type": "cargo:Person",
+      "cargo:firstName": "John",
+      "cargo:lastName": "Smith"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/regulated-entity-issuer-001",
+      "@type": "cargo:RegulatedEntity",
+      "cargo:regulatedEntityCategory": {
+        "@id": "ccodes:RegulatedEntityCategoryCode_RA"
+      },
+      "cargo:regulatedEntityIdentifier": "NL-00100-01",
+      "cargo:regulatedEntityExpiryDate": {
+        "@value": "2027-04-01T00:00:00Z",
+        "@type": "xsd:dateTime"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/regulated-entity-received-from-001",
+      "@type": "cargo:RegulatedEntity",
+      "cargo:regulatedEntityCategory": {
+        "@id": "ccodes:RegulatedEntityCategoryCode_KC"
+      },
+      "cargo:regulatedEntityIdentifier": "NL-00200-01",
+      "cargo:regulatedEntityExpiryDate": {
+        "@value": "2026-03-01T00:00:00Z",
+        "@type": "xsd:dateTime"
+      }
+    }
+  ]
+}
+```
 
 
 
