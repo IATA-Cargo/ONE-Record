@@ -224,7 +224,8 @@ OCI/NL/ISS/RA/00100-01
 ///ST/<addl. sec. info>
 ```
 
-```json {
+```json
+{
   "@context": {
     "cargo": "https://onerecord.iata.org/ns/cargo#",
     "ccodes": "https://onerecord.iata.org/ns/coreCodeLists#",
