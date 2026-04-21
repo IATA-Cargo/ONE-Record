@@ -2646,6 +2646,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The RegulatedEntity object — used in three places">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-fill-in-the-regulatedentityidentifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to fill in the regulatedEntityIdentifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regulatedentityexpirydate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        regulatedEntityExpiryDate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -4231,6 +4259,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The RegulatedEntity object — used in three places">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-fill-in-the-regulatedentityidentifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to fill in the regulatedEntityIdentifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regulatedentityexpirydate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        regulatedEntityExpiryDate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -4528,6 +4584,13 @@
 <li><strong>Box 14</strong> — the entity that <strong>accepts custody</strong> and the security status (<code>regulatedEntityAcceptor</code>)</li>
 </ul>
 <p>Each of these is a separate instance of <code>RegulatedEntity</code>, but they share the same structure: <code>regulatedEntityCategory</code> (RA, KC, or AO), <code>regulatedEntityIdentifier</code>, <code>regulatedEntityExpiryDate</code>, and a country derived from the linked <code>Organization</code>.</p>
+<h4 id="how-to-fill-in-the-regulatedentityidentifier">How to fill in the <code>regulatedEntityIdentifier</code><a class="headerlink" href="#how-to-fill-in-the-regulatedentityidentifier" title="Permanent link">&para;</a></h4>
+<p>The <code>regulatedEntityIdentifier</code> is the unique identifier issued by the relevant Appropriate Authority within the State whereby the security status was issued, the way it is filled in is slightly different from messaging standards.</p>
+<p>The country is expected and is normally part of the identifier itself, e.g. <code>DE/H/02082-01</code>. In messaging standards, most specifically in the OCI segment, the country has always been separated from the identifier itself as the Country Code is one the OCI part.</p>
+<h4 id="regulatedentityexpirydate"><code>regulatedEntityExpiryDate</code><a class="headerlink" href="#regulatedentityexpirydate" title="Permanent link">&para;</a></h4>
+<p>The Expiry Date in ONE Record is a datetime data type in opposition to messaging standards where the format MM/YY expected. While full dates do exist for the expiry dates, it is recommended to use last day of the month when converting from messaging to ONE Record.</p>
+<p>Example: 05/26 in messaging standards will become <code>2026-05-31T00:00:00Z</code> in ONE Record.</p>
+<p>Note: 12/99 is usually used in messaging as a dummy value. In accordance to general guidelines with ONE Record, it is recommended not to put any dummy values in ONE Record and leave the <code>regulatedEntityExpiryDate</code> empty in such case.</p>
 <h3 id="security-statuses">Security Statuses<a class="headerlink" href="#security-statuses" title="Permanent link">&para;</a></h3>
 <p>The list of accepted Security Statuses is defined in the Code List ontology: <a href="https://onerecord.iata.org/ns/code-lists/index-en.html#SecurityStatus">Here</a>.</p>
 <h2 id="chosen-approach">Chosen approach<a class="headerlink" href="#chosen-approach" title="Permanent link">&para;</a></h2>
