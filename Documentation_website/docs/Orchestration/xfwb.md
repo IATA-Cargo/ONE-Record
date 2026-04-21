@@ -11,6 +11,10 @@ The `WaybillLineItem` object was introduced to properly share rate data as requi
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
 
+### Origin Currency
+
+CSC Resolution 600a indicates that rate charges are always expressed in the Origin Currency. This implies that we do not need a data property for the Origin Currency on the `Waybil` object. We refer to the currency defined in `WaybillLineItem#rateCharge`.
+
 ## TransportMovement information
 XFWB movement and routing details are mapped to `TransportMovement` objects. The proper linkage, starting from the `Waybill` is to to go through the `Booking` object which refers to the contractual engagements between a carrier and the freight forwarder. The various `TransportMovement`(s) planned for the transportation of the goods need to be linked to the `Booking` as an `ActivitySequence`. 
 
