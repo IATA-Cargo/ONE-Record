@@ -33,6 +33,14 @@ Totals are not directly recorded in ONE Record as they can be directly calculate
 
 - In the `ApplicalbeFreightRateServiceCharge` grouping, the `AppliedAmount` is not directly mapped as it is a total that needs to be derived from either the **Rate** or the multiplication of **Rate** and **Chargeable weight** depending on the type of charge. Refer to CSC Resolution 600a for further explanations.
 
+## Waybill parties
+
+Various parties are identified in a XFWB message. There are some discrepancies with older CIMP specifications as well as with CSC Resolution 600a. It is essential to note that the CSC Resolution 600a contains the applicable requirements and terminology to follow.
+
+- ConsignorParty: It is mapped to `partyRole = SHP`
+- ConsigneeParty: It is mapped to `partyRole = CNE`
+- FreightForwarderParty: It is mapped to `partyRole = AGT` - Note that the Freight Forwader terminology was introduced with CXML essentially because the Agent is **usually** the Freight Forwarder. However both CIMP and Resolution 600a use **Agent** and we will use the same terminology in ONE Record.
+
 ## Mapping of Security Declaration (eCSD) information
 
 In legacy messaging standards the Security Declaration information is shared via the OCI segment. While it remains valid the `SecurityDeclaration` object has been specifically designed in ONE Record to contain all eCSD information. It is recommended to use the `SecurityDeclaration` to provide eCSD information with ONE Record, it implies that in the mapping process the OCI eCSD part should be mapped to `SecurityDeclaration` object.
