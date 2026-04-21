@@ -46,6 +46,20 @@ A key concept to understand is that `RegulatedEntity` is reused across **three d
 
 Each of these is a separate instance of `RegulatedEntity`, but they share the same structure: `regulatedEntityCategory` (RA, KC, or AO), `regulatedEntityIdentifier`, `regulatedEntityExpiryDate`, and a country derived from the linked `Organization`.
 
+### How to fill in the `regulatedEntityIdentifier`
+
+The `regulatedEntityIdentifier` is the unique identifier issued by the relevant Appropriate Authority within the State whereby the security status was issued, the way it is filled in is slightly different from messaging standards.
+
+The country is expected and is normally part of the identifier itself, e.g. `DE/H/02082-01`. In messaging standards, most specifically in the OCI segment, the country has always been separated from the identifier itself as the Country Code is one the OCI part.
+
+### `regulatedEntityExpiryDate`
+
+The Expiry Date in ONE Record is a datetime data type in opposition to messaging standards where the format MM/YY expected. While full dates do exist for the expiry dates, it is recommended to use last day of the month when converting from messaging to ONE Record.
+
+Example: 05/26 in messaging standards will become `2026-05-31T00:00:00Z` in ONE Record.
+
+Note: 12/99 is usually used in messaging as a dummy value. In accordance to general guidelines with ONE Record, it is recommended not to put any dummy values in ONE Record and leave the `regulatedEntityExpiryDate` empty in such case.
+
 ## Security Statuses
 
 The list of accepted Security Statuses is defined in the Code List ontology: [Here](https://onerecord.iata.org/ns/code-lists/index-en.html#SecurityStatus).
