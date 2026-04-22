@@ -58,7 +58,8 @@ The Expiry Date in ONE Record is a datetime data type in opposition to messaging
 
 Example: 05/26 in messaging standards will become `2026-05-31T00:00:00Z` in ONE Record.
 
-Note: 12/99 is usually used in messaging as a dummy value. In accordance to general guidelines with ONE Record, it is recommended not to put any dummy values in ONE Record and leave the `regulatedEntityExpiryDate` empty in such case.
+!!! note
+    **12/99** is usually used in messaging as a dummy value. In accordance to general guidelines with ONE Record, it is recommended not to put any dummy values in ONE Record and leave the `regulatedEntityExpiryDate` empty in such case.
 
 ## Security Statuses
 
