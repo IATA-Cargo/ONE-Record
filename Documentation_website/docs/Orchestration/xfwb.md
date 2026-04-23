@@ -6,7 +6,33 @@ XFWB message, and its predecessor FWB Message based on CIMP standard, is used to
 ## Proposed mechanism
 XFWB data fields are mostly a mix of `Waybill`, `WaybillLineItem`, `Shipment`, `Pieces` and `TransportMovement` data in ONE Record realm.
 
-## Usage of WaybillLineItem object
+## Handling of `goodsDescription`
+
+In traditional cargo messaging (e.g. FWB/XFWB), goods description is expressed at the **shipment level** through one or more NC/NG lines (FWB) or `<ram:NatureIdentificationTransportCargo>` groupings (XFWB), representing the nature of the commodity for the entire consignment. ONE Record, by contrast, is designed around a **piece-centric data model**, where each `Piece` object can carry its own `goodsDescription`, enabling a finer-grained and more accurate representation of heterogeneous shipments.
+
+### ONE Record usage
+
+In ONE Record, `Piece#goodsDescription` should be the primary field to populate. It is then up to the relevant stakeholder — most likely the Freight Forwarder — to decide whether `Shipment#goodsDescription` is additionally needed to provide a consolidated summary across all pieces. The two levels serve distinct purposes:
+
+- `Shipment#goodsDescription` signals that the description is **common to the entire shipment** (all pieces/parts). It should only be used when a single description accurately applies to every piece in the consignment.
+- When a shipment contains **multiple commodities**, piece level should be preferred. Associated product descriptions and HS Codes for each commodity can also be provided at the piece level, offering richer classification granularity.
+
+### FWB (CIMP) → ONE Record
+
+When converting a CIMP FWB message to ONE Record, if multiple NC/NG lines are present, they should be aggregated in `Shipment#goodsDescription`. There is no need to propagate this information down to the piece level — the shipment-level field is sufficient in this direction. The NG/NC line context should be taken into account during the mapping process to preserve the original structure and intent of the goods description lines.
+
+### XFWB → ONE Record
+
+The `<ram:NatureIdentificationTransportCargo>` grouping in XFWB is less restrictive than the NC/NG lines in CIMP, allowing for richer free-text description. However, like its CIMP counterpart, it is scoped to the **shipment level only**. Multiple occurrences of this grouping should therefore be mapped to `Shipment#goodsDescription`, following the same logic as for CIMP FWB.
+
+### ONE Record → FWB/XFWB
+
+When converting from ONE Record to either a FWB or an XFWB message, the following logic applies:
+
+- If `Shipment#goodsDescription` is populated, it should be mapped directly to the NC lines (FWB) or `<ram:NatureIdentificationTransportCargo>` groupings (XFWB).
+- If `Shipment#goodsDescription` is absent, the `Piece#goodsDescription` values across all pieces shall be aggregated and mapped accordingly.
+
+## Usage of `WaybillLineItem` object
 The `WaybillLineItem` object was introduced to properly share rate data as required in the Air Waybill. The `WaybillLineItem` has a n-to-1 relationship with a `Waybill` object and represents the different line items on the paper waybill with all their specifities based on the type of rating used. In order to stick to reality as much as possible, some data at line item level are taken from `Pieces` and `LoadingUnits` directly (dimensions, volume, ...). The `WaybillLineItem` object itself shall only contain **rate** specific data.
 
 It is important to note that the `WaybillLineItem` has been added **only in the context of sharing Air Waybill data**. When looking at Operations, digital twins shall be used (`Piece`, `Item`, `Product`, etc.)
