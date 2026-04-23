@@ -103,3 +103,38 @@ Boolean properties in the ONE Record ontology should only be explicitly set when
 The most common example is `skeletonIndicator`: it only needs to be present and set to `true` when the object is genuinely a skeleton. Omitting it is equivalent to `false` and is the expected norm for complete objects.
 
 This is consistent with the broader "omit rather than fabricate" principle described in the dummy values section above.
+
+# The `OtherIdentifier` object
+
+In real-world air cargo operations, a single physical or logical entity is often identified by different identifiers depending on the stakeholder or system referring to it. To accommodate this, an `OtherIdentifier` object has been introduced and is available on a selected set of ONE Record objects.
+
+## Scope
+
+`OtherIdentifier` has been deliberately added to the following categories of objects:
+
+- All **`PhysicalLogisticsObject`** subclasses (e.g. `Piece`, `ULD`, `TransportMeans`)
+- All **`LogisticsActivity`** subclasses (e.g. `TransportMovement`, `Storing`)
+- All **`LogisticsAction`** subclasses (e.g. `Loading`, `Checking`)
+- **`Waybill`**
+- A small number of additional objects that were handpicked based on identified business needs
+
+It has intentionally **not** been added to all objects in the ontology, in order to avoid leaving free-text placeholders on objects where multiple identifiers have no established business case.
+
+## Rationale and examples
+
+**Transport movements — code shares**
+
+A `TransportMovement` is a prime example of where multiple identifiers are operationally meaningful. In a code share arrangement, a single physical flight is operated by one carrier but marketed under the flight numbers of one or more partner carriers. For instance, a flight operated by Lufthansa (LH) as **LH401** on the Frankfurt–Chicago route may simultaneously be marketed by United Airlines (UA) as **UA9901**. Both identifiers refer to the exact same physical movement. In ONE Record, the `TransportMovement` object should be created with the operating carrier's flight number as the primary identifier, and the code share partner's flight number(s) captured as `OtherIdentifier` entries.
+
+**Physical objects — multi-stakeholder identification**
+
+A `Piece` moving through the supply chain will often carry different identifiers assigned by different stakeholders: the freight forwarder may reference it by their internal handling unit number, the ground handler by a warehouse label, and the carrier by a ULD position reference. Rather than forcing a single canonical identifier, `OtherIdentifier` allows each of these to be recorded alongside the primary identifier, with a qualifier indicating the issuing party or identifier type.
+
+## Structure
+
+The `OtherIdentifier` object contains two properties:
+
+- `otherIdentifierType` — a qualifier describing the type or issuing party of the identifier (e.g. `"code-share"`, `"GHA-reference"`, `"warehouse-label"`)
+- `textualValue` — the identifier value itself
+
+This keeps the primary identifier of the parent object clean and semantically unambiguous, while preserving the additional references needed for cross-system traceability.
