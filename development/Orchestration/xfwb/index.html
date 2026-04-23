@@ -2379,6 +2379,67 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#handling-of-goodsdescription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handling of goodsDescription
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling of goodsDescription">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-record-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ONE Record usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fwb-cimp-one-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FWB (CIMP) → ONE Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfwb-one-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XFWB → ONE Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-record-fwbxfwb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ONE Record → FWB/XFWB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage-of-waybilllineitem-object" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4079,6 +4140,67 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#handling-of-goodsdescription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handling of goodsDescription
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling of goodsDescription">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-record-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ONE Record usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fwb-cimp-one-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FWB (CIMP) → ONE Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfwb-one-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XFWB → ONE Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-record-fwbxfwb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ONE Record → FWB/XFWB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage-of-waybilllineitem-object" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4240,7 +4362,25 @@
 <h2 id="xfwb-mapping">XFWB Mapping<a class="headerlink" href="#xfwb-mapping" title="Permanent link">&para;</a></h2>
 <h3 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h3>
 <p>XFWB data fields are mostly a mix of <code>Waybill</code>, <code>WaybillLineItem</code>, <code>Shipment</code>, <code>Pieces</code> and <code>TransportMovement</code> data in ONE Record realm.</p>
-<h3 id="usage-of-waybilllineitem-object">Usage of WaybillLineItem object<a class="headerlink" href="#usage-of-waybilllineitem-object" title="Permanent link">&para;</a></h3>
+<h3 id="handling-of-goodsdescription">Handling of <code>goodsDescription</code><a class="headerlink" href="#handling-of-goodsdescription" title="Permanent link">&para;</a></h3>
+<p>In traditional cargo messaging (e.g. FWB/XFWB), goods description is expressed at the <strong>shipment level</strong> through one or more NC/NG lines (FWB) or <code>&lt;ram:NatureIdentificationTransportCargo&gt;</code> groupings (XFWB), representing the nature of the commodity for the entire consignment. ONE Record, by contrast, is designed around a <strong>piece-centric data model</strong>, where each <code>Piece</code> object can carry its own <code>goodsDescription</code>, enabling a finer-grained and more accurate representation of heterogeneous shipments.</p>
+<h4 id="one-record-usage">ONE Record usage<a class="headerlink" href="#one-record-usage" title="Permanent link">&para;</a></h4>
+<p>In ONE Record, <code>Piece#goodsDescription</code> should be the primary field to populate. It is then up to the relevant stakeholder — most likely the Freight Forwarder — to decide whether <code>Shipment#goodsDescription</code> is additionally needed to provide a consolidated summary across all pieces. The two levels serve distinct purposes:</p>
+<ul>
+<li><code>Shipment#goodsDescription</code> signals that the description is <strong>common to the entire shipment</strong> (all pieces/parts). It should only be used when a single description accurately applies to every piece in the consignment.</li>
+<li>When a shipment contains <strong>multiple commodities</strong>, piece level should be preferred. Associated product descriptions and HS Codes for each commodity can also be provided at the piece level, offering richer classification granularity.</li>
+</ul>
+<h4 id="fwb-cimp-one-record">FWB (CIMP) → ONE Record<a class="headerlink" href="#fwb-cimp-one-record" title="Permanent link">&para;</a></h4>
+<p>When converting a CIMP FWB message to ONE Record, if multiple NC/NG lines are present, they should be aggregated in <code>Shipment#goodsDescription</code>. There is no need to propagate this information down to the piece level — the shipment-level field is sufficient in this direction. The NG/NC line context should be taken into account during the mapping process to preserve the original structure and intent of the goods description lines.</p>
+<h4 id="xfwb-one-record">XFWB → ONE Record<a class="headerlink" href="#xfwb-one-record" title="Permanent link">&para;</a></h4>
+<p>The <code>&lt;ram:NatureIdentificationTransportCargo&gt;</code> grouping in XFWB is less restrictive than the NC/NG lines in CIMP, allowing for richer free-text description. However, like its CIMP counterpart, it is scoped to the <strong>shipment level only</strong>. Multiple occurrences of this grouping should therefore be mapped to <code>Shipment#goodsDescription</code>, following the same logic as for CIMP FWB.</p>
+<h4 id="one-record-fwbxfwb">ONE Record → FWB/XFWB<a class="headerlink" href="#one-record-fwbxfwb" title="Permanent link">&para;</a></h4>
+<p>When converting from ONE Record to either a FWB or an XFWB message, the following logic applies:</p>
+<ul>
+<li>If <code>Shipment#goodsDescription</code> is populated, it should be mapped directly to the NC lines (FWB) or <code>&lt;ram:NatureIdentificationTransportCargo&gt;</code> groupings (XFWB).</li>
+<li>If <code>Shipment#goodsDescription</code> is absent, the <code>Piece#goodsDescription</code> values across all pieces shall be aggregated and mapped accordingly.</li>
+</ul>
+<h3 id="usage-of-waybilllineitem-object">Usage of <code>WaybillLineItem</code> object<a class="headerlink" href="#usage-of-waybilllineitem-object" title="Permanent link">&para;</a></h3>
 <p>The <code>WaybillLineItem</code> object was introduced to properly share rate data as required in the Air Waybill. The <code>WaybillLineItem</code> has a n-to-1 relationship with a <code>Waybill</code> object and represents the different line items on the paper waybill with all their specifities based on the type of rating used. In order to stick to reality as much as possible, some data at line item level are taken from <code>Pieces</code> and <code>LoadingUnits</code> directly (dimensions, volume, ...). The <code>WaybillLineItem</code> object itself shall only contain <strong>rate</strong> specific data.</p>
 <p>It is important to note that the <code>WaybillLineItem</code> has been added <strong>only in the context of sharing Air Waybill data</strong>. When looking at Operations, digital twins shall be used (<code>Piece</code>, <code>Item</code>, <code>Product</code>, etc.)</p>
 <h4 id="origin-currency">Origin Currency<a class="headerlink" href="#origin-currency" title="Permanent link">&para;</a></h4>
