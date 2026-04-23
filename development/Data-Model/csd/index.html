@@ -2727,6 +2727,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#consolidation-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consolidation use case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#e-csd-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4340,6 +4351,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#consolidation-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consolidation use case
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#e-csd-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4605,6 +4627,10 @@
 <h3 id="multiple-declarations-handling-re-tendering">Multiple declarations — handling re-tendering<a class="headerlink" href="#multiple-declarations-handling-re-tendering" title="Permanent link">&para;</a></h3>
 <p>A consignment may change hands between regulated entities during its journey (e.g. a Known Consignor tenders to a Regulated Agent, who then tenders to the airline). Each transfer of custody should be reflected by updating the <code>regulatedEntityAcceptor</code> on the existing <code>SecurityDeclaration</code>, or — if the security status itself changes — by creating a new <code>SecurityDeclaration</code> and linking it to the <code>Shipment</code>.</p>
 <p>It is important <strong>not</strong> to simply overwrite the previous declaration without leaving a trace. ONE Record's change request and audit mechanisms should be used to maintain a full history.</p>
+<h3 id="consolidation-use-case">Consolidation use case<a class="headerlink" href="#consolidation-use-case" title="Permanent link">&para;</a></h3>
+<p>On the paper CSD, a <strong>consolidation tick box</strong> indicates that the consignment is a consolidated shipment — i.e. it groups multiple house shipments under a single master air waybill.</p>
+<p>In ONE Record, there is no explicit boolean flag for this. Instead, consolidation is conveyed implicitly through the <strong>type of <code>Waybill</code></strong> linked to the <code>Shipment</code>: if the associated <code>Waybill</code> is of type <strong>Master</strong> (<code>waybillType = Master</code>), the consignment is considered a consolidation. No additional field or flag is required on the <code>SecurityDeclaration</code> itself.</p>
+<p>This means that when issuing an e-CSD in ONE Record for a consolidated shipment, the receiving party can determine the consolidation status by inspecting the <code>Waybill#waybillType</code> property of the linked <code>Waybill</code> object. Conversely, when mapping from a paper or legacy CSD with the consolidation box ticked, implementers should ensure that the corresponding <code>Waybill</code> object is created with <code>waybillType = Master</code>.</p>
 <h3 id="e-csd-mapping">e-CSD mapping<a class="headerlink" href="#e-csd-mapping" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
