@@ -82,6 +82,14 @@ A consignment may change hands between regulated entities during its journey (e.
 
 It is important **not** to simply overwrite the previous declaration without leaving a trace. ONE Record's change request and audit mechanisms should be used to maintain a full history.
 
+## Consolidation use case
+
+On the paper CSD, a **consolidation tick box** indicates that the consignment is a consolidated shipment — i.e. it groups multiple house shipments under a single master air waybill.
+
+In ONE Record, there is no explicit boolean flag for this. Instead, consolidation is conveyed implicitly through the **type of `Waybill`** linked to the `Shipment`: if the associated `Waybill` is of type **Master** (`waybillType = Master`), the consignment is considered a consolidation. No additional field or flag is required on the `SecurityDeclaration` itself.
+
+This means that when issuing an e-CSD in ONE Record for a consolidated shipment, the receiving party can determine the consolidation status by inspecting the `Waybill#waybillType` property of the linked `Waybill` object. Conversely, when mapping from a paper or legacy CSD with the consolidation box ticked, implementers should ensure that the corresponding `Waybill` object is created with `waybillType = Master`.
+
 ## e-CSD mapping
 
 | Box | e-CSD   requirements                                                                                          | Description/Comment                                                                                                                                                                               | ONE Record mapping                                       | Comment                                                                                                                                                                                             |
