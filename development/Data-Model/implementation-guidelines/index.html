@@ -2286,6 +2286,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-otheridentifier-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The OtherIdentifier object
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The OtherIdentifier object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rationale-and-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rationale and examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4212,6 +4262,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-otheridentifier-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The OtherIdentifier object
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The OtherIdentifier object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rationale-and-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rationale and examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4347,6 +4447,30 @@
 </ul>
 <p>The most common example is <code>skeletonIndicator</code>: it only needs to be present and set to <code>true</code> when the object is genuinely a skeleton. Omitting it is equivalent to <code>false</code> and is the expected norm for complete objects.</p>
 <p>This is consistent with the broader "omit rather than fabricate" principle described in the dummy values section above.</p>
+<h2 id="the-otheridentifier-object">The <code>OtherIdentifier</code> object<a class="headerlink" href="#the-otheridentifier-object" title="Permanent link">&para;</a></h2>
+<p>In real-world air cargo operations, a single physical or logical entity is often identified by different identifiers depending on the stakeholder or system referring to it. To accommodate this, an <code>OtherIdentifier</code> object has been introduced and is available on a selected set of ONE Record objects.</p>
+<h3 id="scope">Scope<a class="headerlink" href="#scope" title="Permanent link">&para;</a></h3>
+<p><code>OtherIdentifier</code> has been deliberately added to the following categories of objects:</p>
+<ul>
+<li>All <strong><code>PhysicalLogisticsObject</code></strong> subclasses (e.g. <code>Piece</code>, <code>ULD</code>, <code>TransportMeans</code>)</li>
+<li>All <strong><code>LogisticsActivity</code></strong> subclasses (e.g. <code>TransportMovement</code>, <code>Storing</code>)</li>
+<li>All <strong><code>LogisticsAction</code></strong> subclasses (e.g. <code>Loading</code>, <code>Checking</code>)</li>
+<li><strong><code>Waybill</code></strong></li>
+<li>A small number of additional objects that were handpicked based on identified business needs</li>
+</ul>
+<p>It has intentionally <strong>not</strong> been added to all objects in the ontology, in order to avoid leaving free-text placeholders on objects where multiple identifiers have no established business case.</p>
+<h3 id="rationale-and-examples">Rationale and examples<a class="headerlink" href="#rationale-and-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Transport movements — code shares</strong></p>
+<p>A <code>TransportMovement</code> is a prime example of where multiple identifiers are operationally meaningful. In a code share arrangement, a single physical flight is operated by one carrier but marketed under the flight numbers of one or more partner carriers. For instance, a flight operated by Lufthansa (LH) as <strong>LH401</strong> on the Frankfurt–Chicago route may simultaneously be marketed by United Airlines (UA) as <strong>UA9901</strong>. Both identifiers refer to the exact same physical movement. In ONE Record, the <code>TransportMovement</code> object should be created with the operating carrier's flight number as the primary identifier, and the code share partner's flight number(s) captured as <code>OtherIdentifier</code> entries.</p>
+<p><strong>Physical objects — multi-stakeholder identification</strong></p>
+<p>A <code>Piece</code> moving through the supply chain will often carry different identifiers assigned by different stakeholders: the freight forwarder may reference it by their internal handling unit number, the ground handler by a warehouse label, and the carrier by a ULD position reference. Rather than forcing a single canonical identifier, <code>OtherIdentifier</code> allows each of these to be recorded alongside the primary identifier, with a qualifier indicating the issuing party or identifier type.</p>
+<h3 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h3>
+<p>The <code>OtherIdentifier</code> object contains two properties:</p>
+<ul>
+<li><code>otherIdentifierType</code> — a qualifier describing the type or issuing party of the identifier (e.g. <code>"code-share"</code>, <code>"GHA-reference"</code>, <code>"warehouse-label"</code>)</li>
+<li><code>textualValue</code> — the identifier value itself</li>
+</ul>
+<p>This keeps the primary identifier of the parent object clean and semantically unambiguous, while preserving the additional references needed for cross-system traceability.</p>
 
 
 
