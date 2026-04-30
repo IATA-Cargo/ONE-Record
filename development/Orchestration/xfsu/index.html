@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#xfsu-purpose" class="md-skip">
+        <a href="#xfsu-mapping" class="md-skip">
           Skip to content
         </a>
       
@@ -2403,6 +2403,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#xfsu-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XFSU Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XFSU Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#xfsu-purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2412,9 +2424,9 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#xfsu-mapping" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#xfsu-mapping_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         XFSU Mapping
@@ -2460,10 +2472,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#status-updates-based-on-statusupdateevent" class="md-nav__link">
+  <a href="#statusupdateevent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status updates based on StatusUpdateEvent
+        StatusUpdateEvent
       
     </span>
   </a>
@@ -2478,6 +2490,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4008,6 +4025,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#xfsu-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XFSU Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XFSU Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#xfsu-purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4017,9 +4046,9 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#xfsu-mapping" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#xfsu-mapping_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         XFSU Mapping
@@ -4065,10 +4094,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#status-updates-based-on-statusupdateevent" class="md-nav__link">
+  <a href="#statusupdateevent" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Status updates based on StatusUpdateEvent
+        StatusUpdateEvent
       
     </span>
   </a>
@@ -4083,6 +4112,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4131,71 +4165,26 @@
 
   <h1>XFSU Mapping</h1>
 
-<h2 id="xfsu-purpose">XFSU Purpose<a class="headerlink" href="#xfsu-purpose" title="Permanent link">&para;</a></h2>
-<p>XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information. It is also used to share Shipment milestones by Cargo-iQ members.</p>
 <h2 id="xfsu-mapping">XFSU Mapping<a class="headerlink" href="#xfsu-mapping" title="Permanent link">&para;</a></h2>
-<p>FSU and XFSU messages are Shipment level messages, the entry point is the AWB number but it can also be used to provide status updates on part or split shipments. </p>
-<h3 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h3>
-<h4 id="shipment-level-status">Shipment-level status<a class="headerlink" href="#shipment-level-status" title="Permanent link">&para;</a></h4>
+<h3 id="xfsu-purpose">XFSU Purpose<a class="headerlink" href="#xfsu-purpose" title="Permanent link">&para;</a></h3>
+<p>XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information. It is also used to share Shipment milestones by Cargo-iQ members.</p>
+<h3 id="xfsu-mapping_1">XFSU Mapping<a class="headerlink" href="#xfsu-mapping_1" title="Permanent link">&para;</a></h3>
+<p>FSU and XFSU messages are Shipment level messages, the entry point is the AWB number but it can also be used to provide status updates on part or split shipments.</p>
+<h4 id="proposed-mechanism">Proposed mechanism<a class="headerlink" href="#proposed-mechanism" title="Permanent link">&para;</a></h4>
+<h5 id="shipment-level-status">Shipment-level status<a class="headerlink" href="#shipment-level-status" title="Permanent link">&para;</a></h5>
 <p>With messaging standards, status updates are at Shipment level, even when the update is about a split or part shipment. As a matter of fact it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.</p>
-<p>In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individial pieces within a shipment. This solves the issues with part or split shipments </p>
-<p><strong>For the sake of (X)FSU mapping with ONE Record</strong>, statuses are at Shipment level, meaning linked to a <code>Shipment</code> object. For that purpose we have added a new type of event, called <code>StatusUpdateEvent</code>.</p>
-<p>The <code>StatusUpdateEvent</code> is a subtype of <code>LogisticsEvent</code>, thus it inherits all of <code>LogisticsEvent</code> properties and has additional properties listed below:</p>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Data type</th>
-<th>Description / Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>partialPieceCount</td>
-<td>int</td>
-<td>Number of piece for the status, differs from total piece count of shipment in case of Part/Split shipment status</td>
-</tr>
-<tr>
-<td>partialWeight</td>
-<td>Value</td>
-<td>Weight of the pieces for the status, differs from total weight of shipment in case of Part/Split shipment status</td>
-</tr>
-<tr>
-<td>partialVolume</td>
-<td>Value</td>
-<td>Volume of the pieces for the status, differs from total weight of shipment in case of Part/Split shipment status</td>
-</tr>
-<tr>
-<td>transferredFrom</td>
-<td>Organization</td>
-<td>Idenfities the Organization transferring the shipment, especially for RCT and TFD statuses</td>
-</tr>
-<tr>
-<td>transferredTo</td>
-<td>Organization</td>
-<td>Identifies the Organization receiving the shipment, especially for TRM status</td>
-</tr>
-<tr>
-<td>notifiedOrganization</td>
-<td>Organization</td>
-<td>Identifies the Organization notified, especially for NFD status</td>
-</tr>
-<tr>
-<td>transportMovementReference</td>
-<td>TransportMovement</td>
-<td>Link to the TransportMovement to convey flight information when required</td>
-</tr>
-</tbody>
-</table>
+<p>In a fully ONE Record environment the information is shared at Piece level. It implies that all Pieces are properly identified and that statuses can be applied on individual pieces within a shipment. This solves the issues with part or split shipments.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is essential to note that these guidelines are only effective in the context of mapping between (X)FSU and ONE Record. ONE Record is by design Piece-centric and is ready for Piece level management.</p>
 </div>
-<h4 id="types-of-status-updates">Types of status updates<a class="headerlink" href="#types-of-status-updates" title="Permanent link">&para;</a></h4>
-<p>The mapping with ONE Record differs based on the kind of Status update. We identify 2 main use cases:</p>
+<p><strong>For the sake of (X)FSU mapping with ONE Record</strong>, statuses are at Shipment level, meaning linked to a <code>Shipment</code> object. For that purpose a new type of event has been introduced, called <code>StatusUpdateEvent</code>.</p>
+<h5 id="types-of-status-updates">Types of status updates<a class="headerlink" href="#types-of-status-updates" title="Permanent link">&para;</a></h5>
+<p>The mapping with ONE Record differs based on the kind of Status update. We identify 3 main use cases:</p>
 <ul>
-<li>Shipment status updates (e.g. RCS, FOH, etc.) are based on the usage of <code>StatusUpdateEvent</code> on the Shipment. </li>
-<li>Providing additional information such as Security or Customs details, reffered to as (X)FSU-OCI. These do not require usage of <code>LogisticsEvent</code> but the update of relevant obejcts.</li>
+<li><strong>Shipment status updates</strong> (e.g. RCS, FOH, etc.) use a <code>StatusUpdateEvent</code> linked to the <code>Shipment</code> object.</li>
+<li><strong>Booking status</strong> provided with (X)FSU-BKD is in fact a confirmation of Booking, not a real status. </li>
+<li><strong>Additional information</strong> such as Security or Customs details, referred to as (X)FSU-OCI, do not require a <code>LogisticsEvent</code> but rather the update of the relevant objects directly.</li>
 </ul>
 <table>
 <thead>
@@ -4207,143 +4196,259 @@
 </thead>
 <tbody>
 <tr>
-<td>DIS</td>
-<td>An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation, which is further clarified by the accompanying discrepancy code</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>ARR</td>
+<td>The consignment has arrived on a scheduled flight at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code>. Details of flight times on the <code>TransportMovement</code></td>
 </tr>
 <tr>
 <td>AWD</td>
-<td>The arrival documentation has been physically delivered to the consignee or the consignee’s agent on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>The arrival documentation has been physically delivered to the consignee or the consignee's agent on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>AWR</td>
 <td>The arrival documentation has been physically received from a scheduled flight at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>NFD</td>
-<td>The consignee or the consignee’s agent has been notified, on this date at this location, of the arrival of the consignment</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>ARR</td>
-<td>The consignment has arrived on a scheduled flight at this location</td>
-<td>StatusUpdateEvent on Shipment Details of Flight times on the TransportMovement</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>BKD</td>
 <td>The consignment has been booked for transport between these locations on this scheduled date and this flight</td>
-<td>StatusUpdateEvent on Shipment or Waybill</td>
+<td>The Booking confirmation goes through creation a <code>Booking</code> LO including a <code>BookingShipment</code> LO to hold the booking parameters pre-FWB. <code>StatusUpdateEvent</code> with BKD status on <code>Shipment</code> may be added when the <code>Waybill</code> and <code>Shipment</code> objects are created but it's not necessary</td>
 </tr>
 <tr>
 <td>CCD</td>
 <td>The consignment has been cleared by the Customs authorities on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>TRM</td>
-<td>The consignment has been manifested and/or will be physically transferred to this carrier at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>MAN</td>
-<td>The consignment has been manifested for this flight on this scheduled date for transport between these locations</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>DLV</td>
-<td>The consignment has been physically delivered to the consignee or the Consignee’s agent on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>DDL</td>
-<td>The consignment has been physically delivered to the consignee’s door on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>DPU</td>
-<td>The consignment has been physically picked up from the shipper’s door on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>RCF</td>
-<td>The consignment has been physically received from a given flight or surface transport of the given airline</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>RCS</td>
-<td>The consignment has been physically received from the shipper or the shipper’s agent and is considered by the carrier as ready for carriage on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>RCT</td>
-<td>The consignment has been physically received from this carrier on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>TFD</td>
-<td>The consignment has been physically transferred to this carrier on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
-</tr>
-<tr>
-<td>PRE</td>
-<td>The consignment has been prepared for loading on this flight for transport between these locations on this scheduled date</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>CRC</td>
 <td>The consignment has been reported to the Customs authorities on this date at this location</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
-<td>TGC</td>
-<td>The consignment has been transferred to Customs/Government control</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>DDL</td>
+<td>The consignment has been physically delivered to the consignee's door on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>DEP</td>
 <td>The consignment has physically departed this location on this scheduled date and flight for transport to the arrival location</td>
-<td>StatusUpdateEvent on Shipment Details of Flight times on the TransportMovement</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code>. Details of flight times on the <code>TransportMovement</code></td>
 </tr>
 <tr>
-<td>FOH</td>
-<td>The consignment is on hand on this date at this location pending “ready for carriage” determination</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>DIS</td>
+<td>An apparent error has occurred, on this date at this location, with the handling of the consignment or its documentation, which is further clarified by the accompanying discrepancy code</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>DLV</td>
+<td>The consignment has been physically delivered to the consignee or the consignee's agent on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>DOC</td>
-<td>Documents Received by Handling Party</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>Documents received by handling party</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>DPU</td>
+<td>The consignment has been physically picked up from the shipper's door on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>FIW</td>
-<td>Freight Into Warehouse Control</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>Freight into warehouse control</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>FOH</td>
+<td>The consignment is on hand on this date at this location pending "ready for carriage" determination</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
 <td>FOW</td>
-<td>Freight Out of Warehouse Control</td>
-<td>StatusUpdateEvent on Shipment</td>
+<td>Freight out of warehouse control</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>MAN</td>
+<td>The consignment has been manifested for this flight on this scheduled date for transport between these locations</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>NFD</td>
+<td>The consignee or the consignee's agent has been notified, on this date at this location, of the arrival of the consignment</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>OCI</td>
+<td>Other Customs Information</td>
+<td>Update of <code>CustomsInformation</code> or other relevant data property. See <a href="../orchestration-oci/">OCI Mapping detailed page</a></td>
 </tr>
 <tr>
 <td>OSI</td>
 <td>Other Service Information</td>
-<td></td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 <tr>
-<td>OCI</td>
-<td></td>
-<td>Update of SecurityDeclaration for eCSD information and CustomsInformation or other relevant data property for Customs information</td>
+<td>PRE</td>
+<td>The consignment has been prepared for loading on this flight for transport between these locations on this scheduled date</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>RCF</td>
+<td>The consignment has been physically received from a given flight or surface transport of the given airline</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>RCS</td>
+<td>The consignment has been physically received from the shipper or the shipper's agent and is considered by the carrier as ready for carriage on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>RCT</td>
+<td>The consignment has been physically received from this carrier on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>TFD</td>
+<td>The consignment has been physically transferred to this carrier on this date at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>TGC</td>
+<td>The consignment has been transferred to Customs/Government control</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
+</tr>
+<tr>
+<td>TRM</td>
+<td>The consignment has been manifested and/or will be physically transferred to this carrier at this location</td>
+<td><code>StatusUpdateEvent</code> on <code>Shipment</code></td>
 </tr>
 </tbody>
 </table>
-<h4 id="status-updates-based-on-statusupdateevent">Status updates based on <code>StatusUpdateEvent</code><a class="headerlink" href="#status-updates-based-on-statusupdateevent" title="Permanent link">&para;</a></h4>
-<p>As shown in the table above, most status updates can be made via a <code>StatusUpdateEvent</code> linked to <code>Shipment</code> object. In case of Split or Part shipment, the partial* properties need to be used.</p>
-<p>When flight details are required, the corresponding <code>TransportMovement</code> needs to be linked. It will contain information such as flight identifier and movement times.</p>
-<h4 id="usage-of-xfsu-for-oci-segment">Usage of (X)FSU for OCI segment<a class="headerlink" href="#usage-of-xfsu-for-oci-segment" title="Permanent link">&para;</a></h4>
-<p>With current messaging standards, (X)FSU is sometimes used to provide udpated Security information or Customs information. With ONE Record it is recommended to update the relevant objects instead (<code>SecurityDeclaration</code> or <code>CustomsInformation</code>). 
-More details can be found on the <a href="../orchestration-oci/">OCI Mapping detailed page</a></p>
+<h5 id="statusupdateevent">StatusUpdateEvent<a class="headerlink" href="#statusupdateevent" title="Permanent link">&para;</a></h5>
+<p>The <code>StatusUpdateEvent</code> is a subtype of <code>LogisticsEvent</code>, thus it inherits all of <code>LogisticsEvent</code> properties and adds specific properties to support FSU-level information at the Shipment level.</p>
+<p>As shown in the table above, most status updates can be made via a <code>StatusUpdateEvent</code> linked to the <code>Shipment</code> object. In case of split or part shipments, the <code>partial*</code> properties must be used.</p>
+<p>When flight details are required, the corresponding <code>TransportMovement</code> must be linked via <code>transportMovementReference</code>. It will contain information such as the flight identifier and movement times.</p>
+<p>The full list of properties of <code>StatusUpdateEvent</code> is as follows:</p>
+<p><strong>Inherited from <code>LogisticsEvent</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Data type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eventCode</td>
+<td>StatusCode</td>
+<td>The FSU/XFSU status code (e.g. RCS, DEP, ARR)</td>
+</tr>
+<tr>
+<td>eventFor</td>
+<td>Shipment</td>
+<td>Reference to the <code>Shipment</code> this event applies to — <code>StatusUpdateEvent</code> can only be attached to a <code>Shipment</code></td>
+</tr>
+<tr>
+<td>eventLocation</td>
+<td>Location</td>
+<td>Location where the status event occurred</td>
+</tr>
+<tr>
+<td>eventTimeType</td>
+<td>EventTimeType</td>
+<td>Qualifier for the event time (e.g. actual, planned)</td>
+</tr>
+<tr>
+<td>recordingActor</td>
+<td>Actor</td>
+<td>The individual actor who recorded the event</td>
+</tr>
+<tr>
+<td>recordingOrganization</td>
+<td>Organization</td>
+<td>The organization that recorded the event</td>
+</tr>
+<tr>
+<td>involvedParties</td>
+<td>Party</td>
+<td>Other parties involved in the event</td>
+</tr>
+<tr>
+<td>creationDate</td>
+<td>dateTime</td>
+<td>Date and time the event record was created</td>
+</tr>
+<tr>
+<td>eventDate</td>
+<td>dateTime</td>
+<td>Date and time the status event occurred</td>
+</tr>
+<tr>
+<td>eventName</td>
+<td>string</td>
+<td>Free-text name or label for the event</td>
+</tr>
+<tr>
+<td>partialEventIndicator</td>
+<td>boolean</td>
+<td>Indicates whether this event concerns only part of the shipment (part or split shipment scenario)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>New properties specific to <code>StatusUpdateEvent</code>:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Data type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>recordedPieceCount</td>
+<td>int</td>
+<td>Number of pieces concerned by this status update</td>
+</tr>
+<tr>
+<td>recordedWeight</td>
+<td>Value</td>
+<td>Weight of the pieces concerned by this status update</td>
+</tr>
+<tr>
+<td>recordedVolume</td>
+<td>Value</td>
+<td>Volume of the pieces concerned by this status update</td>
+</tr>
+<tr>
+<td>transferredFrom</td>
+<td>Organization</td>
+<td>Identifies the organization transferring the shipment — used in particular for RCT and TFD statuses</td>
+</tr>
+<tr>
+<td>transferredTo</td>
+<td>Organization</td>
+<td>Identifies the organization receiving the shipment — used in particular for TRM status</td>
+</tr>
+<tr>
+<td>notifiedOrganization</td>
+<td>Organization</td>
+<td>Identifies the organization that was notified — used in particular for NFD status</td>
+</tr>
+<tr>
+<td>transportMovementReference</td>
+<td>TransportMovement</td>
+<td>Link to the <code>TransportMovement</code> to convey flight information (flight number, movement times, etc.) when required</td>
+</tr>
+</tbody>
+</table>
+<h5 id="usage-of-xfsu-for-oci-segment">Usage of (X)FSU for OCI segment<a class="headerlink" href="#usage-of-xfsu-for-oci-segment" title="Permanent link">&para;</a></h5>
+<p>With current messaging standards, (X)FSU is sometimes used to provide updated Security information or Customs information. With ONE Record it is recommended to update the relevant objects directly (<code>SecurityDeclaration</code> or <code>CustomsInformation</code>) rather than using a <code>StatusUpdateEvent</code>.</p>
+<p>More details can be found on the <a href="../orchestration-oci/">OCI Mapping detailed page</a>.</p>
 
 
 
