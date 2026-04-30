@@ -1,16 +1,14 @@
-# XFSU Mapping
-
-## XFSU Purpose
+# XFSU Purpose
 
 XFSU message is used to provide a Shipment Status update, discrepancy details or sometimes to provide complementary Customs information. It is also used to share Shipment milestones by Cargo-iQ members.
 
-## XFSU Mapping
+# XFSU Mapping
 
 FSU and XFSU messages are Shipment level messages, the entry point is the AWB number but it can also be used to provide status updates on part or split shipments.
 
-### Proposed mechanism
+## Proposed mechanism
 
-#### Shipment-level status
+### Shipment-level status
 
 With messaging standards, status updates are at Shipment level, even when the update is about a split or part shipment. As a matter of fact it is currently very complicated to have proper Piece level status updates for two main reasons: From a technological point of view the messages (FSU/XFSU) can only convey Shipment level information and from an operations point of view very few stakeholders are fully capable of handling piece level information.
 
@@ -21,7 +19,7 @@ In a fully ONE Record environment the information is shared at Piece level. It i
 
 **For the sake of (X)FSU mapping with ONE Record**, statuses are at Shipment level, meaning linked to a `Shipment` object. For that purpose a new type of event has been introduced, called `StatusUpdateEvent`.
 
-#### Types of status updates
+### Types of status updates
 
 The mapping with ONE Record differs based on the kind of Status update. We identify 3 main use cases:
 
@@ -58,7 +56,7 @@ The mapping with ONE Record differs based on the kind of Status update. We ident
 | TGC | The consignment has been transferred to Customs/Government control | `StatusUpdateEvent` on `Shipment` |
 | TRM | The consignment has been manifested and/or will be physically transferred to this carrier at this location | `StatusUpdateEvent` on `Shipment` |
 
-#### StatusUpdateEvent
+### StatusUpdateEvent
 
 The `StatusUpdateEvent` is a subtype of `LogisticsEvent`, thus it inherits all of `LogisticsEvent` properties and adds specific properties to support FSU-level information at the Shipment level.
 
@@ -96,7 +94,7 @@ The full list of properties of `StatusUpdateEvent` is as follows:
 | notifiedOrganization | Organization | Identifies the organization that was notified — used in particular for NFD status |
 | transportMovementReference | TransportMovement | Link to the `TransportMovement` to convey flight information (flight number, movement times, etc.) when required |
 
-#### Usage of (X)FSU for OCI segment
+### Usage of (X)FSU for OCI segment
 
 With current messaging standards, (X)FSU is sometimes used to provide updated Security information or Customs information. With ONE Record it is recommended to update the relevant objects directly (`SecurityDeclaration` or `CustomsInformation`) rather than using a `StatusUpdateEvent`.
 
