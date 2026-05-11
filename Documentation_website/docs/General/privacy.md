@@ -1,5 +1,3 @@
-# Privacy and Cookies
-
 This website uses strictly necessary cookies to store user selected preferences (such as specification version and display settings). 
 
 These cookies are required to provide the website functionality requested by the user.
