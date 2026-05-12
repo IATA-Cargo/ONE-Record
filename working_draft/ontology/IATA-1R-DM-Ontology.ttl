@@ -10,97 +10,54 @@
 @base <https://onerecord.iata.org/ns/cargo#> .
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
-                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.2.1> ;
+                                       owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.3> ;
                                        owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/refs/heads/master/working_draft/ontology/IATA-1R-CL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "28-01-2026" ;
+                                       terms:modified "12-05-2026" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
-Version 3.2.1
+Version 3.3 RC1
 
 Additions:
-- Added cityName to Address (#287)
-- Added open AccountType code list (with FF, CONSIGNEE, CONSIGNOR as NamedIndividuals) (#277)
-- Added AccountNumber object (#277)
-- Added textualValue to AccountNumber (#277)
-- Added new accountNumberType property (#277)
-- Added new accountNumbers property to Party (#277)
-- Added HandlingService object (#271)
-- Added new serviceProvider property to HandlingService (#271)
-- Added new serviceRequestor property to HandlingService (#271)
-- Added new serviceForWaybills property to HandlingService (#271)
-- Added new handlingServiceFor property to HandlingService (#271)
-- Added involvedParties to LogisticsEvent (#301)
-- Added property ociLineNumber (#296)
-- Added ociLineNumber to CustomsInformation (#296)
-- Added property declarationPlace (#316)
-- Added property declarationDate (#316)
-- Added declarationPlace to DgDeclaration (#316)
-- Added declarationDate to DgDeclaration (#316)
-- Added shippingRefNo to DgDeclaration (#316)
-- Added departureLocation to DgDeclaration (#316)
-- Added arrivalLocation to DgDeclaration (#316)
-- Added carrier to Booking (#302)
-- Added carrierProduct to Booking (#302)
-- Added transportLegs to Booking (#302)
-- Added stationRemarks to Booking (#302)
-- Added bookingTimes to Booking (#302)
-- Added additionalInformation to Booking (#302)
-- Added bookingShipmentDetails to Booking (#302)
-- Added shippingInfo to Booking (#319)
-- Added shippingRefNo to Booking (#319)
-- Added departureLocation to Booking (#319)
-- Added arrivalLocation to Booking (#319)
-- Added chargeableWeight to BookingShipment (#319)
-- Added totalGrossWeight to BookingShipment (#319)
-- Added totalDimensions to BookingShipment (#319)
-- Added customsInformation to BookingShipment (#319)
-- Added totalVolume to PieceGroup (#319)
-- Added operatingTransportMeans to TransportLeg (#319)
-- Added rateGrossWeight property (#303)
-- Added rateVolume property (#303)
-- Added rateSlac property (#303)
-- Added lineItemPackages property (#303)
-- Added packageGrossWeight property (#303)
-- Added packageVolume property (#303)
-- Added packageSlac property (#303)
-- Added LineItemPackage object (#303)
-- Added rateGrossWeight to WaybillLineItem (#303)
-
-- Added rateVolume to WaybillLineItem (#303)
-- Added rateSlac to WaybillLineItem (#303)
-- Added lineItemPackages to WaybillLineItem (#303)
-- Added packageGrossWeight to LineItemPackage (#303)
-- Added packageVolume to LineItemPackage (#303)
-- Added packageSlac to LineItemPackage (#303)
-- Added bookingSegment property (#321)
-- Added spaceAllocationCode property (#321)
-- Added allotmentCode property (#321)
-- Added BookingSegment object (#321)
-- Added bookingSegments to Booking (#321)
-- Added spaceAllocationCode to BookingSegment (#321)
-- Added allotmentCode to BookingSegment (#321)
-- Added pieceGroups to BookingSegment (#321)
-- Added transportLegs to BookingSegment (#321)
 - Added securityDeclarations to Shipment (#344 & #346)
 - Added issuedForShipment to SecurityDeclaration (#344 & #346)
+- Added totalVolume to Shipment (#347)
+- Added contactDetails to Organization (#347)
+- Added agentReference to Waybill(#347)
+- Added otherIdentifiers to Waybill (#347 #353)
+- Added StatusUpdateEvent as subclass of LogisticsEvent (#350)
+- Added recordedPieceCount to StatusUpdateEvent (#350)
+- Added recordedWeight to StatusUpdateEvent (#350)
+- Added recordedVolume to StatusUpdateEvent (#350)
+- Added notifiedOrganization to StatusUpdateEvent (#350)
+- Added transferredTo to StatusUpdateEvent (#350)
+- Added transferredFrom to StatusUpdateEvent (#350)
+- Added notifiedOrganization to StatusUpdateEvent (#350)
+- Added restriction for eventFor to Shipment to StatusUpdateEvent (#350)
+- Added restriction for eventCode to StatusCode to StatusUpdateEvent (#350)
+- Added transportMovementReference to StatusUpdateEvent (#350)
+- Added valuationCharge to Waybill (#351 #364)
+- Added otherIdentifiers to LogisticsActivity (#353)
+- Added otherIdentifiers to PhysicalLogisticsObject (#353)
+- Added regulatedEntitiesReceivedFrom to SecurityDeclaration (#361)
 
 Removals:
-- Removed pieceReferences from WaybillLineItem (#303)
+- Deprecated totalDimensions (#347)
+- Deprecated receivedFrom (#361)
 
 Changes:
 
-Visualization
-:
+Visualization:
 
-Bugfixes
-:"""@en ;
+Bugfixes:
+- Fixed vis_element datatype from string to literal
+- Fixed erratic owl:comment axioms to rdfs:comment for :AccountNumber and :handlingServiceFor"""@en ;
                                        rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI ;
                                        rdfs:label "ONE Record Ontology"@en ;
-                                       owl:versionInfo "3.2.1"@en .
+                                       owl:versionInfo "3.3.0 RC1"@en .
 
 #################################################################
 #    Annotation properties
@@ -142,7 +99,7 @@ owl:minCardinality rdf:type owl:AnnotationProperty .
 :vis_element rdf:type owl:AnnotationProperty ;
              rdfs:comment "Annotation for ontology visualizer. Indicates what part of the ontology the class is a part of (air core ontology, distribution, ...) to colorize accordingly."@en ;
              rdfs:label "vis_element"@en ;
-             rdfs:range xsd:string .
+             rdfs:range rdfs:Literal .
 
 
 ###  https://onerecord.iata.org/ns/cargo#vis_hidden
@@ -1276,8 +1233,8 @@ owl:thing rdf:type rdfs:Datatype .
 ###  https://onerecord.iata.org/ns/cargo#handlingServiceFor
 :handlingServiceFor rdf:type owl:ObjectProperty ;
                     rdfs:range :PhysicalLogisticsObject ;
-                    rdfs:label "handlingServiceFor" ;
-                    owl:comment "Reference to the physical objects this Handling Service is performed on. To be used if a Service is performed for a Location, TransportMeans, ULD or specific Piece or set of" .
+                    rdfs:comment "Reference to the physical objects this Handling Service is performed on. To be used if a Service is performed for a Location, TransportMeans, ULD or specific Piece or set of" ;
+                    rdfs:label "handlingServiceFor" .
 
 
 ###  https://onerecord.iata.org/ns/cargo#height
@@ -1650,6 +1607,13 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:comment "The total net weight of dangerous goods transported of this line item. For air transport the value must be the volume or mass in each package."@en ;
                   rdfs:label "netWeightMeasure"@en ;
                   owl:comment "Domain :ItemDg"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#notifiedOrganization
+:notifiedOrganization rdf:type owl:ObjectProperty ;
+                      rdfs:range :Organization ;
+                      rdfs:comment "Reference to the organization that was notified as part of a status update event"@en ;
+                      rdfs:label "notifiedOrganization"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#odlnCode
@@ -2126,7 +2090,8 @@ owl:thing rdf:type rdfs:Datatype .
               rdfs:range :RegulatedEntity ;
               rdfs:comment "Regulated entity that tendered the consignment"@en ;
               rdfs:label "receivedFrom"@en ;
-              owl:comment "Domain :SecurityDeclaration"@en .
+              owl:comment "Domain :SecurityDeclaration"@en ;
+              owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#recordedGeolocation
@@ -2135,6 +2100,20 @@ owl:thing rdf:type rdfs:Datatype .
                      rdfs:comment "Reference to the Geolocation recorded of the measurement"@en ;
                      rdfs:label "recordedGeolocation"@en ;
                      owl:comment "Domain :Measurement"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#recordedVolume
+:recordedVolume rdf:type owl:ObjectProperty ;
+                rdfs:range :Value ;
+                rdfs:comment "Information about the recorded volume of a status update event"@en ;
+                rdfs:label "recordedVolume"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#recordedWeight
+:recordedWeight rdf:type owl:ObjectProperty ;
+                rdfs:range :Value ;
+                rdfs:comment "Information of the recorded weight of a status update event"@en ;
+                rdfs:label "recordedWeight"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#recordingActor
@@ -2179,6 +2158,13 @@ owl:thing rdf:type rdfs:Datatype .
             rdfs:comment "Region/ State / Department. Refer ISO 3166-2"@en ;
             rdfs:label "regionCode"@en ;
             owl:comment "Domain :Address"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#regulatedEntitiesReceivedFrom
+:regulatedEntitiesReceivedFrom rdf:type owl:ObjectProperty ;
+                               rdfs:range :RegulatedEntity ;
+                               rdfs:comment "References to the regulated entities the shipment or piece was received from"@en ;
+                               rdfs:label "regulatedEntitiesReceivedFrom"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#regulatedEntityAcceptor
@@ -2538,7 +2524,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :Dimensions ;
                  rdfs:comment "Dimensions of the whole shipment"@en ;
                  rdfs:label "totalDimensions"@en ;
-                 owl:comment "Domain owl:Thing"@en .
+                 owl:comment "Domain owl:Thing"@en ;
+                 owl:deprecated "true"^^xsd:boolean .
 
 
 ###  https://onerecord.iata.org/ns/cargo#totalGrossWeight
@@ -2574,6 +2561,20 @@ owl:thing rdf:type rdfs:Datatype .
                         owl:comment "Domain :LiveAnimalsEpermit"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#transferredFrom
+:transferredFrom rdf:type owl:ObjectProperty ;
+                 rdfs:range :Organization ;
+                 rdfs:comment "Reference to the organization the shipment was transferred from in a status update event"@en ;
+                 rdfs:label "transferredFrom"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#transferredTo
+:transferredTo rdf:type owl:ObjectProperty ;
+               rdfs:range :Organization ;
+               rdfs:comment "Reference to the organization the shipment was transferred to in a status update event"@en ;
+               rdfs:label "transferredTo"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#transportContractTypeCode
 :transportContractTypeCode rdf:type owl:ObjectProperty ;
                            rdfs:range :CodeListElement ;
@@ -2604,6 +2605,13 @@ owl:thing rdf:type rdfs:Datatype .
                     rdfs:comment "Type of transport means, e.g. 744, RFS"@en ;
                     rdfs:label "transportMeansType"@en ;
                     owl:comment "Domain :TransportLegs"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#transportMovementReference
+:transportMovementReference rdf:type owl:ObjectProperty ;
+                            rdfs:range :TransportMovement ;
+                            rdfs:comment "Reference to the transport movement a status update event refers to"@en ;
+                            rdfs:label "transportMovementReference"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#transportOrganization
@@ -2752,6 +2760,13 @@ owl:thing rdf:type rdfs:Datatype .
               rdfs:label "usedTemplate"@en ;
               owl:comment "Domain :Check"@en ;
               :vis_inverseProperty :usedInCheck .
+
+
+###  https://onerecord.iata.org/ns/cargo#valuationCharge
+:valuationCharge rdf:type owl:ObjectProperty ;
+                 rdfs:range :CurrencyValue ;
+                 rdfs:comment "Information about the valuation charge (AWB box 25A / 25B)"@en ;
+                 rdfs:label "valuationCharge"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#vehicleType
@@ -2936,6 +2951,13 @@ owl:thing rdf:type rdfs:Datatype .
                                rdfs:comment "Any additional information that may be required by an ICAO Member State"@en ;
                                rdfs:label "additionalSecurityInformation"@en ;
                                owl:comment "Domain :SecurityDeclaration"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#agentReference
+:agentReference rdf:type owl:DatatypeProperty ;
+                rdfs:range xsd:string ;
+                rdfs:comment "String holding the agent or freight forwarder reference of an AWB"@en ;
+                rdfs:label "agentReference"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#aircraftLimitationInformation
@@ -4244,6 +4266,13 @@ owl:thing rdf:type rdfs:Datatype .
                        owl:comment "Domain :Adjustments"@en .
 
 
+###  https://onerecord.iata.org/ns/cargo#recordedPieceCount
+:recordedPieceCount rdf:type owl:DatatypeProperty ;
+                    rdfs:range xsd:integer ;
+                    rdfs:comment "Integer holding the recorded piece count of a status update event. Mandatory if the status update event is partial."@en ;
+                    rdfs:label "recordedPieceCount"@en .
+
+
 ###  https://onerecord.iata.org/ns/cargo#regulatedEntityExpiryDate
 :regulatedEntityExpiryDate rdf:type owl:DatatypeProperty ;
                            rdfs:range xsd:dateTime ;
@@ -4797,8 +4826,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  owl:onProperty :textualValue ;
                                  owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                ] ;
+               rdfs:comment "Account type and number of a Party" ;
                rdfs:label "AccountNumber" ;
-               owl:comment "Account type and number of a Party" ;
                :vis_element "Embedded" .
 
 
@@ -7573,6 +7602,10 @@ owl:thing rdf:type rdfs:Datatype .
                                      owl:allValuesFrom :ExecutionStatus
                                    ] ,
                                    [ rdf:type owl:Restriction ;
+                                     owl:onProperty :otherIdentifiers ;
+                                     owl:allValuesFrom :OtherIdentifier
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
                                      owl:onProperty :servedServices ;
                                      owl:allValuesFrom :LogisticsService
                                    ] ,
@@ -7913,6 +7946,10 @@ owl:thing rdf:type rdfs:Datatype .
                                 owl:allValuesFrom :Location
                               ] ,
                               [ rdf:type owl:Restriction ;
+                                owl:onProperty :contactDetails ;
+                                owl:allValuesFrom :ContactDetail
+                              ] ,
+                              [ rdf:type owl:Restriction ;
                                 owl:onProperty :contactPersons ;
                                 owl:allValuesFrom :Actor
                               ] ,
@@ -8192,6 +8229,10 @@ owl:thing rdf:type rdfs:Datatype .
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty :involvedInActions ;
                                            owl:allValuesFrom :LogisticsAction
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :otherIdentifiers ;
+                                           owl:allValuesFrom :OtherIdentifier
                                          ] ;
                          rdfs:comment "Superclass: PhysicalLogisticObjects represent the digital twin of an object in the logistics supply chain that physically exist"@en ;
                          rdfs:label "PhysicalLogisticsObject"@en ;
@@ -9135,6 +9176,10 @@ owl:thing rdf:type rdfs:Datatype .
                                        owl:allValuesFrom :RegulatedEntity
                                      ] ,
                                      [ rdf:type owl:Restriction ;
+                                       owl:onProperty :regulatedEntitiesReceivedFrom ;
+                                       owl:allValuesFrom :RegulatedEntity
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty :regulatedEntityAcceptor ;
                                        owl:allValuesFrom :RegulatedEntity
                                      ] ,
@@ -9291,6 +9336,10 @@ owl:thing rdf:type rdfs:Datatype .
                             owl:allValuesFrom :Value
                           ] ,
                           [ rdf:type owl:Restriction ;
+                            owl:onProperty :totalVolume ;
+                            owl:allValuesFrom :Value
+                          ] ,
+                          [ rdf:type owl:Restriction ;
                             owl:onProperty :waybill ;
                             owl:allValuesFrom :Waybill
                           ] ,
@@ -9304,6 +9353,10 @@ owl:thing rdf:type rdfs:Datatype .
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :totalGrossWeight ;
+                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :totalVolume ;
                             owl:maxCardinality "1"^^xsd:nonNegativeInteger
                           ] ,
                           [ rdf:type owl:Restriction ;
@@ -9348,6 +9401,78 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:comment "StationRemarks details"@en ;
                 rdfs:label "StationRemarks"@en ;
                 :vis_element "Embedded"@en .
+
+
+###  https://onerecord.iata.org/ns/cargo#StatusUpdateEvent
+:StatusUpdateEvent rdf:type owl:Class ;
+                   rdfs:subClassOf :LogisticsEvent ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :eventCode ;
+                                     owl:allValuesFrom codes:StatusCode
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :eventFor ;
+                                     owl:allValuesFrom :Shipment
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :notifiedOrganization ;
+                                     owl:allValuesFrom :Organization
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedVolume ;
+                                     owl:allValuesFrom :Value
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedWeight ;
+                                     owl:allValuesFrom :Value
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transferredFrom ;
+                                     owl:allValuesFrom :Organization
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transferredTo ;
+                                     owl:allValuesFrom :Organization
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transportMovementReference ;
+                                     owl:allValuesFrom :TransportMovement
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :notifiedOrganization ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedVolume ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedWeight ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transferredFrom ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transferredTo ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :transportMovementReference ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedPieceCount ;
+                                     owl:allValuesFrom xsd:integer
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :recordedPieceCount ;
+                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                                   ] ;
+                   rdfs:comment "Dedicated event for transmitting status update information on shipment level for transition period"@en ;
+                   rdfs:label "StatusUpdateEvent"@en ;
+                   :vis_element "Event"^^rdfs:Literal .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Storage
@@ -10108,6 +10233,10 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:allValuesFrom codes:PrepaidCollectIndicator
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :otherIdentifiers ;
+                           owl:allValuesFrom :OtherIdentifier
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :referredBookingOption ;
                            owl:allValuesFrom :Booking
                          ] ,
@@ -10121,6 +10250,10 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :taxAmount ;
+                           owl:allValuesFrom :CurrencyValue
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :valuationCharge ;
                            owl:allValuesFrom :CurrencyValue
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -10192,6 +10325,10 @@ owl:thing rdf:type rdfs:Datatype .
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
+                           owl:onProperty :valuationCharge ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
                            owl:onProperty :waybillType ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
@@ -10201,6 +10338,10 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :accountingInformation ;
+                           owl:allValuesFrom xsd:string
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :agentReference ;
                            owl:allValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -10241,6 +10382,10 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :accountingInformation ;
+                           owl:maxCardinality "1"^^xsd:nonNegativeInteger
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :agentReference ;
                            owl:maxCardinality "1"^^xsd:nonNegativeInteger
                          ] ,
                          [ rdf:type owl:Restriction ;
