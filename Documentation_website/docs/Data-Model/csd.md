@@ -41,7 +41,7 @@ Implementing the e-CSD in ONE Record involves several interconnected Logistics O
 A key concept to understand is that `RegulatedEntity` is reused across **three different boxes** of the e-CSD:
 
 - **Box 1** — the entity that originally **issued** the security status (`regulatedEntityIssuer`)
-- **Box 8** — the entity from which the consignment was **received** (`receivedFrom`)
+- **Box 8** — the entity from which the consignment was **received** (`regulatedEntityreceivedFrom`)
 - **Box 14** — the entity that **accepts custody** and the security status (`regulatedEntityAcceptor`)
 
 Each of these is a separate instance of `RegulatedEntity`, but they share the same structure: `regulatedEntityCategory` (RA, KC, or AO), `regulatedEntityIdentifier`, `regulatedEntityExpiryDate`, and a country derived from the linked `Organization`.
