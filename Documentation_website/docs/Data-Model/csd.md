@@ -33,7 +33,7 @@ Implementing the e-CSD in ONE Record involves several interconnected Logistics O
 | `Shipment` | The consignment to which the security declaration applies; links to `SecurityDeclaration` via the `securityDeclaration` property |
 | `Waybill` | Provides the Unique Consignment Identifier (Box 2), origin (Box 4), and destination (Box 5) |
 | `RegulatedEntity` | Reusable object representing an RA, KC, or AO; used for the issuer (Box 1), the entity the cargo was received from (Box 8), and the acceptor (Box 14) |
-| `Organization` | Used to derive the country of the `RegulatedEntity` via `basedAtLocation` |
+| `Organization` | Used to identify more in details a `RegualtedEntity` and provide details on name and contact persons for instance |
 | `Person` | Identifies the individual who issued the security status (Box 12) |
 
 ## The `RegulatedEntity` object — used in three places
