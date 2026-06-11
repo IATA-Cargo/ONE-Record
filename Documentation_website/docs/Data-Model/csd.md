@@ -50,7 +50,23 @@ Each of these is a separate instance of `RegulatedEntity`, but they share the sa
 
 The `regulatedEntityIdentifier` is the unique identifier issued by the relevant Appropriate Authority within the State whereby the security status was issued, the way it is filled in is slightly different from messaging standards.
 
-The country is expected and is normally part of the identifier itself, e.g. `DE/H/02082-01`. In messaging standards, most specifically in the OCI segment, the country has always been separated from the identifier itself as the Country Code is one the OCI part.
+The country is expected and is normally part of the identifier itself, e.g. `DE/H/02082-01`. In messaging standards, most specifically in the OCI segment, the country has always been separated from the identifier itself as the Country Code is one the OCI part. The `/H` is not required as it is used to indicate the type of Regulated Entity. See below example:
+
+Using CIMP:
+
+```
+[...]
+DE//KC/02082-01
+[...]
+```
+
+Becomes with ONE Record:
+
+```json
+  "@id": "https://1r.example.com/logistics-objects/regulated-entity-de-02082-01",
+  "@type": "cargo:RegulatedEntity",
+  "cargo:regulatedEntityIdentifier": "DE/02082-01"
+``` 
 
 ### `regulatedEntityExpiryDate`
 
