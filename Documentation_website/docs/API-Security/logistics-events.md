@@ -308,7 +308,7 @@ The following HTTP query parameters MUST be supported:
 
 | Query parameter               | Description                                                                           | Valid values                       |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------- |
-| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
+| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>https://onerecord.iata.org/ns/code-lists/StatusCode#FOH or FOH</li><li>https://onerecord.iata.org/ns/code-lists/StatusCode#DEP or DEP</li></ul>  |
 | **created-after** (optional)  | Filters the logistics events to only include those created after the specified timestamp                              | <ul><li>20190926T075830Z</li></ul> |
 | **created-before** (optional) | Filters the logistics events to only include those created before the specified timestamp                             | <ul><li>20190926T075830Z</li></ul> |
 | **occurred-after** (optional) | Filters the logistics events to only include those that occurred after the specified timestamp                        | <ul><li>20190926T075830Z</li></ul> |
@@ -492,7 +492,7 @@ The following HTTP query parameters MUST be supported:
 
 | Query parameter               | Description                                                                           | Valid values                       |
 | ----------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------- |
-| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>FOH</li><li>DEP</li></ul>  |
+| **event-code** (optional)     | Optional parameter that can be used to filter the logistics events by event code, the values MUST be comma separated | <ul><li>https://onerecord.iata.org/ns/code-lists/StatusCode#FOH or FOH</li><li>https://onerecord.iata.org/ns/code-lists/StatusCode#DEP or DEP</li></ul>  |
 | **created-after** (optional)  | Filters the logistics events to only include those created after the specified timestamp                              | <ul><li>20190926T075830Z</li></ul> |
 | **created-before** (optional) | Filters the logistics events to only include those created before the specified timestamp                             | <ul><li>20190926T075830Z</li></ul> |
 | **occurred-after** (optional) | Filters the logistics events to only include those that occurred after the specified timestamp                        | <ul><li>20190926T075830Z</li></ul> |
