@@ -210,6 +210,7 @@ The following HTTP status codes MUST be supported:
 | **400**  | The request is invalid	                                                  | Error |
 | **401**  | Not authenticated                                                        | Error |
 | **403**  | Not authorized to retrieve the Subscription Information                  | Error |
+| **422**  | Unprocessable content. The request is syntactically valid, but the server cannot process it because one or more business rules or validation constraints were not satisfied.                  | Error |
 | **500**  | Internal Server Error                                                    | Error |
 
 
@@ -378,6 +379,7 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated                                            | Error            |
 | **403** | Not authorized                                               | Error            |
 | **415** | Unsupported Content Type                                     | Error            |
+| **422**  | Unprocessable content. The request is syntactically valid, but the server cannot process it because one or more business rules or validation constraints were not satisfied.                  | Error |
 | **500** | Internal Server Error                                        | Error            |
 
 ## Security
