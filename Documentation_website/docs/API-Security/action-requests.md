@@ -397,7 +397,7 @@ This API action must be used to revoke an Action Request, which can only be done
 ```
 ## Request
 
-Revoking an Action Rquest does not require any mandatory HTTP headers.
+Revoking an Action Request does not require any mandatory HTTP headers.
 
 ## Response
 
