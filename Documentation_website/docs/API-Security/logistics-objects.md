@@ -8,7 +8,7 @@ At creation:
 
 - The `revision` and `latestRevision` properties must be set to 1 by default.
 - The `lastModified` property must be set to the current timestamp at the time of creation.
-- The `type` of the Logistics Object must be assigned according to the `@type` value provided in the payload.
+- The Logistics Object type must be set based on the `@type` value included in the payload. The `type` header should reflect the most specific class derived from the `@type` information provided.
 - The `Content-Type` must be set to the `content-type` provided in the header.
 
 The JSON-LD payload in the `POST` request body must not include the `@graph` property, as its presence can complicate the identification of the root object.
@@ -44,7 +44,7 @@ A successful request MUST return a `HTTP/1.1 201 Created` status code and the fo
 | Header | Description     | Examples          |
 | --------------- |  ------------- |  ----------------------------------- |
 | **Location**    | The URI of the newly created Logistics Object           | https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c |
-| **Type**        | The type of the newly created Logistics Object as a URI | https://onerecord.iata.org/ns/cargo#Piece                    |
+| **Type**        | The most specific type of the newly created Logistics Object as a URI.  | https://onerecord.iata.org/ns/cargo#Piece                    |
 
 The following HTTP status codes MUST be supported:
 
