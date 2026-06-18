@@ -411,6 +411,7 @@ The following HTTP status codes MUST be supported:
 | **401** | Not authenticated                                           | Error            |
 | **403** | Not authorized to update the Action Request                 | Error            |
 | **404** | Action Request not found                                    | Error            |
+| **422** | Unprocessable request, when the server understands the revoke request but cannot process it because the action request is not in a revocable state. | Error            |
 | **500** | Internal Server Error                                       | Error            |
 
 
