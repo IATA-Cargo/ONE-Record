@@ -62,7 +62,8 @@ classDiagram
         + hasPermission[]: Permission [1..*]                
         + isRequestedFor[]: Organization [1..*]
         + notifyRequestStatusChange: xsd:boolean = FALSE
-        + hasLogisticsObject[]: LogisticsObject [1..*]        
+        + hasLogisticsObject[]: LogisticsObject [1..*]      
+        + expiresAt: xsd:dateTime [0..1]       
     }
 
     AccessDelegation "1" --> "1..*" Permission   

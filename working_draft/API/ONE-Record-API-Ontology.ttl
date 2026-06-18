@@ -279,7 +279,11 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 
 ###  https://onerecord.iata.org/ns/api#expiresAt
 :expiresAt rdf:type owl:DatatypeProperty ;
-           rdfs:domain :Subscription ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :AccessDelegation
+                                      :Subscription
+                                    )
+                      ] ;
            rdfs:range xsd:dateTime ;
            rdfs:comment "Expiry date as date time of the subscription information that supports caching but does not require the ONE Record client to store the datetime when the Subscription object was received; if not given: the information does not expire"@en ;
            rdfs:label "Expires at"@en .
@@ -575,6 +579,15 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                                     owl:onProperty :hasDescription ;
                                     owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                     owl:onDataRange xsd:string
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :expiresAt ;
+                                    owl:allValuesFrom xsd:dateTime
+                                  ] ,                              
+							                    [ rdf:type owl:Restriction ;
+                                    owl:onProperty :expiresAt ;
+                                    owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onDataRange xsd:dateTime
                                   ] ;
                   rdfs:comment "Access to a Logistics Object delegated to an Organization"@en ;
                   rdfs:label "Access Delegation"@en .
