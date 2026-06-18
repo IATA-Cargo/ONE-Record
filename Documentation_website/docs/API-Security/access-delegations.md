@@ -60,7 +60,7 @@ classDiagram
     class AccessDelegation{
         + hasDescription: xsd:string [0..1]
         + hasPermission[]: Permission [1..*]                
-        + isRequestedFor[]: Organization [1..*]
+        + isRequestedFor[]: Organization 
         + notifyRequestStatusChange: xsd:boolean = FALSE
         + hasLogisticsObject[]: LogisticsObject [1..*]      
         + expiresAt: xsd:dateTime [0..1]       
