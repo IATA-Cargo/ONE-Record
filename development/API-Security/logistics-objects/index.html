@@ -5081,7 +5081,7 @@ A list of all possible data classes that inherit from Logistics Object can be fo
 <ul>
 <li>The <code>revision</code> and <code>latestRevision</code> properties must be set to 1 by default.</li>
 <li>The <code>lastModified</code> property must be set to the current timestamp at the time of creation.</li>
-<li>The <code>type</code> of the Logistics Object must be assigned according to the <code>@type</code> value provided in the payload.</li>
+<li>The Logistics Object type must be set based on the <code>@type</code> value included in the payload. The <code>type</code> header should reflect the most specific class derived from the <code>@type</code> information provided.</li>
 <li>The <code>Content-Type</code> must be set to the <code>content-type</code> provided in the header.</li>
 </ul>
 <p>The JSON-LD payload in the <code>POST</code> request body must not include the <code>@graph</code> property, as its presence can complicate the identification of the root object.</p>
@@ -5137,7 +5137,7 @@ However, it is important that the Logistics Object is created with a <a href="..
 </tr>
 <tr>
 <td><strong>Type</strong></td>
-<td>The type of the newly created Logistics Object as a URI</td>
+<td>The most specific type of the newly created Logistics Object as a URI.</td>
 <td>https://onerecord.iata.org/ns/cargo#Piece</td>
 </tr>
 </tbody>
