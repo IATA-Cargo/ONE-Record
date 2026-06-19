@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add HasSeverity in Error
-
+- 
 
 
 
@@ -20,7 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - HasSeverity as new property of Error
 - Severity class as named individuals with value ERROR and WARNING
-
+- Add `hasRequestStatusSince` to `ActionRequest` to indicate since when the current request status applies.
+- Add `hasRequestStatusHistory` to optionally expose the status history of an `ActionRequest`.
+- Add `RequestStatusEntry` class to contain a specific request status. Please check the Class diagram for more information about this class
+- Add `expiresAt` to `AccessDelegationRequest`
 
 # 2.2.0
 

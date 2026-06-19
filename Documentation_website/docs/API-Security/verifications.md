@@ -94,6 +94,8 @@ The properties and relationships to other data classes are visualized in the fol
     }
     Verification "1" --> "1" LogisticsObject
     Verification "1" --> "1..*" Error
+
+    Error "1" --> "0..1" Severity
 ```
 
 ## Response

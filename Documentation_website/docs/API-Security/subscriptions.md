@@ -134,7 +134,7 @@ It is the responsibility of the publisher to check the response, i.e. to compare
 The publisher uses the response to store it in a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest), which can later be referenced in Notifications (cf. [isTriggeredBy](https://onerecord.iata.org/ns/api#isTriggeredBy) property in [Notification](https://onerecord.iata.org/ns/api#Notification)) and used to revoke the subscription.
 For example, the URI of the newly created SubscriptionRequest could be [https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee](https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaee)
 
-The publisher MUST ensure that the subscriber gets sufficient access to the resulted [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) to request the status of the [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) and can revoke [AccessDelegationRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) (see also section about [revoking Action Requests](./action-requests.md#revoke-action-request)
+The publisher MUST ensure that the subscriber gets sufficient access to the resulted [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest) to retrieve its status and revoke it if needed. For more information, see [revoking Action Requests](./action-requests.md#revoke-action-request)
 
 Here an example of a [SubscriptionRequest](https://onerecord.iata.org/ns/api#SubscriptionRequest):
 

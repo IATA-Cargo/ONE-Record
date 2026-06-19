@@ -21,6 +21,9 @@
           "@type": "api:Error",
           "@id": "https://1r.example.com/action-requests/6b948f9b-b812-46ed-be39-4501453da99b/errors/98843671-388c-53c6-ba79-7be266f61aa0",
           "api:hasTitle": "LogisticsObject revision does not match",
+          "api:hasSeverity": {
+            "@id": "api:ERROR"
+          },
           "api:hasErrorDetail": [
             {
               "@type": "api:ErrorDetail",
@@ -34,12 +37,29 @@
       ],
       "api:isRequestedAt": {
         "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
-        "@value": "2020-09-07T11:55:45.768Z"
+        "@value": "2026-09-07T11:55:45.768Z"
       },
       "api:isRequestedBy": "https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda",
       "api:hasRequestStatus": {
         "@id": "api:REQUEST_REJECTED"
-      }
+      },
+      "api:hasRequestStatusSince": {
+        "@value": "2026-09-19T08:30:00Z",
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+      },
+      "api:hasRequestStatusHistory": [
+        {   
+          "@id": "internal:157f40e9-9877-449f-86ed-82bad88893d0",
+          "@type": "api:RequestStatusEntry",     
+          "api:hasRequestStatus": {
+            "@id": "api:REQUEST_PENDING"
+          },
+          "api:hasRequestStatusSince": {
+            "@value": "2026-09-07T11:55:45.768Z",
+            "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+          }
+        }
+      ]
     }
   ],
   "api:hasLatestRevision": {

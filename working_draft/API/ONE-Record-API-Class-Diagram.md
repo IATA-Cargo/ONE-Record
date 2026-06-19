@@ -28,14 +28,17 @@ classDiagram
     AccessDelegation "1" --> "1..*" Organization: requestedFor
     AccessDelegation "1" --> "1..*" LogisticsObject
 
+
     class ActionRequest {
         <<Abstract>>         
         + hasError[]: Error [*]
         + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization [0..1]
+        + isRevokedAt: xsd:dateTime [0..1] 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + isRevokedAt: xsd:dateTime [0..1]                 
+        + hasRequestStatusSince: xsd:dateTime
+        + hasRequestStatusHistory []: RequestStatusEntry [0..*]               
     }
     ActionRequest <|-- AccessDelegationRequest
     ActionRequest <|-- ChangeRequest
@@ -44,9 +47,20 @@ classDiagram
 
 
     ActionRequest "1" --> "0..*" Error     
-    ActionRequest "1" --> "1..*" Organization : requestedBy    
+    ActionRequest "1" --> "1" Organization : requestedBy    
     ActionRequest --> RequestStatus                
-    ActionRequest "1" --> "1..*" Organization : revokedBy
+    ActionRequest "1" --> "0..1" Organization : revokedBy
+    ActionRequest "1" --> "0..*" RequestStatusEntry : hasRequestStatusHistory
+
+
+    class RequestStatusEntry{
+        + hasRequestStatus: RequestStatus
+        + hasRequestStatusSince: xsd:dateTime
+        + isChangedBy: Organization [0..1]
+    }
+
+    RequestStatusEntry "1" --> "0..1" Organization : isChangedBy
+    RequestStatusEntry --> RequestStatus     
 
     class AccessDelegationRequest{
         + hasAccessDelegation: AccessDelegation        
@@ -93,6 +107,7 @@ classDiagram
     }
 
     Error "1" --> "*" ErrorDetail
+    Error "1" --> "0..1" Severity
     
     class Severity{
         <<Enumeration>>

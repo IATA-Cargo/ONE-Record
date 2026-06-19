@@ -653,7 +653,6 @@ Request:
 ```http
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
-
 Content-Type: application/ld+json; version=2.2.0
 Accept: application/ld+json; version=2.2.0
 
@@ -676,7 +675,6 @@ Request:
 ```http
 POST /logistics-objects HTTP/1.1
 Host: 1r.example.com
-
 Content-Type: application/ld+json; version=2.2.0
 Accept: application/ld+json; version=2.2.0
 
