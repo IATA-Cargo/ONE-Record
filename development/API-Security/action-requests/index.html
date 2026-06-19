@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#get-action-request-details" class="md-skip">
+        <a href="#using-action-requests" class="md-skip">
           Skip to content
         </a>
       
@@ -1229,6 +1229,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-action-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Action Requests
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#get-action-request-details" class="md-nav__link">
@@ -4254,6 +4265,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#using-action-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Action Requests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#get-action-request-details" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4590,24 +4612,58 @@
 <p>ONE Record uses a generic action request pattern to support the process of one organization requesting an action that must be approved by another organization. 
 Examples include <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a>, where the subscriber asks the publisher to subscribe him/her on a LogisticsObject; or the <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a>, 
 where a <code>User of a LogisticsObject</code> submits a <a href="https://onerecord.iata.org/ns/api#Change">Change</a> of a LogisticsObject that must be approved and applied by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a>.</p>
-<p>While the creation of Action Requests by submitting Change, Subscription or Access Delegation objects is described in the previous sections, this section describes the managing of Action Requests.
+<p>While the creation of Action Requests by submitting Change, Subscription, Verification or Access Delegation objects is described in the previous sections, this section describes the managing of Action Requests.
 This enables users and holders to view and revoke action requests, and enables holders to change the status of an ActionRequest, i.e. to accept or reject.</p>
 <p><strong>Guidelines for Action Requests in ONE Record:</strong></p>
 <ul>
-<li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> (requires sufficient permissions)</li>
-<li>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be accepted or reject by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
-<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be acknowledged by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
+<li>
+<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> (requires sufficient permissions)</p>
+</li>
+<li>
+<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be accepted or reject by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
+</li>
+<li>
+<p>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be acknowledged by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
+</li>
 <li>
 <p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> where <a href="https://onerecord.iata.org/ns/api#requestedBy">isRequestedBy</a> is the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a> SHOULD be accepted and processed directly.</p>
 </li>
 <li>
 <p><a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> and <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status.</p>
 </li>
-<li><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> can be revoked as long as they are in <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status.</li>
-<li>An <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> MUST only be revoked by the <code>Delegator</code> or the <code>Delegate</code></li>
-<li>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MUST only be revoked by the <code>Requestor</code>/<code>Subscriber</code> or the <code>Publisher</code></li>
-<li>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> or a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></li>
-<li>If errors occur while processing an accepted <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>, the <a href="https://onerecord.iata.org/ns/api#hasRequestStatus">hasRequestStatus</a> of this <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be changed to <a href="https://onerecord.iata.org/ns/api#REQUEST_FAILED">REQUEST_FAILED</a></li>
+<li>
+<p><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> can be revoked as long as they are in <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status.</p>
+</li>
+<li>
+<p>An <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> MUST only be revoked by the <code>Delegator</code> or the <code>Delegate</code></p>
+</li>
+<li>
+<p>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MUST only be revoked by the <code>Requestor</code>/<code>Subscriber</code> or the <code>Publisher</code></p>
+</li>
+<li>
+<p>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> or a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
+</li>
+<li>
+<p>The <code>hasRequestStatus</code> property MUST represent the current status of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>.</p>
+</li>
+<li>
+<p>The <code>hasRequestStatusSince</code> property MUST indicate the date and time from which the current <code>hasRequestStatus</code> applies.</p>
+</li>
+<li>
+<p>The <code>hasRequestStatusHistory</code> property MAY be used to expose previous request statuses. It MUST NOT contain the current status of the ActionRequest.</p>
+</li>
+<li>
+<p>Whenever <code>hasRequestStatus</code> changes, the previous value of <code>hasRequestStatus</code> and its corresponding <code>hasRequestStatusSince</code> value SHOULD be appended as a <code>RequestStatusEntry</code> to <code>hasRequestStatusHistory</code>. </p>
+</li>
+<li>
+<p>In a <code>RequestStatusEntry</code>, the property <code>isChangedBy</code> records the Organization that approved or performed the transition from the status represented by that entry to the next request status.</p>
+</li>
+<li>
+<p><code>RequestStatusEntry</code> records SHOULD be treated as immutable, except for correction of invalid data.</p>
+</li>
+<li>
+<p>If errors occur while processing an accepted <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>, the <a href="https://onerecord.iata.org/ns/api#hasRequestStatus">hasRequestStatus</a> of this <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be changed to <a href="https://onerecord.iata.org/ns/api#REQUEST_FAILED">REQUEST_FAILED</a>, and <code>hasRequestStatusSince</code> MUST be set to the date and time from which the failed status applies.</p>
+</li>
 </ul>
 <p><strong>ActionRequest state diagram for AccessDelegationRequest, ChangeRequest, and SubscriptionRequest</strong></p>
 <pre class="mermaid"><code>    stateDiagram-v2
@@ -4685,8 +4741,10 @@ The properties and relationships to other data classes are visualized in the fol
         + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization [0..1]
+        + isRevokedAt: xsd:dateTime [0..1] 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + isRevokedAt: xsd:dateTime [0..1]                 
+        + hasRequestStatusSince: xsd:dateTime
+        + hasRequestStatusHistory []: RequestStatusEntry [0..*]                  
     }
     ActionRequest &lt;|-- AccessDelegationRequest
     ActionRequest &lt;|-- ChangeRequest
@@ -4694,9 +4752,19 @@ The properties and relationships to other data classes are visualized in the fol
     ActionRequest &lt;|-- VerificationRequest
 
     ActionRequest "1" --&gt; "0..*" Error     
-    ActionRequest "1" --&gt; "1..*" Organization : requestedBy    
+    ActionRequest "1" --&gt; "1" Organization : requestedBy    
     ActionRequest --&gt; RequestStatus                
-    ActionRequest "1" --&gt; "1..*" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..1" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..*" RequestStatusEntry : hasRequestStatusHistory
+
+    class RequestStatusEntry{
+        + hasRequestStatus: RequestStatus
+        + hasRequestStatusSince: xsd:dateTime
+        + isChangedBy: Organization [0..1]
+    }
+
+    RequestStatusEntry "1" --&gt; "0..1" Organization : isChangedBy
+    RequestStatusEntry --&gt; RequestStatus 
 
     class AccessDelegationRequest{
         + hasAccessDelegation: AccessDelegation        
@@ -4769,6 +4837,12 @@ The properties and relationships to other data classes are visualized in the fol
         LOGISTICS_OBJECT_UPDATED
         LOGISTICS_EVENT_RECEIVED
     }</code></pre>
+<h3 id="using-action-requests">Using Action Requests<a class="headerlink" href="#using-action-requests" title="Permanent link">&para;</a></h3>
+<p>An <code>ActionRequest</code> represents a request from one Organization to another Organization to perform, approve, reject, acknowledge, revoke, or otherwise process an action in the ONE Record network. Action Requests are used as a generic pattern for several API processes, including <code>ChangeRequest</code>, <code>SubscriptionRequest</code>, <code>AccessDelegationRequest</code>, and <code>VerificationRequest</code>. For example, a <code>ChangeRequest</code> is used when a party proposes a change to a Logistics Object that must be approved and applied by the Holder, while a <code>SubscriptionRequest</code> is used when a party requests to subscribe to updates for a Logistics Object. The <code>ActionRequest</code> object allows both the requestor and the holder to track the lifecycle of the request through its current status, its timestamps, and any errors that occurred during processing.</p>
+<p>The <code>isRequestedAt</code> property records the date and time at which the ActionRequest was created. The <code>isRequestedBy</code> property identifies the Organization that submitted the request. The <code>hasRequestStatus</code> property represents the current status of the ActionRequest, for example <code>REQUEST_PENDING</code>, <code>REQUEST_ACCEPTED</code>, <code>REQUEST_REJECTED</code>, <code>REQUEST_FAILED</code>, <code>REQUEST_REVOKED</code>, or <code>REQUEST_ACKNOWLEDGED</code>. When the current status changes, the <code>hasRequestStatusSince</code> property MUST be updated to indicate the date and time from which the current <code>hasRequestStatus</code> applies. This allows clients to determine not only the current status of the request, but also when that status became valid. For example, if a <code>ChangeRequest</code> has <code>hasRequestStatus</code> set to <code>REQUEST_ACCEPTED</code>, then <code>hasRequestStatusSince</code> indicates when the request was accepted.</p>
+<p>The optional <code>hasRequestStatusHistory</code> property contains previous status values of the ActionRequest. It is used to preserve the historical lifecycle of the request without duplicating the current status, which is already represented directly by <code>hasRequestStatus</code> and <code>hasRequestStatusSince</code> on the ActionRequest itself. Each item in <code>hasRequestStatusHistory</code> is a <code>RequestStatusEntry</code>. A <code>RequestStatusEntry</code> records a previous <code>hasRequestStatus</code>, the <code>hasRequestStatusSince</code> timestamp from which that previous status applied, and optionally the <code>isChangedBy</code> Organization that approved or performed the transition from that historical status to the next request status. Whenever the status of an ActionRequest changes, the previous value of <code>hasRequestStatus</code> and its corresponding <code>hasRequestStatusSince</code> SHOULD be appended to <code>hasRequestStatusHistory</code> as a <code>RequestStatusEntry</code>, before the ActionRequest is updated with the new current status.</p>
+<p>If the ActionRequest is revoked, the <code>hasRequestStatus</code> property MUST be set to <code>REQUEST_REVOKED</code>, and <code>isRevokedAt</code> records the date and time at which the revocation occurred. The <code>isRevokedBy</code> property identifies the Organization that revoked the request. Revocation rules depend on the concrete type of ActionRequest. For example, <code>ChangeRequest</code> and <code>VerificationRequest</code> can only be revoked while they are in <code>REQUEST_PENDING</code> status, while <code>AccessDelegationRequest</code> and <code>SubscriptionRequest</code> can be revoked while they are in either <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status. If an error occurs while processing an accepted ActionRequest, the <code>hasRequestStatus</code> MUST be changed to <code>REQUEST_FAILED</code>, <code>hasRequestStatusSince</code> MUST be updated accordingly, and one or more <code>Error</code> objects MAY be provided through <code>hasError</code> to describe the failure.</p>
+<p>Concrete subclasses of <code>ActionRequest</code> carry the business object that is being requested. An <code>AccessDelegationRequest</code> contains an <code>AccessDelegation</code> through <code>hasAccessDelegation</code>; a <code>ChangeRequest</code> contains a <code>Change</code> through <code>hasChange</code>; a <code>SubscriptionRequest</code> contains a <code>Subscription</code> through <code>hasSubscription</code>; and a <code>VerificationRequest</code> contains a <code>Verification</code> through <code>hasVerification</code>. Clients SHOULD use the generic ActionRequest properties to understand and monitor the lifecycle of the request, and the subclass-specific property to understand the requested business action.</p>
 <h2 id="get-action-request-details">Get Action Request Details<a class="headerlink" href="#get-action-request-details" title="Permanent link">&para;</a></h2>
 <h3 id="endpoint">Endpoint<a class="headerlink" href="#endpoint" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> GET {{baseURL}}/action-requests/{{actionRequestId}}
@@ -4937,8 +5011,12 @@ and the publisher to obtain the current status of the request and subscription d
 </span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="w">    </span><span class="s2">&quot;api:isRequestedAt&quot;</span>:<span class="w"> </span><span class="o">{</span>
 </span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="w">        </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#dateTime&quot;</span>,
 </span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">        </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;2023-04-20T10:38:01.000Z&quot;</span>
-</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">    </span><span class="o">}</span>
-</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="o">}</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">    </span><span class="o">}</span>,
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="w">    </span><span class="s2">&quot;api:hasRequestStatusSince&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="w">        </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;2023-04-20T10:38:01.000Z&quot;</span>,
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="w">        </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#dateTime&quot;</span>
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="w">    </span><span class="o">}</span>
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="o">}</span>
 </span></code></pre></div>
 <em>(<a href="../examples/SubscriptionRequest_example2.json">SubscriptionRequest_example2.json</a>)</em></p>
 <h3 id="example-a2">Example A2<a class="headerlink" href="#example-a2" title="Permanent link">&para;</a></h3>
@@ -4971,32 +5049,35 @@ and the publisher to obtain the current status of the request and subscription d
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">         </span><span class="o">{</span>
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">            </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:Error&quot;</span>,
 </span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">            </span><span class="s2">&quot;api:hasTitle&quot;</span>:<span class="w"> </span><span class="s2">&quot;Empty goodsDescription. Please use goodsDescription to specify the description of the cargo&quot;</span>,
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">            </span><span class="s2">&quot;api:hasErrorDetail&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">               </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:ErrorDetail&quot;</span>,
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">               </span><span class="s2">&quot;api:hasProperty&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">                  </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#goodsDescription&quot;</span>,
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">                  </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;xsd:anyURI&quot;</span>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">               </span><span class="o">}</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">         </span><span class="o">}</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">      </span><span class="o">]</span>,
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">      </span><span class="s2">&quot;api:hasRevision&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">         </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#positiveInteger&quot;</span>,
-</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">         </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;1&quot;</span>
-</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">      </span><span class="o">}</span>,
-</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">      </span><span class="s2">&quot;api:notifyRequestStatusChange&quot;</span>:<span class="w"> </span><span class="nb">true</span>
-</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">   </span><span class="o">}</span>,
-</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">   </span><span class="s2">&quot;api:isRequestedBy&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda&quot;</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">            </span><span class="s2">&quot;api:hasSeverity&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">               </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:WARNING&quot;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="o">}</span>,<span class="w">   </span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="s2">&quot;api:hasErrorDetail&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">               </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:ErrorDetail&quot;</span>,
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">               </span><span class="s2">&quot;api:hasProperty&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">                  </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://onerecord.iata.org/ns/cargo#goodsDescription&quot;</span>,
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">                  </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;xsd:anyURI&quot;</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">               </span><span class="o">}</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">            </span><span class="o">}</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">         </span><span class="o">}</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">      </span><span class="o">]</span>,
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">      </span><span class="s2">&quot;api:hasRevision&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">         </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#positiveInteger&quot;</span>,
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">         </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;1&quot;</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a><span class="w">      </span><span class="o">}</span>,
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">      </span><span class="s2">&quot;api:notifyRequestStatusChange&quot;</span>:<span class="w"> </span><span class="nb">true</span>
 </span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a><span class="w">   </span><span class="o">}</span>,
-</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">   </span><span class="s2">&quot;api:hasRequestStatus&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:REQUEST_PENDING&quot;</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="w">   </span><span class="s2">&quot;api:isRequestedBy&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda&quot;</span>
 </span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="w">   </span><span class="o">}</span>,
-</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">   </span><span class="s2">&quot;api:isRequestedAt&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">      </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#dateTime&quot;</span>,
-</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">      </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;2024-01-20T10:38:01.000Z&quot;</span>
-</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="w">   </span><span class="o">}</span>
-</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="o">}</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a><span class="w">   </span><span class="s2">&quot;api:hasRequestStatus&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a><span class="w">      </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:REQUEST_PENDING&quot;</span>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a><span class="w">   </span><span class="o">}</span>,
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a><span class="w">   </span><span class="s2">&quot;api:isRequestedAt&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a><span class="w">      </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema#dateTime&quot;</span>,
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a><span class="w">      </span><span class="s2">&quot;@value&quot;</span>:<span class="w"> </span><span class="s2">&quot;2024-01-20T10:38:01.000Z&quot;</span>
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50" href="#__codelineno-4-50"></a><span class="w">   </span><span class="o">}</span>
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51" href="#__codelineno-4-51"></a><span class="o">}</span>
 </span></code></pre></div>
 <em>(<a href="../examples/VerificationRequest.json">VerificationRequest.json</a>)</em></p>
 <h2 id="update-an-action-request">Update an Action Request<a class="headerlink" href="#update-an-action-request" title="Permanent link">&para;</a></h2>

@@ -3960,14 +3960,17 @@
     AccessDelegation "1" --&gt; "1..*" Organization: requestedFor
     AccessDelegation "1" --&gt; "1..*" LogisticsObject
 
+
     class ActionRequest {
         &lt;&lt;Abstract&gt;&gt;         
         + hasError[]: Error [*]
         + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
         + isRevokedBy: Organization [0..1]
+        + isRevokedAt: xsd:dateTime [0..1] 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + isRevokedAt: xsd:dateTime [0..1]                 
+        + hasRequestStatusSince: xsd:dateTime
+        + hasRequestStatusHistory []: RequestStatusEntry [0..*]               
     }
     ActionRequest &lt;|-- AccessDelegationRequest
     ActionRequest &lt;|-- ChangeRequest
@@ -3976,9 +3979,20 @@
 
 
     ActionRequest "1" --&gt; "0..*" Error     
-    ActionRequest "1" --&gt; "1..*" Organization : requestedBy    
+    ActionRequest "1" --&gt; "1" Organization : requestedBy    
     ActionRequest --&gt; RequestStatus                
-    ActionRequest "1" --&gt; "1..*" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..1" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..*" RequestStatusEntry : hasRequestStatusHistory
+
+
+    class RequestStatusEntry{
+        + hasRequestStatus: RequestStatus
+        + hasRequestStatusSince: xsd:dateTime
+        + isChangedBy: Organization [0..1]
+    }
+
+    RequestStatusEntry "1" --&gt; "0..1" Organization : isChangedBy
+    RequestStatusEntry --&gt; RequestStatus     
 
     class AccessDelegationRequest{
         + hasAccessDelegation: AccessDelegation        
@@ -4025,6 +4039,7 @@
     }
 
     Error "1" --&gt; "*" ErrorDetail
+    Error "1" --&gt; "0..1" Severity
 
     class Severity{
         &lt;&lt;Enumeration&gt;&gt;

@@ -4248,7 +4248,7 @@
 To enable asynchronous communication via HTTP, every ONE Record server MUST provide a Notification REST API endpoint that can be used by ONE Record clients to submit Notifications about data changes and updates.</p>
 <p>This chapter describes the the requirements of a Notifications API which a ONE Record server MUST implement (1) to receive information about new created or updated Logistics Objects, (2) or to receive status updates of action requests from other ONE Record nodes.</p>
 <p>For the former, the initialization of this data exchange channel is described in the <a href="../subscriptions/">Subscription</a> chapter.
-The latter is set up when <a href="https://onerecord.iata.org/ns/api#notifyRequestStatusChange">notifyRequestStatusChange</a> is set to <code>true</code> in the request for a Change, AccessDelegation , or Subscription.</p>
+The latter is set up when <a href="https://onerecord.iata.org/ns/api#notifyRequestStatusChange">notifyRequestStatusChange</a> is set to <code>true</code> in the request for a Change, AccessDelegation , Verification or Subscription.</p>
 <p><strong>Guidelines for Notifications in ONE Record:</strong></p>
 <ul>
 <li>Every ONE Record server MUST implement a Notifications endpoint to receive data from ONE Record clients</li>
@@ -4279,18 +4279,26 @@ The properties and relationships to other data classes are visualized in the fol
         + hasError[]: Error [*]
         + isRequestedAt: xsd:dateTime         
         + isRequestedBy: Organization            
-        + isRevokedBy: Organization 
+        + isRevokedBy: Organization [0..1]
+        + isRevokedAt: xsd:dateTime [0..1] 
         + hasRequestStatus: RequestStatus = REQUEST_PENDING
-        + revokedAt: xsd:dateTime                 
+        + hasRequestStatusSince: xsd:dateTime
+        + hasRequestStatusHistory []: RequestStatusEntry [0..*]                  
     }
+
     ActionRequest &lt;|-- AccessDelegationRequest
     ActionRequest &lt;|-- ChangeRequest
     ActionRequest &lt;|-- SubscriptionRequest
+    ActionRequest &lt;|-- VerificationRequest
 
-    ActionRequest "1" --&gt; "1..*" Organization : requestedBy    
+    ActionRequest "1" --&gt; "0..*" Error     
+    ActionRequest "1" --&gt; "1" Organization : requestedBy    
     ActionRequest --&gt; RequestStatus                
-    ActionRequest "1" --&gt; "1..*" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..1" Organization : revokedBy
+    ActionRequest "1" --&gt; "0..*" RequestStatusEntry : hasRequestStatusHistory
 
+    class RequestStatusEntry{
+    }
     class Notification{
         + hasChangedProperty[]: xsd:anyURI [*]        
         + hasEventType: NotificationEventType
@@ -4299,6 +4307,7 @@ The properties and relationships to other data classes are visualized in the fol
         + hasLogisticsObjectType: xsd:anyURI [0..1] 
         + hasLogisticsEvent[]: LogisticsEvent [*]    
     }
+
     Notification "1"--&gt; "0..1" LogisticsObject
     Notification "1" --&gt; "1" NotificationEventType
     Notification "1" --&gt; "0..1" ActionRequest 
