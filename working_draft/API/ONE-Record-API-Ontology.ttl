@@ -610,6 +610,14 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                          rdfs:label "Send LogisticsObject body"@en .
 
 
+###  https://onerecord.iata.org/ns/api#usesOrchestration
+:usesOrchestration rdf:type owl:DatatypeProperty ;
+                   rdfs:domain cargo:LogisticsObject ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Indicates the orchestration version used to map the information with messaging standards"@en ;
+                   rdfs:label "Uses Orchestration"@en .
+
+
 #################################################################
 #    Classes
 #################################################################
@@ -944,6 +952,10 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 ###  https://onerecord.iata.org/ns/api#EventCreationResult
 :EventCreationResult rdf:type owl:Class ;
                      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasError ;
+                                       owl:allValuesFrom :Error
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty :hasLogisticsEvent ;
                                        owl:allValuesFrom cargo:LogisticsEvent
                                      ] ,
