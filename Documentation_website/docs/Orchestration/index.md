@@ -12,7 +12,7 @@ As a response to the industry for guidance with ONE Record, we figured the Data 
 * Provide tools to check compliance with the standard and illustrate the Data Orchestration
 
 ## Version
-Current version of the Orchestration is **1.1.0**.
+Current version of the Orchestration is **1.2.0**.
 
 ## General notes
 
