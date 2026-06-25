@@ -232,7 +232,7 @@ The response body MUST contain a `api:MultiStatusResponse` with one `api:hasCrea
 - `api:hasHTTPStatus` — the HTTP status code for that individual target (`201`, `403`, or `404`)
 - `api:hasLogisticsObject` — the URI of the target Logistics Object
 - `api:hasLogisticsEvent` — the URI of the newly created Logistics Event (only present when `api:hasHTTPStatus` is `201`)
-- `api:hasError` — an `api:ErrorDetail` object (only present when `api:hasHTTPStatus` is `403` or `404`)
+- `api:hasError` — an `api:Error` object (only present when `api:hasHTTPStatus` is `403` or `404`)
 
 ```mermaid
     classDiagram
@@ -250,6 +250,7 @@ The response body MUST contain a `api:MultiStatusResponse` with one `api:hasCrea
         + hasLogisticsObject: LogisticsObject
         + hasLogisticsEvent: LogisticsEvent 
         + hasHTTPStatus: xsd:nonNegativeInteger
+        + hasError[]: Error [*]
     }
 
     MultiStatusResponse "1" --> "1..*" EventCreationResult

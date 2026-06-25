@@ -268,7 +268,9 @@ classDiagram
         + hasLogisticsObject: LogisticsObject
         + hasLogisticsEvent: LogisticsEvent 
         + hasHTTPStatus: xsd:nonNegativeInteger
+        + hasError[]: Error [*]
     }
 
     MultiStatusResponse "1" --> "1..*" EventCreationResult
+    EventCreationResult "1" --> "0..*" Error
 ```
