@@ -5215,6 +5215,21 @@ The properties and relationships to other data classes are visualized in the fol
 <li><code>api:hasLogisticsEvent</code> — the URI of the newly created Logistics Event (only present when <code>api:hasHTTPStatus</code> is <code>201</code>)</li>
 <li><code>api:hasError</code> — an <code>api:ErrorDetail</code> object (only present when <code>api:hasHTTPStatus</code> is <code>403</code> or <code>404</code>)</li>
 </ul>
+<pre class="mermaid"><code>
+    class MultiStatusResponse{
+        + hasTotalItems: xsd:nonNegativeInteger  
+        + hasTotalFailed: xsd:nonNegativeInteger 
+        + hasTotalCreated: xsd:nonNegativeInteger 
+        + hasCreationResult: EventCreationResult [1..*]
+    }
+
+    class EventCreationResult{
+        + hasLogisticsObject: LogisticsObject
+        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasHTTPStatus: xsd:nonNegativeInteger
+    }
+
+    MultiStatusResponse "1" --&gt; "1..*" EventCreationResult</code></pre>
 <p>The following HTTP header MUST be present in the response:</p>
 <table>
 <thead>
