@@ -4200,9 +4200,11 @@
         + hasLogisticsObject: LogisticsObject
         + hasLogisticsEvent: LogisticsEvent 
         + hasHTTPStatus: xsd:nonNegativeInteger
+        + hasError[]: Error [*]
     }
 
-    MultiStatusResponse "1" --&gt; "1..*" EventCreationResult</code></pre>
+    MultiStatusResponse "1" --&gt; "1..*" EventCreationResult
+    EventCreationResult "1" --&gt; "0..*" Error</code></pre>
 
 
 
