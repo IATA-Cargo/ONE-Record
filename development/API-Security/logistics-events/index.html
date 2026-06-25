@@ -5215,7 +5215,10 @@ The properties and relationships to other data classes are visualized in the fol
 <li><code>api:hasLogisticsEvent</code> — the URI of the newly created Logistics Event (only present when <code>api:hasHTTPStatus</code> is <code>201</code>)</li>
 <li><code>api:hasError</code> — an <code>api:ErrorDetail</code> object (only present when <code>api:hasHTTPStatus</code> is <code>403</code> or <code>404</code>)</li>
 </ul>
-<pre class="mermaid"><code>
+<pre class="mermaid"><code>    classDiagram
+
+    direction LR    
+
     class MultiStatusResponse{
         + hasTotalItems: xsd:nonNegativeInteger  
         + hasTotalFailed: xsd:nonNegativeInteger 
