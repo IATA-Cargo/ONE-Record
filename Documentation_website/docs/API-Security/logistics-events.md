@@ -235,7 +235,10 @@ The response body MUST contain a `api:MultiStatusResponse` with one `api:hasCrea
 - `api:hasError` — an `api:ErrorDetail` object (only present when `api:hasHTTPStatus` is `403` or `404`)
 
 ```mermaid
+    classDiagram
 
+    direction LR    
+    
     class MultiStatusResponse{
         + hasTotalItems: xsd:nonNegativeInteger  
         + hasTotalFailed: xsd:nonNegativeInteger 
