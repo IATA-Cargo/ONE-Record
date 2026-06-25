@@ -1,9 +1,7 @@
 {
   "@context": {
     "api": "https://onerecord.iata.org/ns/api#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "api:hasLogisticsObject": { "@type": "xsd:anyURI" },
-    "api:hasLogisticsEvent": { "@type": "xsd:anyURI" }
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
   "@id": "internal:a08cb2d4-b1b5-413d-a835-4143a26dbaaa",
   "@type": "api:MultiStatusResponse",
@@ -12,15 +10,17 @@
   "api:hasTotalFailed": 2,
   "api:hasCreationResult": [
     {
+      "@id": "internal:99991457-5108-4c6a-9f64-c7ca8f7b43a8",
       "@type": "api:EventCreationResult",
       "api:hasHTTPStatus": 201,
-      "api:hasLogisticsObject": "https://1r.example.com/logistics-objects/d7369434-18ea-4b3a-a2bd-44e43fc66d56",
-      "api:hasLogisticsEvent": "https://1r.example.com/logistics-objects/d7369434-18ea-4b3a-a2bd-44e43fc66d56/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f"
+      "api:hasLogisticsObject": {"@id": "https://1r.example.com/logistics-objects/d7369434-18ea-4b3a-a2bd-44e43fc66d56"},
+      "api:hasLogisticsEvent": {"@id": "https://1r.example.com/logistics-objects/d7369434-18ea-4b3a-a2bd-44e43fc66d56/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f"}
     },
     {
+      "@id": "internal:99992568-6219-5d7b-0g75-d8db9g8c54b9",
       "@type": "api:EventCreationResult",
       "api:hasHTTPStatus": 404,
-      "api:hasLogisticsObject": "https://1r.example.com/logistics-objects/piece-not-found",
+      "api:hasLogisticsObject": {"@id": "https://1r.example.com/logistics-objects/piece-not-found"},
       "api:hasError": {
         "@type": "api:ErrorDetail",
         "api:hasCode": "404",
@@ -28,9 +28,10 @@
       }
     },
     {
+      "@id": "internal:99993679-732a-6e8c-1h86-e9ecah9d65c0",
       "@type": "api:EventCreationResult",
       "api:hasHTTPStatus": 403,
-      "api:hasLogisticsObject": "https://1r.example.com/logistics-objects/piece-unauthorized",
+      "api:hasLogisticsObject": {"@id": "https://1r.example.com/logistics-objects/piece-unauthorized"},
       "api:hasError": {
         "@type": "api:ErrorDetail",
         "api:hasCode": "403",

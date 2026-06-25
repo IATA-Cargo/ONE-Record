@@ -256,4 +256,19 @@ classDiagram
     }
     Verification "1" --> "1" LogisticsObject
     Verification "1" --> "1..*" Error
+
+    class MultiStatusResponse{
+        + hasTotalItems: xsd:nonNegativeInteger  
+        + hasTotalFailed: xsd:nonNegativeInteger 
+        + hasTotalCreated: xsd:nonNegativeInteger 
+        + hasCreationResult: EventCreationResult [1..*]
+    }
+
+    class EventCreationResult{
+        + hasLogisticsObject: LogisticsObject
+        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasHTTPStatus: xsd:nonNegativeInteger
+    }
+
+    MultiStatusResponse "1" --> "1..*" EventCreationResult
 ```
