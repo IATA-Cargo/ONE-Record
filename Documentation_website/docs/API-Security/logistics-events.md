@@ -248,7 +248,7 @@ The response body MUST contain a `api:MultiStatusResponse` with one `api:hasCrea
 
     class EventCreationResult{
         + hasLogisticsObject: LogisticsObject
-        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasLogisticsEvent: LogisticsEvent 
         + hasHTTPStatus: xsd:nonNegativeInteger
     }
 

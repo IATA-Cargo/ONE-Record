@@ -266,7 +266,7 @@ classDiagram
 
     class EventCreationResult{
         + hasLogisticsObject: LogisticsObject
-        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasLogisticsEvent: LogisticsEvent 
         + hasHTTPStatus: xsd:nonNegativeInteger
     }
 
