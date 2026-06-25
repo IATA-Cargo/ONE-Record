@@ -4187,7 +4187,22 @@
         + notifyRequestStatusChange: xsd:boolean = FALSE
     }
     Verification "1" --&gt; "1" LogisticsObject
-    Verification "1" --&gt; "1..*" Error</code></pre>
+    Verification "1" --&gt; "1..*" Error
+
+    class MultiStatusResponse{
+        + hasTotalItems: xsd:nonNegativeInteger  
+        + hasTotalFailed: xsd:nonNegativeInteger 
+        + hasTotalCreated: xsd:nonNegativeInteger 
+        + hasCreationResult: EventCreationResult [1..*]
+    }
+
+    class EventCreationResult{
+        + hasLogisticsObject: LogisticsObject
+        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasHTTPStatus: xsd:nonNegativeInteger
+    }
+
+    MultiStatusResponse "1" --&gt; "1..*" EventCreationResult</code></pre>
 
 
 

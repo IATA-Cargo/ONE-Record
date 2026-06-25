@@ -101,6 +101,12 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                   rdfs:label "has Change Request"@en .
 
 
+###  https://onerecord.iata.org/ns/api#hasCreationResult
+:hasCreationResult rdf:type owl:ObjectProperty ;
+                   rdfs:comment "Links to the list of Creation Results"@en ;
+                   rdfs:label "has Creation Results"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#hasDataHolder
 :hasDataHolder rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
@@ -199,6 +205,7 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdfs:domain :Error ;
              rdfs:range :Severity ;
+             rdfs:comment "Contains the severity of the Error"@en ;
              rdfs:label "has Severity"@en .
 
 
@@ -223,7 +230,8 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
 :hasTopicType rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
               rdfs:domain :Subscription ;
-              rdfs:range :TopicType .
+              rdfs:range :TopicType ;
+              rdfs:label "has Topic Type"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasVerification
@@ -372,6 +380,14 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                 rdfs:label "Description"@en .
 
 
+###  https://onerecord.iata.org/ns/api#hasHTTPStatus
+:hasHTTPStatus rdf:type owl:DatatypeProperty ;
+               rdfs:domain :EventCreationResult ;
+               rdfs:range xsd:nonNegativeInteger ;
+               rdfs:comment "Contains the HTTP status of the request"@en ;
+               rdfs:label "HTTP Status"@en .
+
+
 ###  https://onerecord.iata.org/ns/api#hasLatestRevision
 :hasLatestRevision rdf:type owl:DatatypeProperty ;
                    rdfs:domain :AuditTrail ;
@@ -507,6 +523,22 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
           rdfs:range xsd:anyURI ;
           rdfs:comment "The Logistics Object type or specific Logistics Object to which the subscription belongs to e.g. https://onerecord.iata.org/Piece or https://1r.example.com/7f01363f-0c6a-4414-be48-d3692e219b91"@en ;
           rdfs:label "Topic"@en .
+
+
+###  https://onerecord.iata.org/ns/api#hasTotalCreated
+:hasTotalCreated rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :MultiStatusResponse ;
+                 rdfs:range xsd:nonNegativeInteger ;
+                 rdfs:comment "The number of total items created"@en ;
+                 rdfs:label "Total Created"@en .
+
+
+###  https://onerecord.iata.org/ns/api#hasTotalFailed
+:hasTotalFailed rdf:type owl:DatatypeProperty ;
+                rdfs:domain :MultiStatusResponse ;
+                rdfs:range xsd:nonNegativeInteger ;
+                rdfs:comment "The total number of failed creations"@en ;
+                rdfs:label "Total Failed"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#hasTotalItems
@@ -907,6 +939,81 @@ owl:minQualifiedCardinality rdf:type owl:AnnotationProperty .
                              ] ;
              rdfs:comment "Error details that belong to an error"@en ;
              rdfs:label "Error Detail"@en .
+
+
+###  https://onerecord.iata.org/ns/api#EventCreationResult
+:EventCreationResult rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasLogisticsEvent ;
+                                       owl:allValuesFrom cargo:LogisticsEvent
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasLogisticsObject ;
+                                       owl:allValuesFrom cargo:LogisticsObject
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasLogisticsEvent ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass cargo:LogisticsEvent
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasLogisticsObject ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass cargo:LogisticsObject
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasHTTPStatus ;
+                                       owl:allValuesFrom xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasHTTPStatus ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:nonNegativeInteger
+                                     ] ;
+                     rdfs:comment "Contains the outcome of logistics event creation requests processed through a multiple-events creation API."@en ;
+                     rdfs:label "Event Creation Result"@en .
+
+
+###  https://onerecord.iata.org/ns/api#MultiStatusResponse
+:MultiStatusResponse rdf:type owl:Class ;
+                     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasCreationResult ;
+                                       owl:allValuesFrom :EventCreationResult
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasCreationResult ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :EventCreationResult
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalCreated ;
+                                       owl:allValuesFrom xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalFailed ;
+                                       owl:allValuesFrom xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalItems ;
+                                       owl:allValuesFrom xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalCreated ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalFailed ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:nonNegativeInteger
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :hasTotalItems ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onDataRange xsd:nonNegativeInteger
+                                     ] ;
+                     rdfs:comment "Container object that summarizes the results of multiple operations"@en ;
+                     rdfs:label "Multi Status Response"@en .
 
 
 ###  https://onerecord.iata.org/ns/api#Notification
