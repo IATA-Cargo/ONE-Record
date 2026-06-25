@@ -12,6 +12,9 @@ Following IATA governance, this ONE Record release has been endorsed by COTB and
 !!! note
     As of 1st January 2026, the IATA Cargo Services Conference has endorsed ONE Record as the **preferred standard for data sharing** among air cargo stakeholders.
 
+!!! note
+    As of 1st January 2026, the IATA Cargo Services Conference has endorsed to put Cargo-XML standard in containment, meaning no new message or versions of messages, no further development of messages.
+
 # General comments
 
 This release of ONE Record standards is the outcome of all the work carried out in 2025 and early 2026 by the various working groups involved in the maintenance and improvement of the standard. It includes the API & Security working group, the Data Model working group, the Data Orchestration Working group and all the ad-hoc sub-groups. Feedbacks from ONE Record hackathons have been a very valuable source of improvements as well as the different pilots and live implementations of ONE Record.
@@ -30,8 +33,10 @@ In 2025 and 2026 the Data Model taskforce has continued improving the ONE Record
 
 Below is an overview of changes on 3.3.0:
 
-- TBD
-- TBD
+- Addition of `StatusUpdateEvent` to simplify the mapping with (X)FSU messages
+- Addition of a link between SecurityDeclaration and Shipment
+- Adjustments for the mapping with XFWB with addition of data properties at `Waybill` level
+- Addition of `otherIdentifiers` to `LogisticsActivity` and `PhysicalLogisitcsObject`
 
 Detailed changelog can be read directly in the following Pull Requests on GitHub or in the Detailed Changelog.
 
