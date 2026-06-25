@@ -234,6 +234,24 @@ The response body MUST contain a `api:MultiStatusResponse` with one `api:hasCrea
 - `api:hasLogisticsEvent` — the URI of the newly created Logistics Event (only present when `api:hasHTTPStatus` is `201`)
 - `api:hasError` — an `api:ErrorDetail` object (only present when `api:hasHTTPStatus` is `403` or `404`)
 
+```mermaid
+
+    class MultiStatusResponse{
+        + hasTotalItems: xsd:nonNegativeInteger  
+        + hasTotalFailed: xsd:nonNegativeInteger 
+        + hasTotalCreated: xsd:nonNegativeInteger 
+        + hasCreationResult: EventCreationResult [1..*]
+    }
+
+    class EventCreationResult{
+        + hasLogisticsObject: LogisticsObject
+        + hasLogisticsEvent[]: LogisticsEvent 
+        + hasHTTPStatus: xsd:nonNegativeInteger
+    }
+
+    MultiStatusResponse "1" --> "1..*" EventCreationResult
+```
+
 The following HTTP header MUST be present in the response:
 
 | Response Header | Description | Examples |
