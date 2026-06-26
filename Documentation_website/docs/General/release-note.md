@@ -42,4 +42,51 @@ Detailed changelog can be read directly in the following Pull Requests on GitHub
 
 # API 3.3.0
 
-TBD
+## Highlights
+ONE Record API 2.3.0 introduces improvements to scalability, request lifecycle tracking, access delegation, subscription handling, error standardization, and API consistency. This release also clarifies several API behaviours to support more predictable implementations across ONE Record servers.
+
+## New and Improved API Capabilities
+
+### Bulk creation of identical Logistics Events
+Added support for bulk handling of identical LogisticsEvent payloads across multiple Logistics Objects, reducing the need for repeated POST requests when the same event applies to many objects. This improves efficiency for high-volume use cases such as flight departure events across many pieces. 
+
+
+### Action Request status timestamp tracking
+Improved the ability to determine when an Action Request status changes, such as when a change request is accepted or rejected. This supports better auditability and more accurate reconstruction of Logistics Object history. 
+
+
+### Clarified Logistics Object type handling
+Resolved the inconsistency between the single Type header and multiple @type values in Logistics Object bodies. The preferred approach is identify only the most specific type in the Type Header improving consistency between headers and payloads. 
+
+
+### Expiration support for Access Delegations
+Access Delegations can now include an optional expiration date, allowing access to be granted for a defined period and automatically considered expired afterwards. If no expiration is defined, the delegation is treated as valid until its maximum validity. 
+
+
+### Consistent status query parameters
+Status-related query parameters have been aligned across API endpoints. Where applicable, both fully qualified URI values and shorthand values are supported, improving consistency for Action Requests, audit trail queries, and Logistics Event filtering. 
+
+### Rejection of subscription proposals
+Added support for rejecting subscription proposals, making the subscription workflow more complete and explicit when a proposed subscription should not be accepted. 
+
+### Warnings in Verification Requests
+Verification Requests now support the communication of warnings in addition to business errors, enabling systems to flag non-blocking issues such as alerts, informational checks, or validation warnings. 
+
+
+## Access Delegation and Action Request Clarifications
+
+### Restricted Access Delegation request target
+api:isRequestedFor on Access Delegation has been restricted from multiple organizations to a single organization. This simplifies revocation, avoids ambiguous cartesian-product access scenarios, and improves chain-of-trust management. 
+
+### Defined behaviour for invalid Action Request revocation
+The API now clarifies the expected response when attempting to revoke an Action Request in a state where revocation is not allowed. In such cases, the server should return 422 Unprocessable Entity. 
+
+
+### Clarified Action Request roles
+Terminology around Action Requests has been aligned to use clearer and more consistent roles, such as Data Holder, Requestor, and Requestee, instead of context-specific terms that could cause ambiguity. 
+
+
+## Error Handling
+
+### Standardized API errors
+Introduced a standardized set of common error responses for ONE Record APIs, including consistent error codes, titles, and messages for scenarios such as invalid requests, missing resources, authorization failures, unsupported content types, identifier conflicts, and internal server errors. This improves interoperability and simplifies debugging across implementations. 

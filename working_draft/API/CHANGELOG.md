@@ -7,23 +7,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## ONE Record API Specification
 
-### Added
+## New and Improved API Capabilities
 
-- Add HasSeverity in Error
-- 
+### Bulk creation of identical Logistics Events
+Added support for bulk handling of identical LogisticsEvent payloads across multiple Logistics Objects, reducing the need for repeated POST requests when the same event applies to many objects. This improves efficiency for high-volume use cases such as flight departure events across many pieces. 
 
 
+### Action Request status timestamp tracking
+Improved the ability to determine when an Action Request status changes, such as when a change request is accepted or rejected. This supports better auditability and more accurate reconstruction of Logistics Object history. 
+
+
+### Clarified Logistics Object type handling
+Resolved the inconsistency between the single Type header and multiple @type values in Logistics Object bodies. The preferred approach is identify only the most specific type in the Type Header improving consistency between headers and payloads. 
+
+
+### Expiration support for Access Delegations
+Access Delegations can now include an optional expiration date, allowing access to be granted for a defined period and automatically considered expired afterwards. If no expiration is defined, the delegation is treated as valid until its maximum validity. 
+
+
+### Consistent status query parameters
+Status-related query parameters have been aligned across API endpoints. Where applicable, both fully qualified URI values and shorthand values are supported, improving consistency for Action Requests, audit trail queries, and Logistics Event filtering. 
+
+### Rejection of subscription proposals
+Added support for rejecting subscription proposals, making the subscription workflow more complete and explicit when a proposed subscription should not be accepted. 
+
+### Warnings in Verification Requests
+Verification Requests now support the communication of warnings in addition to business errors, enabling systems to flag non-blocking issues such as alerts, informational checks, or validation warnings. 
+
+
+## Access Delegation and Action Request Clarifications
+
+### Restricted Access Delegation request target
+api:isRequestedFor on Access Delegation has been restricted from multiple organizations to a single organization. This simplifies revocation, avoids ambiguous cartesian-product access scenarios, and improves chain-of-trust management. 
+
+### Defined behaviour for invalid Action Request revocation
+The API now clarifies the expected response when attempting to revoke an Action Request in a state where revocation is not allowed. In such cases, the server should return 422 Unprocessable Entity. 
+
+
+### Clarified Action Request roles
+Terminology around Action Requests has been aligned to use clearer and more consistent roles, such as Data Holder, Requestor, and Requestee, instead of context-specific terms that could cause ambiguity. 
+
+
+## Error Handling
+
+### Standardized API errors
+Introduced a standardized set of common error responses for ONE Record APIs, including consistent error codes, titles, and messages for scenarios such as invalid requests, missing resources, authorization failures, unsupported content types, identifier conflicts, and internal server errors. This improves interoperability and simplifies debugging across implementations. 
 
 
 ## ONE Record API Ontology
 
 ### Added
-- HasSeverity as new property of Error
-- Severity class as named individuals with value ERROR and WARNING
+
+- Add `HasSeverity` to `Error` to indicate the severity.
+- Add `Severity` class as named individuals with value `ERROR` and `WARNING`
 - Add `hasRequestStatusSince` to `ActionRequest` to indicate since when the current request status applies.
 - Add `hasRequestStatusHistory` to optionally expose the status history of an `ActionRequest`.
 - Add `RequestStatusEntry` class to contain a specific request status. Please check the Class diagram for more information about this class
 - Add `expiresAt` to `AccessDelegationRequest`
+- Add `usesOrchestration` as metadata for the Logistics Object
+- Add `MultiStatusResponse` class to handle multple occurence creation. Please check the Class diagram for more information about this class
+- Add `EventCreationResult` class to handle a single logistics event creation in a multiple event creation. Please check the Class diagram for more information about this class
+
+### Changed
+
+- In `AccessDelegationRequest` the property `isRequestedFor` cardinality has been changed to 1.
+
 
 # 2.2.0
 
