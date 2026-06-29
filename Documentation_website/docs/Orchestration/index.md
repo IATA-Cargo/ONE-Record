@@ -14,6 +14,8 @@ As a response to the industry for guidance with ONE Record, we figured the Data 
 ## Version
 Current version of the Orchestration is **1.2.0**.
 
+With API 2.3.0 version we have introduced a `usesOrchestration` property to identify which version of the Orchestration is used for the sake of mapping. This allows to better understand what mapping is required.
+
 ## General notes
 
 1. The use cases covered by the Orchestration need to be generic or standard enough to make sense for the industry. Company-specific processes cannot be part of the Orchestration documentation although IATA is there to support stakeholders in their implementation of ONE Record.
