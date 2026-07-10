@@ -4664,16 +4664,16 @@ With this information, the ONE Record client can proceed accordingly.</p>
 <td>xsd:string</td>
 </tr>
 <tr>
-<td><strong>hasErrorDetail</strong></td>
-<td>details of the error</td>
-<td>no</td>
-<td>api:ErrorDetail</td>
-</tr>
-<tr>
 <td><strong>hasSeverity</strong></td>
 <td>Severity of the error</td>
 <td>no</td>
 <td>api:Severity</td>
+</tr>
+<tr>
+<td><strong>hasErrorDetail</strong></td>
+<td>details of the error</td>
+<td>no</td>
+<td>api:ErrorDetail</td>
 </tr>
 <tr>
 <td>- hasCode</td>
@@ -4749,13 +4749,86 @@ In this scenario, the property <a href="https://onerecord.iata.org/ns/api#hasCod
 <td>Error</td>
 </tr>
 <tr>
+<td>422</td>
+<td>Unprocessable content</td>
+<td>Error</td>
+</tr>
+<tr>
 <td>500</td>
 <td> Internal Server Error</td>
 <td>Error</td>
 </tr>
 </tbody>
 </table>
+<p>To harmonize error responses, this section defines a common error response structure.</p>
+<table>
+<thead>
+<tr>
+<th>HTTP status code</th>
+<th>Title</th>
+<th>Message in ErrorDetails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400</code></td>
+<td><code>Invalid body request</code></td>
+<td>The request body is missing, malformed, or cannot be parsed.</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td><code>Invalid query parameter request</code></td>
+<td>The query parameter is missing, malformed, or cannot be parsed.</td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td><code>Invalid resource</code></td>
+<td>The request body does not conform to the expected ONE Record resource structure.</td>
+</tr>
+<tr>
+<td><code>401</code></td>
+<td><code>Not authenticated or expired token</code></td>
+<td>The request does not contain valid authentication credentials, or the provided token is expired.</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td><code>Not authorized to perform action</code></td>
+<td>The authenticated party is not authorized to perform the requested action.</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td><code>Resource not found</code></td>
+<td>The requested resource cannot be found.</td>
+</tr>
+<tr>
+<td><code>405</code></td>
+<td><code>Method not allowed</code></td>
+<td>The HTTP method is not supported for the requested resource.</td>
+</tr>
+<tr>
+<td><code>409</code></td>
+<td><code>Identifier conflict</code></td>
+<td>A resource with the specified identifier already exists, or the request conflicts with the current state of the resource.</td>
+</tr>
+<tr>
+<td><code>415</code></td>
+<td><code>Unsupported content type</code></td>
+<td>The request content type is not supported by the endpoint.</td>
+</tr>
+<tr>
+<td><code>422</code></td>
+<td><code>Unprocessable content</code></td>
+<td>The request body is syntactically valid, but it cannot be processed because it does not satisfy semantic, validation, or business rules.</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>Internal server error</code></td>
+<td>The server encountered an unexpected condition that prevented it from fulfilling the request.</td>
+</tr>
+</tbody>
+</table>
 <p>There is a list of non-exhaustive JSON-LD syntax error types (relative to 400 Bad Request error family) on the official <a href="https://www.w3.org/TR/json-ld-api/#error-handling">JSON-LD API specifications website</a>.</p>
+<p>If an error is associated with a specific property or resource, the <code>hasProperty</code> and <code>hasResource</code> properties SHOULD be used in the error details to identify the affected element.</p>
 <p><strong>Example</strong></p>
 <p>A ONE Record client requests a Logistics Object without having sufficient access and a ONE Record server responses with a HTTP error code: <code>403 Forbidden</code>. The http response body contains the Error including the error code.</p>
 <p>Response to a failed synchronous API GET Request:</p>
