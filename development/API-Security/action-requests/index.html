@@ -4609,15 +4609,37 @@
 
   <h1>Action Requests</h1>
 
-<p>ONE Record uses a generic action request pattern to support the process of one organization requesting an action that must be approved by another organization. 
-Examples include <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a>, where the subscriber asks the publisher to subscribe him/her on a LogisticsObject; or the <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a>, 
-where a <code>User of a LogisticsObject</code> submits a <a href="https://onerecord.iata.org/ns/api#Change">Change</a> of a LogisticsObject that must be approved and applied by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a>.</p>
-<p>While the creation of Action Requests by submitting Change, Subscription, Verification or Access Delegation objects is described in the previous sections, this section describes the managing of Action Requests.
-This enables users and holders to view and revoke action requests, and enables holders to change the status of an ActionRequest, i.e. to accept or reject.</p>
-<p><strong>Guidelines for Action Requests in ONE Record:</strong></p>
+<p>ONE Record uses a generic Action Request pattern to support the process where one Organization requests an action that must be reviewed by another Organization.</p>
+<p>In the context of Action Requests, the following generic roles are used:</p>
 <ul>
+<li><strong>Requestor</strong>: the Organization that creates the ActionRequest. This is the Organization referenced by <code>isRequestedBy</code>.</li>
+<li><strong>Holder</strong>: the Organization that holds or publishes the Logistics Object concerned by the ActionRequest.</li>
+<li><strong>Requestee</strong>: the Organization that receives the ActionRequest and is expected to process it. In most cases, this is the Data Holder.</li>
+</ul>
+<p>Examples include:</p>
+<ul>
+<li>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a>, where the Requestor asks to subscribe to updates on a Logistics Object held or published by the Holder.</li>
+<li>A <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a>, where the Requestor submits a change to a Logistics Object that must be reviewed and applied by the Holder.</li>
+<li>An <code>AccessDelegationRequest</code>, where the Requestor asks the Holder to grant or change access rights for a Logistics Object.</li>
+<li>A <code>VerificationRequest</code>, where the Requestor asks the Holder to acknowledge or verify information related to a Logistics Object.</li>
+</ul>
+<p>While the creation of Action Requests by submitting Change, Subscription, Verification, or Access Delegation objects is described in the previous sections, this section describes how Action Requests are managed.</p>
+<p>This includes the ability for authorized parties to view and revoke Action Requests, and the ability for the Holder to update the status of an ActionRequest, for example by accepting, rejecting, acknowledging, or marking it as failed.</p>
+<ul>
+<li>An <code>ActionRequest</code> MUST only be revoked by the original Requestor or by the Data Holder of the concerned Logistics Object.</li>
+<li>The <code>hasRequestStatus</code> property MUST represent the current status of the <code>ActionRequest</code>.</li>
+<li>The <code>hasRequestStatusSince</code> property MUST indicate the date and time from which the current <code>hasRequestStatus</code> applies.</li>
+<li>The <code>hasRequestStatusHistory</code> property MAY be used to expose previous request statuses. It MUST NOT contain the current status of the <code>ActionRequest</code>.</li>
+<li>Whenever <code>hasRequestStatus</code> changes, the previous value of <code>hasRequestStatus</code> and its corresponding <code>hasRequestStatusSince</code> value SHOULD be appended as a <code>RequestStatusEntry</code> to <code>hasRequestStatusHistory</code>.</li>
+<li>In a <code>RequestStatusEntry</code>, the <code>isChangedBy</code> property records the Organization that approved or performed the transition from the status represented by that entry to the next request status.</li>
+<li><code>RequestStatusEntry</code> records SHOULD be treated as immutable, except for correction of invalid data.</li>
 <li>
-<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> (requires sufficient permissions)</p>
+<p>If errors occur while processing an accepted <code>ActionRequest</code>, the <code>hasRequestStatus</code> of this <code>ActionRequest</code> MUST be changed to <code>REQUEST_FAILED</code>, and <code>hasRequestStatusSince</code> MUST be set to the date and time from which the failed status applies.
+``
+<strong>Guidelines for Action Requests in ONE Record:</strong></p>
+</li>
+<li>
+<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST be accessible via the URI of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>, provided that the requesting party has sufficient permissions.</p>
 </li>
 <li>
 <p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be accepted or reject by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
@@ -4632,16 +4654,10 @@ This enables users and holders to view and revoke action requests, and enables h
 <p><a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> and <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> MUST only be revoked as long as it is in <code>REQUEST_PENDING</code> status.</p>
 </li>
 <li>
-<p><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> can be revoked as long as they are in <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status.</p>
+<p><a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> and <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MAY be revoked as long as they are in <code>REQUEST_PENDING</code> or <code>REQUEST_ACCEPTED</code> status.</p>
 </li>
 <li>
-<p>An <a href="https://onerecord.iata.org/ns/api#AccessDelegationRequest">AccessDelegationRequest</a> MUST only be revoked by the <code>Delegator</code> or the <code>Delegate</code></p>
-</li>
-<li>
-<p>A <a href="https://onerecord.iata.org/ns/api#SubscriptionRequest">SubscriptionRequest</a> MUST only be revoked by the <code>Requestor</code>/<code>Subscriber</code> or the <code>Publisher</code></p>
-</li>
-<li>
-<p>A <a href="https://onerecord.iata.org/ns/api#VerificationRequest">VerificationRequest</a> or a <a href="https://onerecord.iata.org/ns/api#ChangeRequest">ChangeRequest</a> MUST only be revoked by the <code>Requestor</code> or the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
+<p>An <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a> MUST only be revoked by the original Requestor or by the <a href="../concepts/#holder-of-a-logistics-object"><code>Holder of the LogisticsObject</code></a></p>
 </li>
 <li>
 <p>The <code>hasRequestStatus</code> property MUST represent the current status of the <a href="https://onerecord.iata.org/ns/api#ActionRequest">ActionRequest</a>.</p>
