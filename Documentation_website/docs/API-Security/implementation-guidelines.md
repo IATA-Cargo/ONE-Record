@@ -273,8 +273,8 @@ The Error object has the following properties:
 | Property       | Description                      | Required     | Class       |
 | ----------- |  ------------------------------- | ------------ | ----------- |
 | **hasTitle**            | a short summary of the problem. A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.    | yes           | xsd:string  |
-| **hasErrorDetail**          | details of the error              | no            | api:ErrorDetail |
 | **hasSeverity**          | Severity of the error              | no            | api:Severity |
+| **hasErrorDetail**          | details of the error              | no            | api:ErrorDetail |
 | - hasCode               | a ONE Record application-specific error code expressed as a string value. | no            | xsd:string  |
 | - hasMessage            | Explanation specific to this problem                  | no            | xsd:string  |
 | - hasProperty          | data element to which the error applies               | no            | xsd:string  |
@@ -295,18 +295,36 @@ In this scenario, the property [hasCode](https://onerecord.iata.org/ns/api#hasCo
 
 The following table contains a non-exhaustive list of HTTP error statuses that require an Error response:
 
-| Code  | Description                | Response body |
-| --- | -----                        | --- |
+| Code | Description | Response body |
+| --- | --- | --- |
 | 400 | Bad request | Error       |
 | 401 | Not authenticated or expired token | Error       |
 | 403 | Not authorized to perform action | Error       |
 | 404 | Not Found | Error       |
 | 405 | Method not allowed | Error       |
 | 415 | Unsupported content type | Error       |
+| 422 | Unprocessable content | Error |
 | 500 | Internal Server Error | Error       |
+
+To harmonize error responses, this section defines a common error response structure.
+
+| HTTP status code | Title | Message in ErrorDetails |
+| --- | --- | --- |
+| `400` | `Invalid body request` | The request body is missing, malformed, or cannot be parsed. |
+| `400` | `Invalid query parameter request` | The query parameter is missing, malformed, or cannot be parsed. |
+| `400` | `Invalid resource` | The request body does not conform to the expected ONE Record resource structure. |
+| `401` | `Not authenticated or expired token` | The request does not contain valid authentication credentials, or the provided token is expired. |
+| `403` | `Not authorized to perform action` | The authenticated party is not authorized to perform the requested action. |
+| `404` | `Resource not found` | The requested resource cannot be found. |
+| `405` | `Method not allowed` | The HTTP method is not supported for the requested resource. |
+| `409` | `Identifier conflict` | A resource with the specified identifier already exists, or the request conflicts with the current state of the resource. |
+| `415` | `Unsupported content type` | The request content type is not supported by the endpoint. |
+| `422` | `Unprocessable content` | The request body is syntactically valid, but it cannot be processed because it does not satisfy semantic, validation, or business rules. |
+| `500` | `Internal server error` | The server encountered an unexpected condition that prevented it from fulfilling the request. |
 
 There is a list of non-exhaustive JSON-LD syntax error types (relative to 400 Bad Request error family) on the official [JSON-LD API specifications website](https://www.w3.org/TR/json-ld-api/#error-handling).
 
+If an error is associated with a specific property or resource, the `hasProperty` and `hasResource` properties SHOULD be used in the error details to identify the affected element.
 
 **Example**
 
