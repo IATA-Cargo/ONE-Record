@@ -2,7 +2,7 @@ In progress
 
 # Introduction
 
-As of XXX the endorsed ONE Record version includes:
+As of July 2026, 25th the endorsed ONE Record version includes:
 
 - Ontology 3.3.0
 - API 2.3.0
