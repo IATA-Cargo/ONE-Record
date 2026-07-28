@@ -3,7 +3,7 @@
 # Mapping CXML messages with ONE Record
 
 ## Introduction
-We dedicate this section to the mapping between CXML messages (as per the last version on CXML Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.2.0) (**To be changed if and when new version is created in the Data Model**)
+We dedicate this section to the mapping between CXML messages (as per the last version on CXML Toolkit Edition 12) and ONE Record standard (as per last version endorsed by COTB - Data Model 3.3.0) 
 
 ### Objectives
 The transition from EDI to Data Sharing is highly dependent on the mapping between messages and ONE Record. Messaging standards (Cargo IMP and then Cargo XML) have been used extensively for the past decades by the industry. However messages in their current form have shown to be limited in terms of scalability with regards to upcoming regulations such as ACI/PLACI regimes.
@@ -24,7 +24,7 @@ The selected messages for mapping are the following:
 | XFHL | XML House Manifest Message [Download here](./assets/Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx"} | 3.00 | Version ready for production |
 | XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
 | XFSU | XML Status Message | 6.00 | Version ready for production to be uploaded |
-| XFFM | XML Flight Manifest Message | 4.00 | Ongoing |
+| XFFM | XML Flight Manifest Message | 4.00 | 1st draft ready - Needs to be reviewed |
 | XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
 
