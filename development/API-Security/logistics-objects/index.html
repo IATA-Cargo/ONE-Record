@@ -6521,7 +6521,7 @@ The properties and relationships to other data classes are visualized in the fol
 </div>
 <p>The AuditTrail of a Logistics Object can be retrieved by performing a GET request to the Logistics Object URI appended by: "/audit-trail", e.g.
 <a href="https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail">https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail</a></p>
-<p>In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&amp;updated-to=YYYYMMDDThhmmssZ". The ONE Record client MUST specify this date-time window.</p>
+<p>In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&amp;updated-to=YYYYMMDDThhmmssZ". </p>
 <h3 id="endpoint_3">Endpoint<a class="headerlink" href="#endpoint_3" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a> GET {{baseURL}}/logistics-objects/{{logisticsObjectId}}/audit-trail
 </span></code></pre></div>
@@ -6538,12 +6538,12 @@ The properties and relationships to other data classes are visualized in the fol
 <tbody>
 <tr>
 <td><strong>updated-from</strong> (optional)</td>
-<td>The start date of the requested audit trail.  If not specificed the acutal time is taken.</td>
+<td>The start date of the requested audit trail.  If not specificed the logistics object creation date is taken.</td>
 <td>ISO 8601 UTC using format: <code>YYYYMMDDThhmmssZ</code></td>
 </tr>
 <tr>
 <td><strong>updated-to</strong> (optional)</td>
-<td>The end date of the requested audit trail. If not specificed the logistics object creation date is taken.</td>
+<td>The end date of the requested audit trail. If not specificed the acutal time is taken.</td>
 <td>ISO 8601 UTC using format: <code>YYYYMMDDThhmmssZ</code></td>
 </tr>
 <tr>
