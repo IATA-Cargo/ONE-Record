@@ -805,7 +805,7 @@ classDiagram
 The AuditTrail of a Logistics Object can be retrieved by performing a GET request to the Logistics Object URI appended by: "/audit-trail", e.g.
 [https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail](https://1r.example.com/logistics-objects/11ccfb7c-3643-41db-8098-740fccd97c93/audit-trail)
 
-In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&updated-to=YYYYMMDDThhmmssZ". The ONE Record client MUST specify this date-time window.
+In order to retrieve the history of a Logistics Object between two dates, a query parameter should be added to the request URL as follows: "?updated-from=YYYYMMDDThhmmssZ&updated-to=YYYYMMDDThhmmssZ". 
 
 ## Endpoint
 ``` 
@@ -818,8 +818,8 @@ The following query parameters MUST be supported:
 
 | Query parameter   | Description | Valid values |
 | ------------------| ----------- | ------------ |
-| **updated-from** (optional) | The start date of the requested audit trail.  If not specificed the acutal time is taken.  | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`             | 
-| **updated-to** (optional)   | The end date of the requested audit trail. If not specificed the logistics object creation date is taken.  |  ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`            |
+| **updated-from** (optional) | The start date of the requested audit trail.  If not specificed the logistics object creation date is taken. | ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`             | 
+| **updated-to** (optional)   | The end date of the requested audit trail. If not specificed the acutal time is taken. |  ISO 8601 UTC using format: `YYYYMMDDThhmmssZ`            |
 | **status** (optional)       | The type of change requests in the audit trail. If not specified all types are returned.  | <ul><li>https://onerecord.iata.org/ns/api#REQUEST_PENDING or REQUEST_PENDING</li><li>https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED or REQUEST_ACCEPTED</li><li>https://onerecord.iata.org/ns/api#REQUEST_REJECTED or REQUEST_REJECTED</li> |
 
 
