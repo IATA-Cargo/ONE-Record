@@ -15,10 +15,6 @@ It is assumed that the reader is familiar with air cargo vocabulary and the conc
 
 N/A
 
-# Document Version
-
-**Version:** 1.0.0
-
 # ONE Record Data Model version:
 
 **Version:** 3.3.0
