@@ -747,7 +747,7 @@ _([Error_400.json](./examples/Error_400.json))_
 
 ## Example C7
 
-In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [hasLogisticsEvent](https://onerecord.iata.org/ns/cargo#hasLogisticsEvent).
+In the example below, the Change object contains an illegal operation, i.e. an ADD operation that affects the disallowed property [events](https://onerecord.iata.org/ns/cargo#events).
 The ONE Record server returns a `400 Bad Request`.
 
 Request:
