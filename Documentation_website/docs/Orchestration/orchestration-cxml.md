@@ -22,8 +22,8 @@ The selected messages for mapping are the following:
 | XFWB | XML Waybill Message [Download here](./assets/Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx"} | 5.00 | Version ready for production |
 | XFZB | XML HouseWaybill Message [Download here](./assets/Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx"} | 4.00 | Version ready for production |
 | XFHL | XML House Manifest Message [Download here](./assets/Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx"} | 3.00 | Version ready for production |
-| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed |
-| XFSU | XML Status Message | 6.00 | Version ready for production to be uploaded |
+| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed - DG requirements integrated in 1R |
+| XFSU | XML Status Message [Download here](./assets/Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx"} | 6.00 | Version ready for production |
 | XFFM | XML Flight Manifest Message | 4.00 | 1st draft ready - Needs to be reviewed |
 | XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
 | XTMV | XML Transport Movement Message | 2.00 | To be assessed |
