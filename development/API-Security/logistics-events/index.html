@@ -5794,16 +5794,16 @@ The body of the response is composed by a <a href="https://onerecord.iata.org/ns
 <p>The ONE Record API employs the <a href="https://onerecord.iata.org/ns/api#Collection">Collection</a> class to return an array of objects. This class encompasses two properties:</p>
 <ul>
 <li><a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> returns the array of objects.</li>
-<li><a href="https://onerecord.iata.org/ns/api#hasTotalItem">api:hasTotalItem</a> returns the count of elements for the defined filter without taking into account pagination (i.e. skip or limit parameter).</li>
+<li><a href="https://onerecord.iata.org/ns/api#hasTotalItems">api:hasTotalItems</a> returns the count of elements for the defined filter without taking into account pagination (i.e. skip or limit parameter).</li>
 </ul>
 <p>In this particular case, @id property in the response body MUST be equal to the Endpoint defined in the <a href="#endpoint_2">Endpoint section</a> (i.e.: https://1r.example.com/logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events). </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The ONE Record standard fully adopts the JSON-LD specification, and as a result, the presence of the <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> property of <a href="https://onerecord.iata.org/ns/api#Collection">Collection</a> is contingent on the number of Logistics Events returned byt the specified query. Specifically:</p>
 <ul>
-<li>If the specified query returns zero Logistics Events, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> may not appear in the JSON, and <a href="https://onerecord.iata.org/ns/api#hasTotalItem">api:hasTotalItem</a> must be 0.</li>
-<li>When the specified query returns exactly one Logistics Event, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> will directly represent that Logistics Event, and <a href="https://onerecord.iata.org/ns/api#hasTotalItem">api:hasTotalItem</a> must be 1.</li>
-<li>In cases where the specified query returns multiple Logistics Events, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> will be an array containing those Logistics Events, and <a href="https://onerecord.iata.org/ns/api#hasTotalItem">api:hasTotalItem</a> must be equal to the number of Logistics Events retrieved by the specified query.</li>
+<li>If the specified query returns zero Logistics Events, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> may not appear in the JSON, and <a href="https://onerecord.iata.org/ns/api#hasTotalItems">api:hasTotalItems</a> must be 0.</li>
+<li>When the specified query returns exactly one Logistics Event, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> will directly represent that Logistics Event, and <a href="https://onerecord.iata.org/ns/api#hasTotalItems">api:hasTotalItems</a> must be 1.</li>
+<li>In cases where the specified query returns multiple Logistics Events, <a href="https://onerecord.iata.org/ns/api#hasItem">api:hasItem</a> will be an array containing those Logistics Events, and <a href="https://onerecord.iata.org/ns/api#hasTotalItems">api:hasTotalItems</a> must be equal to the number of Logistics Events retrieved by the specified query.</li>
 </ul>
 <p>During the implementation phase, it is highly recommended to utilize a JSON-LD library for parsing responses.
 To discover JSON-LD libraries for various programming languages, consult the <a href="../implementation-guidelines/#serialization-and-data-formats">implementation guidelines</a>.</p>
@@ -5987,7 +5987,7 @@ To discover JSON-LD libraries for various programming languages, consult the <a 
 </span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">  </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events&quot;</span>,
 </span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">  </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;api:Collection&quot;</span>,
 </span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">  </span><span class="s2">&quot;api:hasTotalItems&quot;</span>:<span class="w"> </span><span class="m">1</span>,
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">  </span><span class="s2">&quot;api:hasItems&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">  </span><span class="s2">&quot;api:hasItem&quot;</span>:<span class="w"> </span><span class="o">{</span>
 </span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">    </span><span class="s2">&quot;@id&quot;</span>:<span class="w"> </span><span class="s2">&quot;https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f&quot;</span>,
 </span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="w">    </span><span class="s2">&quot;@type&quot;</span>:<span class="w"> </span><span class="s2">&quot;cargo:LogisticsEvent&quot;</span>,
 </span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="w">    </span><span class="s2">&quot;cargo:creationDate&quot;</span>:<span class="w"> </span><span class="o">{</span>
