@@ -19,7 +19,8 @@ In order to simplify the mapping between messaging standards and ONE Record, it 
 
 ### Security information (e-CSD) in ONE Record
 
-With ONE Record all requirements on Security Declaration are already taken care of with the usage of dedicated `SecurityDeclaration` object linked to `Shipment` or `Piece`, more details can be found on the Data Model part of the specifications.
+!!! note
+    With ONE Record all requirements on Security Declaration are already taken care of with the usage of dedicated `SecurityDeclaration` object linked to `Shipment` or `Piece`, more details can be found on the Data Model part of the specifications.
 
 ### Customs information in ONE Record
 
