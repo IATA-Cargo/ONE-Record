@@ -23,7 +23,7 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 
 **Version:** 2.3.0
 
-**Status:** Draft
+**Status:** Endorsed by COTB on July 25th, 2026.
 
 !!! note
     Discussion on this specification is highly encouraged and please contact [onerecord@iata.org](mailto:onerecord@iata.org) with any comments or suggested improvements.<br/>
