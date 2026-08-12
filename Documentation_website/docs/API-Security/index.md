@@ -32,7 +32,7 @@ It is assumed that the reader is familiar with the ONE Record data model, REST A
 ## Dependencies
 
 The ontology of the ONE Record API uses data classes defined in the ONE Record cargo ontology. 
-Therefore, this ONE Record API version 2.2.0 requires the ONE Record cargo ontology 3.2.0 or later.
+Therefore, this ONE Record API version 2.3.0 requires the ONE Record cargo ontology 3.2.0 or later.
 
 # Conventions
 

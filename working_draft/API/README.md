@@ -40,7 +40,7 @@ The version of the ONE Record API specification is incremented when the API spec
 ## Dependencies
 
 The ontology of the ONE Record API uses data classes defined in the ONE Record cargo ontology. 
-Therefore, this ONE Record API version 2.1.0-dev requires the ONE Record cargo ontology 3.1.0 or later.
+Therefore, this ONE Record API version 2.3.0 requires the ONE Record cargo ontology 3.1.0 or later.
 
 # Conventions
 

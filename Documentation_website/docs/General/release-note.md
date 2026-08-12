@@ -1,5 +1,3 @@
-In progress
-
 # Introduction
 
 As of July 2026, 25th the endorsed ONE Record version includes:

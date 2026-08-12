@@ -1,6 +1,6 @@
 # ONE Record API Class Diagram
 
-**Version:** 2.3.0 **Status:** Under Review.
+**Version:** 2.3.0 **Status:** Endorsed by COTB on July 25th, 2026.
 
 ```mermaid
 classDiagram   
