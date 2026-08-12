@@ -271,7 +271,7 @@ The following HTTP header parameters MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.3.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -315,14 +315,14 @@ Request:
 ```http
 GET /action-requests/599fea49-7287-42af-b441-1fa618d2aaed HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed
 Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
@@ -340,14 +340,14 @@ Request:
 ```http
 GET /action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200 HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 Location: https://1r.example.com/action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200
 Type: https://onerecord.iata.org/ns/api#VerificationRequest
@@ -388,8 +388,8 @@ The following HTTP header parameters MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
-| **Content-Type** | The content type that is contained with the HTTP body.               | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.3.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Content-Type** | The content type that is contained with the HTTP body.               | <ul><li>application/ld+json</li><li>application/ld+json; version=2.3.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -433,8 +433,8 @@ Request:
 ```http
 PATCH /action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28?status=https://onerecord.iata.org/ns/api#REQUEST_ACCEPTED HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 ```
 
@@ -443,7 +443,7 @@ Response:
 
 ```bash
 HTTP/1.1 204 No Content
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/api#SubscriptionRequest
 Location: https://1r.example.com/action-requests/733ed391-ad11-4c02-a2bf-c77ee7997c28
 ```
@@ -524,7 +524,7 @@ The following HTTP header parameters MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.3.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -564,14 +564,14 @@ Request:
 ```http
 HEAD /action-requests/599fea49-7287-42af-b441-1fa618d2aaed HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 Location: https://1r.example.com/action-requests/599fea49-7287-42af-b441-1fa618d2aaed
 Type: https://onerecord.iata.org/ns/api#SubscriptionRequest

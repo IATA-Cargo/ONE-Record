@@ -179,8 +179,8 @@ Request:
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example1.json"
 ```
@@ -198,8 +198,8 @@ because `sendLogisticsObjectBody` in Subscription is set to `True`.
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example2.json"
 ```
@@ -217,8 +217,8 @@ The following example shows a `LOGISTICS_OBJECT_UPDATED` Notification without th
 because `sendLogisticsObjectBody` in Subscription is set to `False`.
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example3.json"
 ```
@@ -239,8 +239,8 @@ The notification will include a link to the Logistics Event via the defined [has
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example4.json"
 ```
@@ -257,8 +257,8 @@ The following example shows a `CHANGE_REQUEST_ACCEPTED` Notification after the C
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example5.json"
 ```
@@ -275,8 +275,8 @@ The following example demonstrates how to notify the availability of a new Logis
 
 ```http
 POST /notifications HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Notification_example6.json"
 ```

@@ -141,8 +141,8 @@ Request:
 ```http
 POST /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Verification.json"
 ```
@@ -152,7 +152,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/e4cf1ea5-96fc-4025-be21-159b779e3200
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/api#VerificationRequest
 ```
 

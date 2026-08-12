@@ -113,8 +113,8 @@ Request:
 
 ```http
 POST /access-delegations HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/AccessDelegation_example1.json"
 ```
@@ -124,7 +124,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/b6c24b63-405c-5cc3-ac88-9b109bb939ba
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 ```
 
@@ -140,8 +140,8 @@ Request:
 
 ```http
 POST /access-delegations HTTP/1.1
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/AccessDelegation_example2.json"
 ```
@@ -151,7 +151,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/action-requests/1d2d3807-5dd9-5b5b-acb6-26163a6d7411
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/api#AccessDelegationRequest
 ```
 

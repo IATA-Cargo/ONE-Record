@@ -136,8 +136,8 @@ Request:
 POST /logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events HTTP/1.1
 Host: 1r.example.com
 
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/LogisticsEvent.json"
 ```
@@ -149,7 +149,7 @@ Response:
 ```bash
 HTTP/1.1 201 Created
 Location: https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/cargo#LogisticsEvent
 ```
 
@@ -162,8 +162,8 @@ Request:
 ```http
 POST /logistics-objects/1a8ded38-1804-467c-c369-81a411416b7c/logistics-events HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/LogisticsEvent.json"
 ```
@@ -175,7 +175,7 @@ Response:
 ```bash
 HTTP/1.1 404 Not Found
 Content-Language: en-US
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/Error_404.json"
 ```
@@ -260,7 +260,7 @@ The following HTTP header MUST be present in the response:
 
 | Response Header | Description | Examples |
 |--|--|--|
-| Content-Type | The content type contained in the HTTP body. | application/ld+json; version=2.2.0 |
+| Content-Type | The content type contained in the HTTP body. | application/ld+json; version=2.3.0 |
 
 ## Security
 
@@ -279,8 +279,8 @@ Request:
 ```http
 POST /logistics-events HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/MultipleEvents_example1.json"
 ```
@@ -291,7 +291,7 @@ Response:
 
 ```bash
 HTTP/1.1 207 Multi-Status
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/MultipleEventsResponse_example1.json"
 ```
@@ -307,8 +307,8 @@ Request:
 ```http
 POST /logistics-events HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/MultipleEvents_example2.json"
 ```
@@ -319,7 +319,7 @@ Response:
 
 ```http
 HTTP/1.1 207 Multi-Status
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/MultipleEventsResponse_example2.json"
 ```
@@ -335,8 +335,8 @@ Request:
 ```http
 POST /logistics-events HTTP/1.1
 Host: 1r.example.com
-Content-Type: application/ld+json; version=2.2.0
-Accept: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
+Accept: application/ld+json; version=2.3.0
 
 --8<-- "API-Security/examples/MultipleEvents_example3.json"
 ```
@@ -348,7 +348,7 @@ Response:
 ```http
 HTTP/1.1 400 Bad Request
 Content-Language: en-US
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 
 
 --8<-- "API-Security/examples/MultipleEventsResponse_example3.json"
@@ -376,7 +376,7 @@ The following HTTP header MUST be present in the request:
 
 | Header    | Description                                  | Examples                |
 | ----------------- |    -------------------------------- |   ------------- |
-| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.2.0</li><li>application/ld+json; version=1.2</li></ul> |
+| **Accept**        | The content type that a ONE Record client wants the HTTP response to be formatted in. This SHOULD include the version of the ONE Record API, otherwise the latest supported ONE Record API MAY be applied. | <ul><li>application/ld+json</li><li>application/ld+json; version=2.3.0</li><li>application/ld+json; version=1.2</li></ul> |
 
 ## Response
 
@@ -416,7 +416,7 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
@@ -443,7 +443,7 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-c369-81a411416b7c/logistics-events/afb4b8cf-288a-459c-97fd-ccd538ec527f HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
@@ -451,7 +451,7 @@ Response:
 ```bash
 HTTP/1.1 404 Not Found
 Content-Language: en-US
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/api#Error
 
 --8<-- "API-Security/examples/Error_404.json"
@@ -579,14 +579,14 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 
 --8<-- "API-Security/examples/LogisticsEvents_list.json"
@@ -603,14 +603,14 @@ Request:
 ```http
 GET /logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c/logistics-events?event-code=DEP HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 
 --8<-- "API-Security/examples/LogisticsEvents_filtered_list.json"
@@ -626,14 +626,14 @@ Request:
 ```http
 GET /logistics-objects/2a7d1338-9033-13xc-b665-81a411418978/logistics-events HTTP/1.1
 Host: 1r.example.com
-Accept: application/ld+json; version=2.2.0
+Accept: application/ld+json; version=2.3.0
 ```
 
 Response:
 
 ```bash
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; version=2.2.0
+Content-Type: application/ld+json; version=2.3.0
 Content-Language: en-US
 
 --8<-- "API-Security/examples/LogisticsEvents_empty_list.json"
