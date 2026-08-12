@@ -13,7 +13,7 @@ The following features summarize all of the ONE Record API features
 
 **Subscribe to a Logistics Object for updates** - Once a Logistics Object has been created, the holder can propose subscriptions to other parties who will then be notified of any changes. Other parties may also request such a subscription at the discretion of the holder.
 
-**Create Logistics Event linked with Logistics Objects** - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.
+**Create Logistics Event linked with one or multiple Logistics Objects** - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.
 
 **Read Logistics Event linked to a Logistics Object** - Every participant of the network with sufficient permissions, can also query the Logistics Events associated with a Logistics Object.
 
@@ -34,6 +34,7 @@ The following features summarize all of the ONE Record API features
 | GET, PATCH, POST, HEAD       | /logistics-objects/{logisticsObjectId}                  | Retrieve Logistics Object, Change Logistics object and Create a new Verification Request                       |
 | GET              | /logistics-objects/{logisticsObjectId}/audit-trail      | Retrieve Audit Trail of a Logistics Object                 |
 | GET, POST, HEAD        | /logistics-objects/{logisticsObjectId}/logistics-events | Create or retrieve LogisticsEvents to a Logistics Object                       |
+| POST             | /logistics-events     | Create a single Logistics Event for multiple Logistics Objects                  |
 | GET              | /logistics-objects/{logisticsObjectId}/logistics-events/{LogisticsEvent URI}                  | Retrieve a LogisticsEvent              |
 | GET, POST        | /subscriptions     | Create or retrieve Subscription information for a Logistics Object type or a specific LogisticsObjectIdentifier          |
 | GET, PATCH, DELETE, HEAD | /action-requests/{actionRequestId}   | Create, retrieve, or update Action Request (i.e. SubscriptionRequests, ChangeRequests or AccessDelegationRequests) |
