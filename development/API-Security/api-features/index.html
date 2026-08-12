@@ -4041,7 +4041,7 @@
 <p><strong>Update a Logistics Object</strong> - As a fundamental principle, <em>only</em> the Holder of a Logistics Object can make changes to it. Therefore, changes required by other parties are expressed as <code>Change Requests</code> that needs to be approved and executed by the actual holder.</p>
 <p><strong>Verify a Logistics Object</strong> - The ONE Record standard enables third parties to not only propose modifications to LogisticsObjects but also flag anomalies, missing properties, or errors using a process called <code>Verification Request</code>. This action request follow the same approval process as the <code>Change Requests</code>.</p>
 <p><strong>Subscribe to a Logistics Object for updates</strong> - Once a Logistics Object has been created, the holder can propose subscriptions to other parties who will then be notified of any changes. Other parties may also request such a subscription at the discretion of the holder.</p>
-<p><strong>Create Logistics Event linked with Logistics Objects</strong> - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.</p>
+<p><strong>Create Logistics Event linked with one or multiple Logistics Objects</strong> - Logistics Events like "arrival", "acceptance" etc. are central in the management of logistics and transport. Every participant in the network with sufficient access rights can submit any type of Logistics Event to any published Logistics Object.</p>
 <p><strong>Read Logistics Event linked to a Logistics Object</strong> - Every participant of the network with sufficient permissions, can also query the Logistics Events associated with a Logistics Object.</p>
 <p><strong>Manage access to a Logistics Object</strong> - Another fundamental principle of ONE Record is that only holders of Logistics Objects have fully control access rights to that Logistics Object. Therefore, only the holder of a Logistics Object can delegate permissions to users of the Logistics Object.</p>
 <p><strong>Delegate access to a Logistics Object to a third party</strong> - By default, most Logistics Objects are not public accessible. Most of the time, access is granted to specific parties. Should these parties need to delegate access to further stakeholders - because they require data access to fulfil their logistics activities- then there is a mechanism for requesting such access to the holder of the Logistics Object.</p>
@@ -4081,6 +4081,11 @@
 <td>GET, POST, HEAD</td>
 <td>/logistics-objects/{logisticsObjectId}/logistics-events</td>
 <td>Create or retrieve LogisticsEvents to a Logistics Object</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/logistics-events</td>
+<td>Create a single Logistics Event for multiple Logistics Objects</td>
 </tr>
 <tr>
 <td>GET</td>
