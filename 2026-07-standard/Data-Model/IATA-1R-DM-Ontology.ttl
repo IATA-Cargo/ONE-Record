@@ -11,11 +11,11 @@
 
 <https://onerecord.iata.org/ns/cargo> rdf:type owl:Ontology ;
                                        owl:versionIRI <https://onerecord.iata.org/ns/cargo/3.3> ;
-                                       owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/refs/heads/master/working_draft/ontology/IATA-1R-CL-Ontology.ttl> ;
+                                       owl:imports <https://raw.githubusercontent.com/IATA-Cargo/ONE-Record/refs/heads/master/2026-07-standard/Data-Model/IATA-1R-CL-Ontology.ttl> ;
                                        dc:description "The ONE Record vocabulary, described using W3C RDF Schema and the Web Ontology Language."@en ;
                                        dc:title "ONE Record Ontology"@en ;
                                        terms:abstract "The ontology of the ONE Record standard is the core data model underlying the Linked Data solution drafted by the ONE Record standard: https://github.com/IATA-Cargo/ONE-Record. ONE Record is a standard for data sharing and creates a single record view of the shipment. This standard defines a common data model for the data that is shared via standardized and secured web API."@en ;
-                                       terms:modified "12-05-2026" ;
+                                       terms:modified "12-08-2026" ;
                                        terms:title "ONE Record Ontology"@en ;
                                        rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
 
@@ -51,6 +51,7 @@ Removals:
 Changes:
 
 Visualization:
+- Revised annotation properties for visualizer update
 
 Bugfixes:
 - Fixed vis_element datatype from string to literal
@@ -121,6 +122,13 @@ owl:minCardinality rdf:type owl:AnnotationProperty .
            rdfs:comment "Annotation for ontology visualizer. Indicates levels of importance to allow for different views."@en ;
            rdfs:label "vis_level"@en ;
            rdfs:range xsd:nonNegativeInteger .
+
+
+###  https://onerecord.iata.org/ns/cargo#vis_linkTo
+:vis_linkTo rdf:type owl:AnnotationProperty ;
+            rdfs:comment "Annotation for ontology visualizer. On an owl:Restriction, names the exact classes the line for this class/property should point to, replacing the declared range. Used where a property's range is abstract or where only some concrete subtypes should be linked."@en ;
+            rdfs:label "vis_linkTo"@en ;
+            rdfs:range owl:Class .
 
 
 #################################################################
@@ -297,7 +305,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:comment "Reference to the PhysicalLogisticsObject the IotDevice is attached to"@en ;
                   rdfs:label "attachedToObject"@en ;
                   owl:comment "Domain :IotDevice"@en ;
-                  :vis_inverseProperty :attachedIotDevices .
+                  :vis_inverseProperty :attachedIotDevices ;
+                  :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#awbUseIndicator
@@ -406,7 +415,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:comment "Reference to the Booking to update"@en ;
                  rdfs:label "bookingToUpdate"@en ;
                  owl:comment "Domain :BookingOptionRequest"@en ;
-                 :vis_inverseProperty :updateBookingOptionRequests .
+                 :vis_inverseProperty :updateBookingOptionRequests ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#calculatedEmissions
@@ -540,7 +550,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:comment "Reference to the checked Object"@en ;
                rdfs:label "checkedObject"@en ;
                owl:comment "Domain :Check"@en ;
-               :vis_inverseProperty :checks .
+               :vis_inverseProperty :checks ;
+               :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#checker
@@ -1128,7 +1139,8 @@ owl:thing rdf:type rdfs:Datatype .
             rdfs:comment "Reference to the LiveAnimalsEpermit this Signature applies to"@en ;
             rdfs:label "forEpermit"@en ;
             owl:comment "Domain :EpermitSignature"@en ;
-            :vis_inverseProperty :signatures .
+            :vis_inverseProperty :signatures ;
+            :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#forPrices
@@ -1353,7 +1365,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :Party ;
                  rdfs:comment "Information about other Parties involved depending on the context of use"@en ;
                  rdfs:label "involvedParties"@en ;
-                 owl:comment "Domain owl:Thing"@en .
+                 owl:comment "Domain owl:Thing"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#isotopes
@@ -1648,7 +1661,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:comment "Reference to the TransportMeans that is being onloaded or offloaded"@en ;
                   rdfs:label "onTransportMeans"@en ;
                   owl:comment "Domain :Loading"@en ;
-                  :vis_inverseProperty :involvedInActions .
+                  :vis_inverseProperty :involvedInActions ;
+                  :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#onsiteActions
@@ -1674,7 +1688,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:range :Party ;
                   rdfs:comment "Information about the parties operating this TransportMovement, for example pilot and co-pilot; can also refer to organizations through Party" ;
                   rdfs:label "operatingParties"@en ;
-                  owl:comment "Domain :TransportMovement"@en .
+                  owl:comment "Domain :TransportMovement"@en ;
+                  :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#operatingTransportMeans
@@ -1763,7 +1778,8 @@ owl:thing rdf:type rdfs:Datatype .
                         rdfs:range :RegulatedEntity ;
                         rdfs:comment "Any other regulated entity that accepts custody of the cargo and accepts the security status originally issued"@en ;
                         rdfs:label "otherRegulatedEntities"@en ;
-                        owl:comment "Domain :SecurityDeclaration"@en .
+                        owl:comment "Domain :SecurityDeclaration"@en ;
+                        :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#overpackTypeCode
@@ -2409,7 +2425,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:comment "References to all StoringActions performed for the Storing Activity"@en ;
                 rdfs:label "storingActions"@en ;
                 owl:comment "Domain :Storage"@en ;
-                :vis_inverseProperty :servedActivity .
+                :vis_inverseProperty :servedActivity ;
+                :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#storingType
@@ -2516,7 +2533,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:range :BookingTimes ;
                  rdfs:comment "Schedule preferences of the request"@en ;
                  rdfs:label "timePreferences"@en ;
-                 owl:comment "Domain :BookingOptionRequest"@en .
+                 owl:comment "Domain :BookingOptionRequest"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#totalDimensions
@@ -2683,7 +2701,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:range :ULD ;
                rdfs:comment "References to ULDs for which the rate applies"@en ;
                rdfs:label "uldReferences"@en ;
-               owl:comment "Domain: WaybillLineItem"@en .
+               owl:comment "Domain: WaybillLineItem"@en ;
+               :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#uldTareWeightForRate
@@ -2741,7 +2760,8 @@ owl:thing rdf:type rdfs:Datatype .
                              rdfs:comment "References to BookingOptionRequests that request to update the Booking"@en ;
                              rdfs:label "updateBookingOptionRequests"@en ;
                              owl:comment "Domain :Booking"@en ;
-                             :vis_inverseProperty :bookingToUpdate .
+                             :vis_inverseProperty :bookingToUpdate ;
+                             :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#usedInCheck
@@ -4881,7 +4901,9 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:subClassOf [ rdf:type owl:Restriction ;
                                     owl:onProperty :activity ;
                                     owl:allValuesFrom :LogisticsActivity
-                                  ] ,
+                                  ;
+                             :vis_linkTo :UnitComposition , :TransportMovement
+                           ] ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :activity ;
                                     owl:maxCardinality "1"^^xsd:nonNegativeInteger
@@ -4912,7 +4934,8 @@ owl:thing rdf:type rdfs:Datatype .
                        ] ;
        rdfs:comment "Superclass: Actors are Persons or entities acting like a single person"@en ;
        rdfs:label "Actor"@en ;
-       :vis_element "Agent"@en .
+       :vis_element "Agent"@en ;
+       :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Address
@@ -4987,7 +5010,8 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ;
          rdfs:comment "Address details"@en ;
          rdfs:label "Address"@en ;
-         :vis_element "Embedded"@en .
+         :vis_element "Embedded"@en ;
+         :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Adjustments
@@ -5199,7 +5223,11 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#Booking
 :Booking rdf:type owl:Class ;
-         rdfs:subClassOf :LogisticsService ,
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :activitySequences ;
+                    owl:allValuesFrom :ActivitySequence
+                  ] ,
+                  :LogisticsService ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :arrivalLocation ;
                            owl:allValuesFrom :Location
@@ -5331,7 +5359,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :bookingTimes ;
                                  owl:allValuesFrom :BookingTimes
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :carrier ;
                                  owl:allValuesFrom :Carrier
@@ -5339,7 +5369,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :carrierProduct ;
                                  owl:allValuesFrom :CarrierProduct
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :forBookingOptionRequest ;
                                  owl:allValuesFrom :BookingOptionRequest
@@ -5355,7 +5387,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :stationRemarks ;
                                  owl:allValuesFrom :StationRemarks
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :statusBookingOption ;
                                  owl:allValuesFrom :BookingOptionStatus
@@ -5363,7 +5397,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :transportLegs ;
                                  owl:allValuesFrom :TransportLegs
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :unitsPreference ;
                                  owl:allValuesFrom :UnitsPreference
@@ -5463,7 +5499,9 @@ owl:thing rdf:type rdfs:Datatype .
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :carrierProduct ;
                                         owl:allValuesFrom :CarrierProduct
-                                      ] ,
+                                      ;
+                             :vis_hidden true
+                           ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :involvedParties ;
                                         owl:allValuesFrom :Party
@@ -5475,7 +5513,9 @@ owl:thing rdf:type rdfs:Datatype .
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :transportLegs ;
                                         owl:allValuesFrom :TransportLegs
-                                      ] ,
+                                      ;
+                             :vis_hidden true
+                           ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :unitsPreference ;
                                         owl:allValuesFrom :UnitsPreference
@@ -5653,7 +5693,8 @@ owl:thing rdf:type rdfs:Datatype .
                                   owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                 ] ;
                 rdfs:comment "Information about the booking status on segment level, assigning pieces and ULDs to a TransportLeg with a Space Allocation Code"@en ;
-                rdfs:label "BookingSegment"@en .
+                rdfs:label "BookingSegment"@en ;
+                :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#BookingShipment
@@ -5666,7 +5707,9 @@ owl:thing rdf:type rdfs:Datatype .
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :customsInformation ;
                                    owl:allValuesFrom :CustomsInformation
-                                 ] ,
+                                 ;
+                             :vis_hidden true
+                           ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :densityGroupCode ;
                                    owl:allValuesFrom codes:DensityGroupCode
@@ -5686,7 +5729,9 @@ owl:thing rdf:type rdfs:Datatype .
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :pieceGroups ;
                                    owl:allValuesFrom :PieceGroup
-                                 ] ,
+                                 ;
+                             :vis_linkTo :PieceGroup , :LoosePiece , :ULDBasicPiece , :ULDSpecificPiece , :VolumePieceGroup
+                           ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :specialHandlingCodes ;
                                    owl:allValuesFrom codes:SpecialHandlingCode
@@ -5828,7 +5873,9 @@ owl:thing rdf:type rdfs:Datatype .
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :calculationFor ;
                                 owl:allValuesFrom :LogisticsObject
-                              ] ,
+                              ;
+                             :vis_linkTo :TransportMovement
+                           ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty :calculatedEmissions ;
                                 owl:maxCardinality "1"^^xsd:nonNegativeInteger
@@ -5879,7 +5926,8 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ;
          rdfs:comment "Company details of carriers"@en ;
          rdfs:label "Carrier"@en ;
-         :vis_element "Agent"@en .
+         :vis_element "Agent"@en ;
+         :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CarrierProduct
@@ -6140,7 +6188,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  ] ;
                  rdfs:comment "Embedded object to transmit codes from non-RDF code lists in 1R in a semi-structured way. Code lists may be externally maintained codes (such as HS codes) or carrier-specific codes. If a code is present in RDF-form as Named Individual (like in the 1R core code lists ontology), it suffices to put in its IRI"@en ;
                  rdfs:label "CodeListElement"@en ;
-                 :vis_element "Embedded"@en .
+                 :vis_element "Embedded"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Company
@@ -6164,12 +6213,18 @@ owl:thing rdf:type rdfs:Datatype .
                          ] ;
          rdfs:comment "Company details"@en ;
          rdfs:label "Company"@en ;
-         :vis_element "Agent"@en .
+         :vis_element "Agent"@en ;
+         :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Composing
 :Composing rdf:type owl:Class ;
-           rdfs:subClassOf :LogisticsAction ,
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :servedActivity ;
+                    owl:allValuesFrom :LogisticsActivity ;
+                    :vis_linkTo :UnitComposition
+                  ] ,
+                  :LogisticsAction ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty :composedMaterials ;
                              owl:allValuesFrom :LoadingMaterial
@@ -6185,6 +6240,8 @@ owl:thing rdf:type rdfs:Datatype .
                            [ rdf:type owl:Restriction ;
                              owl:onProperty :loadingUnit ;
                              owl:allValuesFrom :LoadingUnit
+                           ;
+                             :vis_linkTo :ULD
                            ] ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty :compositionType ;
@@ -6232,7 +6289,8 @@ owl:thing rdf:type rdfs:Datatype .
                                ] ;
                rdfs:comment "Contact details"@en ;
                rdfs:label "ContactDetail"@en ;
-               :vis_element "Embedded"@en .
+               :vis_element "Embedded"@en ;
+               :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#ContactDetailType
@@ -6271,7 +6329,8 @@ owl:thing rdf:type rdfs:Datatype .
                                ] ;
                rdfs:comment "Embedded object to transmit currencies"@en ;
                rdfs:label "CurrencyValue"@en ;
-               :vis_element "Embedded"@en .
+               :vis_element "Embedded"@en ;
+               :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#CustomsInformation
@@ -6602,7 +6661,8 @@ owl:thing rdf:type rdfs:Datatype .
                             ] ;
             rdfs:comment "Dimension details"@en ;
             rdfs:label "Dimensions"@en ;
-            :vis_element "Embedded"@en .
+            :vis_element "Embedded"@en ;
+            :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#DirectionType
@@ -6843,7 +6903,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    ] ;
                    rdfs:comment "Reference documents details"@en ;
                    rdfs:label "ExternalReference"@en ;
-                   :vis_element "Common"@en .
+                   :vis_element "Common"@en ;
+                   :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Geolocation
@@ -6874,7 +6935,8 @@ owl:thing rdf:type rdfs:Datatype .
                              ] ;
              rdfs:comment "Geolocation details - e.g. for drones, automated vehicles"@en ;
              rdfs:label "Geolocation"@en ;
-             :vis_element "Embedded"@en .
+             :vis_element "Embedded"@en ;
+             :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#HandlingService
@@ -6905,7 +6967,9 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Generic handling service for non main carriage activities"@en ;
-                 rdfs:label "HandlingService"@en .
+                 rdfs:label "HandlingService"@en ;
+                 :vis_element "Service"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Insurance
@@ -7014,7 +7078,9 @@ owl:thing rdf:type rdfs:Datatype .
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :ofProduct ;
                         owl:allValuesFrom :Product
-                      ] ,
+                      ;
+                             :vis_linkTo :ProductDg
+                           ] ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty :otherIdentifiers ;
                         owl:allValuesFrom :OtherIdentifier
@@ -7114,7 +7180,16 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#ItemDg
 :ItemDg rdf:type owl:Class ;
-        rdfs:subClassOf :Item ,
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :ofProduct ;
+                    owl:allValuesFrom :Product
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :inPiece ;
+                    owl:allValuesFrom :Piece ;
+                    :vis_linkTo :PieceDg
+                  ] ,
+                  :Item ,
                         [ rdf:type owl:Restriction ;
                           owl:onProperty :emergencyContact ;
                           owl:allValuesFrom :Person
@@ -7173,7 +7248,9 @@ owl:thing rdf:type rdfs:Datatype .
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :pieceReferences ;
                                    owl:allValuesFrom :Piece
-                                 ] ,
+                                 ;
+                             :vis_hidden true
+                           ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :packageGrossWeight ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
@@ -7191,7 +7268,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
                                  ] ;
                  rdfs:comment "Grouping of pieces for rating information as per Waybill box 22I"@en ;
-                 rdfs:label "LineItemPackage"@en .
+                 rdfs:label "LineItemPackage"@en ;
+                 :vis_element "Embedded"@en .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LiveAnimalsEpermit
@@ -7323,7 +7401,12 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#Loading
 :Loading rdf:type owl:Class ;
-         rdfs:subClassOf :LogisticsAction ,
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :servedActivity ;
+                    owl:allValuesFrom :LogisticsActivity ;
+                    :vis_linkTo :TransportMovement
+                  ] ,
+                  :LogisticsAction ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :loadedMaterials ;
                            owl:allValuesFrom :LoadingMaterial
@@ -7414,7 +7497,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  ] ;
                  rdfs:comment "LoadingMaterial describes transportable, complementary non-Piece objects such as dry ice or nets"@en ;
                  rdfs:label "LoadingMaterial"@en ;
-                 :vis_element "Common"@en .
+                 :vis_element "Common"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoadingType
@@ -7436,7 +7520,9 @@ owl:thing rdf:type rdfs:Datatype .
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :inUnitComposition ;
                                owl:allValuesFrom :UnitComposition
-                             ] ,
+                             ;
+                             :vis_hidden true
+                           ] ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty :tareWeight ;
                                owl:allValuesFrom :Value
@@ -7519,7 +7605,8 @@ owl:thing rdf:type rdfs:Datatype .
                           ] ;
           rdfs:comment "Location describes a physical location, e.g. an airport, a warehouse or a truck deck"@en ;
           rdfs:label "Location"@en ;
-          :vis_element "Common"@en .
+          :vis_element "Common"@en ;
+          :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsAction
@@ -7579,7 +7666,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  ] ;
                  rdfs:comment "Superclass: LogisticsAction is a specific task with a specific result performed on one or more physical LOs by one party in the context of an Activity"@en ;
                  rdfs:label "LogisticsAction"@en ;
-                 :vis_element "Abstract"@en .
+                 :vis_element "Abstract"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsActivity
@@ -7615,7 +7703,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    ] ;
                    rdfs:comment "Superclass: LogisticsActivity is a scheduled set of tasks that is executed as part of one or more Services"@en ;
                    rdfs:label "LogisticsActivity"@en ;
-                   :vis_element "Abstract"@en .
+                   :vis_element "Abstract"@en ;
+                   :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsAgent
@@ -7623,7 +7712,8 @@ owl:thing rdf:type rdfs:Datatype .
                 rdfs:subClassOf :LogisticsObject ;
                 rdfs:comment "Superclass: LogisticsAgents describe acting entities in the logistics supply chain such as persons and organizations"@en ;
                 rdfs:label "LogisticsAgent"@en ;
-                :vis_element "Abstract"@en .
+                :vis_element "Abstract"@en ;
+                :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsEvent
@@ -7718,7 +7808,8 @@ owl:thing rdf:type rdfs:Datatype .
                                 ] ;
                 rdfs:comment "Event details"@en ;
                 rdfs:label "LogisticsEvent"@en ;
-                :vis_element "Event"@en .
+                :vis_element "Event"@en ;
+                :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsObject
@@ -7745,7 +7836,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  ] ;
                  rdfs:comment "Logistics Object parent class, containing all common properties for logistics objects."@en ;
                  rdfs:label "LogisticsObject"@en ;
-                 :vis_element "Abstract"@en .
+                 :vis_element "Abstract"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LogisticsService
@@ -7765,7 +7857,8 @@ owl:thing rdf:type rdfs:Datatype .
                                   ] ;
                   rdfs:comment "Superclass: LogisticsService is a sequence of Activities provided by one Party to another"@en ;
                   rdfs:label "LogisticsService"@en ;
-                  :vis_element "Abstract"@en .
+                  :vis_element "Abstract"@en ;
+                  :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#LoosePiece
@@ -7935,7 +8028,8 @@ owl:thing rdf:type rdfs:Datatype .
                rdfs:subClassOf :Actor ;
                rdfs:comment "Non-human actors are actors which are not a person, such as robots"@en ;
                rdfs:label "NonHumanActor"@en ;
-               :vis_element "Agent"@en .
+               :vis_element "Agent"@en ;
+               :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Organization
@@ -7991,7 +8085,8 @@ owl:thing rdf:type rdfs:Datatype .
                               ] ;
               rdfs:comment "Superclass: Organizations represent a kind of Agent corresponding to social institutions such as companies, societies, etc"@en ;
               rdfs:label "Organization"@en ;
-              :vis_element "Agent"@en .
+              :vis_element "Agent"@en ;
+              :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#OtherCharge
@@ -8077,7 +8172,8 @@ owl:thing rdf:type rdfs:Datatype .
                                  ] ;
                  rdfs:comment "Other identifiers"@en ;
                  rdfs:label "OtherIdentifier"@en ;
-                 :vis_element "Embedded"@en .
+                 :vis_element "Embedded"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PackagingType
@@ -8216,7 +8312,8 @@ owl:thing rdf:type rdfs:Datatype .
                         ] ;
         rdfs:comment "Person details"@en ;
         rdfs:label "Person"@en ;
-        :vis_element "Agent"@en .
+        :vis_element "Agent"@en ;
+        :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#PhysicalLogisticsObject
@@ -8236,12 +8333,18 @@ owl:thing rdf:type rdfs:Datatype .
                                          ] ;
                          rdfs:comment "Superclass: PhysicalLogisticObjects represent the digital twin of an object in the logistics supply chain that physically exist"@en ;
                          rdfs:label "PhysicalLogisticsObject"@en ;
-                         :vis_element "Abstract"@en .
+                         :vis_element "Abstract"@en ;
+                         :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Piece
 :Piece rdf:type owl:Class ;
-       rdfs:subClassOf :PhysicalLogisticsObject ,
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :involvedInActions ;
+                    owl:allValuesFrom :LogisticsAction ;
+                    :vis_linkTo :Composing , :Loading
+                  ] ,
+                  :PhysicalLogisticsObject ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty :containedItems ;
                          owl:allValuesFrom :Item
@@ -8437,7 +8540,22 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#PieceDg
 :PieceDg rdf:type owl:Class ;
-         rdfs:subClassOf :Piece ,
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :containedItems ;
+                    owl:allValuesFrom :Item ;
+                    :vis_linkTo :ItemDg
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :containedPieces ;
+                    owl:allValuesFrom :Piece ;
+                    :vis_linkTo :PieceDg
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :contentProducts ;
+                    owl:allValuesFrom :Product ;
+                    :vis_linkTo :ProductDg
+                  ] ,
+                  :Piece ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :dgDeclaration ;
                            owl:allValuesFrom :DgDeclaration
@@ -8540,7 +8658,17 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#PieceLiveAnimals
 :PieceLiveAnimals rdf:type owl:Class ;
-                  rdfs:subClassOf :Piece ,
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :containedPieces ;
+                    owl:allValuesFrom :Piece ;
+                    :vis_linkTo :PieceLiveAnimals
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :inPiece ;
+                    owl:allValuesFrom :Piece ;
+                    :vis_linkTo :PieceLiveAnimals
+                  ] ,
+                  :Piece ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :associatedEpermit ;
                                     owl:allValuesFrom :EpermitConsignment
@@ -8704,7 +8832,9 @@ owl:thing rdf:type rdfs:Datatype .
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :describedObjects ;
                            owl:allValuesFrom :PhysicalLogisticsObject
-                         ] ,
+                         ;
+                             :vis_linkTo :Piece , :Item
+                           ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :hsCode ;
                            owl:allValuesFrom :CodeListElement
@@ -8784,7 +8914,12 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#ProductDg
 :ProductDg rdf:type owl:Class ;
-           rdfs:subClassOf :Product ,
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :describedObjects ;
+                    owl:allValuesFrom :PhysicalLogisticsObject ;
+                    :vis_linkTo :PieceDg , :ItemDg
+                  ] ,
+                  :Product ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty :dgRadioactiveMaterial ;
                              owl:allValuesFrom :DgProductRadioactive
@@ -8883,7 +9018,8 @@ owl:thing rdf:type rdfs:Datatype .
                  rdfs:subClassOf :Organization ;
                  rdfs:comment "PublicAuthorities are Organizations of the state on public interests, such as customs"@en ;
                  rdfs:label "PublicAuthority"@en ;
-                 :vis_element "Agent"@en .
+                 :vis_element "Agent"@en ;
+                 :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Question
@@ -9412,7 +9548,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :eventFor ;
-                                     owl:allValuesFrom :Shipment
+                                     owl:allValuesFrom :Shipment;
+                                     :vis_hidden true
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :notifiedOrganization ;
@@ -9436,7 +9573,8 @@ owl:thing rdf:type rdfs:Datatype .
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :transportMovementReference ;
-                                     owl:allValuesFrom :TransportMovement
+                                     owl:allValuesFrom :TransportMovement;
+                                     :vis_hidden true
                                    ] ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty :notifiedOrganization ;
@@ -9497,7 +9635,12 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#Storing
 :Storing rdf:type owl:Class ;
-         rdfs:subClassOf :LogisticsAction ,
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :servedActivity ;
+                    owl:allValuesFrom :LogisticsActivity ;
+                    :vis_linkTo :Storage
+                  ] ,
+                  :LogisticsAction ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :storedObjects ;
                            owl:allValuesFrom :PhysicalLogisticsObject
@@ -9556,7 +9699,8 @@ owl:thing rdf:type rdfs:Datatype .
                                          ] ;
                          rdfs:comment "TemperatureInstructions details"@en ;
                          rdfs:label "TemperatureInstructions"@en ;
-                         :vis_element "Embedded"@en .
+                         :vis_element "Embedded"@en ;
+                         :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#TransportLegs
@@ -9569,7 +9713,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :co2Emissions ;
                                  owl:allValuesFrom :CO2Emissions
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :departureLocation ;
                                  owl:allValuesFrom :Location
@@ -9577,7 +9723,9 @@ owl:thing rdf:type rdfs:Datatype .
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :operatingTransportMeans ;
                                  owl:allValuesFrom :TransportMeans
-                               ] ,
+                               ;
+                             :vis_hidden true
+                           ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty :transportMeansServiceType ;
                                  owl:allValuesFrom codes:TransportMeansServiceType
@@ -9841,7 +9989,16 @@ owl:thing rdf:type rdfs:Datatype .
 
 ###  https://onerecord.iata.org/ns/cargo#ULD
 :ULD rdf:type owl:Class ;
-     rdfs:subClassOf :LoadingUnit ,
+     rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty :inUnitComposition ;
+                    owl:allValuesFrom :UnitComposition
+                  ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :involvedInActions ;
+                    owl:allValuesFrom :LogisticsAction ;
+                    :vis_linkTo :Loading
+                  ] ,
+                  :LoadingUnit ,
                      [ rdf:type owl:Restriction ;
                        owl:onProperty :demurrageCode ;
                        owl:allValuesFrom codes:DemurrageCode
@@ -10033,7 +10190,9 @@ owl:thing rdf:type rdfs:Datatype .
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :loadingUnit ;
                                    owl:allValuesFrom :LoadingUnit
-                                 ] ,
+                                 ;
+                             :vis_linkTo :ULD
+                           ] ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :loadingUnit ;
                                    owl:maxCardinality "1"^^xsd:nonNegativeInteger
@@ -10126,7 +10285,8 @@ owl:thing rdf:type rdfs:Datatype .
                        ] ;
        rdfs:comment "Unit of measurement details"@en ;
        rdfs:label "Value"@en ;
-       :vis_element "Embedded"@en .
+       :vis_element "Embedded"@en ;
+       :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#VolumePieceGroup
@@ -10166,7 +10326,8 @@ owl:thing rdf:type rdfs:Datatype .
                   rdfs:comment "Volumetric weight details"@en ;
                   rdfs:label "VolumetricWeight"@en ;
                   owl:deprecated "true"^^xsd:boolean ;
-                  :vis_element "Embedded"@en .
+                  :vis_element "Embedded"@en ;
+                  :vis_hidden true .
 
 
 ###  https://onerecord.iata.org/ns/cargo#Waybill
@@ -10765,7 +10926,9 @@ codes:SignatureTypeCode rdf:type owl:Class ;
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpaceAllocationCode
-codes:SpaceAllocationCode rdfs:subClassOf :CodeListElement .
+codes:SpaceAllocationCode rdf:type owl:Class ; 
+                          rdfs:subClassOf :CodeListElement ;
+                          :vis_element "CodeList"@en .
 
 
 ###  https://onerecord.iata.org/ns/code-lists/SpecialHandlingCode
