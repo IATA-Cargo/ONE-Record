@@ -149,7 +149,7 @@ Create a **`RegulatedEntity`** Logistics Object representing the RA, KC, or AO i
   "@context": "https://onerecord.iata.org/ns/cargo#",
   "@type": "RegulatedEntity",
   "regulatedEntityCategory": "RA",
-  "regulatedEntityIdentifier": "RA-DE-12345",
+  "regulatedEntityIdentifier": "DE/12345",
   "regulatedEntityExpiryDate": "2026-12-31",
   "owningOrganization": {
     "@type": "Organization",
@@ -190,7 +190,7 @@ Create the **`SecurityDeclaration`** Logistics Object, referencing the `Regulate
 
 Patch the **`Shipment`** object to add the `securityDeclaration` property pointing to the newly created `SecurityDeclaration`:
 
-```http
+```json
 PATCH https://1r.acme-freight.de/logistics-objects/shipment-abc123
 
 {
