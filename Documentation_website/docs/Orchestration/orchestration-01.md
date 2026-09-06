@@ -83,7 +83,7 @@ Flight details are directly retrieved from the Booking.
 | Forwarder | Forwarder | POST | TransportMovement (Truck Movement) | Add backlink Waybill>Shipment |
 | Forwarder | Forwarder | POST | TransportMeans (Truck) | Create TransportMeans or Identify existing one and add link to TransportMovement (Truck): operatedTransportMovement, vehicleType, vehicleModel, vehicleRegistration, transportOrganization |
 | Forwarder | Forwarder | PATCH | TransportMovement (Truck Movement) | Add backlink TransportMeans > TransportMovement (Truck) |
-| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Planned), actionEndTime |
 
 # 10. Share planning for pickup all involved Service Suppliers
 
