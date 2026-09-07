@@ -60,7 +60,7 @@ The mapping with ONE Record differs based on the kind of Status update. We ident
 
 The `StatusUpdateEvent` is a subtype of `LogisticsEvent`, thus it inherits all of `LogisticsEvent` properties and adds specific properties to support FSU-level information at the Shipment level.
 
-As shown in the table above, most status updates can be made via a `StatusUpdateEvent` linked to the `Shipment` object. In case of split or part shipments, the `partial*` properties must be used.
+As shown in the table above, most status updates can be made via a `StatusUpdateEvent` linked to the `Shipment` object. In case of split or part shipments, the `partialEventIndicator` property must be used with `recordedPieceCount`, `recordedWeight`, `recordedVolume`.
 
 When flight details are required, the corresponding `TransportMovement` must be linked via `transportMovementReference`. It will contain information such as the flight identifier and movement times.
 
