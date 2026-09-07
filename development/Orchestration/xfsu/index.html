@@ -4324,7 +4324,7 @@
 </table>
 <h4 id="statusupdateevent">StatusUpdateEvent<a class="headerlink" href="#statusupdateevent" title="Permanent link">&para;</a></h4>
 <p>The <code>StatusUpdateEvent</code> is a subtype of <code>LogisticsEvent</code>, thus it inherits all of <code>LogisticsEvent</code> properties and adds specific properties to support FSU-level information at the Shipment level.</p>
-<p>As shown in the table above, most status updates can be made via a <code>StatusUpdateEvent</code> linked to the <code>Shipment</code> object. In case of split or part shipments, the <code>partial*</code> properties must be used.</p>
+<p>As shown in the table above, most status updates can be made via a <code>StatusUpdateEvent</code> linked to the <code>Shipment</code> object. In case of split or part shipments, the <code>partialEventIndicator</code> property must be used with <code>recordedPieceCount</code>, <code>recordedWeight</code>, <code>recordedVolume</code>.</p>
 <p>When flight details are required, the corresponding <code>TransportMovement</code> must be linked via <code>transportMovementReference</code>. It will contain information such as the flight identifier and movement times.</p>
 <p>The full list of properties of <code>StatusUpdateEvent</code> is as follows:</p>
 <p><strong>Inherited from <code>LogisticsEvent</code>:</strong></p>
