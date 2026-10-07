@@ -164,7 +164,7 @@ to reduce the number of GET requests, it can be helpful to request an embedded v
 The ONE Record server SHOULD then replace the linked Logistics Objects with the actual Logistics Objects by resolving the Logistics Object URIs (see [Example B3](#example-b3)).
 
 !!! note 
-    The ONE Record server MAY only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
+    The ONE Record server MUST only resolve and replace linked Logistics Objects that are published on the same ONE Record server.       
     Furthermore, there ONE Record server MAY not resolve and replace linked Logistics Events.
     Logistics Events MUST be accessed using the `/logistics-events` endpoint. (see [Logistics Events](logistics-events.md))
 
