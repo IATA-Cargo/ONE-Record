@@ -89,7 +89,9 @@ Type: https://onerecord.iata.org/ns/cargo#Piece
 
 ## Example A2
 
-Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo#Company) with an embedded Logistics Object of type [Person](https://onerecord.iata.org/ns/cargo#Person)
+Creating a [LogisticsObject](https://onerecord.iata.org/ns/cargo#LogisticsObject) of type [Company](https://onerecord.iata.org/ns/cargo#Company) with an embedded Logistics Object of type [Person](https://onerecord.iata.org/ns/cargo#Person). 
+
+Note the difference between an embedded Logistics Object and an embedded object. Both must have an @id, but they follow different rules. An embedded Logistics Object, such as the Person in this example, is a full LogisticsObject. Its @id must therefore be a Logistics Object URI that complies with the ONE Record specification. An embedded object is not a Logistics Object, for example an address or a value. It exists only as part of its parent Logistics Object. It must still have a unique @id, but this identifier does not need to be a resolvable Logistics Object URI. It can be an internal identifier, for example internal:<uuid5>. For details, see [Serialization and Data Formats](https://iata-cargo.github.io/ONE-Record/development/API-Security/implementation-guidelines/?h=for+the+purpose#serialization-and-data-formats).
 
 Request:
 
@@ -139,13 +141,14 @@ Content-Type: application/ld+json; version=2.3.0
 Type: https://onerecord.iata.org/ns/cargo#Shipment
 ```
 
-Three different logistics objects have been published, i.e. they have been created and are accessible via their URIs:
+Four different logistics objects have been published, i.e. they have been created and are accessible via their URIs:
 
 - Piece with the [Logistics Object URI](concepts.md#logistics-object-uri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b7c`
 - Shipment with the [Logistics Object URI](concepts.md#logistics-object-uri) `https://1r.example.com/logistics-objects/1a8ded38-1804-467c-a369-81a411416b3c`, 
 - Company with the [Organization URI](concepts.md#organization-uri) `https://1r.example.com/logistics-objects/957e2622-9d31-493b-8b8f-3c805064dbda`
+- Person with the [Logistics Object URI](concepts.md#logistics-object-uri) `https://1r.example.com/logistics-objects/1ad31a01-dc9c-4615-83b4-0ee07ca9a1f9`, 
 
-This Logistics Objects will be used for the following examples.
+These Logistics Objects will be used for the following examples.
 
 # Get a Logistics Object
 
