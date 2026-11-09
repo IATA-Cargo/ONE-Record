@@ -77,7 +77,7 @@ Nevertheless, it is RECOMMENDED to use the following structure for embedded obje
 `internal:<uuid5 using the data class name>`, e.g. `internal:7fc81d1d-6c75-568b-9e47-48c947ed2a07` as a result of uuid5("8efaab7c-cfd5-11ed-9abe-325096b39f47", "value")
 
 !!! note 
-    It MUST be ensured that these embedded object IDs, similar to logistics object URIs, MUST be unique within the domain of the ONE Record server and MUST NOT change during the lifecycle of an embedded object or its parent objects. Not even if the database is exported as an RDF graph and imported into another RDF store. Otherwise, references to these ids could be corrupted, e.g. in ChangeRequests in the AuditTrail of a logistics object.
+    Embedded object IDs are assigned by the holder of the parent Logistics Object. Any @id that a client assigns to an embedded object in a request is not retained. Before addressing an embedded object in a change, clients MUST obtain the holder-assigned @id from the stored representation. Like Logistics Object URIs, embedded object IDs MUST be unique within the domain of the ONE Record server. They MUST NOT change during the lifecycle of the embedded object or its parent object, including when the data is exported as an RDF graph and imported into another RDF store. Otherwise, references to these IDs could be corrupted, for example in ChangeRequests in the AuditTrail of a Logistics Object.
 
 In the context of ONE Record, only logistics objects have public accessible URIs, while other objects, e.g., [Value](https://onerecord.iata.org/ns/cargo#Value), do not have public accessible URIs but must be linked.
 Nevertheless, in ONE Record each node MUST have a unique `@id` within the document that does not change. 
