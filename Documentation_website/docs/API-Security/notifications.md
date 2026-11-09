@@ -140,8 +140,7 @@ The following HTTP header parameters MUST be present in the request:
 
 The HTTP body must contain a valid [Notification](https://onerecord.iata.org/ns/api#Notification) in the format as specified by the Content-Type in the header.
 
-The publisher sends a notification request to the subscriber when a logistics object is created or updated. 
-If the subscriber chose to receive the entire logistics object body via `sendLogisticsObjectBody=true` field, then the whole object is sent.
+The publisher sends a notification request to the subscriber when a logistics object is created or updated. If the subscriber chose to receive the entire logistics object body via the `sendLogisticsObjectBody=true` field, the whole object is included in the notification, but only if the subscriber is authorized to access that logistics object under the publisher's access policy. If the subscriber is not authorized, the logistics object body MUST NOT be included in the notification.
 
 !!! note
     If the embedded object of a LogisticsObject changed, the Notification#[hasChangedProperty](https://onerecord.iata.org/ns/api#hasChangedProperty) will contain the IRI of the embeddedObject, for example: 
