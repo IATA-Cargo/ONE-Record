@@ -9,7 +9,7 @@ As a response to the industry for guidance with ONE Record, we figured the Data 
 * Review of the Industry and Cargo iQ Master Operating Plans (MOP)
 * Identification of key industry use cases
 * Identification of ONE Record workflow that supports the processes and use cases
-* Provide tools to check compliance with the standard and illustrate the Data Orchestration
+* Provide tools to check compliance with the standard and illustrate the Data Orchestration, such as the [SHACL shapes](./shacl-concepts.md) for waybill data
 
 ## Version
 Current version of the Orchestration is **1.2.0**.

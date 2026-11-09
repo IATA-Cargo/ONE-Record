@@ -17,18 +17,20 @@ In the mapping between CXML messages and ONE Record, two main aspects need to be
 As CIMP standard has been sunset since 31st December 2014, we focus on CXML messages from CXML Toolkit 12th Edition.
 The selected messages for mapping are the following:
 
-| Message | Message name | Message version | Comments |
-| --- | --- | --- | --- |
-| XFWB | XML Waybill Message [Download here](./assets/Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx"} | 5.00 | Version ready for production |
-| XFZB | XML HouseWaybill Message [Download here](./assets/Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx"} | 4.00 | Version ready for production |
-| XFHL | XML House Manifest Message [Download here](./assets/Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx"} | 3.00 | Version ready for production |
-| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed - DG requirements integrated in 1R |
-| XFSU | XML Status Message [Download here](./assets/Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx"} | 6.00 | Version ready for production |
-| XFFM | XML Flight Manifest Message | 4.00 | 1st draft ready - Needs to be reviewed |
-| XFBL | XML Freight Booked List Message | 3.00 | Ongoing |
-| XTMV | XML Transport Movement Message | 2.00 | To be assessed |
+| Message | Message name | Message version | Comments | SHACL shape |
+| --- | --- | --- | --- | --- |
+| XFWB | XML Waybill Message [Download here](./assets/Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFWB-5.0.0-mapping.xlsx"} | 5.00 | Version ready for production | [air-waybill-2026-07.ttl](https://github.com/IATA-Cargo/ONE-Record/blob/master/working_draft/Data-Orchestration/SHACL-Shapes/air-waybill-2026-07.ttl) |
+| XFZB | XML HouseWaybill Message [Download here](./assets/Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFZB-4.0.0-mapping.xlsx"} | 4.00 | Version ready for production | [house-waybill-2026-07.ttl](https://github.com/IATA-Cargo/ONE-Record/blob/master/working_draft/Data-Orchestration/SHACL-Shapes/house-waybill-2026-07.ttl) |
+| XFHL | XML House Manifest Message [Download here](./assets/Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFHL-3.0.0-mapping.xlsx"} | 3.00 | Version ready for production | [house-waybill-2026-07.ttl](https://github.com/IATA-Cargo/ONE-Record/blob/master/working_draft/Data-Orchestration/SHACL-Shapes/house-waybill-2026-07.ttl) |
+| XSDG | XML Shippers' Declaration for Dangerous Goods Message | 6.00 | To be assessed - DG requirements integrated in 1R | - |
+| XFSU | XML Status Message [Download here](./assets/Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx){:download="Orchestration-1.2.0-XFSU-6.0.0-mapping.xlsx"} | 6.00 | Version ready for production | - |
+| XFFM | XML Flight Manifest Message | 4.00 | 1st draft ready - Needs to be reviewed | - |
+| XFBL | XML Freight Booked List Message | 3.00 | Ongoing | - |
+| XTMV | XML Transport Movement Message | 2.00 | To be assessed | - |
 
 Note that evolutions since 12th Edition have been insignificant to the mapping.
+
+The **SHACL shape** column links to the shapes in the [working draft folder](https://github.com/IATA-Cargo/ONE-Record/tree/master/working_draft/Data-Orchestration/SHACL-Shapes) of the specification. Use them to check that a ONE Record data set holds the data the message needs. See [SHACL Validation](./shacl-concepts.md) for how they work and how to use them.
 
 ## General conversion guidelines
 
