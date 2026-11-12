@@ -23,4 +23,4 @@ Unloading (actuals) are created and linked with TransportMovement (truck) and Pi
 | --- | --- | --- | --- | --- |
 | Forwarder | Forwarder | POST | Event on TransportMovement (Truck) | Create Event: eventFor (TM-Truck), eventLocation (forwarder hub), eventName (Arrival at forwarder hub), eventDate, recordingActor |
 | Forwarder | Forwarder | POST | Optional - MovementTime on TransportMovement (Truck) | Create MovementTime: movementTimeType (actual), movementMilestone (AA), movementTimestamp |
-| Forwarder | Forwarder | POST | Loading (Actual) | Unloading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Unloading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Actual) | Unloading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Unloading), actionTimeType (Planned), actionEndTime |

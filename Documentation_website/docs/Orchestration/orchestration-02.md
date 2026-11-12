@@ -30,5 +30,5 @@ Events can be created on the Pieces to inform of the loading into the truck
 
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
 | --- | --- | --- | --- | --- |
-| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (Actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Actual), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (Actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Actual), actionEndTime |
 | Shipper  | Forwarder | POST | Event on Piece | Create Event: eventFor (Piece), eventLocation (if relevant), eventCode or eventName, eventDate, recordingActor |

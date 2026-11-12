@@ -13,7 +13,7 @@ Forwarder creates TransportMovements for truck movement and Loading (planned) ac
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
 | --- | --- | --- | --- | --- |
 | Forwarder | Forwarder | POST | TransportMovement (Truck Movement) | Create TM (Truck): departureLocation, arrivalLocation, modeCode (3?), transportIdentifier |
-| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Planned), actionEndTime |
 
 # 03. Loaded truck departs forwarder branch facility ot hub
 
@@ -27,5 +27,5 @@ Events can be created on the Pieces to inform of the loading into the truck.
 
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
 | --- | --- | --- | --- | --- |
-| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Planned), actionEndTime |
 | Shipper or Forwarder | Forwarder | POST | Event on Piece | Create Event: eventFor (Piece), eventLocation (if relevant), eventCode or eventName (Loaded in truck), eventDate, recordingActor |
