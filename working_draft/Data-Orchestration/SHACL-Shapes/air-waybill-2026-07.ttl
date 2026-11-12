@@ -1,0 +1,2203 @@
+@prefix shwb: <https://onerecord.iata.org/ns/shapes/waybill#>.
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix dc: <http://purl.org/dc/elements/1.1/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix terms: <http://purl.org/dc/terms/>.
+@prefix cargo: <https://onerecord.iata.org/ns/cargo#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix serviceCode: <https://onerecord.iata.org/ns/code-lists/ServiceCode#>.
+@prefix otherChargeCode: <https://onerecord.iata.org/ns/code-lists/OtherChargeCode#>.
+@prefix entitlementCode: <https://onerecord.iata.org/ns/code-lists/EntitlementCode#>.
+@prefix prepaidCollectIndicator: <https://onerecord.iata.org/ns/code-lists/PrepaidCollectIndicator#>.
+@prefix densityGroupCodes: <https://onerecord.iata.org/ns/code-lists/DensityGroupCode#>.
+@prefix securityStatus: <https://onerecord.iata.org/ns/code-lists/SecurityStatus#>.
+@prefix screeningMethod: <https://onerecord.iata.org/ns/code-lists/ScreeningMethod#>.
+@prefix screeningExemption: <https://onerecord.iata.org/ns/code-lists/ScreeningExemption#>.
+@prefix regulatedEntityCategoryCode: <https://onerecord.iata.org/ns/code-lists/RegulatedEntityCategoryCode#>.
+@prefix modeCode: <https://onerecord.iata.org/ns/code-lists/ModeCode#>.
+@prefix rateClassCode: <https://onerecord.iata.org/ns/code-lists/RateClassCode#>.
+@prefix participantIdentifiers: <https://onerecord.iata.org/ns/code-lists/ParticipantIdentifier#>.
+@prefix movementIndicators: <https://onerecord.iata.org/ns/code-lists/MovementIndicator#>.
+@prefix chargeCode: <https://onerecord.iata.org/ns/code-lists/ChargeCode#>.
+
+<https://onerecord.iata.org/ns/shapes/waybill> rdf:type owl:Ontology;
+  owl:versionIRI <https://onerecord.iata.org/ns/shapes/waybill/2026-07>;
+  dc:description "Waybill shape, described using W3C RDF Schema and the Shapes Constraint Language (SHACL)."@en;
+  dc:title "Waybill Shape"@en;
+  terms:abstract "Waybill shape for the ONE Record standard, based on the XFWB mapping, cargo and code-lists ontology. Used to validate waybill (AWB / MAWB) data against the ONE Record specifications."@en;
+  terms:modified "2026-11-09"^^xsd:date;
+  rdfs:comment """Details available on GitHub https://github.com/IATA-Cargo/ONE-Record
+
+2026-07 Initial release.
+Code list element URIs must be formed as {{baseURL}}/{{codeListName}}#{{code}}, refer to the specifications https://iata-cargo.github.io/ONE-Record/2026-07/Data-Model/code-lists/#uri-structure.
+Blank nodes are not permitted, refer to the specifications https://iata-cargo.github.io/ONE-Record/2026-07/API-Security/implementation-guidelines/#serialization-and-data-formats.
+
+Flagging logic:
+Violation: Error in CIMFWB, ISS in CustomsInformation
+Warning: Error in XFWB, Code List URI
+Info: Data type mismatch
+
+"""@en;
+  rdfs:isDefinedBy "https://www.iata.org/one-record/"^^xsd:anyURI;
+  rdfs:label "Waybill Shape"@en;
+  owl:versionInfo "2026-07"@en.
+
+shwb:DirectOrMasterWaybillTarget a sh:NodeShape;
+  sh:targetNode cargo:MASTER, cargo:DIRECT;
+  sh:property [
+    sh:path [ sh:inversePath cargo:waybillType ];
+    sh:node shwb:Waybill;
+  ].
+
+shwb:Waybill a sh:NodeShape;
+  sh:property [
+    sh:path cargo:accountingNotes;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:accountingNotes;
+    sh:node shwb:AccountingNote;
+  ];
+  sh:property [
+    sh:path cargo:agentReference;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:agentReference;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:arrivalLocation;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:arrivalLocation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:arrivalLocation;
+    sh:node shwb:AIR_Location;
+  ];
+  sh:property [
+    sh:path cargo:carrierChargeCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:carrierChargeCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:carrierChargeCode;
+    sh:in (
+      chargeCode:CA
+      chargeCode:CB
+      chargeCode:CC
+      chargeCode:CE
+      chargeCode:CG
+      chargeCode:CH
+      chargeCode:CM
+      chargeCode:CP
+      chargeCode:CX
+      chargeCode:CZ
+      chargeCode:NC
+      chargeCode:NG
+      chargeCode:NP
+      chargeCode:NT
+      chargeCode:NX
+      chargeCode:NZ
+      chargeCode:PC
+      chargeCode:PD
+      chargeCode:PE
+      chargeCode:PF
+      chargeCode:PG
+      chargeCode:PH
+      chargeCode:PP
+      chargeCode:PX
+      chargeCode:PZ
+    );
+  ];
+  sh:property [
+    sh:path cargo:carrierDeclarationDate;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:carrierDeclarationDate;
+    sh:severity sh:Info;
+    sh:datatype xsd:dateTime;
+  ];
+  sh:property [
+    sh:path cargo:carrierDeclarationPlace;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:carrierDeclarationPlace;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:carrierDeclarationPlace;
+    sh:node shwb:CDP_Location;
+  ];
+  sh:property [
+    sh:path cargo:carrierDeclarationSignature;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:carrierDeclarationSignature;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:consignorDeclarationSignature;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:consignorDeclarationSignature;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:customsOriginCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:customsOriginCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:customsOriginCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:declaredValueForCarriage;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:declaredValueForCarriage;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:declaredValueForCarriage;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:declaredValueForCustoms;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:declaredValueForCustoms;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:declaredValueForCustoms;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:departureLocation;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:departureLocation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:departureLocation;
+    sh:node shwb:AIR_Location;
+  ];
+  sh:property [
+    sh:path cargo:destinationCharges;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:destinationCharges;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:destinationCharges;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:destinationCurrencyRate;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:destinationCurrencyRate;
+    sh:severity sh:Info;
+    sh:datatype xsd:double;
+  ];
+  sh:property [
+    sh:path cargo:otherCharges;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherCharges;
+    sh:node shwb:OtherCharge;
+  ];
+  sh:property [
+    sh:path cargo:otherChargesIndicator;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:otherChargesIndicator;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherChargesIndicator;
+    sh:in ( prepaidCollectIndicator:C prepaidCollectIndicator:P );
+  ];
+  sh:property [
+    sh:path cargo:otherIdentifiers;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherIdentifiers;
+    sh:node shwb:OtherIdentifier;
+  ];
+  sh:property [
+    sh:path cargo:referredBookingOption;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:referredBookingOption;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:referredBookingOption;
+    sh:node shwb:Booking;
+  ];
+  sh:property [
+    sh:path cargo:serviceCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:serviceCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:serviceCode;
+    sh:in (
+      serviceCode:A
+      serviceCode:B
+      serviceCode:C
+      serviceCode:D
+      serviceCode:E
+      serviceCode:F
+      serviceCode:G
+      serviceCode:H
+      serviceCode:I
+      serviceCode:J
+      serviceCode:P
+      serviceCode:S
+      serviceCode:T
+      serviceCode:X
+    );
+  ];
+  sh:property [
+    sh:path cargo:shipment;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:shipment;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:shipment;
+    sh:node shwb:Shipment;
+  ];
+  sh:property [
+    sh:path cargo:shippingInfo;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:shippingInfo;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:shippingRefNo;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:shippingRefNo;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:taxAmount;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:taxAmount;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:taxAmount;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:valuationCharge;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:valuationCharge;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:valuationCharge;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:waybillLineItems;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:waybillLineItems;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:waybillLineItems;
+    sh:node shwb:WaybillLineItem;
+  ];
+  sh:property [
+    sh:path cargo:waybillNumber;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:waybillNumber;
+    sh:pattern "^[0-9]{8}$";
+  ];
+  sh:property [
+    sh:path cargo:waybillPrefix;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:waybillPrefix;
+    sh:pattern "^[0-9]{3}$";
+  ];
+  sh:property [
+    sh:path cargo:waybillType;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ];
+  sh:property [
+    sh:path cargo:weightValuationIndicator;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:weightValuationIndicator;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:weightValuationIndicator;
+    sh:in ( prepaidCollectIndicator:C prepaidCollectIndicator:P );
+  ].
+
+shwb:AccountingNote a sh:NodeShape;
+  sh:property [
+    sh:path cargo:accountingNoteIdentifier;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:accountingNoteIdentifier;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:accountingNoteText;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:accountingNoteText;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:AccountNumber a sh:NodeShape;
+  sh:property [
+    sh:path cargo:accountNumberType;
+    sh:maxCount 1;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:accountNumberType;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:textualValue;
+    sh:maxCount 1;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:textualValue;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:ActivitySequence a sh:NodeShape;
+  sh:property [
+    sh:path cargo:activity;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:sequenceNumber;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:sequenceNumber;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:Address a sh:NodeShape;
+  sh:property [
+    sh:path cargo:cityCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:cityCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:cityCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:cityName;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:cityName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:country;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:country;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:country;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:postOfficeBox;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:postOfficeBox;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:regionCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:regionCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:regionCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:streetAddressLines;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:textualPostCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:textualPostCode;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:AIR_Location a sh:NodeShape;
+  sh:property [
+    sh:path cargo:locationCodes;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:locationCodes;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:locationCodes;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:locationName;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:locationType;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationType;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:AIR_Party a sh:NodeShape;
+  sh:property [
+    sh:path cargo:partyDetails;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:partyDetails;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:partyDetails;
+    sh:node shwb:Carrier;
+  ];
+  sh:property [
+    sh:path cargo:partyRole;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:partyRole;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:partyRole;
+    sh:hasValue participantIdentifiers:AIR;
+  ].
+
+shwb:Booking a sh:NodeShape;
+  sh:property [
+    sh:path cargo:activitySequences;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:activitySequences;
+    sh:node shwb:ActivitySequence;
+  ], [
+    sh:path ( cargo:activitySequences cargo:activity );
+    sh:qualifiedValueShape shwb:RoutingTransportMovement;
+    sh:qualifiedMinCount 1;
+    sh:message "Booking needs at least one TransportMovement with arrival location, SD movement time and an AIR operating party with airline code";
+  ];
+  sh:property [
+    sh:path cargo:bookingShipmentDetails;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:bookingShipmentDetails;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:bookingShipmentDetails;
+    sh:node shwb:BookingShipment;
+  ];
+  sh:property [
+    sh:path cargo:carrierProduct;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:carrierProduct;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:carrierProduct;
+    sh:node shwb:CarrierProduct;
+  ];
+  sh:property [
+    sh:path cargo:issuedForWaybill;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Warning;
+    sh:message "Backlink to waybill missing";
+  ].
+
+shwb:BookingShipment a sh:NodeShape;
+  sh:property [
+    sh:path cargo:densityGroupCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:densityGroupCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:densityGroupCode;
+    sh:severity sh:Info;
+    sh:in (
+      densityGroupCodes:0
+      densityGroupCodes:1
+      densityGroupCodes:2
+      densityGroupCodes:3
+      densityGroupCodes:4
+      densityGroupCodes:5
+      densityGroupCodes:6
+      densityGroupCodes:7
+      densityGroupCodes:8
+      densityGroupCodes:9
+      densityGroupCodes:10
+    );
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:Carrier a sh:NodeShape;
+  sh:property [
+    sh:path cargo:airlineCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:airlineCode;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:CarrierProduct a sh:NodeShape;
+  sh:property [
+    sh:path cargo:productCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:productCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:productCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:CDP_Location a sh:NodeShape;
+  sh:property [
+    sh:path cargo:locationName;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:Company a sh:NodeShape;
+  sh:property [
+    sh:path cargo:basedAtLocation;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:basedAtLocation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:basedAtLocation;
+    sh:node shwb:PAR_Location;
+  ];
+  sh:property [
+    sh:path cargo:contactPersons;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:contactPersons;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contactPersons;
+    sh:node shwb:PAR_Person;
+  ];
+  sh:property [
+    sh:path cargo:iataCargoAgentCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:iataCargoAgentCode;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:iataCargoAgentLocationIdentifier;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:iataCargoAgentLocationIdentifier;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:name;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:name;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:ContactDetail a sh:NodeShape;
+  sh:property [
+    sh:path cargo:contactDetailType;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:contactDetailType;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contactDetailType;
+    sh:severity sh:Warning;
+    sh:in ( cargo:ALTERNATE_EMAIL_ADDRESS cargo:ALTERNATE_PHONE_NUMBER cargo:EMAIL_ADDRESS cargo:FAX_NUMBER cargo:PHONE_NUMBER cargo:TELEX cargo:WEBSITE );
+  ];
+  sh:property [
+    sh:path cargo:textualValue;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:textualValue;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:CurrencyValue a sh:NodeShape;
+  sh:property [
+    sh:path cargo:currencyUnit;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:currencyUnit;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:currencyUnit;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:numericalValue;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:numericalValue;
+    sh:severity sh:Info;
+    sh:datatype xsd:double;
+  ].
+
+shwb:CustomsInformation a sh:NodeShape;
+  sh:property [
+    sh:path cargo:contentCode;
+    sh:maxCount 1;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:contentCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contentCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:country;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:country;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:country;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:otherCustomsInformation;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:otherCustomsInformation;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:ociLineNumber;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:ociLineNumber;
+    sh:severity sh:Info;
+    sh:datatype xsd:integer;
+  ];
+  sh:property [
+    sh:path cargo:subjectCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:subjectCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:subjectCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:subjectCode;
+    sh:not [ sh:pattern "#ISS$" ];
+    sh:message "CustomsInformation must not be used for Security Information (ISS) - use SecurityDeclaration instead";
+  ], [
+    sh:path ( cargo:subjectCode cargo:code );
+    sh:not [ sh:pattern "ISS$" ];
+    sh:message "CustomsInformation must not be used for Security Information (ISS) - use SecurityDeclaration instead";
+  ].
+
+shwb:Insurance a sh:NodeShape;
+  sh:property [
+    sh:path cargo:insuredAmount;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:insuredAmount;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:insuredAmount;
+    sh:node shwb:CurrencyValue;
+  ].
+
+shwb:LineItemPackage a sh:NodeShape;
+  sh:property [
+    sh:path cargo:packageGrossWeight;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:packageGrossWeight;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:packageGrossWeight;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:pieceReferences;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:pieceReferences;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:pieceReferences;
+    sh:node shwb:LineItemPiece;
+  ].
+
+shwb:MovementTime a sh:NodeShape;
+  sh:property [
+    sh:path cargo:movementMilestone;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:movementMilestone;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:movementTimestamp;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:movementTimestamp;
+    sh:severity sh:Info;
+    sh:datatype xsd:dateTime;
+  ].
+
+shwb:OtherCharge a sh:NodeShape;
+  sh:property [
+    sh:path cargo:chargePaymentType;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:chargePaymentType;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:chargePaymentType;
+    sh:in ( prepaidCollectIndicator:C prepaidCollectIndicator:P );
+  ];
+  sh:property [
+    sh:path cargo:chargeQuantity;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:chargeQuantity;
+    sh:severity sh:Info;
+    sh:datatype xsd:double;
+  ];
+  sh:property [
+    sh:path cargo:entitlement;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:entitlement;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:entitlement;
+    sh:in ( entitlementCode:A entitlementCode:C );
+  ];
+  sh:property [
+    sh:path cargo:locationIndicator;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationIndicator;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:otherChargeAmount;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:otherChargeAmount;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherChargeAmount;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:otherChargeCode;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:otherChargeCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherChargeCode;
+    sh:in (
+      otherChargeCode:AC
+      otherChargeCode:AS
+      otherChargeCode:AT
+      otherChargeCode:AW
+      otherChargeCode:BA
+      otherChargeCode:BB
+      otherChargeCode:BC
+      otherChargeCode:BE
+      otherChargeCode:BF
+      otherChargeCode:BH
+      otherChargeCode:BI
+      otherChargeCode:BL
+      otherChargeCode:BM
+      otherChargeCode:BR
+      otherChargeCode:CA
+      otherChargeCode:CB
+      otherChargeCode:CC
+      otherChargeCode:CD
+      otherChargeCode:CE
+      otherChargeCode:CF
+      otherChargeCode:CG
+      otherChargeCode:CH
+      otherChargeCode:CI
+      otherChargeCode:CJ
+      otherChargeCode:DB
+      otherChargeCode:DC
+      otherChargeCode:DD
+      otherChargeCode:DF
+      otherChargeCode:DG
+      otherChargeCode:DH
+      otherChargeCode:DI
+      otherChargeCode:DJ
+      otherChargeCode:DK
+      otherChargeCode:DV
+      otherChargeCode:EA
+      otherChargeCode:FA
+      otherChargeCode:FB
+      otherChargeCode:FC
+      otherChargeCode:FD
+      otherChargeCode:FE
+      otherChargeCode:FF
+      otherChargeCode:FI
+      otherChargeCode:GA
+      otherChargeCode:GT
+      otherChargeCode:HB
+      otherChargeCode:HR
+      otherChargeCode:IA
+      otherChargeCode:IN
+      otherChargeCode:JA
+      otherChargeCode:KA
+      otherChargeCode:KB
+      otherChargeCode:LA
+      otherChargeCode:LC
+      otherChargeCode:LE
+      otherChargeCode:LF
+      otherChargeCode:LG
+      otherChargeCode:LH
+      otherChargeCode:LI
+      otherChargeCode:LJ
+      otherChargeCode:MA
+      otherChargeCode:MB
+      otherChargeCode:MC
+      otherChargeCode:MD
+      otherChargeCode:ME
+      otherChargeCode:MF
+      otherChargeCode:MG
+      otherChargeCode:MH
+      otherChargeCode:MI
+      otherChargeCode:MJ
+      otherChargeCode:MK
+      otherChargeCode:ML
+      otherChargeCode:MM
+      otherChargeCode:MN
+      otherChargeCode:MO
+      otherChargeCode:MP
+      otherChargeCode:MQ
+      otherChargeCode:MR
+      otherChargeCode:MS
+      otherChargeCode:MT
+      otherChargeCode:MU
+      otherChargeCode:MV
+      otherChargeCode:MW
+      otherChargeCode:MX
+      otherChargeCode:MY
+      otherChargeCode:MZ
+      otherChargeCode:NS
+      otherChargeCode:PA
+      otherChargeCode:PB
+      otherChargeCode:PK
+      otherChargeCode:PU
+      otherChargeCode:RA
+      otherChargeCode:RB
+      otherChargeCode:RC
+      otherChargeCode:RD
+      otherChargeCode:RF
+      otherChargeCode:SA
+      otherChargeCode:SB
+      otherChargeCode:SC
+      otherChargeCode:SD
+      otherChargeCode:SE
+      otherChargeCode:SF
+      otherChargeCode:SI
+      otherChargeCode:SO
+      otherChargeCode:SP
+      otherChargeCode:SR
+      otherChargeCode:SS
+      otherChargeCode:ST
+      otherChargeCode:SU
+      otherChargeCode:TA
+      otherChargeCode:TB
+      otherChargeCode:TC
+      otherChargeCode:TD
+      otherChargeCode:TE
+      otherChargeCode:TI
+      otherChargeCode:TR
+      otherChargeCode:TV
+      otherChargeCode:TX
+      otherChargeCode:UB
+      otherChargeCode:UC
+      otherChargeCode:UD
+      otherChargeCode:UE
+      otherChargeCode:UF
+      otherChargeCode:UG
+      otherChargeCode:UH
+      otherChargeCode:VA
+      otherChargeCode:VB
+      otherChargeCode:VC
+      otherChargeCode:WA
+      otherChargeCode:XB
+      otherChargeCode:XC
+      otherChargeCode:XD
+      otherChargeCode:XE
+      otherChargeCode:ZA
+      otherChargeCode:ZB
+      otherChargeCode:ZC
+    );
+  ];
+  sh:property [
+    sh:path cargo:reasonDescription;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:reasonDescription;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:OtherIdentifier a sh:NodeShape;
+  sh:property [
+    sh:path cargo:otherIdentifierType;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:otherIdentifierType;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:textualValue;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:textualValue;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:P_Dimensions a sh:NodeShape;
+  sh:property [
+    sh:path cargo:height;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:height;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:height;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:length;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:length;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:length;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:width;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:width;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:width;
+    sh:node shwb:Value;
+  ].
+
+shwb:PAR_Location a sh:NodeShape;
+  sh:property [
+    sh:path cargo:address;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:address;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:address;
+    sh:node shwb:Address;
+  ];
+  sh:property [
+    sh:path cargo:locationCodes;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationCodes;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:locationCodes;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:locationName;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:locationType;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:locationType;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:PAR_Person a sh:NodeShape;
+  sh:property[
+    sh:path cargo:contactDetails;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contactDetails;
+    sh:node shwb:ContactDetail;
+  ];
+  sh:property [
+    sh:path cargo:department;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:department;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:firstName;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:firstName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:lastName;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:lastName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
+shwb:Party a sh:NodeShape;
+  sh:property [
+    sh:path cargo:accountNumbers;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:accountNumbers;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:accountNumbers;
+    sh:node shwb:AccountNumber;
+  ];
+  sh:property [
+    sh:path cargo:otherIdentifiers;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:otherIdentifiers;
+    sh:node shwb:OtherIdentifier;
+  ];
+  sh:property [
+    sh:path cargo:partyDetails;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:partyDetails;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:partyDetails;
+    sh:node shwb:Company;
+  ];
+  sh:property [
+    sh:path cargo:partyRole;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:partyRole;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:partyRole;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:Piece a sh:NodeShape;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath cargo:containedPieces ];
+    sh:qualifiedMinCount 1;
+    sh:qualifiedValueShape [ sh:or ( [ sh:property [
+      sh:path ( cargo:contentProducts cargo:hsCode );
+      sh:minCount 1;
+    ] ] [ sh:property [
+      sh:path ( cargo:containedItems cargo:ofProduct cargo:hsCode );
+      sh:minCount 1;
+    ] ] ) ];
+    sh:severity sh:Warning;
+    sh:message "No HS code connected to Piece";
+  ];
+  sh:property [
+    sh:path cargo:contentProductionCountry;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:contentProductionCountry;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contentProductionCountry;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:contentProducts;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:contentProducts;
+    sh:node shwb:Product;
+  ];
+  sh:property [
+    sh:path cargo:dimensions;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:dimensions;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:dimensions;
+    sh:node shwb:P_Dimensions;
+  ];
+  sh:property [
+    sh:path cargo:goodsDescription;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:goodsDescription;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:slac;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:slac;
+    sh:severity sh:Info;
+    sh:datatype xsd:integer;
+  ];
+  sh:property [
+    sh:path cargo:specialHandlingCodes;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:specialHandlingCodes;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:containedItems;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:containedItems;
+    sh:node shwb:Item;
+  ];
+  sh:property [
+    sh:path cargo:ofShipment;
+    sh:minCount 1;
+    sh:severity sh:Warning;
+    sh:message "Backlink to shipment missing";
+  ].
+
+shwb:LineItemPiece a sh:NodeShape;
+  sh:property [
+    sh:path cargo:dimensions;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:dimensions;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:dimensions;
+    sh:node shwb:P_Dimensions;
+  ];
+  sh:property [
+    sh:path cargo:ofShipment;
+    sh:minCount 1;
+    sh:severity sh:Info;
+    sh:message "Line item piece not connected to a shipment";
+  ].
+
+shwb:Item a sh:NodeShape;
+  sh:property [
+    sh:path cargo:ofProduct;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:ofProduct;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:ofProduct;
+    sh:node shwb:Product;
+  ];
+  sh:property [
+    sh:path cargo:productionCountry;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:productionCountry;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:productionCountry;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:Product a sh:NodeShape;
+  sh:property [
+    sh:path cargo:commodityItemNumber;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:commodityItemNumber;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:hsCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:hsCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:hsCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:Shipment a sh:NodeShape;
+  sh:node [
+    sh:or ( [ sh:property [
+      sh:path cargo:goodsDescription;
+      sh:minCount 1;
+    ] ] [ sh:property [
+      sh:path [ sh:oneOrMorePath cargo:pieces ];
+      sh:minCount 1;
+      sh:node [ sh:property [
+        sh:path cargo:goodsDescription;
+        sh:minCount 1;
+      ] ];
+    ] ] );
+    sh:message "No goodsDescription on either shipment or piece";
+  ];
+  sh:property [
+    sh:path cargo:customsInformation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:customsInformation;
+    sh:node shwb:CustomsInformation;
+  ];
+  sh:property [
+    sh:path cargo:goodsDescription;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:goodsDescription;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:insurance;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:insurance;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:insurance;
+    sh:node shwb:Insurance;
+  ];
+  sh:property [
+    sh:path cargo:involvedParties;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:involvedParties;
+    sh:node shwb:Party;
+  ];
+  sh:property [
+    sh:path cargo:involvedParties;
+    sh:qualifiedValueShape [
+      sh:path cargo:partyRole;
+      sh:hasValue participantIdentifiers:SHP;
+    ];
+    sh:qualifiedMinCount 1;
+    sh:qualifiedMaxCount 1;
+    sh:qualifiedValueShapesDisjoint true;
+  ], [
+    sh:path cargo:involvedParties;
+    sh:qualifiedValueShape [
+      sh:path cargo:partyRole;
+      sh:hasValue participantIdentifiers:CNE;
+    ];
+    sh:qualifiedMinCount 1;
+    sh:qualifiedMaxCount 1;
+    sh:qualifiedValueShapesDisjoint true;
+  ], [
+    sh:path cargo:involvedParties;
+    sh:qualifiedValueShape [
+      sh:path cargo:partyRole;
+      sh:hasValue participantIdentifiers:AGT;
+    ];
+    sh:qualifiedMaxCount 1;
+    sh:qualifiedValueShapesDisjoint true;
+  ], [
+    sh:path cargo:involvedParties;
+    sh:or ( [ sh:not [
+      sh:path cargo:partyRole;
+      sh:hasValue participantIdentifiers:AGT;
+    ] ] [
+      sh:path ( cargo:partyDetails cargo:iataCargoAgentCode );
+      sh:minCount 1;
+      sh:maxCount 1;
+    ] );
+    sh:message "Agent party (AGT) requires exactly one partyDetails/iataCargoAgentCode";
+  ], [
+    sh:path cargo:involvedParties;
+    sh:or ( [ sh:not [
+      sh:path cargo:partyRole;
+      sh:minCount 1;
+      sh:in ( participantIdentifiers:SHP participantIdentifiers:CNE );
+    ] ] [
+      sh:path ( cargo:partyDetails cargo:basedAtLocation cargo:address );
+      sh:node [ sh:property [
+        sh:path cargo:country;
+        sh:minCount 1;
+      ] ];
+    ] );
+    sh:message "Shipper (SHP) and consignee (CNE) address requires a country";
+  ], [
+    sh:path cargo:involvedParties;
+    sh:or ( [ sh:not [
+      sh:path cargo:partyRole;
+      sh:minCount 1;
+      sh:in ( participantIdentifiers:SHP participantIdentifiers:CNE participantIdentifiers:NFY );
+    ] ] [
+      sh:path ( cargo:partyDetails cargo:basedAtLocation cargo:address cargo:streetAddressLines );
+      sh:minCount 1;
+    ] );
+    sh:message "Shipper (SHP), consignee (CNE) and notify (NFY) address requires a street address line";
+  ], [
+    sh:path cargo:involvedParties;
+    sh:severity sh:Warning;
+    sh:or ( [
+      sh:path cargo:partyRole;
+      sh:minCount 1;
+      sh:in ( participantIdentifiers:SHP participantIdentifiers:CNE );
+    ] [
+      sh:path ( cargo:partyDetails cargo:basedAtLocation cargo:address );
+      sh:node [ sh:property [
+        sh:path cargo:country;
+        sh:minCount 1;
+      ] ];
+    ] );
+    sh:message "Party address (e.g. AGT) should have a country";
+  ];;
+  sh:property [
+    sh:path cargo:pieces;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:pieces;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:pieces;
+    sh:node shwb:Piece;
+  ];
+  sh:property [
+    sh:path cargo:textualHandlingInstructions;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:totalGrossWeight;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:totalGrossWeight;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:totalGrossWeight;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:totalVolume;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:totalVolume;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:totalVolume;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:securityDeclarations;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:securityDeclarations;
+    sh:node shwb:SecurityDeclaration;
+  ];
+  sh:property [
+    sh:path cargo:waybill;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Warning;
+    sh:message "Backlink to waybill missing";
+  ].
+
+shwb:TransportMeans a sh:NodeShape;
+  sh:property [
+    sh:path cargo:vehicleRegistration;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:vehicleRegistration;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:vehicleSize;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:vehicleSize;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:vehicleType;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:vehicleType;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:vehicleType;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:RoutingTransportMovement a sh:NodeShape;
+  sh:property [
+    sh:path cargo:arrivalLocation;
+    sh:minCount 1;
+  ];
+  sh:property [
+    sh:path cargo:movementTimes;
+    sh:qualifiedValueShape [
+      sh:path cargo:movementMilestone;
+      sh:hasValue movementIndicators:SD;
+    ];
+    sh:qualifiedMinCount 1;
+  ];
+  sh:property [
+    sh:path ( cargo:operatingParties cargo:partyDetails cargo:airlineCode );
+    sh:minCount 1;
+  ].
+
+shwb:TransportMovement a sh:NodeShape;
+  sh:property [
+    sh:path cargo:arrivalLocation;
+    sh:maxCount 1;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:arrivalLocation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:arrivalLocation;
+    sh:node shwb:AIR_Location;
+  ];
+  sh:property [
+    sh:path cargo:departureLocation;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:departureLocation;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:departureLocation;
+    sh:node shwb:AIR_Location;
+  ];
+  sh:property [
+    sh:path cargo:modeCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:modeCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:modeCode;
+    sh:in (
+      modeCode:AIR_TRANSPORT
+      modeCode:FIXED_TRANSPORT_INSTALLATION
+      modeCode:INLAND_WATER_TRANSPORT
+      modeCode:MARITIME_TRANSPORT
+      modeCode:MULTIMODAL_TRANSPORT
+      modeCode:RAIL_TRANSPORT
+      modeCode:ROAD_TRANSPORT
+      modeCode:TRANSPORT_MODE_NOT_APPLICABLE
+      modeCode:TRANSPORT_MODE_NOT_SPECIFIED
+    );
+  ];
+  sh:property [
+    sh:path cargo:modeQualifier;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Warning;
+  ], [
+    sh:path cargo:modeQualifier;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:modeQualifier;
+    sh:in ( cargo:MAIN_CARRIAGE cargo:ON_CARRIAGE cargo:PRE_CARRIAGE );
+  ];
+  sh:property [
+    sh:path cargo:movementTimes;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:movementTimes;
+    sh:node shwb:MovementTime;
+  ];
+  sh:property [
+    sh:path cargo:movementTimes;
+    sh:qualifiedValueShape [
+      sh:path cargo:movementMilestone;
+      sh:hasValue movementIndicators:SD;
+    ];
+    sh:qualifiedMinCount 1;
+    sh:qualifiedValueShapesDisjoint true;
+  ];
+  sh:property [
+    sh:path cargo:operatingParties;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:operatingParties;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:operatingParties;
+    sh:node shwb:AIR_Party;
+  ];
+  sh:property [
+    sh:path cargo:operatingTransportMeans;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:operatingTransportMeans;
+    sh:node shwb:TransportMeans;
+  ];
+  sh:property [
+    sh:path cargo:seal;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:seal;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:transportIdentifier;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:transportIdentifier;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:servedServices;
+    sh:minCount 1;
+    sh:severity sh:Warning;
+    sh:message "Backlink to booking missing";
+  ].
+
+shwb:ULD a sh:NodeShape;
+  sh:property [
+    sh:path cargo:ownerCode;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:ownerCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:ownerCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:tareWeight;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:tareWeight;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:tareWeight;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:uldSerialNumber;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:uldSerialNumber;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:uldTypeCode;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:uldTypeCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:uldTypeCode;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:Value a sh:NodeShape;
+  sh:property [
+    sh:path cargo:numericalValue;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:numericalValue;
+    sh:severity sh:Info;
+    sh:datatype xsd:double;
+  ];
+  sh:property [
+    sh:path cargo:unit;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:unit;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:unit;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ].
+
+shwb:WaybillLineItem a sh:NodeShape;
+  sh:property [
+    sh:path cargo:chargeableWeight;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:chargeableWeight;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:chargeableWeight;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:lineItemNumber;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:lineItemNumber;
+    sh:severity sh:Info;
+    sh:datatype xsd:integer;
+  ];
+  sh:property [
+    sh:path cargo:lineItemPackages;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:lineItemPackages;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:lineItemPackages;
+    sh:node shwb:LineItemPackage;
+  ];
+  sh:property [
+    sh:path cargo:rateCharge;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateCharge;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rateCharge;
+    sh:node shwb:CurrencyValue;
+  ];
+  sh:property [
+    sh:path cargo:rateClassCode;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateClassCode;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rateClassCode;
+    sh:in (
+      rateClassCode:B
+      rateClassCode:C
+      rateClassCode:E
+      rateClassCode:K
+      rateClassCode:M
+      rateClassCode:N
+      rateClassCode:P
+      rateClassCode:Q
+      rateClassCode:R
+      rateClassCode:S
+      rateClassCode:U
+      rateClassCode:W
+      rateClassCode:X
+      rateClassCode:Y
+    );
+  ];
+  sh:property [
+    sh:path cargo:rateClassCodeBasic;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateClassCodeBasic;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rateClassCodeBasic;
+    sh:in (
+      rateClassCode:C
+      rateClassCode:M
+      rateClassCode:N
+      rateClassCode:Q
+      rateClassCode:U
+    );
+  ];
+  sh:property [
+    sh:path cargo:rateGrossWeight;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateGrossWeight;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rateGrossWeight;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:ratePercentage;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:ratePercentage;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:ratePercentage;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:rateSlac;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateSlac;
+    sh:severity sh:Info;
+    sh:datatype xsd:integer;
+  ];
+  sh:property [
+    sh:path cargo:rateVolume;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rateVolume;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rateVolume;
+    sh:node shwb:Value;
+  ];
+  sh:property [
+    sh:path cargo:rcp;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:rcp;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:rcp;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:uldRateClassType;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:uldRateClassType;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:uldRateClassType;
+    sh:severity sh:Warning;
+    sh:pattern "#[A-Za-z0-9_-]+$";
+    sh:message "Malformed code list URI";
+  ];
+  sh:property [
+    sh:path cargo:uldReferences;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:uldReferences;
+    sh:node shwb:ULD;
+  ].
+
+shwb:SecurityDeclaration a sh:NodeShape;
+  sh:property [
+    sh:path cargo:regulatedEntityIssuer;
+    sh:node shwb:RegulatedEntity;
+  ], [
+    sh:path cargo:regulatedEntityIssuer;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:regulatedEntityIssuer;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:regulatedEntityAcceptor;
+    sh:node shwb:RegulatedEntity;
+  ], [
+    sh:path cargo:regulatedEntityAcceptor;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:regulatedEntitiesReceivedFrom;
+    sh:node shwb:RegulatedEntity;
+  ], [
+    sh:path cargo:regulatedEntitiesReceivedFrom;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:issuedBy;
+    sh:node shwb:CSD_Person;
+  ], [
+    sh:path cargo:issuedBy;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:issuedBy;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ];
+  sh:property [
+    sh:path cargo:issuedOn;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:issuedOn;
+    sh:severity sh:Info;
+    sh:datatype xsd:dateTime;
+  ], [
+    sh:path cargo:securityStatus;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:securityStatus;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:securityStatus;
+    sh:in (
+      securityStatus:NSC
+      securityStatus:SCO
+      securityStatus:SHR
+      securityStatus:SPX
+    );
+  ], [
+    sh:path cargo:screeningMethods;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:screeningMethods;
+    sh:in (
+      screeningMethod:AOM
+      screeningMethod:CMD
+      screeningMethod:EDD
+      screeningMethod:EDS
+      screeningMethod:ETD
+      screeningMethod:PHS
+      screeningMethod:VCK
+      screeningMethod:XRY
+    );
+  ], [
+    sh:path cargo:groundsForExemption;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:groundsForExemption;
+    sh:in (
+      screeningExemption:BIOM
+      screeningExemption:DIPL
+      screeningExemption:LFSM
+      screeningExemption:MAIL
+      screeningExemption:NUCL
+      screeningExemption:SMUS
+      screeningExemption:TRNS
+    );
+  ];
+  sh:property [
+    sh:path cargo:additionalSecurityInformation;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:additionalSecurityInformation;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:issuedForShipment;
+    sh:minCount 1;
+    sh:maxCount 1;
+    sh:severity sh:Warning;
+    sh:message "Backlink to shipment is missing";
+  ].
+
+shwb:RegulatedEntity a sh:NodeShape;
+  sh:property [
+    sh:path cargo:regulatedEntityCategory;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:regulatedEntityCategory;
+    sh:nodeKind sh:IRI;
+    sh:message "Blank node not permitted";
+  ], [
+    sh:path cargo:regulatedEntityCategory;
+    sh:in (
+      regulatedEntityCategoryCode:AO
+      regulatedEntityCategoryCode:KC
+      regulatedEntityCategoryCode:RA
+      regulatedEntityCategoryCode:RC
+    );
+  ];
+  sh:property [
+    sh:path cargo:regulatedEntityIdentifier;
+    sh:minCount 1;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:regulatedEntityIdentifier;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ], [
+    sh:path cargo:regulatedEntityIdentifier;
+    sh:pattern "^[A-Z]{2}/[^/]+$";
+    sh:message "regulatedEntityIdentifier must be CC/number";
+  ];
+  sh:property [
+    sh:path cargo:regulatedEntityExpiryDate;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:regulatedEntityExpiryDate;
+    sh:severity sh:Info;
+    sh:datatype xsd:dateTime;
+  ].
+
+shwb:CSD_Person a sh:NodeShape;
+  sh:property [
+    sh:path cargo:firstName;
+    sh:maxCount 1;
+    sh:minCount 1;
+  ], [
+    sh:path cargo:firstName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ];
+  sh:property [
+    sh:path cargo:lastName;
+    sh:maxCount 1;
+  ], [
+    sh:path cargo:lastName;
+    sh:severity sh:Info;
+    sh:datatype xsd:string;
+  ].
+
