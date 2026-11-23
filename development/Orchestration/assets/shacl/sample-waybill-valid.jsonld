@@ -1,0 +1,309 @@
+{
+  "@context": {
+    "cargo": "https://onerecord.iata.org/ns/cargo#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "https://1r.example.com/logistics-objects/awb-020-12345675",
+      "@type": "cargo:Waybill",
+      "cargo:arrivalLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-lax"
+      },
+      "cargo:carrierDeclarationDate": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-11-09T10:00:00+00:00"
+      },
+      "cargo:carrierDeclarationPlace": {
+        "@id": "https://1r.example.com/logistics-objects/loc-cdp"
+      },
+      "cargo:carrierDeclarationSignature": "J SMITH",
+      "cargo:departureLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-bru"
+      },
+      "cargo:otherChargesIndicator": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/PrepaidCollectIndicator#P"
+      },
+      "cargo:referredBookingOption": {
+        "@id": "https://1r.example.com/logistics-objects/booking-1"
+      },
+      "cargo:shipment": {
+        "@id": "https://1r.example.com/logistics-objects/shipment-1"
+      },
+      "cargo:waybillLineItems": {
+        "@id": "https://1r.example.com/logistics-objects/wli-1"
+      },
+      "cargo:waybillNumber": "12345675",
+      "cargo:waybillPrefix": "020",
+      "cargo:waybillType": {
+        "@id": "cargo:MASTER"
+      },
+      "cargo:weightValuationIndicator": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/PrepaidCollectIndicator#P"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/addr-cne",
+      "@type": "cargo:Address",
+      "cargo:cityName": "Los Angeles",
+      "cargo:country": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/CountryCode#US"
+      },
+      "cargo:streetAddressLines": "1 World Way"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/addr-shp",
+      "@type": "cargo:Address",
+      "cargo:cityName": "Brussels",
+      "cargo:country": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/CountryCode#BE"
+      },
+      "cargo:streetAddressLines": "Rue de la Loi 1"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/booking-1",
+      "@type": "cargo:Booking",
+      "cargo:activitySequences": {
+        "@id": "https://1r.example.com/logistics-objects/seq-1"
+      },
+      "cargo:issuedForWaybill": {
+        "@id": "https://1r.example.com/logistics-objects/awb-020-12345675"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/carrier",
+      "@type": "cargo:Carrier",
+      "cargo:airlineCode": "XX",
+      "cargo:name": "Example Airline"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/co-cne",
+      "@type": "cargo:Company",
+      "cargo:basedAtLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-cne"
+      },
+      "cargo:name": "Consignee Inc"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/co-shp",
+      "@type": "cargo:Company",
+      "cargo:basedAtLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-shp"
+      },
+      "cargo:name": "Shipper NV"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/csd-1",
+      "@type": "cargo:SecurityDeclaration",
+      "cargo:issuedForShipment": {
+        "@id": "https://1r.example.com/logistics-objects/shipment-1"
+      },
+      "cargo:regulatedEntityIssuer": {
+        "@id": "https://1r.example.com/logistics-objects/ra-1"
+      },
+      "cargo:screeningMethods": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/ScreeningMethod#XRY"
+      },
+      "cargo:securityStatus": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/SecurityStatus#SPX"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/lip-1",
+      "@type": "cargo:LineItemPackage",
+      "cargo:pieceReferences": {
+        "@id": "https://1r.example.com/logistics-objects/piece-1"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/loc-bru",
+      "@type": "cargo:Location",
+      "cargo:locationCodes": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/IataLocationCode#BRU"
+      },
+      "cargo:locationName": "Brussels"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/loc-cdp",
+      "@type": "cargo:Location",
+      "cargo:locationName": "BRUSSELS"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/loc-cne",
+      "@type": "cargo:Location",
+      "cargo:address": {
+        "@id": "https://1r.example.com/logistics-objects/addr-cne"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/loc-lax",
+      "@type": "cargo:Location",
+      "cargo:locationCodes": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/IataLocationCode#LAX"
+      },
+      "cargo:locationName": "Los Angeles"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/loc-shp",
+      "@type": "cargo:Location",
+      "cargo:address": {
+        "@id": "https://1r.example.com/logistics-objects/addr-shp"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/mt-1",
+      "@type": "cargo:MovementTime",
+      "cargo:movementMilestone": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/MovementIndicator#SD"
+      },
+      "cargo:movementTimestamp": {
+        "@type": "xsd:dateTime",
+        "@value": "2026-11-10T08:00:00+00:00"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/party-carrier",
+      "@type": "cargo:Party",
+      "cargo:partyDetails": {
+        "@id": "https://1r.example.com/logistics-objects/carrier"
+      },
+      "cargo:partyRole": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/ParticipantIdentifier#AIR"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/party-cne",
+      "@type": "cargo:Party",
+      "cargo:partyDetails": {
+        "@id": "https://1r.example.com/logistics-objects/co-cne"
+      },
+      "cargo:partyRole": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/ParticipantIdentifier#CNE"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/party-shp",
+      "@type": "cargo:Party",
+      "cargo:partyDetails": {
+        "@id": "https://1r.example.com/logistics-objects/co-shp"
+      },
+      "cargo:partyRole": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/ParticipantIdentifier#SHP"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/piece-1",
+      "@type": "cargo:Piece",
+      "cargo:contentProducts": {
+        "@id": "https://1r.example.com/logistics-objects/product-1"
+      },
+      "cargo:ofShipment": {
+        "@id": "https://1r.example.com/logistics-objects/shipment-1"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/product-1",
+      "@type": "cargo:Product",
+      "cargo:hsCode": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/HsCode#854231"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/ra-1",
+      "@type": "cargo:RegulatedEntity",
+      "cargo:regulatedEntityCategory": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/RegulatedEntityCategoryCode#RA"
+      },
+      "cargo:regulatedEntityIdentifier": "BE/RA/00001-01"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/rate-1",
+      "@type": "cargo:CurrencyValue",
+      "cargo:currencyUnit": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/CurrencyCode#EUR"
+      },
+      "cargo:numericalValue": {
+        "@type": "xsd:double",
+        "@value": "1.5"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/seq-1",
+      "@type": "cargo:ActivitySequence",
+      "cargo:activity": {
+        "@id": "https://1r.example.com/logistics-objects/tm-1"
+      },
+      "cargo:sequenceNumber": "1"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/shipment-1",
+      "@type": "cargo:Shipment",
+      "cargo:goodsDescription": "ELECTRICALS",
+      "cargo:involvedParties": [
+        {
+          "@id": "https://1r.example.com/logistics-objects/party-shp"
+        },
+        {
+          "@id": "https://1r.example.com/logistics-objects/party-cne"
+        }
+      ],
+      "cargo:pieces": {
+        "@id": "https://1r.example.com/logistics-objects/piece-1"
+      },
+      "cargo:securityDeclaration": {
+        "@id": "https://1r.example.com/logistics-objects/csd-1"
+      },
+      "cargo:totalGrossWeight": {
+        "@id": "https://1r.example.com/logistics-objects/w-120"
+      },
+      "cargo:waybill": {
+        "@id": "https://1r.example.com/logistics-objects/awb-020-12345675"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/tm-1",
+      "@type": "cargo:TransportMovement",
+      "cargo:arrivalLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-lax"
+      },
+      "cargo:departureLocation": {
+        "@id": "https://1r.example.com/logistics-objects/loc-bru"
+      },
+      "cargo:modeQualifier": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/ModeQualifier#MAIN"
+      },
+      "cargo:movementTimes": {
+        "@id": "https://1r.example.com/logistics-objects/mt-1"
+      },
+      "cargo:operatingParties": {
+        "@id": "https://1r.example.com/logistics-objects/party-carrier"
+      },
+      "cargo:transportIdentifier": "LH400"
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/w-120",
+      "@type": "cargo:Value",
+      "cargo:numericalValue": {
+        "@type": "xsd:double",
+        "@value": "120.0"
+      },
+      "cargo:unit": {
+        "@id": "https://onerecord.iata.org/ns/code-lists/MeasurementUnitCode#KGM"
+      }
+    },
+    {
+      "@id": "https://1r.example.com/logistics-objects/wli-1",
+      "@type": "cargo:WaybillLineItem",
+      "cargo:chargeableWeight": {
+        "@id": "https://1r.example.com/logistics-objects/w-120"
+      },
+      "cargo:lineItemNumber": 1,
+      "cargo:lineItemPackages": {
+        "@id": "https://1r.example.com/logistics-objects/lip-1"
+      },
+      "cargo:rateCharge": {
+        "@id": "https://1r.example.com/logistics-objects/rate-1"
+      }
+    }
+  ]
+}
