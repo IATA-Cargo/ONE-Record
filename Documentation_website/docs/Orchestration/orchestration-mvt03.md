@@ -14,7 +14,7 @@ Event is added on the Truck TransportMovement indicating departure from warehous
 
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
 | --- | --- | --- | --- | --- |
-| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Actual) | Loading action (actual): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Planned), actionEndTime |
 | Shipper or Forwarder | Forwarder | POST | Event on Piece | Create Event: eventFor (Piece), eventLocation (if relevant), eventCode or eventName (Loaded in truck), eventDate, recordingActor |
 | Shipper or Forwarder | Forwarder | POST | Event on TransportMovement (Truck) | Create Event: eventFor (TM-Truck), eventLocation (forwarder warehouse), eventName (Departure from forwarder warehouse), eventDate, recordingActor |
 

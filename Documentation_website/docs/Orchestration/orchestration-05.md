@@ -21,7 +21,7 @@ Forwarder creates TransportMovements for truck movement from warehouse to carrie
 | 1R Server | Stakeholder | API Calls | LogiticsObject | Details |
 | --- | --- | --- | --- | --- |
 | Forwarder | Forwarder | POST | TransportMovement (Truck Movement) | Create TM (Truck): departureLocation, arrivalLocation, modeCode (3?), transportIdentifier |
-| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), executionStatus (Planned), actionEndTime |
+| Forwarder | Forwarder | POST | Loading (Planned) | Loading action (planned): servedActivity (TM Truck), loadedPieces, onTransportMeans, loadingType (Loading), actionTimeType (Planned), actionEndTime |
 
 # 03. Transmit (H)AWB electronic data to carrier/customs/AVSEC
 
